@@ -15,7 +15,7 @@
   max-width: var(--max-width);
   width: 100%;
   z-index: 2;
-  font-family: var(--font-mono);
+  font-family: var(--font-mono);  
 }
 
 .description a {
@@ -72,7 +72,7 @@
   max-width: 30ch;
 }
 
-.center {
+.center { 
   display: flex;
   justify-content: center;
   align-items: center;

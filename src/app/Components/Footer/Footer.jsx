@@ -16,10 +16,10 @@ const Footer = () => {
     return (
         <section id='footer'>
             <div id='main_footer'>
-                <div className='footer_content'>
-                    <div id='footer_logo_section'>
+                <div className='row' id='footer_deatils'>
+                    <div className='col-12 col-md-6 col-lg-3' id='footer_logo_section'>
                         <div>
-                            <img src={eBroker} alt="eBroker_logo" />
+                            <img src={eBroker.src} alt="eBroker_logo" />
                         </div>
                         <div>
                             <FiMail size={25} /> <span className='footer_span'>Email</span> <br />
@@ -44,7 +44,7 @@ const Footer = () => {
                             </div>
                         </div>
                     </div>
-                    <div id='footer_prop_section'>
+                    <div className='col-12 col-md-6 col-lg-3' id='footer_prop_section'>
                         <div id='footer_headlines'>
                             <span> Properties</span>
                         </div>
@@ -84,7 +84,7 @@ const Footer = () => {
                         </div>
 
                     </div>
-                    <div id='footer_page_section'>
+                    <div className='col-12 col-md-6 col-lg-3' id='footer_page_section'>
                         <div id='footer_headlines'>
                             <span> Pages</span>
                         </div>
@@ -117,7 +117,7 @@ const Footer = () => {
                             </span>
                         </div>
                     </div>
-                    <div id='footer_download_section'>
+                    <div className='col-12 col-md-6 col-lg-3' id='footer_download_section'>
                         <div id='footer_headlines'>
                             <span> Download Apps</span>
                         </div>
@@ -127,7 +127,7 @@ const Footer = () => {
 
                         <div className='download_app_platforms'>
                             <div id='playstore_logo'>
-                                <img src={playstore} alt="" />
+                                <img src={playstore.src} alt="" />
                             </div>
                             <div className='playstore_desc'>
                                 <span id='span_headline'>GET IT ON</span>
@@ -136,7 +136,7 @@ const Footer = () => {
                         </div>
                         <div className='download_app_platforms'>
                             <div id='appstore_logo'>
-                                <img src={appstore} alt="" />
+                                <img src={appstore.src} alt="" />
                             </div>
                             <div className='appstore_desc'>
                                 <span id='span_headline'>Download on the</span>

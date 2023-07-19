@@ -9,6 +9,7 @@ import { GiGamepad } from 'react-icons/gi'
 import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import { FiDroplet, FiCloudDrizzle } from 'react-icons/fi'
 import { BiHomeSmile, BiCctv } from 'react-icons/bi'
+import Link from 'next/link'
 
 const AllProperties = () => {
   return (
@@ -132,23 +133,105 @@ const AllProperties = () => {
                 </div>
               </div>
               <div className='all-prop-cards'>
-                <Card id='main-all-prop-card'>
+                <Link href="/Pages/PropertieDeatils">
+                  <Card id='main-all-prop-card'>
+                    <div>
+                      <Card.Img variant="top" id='all-prop-card-img' src={cardImg.src} />
+                    </div>
+                    <div>
+                      <Card.Body id='main-all-prop-card-body'>
+                        <span className='all-prop_feature'>
+                          Feature
+                        </span>
+                        <span className='all-prop_like'>
+                          <AiOutlineHeart size={25} />
+                        </span>
+                        <span className='all-prop_sell'>
+                          Sell
+                        </span>
+                        <span className='all-prop_price'>
+                          $1,999,000 / USD
+                        </span>
+
+                        <div>
+                          <div id='all-prop-sub-body'>
+                            <BiHomeSmile size={23} />
+                            <span className='all-sub-body_title'> House </span>
+                          </div>
+                          <div id='all-prop-card-middletext'>
+                            <span>
+                              Luxury villa in Rego Park
+                            </span>
+                            <p>
+                              California City, CA, USA
+                            </p>
+                          </div>
+                        </div>
+                        <Card.Footer id='all-prop-card-footer'>
+                          <div className='all-footer-body'>
+                            <div id='all-footer-content'>
+                              <div>
+                                <RiHotelBedLine size={25} />
+                                <span className='text_footer'> 3 Bedrooms </span>
+                              </div>
+                              <div>
+                                <BiCctv size={25} />
+                                <span className='text_footer'> 4 CCTV </span>
+                              </div>
+                            </div>
+                            <div id='all-footer-content'>
+                              <div>
+                                <RiBuilding3Line size={25} />
+                                <span className='text_footer'> 1200 Sqft </span>
+                              </div>
+                              <div>
+                                <FiDroplet size={25} />
+                                <span className='text_footer'> 1 Pool </span>
+                              </div>
+                            </div>
+                            <div id='all-footer-content'>
+                              <div>
+                                <FiCloudDrizzle size={25} />
+                                <span className='text_footer'> 4 Bathrooms </span>
+                              </div>
+                              <div>
+                                <RiPlantLine size={25} />
+                                <span className='text_footer'> 1 Garden </span>
+                              </div>
+                            </div>
+                            <div id='all-footer-content'>
+                              <div>
+                                <RiParkingBoxLine size={25} />
+                                <span className='text_footer'> 2 Parking </span>
+                              </div>
+                              <div>
+                                <GiGamepad size={25} />
+                                <span className='text_footer'> 1 Indoor Game </span>
+                              </div>
+                            </div>
+                          </div>
+                        </Card.Footer>
+                      </Card.Body>
+                    </div>
+                  </Card>
+                </Link>
+                {/* <Card id='main-all-prop-card'>
                   <div>
                     <Card.Img variant="top" id='all-prop-card-img' src={cardImg.src} />
                   </div>
                   <div>
-                    <Card.Body id='main-all-prop-card-body'>
-                      <span className='all-prop_feature'>
-                        Feature
-                      </span>
-                      <span className='all-prop_like'>
-                        <AiOutlineHeart size={25} />
-                      </span>
-                      <span className='all-prop_sell'>
-                        Sell
+                  <Card.Body id='main-all-prop-card-body'>
+                  <span className='all-prop_feature'>
+                  Feature
+                  </span>
+                  <span className='all-prop_like'>
+                  <AiOutlineHeart size={25} />
+                  </span>
+                  <span className='all-prop_sell'>
+                  Sell
                       </span>
                       <span className='all-prop_price'>
-                        $1,999,000 / USD
+                      $1,999,000 / USD
                       </span>
 
                       <div>
@@ -371,87 +454,7 @@ const AllProperties = () => {
                       </Card.Footer>
                     </Card.Body>
                   </div>
-                </Card>
-                <Card id='main-all-prop-card'>
-                  <div>
-                    <Card.Img variant="top" id='all-prop-card-img' src={cardImg.src} />
-                  </div>
-                  <div>
-                    <Card.Body id='main-all-prop-card-body'>
-                      <span className='all-prop_feature'>
-                        Feature
-                      </span>
-                      <span className='all-prop_like'>
-                        <AiOutlineHeart size={25} />
-                      </span>
-                      <span className='all-prop_sell'>
-                        Sell
-                      </span>
-                      <span className='all-prop_price'>
-                        $1,999,000 / USD
-                      </span>
-
-                      <div>
-                        <div id='all-prop-sub-body'>
-                          <BiHomeSmile size={23} />
-                          <span className='all-sub-body_title'> House </span>
-                        </div>
-                        <div id='all-prop-card-middletext'>
-                          <span>
-                            Luxury villa in Rego Park
-                          </span>
-                          <p>
-                            California City, CA, USA
-                          </p>
-                        </div>
-                      </div>
-                      <Card.Footer id='all-prop-card-footer'>
-                        <div className='all-footer-body'>
-                          <div id='all-footer-content'>
-                            <div>
-                              <RiHotelBedLine size={25} />
-                              <span className='text_footer'> 3 Bedrooms </span>
-                            </div>
-                            <div>
-                              <BiCctv size={25} />
-                              <span className='text_footer'> 4 CCTV </span>
-                            </div>
-                          </div>
-                          <div id='all-footer-content'>
-                            <div>
-                              <RiBuilding3Line size={25} />
-                              <span className='text_footer'> 1200 Sqft </span>
-                            </div>
-                            <div>
-                              <FiDroplet size={25} />
-                              <span className='text_footer'> 1 Pool </span>
-                            </div>
-                          </div>
-                          <div id='all-footer-content'>
-                            <div>
-                              <FiCloudDrizzle size={25} />
-                              <span className='text_footer'> 4 Bathrooms </span>
-                            </div>
-                            <div>
-                              <RiPlantLine size={25} />
-                              <span className='text_footer'> 1 Garden </span>
-                            </div>
-                          </div>
-                          <div id='all-footer-content'>
-                              <div>
-                                <RiParkingBoxLine size={25} />
-                                <span className='text_footer'> 2 Parking </span>
-                              </div>
-                              <div>
-                                <GiGamepad size={25} />
-                                <span className='text_footer'> 1 Indoor Game </span>
-                              </div>
-                            </div>
-                        </div>
-                      </Card.Footer>
-                    </Card.Body>
-                  </div>
-                </Card>
+                </Card> */}
               </div>
             </div>
           </div>

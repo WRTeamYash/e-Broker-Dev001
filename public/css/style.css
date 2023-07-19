@@ -1152,7 +1152,7 @@ h3 {
 
 #agent_section {
   /* height: 60vh; */
-  overflow: hidden  ;
+  overflow: hidden;
 }
 .main-agent-sec {
   display: flex;
@@ -1168,7 +1168,7 @@ h3 {
   /* align-items: center; */
   justify-content: center;
 }
-.agent-slider-mobile-view{
+.agent-slider-mobile-view {
   display: none;
 }
 .browse-agent span {
@@ -1183,41 +1183,41 @@ h3 {
   border-radius: 8px;
   text-transform: capitalize;
 }
-.agent-slider{
+.agent-slider {
   margin: 50px !important;
 }
-#agent-swiper-slider{
+#agent-swiper-slider {
   width: 200px;
   /* height: ; */
 }
-#main_agent_card{
-border: none;
-background-color: #087C7C14;
-width: auto;
-height: auto;
+#main_agent_card {
+  border: none;
+  background-color: #087c7c14;
+  width: auto;
+  height: auto;
 }
-.agent_card_content{
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-margin-top: 20px;
+.agent_card_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
-.agent-profile{
+.agent-profile {
   border-radius: 50%;
   border: 8px solid white;
 }
-.agent-name{
+.agent-name {
   font-size: 18px;
-  color: #282F39;
+  color: #282f39;
   font-weight: 700;
   text-transform: capitalize;
 }
-.agent-main{
+.agent-main {
   font-size: 14px;
-  color: #282F39C2;
+  color: #282f39c2;
 }
-.view-all-agent{
+.view-all-agent {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1229,11 +1229,11 @@ margin-top: 20px;
   padding: 10px;
   width: 100%;
 }
-.view-agent-deatils{
+.view-agent-deatils {
   background-color: white;
   outline: 5px solid var(--primary-color);
-  border: 3px solid white ;
-border-radius: 50%;
+  border: 3px solid white;
+  border-radius: 50%;
 }
 /* =========== ARTICLE SECTION CSS =================== */
 
@@ -1619,6 +1619,10 @@ option:hover {
 }
 .posted-duration {
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  gap: 10px;
 }
 .posted-since .posted-duration .form-check .form-check-input {
   background-color: #fff;
@@ -1686,6 +1690,9 @@ option:hover {
   flex-direction: column;
   gap: 30px;
 }
+.all-prop-cards a {
+  text-decoration: none;
+}
 
 #main-all-prop-card {
   display: flex;
@@ -1693,6 +1700,7 @@ option:hover {
   width: 100%;
   height: 222px;
   border-radius: 12px;
+  cursor: pointer;
 }
 #all-prop-card-img {
   height: 220px;
@@ -1775,4 +1783,227 @@ option:hover {
   display: flex;
   flex-direction: column;
   gap: 30px;
+}
+
+/* View PROPERTIE DEATILS CSS */
+#breadcrumb02 {
+  background: rgb(0, 0, 0, 0.6) no-repeat padding-box;
+  background-blend-mode: darken;
+  min-width: 100%;
+  width: 100%;
+  height: 450px;
+  background-size: 100% 450px;
+  position: relative;
+  /* margin-top: ; */
+  bottom: 90px;
+  z-index: -1;
+}
+#breadcrumb-content {
+  margin: 0 10% 0 10%;
+  position: relative;
+  top: 170px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.left-side-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.prop-types {
+  color: var(--primary-color);
+  background: white;
+  padding: 5px 25px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  text-transform: capitalize;
+}
+.prop-name {
+  font-size: 35px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: white;
+}
+.prop-Location {
+  display: flex;
+  gap: 5px;
+  color: #fff;
+  align-items: center;
+  font-size: 18px;
+}
+.prop-sell-time {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  color: white;
+}
+.propertie-sell-tag {
+  padding: 3px 20px;
+  background-color: var(--primary-sell);
+  border: none;
+  border-radius: 8px;
+}
+.prop-sell-time span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.right-side-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+  justify-content: center;
+  color: white;
+}
+.right-side-content span {
+  font-size: 35px;
+  font-weight: 600;
+}
+.right-side-content div {
+  display: flex;
+  gap: 25px;
+}
+.right-side-content button {
+  border: none;
+  background-color: #fff;
+  padding: 10px;
+}
+#all-prop-deatil-containt {
+  background-color: var(--primary-background);
+  margin-top: -9vh;
+  height: fit-content;
+  padding-bottom: 50px;
+}
+#all-content-deatil {
+  margin: 0 10%;
+}
+#prop-images {
+  /* display: flex;
+  flex-direction: row; */
+  /* justify-content: space-between; */
+  padding-top: 1%;
+}
+#prop-left-images {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+#prop-right-images {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.left-imgs01 {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px 0 0 0;
+}
+.left-imgs02 {
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 0 20px;
+}
+.middle-img {
+  width: 100%;
+  height: 100%;
+}
+.img-overlay {
+  position: relative;
+  bottom: 5vh;
+  left: 75%;
+}
+.img-overlay button {
+  border: none;
+  padding: 5px 20px;
+  background: #fff;
+  border-radius: 8px;
+  text-transform: capitalize;
+}
+.right-imgs01 {
+  width: 100%;
+  height: 100%;
+  border-radius: 0 20px 0 0;
+}
+.right-imgs02 {
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 20px 0;
+}
+#prop-all-deatils-cards {
+  margin-top: 3%;
+}
+#prop-deatls-card {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+#prop-deatls-card .card-header {
+  background-color: #fff;
+  font-size: medium;
+  font-weight: bold;
+  padding: 15px;
+}
+#prop-deatls-card .card-body p {
+  text-align: left;
+  color: #282f39;
+  font-size: small;
+}
+#prop-deatls-card .card-body button {
+  border: none;
+  background-color: transparent;
+  color: var(--primary-color);
+}
+#features-amenities .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+}
+.uper-specification{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  gap: 10%;
+}
+.down-specification{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  width: 100%;
+  gap: 10%;
+}
+#specification{
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: start;
+  align-items: center;
+}
+.spec-icon{
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 5px;
+  border-radius: 8px;
+  background: #087C7C14;
+}
+#specs-deatils{
+  display: flex;
+  flex-direction: column;
+  /* gap: 10px; */
+}
+#specs-deatils{
+  font-weight: 600;
+}
+#spacs-count{
+  color: #282F39C2;
+  font-weight: 300;
 }

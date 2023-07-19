@@ -5147,7 +5147,7 @@ const Home = () => {
                     <div className='agent-slider-mobile-view'>
                         <Swiper
                             id='agent_swiper-mobile'
-                            slidesPerView={2}
+                            // slidesPerView={2}
                             spaceBetween={30}
                             freeMode={true}
                             pagination={{
@@ -5159,6 +5159,26 @@ const Home = () => {
                             // // className="mySwiper"
                             style={{
                                 width: "600px", height: "400px"
+                            }}
+                            breakpoints={{
+                                0: {
+                                    slidesPerView: 1,
+                                },
+                                300: {
+                                    slidesPerView: 1,
+                                },
+                                576: {
+                                    slidesPerView: 2,
+                                },
+                                768: {
+                                    slidesPerView: 3,
+                                },
+                                992: {
+                                    slidesPerView: 4,
+                                },
+                                1200: {
+                                    slidesPerView: 5,
+                                },
                             }}
                         >
                             <SwiperSlide id="agent-swiper-slider" >

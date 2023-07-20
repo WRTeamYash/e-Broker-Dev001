@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
 import { ButtonGroup } from 'react-bootstrap'
-import ThreeSixty from 'react-360-view'
+// import ThreeSixty from 'react-360-view'
 import { Pannellum } from 'pannellum-react'
 import realistic_big_house from "@/assets/Images/realistic_big_house.jpg"
 import realistic_villa01 from "@/assets/Images/realistic_villa01.jpg"
@@ -24,17 +24,14 @@ import PropImg02 from "@/assets/Images/Featured_List_5.jpg"
 import PropImg03 from "@/assets/Images/Featured_List_6.jpg"
 import PropImg04 from "@/assets/Images/Featured_List_7.jpg"
 import PropImg05 from "@/assets/Images/Featured_List_8.jpg"
-import agentimg from "@/assets/Images/Superman.jpeg"
-
 
 import Image from 'next/image'
 import { Fascinate } from 'next/font/google'
-import Panorama from '@/app/Components/Panorama/Panorama'
-import { FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
 const PropertieDeatils = () => {
 
 
-    const [currentScene, setCurrentScene] = useState(realistic_big_house)
+    const [currentScene, setCurrentScene] = useState(realistic_villa)
+
 
 
     return (
@@ -331,58 +328,41 @@ const PropertieDeatils = () => {
                                 </div>
                                 <div className='card-body'>
                                     <div id='virtual-view'>
+                                        <Pannellum
+                                            width="100%"
+                                            height="100%"
+                                            image={currentScene}
+                                            yaw={300}
+                                            hfov={110}
+                                            autoLoad
+                                            autoRoate={-5}
+                                            compass={true}
+                                            showZoomCtrl={false}
+                                            mouseZoom={false}
 
-                                        <iframe width="100%" height="500" allowfullscreen style={{
-                                            backgroundImage: `url(${ViewPageImg.src})`,
-                                            borderStyle: "none",
-                                            borderRadius: "12px"
-                                        }}
-                                            src="https://cdn.pannellum.org/2.5/pannellum.htm#panorama=
-                                            https://thumbs.dreamstime.com/b/grodno-belarus-september-full-panorama-equirectangular-spherical-equidistant-projection-interier-banquet-hall-ancient-138802019.jpg?w=2048"></iframe>
+                                        >
+                                            <Pannellum.HotSpot
+                                                type="custom"
+                                                pitch={-10}
+                                                yaw={-120}
+                                                handleClick={(evt, name) =>
+                                                    setCurrentScene(currentScene !== realistic_villa ? realistic_villa : realistic_villa01)
+                                                }
+                                            />
+                                        </Pannellum>
+
+
+                                        {/* <a-scene>
+                                            <Image id='panorama' src={PropImg01} />
+                                            <a-sky src="#panorama" rotation="0-90 0"></a-sky>
+                                        </a-scene> */}
                                     </div>
 
                                 </div>
                             </div>
                         </div>
                         <div className='col-3'>
-                            <div className="card" id='owner-deatils-card'>
-                                <div className="card-header" id='card-owner-header'>
-                                    <div>
-                                        <img src={agentimg.src} className='owner-img' alt="" />
-                                    </div>
-                                    <div className='owner-deatils'>
-                                        <span className='owner-name'> Michael Smith </span>
-                                        <span className='owner-add'> <CiLocationOn size={20} />  Los Angeles </span>
-                                    </div>
-                                </div>
-                                <div className="card-body">
-                                    <div className='owner-contact'>
-                                        <div ><FiPhoneCall id='call-o' size={60} /></div>
-                                        <div className='deatilss'>
-                                            <span className='o-d'>Call</span>
-                                            <span className='value'>01234 56789</span>
-                                        </div>
-
-                                    </div>
-                                    <div className='owner-contact'>
-                                        <div ><FiMail id='mail-o' size={60} /></div>
-                                        <div className='deatilss'>
-                                            <span className='o-d'>Mail</span>
-                                            <span className='value'>yp364144@gmail.com</span>
-                                        </div>
-
-                                    </div>
-                                    <div className='owner-contact'>
-                                        <div ><FiMessageSquare id='chat-o' size={60} /></div>
-                                        <div className='deatilss'>
-                                            <span className='o-d'>Chat</span>
-                                            <span className='value'>01234 56789</span>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
+                            <span>test</span>
                         </div>
                     </div>
                 </div>

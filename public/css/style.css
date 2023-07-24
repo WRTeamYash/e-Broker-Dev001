@@ -15,18 +15,18 @@
   padding: 0 !important;
 }
 .is-sticky {
-  position: fixed   !important;
+  position: fixed !important;
   top: 0 !important;
   z-index: 99 !important;
   background-color: #fff;
   width: 100%;
   height: 12vh;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   transition: 0.9s;
 }
-.is-sticky *{
+.is-sticky * {
   color: #000 !important;
-
 }
 /* .headerS {
   z-index: 9;
@@ -39,7 +39,7 @@
   width: 220px;
   filter: brightness(0) invert(1);
 }
-.is-sticky .logo{
+.is-sticky .logo {
   filter: none;
 }
 #dropdown-basic {
@@ -99,8 +99,8 @@
   grid-template-columns: 6fr;
 }
 
-.header .nav-item ,
-.header .nav-link{
+.header .nav-item,
+.header .nav-link {
   color: white !important;
   font: var(--primary-font);
   cursor: pointer;
@@ -109,7 +109,7 @@
 .is-sticky .nav-link {
   color: #000 !important;
 }
-  
+
 #addbutton {
   color: #000;
   background-color: #ffffff;
@@ -123,17 +123,16 @@
   color: #ffffff;
   background-color: #000;
 }
-.is-sticky #addbutton:hover{
+.is-sticky #addbutton:hover {
   color: #000;
   background-color: #ffffff;
-
 }
 
 /*================= LOGIN MODAL CSS ============= */
-.modal-header{
+ .modal-header {
   padding: 20px !important;
 }
-.modal-title{
+ .modal-title {
   text-transform: capitalize;
   font-weight: 600 !important;
 }
@@ -144,56 +143,54 @@
   padding: 5px;
   cursor: pointer;
 }
-.modal-body{
+.modal-body {
   padding: 30px !important;
 }
-.modal-body-heading{
-margin-top: 10% !important;
+.modal-body-heading {
+  margin-top: 10% !important;
 }
-.modal-body-heading span{
+.modal-body-heading span {
   text-align: left;
-font: normal normal medium 14px/19px Manrope;
-letter-spacing: 0px;
-color: #282F39C2;
+  font: normal normal medium 14px/19px Manrope;
+  letter-spacing: 0px;
+  color: #282f39c2;
 }
-.mobile-number{
+.mobile-number {
   margin-top: 60px !important;
 }
-.mobile-number label{
-color: #282F39;
-font: normal normal medium 14px/19px Manrope;
-  ;
+.mobile-number label {
+  color: #282f39;
+  font: normal normal medium 14px/19px Manrope;
 }
 
-.react-tel-input  {
+.react-tel-input {
   margin-top: 15px !important;
-
 }
 .react-tel-input .form-control {
-  border: 0.5px solid #E1E1E1 !important;
+  border: 0.5px solid #e1e1e1 !important;
   width: 100% !important;
   height: 5vh !important;
   font-size: 18px !important;
   background-color: var(--primary-background) !important;
   color: #000 !important;
 }
-.react-tel-input .form-control:focus{
-  box-shadow: none
+.react-tel-input .form-control:focus {
+  box-shadow: none;
 }
-.react-tel-input .flag-dropdown{
-  border-bottom: 0.5px solid #E1E1E1 !important;
-  border-top: 0.5px solid #E1E1E1 !important;
-  border-left: 0.5px solid #E1E1E1 !important;
+.react-tel-input .flag-dropdown {
+  border-bottom: 0.5px solid #e1e1e1 !important;
+  border-top: 0.5px solid #e1e1e1 !important;
+  border-left: 0.5px solid #e1e1e1 !important;
   border-right: none !important;
   background-color: var(--primary-background);
 }
-.react-tel-input .flag-dropdown :hover{
-background-color: var(--primary-background) !important;
+.react-tel-input .flag-dropdown :hover {
+  background-color: var(--primary-background) !important;
 }
-.continue{
+.continue {
   margin-top: 20px;
 }
-.continue-button{
+.continue-button {
   background-color: var(--primary-color);
   color: #fff;
   border-radius: 8px;
@@ -201,13 +198,18 @@ background-color: var(--primary-background) !important;
   padding: 10px;
   width: 100%;
 }
-/* Custom styles for the dropdown arrow */
-.custom-phone-input .dropdown {
-  /* Add your custom styles here */
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 4px;
+ .modal-footer {
+  margin-top: 10% !important;
+  margin-bottom: 5% !important;
+  border-top: none !important;
+  padding: 0 100px !important;
+  color: #282f39 !important;
+  text-align: center !important;
+  font-size: medium !important;
+  line-height: 25px;
+}
+.modal-footer a{
+color: var(--primary-color) !important;
 }
 /* ================== HOME PAGE CSS  =========== */
 
@@ -442,11 +444,10 @@ background-color: var(--primary-background) !important;
   background-color: #fff;
   /* border-color: var(--primary-color) !important; */
 }
-.tab-active{
-  background-color: var(--primary-color) !important; 
+.tab-active {
+  background-color: var(--primary-color) !important;
   color: #fff !important;
   border-color: var(--primary-color) !important;
-
 }
 
 /* animation  */
@@ -2510,19 +2511,18 @@ div#all-articles_card_footer .allarticles_footer_text p {
   font-weight: bold;
   padding: 15px;
 }
-.pop-tags{
+.pop-tags {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
   justify-content: flex-start;
-  
 }
-.pop-tags span{
-background-color: #087C7C14;
-color: var(--primary-color);
-border:  0.30000001192092896px solid #087C7C;
-padding: 5px 15px;
-border-radius: 4px;
-cursor: pointer;
+.pop-tags span {
+  background-color: #087c7c14;
+  color: var(--primary-color);
+  border: 0.30000001192092896px solid #087c7c;
+  padding: 5px 15px;
+  border-radius: 4px;
+  cursor: pointer;
 }

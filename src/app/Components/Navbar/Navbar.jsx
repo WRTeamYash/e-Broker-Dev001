@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { FiPlusCircle } from 'react-icons/fi';
 import Head from 'next/head';
 import LoginModal from '../LoginModal/LoginModal';
+import AreaConverter from '../AreaConverter/AreaConverter';
 
 const Nav = () => {
     // console.log(Logo)
@@ -34,14 +35,21 @@ const Nav = () => {
     };
 
     const [showModal, setShowModal] = useState(false);
-
+    const [areaconverterModal, setAreaConverterModal] = useState(false)
     const handleOpenModal = () => {
-      setShowModal(true);
+        setShowModal(true);
     };
-  
+
     const handleCloseModal = () => {
-      setShowModal(false);
+        setShowModal(false);
     };
+    const handleOpenAcModal = () =>{ 
+        setAreaConverterModal(true);
+    };
+    const handleCloseAcModal = () =>{ 
+        setAreaConverterModal(false);
+    };
+
     return (
         <>
             <header>
@@ -84,7 +92,7 @@ const Nav = () => {
                                         <Dropdown.Menu>
                                             <Dropdown.Item href="">Subscription Plan</Dropdown.Item>
                                             <Dropdown.Item> <Link href="/Pages/Articles">Articles</Link></Dropdown.Item>
-                                            <Dropdown.Item href="">Area Converter</Dropdown.Item>
+                                            <Dropdown.Item onClick={handleOpenAcModal}>Area Converter</Dropdown.Item>
                                             <Dropdown.Item href="">Terms & Condition</Dropdown.Item>
                                             <Dropdown.Item href="">Privacy Policy</Dropdown.Item>
                                         </Dropdown.Menu>
@@ -108,11 +116,11 @@ const Nav = () => {
 
                                         <Dropdown.Menu id='language'>
                                             <Dropdown.Item href="">English</Dropdown.Item>
-                                            <Dropdown.Item href="">Arebic</Dropdown.Item>
+                                            <Dropdown.Item href="">Arabic</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <li className="nav-item">
-                                        <a className="nav-link" to="/"onClick={handleOpenModal}> <RiUserSmileLine size={20} className='icon' />
+                                        <a className="nav-link" to="/" onClick={handleOpenModal}> <RiUserSmileLine size={20} className='icon' />
                                             Login/Register</a>
                                     </li>
                                     <li className="nav-item">
@@ -222,6 +230,8 @@ const Nav = () => {
                 </Offcanvas>
             </div>
             <LoginModal isOpen={showModal} onClose={handleCloseModal} />
+
+            <AreaConverter isOpen={areaconverterModal} onClose={handleCloseAcModal}/>
         </>
     );
 };

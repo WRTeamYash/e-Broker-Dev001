@@ -1,0 +1,16 @@
+﻿
+<krpano>
+
+	<!-- grid preview pano -->
+	<preview type="grid(cube,64,64,512,0xCCCCCC,0xF6F6F6,0x999999);" />
+
+	<!-- view/fov settings -->
+	<view hlookat="0" vlookat="0" fovtype="VFOV" fov="90" fovmin="30" fovmax="150" />
+	<scene name="scene1">
+		<!-- Add an image element with the path to your image -->
+		<image>
+		url="../../../../assets/Images/Featured_List_1.jpg"
+		</image>
+	</scene>
+
+</krpano>

@@ -1,19 +1,27 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
 import { ButtonGroup } from 'react-bootstrap'
-import ThreeSixty from 'react-360-view'
-import { Pannellum } from 'pannellum-react'
-import realistic_big_house from "@/assets/Images/realistic_big_house.jpg"
-import realistic_villa01 from "@/assets/Images/realistic_villa01.jpg"
-import realistic_villa from "@/assets/Images/realistic_villa.jpg"
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { RiSendPlane2Line, RiGridFill, RiHotelBedLine, RiParkingBoxLine, RiBuilding3Line, RiPlantLine } from 'react-icons/ri'
-import { AiOutlinePlayCircle, AiOutlineHeart, AiOutlineArrowRight, AiOutlineWifi } from 'react-icons/ai'
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/pagination';
+
+// import './styles.css';
+
+// import required modules
+import { FreeMode, Pagination } from 'swiper/modules';
+import { RiSendPlane2Line, RiGridFill, RiHotelBedLine, RiParkingBoxLine, RiBuilding3Line, RiPlantLine, RiThumbUpFill } from 'react-icons/ri'
+import { AiOutlinePlayCircle, AiOutlineHeart, AiOutlineArrowRight, AiOutlineWifi, AiFillPlayCircle } from 'react-icons/ai'
 import { Card } from 'react-bootstrap'
 import { GiGamepad } from 'react-icons/gi'
 import { MdSecurity, MdKitchen, MdBalcony } from 'react-icons/md'
 import { TbAirConditioning } from "react-icons/tb"
+import { FiArrowRightCircle, FiCloudDrizzle, FiEye } from 'react-icons/fi'
+import { PiPlayCircleThin } from 'react-icons/pi'
 import { BiHomeSmile, BiCctv, BiTime } from 'react-icons/bi'
 import { CiLocationOn } from 'react-icons/ci'
 import { LiaDumbbellSolid, LiaSwimmingPoolSolid } from 'react-icons/lia'
@@ -25,20 +33,59 @@ import PropImg03 from "@/assets/Images/Featured_List_6.jpg"
 import PropImg04 from "@/assets/Images/Featured_List_7.jpg"
 import PropImg05 from "@/assets/Images/Featured_List_8.jpg"
 import agentimg from "@/assets/Images/Superman.jpeg"
+import realistic_villa from "@/assets/Images/realistic_villa.jpg"
+import cardImg from '@/assets/Images/Featured_List_1.jpg'
 
 
 import Image from 'next/image'
 import { Fascinate } from 'next/font/google'
-import Panorama from '@/app/Components/Panorama/Panorama'
 import { FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
+import PanoramaViewer from '@/app/Components/Panorama/Panorama';
 const PropertieDeatils = () => {
 
 
-    const [currentScene, setCurrentScene] = useState(realistic_big_house)
+    // const [currentScene, setCurrentScene] = useState(realistic_big_house)
+    const renderBullet = (index, className) => {
+        return `<span class="${className}" style="background-color: #087c7c;
+    outline: 1px solid #000;
+    font-size: 20px;
+    padding: 8px;
+    border: 2px solid #fff;"></span>`;
+    };
+    // const krpanoConfigPath = '../../Components/Panorama/js/krpano.xml'; // Replace with the correct path to your krpano.xml file
+
+    const handleShowPlayer = () => {
+        const videoBackgroundContainer = document.querySelector('.video-background.container');
+        const videoIframe = document.getElementById('video-iframe');
+        const playButton = document.getElementById('video-play-button');
+
+        // Hide the video background container and show the iframe
+        videoBackgroundContainer.style.display = 'none';
+        videoIframe.style.display = 'block';
+
+        // Show the play button when the video is paused
+        videoIframe.addEventListener('pause', () => {
+            playButton.style.display = 'block';
+        });
+
+        // Hide the play button when the video is playing
+        videoIframe.addEventListener('play', () => {
+            playButton.style.display = 'none';
+        });
 
 
+    }
+    useEffect(() => {
+        pannellum.viewer('panorama', {
+            "type": "equirectangular",
+            "panorama": realistic_villa.src,
+            "autoLoad": true
+
+        });
+    }, [])
+    const [play, setPlay] = useState(false)
     return (
-        <div className='all-properties'>
+        <div className='properties-deatil-page'>
 
             <div id='breadcrumb02'
                 style={{
@@ -70,17 +117,17 @@ const PropertieDeatils = () => {
             <div id='all-prop-deatil-containt'>
                 <div id='all-content-deatil'>
                     <div className='row' id='prop-images'>
-                        <div className='col-3 ' id='prop-left-images'>
+                        <div className='col-lg-3 col-md-4 col-sm-12' id='prop-left-images'>
                             <Image src={PropImg01} className='left-imgs01' />
                             <Image src={PropImg02} className='left-imgs02' />
                         </div>
-                        <div className=' col-6' id='prop-main-image'>
+                        <div className='col-lg-6 col-md-4 col-sm-12 text-center' id='prop-main-image'>
                             <Image src={PropImg03} className='middle-img' />
                             <div className="img-overlay">
                                 <button> See all Photos</button>
                             </div>
                         </div>
-                        <div className='col-3' id='prop-right-images'>
+                        <div className='col-lg-3 col-md-4 col-sm-12' id='prop-right-images'>
                             <Image src={PropImg04} className='right-imgs01' />
                             <Image src={PropImg05} className='right-imgs02' />
                         </div>
@@ -313,34 +360,55 @@ const PropertieDeatils = () => {
                                     Video
                                 </div>
                                 <div className="card-body">
-                                    <div className='video-background container' style={{
-                                        backgroundImage: `url("https://img.youtube.com/vi/y9j-BL5ocW8/maxresdefault.jpg")`,
-                                    }}>
-                                        <div id='video-play-button'>
-                                            <Link href="https://youtu.be/y9j-BL5ocW8" target='_blank'>
-                                                <AiOutlinePlayCircle size={80} backgroundColor='#FFFFFF14' />
-                                            </Link>
+                                    {!play
+                                        ?
+                                        <div className='video-background container' style={{
+                                            backgroundImage: `url("https://img.youtube.com/vi/y9j-BL5ocW8/maxresdefault.jpg")`,
+                                        }}>
+                                            <div id='video-play-button'>
+                                                <button onClick={() => setPlay(true)}
+                                                // href="https://youtu.be/y9j-BL5ocW8" target='_blank'
+                                                >
+                                                    <PiPlayCircleThin className='button-icon' size={80} />
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    {/* <iframe width="560" height="315" src="https://www.youtube.com/embed/LzCsPag3atw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> */}
+                                        :
+                                        <div >
+                                            <iframe
+                                                width="100%"
+                                                height="500"
+                                                src="https://www.youtube.com/embed/y9j-BL5ocW8"
+                                                title="YouTube video player"
+                                                frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                allowfullscreen
+                                                id="video-iframe"
+                                                onPause={() => setPlay(false)}
+                                            ></iframe>
+                                        </div>
+                                    }
+
                                 </div>
                             </div>
-                            <div className='card' id='prop-360-view'>
+                            <div className="card" id="prop-360-view">
                                 <div className="card-header">
                                     360° Virtual Tour
                                 </div>
-                                <div className='card-body'>
-                                    <div id='virtual-view'>
+                                <div className="card-body">
 
-                                        <iframe width="100%" height="500" allowfullscreen style={{
+                                    <div id="virtual-view">
+
+                                        <div id="panorama"></div>
+                                        {/* <iframe width="100%" height="500" allowfullscreen style={{
                                             backgroundImage: `url(${ViewPageImg.src})`,
                                             borderStyle: "none",
                                             borderRadius: "12px"
                                         }}
                                             src="https://cdn.pannellum.org/2.5/pannellum.htm#panorama=
-                                            https://thumbs.dreamstime.com/b/grodno-belarus-september-full-panorama-equirectangular-spherical-equidistant-projection-interier-banquet-hall-ancient-138802019.jpg?w=2048"></iframe>
+                                            https://thumbs.dreamstime.com/b/grodno-belarus-september-full-panorama-equirectangular-spherical-equidistant-projection-interier-banquet-hall-ancient-138802019.jpg?w=2048"
+                                            aut></iframe> */}
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -368,7 +436,7 @@ const PropertieDeatils = () => {
                                         <div ><FiMail id='mail-o' size={60} /></div>
                                         <div className='deatilss'>
                                             <span className='o-d'>Mail</span>
-                                            <span className='value'>yp364144@gmail.com</span>
+                                            <span className='value'>michael.smith@example.com</span>
                                         </div>
 
                                     </div>
@@ -376,17 +444,347 @@ const PropertieDeatils = () => {
                                         <div ><FiMessageSquare id='chat-o' size={60} /></div>
                                         <div className='deatilss'>
                                             <span className='o-d'>Chat</span>
-                                            <span className='value'>01234 56789</span>
+                                            <span className='value'>Start a chat</span>
                                         </div>
-
                                     </div>
-
+                                    <div className='enquiry'>
+                                        <button className='enquiry-buttons'> <RiSendPlane2Line className='mx-1' size={20} /> Send Enquiry</button>
+                                        <button className='enquiry-buttons'> <RiThumbUpFill className='mx-1' size={20} />Interest</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                    <section id='similer-properties'>
+                        <div className='similer-headline'>
+                            <span className='headline'
+                                data-aos="fade-right" data-aos-duration="1000"
+                            >
+                                Similar  <span
+                                >
+                                    <span
+                                        className='highlight'
+                                        // data-aos="fade-left" data-aos-duration="5000"
+                                    > Properties</span>
+                                </span>
+                            </span>
+                        </div>
+                        <div className='similer-prop-slider'>
+                            <Swiper
+                                slidesPerView={4}
+                                spaceBetween={30}
+                                freeMode={true}
+                                pagination={{
+                                    clickable: true,
+                                    renderBullet: renderBullet
+                                }}
+                                modules={[FreeMode, Pagination]}
+                                className='similer-swiper'
+                            // className="mySwiper"
+                            // style={{
+                            //     width: "1200px ", height: "450px"
+                            // }}
+                            >
+                                <SwiperSlide id="similer-swiper-slider" >
+                                    <Card id='similer-main_card'>
+                                        <Card.Img variant="top" id='card_img' src={cardImg.src} />
+                                        <Card.Body>
+                                            <span className='similer-feture_tag'>
+                                                Feature
+                                            </span>
+                                            <span className='similer-like_tag'>
+                                                <AiOutlineHeart size={25} />
+                                            </span>
+                                            <span className='similer-sell_tag'>
+                                                Sell
+                                            </span>
+                                            <span className='similer-price_tag'>
+                                                $1,999,000 / USD
+                                            </span>
+
+                                            <div>
+                                                <div id='feature_card_mainbody'>
+                                                    <BiHomeSmile size={23} />
+                                                    <span className='feture_body_title'> Home </span>
+                                                </div>
+                                                <div id='feature_card_middletext'>
+                                                    <span>
+                                                        Luxury villa in Rego Park
+                                                    </span>
+                                                    <p>
+                                                        California City, CA, USA
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </Card.Body>
+
+                                        <Card.Footer id='feature_card_footer'>
+                                            <div className='footer_body'>
+                                                <div id='footer_content'>
+                                                    <RiHotelBedLine size={22} />
+                                                    <p className='text_footer'> 3 Bedrooms </p>
+                                                </div>
+                                                <div id='footer_content'>
+                                                    <RiBuilding3Line size={22} />
+                                                    <p className='text_footer'> 1200 Sqft </p>
+                                                </div>
+
+                                            </div>
+                                            <div className='footer_body'>
+                                                <div id='footer_content'>
+                                                    <FiCloudDrizzle size={22} />
+                                                    <p className='text_footer'> 4 Bathrooms </p>
+                                                </div>
+                                                <div id='footer_content'>
+                                                    <RiParkingBoxLine size={22} />
+                                                    <p className='text_footer'> 2 Parking </p>
+                                                </div>
+
+                                            </div>
+                                        </Card.Footer>
+                                    </Card>
+                                </SwiperSlide>
+                                <SwiperSlide id="similer-swiper-slider" >
+                                    <Card id='similer-main_card'>
+                                        <Card.Img variant="top" id='card_img' src={cardImg.src} />
+                                        <Card.Body>
+                                            <span className='similer-feture_tag'>
+                                                Feature
+                                            </span>
+                                            <span className='similer-like_tag'>
+                                                <AiOutlineHeart size={25} />
+                                            </span>
+                                            <span className='similer-sell_tag'>
+                                                Sell
+                                            </span>
+                                            <span className='similer-price_tag'>
+                                                $1,999,000 / USD
+                                            </span>
+
+                                            <div>
+                                                <div id='feature_card_mainbody'>
+                                                    <BiHomeSmile size={23} />
+                                                    <span className='feture_body_title'> Home </span>
+                                                </div>
+                                                <div id='feature_card_middletext'>
+                                                    <span>
+                                                        Luxury villa in Rego Park
+                                                    </span>
+                                                    <p>
+                                                        California City, CA, USA
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </Card.Body>
+
+                                        <Card.Footer id='feature_card_footer'>
+                                            <div className='footer_body'>
+                                                <div id='footer_content'>
+                                                    <RiHotelBedLine size={22} />
+                                                    <p className='text_footer'> 3 Bedrooms </p>
+                                                </div>
+                                                <div id='footer_content'>
+                                                    <RiBuilding3Line size={22} />
+                                                    <p className='text_footer'> 1200 Sqft </p>
+                                                </div>
+
+                                            </div>
+                                            <div className='footer_body'>
+                                                <div id='footer_content'>
+                                                    <FiCloudDrizzle size={22} />
+                                                    <p className='text_footer'> 4 Bathrooms </p>
+                                                </div>
+                                                <div id='footer_content'>
+                                                    <RiParkingBoxLine size={22} />
+                                                    <p className='text_footer'> 2 Parking </p>
+                                                </div>
+
+                                            </div>
+                                        </Card.Footer>
+                                    </Card>
+                                </SwiperSlide>
+                                <SwiperSlide id="similer-swiper-slider" >
+                                    <Card id='similer-main_card'>
+                                        <Card.Img variant="top" id='card_img' src={cardImg.src} />
+                                        <Card.Body>
+                                            <span className='similer-feture_tag'>
+                                                Feature
+                                            </span>
+                                            <span className='similer-like_tag'>
+                                                <AiOutlineHeart size={25} />
+                                            </span>
+                                            <span className='similer-sell_tag'>
+                                                Sell
+                                            </span>
+                                            <span className='similer-price_tag'>
+                                                $1,999,000 / USD
+                                            </span>
+
+                                            <div>
+                                                <div id='feature_card_mainbody'>
+                                                    <BiHomeSmile size={23} />
+                                                    <span className='feture_body_title'> Home </span>
+                                                </div>
+                                                <div id='feature_card_middletext'>
+                                                    <span>
+                                                        Luxury villa in Rego Park
+                                                    </span>
+                                                    <p>
+                                                        California City, CA, USA
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </Card.Body>
+
+                                        <Card.Footer id='feature_card_footer'>
+                                            <div className='footer_body'>
+                                                <div id='footer_content'>
+                                                    <RiHotelBedLine size={22} />
+                                                    <p className='text_footer'> 3 Bedrooms </p>
+                                                </div>
+                                                <div id='footer_content'>
+                                                    <RiBuilding3Line size={22} />
+                                                    <p className='text_footer'> 1200 Sqft </p>
+                                                </div>
+
+                                            </div>
+                                            <div className='footer_body'>
+                                                <div id='footer_content'>
+                                                    <FiCloudDrizzle size={22} />
+                                                    <p className='text_footer'> 4 Bathrooms </p>
+                                                </div>
+                                                <div id='footer_content'>
+                                                    <RiParkingBoxLine size={22} />
+                                                    <p className='text_footer'> 2 Parking </p>
+                                                </div>
+
+                                            </div>
+                                        </Card.Footer>
+                                    </Card>
+                                </SwiperSlide>
+                                <SwiperSlide id="similer-swiper-slider" >
+                                    <Card id='similer-main_card'>
+                                        <Card.Img variant="top" id='card_img' src={cardImg.src} />
+                                        <Card.Body>
+                                            <span className='similer-feture_tag'>
+                                                Feature
+                                            </span>
+                                            <span className='similer-like_tag'>
+                                                <AiOutlineHeart size={25} />
+                                            </span>
+                                            <span className='similer-sell_tag'>
+                                                Sell
+                                            </span>
+                                            <span className='similer-price_tag'>
+                                                $1,999,000 / USD
+                                            </span>
+
+                                            <div>
+                                                <div id='feature_card_mainbody'>
+                                                    <BiHomeSmile size={23} />
+                                                    <span className='feture_body_title'> Home </span>
+                                                </div>
+                                                <div id='feature_card_middletext'>
+                                                    <span>
+                                                        Luxury villa in Rego Park
+                                                    </span>
+                                                    <p>
+                                                        California City, CA, USA
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </Card.Body>
+
+                                        <Card.Footer id='feature_card_footer'>
+                                            <div className='footer_body'>
+                                                <div id='footer_content'>
+                                                    <RiHotelBedLine size={22} />
+                                                    <p className='text_footer'> 3 Bedrooms </p>
+                                                </div>
+                                                <div id='footer_content'>
+                                                    <RiBuilding3Line size={22} />
+                                                    <p className='text_footer'> 1200 Sqft </p>
+                                                </div>
+
+                                            </div>
+                                            <div className='footer_body'>
+                                                <div id='footer_content'>
+                                                    <FiCloudDrizzle size={22} />
+                                                    <p className='text_footer'> 4 Bathrooms </p>
+                                                </div>
+                                                <div id='footer_content'>
+                                                    <RiParkingBoxLine size={22} />
+                                                    <p className='text_footer'> 2 Parking </p>
+                                                </div>
+
+                                            </div>
+                                        </Card.Footer>
+                                    </Card>
+                                </SwiperSlide>
+                                <SwiperSlide id="similer-swiper-slider" >
+                                    <Card id='similer-main_card'>
+                                        <Card.Img variant="top" id='card_img' src={cardImg.src} />
+                                        <Card.Body>
+                                            <span className='similer-feture_tag'>
+                                                Feature
+                                            </span>
+                                            <span className='similer-like_tag'>
+                                                <AiOutlineHeart size={25} />
+                                            </span>
+                                            <span className='similer-sell_tag'>
+                                                Sell
+                                            </span>
+                                            <span className='similer-price_tag'>
+                                                $1,999,000 / USD
+                                            </span>
+
+                                            <div>
+                                                <div id='feature_card_mainbody'>
+                                                    <BiHomeSmile size={23} />
+                                                    <span className='feture_body_title'> Home </span>
+                                                </div>
+                                                <div id='feature_card_middletext'>
+                                                    <span>
+                                                        Luxury villa in Rego Park
+                                                    </span>
+                                                    <p>
+                                                        California City, CA, USA
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </Card.Body>
+
+                                        <Card.Footer id='feature_card_footer'>
+                                            <div className='footer_body'>
+                                                <div id='footer_content'>
+                                                    <RiHotelBedLine size={22} />
+                                                    <p className='text_footer'> 3 Bedrooms </p>
+                                                </div>
+                                                <div id='footer_content'>
+                                                    <RiBuilding3Line size={22} />
+                                                    <p className='text_footer'> 1200 Sqft </p>
+                                                </div>
+
+                                            </div>
+                                            <div className='footer_body'>
+                                                <div id='footer_content'>
+                                                    <FiCloudDrizzle size={22} />
+                                                    <p className='text_footer'> 4 Bathrooms </p>
+                                                </div>
+                                                <div id='footer_content'>
+                                                    <RiParkingBoxLine size={22} />
+                                                    <p className='text_footer'> 2 Parking </p>
+                                                </div>
+
+                                            </div>
+                                        </Card.Footer>
+                                    </Card>
+                                </SwiperSlide>
+                            </Swiper>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div >
     )

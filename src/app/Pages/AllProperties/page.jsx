@@ -42,7 +42,7 @@ const AllProperties = () => {
                 <div className='filter-button-box'>
                   <ButtonGroup>
                     <ul className="nav nav-tabs" id="props-tabs">
-                      <li className=""  >
+                      <li className="">
                         <a className="nav-link active" aria-current="page" id="prop-sellbutton" onClick={(e) => {
                           e.target.classList.add('active')
                           document.getElementById('prop-rentbutton').classList.remove('active')

@@ -52,7 +52,7 @@ import { FreeMode, Pagination } from 'swiper/modules';
 
 
 const Home = () => {
-    console.log(SlideImage01.src)
+    // console.log(SlideImage01.src)
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;
     outline: 1px solid #000;
@@ -192,15 +192,15 @@ const Home = () => {
                     <ButtonGroup >
                         <ul className="nav nav-tabs" id="tabs">
                             <li className=""  >
-                                <a className="nav-link active" aria-current="page" id="sellbutton" onClick={(e) => {
-                                    e.target.classList.add('active')
-                                    document.getElementById('rentbutton').classList.remove('active')
+                                <a className="nav-link tab-active" aria-current="page" id="sellbutton" onClick={(e) => {
+                                    e.target.classList.add('tab-active')
+                                    document.getElementById('rentbutton').classList.remove('tab-active')
                                 }}>Sell</a>
                             </li>
                             <li className="">
                                 <a className="nav-link" onClick={(e) => {
-                                    e.target.classList.add('active')
-                                    document.getElementById('sellbutton').classList.remove('active')
+                                    e.target.classList.add('tab-active')
+                                    document.getElementById('sellbutton').classList.remove('tab-active')
 
                                 }} aria-current="page" id="rentbutton">Rent</a>
                             </li>

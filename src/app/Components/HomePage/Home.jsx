@@ -1988,22 +1988,22 @@ const Home = () => {
                             <div data-aos="fade-right" data-aos-duration="1000">
                                 <h3>
                                     Most <span
-                                    // class="hovertext2"
+                                    // className="hovertext2"
                                     >
                                         <span
-                                            // class="text" data-text="Viewed"
+                                            // className="text" data-text="Viewed"
                                             className='highlight'
                                             data-aos="fade-left" data-aos-duration="5000"
                                         > Viewed</span>
                                     </span> Properties
                                 </h3>
                             </div>
-                            <div class='rightside_prop_header'>
-                                <button class="learn-more" id="viewall">
-                                    <span aria-hidden="true" class="circle">
-                                        <span class="icon arrow"></span>
+                            <div className='rightside_prop_header'>
+                                <button className="learn-more" id="viewall">
+                                    <span aria-hidden="true" className="circle">
+                                        <span className="icon arrow"></span>
                                     </span>
-                                    <span class="button-text">See All Properties</span>
+                                    <span className="button-text">See All Properties</span>
                                 </button>
                             </div>
 
@@ -3336,26 +3336,26 @@ const Home = () => {
                 <div
                     id='city_con'
                 >
-                    <div class='prop_city_header'>
+                    <div className='prop_city_header'>
                         <div data-aos="fade-right" data-aos-duration="1000">
                             <h3>
                                 Properties <span
-                                // class="hovertext3"
+                                // className="hovertext3"
                                 >
                                     <span
-                                        // class="text" data-text="Nearby"
+                                        // className="text" data-text="Nearby"
                                         className='highlight'
                                         data-aos="fade-left" data-aos-duration="5000"
                                     >Nearby</span>
                                 </span> Cities
                             </h3>
                         </div>
-                        <div class='rightside_prop_city_header'>
-                            <button class="learn-more" id="viewall">
-                                <span aria-hidden="true" class="circle">
-                                    <span class="icon arrow"></span>
+                        <div className='rightside_prop_city_header'>
+                            <button className="learn-more" id="viewall">
+                                <span aria-hidden="true" className="circle">
+                                    <span className="icon arrow"></span>
                                 </span>
-                                <span class="button-text">See All Properties</span>
+                                <span className="button-text">See All Properties</span>
                             </button>
                         </div>
                     </div>
@@ -3371,85 +3371,85 @@ const Home = () => {
                             <button className='view_all_arrow'><BsArrowRight size={25} /></button>
                         </div>
                     </div>
-                    <div class='row' id='nearBy-Citys'>
-                        <div class='col-lg-6'>
-                            <div class="card bg-dark text-white mb-3" id='cityImgTop'
+                    <div className='row' id='nearBy-Citys'>
+                        <div className='col-lg-6'>
+                            <div className="card bg-dark text-white mb-3" id='cityImgTop'
                             // id='city_card_bottom'
                             >
-                                <img src={cityImage03.src} class="card-img" alt="..." id='TopImg' />
-                                <div class="card-img-overlay">
+                                <img src={cityImage03.src} className="card-img" alt="..." id='TopImg' />
+                                <div className="card-img-overlay">
                                     <div id='city_img_headlines'>
-                                        <h4 class="card-title">San Francisco</h4>
-                                        <p class="card-text">13 Properties</p>
+                                        <h4 className="card-title">San Francisco</h4>
+                                        <p className="card-text">13 Properties</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class='col-12 col-md-6 col-lg-3'>
-                            <div class="card bg-dark text-white mb-3"
+                        <div className='col-12 col-md-6 col-lg-3'>
+                            <div className="card bg-dark text-white mb-3"
                                 id='group_card'
                             >
-                                <img src={cityImage01.src} class="card-img" alt="..." id='TopImg' />
-                                <div class="card-img-overlay">
+                                <img src={cityImage01.src} className="card-img" alt="..." id='TopImg' />
+                                <div className="card-img-overlay">
                                     <div id='city_img_headlines'>
-                                        <h4 class="card-title">New York</h4>
-                                        <p class="card-text">22 Properties</p>
+                                        <h4 className="card-title">New York</h4>
+                                        <p className="card-text">22 Properties</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class='col-12 col-md-6 col-lg-3'>
-                            <div class="card bg-dark text-white mb-3"
+                        <div className='col-12 col-md-6 col-lg-3'>
+                            <div className="card bg-dark text-white mb-3"
                                 id='group_card'
                             >
-                                <img src={cityImage02.src} class="card-img" alt="..." id='TopImg' />
-                                <div class="card-img-overlay">
+                                <img src={cityImage02.src} className="card-img" alt="..." id='TopImg' />
+                                <div className="card-img-overlay">
                                     <div id='city_img_headlines'>
-                                        <h4 class="card-title">California</h4>
-                                        <p class="card-text">18 Properties</p>
+                                        <h4 className="card-title">California</h4>
+                                        <p className="card-text">18 Properties</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class='col-12 col-md-6 col-lg-3'
+                        <div className='col-12 col-md-6 col-lg-3'
 
                         >
-                            <div class="card bg-dark text-white" id='group_card'
+                            <div className="card bg-dark text-white" id='group_card'
                             // id='city_card'
                             >
-                                <img src={cityImage01.src} class="card-img" alt="..." id='TopImg' />
-                                <div class="card-img-overlay">
+                                <img src={cityImage01.src} className="card-img" alt="..." id='TopImg' />
+                                <div className="card-img-overlay">
                                     <div id='city_img_headlines'>
-                                        <h4 class="card-title">Chicago</h4>
-                                        <p class="card-text">20 Properties</p>
+                                        <h4 className="card-title">Chicago</h4>
+                                        <p className="card-text">20 Properties</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class='col-12 col-md-6 col-lg-3'
+                        <div className='col-12 col-md-6 col-lg-3'
 
                         >
-                            <div class="card bg-dark text-white " id='group_card'
+                            <div className="card bg-dark text-white " id='group_card'
                             >
-                                <img src={cityImage02.src} class="card-img" alt="..." id='TopImg' />
-                                <div class="card-img-overlay">
+                                <img src={cityImage02.src} className="card-img" alt="..." id='TopImg' />
+                                <div className="card-img-overlay">
                                     <div id='city_img_headlines'>
-                                        <h4 class="card-title">Los Angeles</h4>
-                                        <p class="card-text">15 Properties</p>
+                                        <h4 className="card-title">Los Angeles</h4>
+                                        <p className="card-text">15 Properties</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class='col-lg-6'>
-                            <div class="card bg-dark text-white" id='cityImgTop'
+                        <div className='col-lg-6'>
+                            <div className="card bg-dark text-white" id='cityImgTop'
                             >
-                                <img src={cityImage03.src} class="card-img" alt="..." id='TopImg'
+                                <img src={cityImage03.src} className="card-img" alt="..." id='TopImg'
                                 //  id='bottom_city_card_img' 
                                 />
-                                <div class="card-img-overlay">
+                                <div className="card-img-overlay">
                                     <div id='city_img_headlines'>
-                                        <h4 class="card-title">Danver</h4>
-                                        <p class="card-text">13 Properties</p>
+                                        <h4 className="card-title">Danver</h4>
+                                        <p className="card-text">13 Properties</p>
                                     </div>
                                 </div>
                             </div>
@@ -3468,11 +3468,11 @@ const Home = () => {
 
                             <h3>
                                 Most <span
-                                // class="hovertext3"
+                                // className="hovertext3"
                                 >
                                     <span className='highlight'
                                         data-aos="fade-left" data-aos-duration="5000"
-                                    // class="text" data-text="Favorites"
+                                    // className="text" data-text="Favorites"
                                     >Favorites</span>
                                 </span> Properties
                             </h3>
@@ -5445,11 +5445,11 @@ const Home = () => {
                         <div data-aos="fade-right" data-aos-duration="1000">
                             <h3>
                                 Our <span
-                                // class="hovertext3"
+                                // className="hovertext3"
                                 >
                                     <span className='highlight'
                                         data-aos="fade-left" data-aos-duration="5000"
-                                    // class="text" data-text="Articles"
+                                    // className="text" data-text="Articles"
                                     >Articles</span>
                                 </span>
                             </h3>

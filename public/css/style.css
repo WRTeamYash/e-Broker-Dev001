@@ -23,21 +23,27 @@
   height: 12vh;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-  transition: 0.9s;
+    -webkit-animation: headerSlideDown 0.95s ease forwards;
+    animation: headerSlideDown 0.95s ease forwards;
 }
 .is-sticky * {
   color: #000 !important;
 }
-/* .headerS {
-  z-index: 9;
-  font-family: var(--primary-font);
-  background-color: #fff;
-  color: #000;
-} */
+@keyframes headerSlideDown {
+  0% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
 .logo {
-  height: 70px;
-  width: 220px;
+  /* height: 80px; */
   filter: brightness(0) invert(1);
+  max-width: 160px;
+  padding: 18px 1px;
 }
 .is-sticky .logo {
   filter: none;
@@ -129,10 +135,10 @@
 }
 
 /*================= LOGIN MODAL CSS ============= */
- .modal-header {
+.modal-header {
   padding: 20px !important;
 }
- .modal-title {
+.modal-title {
   text-transform: capitalize;
   font-weight: 600 !important;
 }
@@ -198,7 +204,7 @@
   padding: 10px;
   width: 100%;
 }
- .modal-footer {
+.modal-footer {
   margin-top: 10% !important;
   margin-bottom: 5% !important;
   border-top: none !important;
@@ -208,8 +214,148 @@
   font-size: medium !important;
   line-height: 25px;
 }
-.modal-footer a{
-color: var(--primary-color) !important;
+.modal-footer a {
+  color: var(--primary-color) !important;
+}
+.custom-phone-input{
+  margin-top: 30px;
+  border: 0.5px solid #cdcdcd;
+  padding: 0 10px;
+  width: 100%;
+  height: 5vh;
+  background: var(--primary-background);
+  border-radius: 8px;
+}
+.PhoneInputInput{
+  border: none;
+  height: 4vh;
+  background-color: var(--primary-background);
+}
+.PhoneInputInput:focus-visible{
+outline: none !important;
+}
+.userInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+.otp-field {
+  width: 50px;
+  height: 50px;
+  border: 0.5px solid #e1e1e1;
+  border-radius: 8px;
+  background-color: var(--primary-background);
+  text-align: center;
+}
+.otp-field:focus-visible {
+  outline: none;
+}
+.resend-code  {
+  margin-top: 10px;
+  font-size: small;
+}
+.resend-code div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#re-text{
+  display: flex;
+  justify-content: center;
+  color: var(--primary-color);
+  font-size: 15px;
+  font-weight: 600;
+  /* margin-top: 10px !important; */
+  padding-top: 15px;
+  cursor: pointer;
+}
+.resend-code .resend-text {
+}
+.resend-code .resend-time{
+  color: var(--primary-color);
+  font-weight: 600;
+}
+/* ============================ AREA CONVERTER MODAL ================ */
+.area-conrt-fields {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+.sq-ft {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#number-input {
+  border: 0.5px solid var(--primary-background);
+  height: 5vh;
+  border-radius: 8px;
+  background: var(--primary-background);
+  outline: none !important;
+  padding: 5px;
+  width: 11vw;
+  color: #282f39c2 !important;
+}
+#sq-ft-slct {
+  border: 0.5px solid var(--primary-background);
+  height: 5vh;
+  border-radius: 8px;
+  background: var(--primary-background);
+  outline: none !important;
+  border-left: 0.5px solid gray !important;
+  border-radius: 0 8px 8px 0;
+  margin-left: -88px;
+  color: #282f39c2 !important;
+  width: 6vw;
+}
+#sq-m {
+  border: 0.5px solid var(--primary-background);
+  height: 5vh;
+  border-radius: 8px;
+  background: var(--primary-background);
+  outline: none !important;
+  color: #282f39c2 !important;
+
+  width: 9vw;
+}
+.sq-ft input[type="number"]::-webkit-inner-spin-button,
+.sq-ft input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.sq-ft input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+#show-value {
+  margin-top: 50px;
+}
+.convert-value {
+  width: 100%;
+  display: inline-block;
+  border: 1px solid var(--primary-color);
+  background-color: #087c7c14;
+  color: var(--primary-color);
+  text-align: center;
+  padding: 20px;
+  font-size: 25px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.convert-button {
+  width: 100%;
+  border: none;
+  color: #fff;
+  background: var(--primary-color);
+  padding: 10px;
+  border-radius: 8px;
+}
+.area-footer {
+  margin-top: 30px !important;
+  padding: 0 20px !important;
 }
 /* ================== HOME PAGE CSS  =========== */
 

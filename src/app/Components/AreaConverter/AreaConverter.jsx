@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
+import { ModalFooter } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { RiCloseCircleLine } from 'react-icons/ri';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
 
 const AreaConverter = ({ isOpen, onClose }) => {
 
     const [value, setValue] = useState('');
     const [fromUnit, setFromUnit] = useState('squareFeet');
     const [toUnit, setToUnit] = useState('squareMeter');
-    const [convertedValue, setConvertedValue] = useState('');
+    const [convertedValue, setConvertedValue] = useState("");
 
     const unitData = {
         squareFeet: { name: 'Square Feet', convertFactor: 0.092903 },
@@ -47,6 +46,7 @@ const AreaConverter = ({ isOpen, onClose }) => {
                 (parseFloat(value) * convertFactorFrom) / convertFactorTo;
             setConvertedValue(converted.toFixed(2));
         }
+        // setConvertedValue(true);
     };
 
 
@@ -71,49 +71,68 @@ const AreaConverter = ({ isOpen, onClose }) => {
                             Enter the value and select desired unit
                         </span>
                     </div>
-                    <div>
-                        <label>
-                            from:
-                            <input
-                                type="number"
-                                value={value}
-                                onChange={handleValueChange}
-                                placeholder="Enter the value"
-                            />
-                        </label>
+                    <div className='area-conrt-fields'>
+                        <div className='sq-ft'>
+                            <label>
+                                from:
+                            </label>
+                            <div className="btn-group" role="group">
 
-                       
-                            <select value={fromUnit} onChange={handleFromUnitChange}>
-                            <option value="">Select unit</option>
-                                {Object.keys(unitData).map((unitKey) => (
-                                    <option key={unitKey} value={unitKey}>
-                                        {unitData[unitKey].name}
-                                    </option>
-                                ))}
-                            </select>
-               
-                        <label>
-                            Convert to:
-                            <select value={toUnit} onChange={handleToUnitChange}>
-                                {Object.keys(unitData).map((unitKey) => (
-                                    <option key={unitKey} value={unitKey}>
-                                        {unitData[unitKey].name}
-                                    </option>
-                                ))}
-                            </select>
-                        </label>
+                                <input
+                                    type="number"
+                                    value={value}
+                                    onChange={handleValueChange}
+                                    placeholder="Enter the value"
+                                    id='number-input'
 
-                        <button onClick={convertValue}>Convert</button>
+                                />
+                                <select value={fromUnit} onChange={handleFromUnitChange} id='sq-ft-slct'>
 
-                        {convertedValue && (
-                            <p>
-                                {/* {value} {unitData[fromUnit].name} is equal to  */}
-                                {convertedValue}{' '}
-                                {unitData[toUnit].name}
-                            </p>
-                        )}
+                                    {Object.keys(unitData).map((unitKey) => (
+                                        <option key={unitKey} value={unitKey}>
+                                            {unitData[unitKey].name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                        <div className='sq-ft'>
+
+                            <label>
+                                to:
+                            </label>
+                            <div>
+
+                                <select
+                                    // value={toUnit} 
+                                    onChange={handleToUnitChange}
+                                    id='sq-m'>
+                                    <option value="">Choose Value</option>
+                                    {Object.keys(unitData).map((unitKey) => (
+                                        <option key={unitKey} value={unitKey}>
+                                            {unitData[unitKey].name}
+                                        </option>
+                                    ))}
+                                </select>
+
+                            </div>
+                        </div>
                     </div>
+
+                    { convertedValue && convertedValue && ( 
+                        <div id='show-value'>
+                            <span className='convert-value'>
+                                {/* {value} {unitData[fromUnit].name} is equal to  */}
+                                {convertedValue}{''} 
+                                {unitData[toUnit].name}
+                            </span>
+                        </div>
+                    )}
                 </Modal.Body>
+                <ModalFooter className='area-footer'>
+                    <button className='convert-button' onClick={convertValue}>Convert</button>
+
+                </ModalFooter>
             </Modal >
         </div>
     );

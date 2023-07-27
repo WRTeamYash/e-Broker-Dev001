@@ -134,6 +134,10 @@
   background-color: #ffffff;
 }
 
+#hamburg{
+  display: none;
+}
+
 /*================= LOGIN MODAL CSS ============= */
 .otp-modal, .login-modal .modal-header {
   padding: 20px !important;
@@ -271,8 +275,7 @@ outline: none !important;
   padding-top: 15px;
   cursor: pointer;
 }
-.resend-code .resend-text {
-}
+
 .resend-code .resend-time{
   color: var(--primary-color);
   font-weight: 600;
@@ -1734,10 +1737,8 @@ div#article_card_footer .article_footer_text p {
   color: #ffffffc2;
 }
 .download_app_platforms {
-  border: 1px solid #ffffffc2;
-  border-radius: 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: auto;
   height: 5rem;
 }

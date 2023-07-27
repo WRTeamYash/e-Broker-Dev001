@@ -6,9 +6,8 @@ import { FiMail, FiPhone } from "react-icons/fi"
 import { AiOutlineInstagram, AiOutlineLinkedin } from "react-icons/ai"
 import { CiFacebook } from "react-icons/ci"
 import { ImPinterest2 } from "react-icons/im"
-import playstore from "@/assets/ic_play_store.svg"
-import appstore from "@/assets/ic_app_store.svg"
-import Image from 'next/image';
+import playstore from "../../../assets/playStore.png"
+import appstore from "../../../assets/appStore.png"
 
 
 
@@ -20,7 +19,7 @@ const Footer = () => {
                 <div className='row' id='footer_deatils'>
                     <div className='col-12 col-md-6 col-lg-3' id='footer_logo_section'>
                         <div>
-                            <img src={eBroker.src} width={150}  height={60} alt="eBroker_logo" />
+                            <img src={eBroker.src} alt="eBroker_logo" />
                         </div>
                         <div>
                             <FiMail size={25} /> <span className='footer_span'>Email</span> <br />
@@ -130,18 +129,9 @@ const Footer = () => {
                             <div id='playstore_logo'>
                                 <img src={playstore.src} alt="" />
                             </div>
-                            <div className='playstore_desc'>
-                                <span id='span_headline'>GET IT ON</span>
-                                <span className='span_title'>Google play</span>
-                            </div>
-                        </div>
-                        <div className='download_app_platforms'>
+                            
                             <div id='appstore_logo'>
                                 <img src={appstore.src} alt="" />
-                            </div>
-                            <div className='appstore_desc'>
-                                <span id='span_headline'>Download on the</span>
-                                <span className='span_title'>App Store</span>
                             </div>
                         </div>
                     </div>

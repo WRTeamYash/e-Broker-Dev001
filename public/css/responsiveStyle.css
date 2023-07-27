@@ -7,6 +7,16 @@
   --primary-background: #f4f5f4;
 }
 
+
+@media only screen and (max-width: 1100px) {
+
+  #hamburg {
+    display: block;
+    color: white;
+  }
+
+}
+
 @media only screen and (max-width: 1900px) {
   .dropdown-menu {
     width: 30vh !important;
@@ -1513,20 +1523,24 @@
     height: 30vh;
   }
 }
+
 @media (min-width: 575px) and (max-width: 767px) {
   #articles {
     height: auto;
     margin-bottom: 5vh;
   }
+
   #articles .col-lg-3 {
     width: 100%;
     display: flex;
     /* align-items: center; */
     justify-content: center;
   }
+
   #main_articleSec {
     margin: 0 8%;
   }
+
   #article_cards {
     gap: 20px 0;
   }
@@ -1535,21 +1549,35 @@
     width: 50vh !important;
     height: 60vh !important;
   }
+
   #article_card_img {
     height: 30vh;
   }
+
+  .download_app_platforms {
+    flex-direction: row;
+    margin-left: -20px;
+  }
+
+  .download_app_platforms #playstore_logo img,
+  .download_app_platforms #appstore_logo img {
+    height: 66px;
+  }
 }
+
 @media (min-width: 320px) and (max-width: 574px) {
   #articles {
     height: auto;
     margin-bottom: 5vh;
   }
+
   #articles .col-lg-3 {
     width: 100%;
     display: flex;
     /* align-items: center; */
     justify-content: center;
   }
+
   .mobile_view_headline06 {
     display: flex;
     color: #000;
@@ -1559,24 +1587,43 @@
     position: relative;
     top: 30px;
   }
+
   #main_articleSec {
     margin: 0 8%;
   }
+
   #article_cards {
     gap: 20px 0;
     margin-top: 15%;
   }
+
   .article_headline {
     display: none;
   }
+
   #article_main_card {
     width: 50vh !important;
     height: 60vh !important;
   }
+
   #article_card_img {
     height: 30vh;
   }
+
+  .download_app_platforms {
+    flex-direction: column;
+    margin-left: -20px;
+    height: 9rem;
+  }
+
+  .download_app_platforms #playstore_logo img,
+  .download_app_platforms #appstore_logo img {
+    height: 60px;
+  }
+
+
 }
+
 
 /* ######################### FOOTER SECTION ################## */
 
@@ -1760,3 +1807,678 @@
     padding: 5px;
   }
 }
+
+
+
+
+
+
+/* Shaihid's resposives css  */
+
+
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  #breadcrumb-content {
+    margin: 0 8% 0 8%;
+  }
+
+  .download_app_platforms #playstore_logo img,
+  .download_app_platforms #appstore_logo img {
+    height: 66px;
+  }
+}
+
+@media only screen and (min-width: 425px) and (max-width: 767px) {
+  #breadcrumb-content {
+    margin: 0 5% 0 5%;
+    top: 150px;
+  }
+
+  .prop-name {
+    font-size: 25px;
+  }
+
+  .prop-Location {
+    font-size: 14px;
+  }
+
+  .right-side-content span {
+    font-size: 25px;
+  }
+
+  .right-side-content button {
+    padding: 5px;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 423px) {
+  #breadcrumb-content {
+    margin: 0 5% 0 5%;
+    top: 150px;
+  }
+
+  .prop-name {
+    font-size: 25px;
+  }
+
+  .prop-Location {
+    font-size: 14px;
+  }
+
+  .prop-sell-time {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .right-side-content span {
+    font-size: 25px;
+  }
+
+  .right-side-content button {
+    padding: 5px;
+  }
+}
+
+
+
+
+@media only screen and (min-width: 1400px) and (max-width: 1850px) {
+
+  #main-all-prop {
+    margin: 0 3%;
+  }
+
+  .all-footer-body {
+    gap: 16px;
+  }
+}
+
+
+@media only screen and (min-width: 1400px) and (max-width: 1650px) {
+
+  .img-overlay button {
+    left: 64%;
+  }
+
+  .uper-specification,
+  .down-specification {
+    gap: 4%;
+  }
+
+  #owner-deatils-card .card-body svg {
+    width: 3vw;
+    height: 8vh;
+  }
+
+  #owner-deatils-card #call-o,
+  #mail-o,
+  #chat-o {
+    padding: 8px;
+  }
+
+  .enquiry {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .enquiry-buttons {
+    padding: 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .enquiry-buttons svg {
+    width: 30px !important;
+  }
+
+  /* .properties details  ends */
+
+
+
+
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+  .img-overlay button {
+    left: 64%;
+  }
+
+  #all-content-deatil {
+    margin: 0 4%;
+  }
+
+  .uper-specification,
+  .down-specification {
+    gap: 2%;
+  }
+
+  #specification {
+    gap: 20px;
+  }
+
+  #owner-deatils-card .card-body svg {
+    width: 3vw;
+    height: 8vh;
+  }
+
+  #owner-deatils-card #call-o,
+  #mail-o,
+  #chat-o {
+    padding: 8px;
+  }
+
+  .enquiry {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .enquiry-buttons {
+    padding: 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .enquiry-buttons svg {
+    width: 30px !important;
+  }
+
+  #main-all-prop {
+    margin: 0 3%;
+  }
+
+  .all-footer-body {
+    gap: 16px;
+  }
+
+  #all-footer-content {
+    gap: 18px;
+  }
+
+  #all-prop-card-img {
+    width: 340px;
+  }
+
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .img-overlay button {
+    left: 54%;
+  }
+
+  .img-overlay button {
+    left: 64%;
+  }
+
+  #all-content-deatil {
+    margin: 0 4%;
+  }
+
+  .uper-specification,
+  .down-specification {
+    gap: 1%;
+  }
+
+  #specification {
+    gap: 10px;
+  }
+
+  #owner-deatils-card .card-body svg {
+    width: 4vw;
+    height: 8vh;
+  }
+
+  #owner-deatils-card #call-o,
+  #mail-o,
+  #chat-o {
+    padding: 8px;
+  }
+
+  .enquiry {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .enquiry-buttons {
+    padding: 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .enquiry-buttons svg {
+    width: 30px !important;
+  }
+
+
+  #card-owner-header {
+    gap: 14px;
+    padding: 12px;
+  }
+
+  .owner-contact {
+    gap: 24px;
+  }
+
+  .deatilss {
+    gap: 5px;
+    width: 10vw;
+  }
+
+  #main-all-prop {
+    margin: 0 3%;
+  }
+
+  #main-all-prop-card {
+    height: fit-content;
+  }
+
+  #all-prop-card-footer {
+    width: 32vw;
+  }
+
+  .all-footer-body {
+    gap: 16px;
+  }
+
+  #all-footer-content {
+    gap: 18px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #all-prop-card-img {
+    width: 340px;
+    height: 100%;
+  }
+
+  .all-footer-body {
+    gap: 16px;
+    flex-direction: column;
+  }
+
+  .all-prop_like,
+  .all-prop_price {
+    right: 60%;
+}
+.all-prop_price {
+  top: 90%;
+}
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  #prop-images .col-lg-3 {
+    display: flex;
+    width: 44vw;
+    flex-direction: row;
+  }
+
+  #prop-images {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #prop-main-image {
+    width: 100%;
+  }
+
+  .middle-img {
+    width: 84vw;
+    height: 42vh;
+  }
+
+  .img-overlay button {
+    left: 74%;
+  }
+
+  .right-imgs01 {
+    border-radius: 0 0px 0 12px;
+  }
+
+  .left-imgs02 {
+    width: 100%;
+    height: 100%;
+    border-radius: 0px 12px 0px 0px;
+  }
+
+  .about-propertie,
+  #features-amenities,
+  #propertie-address,
+  #prop-video,
+  #prop-360-view,
+  #owner-deatils-card {
+    width: 85vw;
+  }
+
+  #owner-deatils-card {
+    margin-top: 24px;
+  }
+
+  .uper-specification,
+  .down-specification {
+    gap: 1%;
+  }
+
+  #specification {
+    gap: 12px;
+  }
+
+  #main-all-prop {
+    margin: 0 3%;
+}
+
+  #main-all-prop-card {
+    height: 100%;
+    flex-direction: column;
+  }
+
+  #all-prop-card-img {
+    width: 100%;
+    height: 280px;
+  }
+
+  .all-prop_sell {
+    top: 34%;
+    bottom: 60%;
+  }
+
+  .all-prop_price {
+    top: 35%;
+    right: 10%;
+  }
+
+  .all-prop_like {
+    right: 8%;
+  }
+
+  #filter-title {
+    gap: 18%;
+    justify-content: flex-start;
+}
+
+.filter-button-box #props-tabs #prop-sellbutton ,
+.filter-button-box #props-tabs #prop-rentbutton {
+  font-size: 13px;
+}
+.apply-filter {
+  align-items: center;
+}
+.posted-duration {
+  flex-direction: row;
+  gap: 60px;
+}
+.all-prop-rightside .card {
+  border: none;
+  margin-top: 12px;
+}
+}
+
+@media only screen and (min-width: 425px) and (max-width: 767px) {
+  #prop-images .col-lg-3 {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  #prop-images {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #prop-images img {
+    border-radius: 12px;
+  }
+
+  #prop-main-image {
+    width: 100%;
+  }
+
+  .middle-img {
+    width: 80vw;
+    height: 30vh;
+  }
+
+  .img-overlay button {
+    left: 46%;
+  }
+
+  .right-imgs01 {
+    border-radius: 0 0px 0 12px;
+  }
+
+  .left-imgs02 {
+    width: 100%;
+    height: 100%;
+    border-radius: 0px 12px 0px 0px;
+  }
+
+  .about-propertie,
+  #features-amenities,
+  #propertie-address,
+  #prop-video,
+  #prop-360-view,
+  #owner-deatils-card {
+    width: 100%;
+  }
+
+  .owner-img {
+    width: 18vw;
+    height: 12vh;
+  }
+
+  #owner-deatils-card {
+    margin-top: 24px;
+  }
+
+  #features-amenities .card-body {
+    flex-direction: row;
+  }
+
+  .uper-specification,
+  .down-specification {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  #specification {
+    gap: 12px;
+  }
+
+  #main-all-prop {
+    margin: 0 3%;
+  }
+
+  #main-all-prop-card {
+    height: fit-content;
+  }
+
+  #main-all-prop-card {
+    flex-direction: column;
+}
+#all-prop-card-img {
+  width: 100%;
+}
+.filter-button-box #props-tabs #prop-sellbutton ,.filter-button-box #props-tabs #prop-rentbutton {
+  width: 22vw;
+}
+#all-prop-card-footer {
+  width: 100%;
+}
+#props-tabs {
+  width: 60vw;
+}
+.all-prop_like,.all-prop_price{
+  right: 8%;
+}
+.all-prop_price {
+  top: 30%;
+}
+.all-prop_sell {
+  bottom: 66%;
+}
+.all-footer-body {
+  flex-direction: column;
+}
+#all-footer-content {
+  flex-direction: row;
+  justify-content: space-between;
+}
+.posted-duration {
+  flex-direction: row;
+  gap: 60px;
+}
+.all-prop-rightside .card {
+  border: none;
+  margin-top: 12px;
+}
+}
+
+@media only screen and (min-width: 320px) and (max-width: 424px) {
+  #prop-images .col-lg-3 {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  #prop-images {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #prop-images img {
+    border-radius: 12px;
+  }
+
+  #prop-main-image {
+    width: 100%;
+  }
+
+  .middle-img {
+    width: 80vw;
+    height: 30vh;
+  }
+
+  .img-overlay button {
+    padding: 2px 14px;
+    left: 40%;
+  }
+
+  .right-imgs01 {
+    border-radius: 0 0px 0 12px;
+  }
+
+  .left-imgs02 {
+    width: 100%;
+    height: 100%;
+    border-radius: 0px 12px 0px 0px;
+  }
+
+  .about-propertie,
+  #features-amenities,
+  #propertie-address,
+  #prop-video,
+  #prop-360-view,
+  #owner-deatils-card {
+    width: 100%;
+  }
+
+  .owner-img {
+    width: 18vw;
+    height: 12vh;
+  }
+
+  #owner-deatils-card {
+    margin-top: 24px;
+  }
+
+  #features-amenities .card-body {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .uper-specification,
+  .down-specification {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  #specification {
+    gap: 12px;
+  }
+
+  #specs-deatils {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+
+  #main-all-prop {
+    margin: 0 3%;
+  }
+
+  #main-all-prop-card {
+    height: fit-content;
+  }
+
+  #main-all-prop-card {
+    flex-direction: column;
+}
+#all-prop-card-img {
+  width: 100%;
+  border-radius: 12px;
+}
+.filter-button-box #props-tabs #prop-sellbutton ,.filter-button-box #props-tabs #prop-rentbutton {
+  width: 35vw;
+}
+#all-prop-card-footer {
+  width: 100%;
+}
+#props-tabs {
+  width: 80vw;
+}
+.all-prop_like,.all-prop_price{
+  right: 8%;
+}
+.all-prop_price {
+  top: 26%;
+}
+.all-prop_sell {
+  bottom: 70%;
+}
+.all-footer-body {
+  flex-direction: column;
+}
+#all-footer-content {
+  flex-direction: row;
+  justify-content: space-between;
+}
+.all-prop-rightside .card #all-prop-headline-card {
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.posted-duration {
+  flex-direction: row;
+  gap: 60px;
+}
+.all-prop-rightside .card {
+  border: none;
+  margin-top: 12px;
+}
+}
+
+@media only screen and (min-width: 320px) and (max-width: 500px) {
+  .posted-duration {
+    flex-direction: column;
+    gap: 20px;
+}
+}
+
+
+/* .properties details  ends */

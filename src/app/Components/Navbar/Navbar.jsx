@@ -13,6 +13,7 @@ import { FiPlusCircle } from 'react-icons/fi';
 import Head from 'next/head';
 import LoginModal from '../LoginModal/LoginModal';
 import AreaConverter from '../AreaConverter/AreaConverter';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 const Nav = () => {
     // console.log(Logo)
@@ -59,9 +60,7 @@ const Nav = () => {
                             <a className="navbar-brand" to="/">
                                 <img src={Logo.src} alt="Logo" className="logo" />
                             </a>
-                            <button className="navbar-toggler" type="button" onClick={handleShow}>
-                                <span className="navbar-toggler-icon"></span>
-                            </button>
+                            <span onClick={handleShow} id='hamburg'><GiHamburgerMenu size={36} /></span>
                         </div>
 
                         <div className="center-side">

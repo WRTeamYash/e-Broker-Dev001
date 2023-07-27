@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ModalFooter } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { RiCloseCircleLine } from 'react-icons/ri';
 
@@ -53,7 +52,7 @@ const AreaConverter = ({ isOpen, onClose }) => {
 
 
     return (
-        <div id='login-modal'>
+        <div id='areaConvert-modal'>
 
             <Modal show={isOpen} onHide={onClose}
                 size="md"
@@ -129,10 +128,10 @@ const AreaConverter = ({ isOpen, onClose }) => {
                         </div>
                     )}
                 </Modal.Body>
-                <ModalFooter className='area-footer'>
+                <Modal.Footer className='area-footer'>
                     <button className='convert-button' onClick={convertValue}>Convert</button>
 
-                </ModalFooter>
+                </Modal.Footer>
             </Modal >
         </div>
     );

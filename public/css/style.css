@@ -18,7 +18,7 @@
   position: fixed !important;
   top: 0 !important;
   z-index: 99 !important;
-  background-color: #fff;
+  background-color: var(--primary-background) !important;
   width: 100%;
   height: 12vh;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
@@ -40,7 +40,7 @@
   }
 }
 .logo {
-  /* height: 80px; */
+  height: 76px;
   filter: brightness(0) invert(1);
   max-width: 160px;
   padding: 18px 1px;
@@ -135,21 +135,21 @@
 }
 
 /*================= LOGIN MODAL CSS ============= */
-.modal-header {
+.otp-modal, .login-modal .modal-header {
   padding: 20px !important;
 }
-.modal-title {
+.login-modal.modal-title {
   text-transform: capitalize;
   font-weight: 600 !important;
 }
-.close-icon {
+.login-modal .close-icon {
   color: #fff;
   background: #000;
   border-radius: 50%;
   padding: 5px;
   cursor: pointer;
 }
-.modal-body {
+.login-modal, .otp-modal .modal-body {
   padding: 30px !important;
 }
 .modal-body-heading {
@@ -516,9 +516,9 @@ outline: none !important;
   border-radius: none;
 }
 #searchcard {
-  top: 851px;
-  left: 419px;
-  width: 100%;
+display: flex;
+justify-content: space-between;
+padding: 0 20px;
   height: 100px;
   /* UI Properties */
   background: var(--card-color-ffffff) 0% 0% no-repeat padding-box;
@@ -529,16 +529,11 @@ outline: none !important;
   align-items: center;
 }
 #searchbuttoon {
-  width: 100%;
-  position: relative;
-  top: 38.84px;
-  left: 32.84px;
+  width: 60%;
   display: flex;
   flex-direction: row;
   gap: 10px;
   height: 20px;
-  /* UI Properties */
-  /* background: transparent url('img/ic_search.png') 0% 0% no-repeat padding-box; */
   opacity: 1;
 }
 .searchinput {
@@ -548,11 +543,15 @@ outline: none !important;
 .searchinput:focus {
   outline: none;
 }
+#leftside-buttons{
+  display: flex;
+  gap: 20px;
+}
 .filter {
-  position: relative;
+  /* position: relative; */
   border: none;
   /* top: 20.84px; */
-  left: 74%;
+  /* left: 74%; */
   width: 131px;
   height: 54px;
   /* UI Properties */
@@ -562,11 +561,11 @@ outline: none !important;
   opacity: 1;
 }
 .find {
-  position: relative;
+  /* position: relative; */
   border: none;
   color: #ffffff;
   /* top: 20.84px; */
-  left: 75%;
+  /* left: 75%; */
   width: 164px;
   height: 54px;
   /* UI Properties */

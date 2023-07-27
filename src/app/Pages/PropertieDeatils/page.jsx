@@ -40,7 +40,6 @@ import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import Image from 'next/image'
 import { Fascinate } from 'next/font/google'
 import { FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
-import PanoramaViewer from '@/app/Components/Panorama/Panorama';
 import Breadcrumb from '@/app/Components/Breadcrumb/Breadcrumb';
 const PropertieDeatils = () => {
 
@@ -76,6 +75,7 @@ const PropertieDeatils = () => {
 
 
     }
+   
     useEffect(() => {
         pannellum.viewer('panorama', {
             "type": "equirectangular",
@@ -103,18 +103,18 @@ const PropertieDeatils = () => {
                     <div id='all-content-deatil'>
                         <div className='row' id='prop-images'>
                             <div className='col-lg-3 col-md-4 col-sm-12' id='prop-left-images'>
-                                <Image src={PropImg01} className='left-imgs01' />
-                                <Image src={PropImg02} className='left-imgs02' />
+                                <img src={PropImg01.src} className='left-imgs01' />
+                                <img src={PropImg02.src} className='left-imgs02' />
                             </div>
                             <div className='col-lg-6 col-md-4 col-sm-12 text-center' id='prop-main-image'>
-                                <Image src={PropImg03} className='middle-img' />
+                                <img src={PropImg03.src} className='middle-img' />
                                 <div className="img-overlay">
                                     <button> See all Photos</button>
                                 </div>
                             </div>
                             <div className='col-lg-3 col-md-4 col-sm-12' id='prop-right-images'>
-                                <Image src={PropImg04} className='right-imgs01' />
-                                <Image src={PropImg05} className='right-imgs02' />
+                                <img src={PropImg04.src} className='right-imgs01' />
+                                <img src={PropImg05.src} className='right-imgs02' />
                             </div>
                         </div>
                         <div className='row' id='prop-all-deatils-cards'>

@@ -6,11 +6,10 @@ import OtpInput from 'react-otp-input';
 import { parsePhoneNumber } from 'react-phone-number-input';
 //firebase
 import { authentication } from '../../FirebaseConfig';
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-
-
+import { axios } from 'axios';
 
 
 
@@ -24,29 +23,35 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         if (!window.recaptchaVerifier) {
             console.log('recaptcha');
             window.recaptchaVerifier = new RecaptchaVerifier(authentication, 'recaptcha-container', {
-                'size': 'invisible',
-                'callback': (response) => {
-                    console.log(response);
-                    // reCAPTCHA solved, allow signInWithPhoneNumber.
-                }
+                'size': 'invisible'
 
             });
         }
-        console.log(window.recaptchaVerifier)
+        // console.log(window.recaptchaVerifier)
 
     }
+    useEffect(() => {
+        generateRecaptcha();
+
+        return () => {
+            if (window.recaptchaVerifier) {
+                window.recaptchaVerifier.clear();
+            }
+        };
+    }, [])
 
     const generateOTP = (phonenum) => {
         console.log(phonenum)
         //OTP Generation
-        generateRecaptcha();
+        // generateRecaptcha();
         let appVerifier = window.recaptchaVerifier;
         console.log(appVerifier);
-        const formatPh = '+' + phonenum;
+        const formatPh = phonenum;
 
         signInWithPhoneNumber(authentication, formatPh, appVerifier)
             .then(confirmationResult => {
                 window.confirmationResult = confirmationResult;
+                toast.success("OTP SENT SUCCESFULLY")
             }).catch((error) => {
 
                 console.log(error)
@@ -66,16 +71,45 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         let confirmationResult = window.confirmationResult;
         confirmationResult.confirm(otp).then(async (result) => {
             // User verified successfully.
-            // const countrycode = parsePhoneNumber(phonenum).countryCallingCode;
-            // const num = parsePhoneNumber(phonenum).nationalNumber;
 
             // Show a success toast notification
-            toast.success('OTP confirmed successfully!');
-            onClose()
+            console.log(result)
+            console.log(result.user.phoneNumber)
+            console.log(result.user.uid)
+
+            const axios = require('axios');
+            const FormData = require('form-data');
+            let data = new FormData();
+            data.append('mobile', result.user.phoneNumber);
+            data.append('type', '1');
+            data.append('firebase_id', result.user.uid);
+            data.append('logintype', "phone");
+
+            let config = {
+                method: 'post',
+                maxBodyLength: Infinity,
+                url: 'https://testbrokerhub.wrteam.in/api/user_signup',
+                //   headers: { 
+                //     ...data .getHeaders()
+                //   },
+                data: data
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    console.log(JSON.stringify(response.data));
+                    toast.success('Login confirmed successfully!');
+                    onClose()
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                    toast.error(error);
+                });
+
         }).catch((error) => {
             // Show an error toast notification
-            toast.error('Error confirming OTP. Please try again!'// 3 seconds
-            );
+            console.log(error)
         });
 
     }
@@ -136,12 +170,13 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
     };
 
     return (
-        <div id='otp-modal'>
-            <Toaster toastOptions={{ duration: 3000 }} />
+        <>
+
             <Modal show={isOpen} onHide={onClose}
                 size="md"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
+                className='otp-modal'
             >
                 <Modal.Header>
                     <Modal.Title>Login</Modal.Title>
@@ -202,7 +237,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
 
 
             <div id="recaptcha-container"></div>
-        </div>
+        </>
     );
 };
 

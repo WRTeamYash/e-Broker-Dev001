@@ -63,7 +63,7 @@ const Articles = () => {
                                             </Card.Body>
                                             <Card.Footer id='all-articles_card_footer'>
                                                 <div id='admin_pic'>
-                                                    <Image src={adminlogo} alt="" className='admin' />
+                                                    <img src={adminlogo.src} alt="" className='admin' />
                                                 </div>
                                                 <div className='all-articles_footer_text'>
                                                     <span className='byadmin'> By Admin
@@ -95,7 +95,7 @@ const Articles = () => {
                                             </Card.Body>
                                             <Card.Footer id='all-articles_card_footer'>
                                                 <div id='admin_pic'>
-                                                    <Image src={adminlogo} alt="" className='admin' />
+                                                    <img src={adminlogo.src} alt="" className='admin' />
                                                 </div>
                                                 <div className='all-articles_footer_text'>
                                                     <span className='byadmin'> By Admin
@@ -127,7 +127,7 @@ const Articles = () => {
                                             </Card.Body>
                                             <Card.Footer id='all-articles_card_footer'>
                                                 <div id='admin_pic'>
-                                                    <Image src={adminlogo} alt="" className='admin' />
+                                                    <img src={adminlogo.src} alt="" className='admin' />
                                                 </div>
                                                 <div className='all-articles_footer_text'>
                                                     <span className='byadmin'> By Admin
@@ -159,7 +159,7 @@ const Articles = () => {
                                             </Card.Body>
                                             <Card.Footer id='all-articles_card_footer'>
                                                 <div id='admin_pic'>
-                                                    <Image src={adminlogo} alt="" className='admin' />
+                                                    <img src={adminlogo.src} alt="" className='admin' />
                                                 </div>
                                                 <div className='all-articles_footer_text'>
                                                     <span className='byadmin'> By Admin
@@ -191,7 +191,7 @@ const Articles = () => {
                                             </Card.Body>
                                             <Card.Footer id='all-articles_card_footer'>
                                                 <div id='admin_pic'>
-                                                    <Image src={adminlogo} alt="" className='admin' />
+                                                    <img src={adminlogo.src} alt="" className='admin' />
                                                 </div>
                                                 <div className='all-articles_footer_text'>
                                                     <span className='byadmin'> By Admin
@@ -223,7 +223,7 @@ const Articles = () => {
                                             </Card.Body>
                                             <Card.Footer id='all-articles_card_footer'>
                                                 <div id='admin_pic'>
-                                                    <Image src={adminlogo} alt="" className='admin' />
+                                                    <img src={adminlogo.src} alt="" className='admin' />
                                                 </div>
                                                 <div className='all-articles_footer_text'>
                                                     <span className='byadmin'> By Admin

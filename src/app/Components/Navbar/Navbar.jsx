@@ -57,7 +57,7 @@ const Nav = () => {
                     <div className="container-fluid">
                         <div className="left-side">
                             <a className="navbar-brand" to="/">
-                                <Image src={Logo} alt="Logo" className="logo" />
+                                <img src={Logo.src} alt="Logo" className="logo" />
                             </a>
                             <button className="navbar-toggler" type="button" onClick={handleShow}>
                                 <span className="navbar-toggler-icon"></span>

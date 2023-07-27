@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -44,6 +44,7 @@ import 'swiper/css/pagination';
 
 // import required modules
 import { FreeMode, Pagination } from 'swiper/modules';
+import FilterModal from '../Filter/FilterModal';
 
 
 
@@ -60,6 +61,19 @@ const Home = () => {
     padding: 8px;
     border: 2px solid #fff;"></span>`;
     };
+
+    const [showFilterModal, setShowFilterModal] = useState(false);
+    const handleOpenFilterModal = () => {
+        setShowFilterModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowFilterModal(false);
+    };
+    const handleFilter = () => {
+        console.log("test")
+        handleOpenFilterModal()
+    }
     return (
         <>
             <section id='mainheroImage'>
@@ -212,12 +226,13 @@ const Home = () => {
                             <input className='searchinput' placeholder='Search your propery' />
                         </div>
                         <div id='leftside-buttons'>
-                            <button className='filter'> <BiFilter size={25} /> Filter</button>
+                            <button className='filter'> <BiFilter size={25} onClick={handleFilter} /> Filter</button>
                             <button className='find'>Search</button>
 
                         </div>
                     </div>
                 </div>
+                <FilterModal isOpen={showFilterModal} onClose={handleCloseModal} />
             </section>
 
 
@@ -4896,7 +4911,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -4924,7 +4939,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -4952,7 +4967,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -4980,7 +4995,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5008,7 +5023,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5036,7 +5051,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5064,7 +5079,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5092,7 +5107,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5120,7 +5135,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5153,7 +5168,7 @@ const Home = () => {
                             pagination={{
                                 clickable: true,
                                 renderBullet: renderBullet
-                                
+
                             }}
                             modules={[FreeMode, Pagination]}
                             // // className="mySwiper"
@@ -5187,7 +5202,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5215,7 +5230,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5243,7 +5258,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5271,7 +5286,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5299,7 +5314,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5327,7 +5342,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5355,7 +5370,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5383,7 +5398,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5411,7 +5426,7 @@ const Home = () => {
                                         <div className='agent_card_content'>
                                             <div>
 
-                                                <Image src={agentimg.src} className='agent-profile' width={100} height={100} />
+                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
                                             </div>
                                             <div className='mt-2'>
                                                 <span className='agent-name'>
@@ -5498,7 +5513,7 @@ const Home = () => {
                                 </Card.Body>
                                 <Card.Footer id='article_card_footer'>
                                     <div id='admin_pic'>
-                                        <Image src={adminlogo} alt="" className='admin' />
+                                        <img src={adminlogo.src} alt="" className='admin' />
                                     </div>
                                     <div className='article_footer_text'>
                                         <span className='byadmin'> By Admin
@@ -5530,7 +5545,7 @@ const Home = () => {
                                 </Card.Body>
                                 <Card.Footer id='article_card_footer'>
                                     <div id='admin_pic'>
-                                        <Image src={adminlogo} alt="" className='admin' />
+                                        <img src={adminlogo.src} alt="" className='admin' />
                                     </div>
                                     <div className='article_footer_text'>
                                         <span className='byadmin'> By Admin
@@ -5562,7 +5577,7 @@ const Home = () => {
                                 </Card.Body>
                                 <Card.Footer id='article_card_footer'>
                                     <div id='admin_pic'>
-                                        <Image src={adminlogo} alt="" className='admin' />
+                                        <img src={adminlogo.src} alt="" className='admin' />
                                     </div>
                                     <div className='article_footer_text'>
                                         <span className='byadmin'> By Admin
@@ -5594,7 +5609,7 @@ const Home = () => {
                                 </Card.Body>
                                 <Card.Footer id='article_card_footer'>
                                     <div id='admin_pic'>
-                                        <Image src={adminlogo} alt="" className='admin' />
+                                        <img src={adminlogo.src} alt="" className='admin' />
                                     </div>
                                     <div className='article_footer_text'>
                                         <span className='byadmin'> By Admin

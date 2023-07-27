@@ -6,6 +6,9 @@ import "../../public/css/style.css"
 import "../../public/css/responsiveStyle.css"
 import Header from '@/app/Components/Header/Header'
 import Footer from '@/app/Components/Footer/Footer'
+import { Provider } from 'react-redux'
+import { store } from '../redux/store'
+import Head from 'next/head'
 const manrope = Manrope({ subsets: ['latin'] })
 
 const metadata = {
@@ -17,23 +20,24 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-      <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <title>eBroker</title>
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
       </head>
       <body className={manrope.className}>
-        <Header />
-        {children}
-        <Footer />
+        <Provider store={store}>
 
+          <Header />
+          {children}
+          <Footer />
 
+        </Provider>
         <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
         <script>
           AOS.init();
         </script>
-        <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.2/dist/aframe.min.js"></script>
-        {/* <!-- Load Krpano viewer JavaScript --> */}
-        <script src="./Components/Panorama/js/krpano"></script>
+
       </body>
 
 

@@ -9,7 +9,7 @@ import Image from 'next/image';
 import HeroSlider, {
     Slide, ButtonsNav
 } from "hero-slider";
-import Wrapper from "@/app/Components/Wrapper/Wrapper"
+import Wrapper from "@/Components/Wrapper/Wrapper"
 import SlideImage01 from "@/assets/Images/Most_View_1.jpg"
 import SlideImage02 from "@/assets/Images/Most_View_2.jpg"
 import SlideImage03 from "@/assets/Images/Most_View_3.jpg"
@@ -52,7 +52,7 @@ import FilterModal from '../Filter/FilterModal';
 
 
 
-const Home = () => {
+const HomePage = () => {
     // console.log(SlideImage01.src)
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;
@@ -236,7 +236,6 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                {console.log(showFilterModal)}
                 <FilterModal isOpen={showFilterModal} onClose={handleCloseModal} />
             </section>
 
@@ -5632,4 +5631,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default HomePage

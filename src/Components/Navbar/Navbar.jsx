@@ -44,10 +44,10 @@ const Nav = () => {
     const handleCloseModal = () => {
         setShowModal(false);
     };
-    const handleOpenAcModal = () =>{ 
+    const handleOpenAcModal = () => {
         setAreaConverterModal(true);
     };
-    const handleCloseAcModal = () =>{ 
+    const handleCloseAcModal = () => {
         setAreaConverterModal(false);
     };
 
@@ -75,10 +75,10 @@ const Nav = () => {
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item> <Link href="/Pages/AllProperties">All Properties</Link></Dropdown.Item>
+                                            <Dropdown.Item> <Link href="/all-properties">All Properties</Link></Dropdown.Item>
                                             <Dropdown.Item href="">Featured Properties</Dropdown.Item>
                                             <Dropdown.Item href="">Most Viewed Properties</Dropdown.Item>
-                                            <Dropdown.Item href="">Nearby Cities Properties</Dropdown.Item>
+                                            <Dropdown.Item> <Link href="/properties-nearby-city">Nearby Cities Properties</Link></Dropdown.Item>
                                             <Dropdown.Item href="">Most Favorites Properties</Dropdown.Item>
                                             <Dropdown.Item href="">List by Agents Properties</Dropdown.Item>
                                         </Dropdown.Menu>
@@ -90,15 +90,17 @@ const Nav = () => {
 
                                         <Dropdown.Menu>
                                             <Dropdown.Item href="">Subscription Plan</Dropdown.Item>
-                                            <Dropdown.Item> <Link href="/Pages/Articles">Articles</Link></Dropdown.Item>
+                                            <Dropdown.Item> <Link href="/articles">Articles</Link></Dropdown.Item>
                                             <Dropdown.Item onClick={handleOpenAcModal}>Area Converter</Dropdown.Item>
                                             <Dropdown.Item href="">Terms & Condition</Dropdown.Item>
                                             <Dropdown.Item href="">Privacy Policy</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                    <li className="nav-item nav-link">
-                                        Contact Us
-                                    </li>
+                                    <Link href="/contact-us">
+                                        <li className="nav-item nav-link">
+                                            Contact Us
+                                        </li>
+                                    </Link>
                                     <li className="nav-item">
                                         <a className="nav-link " to="/">About Us</a>
                                     </li>
@@ -230,7 +232,7 @@ const Nav = () => {
             </div>
             <LoginModal isOpen={showModal} onClose={handleCloseModal} />
 
-            <AreaConverter isOpen={areaconverterModal} onClose={handleCloseAcModal}/>
+            <AreaConverter isOpen={areaconverterModal} onClose={handleCloseAcModal} />
         </>
     );
 };

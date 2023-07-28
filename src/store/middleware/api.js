@@ -1,6 +1,5 @@
-import webData from "@Wrteam/utils/config";
 import axios from "axios";
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import * as actions from "../actions/apiActions";
 
 
@@ -20,8 +19,9 @@ import * as actions from "../actions/apiActions";
 const api = ({ dispatch, getState }) => next => async action => {
     // Check if Dispatched action is apiCallBegan then proceed with middleware code
     // If not then call the next and ignore this middleware
+    console.log("hello")
     if (action.type !== actions.apiCallBegan.type) return next(action);
-    let {url, method, data, params, onStart, onSuccess, onError, onStartDispatch, onErrorDispatch, onSuccessDispatch, headers, displayToast, authorizationHeader} = action.payload;
+    let { url, method, data, params, onStart, onSuccess, onError, onStartDispatch, onErrorDispatch, onSuccessDispatch, headers, displayToast, authorizationHeader } = action.payload;
     if (typeof displayToast === "undefined") displayToast = true;
 
     // Set Token header if it is required
@@ -36,14 +36,15 @@ const api = ({ dispatch, getState }) => next => async action => {
 
     // On start is used to do actions which should happen before the API call
     // Such as set loading flag to true
-    if (onStartDispatch) dispatch({type: onStartDispatch});
+    if (onStartDispatch) dispatch({ type: onStartDispatch });
     if (onStart) onStart();
     next(action);
 
     try {
         // API Call
+        console.log()
         const response = await axios.request({
-            baseURL: webData.API_URL,
+            baseURL: process.env.NEXT_PUBLIC_API_URL,
             url,
             method,
             data,
@@ -52,7 +53,7 @@ const api = ({ dispatch, getState }) => next => async action => {
             onError,
             headers,
         });
-
+        console.log(response)
         if (response.data.error) {
             // console.log("reserr",response)
             // Dispatch Default onError Event
@@ -62,7 +63,7 @@ const api = ({ dispatch, getState }) => next => async action => {
             // if (onError) dispatch({type: onError, payload: response.data.message});
 
             if (onError) onError(response.data.message);
-            if (onErrorDispatch) dispatch({type: onErrorDispatch, payload: response.data.message});
+            if (onErrorDispatch) dispatch({ type: onErrorDispatch, payload: response.data.message });
 
 
             // Toast Message
@@ -82,8 +83,8 @@ const api = ({ dispatch, getState }) => next => async action => {
             if (onSuccessDispatch) {
                 if (response.data.data) {
                     dispatch({ type: onSuccessDispatch, payload: response.data })
-                } else if(data) {
-                    dispatch({ type: onSuccessDispatch, payload: data})
+                } else if (data) {
+                    dispatch({ type: onSuccessDispatch, payload: data })
                 } else {
                     dispatch({ type: onSuccessDispatch, payload: params })
                 }
@@ -107,7 +108,7 @@ const api = ({ dispatch, getState }) => next => async action => {
 
         // Dispatch custom onError Event
         if (onError) onError(error.message);
-        if (onErrorDispatch) dispatch({type: onErrorDispatch, payload: error.message});
+        if (onErrorDispatch) dispatch({ type: onErrorDispatch, payload: error.message });
 
         if (displayToast) {
             toast.error(error.message);

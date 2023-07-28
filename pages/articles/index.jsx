@@ -10,7 +10,7 @@ import { RiGridFill } from 'react-icons/ri'
 import { IoMdArrowDropright } from "react-icons/io"
 import Card from 'react-bootstrap/Card';
 import Image from 'next/image'
-import Breadcrumb from '@/app/Components/Breadcrumb/Breadcrumb'
+import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 
 
 

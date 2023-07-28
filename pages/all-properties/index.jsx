@@ -10,7 +10,7 @@ import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import { FiDroplet, FiCloudDrizzle } from 'react-icons/fi'
 import { BiHomeSmile, BiCctv } from 'react-icons/bi'
 import Link from 'next/link'
-import Breadcrumb from '@/app/Components/Breadcrumb/Breadcrumb'
+import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 
 const AllProperties = () => {
   return (
@@ -126,7 +126,7 @@ const AllProperties = () => {
                 </div>
               </div>
               <div className='all-prop-cards'>
-                <Link href="/Pages/PropertieDeatils">
+                <Link href="/properties-deatils">
                   <Card id='main-all-prop-card'>
                     <div>
                       <Card.Img variant="top" id='all-prop-card-img' src={cardImg.src} />

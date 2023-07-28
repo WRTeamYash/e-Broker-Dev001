@@ -40,7 +40,7 @@ import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import Image from 'next/image'
 import { Fascinate } from 'next/font/google'
 import { FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
-import Breadcrumb from '@/app/Components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
 
 const PropertieDeatils = () => {
 

@@ -5,7 +5,7 @@ import { RiCloseCircleLine } from 'react-icons/ri';
 import OtpInput from 'react-otp-input';
 import { parsePhoneNumber } from 'react-phone-number-input';
 //firebase
-import { authentication } from '../../FirebaseConfig';
+import { authentication } from '../../utils/FirebaseConfig';
 import { toast } from 'react-hot-toast';
 
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
@@ -167,6 +167,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         // Reset the resendTimer to 60 seconds
         setResendTimer(60);
         generateOTP(phonenum)
+        toast.success("OTP Resend Successfully")
     };
 
     return (

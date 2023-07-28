@@ -23,8 +23,8 @@
   height: 12vh;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-    -webkit-animation: headerSlideDown 0.95s ease forwards;
-    animation: headerSlideDown 0.95s ease forwards;
+  -webkit-animation: headerSlideDown 0.95s ease forwards;
+  animation: headerSlideDown 0.95s ease forwards;
 }
 .is-sticky * {
   color: #000 !important;
@@ -134,15 +134,19 @@
   background-color: #ffffff;
 }
 
-#hamburg{
+#hamburg {
   display: none;
 }
 
 /*================= LOGIN MODAL CSS ============= */
-.otp-modal, .login-modal, .modal-header {
+.otp-modal,
+.login-modal,
+.modal-header {
   padding: 20px !important;
 }
-.login-modal, .otp-modal, .modal-title {
+.login-modal,
+.otp-modal,
+.modal-title {
   text-transform: capitalize;
   font-weight: 600 !important;
 }
@@ -153,7 +157,8 @@
   padding: 5px;
   cursor: pointer;
 }
-.login-modal, .otp-modal .modal-body {
+.login-modal,
+.otp-modal .modal-body {
   padding: 30px !important;
 }
 .modal-body-heading {
@@ -161,7 +166,7 @@
 }
 .modal-body-heading span {
   text-align: left;
-  font: normal normal medium 14px/19px Manrope;
+  font-weight: 300;
   letter-spacing: 0px;
   color: #282f39c2;
 }
@@ -170,7 +175,7 @@
 }
 .mobile-number label {
   color: #282f39;
-  font: normal normal medium 14px/19px Manrope;
+  font-weight: 500;
 }
 
 .react-tel-input {
@@ -221,7 +226,7 @@
 .modal-footer a {
   color: var(--primary-color) !important;
 }
-.custom-phone-input{
+.custom-phone-input {
   margin-top: 30px;
   border: 0.5px solid #cdcdcd;
   padding: 0 10px;
@@ -230,13 +235,13 @@
   background: var(--primary-background);
   border-radius: 8px;
 }
-.PhoneInputInput{
+.PhoneInputInput {
   border: none;
   height: 4vh;
   background-color: var(--primary-background);
 }
-.PhoneInputInput:focus-visible{
-outline: none !important;
+.PhoneInputInput:focus-visible {
+  outline: none !important;
 }
 .userInput {
   display: flex;
@@ -255,7 +260,7 @@ outline: none !important;
 .otp-field:focus-visible {
   outline: none;
 }
-.resend-code  {
+.resend-code {
   margin-top: 10px;
   font-size: small;
 }
@@ -265,7 +270,7 @@ outline: none !important;
   justify-content: center;
   align-items: center;
 }
-#re-text{
+#re-text {
   display: flex;
   justify-content: center;
   color: var(--primary-color);
@@ -276,7 +281,7 @@ outline: none !important;
   cursor: pointer;
 }
 
-.resend-code .resend-time{
+.resend-code .resend-time {
   color: var(--primary-color);
   font-weight: 600;
 }
@@ -376,7 +381,7 @@ outline: none !important;
   padding: 5px;
   cursor: pointer;
 }
-.filter-modal .modal-body form{
+.filter-modal .modal-body form {
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -394,8 +399,8 @@ outline: none !important;
   border: none;
   border-radius: 12px;
 }
-.filter-button-box-modal .modal-btn-grup{
-width: 100%;
+.filter-button-box-modal .modal-btn-grup {
+  width: 100%;
 }
 .filter-button-box-modal #props-tabs-modal #prop-sellbutton {
   width: 19vw;
@@ -415,15 +420,16 @@ width: 100%;
   cursor: pointer;
   padding: 10px 20px;
 }
-.first-grup{
+.first-grup {
   display: flex !important;
   justify-content: space-between;
   gap: 20px !important;
 }
-.prop-type-modal, .prop-location-modal{
+.prop-type-modal,
+.prop-location-modal {
   width: 100%;
 }
-.posted-duration-modal{
+.posted-duration-modal {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
@@ -453,7 +459,7 @@ width: 100%;
   outline: 1px solid !important;
   box-shadow: none;
 }
-.posted-since .posted-duration-modal .form-check span{
+.posted-since .posted-duration-modal .form-check span {
   color: #282f39c2;
   font-size: 15px;
   font-weight: 400;
@@ -491,12 +497,12 @@ width: 100%;
   gap: 10px;
   cursor: pointer;
 }
-#clear-filter-button{
+#clear-filter-button {
   color: #000;
   border: none;
-background-color: transparent !important;
+  background-color: transparent !important;
 }
-.price-input:focus-visible{
+.price-input:focus-visible {
   outline: none !important;
 }
 /* ================== HOME PAGE CSS  =========== */
@@ -658,9 +664,9 @@ background-color: transparent !important;
   border-radius: none;
 }
 #searchcard {
-display: flex;
-justify-content: space-between;
-padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
   height: 100px;
   /* UI Properties */
   background: var(--card-color-ffffff) 0% 0% no-repeat padding-box;
@@ -685,7 +691,7 @@ padding: 0 20px;
 .searchinput:focus {
   outline: none;
 }
-#leftside-buttons{
+#leftside-buttons {
   display: flex;
   gap: 20px;
 }
@@ -791,7 +797,7 @@ button.learn-more .circle .icon.arrow {
 button.learn-more .circle .icon.arrow::before {
   position: absolute;
   content: "";
-  top: -0.22rem;
+  top: -4px;
   right: 0.0625rem;
   width: 0.625rem;
   height: 0.625rem;
@@ -1006,7 +1012,8 @@ button.learn-more .button-text {
   position: absolute;
   top: 200px;
   right: 10px;
-  font: normal normal bold 16px/22px Manrope;
+  font-weight: 400;
+
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
@@ -1029,7 +1036,7 @@ button.learn-more .button-text {
   font-weight: 400;
 }
 div#feature_card_middletext p {
-  font: normal normal normal 14px/19px Manrope;
+  font-weight: 300;
   letter-spacing: 0px;
   color: #282f39c2;
   opacity: 1;
@@ -1227,13 +1234,9 @@ div#feature_card_footer.card-footer {
 }
 #apart_name {
   margin-left: 10px;
-  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold)
-    var(--unnamed-font-size-16) / var(--unnamed-line-spacing-22)
-    var(--unnamed-font-family-manrope);
-  letter-spacing: var(--unnamed-character-spacing-0);
   color: var(--text-color-282f39);
   text-align: left;
-  font: normal normal bold 16px/22px Manrope;
+  font-weight: 500;
   letter-spacing: 0px;
   color: #282f39;
   opacity: 1;
@@ -1244,11 +1247,8 @@ div#feature_card_footer.card-footer {
   gap: 4rem;
 }
 #propertie_count {
-  font: var(--unnamed-font-style-normal) normal normal 14px/19px
-    var(--unnamed-font-family-manrope);
-  letter-spacing: var(--unnamed-character-spacing-0);
   text-align: left;
-  font: normal normal normal 14px/19px Manrope;
+  font-weight: 300;
   letter-spacing: 0px;
   color: #282f39c2;
   opacity: 1;
@@ -1413,7 +1413,7 @@ div#feature_card_footer.card-footer {
   position: absolute;
   top: 85%;
   right: 56%;
-  font: normal normal bold 16px/22px Manrope;
+  font-weight: 500;
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
@@ -1422,7 +1422,7 @@ div#feature_card_footer.card-footer {
   position: absolute;
   top: 85%;
   right: 56%;
-  font: normal normal bold 16px/22px Manrope;
+  font-weight: 400;
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
@@ -1452,11 +1452,7 @@ div#feature_card_footer.card-footer {
   color: #282f39;
 }
 div#prop_card_middletext p {
-  font: var(--unnamed-font-style-normal) normal normal 14px/19px
-    var(--unnamed-font-family-manrope);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  text-align: left;
-  font: normal normal normal 14px/19px Manrope;
+  font-weight: 400;
   letter-spacing: 0px;
   color: #282f39c2;
   opacity: 1;
@@ -1512,7 +1508,9 @@ div#prop_card_footer.card-footer {
   height: 100%;
   border: none;
 }
-
+Link {
+  text-decoration: none;
+}
 #cityImgTop,
 #group_card {
   margin-bottom: 20px;
@@ -1752,7 +1750,7 @@ h3 {
   font-weight: bold;
 }
 div#article_card_headline p {
-  font: normal normal normal 14px/19px Manrope;
+  font-weight: 300;
   letter-spacing: 0px;
   color: #282f39c2;
   opacity: 1;
@@ -1794,7 +1792,7 @@ div#article_card_headline p {
   font-family: var(--primary-font);
 }
 div#article_card_footer .article_footer_text p {
-  font: normal normal normal 14px/19px Manrope;
+  font-weight: 300;
   letter-spacing: 0px;
   color: #282f39c2;
   opacity: 1;
@@ -2208,7 +2206,7 @@ option:hover {
   position: absolute;
   top: 85%;
   right: 68%;
-  font: normal normal bold 16px/22px Manrope;
+  font-weight: 500;
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
@@ -2456,7 +2454,7 @@ option:hover {
   /* gap: 10px; */
 }
 #specs-deatils {
-  font-weight: 600;
+  font-weight: 400;
 }
 #spacs-count {
   color: #282f39c2;
@@ -2468,7 +2466,7 @@ option:hover {
 }
 .adrs {
   font-size: medium;
-  font-weight: 600;
+  font-weight: 400;
   color: #282f39;
 }
 .adrs-value {
@@ -2577,13 +2575,13 @@ option:hover {
 }
 .deatilss .o-d {
   text-align: left;
-  font: normal normal 600 14px/19px Manrope;
+  font-weight: 400;
   letter-spacing: 0px;
   color: #282f39;
 }
 .deatilss .value {
   text-align: left;
-  font: normal normal normal 14px/19px Manrope;
+  font-weight: 300;
   letter-spacing: 0px;
   color: #282f39c2;
 }
@@ -2676,7 +2674,7 @@ option:hover {
   position: absolute;
   top: 150px;
   right: 10px;
-  font: normal normal bold 16px/22px Manrope;
+  font-weight: 500;
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
@@ -2810,4 +2808,73 @@ div#all-articles_card_footer .allarticles_footer_text p {
   padding: 5px 15px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+/* ==========all-nearby-citys =================== */
+
+#all-nearby-citys {
+  margin-top: -50px;
+}
+.all-city-images {
+  margin: 0 8%;
+}
+#nearby-city-img {
+  border: none;
+}
+#city-img {
+  aspect-ratio: 1/1;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+}
+
+/* =============contact us =================== */
+
+#contact-us {
+  margin-top: -90px;
+  background-color: var(--primary-background);
+}
+.main-contactus {
+  margin: 0 8%;
+  padding-top: 30px;
+}
+
+/* #contact-us .main-contactus .row{
+gap: 0;
+} */
+#contact-us .contactus-card {
+  border: none;
+  background: white;
+  padding: 20px;
+}
+#contact-us .contactus-card .card-header {
+  border: none;
+  background-color: #fff;
+}
+#contact-us .contactus-card .card-header span{
+font-size: 20px;
+color: var(--primary-color);
+}
+#contact-us .contactus-card .card-body form .row{
+  gap: 20px 0;
+}
+#contact-us .contactus-card .card-body form label{
+  font-size: small;
+}
+#contact-us .contactus-card .card-body form .form-inputs{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#contact-us .contactus-card .card-body form .form-inputs .form-custom-input{
+  width: 100%;
+  height: 5vh;
+  background: var(--primary-background);
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+}
+.form-custom-input:focus{
+  outline: none;
 }

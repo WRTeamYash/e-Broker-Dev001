@@ -6,8 +6,8 @@ import { FiMail, FiPhone } from "react-icons/fi"
 import { AiOutlineInstagram, AiOutlineLinkedin } from "react-icons/ai"
 import { CiFacebook } from "react-icons/ci"
 import { ImPinterest2 } from "react-icons/im"
-import playstore from "../../../assets/playStore.png"
-import appstore from "../../../assets/appStore.png"
+import playstore from "../../assets/playStore.png"
+import appstore from "../../assets/appStore.png"
 
 
 

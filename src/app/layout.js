@@ -7,7 +7,7 @@ import "../../public/css/responsiveStyle.css"
 import Header from '@/app/Components/Header/Header'
 import Footer from '@/app/Components/Footer/Footer'
 import { Provider } from 'react-redux'
-import { store } from '../redux/store'
+import { store } from '../store/store'
 import Head from 'next/head'
 const manrope = Manrope({ subsets: ['latin'] })
 

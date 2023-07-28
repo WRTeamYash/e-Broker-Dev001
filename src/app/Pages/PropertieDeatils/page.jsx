@@ -40,6 +40,7 @@ import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import Image from 'next/image'
 import { Fascinate } from 'next/font/google'
 import { FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
+import Breadcrumb from '@/app/Components/Breadcrumb/Breadcrumb';
 
 const PropertieDeatils = () => {
 
@@ -85,34 +86,19 @@ const PropertieDeatils = () => {
     }, [])
     const [play, setPlay] = useState(false)
     return (
+        <>
+       <Breadcrumb data={{
+                type:"House",
+                title:"Serene Haven Retreat",
+                loc:"778 Country St. Panama City, FL",
+                propertyType: "Sell",
+                time:"6 months ago",
+                price:"$999999"
+
+            }}/>
         <div className='properties-deatil-page'>
 
-            <div id='breadcrumb02'
-                style={{
-                    backgroundImage: `url(${ViewPageImg.src})`,
-                }}>
-                <div
-                    id='breadcrumb-content'
-                >
-                    <div className='left-side-content'>
-                        <span className='prop-types'>House</span>
-                        <span className='prop-name'>Serene Haven Retreat</span>
-                        <span className='prop-Location'><CiLocationOn size={25} /> 778 Country St. Panama City, FL</span>
-                        <div className='prop-sell-time'>
-                            <span className='propertie-sell-tag'>Sell</span>
-                            <span> <BiTime size={20} /> 6 Months ago</span>
-                        </div>
-
-                    </div>
-                    <div className='right-side-content'>
-                        <span> $1,999,000 </span>
-                        <div>
-                            <button><AiOutlineHeart size={25} /></button>
-                            <button><SlDocs size={25} /></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
 
             <div id='all-prop-deatil-containt'>
                 <div id='all-content-deatil'>
@@ -787,6 +773,7 @@ const PropertieDeatils = () => {
                 </div>
             </div>
         </div >
+        </>
     )
 }
 

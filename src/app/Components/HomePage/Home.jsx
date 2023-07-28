@@ -75,7 +75,7 @@ const Home = () => {
         handleOpenFilterModal()
     }
     return (
-        <>
+        <>  
             <section id='mainheroImage'>
                 <HeroSlider
                     height={"90vh"}
@@ -226,12 +226,17 @@ const Home = () => {
                             <input className='searchinput' placeholder='Search your propery' />
                         </div>
                         <div id='leftside-buttons'>
-                            <button className='filter'> <BiFilter size={25} onClick={handleFilter} /> Filter</button>
+                            <button className='filter' onClick={()=>{
+                                console.log("showFilterModal")
+                                setShowFilterModal(true)
+
+                                }}> <BiFilter size={25}  /> Filter</button>
                             <button className='find'>Search</button>
 
                         </div>
                     </div>
                 </div>
+                {console.log(showFilterModal)}
                 <FilterModal isOpen={showFilterModal} onClose={handleCloseModal} />
             </section>
 

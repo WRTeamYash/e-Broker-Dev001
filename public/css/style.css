@@ -18,7 +18,7 @@
   position: fixed !important;
   top: 0 !important;
   z-index: 99 !important;
-  background-color: var(--primary-background) !important;
+  background-color: #fff;
   width: 100%;
   height: 12vh;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
@@ -139,10 +139,10 @@
 }
 
 /*================= LOGIN MODAL CSS ============= */
-.otp-modal, .login-modal .modal-header {
+.otp-modal, .login-modal, .modal-header {
   padding: 20px !important;
 }
-.login-modal.modal-title {
+.login-modal, .otp-modal, .modal-title {
   text-transform: capitalize;
   font-weight: 600 !important;
 }
@@ -208,7 +208,7 @@
   padding: 10px;
   width: 100%;
 }
-.modal-footer {
+.login-modal .modal-footer {
   margin-top: 10% !important;
   margin-bottom: 5% !important;
   border-top: none !important;
@@ -359,6 +359,145 @@ outline: none !important;
 .area-footer {
   margin-top: 30px !important;
   padding: 0 20px !important;
+}
+
+/*================== FILTER MODAL========== */
+.filter-modal .modal-header {
+  padding: 20px !important;
+}
+.filter-modal.modal-title {
+  text-transform: capitalize;
+  font-weight: 600 !important;
+}
+.filter-modal .close-icon {
+  color: #fff;
+  background: #000;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+.filter-modal .modal-body form{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.filter-button-box-modal {
+  display: flex;
+  justify-content: center;
+}
+#props-tabs-modal {
+  padding: 10px;
+  background-color: #f5f5f4;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border: none;
+  border-radius: 12px;
+}
+.filter-button-box-modal .modal-btn-grup{
+width: 100%;
+}
+.filter-button-box-modal #props-tabs-modal #prop-sellbutton {
+  width: 19vw;
+  color: #000 !important;
+  text-align: center;
+  border: none;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+.filter-button-box-modal #props-tabs-modal #prop-rentbutton {
+  width: 19vw;
+  color: #000 !important;
+  text-align: center;
+  border: none;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+.first-grup{
+  display: flex !important;
+  justify-content: space-between;
+  gap: 20px !important;
+}
+.prop-type-modal, .prop-location-modal{
+  width: 100%;
+}
+.posted-duration-modal{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 10px;
+  gap: 10px;
+}
+.posted-since .posted-duration-modal .form-check {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  background: var(--primary-background);
+  border-radius: 8px;
+  width: 100%;
+  padding: 15px 38px;
+}
+.posted-since .posted-duration-modal .form-check .form-check-input {
+  background-color: #fff;
+  font-size: 15px;
+  padding: 8px;
+  border: 1px solid #000;
+}
+.posted-since .posted-duration-modal .form-check input:focus {
+  background: #087c7c !important;
+  border: 1px solid #fff !important;
+  outline: 1px solid !important;
+  box-shadow: none;
+}
+.posted-since .posted-duration-modal .form-check span{
+  color: #282f39c2;
+  font-size: 15px;
+  font-weight: 400;
+}
+.filter-modal .filter-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.clear-filter-modal {
+  /* width: 100%; */
+  background-color: #fff;
+  color: #000;
+  border: 1px solid;
+  border-radius: 10px;
+  font-size: medium;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.apply-filter-modal {
+  /* width: 100%; */
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: medium;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+#clear-filter-button{
+  color: #000;
+  border: none;
+background-color: transparent !important;
+}
+.price-input:focus-visible{
+  outline: none !important;
 }
 /* ================== HOME PAGE CSS  =========== */
 

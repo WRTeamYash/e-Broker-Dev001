@@ -14,6 +14,7 @@ import Head from 'next/head';
 import LoginModal from '../LoginModal/LoginModal';
 import AreaConverter from '../AreaConverter/AreaConverter';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import RegisterModal from '../RegisterModal/RegisterModal';
 
 const Nav = () => {
     // console.log(Logo)
@@ -37,6 +38,7 @@ const Nav = () => {
 
     const [showModal, setShowModal] = useState(false);
     const [areaconverterModal, setAreaConverterModal] = useState(false)
+    const [registerModal, setregisterModal] = useState(false)
     const handleOpenModal = () => {
         setShowModal(true);
     };
@@ -50,16 +52,21 @@ const Nav = () => {
     const handleCloseAcModal = () => {
         setAreaConverterModal(false);
     };
-
+    const handleRegisterModalOpen = () => {
+        setregisterModal(true);
+    }
+    const handleRegisterModalClose = () => {
+        setregisterModal(false);
+    }
     return (
         <>
             <header>
-                <nav className={`navbar header navbar-expand-lg navbar-dark ${scroll > headerTop ? "is-sticky " : ""}`}>
-                    <div className="container-fluid">
+                <nav className={`navbar header navbar-expand-lg navbar-light ${scroll > headerTop ? "is-sticky " : ""}`}>
+                    <div className="container">
                         <div className="left-side">
-                            <a className="navbar-brand" to="/">
+                            <Link className="navbar-brand" href="/">
                                 <img src={Logo.src} alt="Logo" className="logo" />
-                            </a>
+                            </Link>
                             <span onClick={handleShow} id='hamburg'><GiHamburgerMenu size={36} /></span>
                         </div>
 
@@ -76,11 +83,11 @@ const Nav = () => {
 
                                         <Dropdown.Menu>
                                             <Dropdown.Item> <Link href="/all-properties">All Properties</Link></Dropdown.Item>
-                                            <Dropdown.Item href="">Featured Properties</Dropdown.Item>
-                                            <Dropdown.Item href="">Most Viewed Properties</Dropdown.Item>
+                                            <Dropdown.Item><Link href="/featured-properties">Featured Properties</Link></Dropdown.Item>
+                                            <Dropdown.Item> <Link href="/most-viewed-properties">Most Viewed Properties</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/properties-nearby-city">Nearby Cities Properties</Link></Dropdown.Item>
-                                            <Dropdown.Item href="">Most Favorites Properties</Dropdown.Item>
-                                            <Dropdown.Item href="">List by Agents Properties</Dropdown.Item>
+                                            <Dropdown.Item><Link href="/mostfav-properties">Most Favorites Properties </Link></Dropdown.Item>
+                                            <Dropdown.Item><Link href="/listby-agents"></Link>List by Agents</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <Dropdown>
@@ -89,14 +96,14 @@ const Nav = () => {
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item href="">Subscription Plan</Dropdown.Item>
+                                            <Dropdown.Item><Link href="subscription-plan">Subscription Plan</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/articles">Articles</Link></Dropdown.Item>
                                             <Dropdown.Item onClick={handleOpenAcModal}>Area Converter</Dropdown.Item>
-                                            <Dropdown.Item href="">Terms & Condition</Dropdown.Item>
-                                            <Dropdown.Item href="">Privacy Policy</Dropdown.Item>
+                                            <Dropdown.Item onClick={handleRegisterModalOpen}>Terms & Condition </Dropdown.Item>
+                                            <Dropdown.Item> <Link href="/privacy-policy">Privacy Policy </Link></Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                    <Link href="/contact-us">
+                                    <Link href="/contact-us" id='a-tags-link'>
                                         <li className="nav-item nav-link">
                                             Contact Us
                                         </li>
@@ -233,6 +240,8 @@ const Nav = () => {
             <LoginModal isOpen={showModal} onClose={handleCloseModal} />
 
             <AreaConverter isOpen={areaconverterModal} onClose={handleCloseAcModal} />
+
+            <RegisterModal isOpen={registerModal} onClose={handleRegisterModalClose} />
         </>
     );
 };

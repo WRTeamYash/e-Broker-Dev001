@@ -14,9 +14,7 @@
     display: block;
     color: white;
   }
-
 }
-
 @media only screen and (max-width: 1900px) {
   .dropdown-menu {
     width: 30vh !important;
@@ -24,21 +22,13 @@
 }
 
 @media only screen and (max-width: 1315px) {
-  /* .logo {
-    height: 100;
-    width: 100;
-
-  } */
   .left-side {
-    /* display: grid;
-      grid-template-columns: 1fr; */
     display: flex;
-    margin-left: 5%;
   }
   .center-side {
     display: grid;
     grid-template-columns: 7fr;
-  }
+  } 
   .right-side {
     display: grid;
     grid-template-columns: 4fr;
@@ -272,15 +262,10 @@
   }
   #herotexts {
     position: relative;
-    margin-left: 10%;
+    /* margin-left: 10%; */
     /* top: 200px; */
   }
-  #sellbutton {
-    width: 140px;
-  }
-  #rentbutton {
-    width: 173px;
-  }
+
   #searchcard {
     height: 17vh;
     width: auto;
@@ -314,17 +299,17 @@
   }
   #herotexts {
     position: relative;
-    margin-left: 10%;
-    /* top: 200px; */
   }
   .view_prop {
     width: 100%;
   }
   #sellbutton {
-    width: 140px;
+    padding: 0px;
+    width: auto;
   }
   #rentbutton {
-    width: 173px;
+    padding: 0px;
+    width: auto;
   }
   #priceteg {
     font-size: 20px;
@@ -360,7 +345,7 @@
   }
   #herotexts {
     position: relative;
-    margin-left: 10%;
+    /* margin-left: 10%; */
     font-size: medium;
     /* top: 128px; */
   }
@@ -384,15 +369,17 @@
   }
   #searchbox {
     position: relative;
-    bottom: 12vh;
+    bottom: 0;
     z-index: 5;
+    margin: 0 3%;
   }
-
   #sellbutton {
-    width: 148px;
+    padding: 0px;
+    width: 100%;
   }
   #rentbutton {
-    width: 148px;
+    padding: 0px;
+    width: 100%;
   }
   #searchcard {
     height: 18vh;
@@ -420,9 +407,6 @@
 /* ######################### FEATURE SECTION  ########################### */
 
 @media only screen and (min-width: 1385px) and (max-width: 1403px) {
-  .feature_sec {
-    margin: 0 5% 0 5%;
-  }
   .sell_teg {
     top: 169px;
   }
@@ -431,26 +415,6 @@
   }
 }
 @media only screen and (min-width: 1160px) and (max-width: 1386px) {
-  #feature {
-    height: 80vh;
-  }
-  .laptop_view {
-    display: none;
-  }
-  .mobile_view {
-    display: none;
-  }
-  .tablat_view {
-    display: block;
-    margin-top: 10rem;
-  }
-  .swiper {
-    width: 1030px !important;
-    height: 450px !important;
-  }
-  .swiper-slide {
-    width: 320px !important;
-  }
   #fea_main_card {
     width: 20rem;
     border-radius: 12px;
@@ -463,26 +427,8 @@
   }
 }
 @media only screen and (min-width: 840px) and (max-width: 1159px) {
-  #feature {
-    height: 90vh;
-  }
-  .laptop_view {
-    display: none;
-  }
-  .mobile_view {
-    display: none;
-  }
-  .tablat_view {
-    display: block;
-    margin-top: 10rem;
-  }
-  .swiper {
-    width: 75 0px !important;
-    height: 450px !important;
-  }
-  .swiper-slide {
-    width: 350px !important;
-  }
+
+
   #fea_main_card {
     width: 20rem;
     border-radius: 12px;
@@ -495,29 +441,8 @@
   }
 }
 @media only screen and (min-width: 730px) and (max-width: 839px) {
-  #feature {
-    height: 94vh;
-  }
-  .swiper {
-    margin: 0 !important;
-  }
-  .laptop_view {
-    display: none;
-  }
-  .mobile_view {
-    display: block;
-    position: relative;
-    top: 10rem;
-    overflow: hidden;
-  }
 
-  .tablat_view {
-    display: none !important;
-  }
-  .swiper {
-    width: 600px;
-    height: 500px;
-  }
+
   .sell_teg {
     top: 225px;
   }
@@ -526,24 +451,9 @@
   }
 }
 @media only screen and (min-width: 320px) and (max-width: 729px) {
-  #feature {
-    height: 80vh;
-    bottom: 26vh;
-  }
+
   #main_features {
     top: 10rem;
-  }
-  .laptop_view {
-    display: none;
-  }
-  .mobile_view {
-    display: block;
-    position: relative;
-    top: 12rem;
-    overflow: hidden;
-  }
-  .feature_header {
-    display: none;
   }
   .mobile_view_headline01 {
     display: flex;
@@ -574,15 +484,7 @@
   .tablat_view {
     display: none !important;
   }
-  .swiper {
-    width: 420px;
-    height: 500px;
-    margin-right: 0;
-    margin-left: 0;
-  }
-  .swiper-pagination {
-    display: none;
-  }
+
   .sell_teg {
     top: 152px;
   }
@@ -610,13 +512,7 @@
   .aprt_cards {
     overflow: hidden;
   }
-  #apart_swiper {
-    width: 1000px !important;
-    height: 330px !important;
-  }
-  #aprt-swiper-slider {
-    width: 230px !important;
-  }
+  
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   #view_appartment {
@@ -835,7 +731,7 @@
     right: 54%;
   }
 }
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
+@media only screen and (min-width: 992px) and (max-width: 1199px) { 
   #main_properties {
     height: 68vh !important;
   }
@@ -1113,13 +1009,7 @@
     display: block;
     margin-top: 5rem;
   }
-  .swiper {
-    width: 1030px !important;
-    height: 450px !important;
-  }
-  .swiper-slide {
-    width: 320px !important;
-  }
+ 
   #fea_main_card {
     width: 20rem;
     border-radius: 12px;
@@ -1145,13 +1035,7 @@
     display: block;
     margin-top: 5rem;
   }
-  .swiper {
-    width: 75 0px !important;
-    height: 450px !important;
-  }
-  .swiper-slide {
-    width: 350px !important;
-  }
+
   #fea_main_card {
     width: 20rem;
     border-radius: 12px;
@@ -1170,9 +1054,7 @@
   .most_fav_header {
     display: none !important;
   }
-  .swiper {
-    margin: 0 !important;
-  }
+
   .most_fav_slider {
     display: none;
   }
@@ -1186,10 +1068,7 @@
   .most_fav_tablat_view {
     display: none !important;
   }
-  .swiper {
-    width: 600px;
-    height: 500px;
-  }
+
   .sell_teg {
     top: 225px;
   }
@@ -1277,15 +1156,7 @@
   .most_fav_tablat_view {
     display: none !important;
   }
-  .swiper {
-    width: 420px;
-    height: 500px;
-    margin-right: 0;
-    margin-left: 0;
-  }
-  .swiper-pagination {
-    display: none;
-  }
+
   .sell_teg {
     top: 152px;
   }
@@ -1312,10 +1183,7 @@
   .browse-agent button {
     width: 16vw;
   }
-  .swiper-horizontal > .swiper-pagination-bullets,
-  .swiper-pagination-bullets.swiper-pagination-horizontal {
-    display: none;
-  }
+
   #agent_swiper {
     height: 300px !important;
   }
@@ -1328,10 +1196,7 @@
   .browse-agent button {
     width: 25vw;
   }
-  .swiper-horizontal > .swiper-pagination-bullets,
-  .swiper-pagination-bullets.swiper-pagination-horizontal {
-    display: none;
-  }
+
   #agent_swiper {
     height: 300px !important;
   }
@@ -1355,10 +1220,6 @@
     justify-content: center;
     align-items: center;
     margin: 0 8% 0 8%;
-  }
-  .swiper-horizontal > .swiper-pagination-bullets,
-  .swiper-pagination-bullets.swiper-pagination-horizontal {
-    display: none;
   }
   .agent-slider {
     display: none;
@@ -1395,10 +1256,7 @@
     align-items: center;
     margin: 0 8% 0 8%;
   }
-  .swiper-horizontal > .swiper-pagination-bullets,
-  .swiper-pagination-bullets.swiper-pagination-horizontal {
-    display: none;
-  }
+
   .agent-slider {
     display: none;
   }
@@ -1554,15 +1412,7 @@
     height: 30vh;
   }
 
-  .download_app_platforms {
-    flex-direction: row;
-    margin-left: -20px;
-  }
 
-  .download_app_platforms #playstore_logo img,
-  .download_app_platforms #appstore_logo img {
-    height: 66px;
-  }
 }
 
 @media (min-width: 320px) and (max-width: 574px) {
@@ -1609,7 +1459,88 @@
   #article_card_img {
     height: 30vh;
   }
+}
+/* ======================== CONTACT US ======================= */
 
+
+/* contact-us */
+@media only screen and (min-width: 320px) and (max-width: 1200px) {
+  #right-side-contact-info{
+    margin: 0 !important;
+  }
+  .contact-info{
+    padding: 0 !important;
+    border-radius: 12px;
+  }
+}
+
+
+
+/* ######################### FOOTER SECTION ################## */
+
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+  #footer_download_section {
+    gap: 10px;
+  }
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+  #footer_download_section {
+    gap: 10px;
+  }
+}
+
+@media only screen and (min-width: 425px) and (max-width: 767px) {
+
+
+  #footer_download_section {
+    gap: 10px;
+  }
+
+  .download_app_platforms {
+    width: 100%;
+  }
+
+  #footer_deatils {
+    gap: 20px 0;
+  }
+  .download_app_platforms {
+    flex-direction: row;
+    margin-left: -20px;
+  }
+
+  .download_app_platforms #playstore_logo img,
+  .download_app_platforms #appstore_logo img {
+    height: 66px;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 424px) {
+
+  #footer_download_section {
+    gap: 10px;
+  }
+
+  .download_app_platforms {
+    width: 100%;
+  }
+
+  #footer_deatils {
+    gap: 20px 0;
+  }
+
+  #footer_download_section {
+    gap: 20px;
+  }
+
+  .rights_footer {
+    margin-top: 20%;
+    text-align: center;
+  }
   .download_app_platforms {
     flex-direction: column;
     margin-left: -20px;
@@ -1621,116 +1552,12 @@
     height: 60px;
   }
 
-
-}
-
-
-/* ######################### FOOTER SECTION ################## */
-
-@media only screen and (min-width: 1400px) and (max-width: 1650px) {
-  #footer .col-lg-3 {
-    width: 25%;
-  }
-}
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {
-  #footer .col-lg-3 {
-    width: 25%;
-  }
-}
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-  #footer .col-lg-3 {
-    width: 50%;
-  }
-  .download_app_platforms {
-    width: 60%;
-  }
-}
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-  #footer .col-lg-3 {
-    width: 50%;
-  }
-  #footer_download_section {
-    gap: 10px;
-  }
-  .download_app_platforms {
-    width: 60%;
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  #footer .col-lg-3 {
-    width: 50%;
-  }
-  #footer_download_section {
-    gap: 10px;
-  }
-  .download_app_platforms {
-    width: 80%;
-  }
-}
-@media only screen and (min-width: 425px) and (max-width: 767px) {
-  #footer .col-lg-3 {
-    width: 75%;
-  }
-  #footer_download_section {
-    gap: 10px;
-  }
-  .download_app_platforms {
-    width: 100%;
-  }
-  #footer_deatils {
-    gap: 20px 0;
-  }
-}
-@media only screen and (min-width: 320px) and (max-width: 424px) {
-  #footer .col-lg-3 {
-    width: 100%;
-  }
-  #footer_download_section {
-    gap: 10px;
-  }
-  .download_app_platforms {
-    width: 100%;
-  }
-  #footer_deatils {
-    gap: 20px 0;
-  }
-  #footer_download_section {
-    gap: 20px;
-  }
-  .rights_footer {
-    margin-top: 20%;
-    text-align: center;
-  }
 }
 
 /* All Prop DEATIL PAGE CSS */
-/* @media only screen and (min-width: 1400px) and (max-width: 1849px) {
-  .img-overlay button {
-    left: 72%;
-  }
-}
-@media only screen and (min-width: 1250px) and (max-width: 1399px) {
-  .img-overlay button {
-    left: 70%;
-  }
-}
-@media only screen and (min-width: 1101px) and (max-width: 1249px) {
-  .img-overlay button {
-    left: 66%;
-  }
-}
-@media only screen and (min-width: 992px) and (max-width: 1100px) {
-  .img-overlay button {
-    left: 62%;
-  }
-} */
 
-@media (max-width: 768px) {
-}
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  #breadcrumb-content {
-    margin: 0 8% 0 8%;
-  }
   #prop-images .col-lg-3 {
     display: block;
     text-align: center;
@@ -1766,7 +1593,7 @@
 }
 @media only screen and (min-width: 425px) and (max-width: 767px) {
   #breadcrumb-content {
-    margin: 0 5% 0 5%;
+    /* margin: 0 5% 0 5%; */
     top: 150px;
   }
   .prop-name {
@@ -1784,7 +1611,7 @@
 }
 @media only screen and (min-width: 320px) and (max-width: 423px) {
   #breadcrumb-content {
-    margin: 0 5% 0 5%;
+    /* margin: 0 5% 0 5%; */
     top: 150px;
   }
   .prop-name {
@@ -1819,7 +1646,7 @@
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   #breadcrumb-content {
-    margin: 0 8% 0 8%;
+    /* margin: 0 8% 0 8%; */
   }
 
   .download_app_platforms #playstore_logo img,
@@ -1830,7 +1657,7 @@
 
 @media only screen and (min-width: 425px) and (max-width: 767px) {
   #breadcrumb-content {
-    margin: 0 5% 0 5%;
+    /* margin: 0 5% 0 5%; */
     top: 150px;
   }
 
@@ -1853,7 +1680,7 @@
 
 @media only screen and (min-width: 320px) and (max-width: 423px) {
   #breadcrumb-content {
-    margin: 0 5% 0 5%;
+    /* margin: 0 5% 0 5%; */
     top: 150px;
   }
 
@@ -2128,7 +1955,7 @@
   }
 
   .middle-img {
-    width: 84vw;
+    /* width: 84vw; */
     height: 42vh;
   }
 
@@ -2239,7 +2066,7 @@
   }
 
   .middle-img {
-    width: 80vw;
+    /* width: 80vw; */
     height: 30vh;
   }
 
@@ -2359,7 +2186,7 @@
   }
 
   .middle-img {
-    width: 80vw;
+    /* width: 80vw; */
     height: 30vh;
   }
 
@@ -2482,3 +2309,21 @@
 
 
 /* .properties details  ends */
+
+
+
+
+/* Swiper Slider  */
+@media only screen and (min-width: 320px) and (max-width: 576px) {
+  .swiper-pagination{
+    display: none;
+  }
+}
+/* Swiper Slider END */
+
+
+
+
+
+
+

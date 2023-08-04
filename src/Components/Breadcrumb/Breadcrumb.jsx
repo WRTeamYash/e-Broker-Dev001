@@ -30,7 +30,7 @@ const Breadcrumb = (props) => {
                     <h2>{props.title}</h2>
                 </div>
                 : <>
-                <div id='breadcrumb-content'>
+                <div id='breadcrumb-content' className='container'>
 
                     <div className='left-side-content'>
                         <span className='prop-types'>{data.type}</span>

@@ -60,7 +60,7 @@ const FilterModal = ({ isOpen, onClose }) => {
                             </div>
                         </div>
                         <div className="second-grup">
-                            <div className='budget-price'>
+                            <div className='budget-price-modal'>
                                 <span>Budget(Price)</span>
                                 <div className='budget-inputs'>
                                     <input className='price-input' placeholder='Min Price' />

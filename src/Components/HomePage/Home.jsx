@@ -45,6 +45,9 @@ import 'swiper/css/pagination';
 // import required modules
 import { FreeMode, Pagination } from 'swiper/modules';
 import FilterModal from '../Filter/FilterModal';
+import Skeleton from 'react-loading-skeleton';
+import MobileHeadline from '../MobileHeadlines/MobileHeadline';
+import Link from 'next/link';
 
 
 
@@ -61,7 +64,7 @@ const HomePage = () => {
     padding: 8px;
     border: 2px solid #fff;"></span>`;
     };
-
+    const [isLoading, setIsLoading] = useState(false)
     const [showFilterModal, setShowFilterModal] = useState(false);
     const handleOpenFilterModal = () => {
         setShowFilterModal(true);
@@ -71,11 +74,289 @@ const HomePage = () => {
         setShowFilterModal(false);
     };
     const handleFilter = () => {
-        console.log("test")
+        // console.log("test")
         handleOpenFilterModal()
     }
+    let FeaturestaticData = [
+        {
+            id: 1,
+            image: cardImg.src,
+            feature: "Feature",
+            sell: "Sell",
+            price: "$1,999,000 / USD",
+            prop_type: "Home",
+            prop_loc: "Luxury villa in Rego Park",
+            prop_city: "California City, CA, USA",
+            bedroom: "5 Bedroom",
+            bath: "2 Bath",
+            sq_fit: "1200 sq fit",
+            parking: "2 Parking"
+        },
+        {
+            id: 2,
+            image: cardImg.src,
+            feature: "Feature",
+            sell: "Sell",
+            price: "$1,999,000 / USD",
+            prop_type: "Home",
+            prop_loc: "Luxury villa in Rego Park",
+            prop_city: "California City, CA, USA",
+            bedroom: "5 Bedroom",
+            bath: "2 Bath",
+            sq_fit: "1200 sq fit",
+            parking: "2 Parking"
+        },
+        {
+            id: 3,
+            image: cardImg.src,
+            feature: "Feature",
+            sell: "Sell",
+            price: "$1,999,000 / USD",
+            prop_type: "Home",
+            prop_loc: "Luxury villa in Rego Park",
+            prop_city: "California City, CA, USA",
+            bedroom: "5 Bedroom",
+            bath: "2 Bath",
+            sq_fit: "1200 sq fit",
+            parking: "2 Parking"
+        },
+        {
+            id: 4,
+            image: cardImg.src,
+            feature: "Feature",
+            sell: "Sell",
+            price: "$1,999,000 / USD",
+            prop_type: "Home",
+            prop_loc: "Luxury villa in Rego Park",
+            prop_city: "California City, CA, USA",
+            bedroom: "5 Bedroom",
+            bath: "2 Bath",
+            sq_fit: "1200 sq fit",
+            parking: "2 Parking"
+        },
+        {
+            id: 5,
+            image: cardImg.src,
+            feature: "Feature",
+            sell: "Sell",
+            price: "$1,999,000 / USD",
+            prop_type: "Home",
+            prop_loc: "Luxury villa in Rego Park",
+            prop_city: "California City, CA, USA",
+            bedroom: "5 Bedroom",
+            bath: "2 Bath",
+            sq_fit: "1200 sq fit",
+            parking: "2 Parking"
+        },
+        {
+            id: 6,
+            image: cardImg.src,
+            feature: "Feature",
+            sell: "Sell",
+            price: "$1,999,000 / USD",
+            prop_type: "Home",
+            prop_loc: "Luxury villa in Rego Park",
+            prop_city: "California City, CA, USA",
+            bedroom: "5 Bedroom",
+            bath: "2 Bath",
+            sq_fit: "1200 sq fit",
+            parking: "2 Parking"
+        },
+        {
+            id: 7,
+            image: cardImg.src,
+            feature: "Feature",
+            sell: "Sell",
+            price: "$1,999,000 / USD",
+            prop_type: "Home",
+            prop_loc: "Luxury villa in Rego Park",
+            prop_city: "California City, CA, USA",
+            bedroom: "5 Bedroom",
+            bath: "2 Bath",
+            sq_fit: "1200 sq fit",
+            parking: "2 Parking"
+        },
+        {
+            id: 8,
+            image: cardImg.src,
+            feature: "Feature",
+            sell: "Sell",
+            price: "$1,999,000 / USD",
+            prop_type: "Home",
+            prop_loc: "Luxury villa in Rego Park",
+            prop_city: "California City, CA, USA",
+            bedroom: "5 Bedroom",
+            bath: "2 Bath",
+            sq_fit: "1200 sq fit",
+            parking: "2 Parking"
+        },
+    ]
+    let ApartStaticData = [
+        {
+            id: 1,
+            apart_name: "Villa",
+            apart_prop_count: "22 Properties"
+        },
+        {
+            id: 1,
+            apart_name: "Banglow",
+            apart_prop_count: "22 Properties"
+        },
+        {
+            id: 2,
+            apart_name: "Panthouse",
+            apart_prop_count: "22 Properties"
+        },
+        {
+            id: 3,
+            apart_name: "House",
+            apart_prop_count: "22 Properties"
+        },
+        {
+            id: 4,
+            apart_name: "Land",
+            apart_prop_count: "22 Properties"
+        },
+        {
+            id: 5,
+            apart_name: "Villa",
+            apart_prop_count: "22 Properties"
+        },
+        {
+            id: 6,
+            apart_name: "Villa",
+            apart_prop_count: "22 Properties"
+        },
+    ]
+    let agentsData = [
+        {
+            id: 1,
+            agentimg: agentimg.src,
+            agentName: "Divy Jani",
+            agentEmail: " DivyJani95@hotmail.com",
+            agentProp: "16 Properties"
+        },
+        {
+            id: 2,
+            agentimg: agentimg.src,
+            agentName: "Divy Jani",
+            agentEmail: " DivyJani95@hotmail.com",
+            agentProp: "16 Properties"
+        },
+        {
+            id: 3,
+            agentimg: agentimg.src,
+            agentName: "Divy Jani",
+            agentEmail: " DivyJani95@hotmail.com",
+            agentProp: "16 Properties"
+        },
+        {
+            id: 4,
+            agentimg: agentimg.src,
+            agentName: "Divy Jani",
+            agentEmail: " DivyJani95@hotmail.com",
+            agentProp: "16 Properties"
+        },
+        {
+            id: 5,
+            agentimg: agentimg.src,
+            agentName: "Divy Jani",
+            agentEmail: " DivyJani95@hotmail.com",
+            agentProp: "16 Properties"
+        },
+        {
+            id: 6,
+            agentimg: agentimg.src,
+            agentName: "Divy Jani",
+            agentEmail: " DivyJani95@hotmail.com",
+            agentProp: "16 Properties"
+        }
+    ]
+    const breakpoints = {
+        375: {
+            slidesPerView: 1.5,
+            // spaceBetween: 40
+        },
+        576: {
+            slidesPerView: 1.5,
+            // spaceBetween: 40
+        },
+        768: {
+            slidesPerView: 2,
+
+        },
+        992: {
+            slidesPerView: 3,
+
+        },
+        1200: {
+            slidesPerView: 3,
+        },
+        1400: {
+            slidesPerView: 4,
+
+        }
+    };
+    const breakpointsMostFav = {
+        320: {
+            slidesPerView: 1,
+            // spaceBetween: 40
+        },
+        375: {
+            slidesPerView: 1,
+            // spaceBetween: 40
+        },
+        576: {
+            slidesPerView: 1,
+            // spaceBetween: 40
+        },
+        768: {
+            slidesPerView: 2,
+
+        },
+        992: {
+            slidesPerView: 3,
+
+        },
+        1200: {
+            slidesPerView: 3,
+        },
+        1400: {
+            slidesPerView: 4,
+
+        }
+    };
+    const breakpointAgents = {
+        320: {
+            slidesPerView: 1,
+            // spaceBetween: 40
+        },
+        375: {
+            slidesPerView: 1.5,
+            // spaceBetween: 40
+        },
+        576: {
+            slidesPerView: 1.5,
+            // spaceBetween: 40
+        },
+        768: {
+            slidesPerView: 2,
+
+        },
+        992: {
+            slidesPerView: 3,
+
+        },
+        1200: {
+            slidesPerView: 3,
+        },
+        1400: {
+            slidesPerView: 3,
+
+        }
+    };
     return (
-        <>  
+        <>
             <section id='mainheroImage'>
                 <HeroSlider
                     height={"90vh"}
@@ -92,30 +373,11 @@ const HomePage = () => {
                         slidingDelay: 100,
                         shouldAutoplay: true,
                         shouldDisplayButtons: true,
-                        autoplayDuration: 8000,
+                        autoplayDuration: 3000,
                         height: "100vh"
                     }}
+
                 >
-                    {/* <div id='herotexts'>
-                        <div>
-                            <span className='btn' id='priceteg'> $1,999,000</span>
-                            <h1 id="hero_headlines">Serene Haven Retreat</h1>
-                            <span id='specifiaction'>Bedrooms: 5, Bathrooms: 4, Balcony: 2, Pool: 1</span>
-                        </div>
-                        <div>
-
-                        </div>
-                        <div id='viewall_hero_prop'>
-                            <button className='view_prop'>
-                                <FaEye size={20} className='icon' />
-                                view Properties
-                            </button>
-                            <div>
-                                <GoPlay className='playbutton' size={50} />
-                            </div>
-                        </div>
-
-                    </div> */}
 
                     <Slide
                         background={{
@@ -123,26 +385,28 @@ const HomePage = () => {
                         }}
 
                     >
-                        <Wrapper>
-                            <div id='herotexts'>
-                                <div>
-                                    <span className='btn' id='priceteg'> $1,999,000</span>
-                                    <h1 id="hero_headlines">Serene Haven Retreat</h1>
-                                    <span id='specifiaction'>Bedrooms: 5, Bathrooms: 4, Balcony: 2, Pool: 1</span>
-                                </div>
-
-                                <div id='viewall_hero_prop'>
-                                    <button className='view_prop'>
-                                        <FaEye size={20} className='icon' />
-                                        view Properties
-                                    </button>
+                        <div className='container'>
+                            <Wrapper>
+                                <div id='herotexts'>
                                     <div>
-                                        <GoPlay className='playbutton' size={50} />
+                                        <span className='btn' id='priceteg'> $1,999,000</span>
+                                        <h1 id="hero_headlines">Serene Haven Retreat</h1>
+                                        <span id='specifiaction'>Bedrooms: 5, Bathrooms: 4, Balcony: 2, Pool: 1</span>
                                     </div>
-                                </div>
 
-                            </div>
-                        </Wrapper>
+                                    <div id='viewall_hero_prop'>
+                                        <button className='view_prop'>
+                                            <FaEye size={20} className='icon' />
+                                            view Properties
+                                        </button>
+                                        <div>
+                                            <GoPlay className='playbutton' size={50} />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </Wrapper>
+                        </div>
                     </Slide>
 
                     <Slide
@@ -150,26 +414,28 @@ const HomePage = () => {
                             backgroundImageSrc: SlideImage02.src,
                         }}
                     >
-                        <Wrapper>
-                            <div id='herotexts'>
-                                <div>
-                                    <span className='btn' id='priceteg'> $1,999,000</span>
-                                    <h1 id="hero_headlines">Serene Haven Retreat</h1>
-                                    <span id='specifiaction'>Bedrooms: 5, Bathrooms: 4, Balcony: 2, Pool: 1</span>
-                                </div>
-
-                                <div id='viewall_hero_prop'>
-                                    <button className='view_prop'>
-                                        <FaEye size={20} className='icon' />
-                                        view Properties
-                                    </button>
+                        <div className='container'>
+                            <Wrapper>
+                                <div id='herotexts'>
                                     <div>
-                                        <GoPlay className='playbutton' size={50} />
+                                        <span className='btn' id='priceteg'> $1,999,000</span>
+                                        <h1 id="hero_headlines">Serene Haven Retreat</h1>
+                                        <span id='specifiaction'>Bedrooms: 5, Bathrooms: 4, Balcony: 2, Pool: 1</span>
                                     </div>
-                                </div>
 
-                            </div>
-                        </Wrapper>
+                                    <div id='viewall_hero_prop'>
+                                        <button className='view_prop'>
+                                            <FaEye size={20} className='icon' />
+                                            view Properties
+                                        </button>
+                                        <div>
+                                            <GoPlay className='playbutton' size={50} />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </Wrapper>
+                        </div>
                     </Slide>
 
                     <Slide
@@ -177,32 +443,36 @@ const HomePage = () => {
                             backgroundImageSrc: SlideImage03.src,
                         }}
                     >
-                        <Wrapper>
-                            <div id='herotexts'>
-                                <div>
-                                    <span className='btn' id='priceteg'> $1,999,000</span>
-                                    <h1 id="hero_headlines">Serene Haven Retreat</h1>
-                                    <span id='specifiaction'>Bedrooms: 5, Bathrooms: 4, Balcony: 2, Pool: 1</span>
-                                </div>
-
-                                <div id='viewall_hero_prop'>
-                                    <button className='view_prop'>
-                                        <FaEye size={20} className='icon' />
-                                        view Properties
-                                    </button>
+                        <div className='container'>
+                            <Wrapper>
+                                <div id='herotexts'>
                                     <div>
-                                        <GoPlay className='playbutton' size={50} />
+                                        <span className='btn' id='priceteg'> $1,999,000</span>
+                                        <h1 id="hero_headlines">Serene Haven Retreat</h1>
+                                        <span id='specifiaction'>Bedrooms: 5, Bathrooms: 4, Balcony: 2, Pool: 1</span>
                                     </div>
-                                </div>
 
-                            </div>
-                        </Wrapper>
+                                    <div id='viewall_hero_prop'>
+                                        <button className='view_prop'>
+                                            <FaEye size={20} className='icon' />
+                                            view Properties
+                                        </button>
+                                        <div>
+                                            <GoPlay className='playbutton' size={50} />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </Wrapper>
+                        </div>
                     </Slide>
 
                     {/* <ButtonsNav /> */}
 
                 </HeroSlider>
-                <div className="container" id='searchbox'>
+
+                {/* Sell Rent  */}
+                <div id='searchbox' className='container'>
                     <ButtonGroup >
                         <ul className="nav nav-tabs" id="tabs">
                             <li className=""  >
@@ -226,11 +496,11 @@ const HomePage = () => {
                             <input className='searchinput' placeholder='Search your propery' />
                         </div>
                         <div id='leftside-buttons'>
-                            <button className='filter' onClick={()=>{
+                            <button className='filter' onClick={() => {
                                 console.log("showFilterModal")
                                 setShowFilterModal(true)
 
-                                }}> <BiFilter size={25}  /> Filter</button>
+                            }}> <BiFilter size={25} /> Filter</button>
                             <button className='find'>Search</button>
 
                         </div>
@@ -243,12 +513,10 @@ const HomePage = () => {
 
             {/* Feature Section  */}
             <section id='feature'>
-                <div className='feature_sec'>
+                <div className='container'>
 
                     <div id='main_features'>
-                        <div className='feature_header'
-                        >
-
+                        <div className='feature_header'>
                             <span className='headline' data-aos="fade-right" data-aos-duration="1000">
                                 Discover Our <span
                                 // className="hovertext1" 
@@ -261,1487 +529,104 @@ const HomePage = () => {
                                 </span> Listings
                             </span>
                             <div className='rightside_header'>
-                                <button className="learn-more" id="viewall">
-                                    <span aria-hidden="true" className="circle">
-                                        <span className="icon arrow"></span>
-                                    </span>
-                                    <span className="button-text">See All Properties</span>
-                                </button>
-                                {/* <button id="viewall01">
-                                    <AiOutlineArrowRight className='mx-3' id="arrow" size={25} />
-                                    <span >See All Properties</span>
-                                </button> */}
+                                <Link href="/featured-properties">
+                                    <button className="learn-more" id="viewall">
+                                        <span aria-hidden="true" className="circle">
+                                            <span className="icon arrow"></span>
+                                        </span>
+
+                                        <span className="button-text">See All Properties</span>
+                                    </button>
+                                </Link>
                             </div>
 
                         </div>
-                        <div className='mobile_view_headline01'>
-                            <div className='apart_headline'>
-                                <span className='headline'>
-                                    Discover Our <span className="hovertext1">
-                                        <span className="text" data-text="Featured"> Featured</span>
-                                    </span> Listings
-                                </span>
-                            </div>
-                            <div>
-                                <button className='view_all_arrow'><BsArrowRight size={25} /></button>
-                            </div>
+                        <div className="mobile-headline-view">
+                            <MobileHeadline data={{
+                                start: " Discover Our",
+                                center: "Featured",
+                                end: "Listings",
+                                link: "/featured-properties"
+                            }
+                            } />
                         </div>
                     </div>
-                    <div className='laptop_view'>
-                        <Row id='feature_cards'>
-                            <Col sm className='mt-2'>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
+                    <div className='feature-section-cards'>
+                        <div id='feature_cards' className='row'>
+                            {isLoading ? (
+                                // Show skeleton loading when data is being fetched
+                                <div className="col-12 loading_data">
+                                    <Skeleton height={20} count={22} />
+                                </div>
+                            ) :
+                                FeaturestaticData?.map((ele) => (
+                                    <div className='col-sm-12 col-md-6 col-lg-3'>
+                                        <div className='card' id='main_card'>
+                                            <img className='card-img' id='card_img' src={ele.image} />
+                                            <div class="card-img-overlay">
+                                                <span className='feture_tag'>
+                                                    {ele.feature}
                                                 </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </Col>
-                            <Col sm className='mt-2'>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
+                                                <span className='like_tag'>
+                                                    <AiOutlineHeart size={25} />
                                                 </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
 
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
+
                                             </div>
 
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
 
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </Col>
-                            <Col sm className='mt-2'>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
 
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
+                                            <div className='card-body'>
+                                                <span className='sell_teg'>
+                                                    {ele.sell}
                                                 </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </Col>
-                            <Col sm className='mt-2'>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
+                                                <span className='price_teg'>
+                                                    {ele.price}
                                                 </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
+                                                <div id='feature_card_mainbody'>
+
+                                                    <BiHomeSmile size={23} />
+                                                    <span className='feture_body_title'> {ele.prop_type} </span>
+                                                </div>
+                                                <div id='feature_card_middletext'>
+                                                    <span>
+                                                        {ele.prop_loc}
+                                                    </span>
+                                                    <p>
+                                                        {ele.prop_city}
+                                                    </p>
+                                                </div>
+                                            </div>
+
+
+                                            <div className='card-footer' id='feature_card_footer'>
+                                                <div className='footer_body'>
+                                                    <div id='footer_content'>
+                                                        <RiHotelBedLine size={22} />
+                                                        <p className='text_footer'> {ele.bedroom} </p>
+                                                    </div>
+                                                    <div id='footer_content'>
+                                                        <RiBuilding3Line size={22} />
+                                                        <p className='text_footer'> {ele.sq_fit} </p>
+                                                    </div>
+
+                                                </div>
+                                                <div className='footer_body'>
+                                                    <div id='footer_content'>
+                                                        <FiCloudDrizzle size={22} />
+                                                        <p className='text_footer'> {ele.bath} </p>
+                                                    </div>
+                                                    <div id='footer_content'>
+                                                        <RiParkingBoxLine size={22} />
+                                                        <p className='text_footer'> {ele.parking} </p>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </Col>
-                        </Row>
-                        <Row id='feature_cards_bottom'>
-                            <Col sm className='mt-2'>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </Col>
-                            <Col sm className='mt-2'>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </Col>
-                            <Col sm className='mt-2'>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </Col>
-                            <Col sm className='mt-2'>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </Col>
-                        </Row>
-                    </div>
-                    <div className='tablat_view'>
-                        <Swiper
-                            slidesPerView={3}
-                            spaceBetween={30}
-                            freeMode={true}
-                            pagination={{
-                                clickable: true,
-                                renderBullet: renderBullet
-                            }}
-                            modules={[FreeMode, Pagination]}
-                        // className="mySwiper"
-                        // style={{
-                        //     width: "1030px", height: "450px"
-                        // }}
-                        >
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                        </Swiper>
-                    </div>
-                    <div className='mobile_view'>
-                        <Swiper
-                            slidesPerView={1.5}
-                            spaceBetween={30}
-                            freeMode={true}
-                            pagination={{
-                                clickable: true,
-                                renderBullet: renderBullet
-                            }}
-                            modules={[FreeMode, Pagination]}
-                        // className="mySwiper"
-                        // style={{
-                        //     width: "478px ", height: "450px"
-                        // }}
-                        >
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                        </Swiper>
+                                    </div>
+                                ))}
+                        </div>
                     </div>
 
                 </div>
@@ -1752,256 +637,91 @@ const HomePage = () => {
             {/* APARTMENT SECTION */}
             <section id='apartments'>
                 <div id='apartment_all_content'>
-                    <div id='view_appartment'
-                        style={{
-                            backgroundImage: `url(${Catagory.src})`,
-                        }}
-                    >
-                        <div className='container' id='appartment_text'>
-                            <h1>
-                                Explore Apartment Types
-                            </h1>
-                            <button className='view_apart'>
-                                <FaEye size={20} className='icon' />
-                                See all categories
-                            </button>
-                        </div>
+                    <div className="row">
+                        <div className="col-sm-12 col-md-4 col-lg-4" id='view-all-apartment'>
+                            <div id='view_appartment'
+                                style={{
+                                    backgroundImage: `url(${Catagory.src})`,
+                                }}
+                            >
+                                <div className='container' id='appartment_text'>
+                                    <h1>
+                                        Explore Apartment Types
+                                    </h1>
+                                    <Link href="/all-categories">
+                                        <button className='view_apart'>
+                                            <FaEye size={20} className='icon' />
+                                            See all categories
+                                        </button>
+                                    </Link>
+                                </div>
 
-                    </div>
-                    <div className='mobile_view_headline02'>
-                        <div className='apart_headline'>
-                            <span className='headline'>
-                                Explore Our <span className="hovertext1">
-                                    <span className="text" data-text="Apartment"> Apartment</span>
-                                </span> Types
-                            </span>
+                            </div>
                         </div>
-                        <div>
-                            <button className='view_all_arrow'><BsArrowRight size={25} /></button>
+                        <div className="mobile-headline-view">
+                            <MobileHeadline data={{
+                                start: "Explore",
+                                center: "Apartment",
+                                end: "Types",
+                                link: "/all-categories"
+
+                            }
+                            } />
                         </div>
-                    </div>
-                    <div className='aprt_cards'>
-                        <Swiper
-                            id='apart_swiper'
-                            slidesPerView={4.5}
-                            spaceBetween={30}
-                            freeMode={true}
-                            pagination={{
-                                clickable: true,
-                                renderBullet: renderBullet
-                            }}
-                            modules={[FreeMode, Pagination]}
-                            // // className="mySwiper"
-                            style={{
-                                width: "1200px ", height: "330px"
-                            }}
-                        >
-                            <SwiperSlide id="aprt-swiper-slider" >
-                                <Card id='main_aprt_card'>
-                                    <Card.Body>
-                                        <div className='apart_card_content'>
-                                            <div id='apart_icon'>
-                                                <MdOutlineVilla size={40} className='solo_icon' />
-                                            </div>
-                                            <div id='apart_name'>
-                                                Villa
-                                                <div id='propertie_count'>22 Properties</div>
-                                            </div>
+                        <div className="col-sm-12 col-md-8 col-lg-8" id='all-apart-cards'>
+
+                            <div className='aprt_cards'>
+                                <Swiper
+                                    //  slidesPerView={4}
+                                    // loop={true}
+                                    spaceBetween={30}
+                                    freeMode={true}
+                                    pagination={{
+                                        clickable: true,
+                                        renderBullet: renderBullet
+                                    }}
+                                    modules={[FreeMode, Pagination]}
+                                    className='aprtment-swiper'
+                                    breakpoints={breakpoints}
+                                    style={{
+                                        // width: "1200px"
+                                    }}
+
+
+                                >
+                                    {isLoading ? (
+                                        // Show skeleton loading when data is being fetched
+                                        <div className="col-12 loading_data">
+                                            <Skeleton height={20} count={22} />
                                         </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="aprt-swiper-slider" >
-                                <Card id='main_aprt_card'>
-                                    <Card.Body>
-                                        <div className='apart_card_content'>
-                                            <div id='apart_icon'>
-                                                <MdOutlineVilla size={40} className='solo_icon' />
-                                            </div>
-                                            <div id='apart_name'>
-                                                Villa
-                                                <div id='propertie_count'>22 Properties</div>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="aprt-swiper-slider" >
-                                <Card id='main_aprt_card'>
-                                    <Card.Body>
-                                        <div className='apart_card_content'>
-                                            <div id='apart_icon'>
-                                                <MdOutlineVilla size={40} className='solo_icon' />
-                                            </div>
-                                            <div id='apart_name'>
-                                                Villa
-                                                <div id='propertie_count'>22 Properties</div>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="aprt-swiper-slider" >
-                                <Card id='main_aprt_card'>
-                                    <Card.Body>
-                                        <div className='apart_card_content'>
-                                            <div id='apart_icon'>
-                                                <MdOutlineVilla size={40} className='solo_icon' />
-                                            </div>
-                                            <div id='apart_name'>
-                                                Villa
-                                                <div id='propertie_count'>22 Properties</div>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="aprt-swiper-slider" >
-                                <Card id='main_aprt_card'>
-                                    <Card.Body>
-                                        <div className='apart_card_content'>
-                                            <div id='apart_icon'>
-                                                <MdOutlineVilla size={40} className='solo_icon' />
-                                            </div>
-                                            <div id='apart_name'>
-                                                Villa
-                                                <div id='propertie_count'>22 Properties</div>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="aprt-swiper-slider" >
-                                <Card id='main_aprt_card'>
-                                    <Card.Body>
-                                        <div className='apart_card_content'>
-                                            <div id='apart_icon'>
-                                                <MdOutlineVilla size={40} className='solo_icon' />
-                                            </div>
-                                            <div id='apart_name'>
-                                                Villa
-                                                <div id='propertie_count'>22 Properties</div>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                        </Swiper>
-                    </div>
-                    <div className='apart_mobile_view'>
-                        <Swiper
-                            id='apart_mobile_swiper'
-                            slidesPerView={2.5}
-                            spaceBetween={30}
-                            freeMode={true}
-                            pagination={{
-                                clickable: true,
-                                renderBullet: renderBullet
-                            }}
-                            modules={[FreeMode, Pagination]}
-                            // // className="mySwiper"
-                            style={{
-                                width: "1200px ", height: "330px"
-                            }}
-                        >
-                            <SwiperSlide id="aprt-swiper-slider" >
-                                <Card id='main_aprt_card'>
-                                    <Card.Body>
-                                        <div className='apart_card_content'>
-                                            <div id='apart_icon'>
-                                                <MdOutlineVilla size={40} className='solo_icon' />
-                                            </div>
-                                            <div id='apart_name'>
-                                                Villa
-                                                <div id='propertie_count'>22 Properties</div>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="aprt-swiper-slider" >
-                                <Card id='main_aprt_card'>
-                                    <Card.Body>
-                                        <div className='apart_card_content'>
-                                            <div id='apart_icon'>
-                                                <MdOutlineVilla size={40} className='solo_icon' />
-                                            </div>
-                                            <div id='apart_name'>
-                                                Villa
-                                                <div id='propertie_count'>22 Properties</div>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="aprt-swiper-slider" >
-                                <Card id='main_aprt_card'>
-                                    <Card.Body>
-                                        <div className='apart_card_content'>
-                                            <div id='apart_icon'>
-                                                <MdOutlineVilla size={40} className='solo_icon' />
-                                            </div>
-                                            <div id='apart_name'>
-                                                Villa
-                                                <div id='propertie_count'>22 Properties</div>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="aprt-swiper-slider" >
-                                <Card id='main_aprt_card'>
-                                    <Card.Body>
-                                        <div className='apart_card_content'>
-                                            <div id='apart_icon'>
-                                                <MdOutlineVilla size={40} className='solo_icon' />
-                                            </div>
-                                            <div id='apart_name'>
-                                                Villa
-                                                <div id='propertie_count'>22 Properties</div>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="aprt-swiper-slider" >
-                                <Card id='main_aprt_card'>
-                                    <Card.Body>
-                                        <div className='apart_card_content'>
-                                            <div id='apart_icon'>
-                                                <MdOutlineVilla size={40} className='solo_icon' />
-                                            </div>
-                                            <div id='apart_name'>
-                                                Villa
-                                                <div id='propertie_count'>22 Properties</div>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="aprt-swiper-slider" >
-                                <Card id='main_aprt_card'>
-                                    <Card.Body>
-                                        <div className='apart_card_content'>
-                                            <div id='apart_icon'>
-                                                <MdOutlineVilla size={40} className='solo_icon' />
-                                            </div>
-                                            <div id='apart_name'>
-                                                Villa
-                                                <div id='propertie_count'>22 Properties</div>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                        </Swiper>
+                                    ) :
+                                        ApartStaticData?.map((ele) => (
+                                            <SwiperSlide id="aprt-swiper-slider" >
+                                                <Card id='main_aprt_card'>
+                                                    <Card.Body>
+                                                        <div className='apart_card_content'>
+                                                            <div id='apart_icon'>
+                                                                <MdOutlineVilla size={40} className='solo_icon' />
+                                                            </div>
+                                                            <div id='apart_name'>
+                                                                {ele.apart_name}
+                                                                <div id='propertie_count'>{ele.apart_prop_count}</div>
+                                                            </div>
+                                                        </div>
+                                                    </Card.Body>
+                                                </Card>
+                                            </SwiperSlide>
+                                        ))}
+                                </Swiper>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* ===== PROPERTIE SECTION ====== */}
             <section id='main_properties'>
-                <div className='properties_sec'>
+                <div className='container'>
                     <div id='prop'>
                         <div className='prop_header'>
                             <div data-aos="fade-right" data-aos-duration="1000">
@@ -2018,1332 +738,105 @@ const HomePage = () => {
                                 </h3>
                             </div>
                             <div className='rightside_prop_header'>
-                                <button className="learn-more" id="viewall">
-                                    <span aria-hidden="true" className="circle">
-                                        <span className="icon arrow"></span>
-                                    </span>
-                                    <span className="button-text">See All Properties</span>
-                                </button>
+                                <Link href="most-viewed-properties">
+                                    <button className="learn-more" id="viewall">
+                                        <span aria-hidden="true" className="circle">
+                                            <span className="icon arrow"></span>
+                                        </span>
+                                        <span className="button-text">See All Properties</span>
+                                    </button>
+                                </Link>
+
                             </div>
 
                         </div>
-                        <div className='mobile_view_headline03'>
-                            <div className='apart_headline'>
-                                <span className='headline'>
-                                    Most <span className="hovertext1">
-                                        <span className="text" data-text="Viewed"> Viewed</span>
-                                    </span> Properties
-                                </span>
-                            </div>
-                            <div>
-                                <button className='view_all_arrow'><BsArrowRight size={25} /></button>
-                            </div>
+                        <div className="mobile-headline-view">
+                            <MobileHeadline data={{
+                                start: "Most",
+                                center: "Viewed",
+                                end: "Properties",
+                                link: "/most-viewed-properties"
+
+                            }
+                            } />
                         </div>
                     </div>
                     <div id='prop_cards'>
                         <div className='cards_sec'>
-                            <div id='prop_cards_left'>
-                                <Card id='main_prop_card'>
-                                    <div>
-                                        <Card.Img variant="top" id='prop_card_img' src={cardImg.src} />
+                            <div className='row'>
+                                {isLoading ? (
+                                    // Show skeleton loading when data is being fetched
+                                    <div className="col-12 loading_data">
+                                        <Skeleton height={20} count={22} />
                                     </div>
-                                    <div>
-                                        <Card.Body id='main_card_body'>
-                                            <span className='prop_feature'>
-                                                Feature
-                                            </span>
-                                            <span className='prop_like'>
-                                                <AiOutlineHeart size={25} />
-                                            </span>
-                                            <span className='prop_sell'>
-                                                Sell
-                                            </span>
-                                            <span className='prop_price'>
-                                                $1,999,000 / USD
-                                            </span>
+                                ) :
+                                    FeaturestaticData?.map((ele) => (
+                                        <div className="col-sm-12 col-md-6 col-lg-6">
+                                            <div className='card' id='main_prop_card'>
+                                                <img className='card-img' id='prop_card_img' src={ele.image} />
 
-                                            <div>
-                                                <div id='prop_card_mainbody'>
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='body_title'> House </span>
-                                                </div>
-                                                <div id='prop_card_middletext'>
-                                                    <span>
-                                                        Luxury villa in Rego Park
+
+                                                <div className="card-body" id='main_card_body'>
+                                                    <span className='prop_feature'>
+                                                        {ele.feature}
                                                     </span>
-                                                    <p>
-                                                        California City, CA, USA
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <Card.Footer id='prop_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={25} />
-                                                        <span className='text_footer'> 3 Bedrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={25} />
-                                                        <span className='text_footer'> 1200 Sqft </span>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={25} />
-                                                        <span className='text_footer'> 4 Bathrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={25} />
-                                                        <span className='text_footer'> 2 Parking </span>
-                                                    </div>
-
-                                                </div>
-                                            </Card.Footer>
-                                        </Card.Body>
-                                    </div>
-                                </Card>
-                                <Card id='main_prop_card'>
-                                    <div>
-                                        <Card.Img variant="top" id='prop_card_img' src={cardImg.src} />
-                                    </div>
-                                    <div>
-                                        <Card.Body id='main_card_body'>
-                                            <span className='prop_feature'>
-                                                Feature
-                                            </span>
-                                            <span className='prop_like'>
-                                                <AiOutlineHeart size={25} />
-                                            </span>
-                                            <span className='prop_sell'>
-                                                Sell
-                                            </span>
-                                            <span className='prop_price'>
-                                                $1,999,000 / USD
-                                            </span>
-
-                                            <div>
-                                                <div id='prop_card_mainbody'>
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='body_title'> House </span>
-                                                </div>
-                                                <div id='prop_card_middletext'>
-                                                    <span>
-                                                        Luxury villa in Rego Park
+                                                    <span className='prop_like'>
+                                                        <AiOutlineHeart size={25} />
                                                     </span>
-                                                    <p>
-                                                        California City, CA, USA
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <Card.Footer id='prop_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={25} />
-                                                        <span className='text_footer'> 3 Bedrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={25} />
-                                                        <span className='text_footer'> 1200 Sqft </span>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={25} />
-                                                        <span className='text_footer'> 4 Bathrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={25} />
-                                                        <span className='text_footer'> 2 Parking </span>
-                                                    </div>
-
-                                                </div>
-                                            </Card.Footer>
-                                        </Card.Body>
-                                    </div>
-                                </Card>
-                                <Card id='main_prop_card'>
-                                    <div>
-                                        <Card.Img variant="top" id='prop_card_img' src={cardImg.src} />
-                                    </div>
-                                    <div>
-                                        <Card.Body id='main_card_body'>
-                                            <span className='prop_feature'>
-                                                Feature
-                                            </span>
-                                            <span className='prop_like'>
-                                                <AiOutlineHeart size={25} />
-                                            </span>
-                                            <span className='prop_sell'>
-                                                Sell
-                                            </span>
-                                            <span className='prop_price'>
-                                                $1,999,000 / USD
-                                            </span>
-
-                                            <div>
-                                                <div id='prop_card_mainbody'>
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='body_title'> House </span>
-                                                </div>
-                                                <div id='prop_card_middletext'>
-                                                    <span>
-                                                        Luxury villa in Rego Park
+                                                    <span className='prop_sell'>
+                                                        {ele.sell}
                                                     </span>
-                                                    <p>
-                                                        California City, CA, USA
-                                                    </p>
+                                                    <span className='prop_price'>
+                                                        {ele.price}
+                                                    </span>
+
+                                                    <div>
+                                                        <div id='prop_card_mainbody'>
+                                                            <BiHomeSmile size={23} />
+                                                            <span className='body_title'> {ele.prop_type} </span>
+                                                        </div>
+                                                        <div id='prop_card_middletext'>
+                                                            <span>
+                                                                {ele.prop_loc}
+                                                            </span>
+                                                            <p>
+                                                                {ele.prop_city}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <Card.Footer id='prop_card_footer'>
+                                                        <div className='footer_body'>
+                                                            <div id='footer_content'>
+                                                                <RiHotelBedLine size={25} />
+                                                                <span className='text_footer'> {ele.bedroom} </span>
+                                                            </div>
+                                                            <div id='footer_content'>
+                                                                <RiBuilding3Line size={25} />
+                                                                <span className='text_footer'>{ele.sq_fit} </span>
+                                                            </div>
+
+                                                        </div>
+                                                        <div className='footer_body'>
+                                                            <div id='footer_content'>
+                                                                <FiCloudDrizzle size={25} />
+                                                                <span className='text_footer'>  {ele.bath} </span>
+                                                            </div>
+                                                            <div id='footer_content'>
+                                                                <RiParkingBoxLine size={25} />
+                                                                <span className='text_footer'>  {ele.parking} </span>
+                                                            </div>
+
+                                                        </div>
+                                                    </Card.Footer>
                                                 </div>
+
                                             </div>
-                                            <Card.Footer id='prop_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={25} />
-                                                        <span className='text_footer'> 3 Bedrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={25} />
-                                                        <span className='text_footer'> 1200 Sqft </span>
-                                                    </div>
 
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={25} />
-                                                        <span className='text_footer'> 4 Bathrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={25} />
-                                                        <span className='text_footer'> 2 Parking </span>
-                                                    </div>
-
-                                                </div>
-                                            </Card.Footer>
-                                        </Card.Body>
-                                    </div>
-                                </Card>
-
+                                        </div>
+                                    ))}
                             </div>
-                            <div id='prop_cards_right'>
-                                <Card id='main_prop_card'>
-                                    <div>
-                                        <Card.Img variant="top" id='prop_card_img' src={cardImg.src} />
-                                    </div>
-                                    <div>
-                                        <Card.Body id='main_card_body'>
-                                            <span className='prop_feature'>
-                                                Feature
-                                            </span>
-                                            <span className='prop_like'>
-                                                <AiOutlineHeart size={25} />
-                                            </span>
-                                            <span className='prop_sell'>
-                                                Sell
-                                            </span>
-                                            <span className='prop_price'>
-                                                $1,999,000 / USD
-                                            </span>
 
-                                            <div>
-                                                <div id='prop_card_mainbody'>
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='body_title'> House </span>
-                                                </div>
-                                                <div id='prop_card_middletext'>
-                                                    <span>
-                                                        Luxury villa in Rego Park
-                                                    </span>
-                                                    <p>
-                                                        California City, CA, USA
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <Card.Footer id='prop_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={25} />
-                                                        <span className='text_footer'> 3 Bedrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={25} />
-                                                        <span className='text_footer'> 1200 Sqft </span>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={25} />
-                                                        <span className='text_footer'> 4 Bathrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={25} />
-                                                        <span className='text_footer'> 2 Parking </span>
-                                                    </div>
-
-                                                </div>
-                                            </Card.Footer>
-                                        </Card.Body>
-                                    </div>
-                                </Card>
-                                <Card id='main_prop_card'>
-                                    <div>
-                                        <Card.Img variant="top" id='prop_card_img' src={cardImg.src} />
-                                    </div>
-                                    <div>
-                                        <Card.Body id='main_card_body'>
-                                            <span className='prop_feature'>
-                                                Feature
-                                            </span>
-                                            <span className='prop_like'>
-                                                <AiOutlineHeart size={25} />
-                                            </span>
-                                            <span className='prop_sell'>
-                                                Sell
-                                            </span>
-                                            <span className='prop_price'>
-                                                $1,999,000 / USD
-                                            </span>
-
-                                            <div>
-                                                <div id='prop_card_mainbody'>
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='body_title'> House </span>
-                                                </div>
-                                                <div id='prop_prop_card_middletext'>
-                                                    <span>
-                                                        Luxury villa in Rego Park
-                                                    </span>
-                                                    <p>
-                                                        California City, CA, USA
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <Card.Footer id='prop_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={25} />
-                                                        <span className='text_footer'> 3 Bedrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={25} />
-                                                        <span className='text_footer'> 1200 Sqft </span>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={25} />
-                                                        <span className='text_footer'> 4 Bathrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={25} />
-                                                        <span className='text_footer'> 2 Parking </span>
-                                                    </div>
-
-                                                </div>
-                                            </Card.Footer>
-                                        </Card.Body>
-                                    </div>
-                                </Card>
-                                <Card id='main_prop_card'>
-                                    <div>
-                                        <Card.Img variant="top" id='prop_card_img' src={cardImg.src} />
-                                    </div>
-                                    <div>
-                                        <Card.Body id='main_card_body'>
-                                            <span className='prop_feature'>
-                                                Feature
-                                            </span>
-                                            <span className='prop_like'>
-                                                <AiOutlineHeart size={25} />
-                                            </span>
-                                            <span className='prop_sell'>
-                                                Sell
-                                            </span>
-                                            <span className='prop_price'>
-                                                $1,999,000 / USD
-                                            </span>
-
-                                            <div>
-                                                <div id='prop_card_mainbody'>
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='body_title'> House </span>
-                                                </div>
-                                                <div id='prop_card_middletext'>
-                                                    <span>
-                                                        Luxury villa in Rego Park
-                                                    </span>
-                                                    <p>
-                                                        California City, CA, USA
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <Card.Footer id='prop_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={25} />
-                                                        <span className='text_footer'> 3 Bedrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={25} />
-                                                        <span className='text_footer'> 1200 Sqft </span>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={25} />
-                                                        <span className='text_footer'> 4 Bathrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={25} />
-                                                        <span className='text_footer'> 2 Parking </span>
-                                                    </div>
-
-                                                </div>
-                                            </Card.Footer>
-                                        </Card.Body>
-                                    </div>
-                                </Card>
-                            </div>
                         </div>
-                    </div>
-                    <div className='tabletView'>
-                        <Swiper
-                            id='properties_tab_swiper'
-                            slidesPerView={2}
-                            spaceBetween={30}
-                            freeMode={true}
-                            pagination={{
-                                clickable: true,
-                                renderBullet: renderBullet
-                            }}
-                            modules={[FreeMode, Pagination]}
-                        // // className="mySwiper"
-                        >
-                            <SwiperSlide id="properties-swiper-slider" >
-                                <Card id='main_prop_card'>
-                                    <div>
-                                        <Card.Img variant="top" id='prop_card_img' src={cardImg.src} />
-                                    </div>
-                                    <div>
-                                        <Card.Body id='main_card_body'>
-                                            <span className='prop_feature'>
-                                                Feature
-                                            </span>
-                                            <span className='prop_like'>
-                                                <AiOutlineHeart size={25} />
-                                            </span>
-                                            <span className='prop_sell'>
-                                                Sell
-                                            </span>
-                                            <span className='prop_price'>
-                                                $1,999,000 / USD
-                                            </span>
-
-                                            <div>
-                                                <div id='prop_card_mainbody'>
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='body_title'> House </span>
-                                                </div>
-                                                <div id='prop_card_middletext'>
-                                                    <span>
-                                                        Luxury villa in Rego Park
-                                                    </span>
-                                                    <p>
-                                                        California City, CA, USA
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <Card.Footer id='prop_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={25} />
-                                                        <span className='text_footer'> 3 Bedrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={25} />
-                                                        <span className='text_footer'> 1200 Sqft </span>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={25} />
-                                                        <span className='text_footer'> 4 Bathrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={25} />
-                                                        <span className='text_footer'> 2 Parking </span>
-                                                    </div>
-
-                                                </div>
-                                            </Card.Footer>
-                                        </Card.Body>
-                                    </div>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="properties-swiper-slider" >
-                                <Card id='main_prop_card'>
-                                    <div>
-                                        <Card.Img variant="top" id='prop_card_img' src={cardImg.src} />
-                                    </div>
-                                    <div>
-                                        <Card.Body id='main_card_body'>
-                                            <span className='prop_feature'>
-                                                Feature
-                                            </span>
-                                            <span className='prop_like'>
-                                                <AiOutlineHeart size={25} />
-                                            </span>
-                                            <span className='prop_sell'>
-                                                Sell
-                                            </span>
-                                            <span className='prop_price'>
-                                                $1,999,000 / USD
-                                            </span>
-
-                                            <div>
-                                                <div id='prop_card_mainbody'>
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='body_title'> House </span>
-                                                </div>
-                                                <div id='prop_card_middletext'>
-                                                    <span>
-                                                        Luxury villa in Rego Park
-                                                    </span>
-                                                    <p>
-                                                        California City, CA, USA
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <Card.Footer id='prop_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={25} />
-                                                        <span className='text_footer'> 3 Bedrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={25} />
-                                                        <span className='text_footer'> 1200 Sqft </span>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={25} />
-                                                        <span className='text_footer'> 4 Bathrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={25} />
-                                                        <span className='text_footer'> 2 Parking </span>
-                                                    </div>
-
-                                                </div>
-                                            </Card.Footer>
-                                        </Card.Body>
-                                    </div>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="properties-swiper-slider" >
-                                <Card id='main_prop_card'>
-                                    <div>
-                                        <Card.Img variant="top" id='prop_card_img' src={cardImg.src} />
-                                    </div>
-                                    <div>
-                                        <Card.Body id='main_card_body'>
-                                            <span className='prop_feature'>
-                                                Feature
-                                            </span>
-                                            <span className='prop_like'>
-                                                <AiOutlineHeart size={25} />
-                                            </span>
-                                            <span className='prop_sell'>
-                                                Sell
-                                            </span>
-                                            <span className='prop_price'>
-                                                $1,999,000 / USD
-                                            </span>
-
-                                            <div>
-                                                <div id='prop_card_mainbody'>
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='body_title'> House </span>
-                                                </div>
-                                                <div id='prop_card_middletext'>
-                                                    <span>
-                                                        Luxury villa in Rego Park
-                                                    </span>
-                                                    <p>
-                                                        California City, CA, USA
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <Card.Footer id='prop_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={25} />
-                                                        <span className='text_footer'> 3 Bedrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={25} />
-                                                        <span className='text_footer'> 1200 Sqft </span>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={25} />
-                                                        <span className='text_footer'> 4 Bathrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={25} />
-                                                        <span className='text_footer'> 2 Parking </span>
-                                                    </div>
-
-                                                </div>
-                                            </Card.Footer>
-                                        </Card.Body>
-                                    </div>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="properties-swiper-slider" >
-                                <Card id='main_prop_card'>
-                                    <div>
-                                        <Card.Img variant="top" id='prop_card_img' src={cardImg.src} />
-                                    </div>
-                                    <div>
-                                        <Card.Body id='main_card_body'>
-                                            <span className='prop_feature'>
-                                                Feature
-                                            </span>
-                                            <span className='prop_like'>
-                                                <AiOutlineHeart size={25} />
-                                            </span>
-                                            <span className='prop_sell'>
-                                                Sell
-                                            </span>
-                                            <span className='prop_price'>
-                                                $1,999,000 / USD
-                                            </span>
-
-                                            <div>
-                                                <div id='prop_card_mainbody'>
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='body_title'> House </span>
-                                                </div>
-                                                <div id='prop_card_middletext'>
-                                                    <span>
-                                                        Luxury villa in Rego Park
-                                                    </span>
-                                                    <p>
-                                                        California City, CA, USA
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <Card.Footer id='prop_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={25} />
-                                                        <span className='text_footer'> 3 Bedrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={25} />
-                                                        <span className='text_footer'> 1200 Sqft </span>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={25} />
-                                                        <span className='text_footer'> 4 Bathrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={25} />
-                                                        <span className='text_footer'> 2 Parking </span>
-                                                    </div>
-
-                                                </div>
-                                            </Card.Footer>
-                                        </Card.Body>
-                                    </div>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="properties-swiper-slider" >
-                                <Card id='main_prop_card'>
-                                    <div>
-                                        <Card.Img variant="top" id='prop_card_img' src={cardImg.src} />
-                                    </div>
-                                    <div>
-                                        <Card.Body id='main_card_body'>
-                                            <span className='prop_feature'>
-                                                Feature
-                                            </span>
-                                            <span className='prop_like'>
-                                                <AiOutlineHeart size={25} />
-                                            </span>
-                                            <span className='prop_sell'>
-                                                Sell
-                                            </span>
-                                            <span className='prop_price'>
-                                                $1,999,000 / USD
-                                            </span>
-
-                                            <div>
-                                                <div id='prop_card_mainbody'>
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='body_title'> House </span>
-                                                </div>
-                                                <div id='prop_card_middletext'>
-                                                    <span>
-                                                        Luxury villa in Rego Park
-                                                    </span>
-                                                    <p>
-                                                        California City, CA, USA
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <Card.Footer id='prop_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={25} />
-                                                        <span className='text_footer'> 3 Bedrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={25} />
-                                                        <span className='text_footer'> 1200 Sqft </span>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={25} />
-                                                        <span className='text_footer'> 4 Bathrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={25} />
-                                                        <span className='text_footer'> 2 Parking </span>
-                                                    </div>
-
-                                                </div>
-                                            </Card.Footer>
-                                        </Card.Body>
-                                    </div>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="properties-swiper-slider" >
-                                <Card id='main_prop_card'>
-                                    <div>
-                                        <Card.Img variant="top" id='prop_card_img' src={cardImg.src} />
-                                    </div>
-                                    <div>
-                                        <Card.Body id='main_card_body'>
-                                            <span className='prop_feature'>
-                                                Feature
-                                            </span>
-                                            <span className='prop_like'>
-                                                <AiOutlineHeart size={25} />
-                                            </span>
-                                            <span className='prop_sell'>
-                                                Sell
-                                            </span>
-                                            <span className='prop_price'>
-                                                $1,999,000 / USD
-                                            </span>
-
-                                            <div>
-                                                <div id='prop_card_mainbody'>
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='body_title'> House </span>
-                                                </div>
-                                                <div id='prop_card_middletext'>
-                                                    <span>
-                                                        Luxury villa in Rego Park
-                                                    </span>
-                                                    <p>
-                                                        California City, CA, USA
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <Card.Footer id='prop_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={25} />
-                                                        <span className='text_footer'> 3 Bedrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={25} />
-                                                        <span className='text_footer'> 1200 Sqft </span>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={25} />
-                                                        <span className='text_footer'> 4 Bathrooms </span>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={25} />
-                                                        <span className='text_footer'> 2 Parking </span>
-                                                    </div>
-
-                                                </div>
-                                            </Card.Footer>
-                                        </Card.Body>
-                                    </div>
-                                </Card>
-                            </SwiperSlide>
-                        </Swiper>
-                    </div>
-                    <div className='mobileView'>
-                        <Swiper
-                            slidesPerView={2}
-                            spaceBetween={30}
-                            freeMode={true}
-                            pagination={{
-                                clickable: true,
-                                renderBullet: renderBullet
-                            }}
-                            modules={[FreeMode, Pagination]}
-                            // className="mySwiper"
-                            id='mobileSlider'
-                        // style={{
-                        //     width: "800px ", height: "550px !import"
-                        // }}
-                        >
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='prop-mobile-feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='prop-mobile_like'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='prop-mobile_sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='prop-mobile_price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='prop-mobile-feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='prop-mobile_like'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='prop-mobile_sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='prop-mobile_price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='prop-mobile-feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='prop-mobile_like'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='prop-mobile_sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='prop-mobile_price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='prop-mobile-feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='prop-mobile_like'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='prop-mobile_sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='prop-mobile_price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='prop-mobile-feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='prop-mobile_like'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='prop-mobile_sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='prop-mobile_price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='prop-mobile-feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='prop-mobile_like'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='prop-mobile_sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='prop-mobile_price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='prop-mobile-feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='prop-mobile_like'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='prop-mobile_sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='prop-mobile_price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='prop-mobile-feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='prop-mobile_like'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='prop-mobile_sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='prop-mobile_price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='prop-mobile-feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='prop-mobile_like'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='prop-mobile_sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='prop-mobile_price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                        </Swiper>
                     </div>
 
                 </div>
@@ -3353,7 +846,7 @@ const HomePage = () => {
             {/* ===== PROPERTIES NEARBY CITY  SECTION ====== */}
             <section id='main_citySection'>
                 <div
-                    id='city_con'
+                    className='container'
                 >
                     <div className='prop_city_header'>
                         <div data-aos="fade-right" data-aos-duration="1000">
@@ -3370,25 +863,25 @@ const HomePage = () => {
                             </h3>
                         </div>
                         <div className='rightside_prop_city_header'>
+                            <Link href="/properties-nearby-city">
                             <button className="learn-more" id="viewall">
                                 <span aria-hidden="true" className="circle">
                                     <span className="icon arrow"></span>
                                 </span>
                                 <span className="button-text">See All Properties</span>
                             </button>
+                            </Link>
                         </div>
                     </div>
-                    <div className='mobile_view_headline04'>
-                        <div className='apart_headline'>
-                            <span className='headline'>
-                                Properties <span className="hovertext1">
-                                    <span className="text" data-text="Nearby"> Nearby</span>
-                                </span> Cities
-                            </span>
-                        </div>
-                        <div>
-                            <button className='view_all_arrow'><BsArrowRight size={25} /></button>
-                        </div>
+                    <div className="mobile-headline-view">
+                        <MobileHeadline data={{
+                            start: " Properties",
+                            center: "Nearby",
+                            end: "Cities",
+                            link: "/properties-nearby-city"
+
+                        }
+                        } />
                     </div>
                     <div className='row' id='nearBy-Citys'>
                         <div className='col-lg-6'>
@@ -3481,7 +974,7 @@ const HomePage = () => {
 
             {/* ===== MOST FAV SECTION =======  */}
             <section id='most_fav'>
-                <div className='most_fav_con'>
+                <div className='container'>
                     <div className='most_fav_header'>
                         <div data-aos="fade-right" data-aos-duration="1000">
 
@@ -3497,30 +990,29 @@ const HomePage = () => {
                             </h3>
                         </div>
                         <div className='rightside_most_fav_header'>
+                            <Link href="/mostfav-properties">
                             <button className="learn-more" id="viewall">
                                 <span aria-hidden="true" className="circle">
                                     <span className="icon arrow"></span>
                                 </span>
                                 <span className="button-text">See All Properties</span>
                             </button>
+                            </Link>
                         </div>
                     </div>
-                    <div className='mobile_view_headline05'>
-                        <div className='apart_headline'>
-                            <span className='headline'>
-                                Most <span className="hovertext1">
-                                    <span className="text" data-text="Favorites"> Favorites</span>
-                                </span> Properties
-                            </span>
-                        </div>
-                        <div>
-                            <button className='view_all_arrow'><BsArrowRight size={25} /></button>
-                        </div>
+                    <div className="mobile-headline-view">
+                        <MobileHeadline data={{
+                            start: " Most",
+                            center: "Favorites",
+                            end: "Properties",
+                            link: "/mostfav-properties"
+                        }
+                        } />
                     </div>
-                    <div className='most_fav_slider'>
+                    <div id="most-view-properties">
                         <Swiper
-                            // height={"100vh"}
                             slidesPerView={4}
+                            // loop={true}
                             spaceBetween={30}
                             freeMode={true}
                             pagination={{
@@ -3528,1938 +1020,179 @@ const HomePage = () => {
                                 renderBullet: renderBullet
                             }}
                             modules={[FreeMode, Pagination]}
-                            // className="mySwiper"
+                            className='most-view-swiper'
+                            breakpoints={breakpointsMostFav}
                             style={{
-                                width: "1600px ", height: "600px",
-                                borderRadius: "10px"
+                                // width: "auto"
                             }}
+
+
                         >
-                            <SwiperSlide style={{ width: '450px', margin: '0' }}>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
+                            {isLoading ? (
+                                // Show skeleton loading when data is being fetched
+                                <div className="col-12 loading_data">
+                                    <Skeleton height={20} count={22} />
+                                </div>
+                            ) :
+                                FeaturestaticData?.map((ele) => (
+                                    <SwiperSlide id="most-view-swiper-slider" >
+                                        <div className='card' id='main_card'>
+                                            <img className='card-img' id='card_img' src={ele.image} />
+                                            <div class="card-img-overlay">
+                                                <span className='feture_tag'>
+                                                    {ele.feature}
                                                 </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide style={{ width: '450px', margin: '0' }}>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
+                                                <span className='like_tag'>
+                                                    <AiOutlineHeart size={25} />
                                                 </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
 
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
+
                                             </div>
 
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
 
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide style={{ width: '450px', margin: '0' }}>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
 
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
+                                            <div className='card-body'>
+                                                <span className='sell_teg'>
+                                                    {ele.sell}
                                                 </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide style={{ width: '450px', margin: '0' }}>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
+                                                <span className='price_teg'>
+                                                    {ele.price}
                                                 </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
+                                                <div id='feature_card_mainbody'>
+
+                                                    <BiHomeSmile size={23} />
+                                                    <span className='feture_body_title'> {ele.prop_type} </span>
+                                                </div>
+                                                <div id='feature_card_middletext'>
+                                                    <span>
+                                                        {ele.prop_loc}
+                                                    </span>
+                                                    <p>
+                                                        {ele.prop_city}
+                                                    </p>
+                                                </div>
+                                            </div>
+
+
+                                            <div className='card-footer' id='feature_card_footer'>
+                                                <div className='footer_body'>
+                                                    <div id='footer_content'>
+                                                        <RiHotelBedLine size={22} />
+                                                        <p className='text_footer'> {ele.bedroom} </p>
+                                                    </div>
+                                                    <div id='footer_content'>
+                                                        <RiBuilding3Line size={22} />
+                                                        <p className='text_footer'> {ele.sq_fit} </p>
+                                                    </div>
+
+                                                </div>
+                                                <div className='footer_body'>
+                                                    <div id='footer_content'>
+                                                        <FiCloudDrizzle size={22} />
+                                                        <p className='text_footer'> {ele.bath} </p>
+                                                    </div>
+                                                    <div id='footer_content'>
+                                                        <RiParkingBoxLine size={22} />
+                                                        <p className='text_footer'> {ele.parking} </p>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide style={{ width: '450px', margin: '0' }}>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide style={{ width: '450px', margin: '0' }}>
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-
-                        </Swiper>
-                    </div>
-                    <div className='most_fav_tablat_view'>
-                        <Swiper
-                            slidesPerView={3}
-                            spaceBetween={30}
-                            freeMode={true}
-                            pagination={{
-                                clickable: true,
-                                renderBullet: renderBullet
-                            }}
-                            modules={[FreeMode, Pagination]}
-                        // className="mySwiper"
-                        // style={{
-                        //     width: "1030px", height: "450px"
-                        // }}
-                        >
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <Card id='fea_main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                        </Swiper>
-                    </div>
-                    <div className='most_fav_mobile_view'>
-                        <Swiper
-                            slidesPerView={1.5}
-                            spaceBetween={30}
-                            freeMode={true}
-                            pagination={{
-                                clickable: true,
-                                renderBullet: renderBullet
-                            }}
-                            modules={[FreeMode, Pagination]}
-                        // className="mySwiper"
-                        // style={{
-                        //     width: "478px ", height: "450px"
-                        // }}
-                        >
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="prop-mobile-swiper-slider" >
-                                <Card id='main_card'>
-                                    <Card.Img variant="top" id='card_img' src={cardImg.src} />
-                                    <Card.Body>
-                                        <span className='feture_tag'>
-                                            Feature
-                                        </span>
-                                        <span className='like_tag'>
-                                            <AiOutlineHeart size={25} />
-                                        </span>
-                                        <span className='sell_teg'>
-                                            Sell
-                                        </span>
-                                        <span className='price_teg'>
-                                            $1,999,000 / USD
-                                        </span>
-
-                                        <div>
-                                            <div id='feature_card_mainbody'>
-                                                <BiHomeSmile size={23} />
-                                                <span className='feture_body_title'> Home </span>
-                                            </div>
-                                            <div id='feature_card_middletext'>
-                                                <span>
-                                                    Luxury villa in Rego Park
-                                                </span>
-                                                <p>
-                                                    California City, CA, USA
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-
-                                    <Card.Footer id='feature_card_footer'>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <RiHotelBedLine size={22} />
-                                                <p className='text_footer'> 3 Bedrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiBuilding3Line size={22} />
-                                                <p className='text_footer'> 1200 Sqft </p>
-                                            </div>
-
-                                        </div>
-                                        <div className='footer_body'>
-                                            <div id='footer_content'>
-                                                <FiCloudDrizzle size={22} />
-                                                <p className='text_footer'> 4 Bathrooms </p>
-                                            </div>
-                                            <div id='footer_content'>
-                                                <RiParkingBoxLine size={22} />
-                                                <p className='text_footer'> 2 Parking </p>
-                                            </div>
-
-                                        </div>
-                                    </Card.Footer>
-                                </Card>
-                            </SwiperSlide>
+                                    </SwiperSlide>
+                                ))}
                         </Swiper>
                     </div>
                 </div>
             </section>
             {/* ===== AGENT SECTION =======  */}
             <section id='agent_section'>
-                <div className='main-agent-sec'>
-                    <div className='browse-agent'>
-                        <span>Browse By Agents
-                        </span>
-                        <button className='mt-3'> <FiEye className="mx-2" size={25} />
-                            View all Agent
-                        </button>
-                    </div>
-                    <div className='mobile_view_headline07'>
-                        <div className='apart_headline'>
-                            <span className='headline'>
-                                Most <span className="hovertext1">
-                                    <span className="text" data-text="Favorites"> Favorites</span>
-                                </span> Properties
+                <div className='row'>
+                    <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
+                        <div className='browse-agent'>
+                            <span>Browse By Agents
                             </span>
+                            <Link href="/listby-agents">
+                            <button className='mt-3'> <FiEye className="mx-2" size={25} />
+                                View all Agent
+                            </button>
+                            </Link>
                         </div>
-                        <div>
-                            <button className='view_all_arrow'><BsArrowRight size={25} /></button>
+                    </div>
+                    <div className="mobile-headline-view">
+                        <MobileHeadline data={{
+                            start: " Browse By",
+                            center: "Agents",
+                            link: "/listby-agents"
+                        }
+                        } />
+                    </div>
+                    <div className="col-sm-12 col-md-4 col-lg-9" id='agent-slider-cards'>
+                        <div className='agents-cards'>
+                            <Swiper
+                                //  slidesPerView={4}
+                                // loop={true}
+                                spaceBetween={30}
+                                freeMode={true}
+                                pagination={{
+                                    clickable: true,
+                                    renderBullet: renderBullet
+                                }}
+                                modules={[FreeMode, Pagination]}
+                                className='agent-swiper'
+                                breakpoints={breakpointAgents}
+                                style={{
+                                    // width: "1200px"
+                                }}
+
+
+                            >
+                                {isLoading ? (
+                                    // Show skeleton loading when data is being fetched
+                                    <div className="col-12 loading_data">
+                                        <Skeleton height={20} count={22} />
+                                    </div>
+                                ) :
+                                    agentsData?.map((ele) => (
+                                        <SwiperSlide id="agent-swiper-slider" >
+                                            <Card id='main_agent_card'>
+                                                <Card.Body>
+                                                    <div className='agent_card_content'>
+                                                        <div>
+
+                                                            <img src={ele.agentimg} className='agent-profile' width={100} height={100} />
+                                                        </div>
+                                                        <div className='mt-2'>
+                                                            <span className='agent-name'>
+                                                                {ele.agentName}
+                                                            </span>
+                                                        </div>
+                                                        <div>
+                                                            <span className='agent-main'>
+                                                                {ele.agentEmail}
+                                                            </span>
+                                                        </div>
+                                                        <div className='view-all-agent mt-5'>
+                                                            <span>
+                                                                {ele.agentProp}
+                                                            </span>
+                                                            <FiArrowRightCircle size={25} className='view-agent-deatils' />
+                                                        </div>
+                                                    </div>
+                                                </Card.Body>
+                                            </Card>
+                                        </SwiperSlide>
+                                    ))}
+                            </Swiper>
                         </div>
                     </div>
-                    <div className='agent-slider'>
-                        <Swiper
-                            id='agent_swiper'
-                            slidesPerView={3}
-                            spaceBetween={30}
-                            freeMode={true}
-                            pagination={{
-                                clickable: true,
-                                renderBullet: renderBullet
-                            }}
-                            modules={[FreeMode, Pagination]}
-                            // // className="mySwiper"
-                            style={{
-                                width: "1200px ", height: "400px"
-                            }}
-                        >
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
 
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                        </Swiper>
-                    </div>
-                    <div className='agent-slider-mobile-view'>
-                        <Swiper
-                            id='agent_swiper-mobile'
-                            // slidesPerView={2}
-                            spaceBetween={30}
-                            freeMode={true}
-                            pagination={{
-                                clickable: true,
-                                renderBullet: renderBullet
-
-                            }}
-                            modules={[FreeMode, Pagination]}
-                            // // className="mySwiper"
-                            style={{
-                                width: "600px", height: "400px"
-                            }}
-                            breakpoints={{
-                                0: {
-                                    slidesPerView: 1,
-                                },
-                                300: {
-                                    slidesPerView: 1,
-                                },
-                                576: {
-                                    slidesPerView: 2,
-                                },
-                                768: {
-                                    slidesPerView: 3,
-                                },
-                                992: {
-                                    slidesPerView: 4,
-                                },
-                                1200: {
-                                    slidesPerView: 5,
-                                },
-                            }}
-                        >
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                            <SwiperSlide id="agent-swiper-slider" >
-                                <Card id='main_agent_card'>
-                                    <Card.Body>
-                                        <div className='agent_card_content'>
-                                            <div>
-
-                                                <img src={agentimg.src} className='agent-profile' width={100} height={100} />
-                                            </div>
-                                            <div className='mt-2'>
-                                                <span className='agent-name'>
-                                                    Divy Jani
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className='agent-main'>
-                                                    DivyJani95@hotmail.com
-                                                </span>
-                                            </div>
-                                            <div className='view-all-agent mt-5'>
-                                                <span>
-                                                    16 Properties
-                                                </span>
-                                                <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </SwiperSlide>
-                        </Swiper>
-                    </div>
                 </div>
 
             </section>
             {/* ========== ARTICLE SECTION ========== */}
             <section id='articles'>
-                <div id='main_articleSec'>
+                <div className='container'>
                     <div className='article_headline'>
                         <div data-aos="fade-right" data-aos-duration="1000">
                             <h3>
@@ -5474,25 +1207,23 @@ const HomePage = () => {
                             </h3>
                         </div>
                         <div className='rightside_article_headlin'>
+                            <Link href="/articles">
                             <button className="learn-more" id="viewall">
                                 <span aria-hidden="true" className="circle">
                                     <span className="icon arrow"></span>
                                 </span>
                                 <span className="button-text">See All Properties</span>
                             </button>
+                            </Link>
                         </div>
                     </div>
-                    <div className='mobile_view_headline06'>
-                        <div className='apart_headline'>
-                            <span className='headline'>
-                                Our <span className="hovertext1">
-                                    <span className="text" data-text="Articles"> Articles</span>
-                                </span>
-                            </span>
-                        </div>
-                        <div>
-                            <button className='view_all_arrow'><BsArrowRight size={25} /></button>
-                        </div>
+                    <div className="mobile-headline-view">
+                        <MobileHeadline data={{
+                            start: " Our",
+                            center: "Articles",
+                            link: "/articles"
+                        }
+                        } />
                     </div>
                     <div className='row' id='article_cards'>
                         <div className='col-12 col-md-6 col-lg-3'>
@@ -5623,6 +1354,7 @@ const HomePage = () => {
                                 </Card.Footer>
                             </Card>
                         </div>
+
                     </div>
                 </div>
 

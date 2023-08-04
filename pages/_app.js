@@ -6,7 +6,8 @@ import './globals.css'
 import { Manrope } from 'next/font/google'
 import 'bootstrap/dist/css/bootstrap.css'
 import "../public/css/style.css"
-import "../public/css/responsiveStyle.css"
+import "../public/css/responsive.css"
+// import "../public/css/responsiveStyle.css"
 
 import Head from 'next/head'
 import Header from '@/Components/Header/Header'

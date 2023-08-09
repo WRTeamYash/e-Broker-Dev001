@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Logo from '@/assets/Logo_Color.png';
-import Image from 'next/image';
-import { RiUserSmileLine, RiPagesLine, RiContactsLine } from 'react-icons/ri'
+import { RiUserSmileLine } from 'react-icons/ri'
 import { CloseButton, Dropdown } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { AiOutlineHome, AiOutlinePlusCircle, AiOutlineClose } from 'react-icons/ai';
-import { FaBuilding } from 'react-icons/fa';
-import { MdLanguage } from 'react-icons/md'
 import Link from 'next/link';
 import { FiPlusCircle } from 'react-icons/fi';
-import Head from 'next/head';
 import LoginModal from '../LoginModal/LoginModal';
 import AreaConverter from '../AreaConverter/AreaConverter';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import RegisterModal from '../RegisterModal/RegisterModal';
+import {  useSelector } from 'react-redux';
+import {  logoutSuccess, userSignUpData } from '@/store/reducer/authSlice';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { toast } from 'react-hot-toast';
+
 
 const Nav = () => {
-    // console.log(Logo)
+    const signupData = useSelector(userSignUpData);
     const [show, setShow] = useState(false);
     const [headerTop, setHeaderTop] = useState(0);
     const [scroll, setScroll] = useState(0);
@@ -38,7 +37,6 @@ const Nav = () => {
 
     const [showModal, setShowModal] = useState(false);
     const [areaconverterModal, setAreaConverterModal] = useState(false)
-    const [registerModal, setregisterModal] = useState(false)
     const handleOpenModal = () => {
         setShowModal(true);
     };
@@ -52,12 +50,31 @@ const Nav = () => {
     const handleCloseAcModal = () => {
         setAreaConverterModal(false);
     };
-    const handleRegisterModalOpen = () => {
-        setregisterModal(true);
-    }
-    const handleRegisterModalClose = () => {
-        setregisterModal(false);
-    }
+
+
+    const handleLogout = () => {
+        confirmAlert({
+            title: "Logout!",
+            message: "Are You sure !",
+            buttons: [
+                {
+                    label: "Yes",
+                    onClick: () => {
+                        logoutSuccess()
+                        toast.success("Logout Successfully") 
+                    }
+                },
+                {
+                    label: "No",
+                    onClick: () => {
+                        // Optionally, you can perform some action here if the user clicks "No"
+                        toast.error("Logout Cancelled.");
+                    }
+                }
+            ]
+        });
+    };
+
     return (
         <>
             <header>
@@ -99,7 +116,7 @@ const Nav = () => {
                                             <Dropdown.Item><Link href="subscription-plan">Subscription Plan</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/articles">Articles</Link></Dropdown.Item>
                                             <Dropdown.Item onClick={handleOpenAcModal}>Area Converter</Dropdown.Item>
-                                            <Dropdown.Item onClick={handleRegisterModalOpen}>Terms & Condition </Dropdown.Item>
+                                            <Dropdown.Item href='/terms&condition'>Terms & Condition </Dropdown.Item>
                                             <Dropdown.Item> <Link href="/privacy-policy">Privacy Policy </Link></Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
@@ -128,8 +145,35 @@ const Nav = () => {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <li className="nav-item">
-                                        <a className="nav-link" to="/" onClick={handleOpenModal}> <RiUserSmileLine size={20} className='icon' />
-                                            Login/Register</a>
+                                        {
+                                            // Check if signupData.data is null
+                                            signupData?.data === null ? (
+                                                <a className="nav-link" to="/" onClick={handleOpenModal}>
+                                                    <RiUserSmileLine size={20} className='icon' />
+                                                    Login/Register
+                                                </a>
+                                            ) :
+                                                // Check if mobile and firebase_id are present
+                                                signupData?.data?.data.mobile && signupData?.data?.data.firebase_id && signupData?.data?.data.name === "" ? (
+                                                    <span className="nav-link">Welcome, Guest</span>
+                                                ) :
+                                                    // If name is present, show "Welcome, {name}"
+                                                    signupData?.data?.data.name ? (
+                                                        <Dropdown>
+                                                            <Dropdown.Toggle id="dropdown-basic01">
+                                                                <RiUserSmileLine size={20} className='icon01' />
+                                                                {/* <Avatar size={16} src={signupData.data.data.profile}/> */}
+                                                                {signupData.data.data.name}
+                                                            </Dropdown.Toggle>
+
+                                                            <Dropdown.Menu id='language'>
+                                                                <Dropdown.Item href="">Dashboard</Dropdown.Item>
+                                                                <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                                                            </Dropdown.Menu>
+                                                        </Dropdown>
+                                                    ) : null // Handle any other cases or conditions here
+                                        }
+
                                     </li>
                                     <li className="nav-item">
                                         <button className="btn" id="addbutton"><FiPlusCircle size={20} className='mx-2 add-nav-button' /> Add Property</button>
@@ -240,8 +284,6 @@ const Nav = () => {
             <LoginModal isOpen={showModal} onClose={handleCloseModal} />
 
             <AreaConverter isOpen={areaconverterModal} onClose={handleCloseAcModal} />
-
-            <RegisterModal isOpen={registerModal} onClose={handleRegisterModalClose} />
         </>
     );
 };

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { ButtonGroup } from 'react-bootstrap'

@@ -12,6 +12,7 @@ import Card from 'react-bootstrap/Card';
 import Image from 'next/image'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Link from 'next/link'
+import Loader from '@/Components/Loader/Loader'
 
 
 
@@ -110,12 +111,13 @@ const Articles = () => {
                                     <div className='row' id='all-articles-cards'>
                                         {isLoading ? (
                                             // Show skeleton loading when data is being fetched
-                                            <div className="col-12 loading_data">
-                                                <Skeleton height={20} count={22} />
-                                            </div>
+                                            // <div className="col-12 loading_data">
+                                            //     <Skeleton height={20} count={22} />
+                                            // </div>
+                                            <Loader />
                                         ) :
                                             ArticleStaticData?.map((ele) => (
-                                                <div className='col-12 col-md-6 col-lg-4'>
+                                                <div className='col-12 col-md-6 col-lg-4' key={ele.id}>
                                                     <Link href="/article-deatils">
                                                         <Card id='articles_main_card'>
                                                             <Card.Img variant="top" id='articles_card_img' src={ele.articleImg} />

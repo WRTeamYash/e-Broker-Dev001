@@ -11,6 +11,7 @@ import { FiDroplet, FiCloudDrizzle } from 'react-icons/fi'
 import { BiHomeSmile, BiCctv } from 'react-icons/bi'
 import Link from 'next/link'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
+import Loader from '@/Components/Loader/Loader'
 
 const AllProperties = () => {
   const [grid, setGrid] = useState(false);
@@ -282,13 +283,14 @@ const AllProperties = () => {
                     <div className='all-prop-cards' id='rowCards'>
                       {isLoading ? (
                         // Show skeleton loading when data is being fetched
-                        <div className="col-12 loading_data">
-                          <Skeleton height={20} count={22} />
-                        </div>
+                        // <div className="col-12 loading_data">
+                        //   <Skeleton height={20} count={22} />
+                        // </div>
+                        <Loader />
                       ) :
-                        AllPropertieSataticCards?.map((ele) => (
-                          <Link href="">
-                            <Card id='all_prop_main_card'>
+                        AllPropertieSataticCards?.map((ele) => (  
+                          <Link href="/properties-deatils">
+                            <Card id='all_prop_main_card' key={ele.id}>
                               <div>
                                 <Card.Img variant="top" id='all_prop_card_img' src={ele.image} />
                               </div>

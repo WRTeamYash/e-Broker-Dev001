@@ -1,6 +1,8 @@
+"use client"
 import { Provider } from 'react-redux'
-import { store } from '../src/store/store'
-import React, {useState} from 'react'
+import { store, persistor } from '../src/store/store'
+import { PersistGate } from 'redux-persist/integration/react'
+import React from 'react'
 import { Children, Fragment, useEffect } from 'react'
 import './globals.css'
 import { Manrope } from 'next/font/google'
@@ -19,12 +21,12 @@ const manrope = Manrope({ subsets: ['latin'] })
 function MyApp({ Component, pageProps, data }) {
 
     useEffect(() => {
-        settingsLoaded(null, null, (res)=>{
+        settingsLoaded(null, null, (res) => {
             console.log(res)
         },
-        (err)=>{
-            console.log(err)
-        })
+            (err) => {
+                console.log(err)
+            })
 
     }, []);
 
@@ -42,9 +44,11 @@ function MyApp({ Component, pageProps, data }) {
             </Head>
 
             <Provider store={store}>
-                <Header />
-                <Component {...pageProps} data={data} />
-                <Footer />
+                <PersistGate persistor={persistor}>
+                    <Header />
+                    <Component {...pageProps} data={data} />
+                    <Footer />
+                </PersistGate>
             </Provider>
         </Fragment>
     );

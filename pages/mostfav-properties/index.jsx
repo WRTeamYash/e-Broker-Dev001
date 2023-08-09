@@ -1,3 +1,4 @@
+"use client"
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import React, { useState } from 'react'
 import cardImg from '@/assets/Images/Featured_List_1.jpg'
@@ -5,6 +6,7 @@ import { RiBuilding3Line, RiHotelBedLine, RiParkingBoxLine } from 'react-icons/r
 import { FiCloudDrizzle } from 'react-icons/fi'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { BiHomeSmile } from 'react-icons/bi'
+import Loader from '@/Components/Loader/Loader'
 
 
 const index = () => {
@@ -132,12 +134,13 @@ const index = () => {
                     <div id='feature_cards' className='row'>
                         {isLoading ? (
                             // Show skeleton loading when data is being fetched
-                            <div className="col-12 loading_data">
-                                <Skeleton height={20} count={22} />
-                            </div>
+                            // <div className="col-12 loading_data">
+                            //     <Skeleton height={20} count={22} />
+                            // </div>
+                            <Loader />
                         ) :
                             FeaturestaticData?.map((ele) => (
-                                <div className='col-sm-12 col-md-6 col-lg-3'>
+                                <div className='col-sm-12 col-md-6 col-lg-3' key={ele.id}>
                                     <div className='card' id='main_card'>
                                         <img className='card-img' id='card_img' src={ele.image} />
                                         <div className="card-img-overlay">

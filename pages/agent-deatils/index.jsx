@@ -13,6 +13,7 @@ import Link from 'next/link'
 import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import { BiCctv, BiHomeSmile } from 'react-icons/bi'
 import { GiGamepad } from 'react-icons/gi'
+import Loader from '@/Components/Loader/Loader'
 
 const page = () => {
 
@@ -320,13 +321,14 @@ const page = () => {
                                                 <div className='all-prop-cards' id='rowCards'>
                                                     {isLoading ? (
                                                         // Show skeleton loading when data is being fetched
-                                                        <div className="col-12 loading_data">
-                                                            <Skeleton height={20} count={22} />
-                                                        </div>
+                                                        // <div className="col-12 loading_data">
+                                                        //     <Skeleton height={20} count={22} />
+                                                        // </div>
+                                                        <Loader />
                                                     ) :
                                                         AllPropertieSataticCards?.map((ele) => (
                                                             <Link href="">
-                                                                <Card id='all_prop_main_card'>
+                                                                <Card id='all_prop_main_card' key={ele.id}>
                                                                     <div>
                                                                         <Card.Img variant="top" id='all_prop_card_img' src={ele.image} />
                                                                     </div>

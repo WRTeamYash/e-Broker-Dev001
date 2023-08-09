@@ -41,6 +41,7 @@ import Image from 'next/image'
 import { Fascinate } from 'next/font/google'
 import { FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
+import Loader from '@/Components/Loader/Loader';
 
 const PropertieDeatils = () => {
 
@@ -623,12 +624,13 @@ const PropertieDeatils = () => {
                                 >
                                     {isLoading ? (
                                         // Show skeleton loading when data is being fetched
-                                        <div className="col-12 loading_data">
-                                            <Skeleton height={20} count={22} />
-                                        </div>
+                                        // <div className="col-12 loading_data">
+                                        //     <Skeleton height={20} count={22} />
+                                        // </div>
+                                        <Loader />
                                     ) :
                                         FeaturestaticData?.map((ele) => (
-                                            <SwiperSlide id="similer-swiper-slider" >
+                                            <SwiperSlide id="similer-swiper-slider" key={ele.id}>
                                                 <Card id='similer-main_card'>
                                                     <Card.Img variant="top" id='card_img' src={ele.image} />
                                                     <Card.Body>

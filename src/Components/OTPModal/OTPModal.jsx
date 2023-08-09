@@ -1,33 +1,30 @@
+"use client"
 import React, { useState, useRef, useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { RiCloseCircleLine } from 'react-icons/ri';
-import OtpInput from 'react-otp-input';
-import { parsePhoneNumber } from 'react-phone-number-input';
 //firebase
-import { authentication } from '../../utils/FirebaseConfig';
+import { authentication } from '../../utils/Firebase';
 import { toast } from 'react-hot-toast';
 
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { axios } from 'axios';
 
+import { signupLoaded } from '../../store/reducer/authSlice'; // Update the import path as needed
 
+import { useRouter } from 'next/router';
 
 const OTPModal = ({ isOpen, onClose, phonenum }) => {
     const [otp, setOTP] = useState('');
     const inputRefs = useRef([]);
     const [showTimer, setShowTimer] = useState(false);
     const [resendTimer, setResendTimer] = useState(60);
-
+    const navigate = useRouter()
     const generateRecaptcha = () => {
         if (!window.recaptchaVerifier) {
-            console.log('recaptcha');
             window.recaptchaVerifier = new RecaptchaVerifier(authentication, 'recaptcha-container', {
                 'size': 'invisible'
 
             });
         }
-        // console.log(window.recaptchaVerifier)
 
     }
     useEffect(() => {
@@ -41,11 +38,11 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
     }, [])
 
     const generateOTP = (phonenum) => {
-        console.log(phonenum)
+
         //OTP Generation
         // generateRecaptcha();
         let appVerifier = window.recaptchaVerifier;
-        console.log(appVerifier);
+
         const formatPh = phonenum;
 
         signInWithPhoneNumber(authentication, formatPh, appVerifier)
@@ -71,41 +68,49 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         let confirmationResult = window.confirmationResult;
         confirmationResult.confirm(otp).then(async (result) => {
             // User verified successfully.
-
-            // Show a success toast notification
-            console.log(result)
             console.log(result.user.phoneNumber)
             console.log(result.user.uid)
 
-            const axios = require('axios');
-            const FormData = require('form-data');
-            let data = new FormData();
-            data.append('mobile', result.user.phoneNumber);
-            data.append('type', '1');
-            data.append('firebase_id', result.user.uid);
-            data.append('logintype', "phone");
+            signupLoaded("", "", result.user.phoneNumber, "3", "", result.user.uid, "", "",
+                (res) => {
+                    console.log(res)
+                    let signupData = res.data
+                    console.log(signupData)
+                    // Show a success toast notification
+                    // toast.success(res.message)
+                    // onClose()
 
-            let config = {
-                method: 'post',
-                maxBodyLength: Infinity,
-                url: 'https://testbrokerhub.wrteam.in/api/user_signup',
-                //   headers: { 
-                //     ...data .getHeaders()
-                //   },
-                data: data
-            };
+                    // toast.success("please fill your personal deatils")
+                    // Check if any of the required fields is empty
+                    if (!res.error) {
+                        
+                        if (
+                            signupData.name === "" ||
+                        signupData.email === "" ||
+                        signupData.address === "" ||
+                        signupData.profile === "" ||
+                        signupData.logintype === ""
+                        ) {
+                            // If any field is empty, execute this block
+                            console.log("open register");  // Log a message
+                            navigate.push("/user_register");  // Redirect to "/user_register"
+                            onClose();  // Close the modal
+                        } else {
+                            // If all fields have values, execute this block
+                            console.log(res.message);  // Log a message
+                            toast.success(res.message);  // Show a success toast
+                            onClose();  // Close the modal
+                        }
 
-            axios.request(config)
-                .then((response) => {
-                    console.log(JSON.stringify(response.data));
-                    toast.success('Login confirmed successfully!');
-                    onClose()
-
+                        
+                        
+                    }
+                    },
+                    (err) => {
+                    console.log(err)
+                    toast.error(err)
                 })
-                .catch((error) => {
-                    console.log(error);
-                    toast.error(error);
-                });
+
 
         }).catch((error) => {
             // Show an error toast notification
@@ -220,12 +225,6 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                             <span id='re-text' onClick={handleResendOTP}>Resend OTP</span>
                         )}
                     </div>
-                    {/* ) : (
-                            <div>
-                                <span onClick={() => setShowTimer(true)}>Resend OTP</span>
-                            </div>
-                        )} */}
-
                     <div className='continue'>
                         <button className='continue-button' onClick={handleConfirm}>
                             Confirm
@@ -236,8 +235,8 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
 
             </Modal >
 
-
             <div id="recaptcha-container"></div>
+
         </>
     );
 };

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import cityImage01 from "@/assets/Images/City_1.jpg"
@@ -9,6 +10,7 @@ import cityImage06 from "@/assets/Images/City_6.jpg"
 import cityImage07 from "@/assets/Images/City_2.jpg"
 import cityImage08 from "@/assets/Images/City_4.jpg"
 import Skeleton from 'react-loading-skeleton'
+import Loader from '@/Components/Loader/Loader'
 
 const PropertiesNearbyCity = () => {
 
@@ -70,13 +72,14 @@ const PropertiesNearbyCity = () => {
                 <div className="all-city-images row">
                     {isLoading ? (
                         // Show skeleton loading when data is being fetched
-                        <div className="col-12 loading_data">
-                            <Skeleton height={20} count={22} />
-                        </div>
+                        // <div className="col-12 loading_data">
+                        //     <Skeleton height={20} count={22} />
+                        // </div>
+                        <Loader />
                     ) :
                        staticData?.map((ele) => (
 
-                            <div className='col-12 col-md-6 col-lg-3'>
+                            <div className='col-12 col-md-6 col-lg-3' key={ele.id}>
                                 <div className="card bg-dark text-white mb-3" id='nearby-city-img'>
                                     <img src={ele.image} className="card-img" alt="..." id='city-img' />
                                     <div className="card-img-overlay">

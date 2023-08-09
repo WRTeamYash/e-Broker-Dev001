@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 // import "./FooterSectionSec.css"
 import eBroker from '@/assets/eBrokerLogo.svg';

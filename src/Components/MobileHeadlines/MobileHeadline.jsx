@@ -4,7 +4,7 @@ import { BsArrowRight } from 'react-icons/bs'
 
 const MobileHeadline = (props) => {
     const {data} = props;
-    console.log(data.link)
+    
     return (
         <>
             <div className="container">

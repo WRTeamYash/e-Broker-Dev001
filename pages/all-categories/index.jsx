@@ -1,4 +1,6 @@
+"use client"
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
+import Loader from '@/Components/Loader/Loader'
 import React, { useState } from 'react'
 import { Card } from 'react-bootstrap'
 import { MdOutlineVilla } from 'react-icons/md'
@@ -51,14 +53,12 @@ const AllCategories = () => {
                         <div className="row">
                             {isLoading ? (
                                 // Show skeleton loading when data is being fetched
-                                <div className="col-12 loading_data">
-                                    <Skeleton height={20} count={22} />
-                                </div>
+                               <Loader />
                             ) :
                                 ApartStaticData?.map((ele) => (
 
 
-                                    <div className="col-12 col-md-6 col-lg-2">
+                                    <div className="col-12 col-md-6 col-lg-2" key={ele.id}>
                                         <Card id='main_cate_card'>
                                             <Card.Body>
                                                 <div className='cate_card_content'>

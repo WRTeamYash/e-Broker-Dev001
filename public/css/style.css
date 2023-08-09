@@ -20,7 +20,36 @@ body {
   }
 }
 
-/* ============================================ ALL MODAL ====================== */
+/* ================================ LOADER============================= */
+/* Loader.css */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: transparent;
+}
+
+.loader {
+  border: 4px solid #087c7c;
+  border-top: 4px solid white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 
+============================================ ALL MODAL ====================== */
 
 /* ================ MOBILE HEADLINES CSS ============ */
 .mobile-headline-view {
@@ -195,52 +224,144 @@ body {
   font-weight: 600;
 }
 /* ============================= REGISTER MODAL CSS================== */
-
-.register_modal .modal-header {
-  padding: 20px !important;
+#user_register {
+  position: relative;
+  bottom: 5vh;
 }
-.register_modal.modal-title {
+#user_register #register_main_card {
+  justify-content: center;
+  margin: 60px 0;
+  gap: 20px 0;
+}
+#user_register .register_side_img_div {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#user_register .register_img {
+  height: 100%;
+  width: 100%;
+}
+#user_register .card-header {
+  /* padding: 20px !important; */
+  background-color: transparent;
+}
+#user_register .card-title {
   text-transform: capitalize;
   font-weight: 600 !important;
+  font-size: large;
 }
-.register_modal .close-icon {
+#user_register .close-icon {
   color: #fff;
   background: #000;
   border-radius: 50%;
   padding: 5px;
   cursor: pointer;
 }
-.register_modal.modal-body {
+#user_register .card-body {
   padding: 30px !important;
 }
-.register_modal .form_all_fields {
-display: flex;
-flex-direction: column;
-gap: 20px;
+#user_register .form_all_fields .row {
+  gap: 20px 0;
 }
-.register_modal .user_fields {
+#user_register .user_fields {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.register_modal .user_fields span {
+#user_register .user_fields span {
   font-size: medium;
   font-weight: 400;
 }
-.register_modal .user_fields input {
+.profile_image {
+  align-items: center;
+  background: #f9f9f9;
+  border: 2px solid #efefef;
+  border-radius: 100%;
+  display: flex;
+  height: 120px;
+  justify-content: center;
+  margin: 40px auto;
+  padding: 5px;
+  position: relative;
+  width: 120px;
+}
+#user_register .user_fields input {
   border: none;
   background: var(--primary-background);
   padding: 10px;
   border-radius: 12px;
   color: #000;
 }
-.register_modal .user_fields input:focus {
-outline: none;
+#user_register .user_fields input:focus {
+  outline: none;
 }
-.register_modal .user_fields input:focus-visible {
-outline: none;
+#user_register .user_fields input:focus-visible {
+  outline: none;
 }
-.register_modal .current_loc_div{
+#user_register .previewImg {
+  width: 50px;
+  height: 50px;
+}
+#choose-file {
+  padding: 0 !important;
+}
+/* #img-preview {
+  display: block;
+} */
+#dummyimage{
+  width: 100px;
+  height: 100px;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+}
+#img-preview img {
+  border-radius: 100%;
+  border-radius: 50%;
+  height: 100px;
+  margin: auto;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  width: 100px;
+  object-fit: cover;
+}
+.select__profile {
+  display: block;
+}
+[type="file"] {
+  float: left;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+[type="file"] + label {
+  align-items: center;
+  background: #000;
+  border: 1px solid #fff;
+  border-radius: 100%;
+  bottom: 20px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-size: 0.75rem;
+  height: 35px;
+  justify-content: center;
+  margin: 0;
+  outline: none;
+  position: absolute;
+  right: -6px;
+  vertical-align: middle;
+  width: 35px;
+}
+
+/* [type="file"] + label:hover {
+  background-color: #fff;
+  color: #000;
+} */
+#user_register .current_loc_div {
   border: none;
   background: var(--primary-background);
   padding: 10px;
@@ -252,31 +373,61 @@ outline: none;
   align-items: center;
   cursor: pointer;
 }
-.register_modal .current_loc{
-color: var(--primary-color);
-
+#user_register .current_loc {
+  color: var(--primary-color);
 }
-.register_modal .current_address{
+#user_register .current_address {
   border: none;
   background-color: var(--primary-background);
   color: #000;
   border-radius: 12px;
   padding: 20px;
 }
-.register_modal .current_address:focus{
-outline: none;
+#user_register .current_address:focus {
+  outline: none;
 }
-.register_modal .modal-footer{
+#user_register .card-footer {
+  border: none;
+  display: block;
+  background-color: transparent;
+}
+#user_register .card-footer .basic_submit button {
+  border: none;
+  width: 100%;
+  color: #fff;
+  background-color: var(--primary-color);
+  padding: 15px;
+  border-radius: 12px;
+}
+/* =====================LOCTION MODAL ================= */
+.current_loction_modal .modal-header {
+  padding: 20px !important;
+}
+.current_loction_modal.modal-title {
+  text-transform: capitalize;
+  font-weight: 600 !important;
+}
+.current_loction_modal .close-icon {
+  color: #fff;
+  background: #000;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+.current_loction_modal .modal-body {
+  padding: 30px !important;
+}
+.current_loction_modal .modal-footer {
   border: none;
   display: block;
 }
-.register_modal .modal-footer .basic_submit button {
-    border: none;
-    width: 100%;
-    color: #fff;
-    background-color: var(--primary-color);
-    padding: 15px;
-    border-radius: 12px;
+.current_loction_modal .modal-footer .confirm_loc button {
+  border: none;
+  width: 100%;
+  color: #fff;
+  background-color: var(--primary-color);
+  padding: 10px;
+  border-radius: 12px;
 }
 /* ============================ AREA CONVERTER MODAL ================ */
 .area-conrt-fields {
@@ -547,11 +698,23 @@ outline: none;
   color: #ffffff;
   border: none;
   margin-top: 2px;
+  text-transform: capitalize;
+}
+#dropdown-basic01 {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border: none;
+  margin-top: 2px;
+  text-transform: capitalize;
 }
 .dropdown-menu {
   width: 26vh !important;
 }
 .dropdown-item {
+  text-transform: capitalize;
   font-family: var(--primary-font);
   font-weight: 0;
   color: #282f39;
@@ -716,6 +879,7 @@ outline: none;
 }
 .view_prop {
   justify-content: center;
+  text-align: center;
   color: #000;
   background-color: #ffffff;
   border: none;
@@ -724,6 +888,9 @@ outline: none;
   padding: 10px 20px;
 }
 .icon {
+  margin-right: 10px;
+}
+.icon01 {
   margin-right: 10px;
 }
 .playbutton {
@@ -3219,29 +3386,21 @@ div#all-articles_card_footer .allarticles_footer_text p {
   padding: 30px;
 }
 
-#privacySect .privacy .privacyHeadline {
-  font: normal normal bold 40px/55px Manrope;
+/* terms and condition */
+#termsSect {
+  background: var(--primary-background);
+  position: relative;
+  bottom: 9vh;
+  color: #282f39;
+  padding: 50px 0;
 }
 
-#privacySect .privacyContent1 {
-  margin-top: 60px;
+#termsSect .card {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+  border: none;
+  padding: 30px;
 }
-
-#privacySect .headline {
-  font: normal normal 26px/32px Manrope;
-  display: block;
-  margin: 22px 0;
-}
-
-#privacySect .howUseInfo .infoContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-#privacySect .howUseInfo .infoContainer li {
-  margin-top: 16px;
-}
-
 /* =============================== ALL FEATURED PROPERTIES SECTION CSS */
 
 #featured_prop_section {

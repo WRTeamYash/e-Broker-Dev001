@@ -1,13 +1,10 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 // ** Next Import
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 const CustomDocument = () => {
 
-    useEffect(() => {
-
-    }, [])
-
+   
     return (
         <Html>
             <Head>

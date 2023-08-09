@@ -12,35 +12,35 @@ import { useSelector } from 'react-redux'
 
 const page = () => {
 
-    const privacyPolicyData = useSelector(settingsData)
-    const PrivacyData = privacyPolicyData?.privacy_policy
-    const [privacyData, setPrivacyData] = useState(null);
+    const TermsAndCondition = useSelector(settingsData)
+    const TermsAndConditionData = TermsAndCondition?.terms_conditions
+    const [termsData, setTermsData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         // Simulate data fetching delay
         setTimeout(() => {
             // Simulate fetched data (replace with actual data fetching)
-            const simulatedData = PrivacyData;
-            setPrivacyData(simulatedData);
+            const simulatedData = TermsAndConditionData;
+            setTermsData(simulatedData);
             setIsLoading(false);
         }, 2000);
     }, []);
 
     return (
         <>
-            <Breadcrumb title="Privacy Policy" />
-            <section id="privacySect">
+            <Breadcrumb title="Terms & Condition" />
+            <section id="termsSect">
                 <div className="container">
                     <div className='card'>
                         {isLoading ? (
                             // Show skeleton loading when data is being fetched
                             <div className="col-12 loading_data">
-                            <Skeleton height={20} count={20} />
-                        </div>
+                                <Skeleton height={20} count={20} />
+                            </div>
                             // <Loader />
                         ) : (
                             // Render the privacy policy data when not loading
-                            <div dangerouslySetInnerHTML={{ __html: privacyData || '' }} />
+                            <div dangerouslySetInnerHTML={{ __html: termsData || '' }} />
                         )}
                     </div>
                 </div>

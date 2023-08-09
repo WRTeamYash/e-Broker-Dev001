@@ -1,8 +1,10 @@
+"use client"
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import React, { useState } from 'react'
 import agentimg from "@/assets/Images/Superman.jpeg"
 import { Card } from 'react-bootstrap'
 import { FiArrowRightCircle } from 'react-icons/fi'
+import Loader from '@/Components/Loader/Loader'
 
 
 
@@ -75,12 +77,13 @@ const index = () => {
                     <div id='feature_cards' className='row'>
                         {isLoading ? (
                             // Show skeleton loading when data is being fetched
-                            <div className="col-12 loading_data">
-                                <Skeleton height={20} count={22} />
-                            </div>
+                            // <div className="col-12 loading_data">
+                            //     <Skeleton height={20} count={22} />
+                            // </div>
+                            <Loader />
                         ) :
                             agentsData?.map((ele) => (
-                                <div className='col-sm-12 col-md-6 col-lg-3'>
+                                <div className='col-sm-12 col-md-6 col-lg-3' key={ele.id}>
                                          <Card id='main_agent_card'>
                                                 <Card.Body>
                                                     <div className='agent_card_content'>

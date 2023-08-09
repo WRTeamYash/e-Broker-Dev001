@@ -19,17 +19,17 @@ import * as actions from "../actions/apiActions";
 const api = ({ dispatch, getState }) => next => async action => {
     // Check if Dispatched action is apiCallBegan then proceed with middleware code
     // If not then call the next and ignore this middleware
-    console.log("hello")
+    // console.log("hello")
     if (action.type !== actions.apiCallBegan.type) return next(action);
     let { url, method, data, params, onStart, onSuccess, onError, onStartDispatch, onErrorDispatch, onSuccessDispatch, headers, displayToast, authorizationHeader } = action.payload;
     if (typeof displayToast === "undefined") displayToast = true;
 
     // Set Token header if it is required
-
+    // console.log("for token", getState().User_signup.data.token)
     if (typeof authorizationHeader === "undefined" || authorizationHeader === true) {
         headers = {
             ...headers,
-            "Authorization": "Bearer " + getState().User.data.api_token,
+            "Authorization": "Bearer " + getState().User_signup.data.token,
         };
     }
 
@@ -42,7 +42,7 @@ const api = ({ dispatch, getState }) => next => async action => {
 
     try {
         // API Call
-        console.log()
+
         const response = await axios.request({
             baseURL: process.env.NEXT_PUBLIC_API_URL,
             url,
@@ -73,24 +73,21 @@ const api = ({ dispatch, getState }) => next => async action => {
 
 
         } else {
-            // Dispatch Default onSuccess Event
-            // console.log("respsnde",response.data)
-            dispatch(actions.apiCallSuccess(response.data));
-
+            // / Dispatch Default onSuccess Event
+            let payloadData;
+            if (params) {
+                payloadData = params;
+            } else {
+                payloadData = data;
+            }
+            let reponseData = { ...response.data, requestData: payloadData };
+            dispatch(actions.apiCallSuccess(reponseData));
             // Dispatch custom onSuccess Event
+            console.log("response" ,response.data)
             if (onSuccess) onSuccess(response.data);
-            // if (onSuccessDispatch) dispatch({ type: onSuccessDispatch, payload: response.data });
             if (onSuccessDispatch) {
-                if (response.data.data) {
-                    dispatch({ type: onSuccessDispatch, payload: response.data })
-                } else if (data) {
-                    dispatch({ type: onSuccessDispatch, payload: data })
-                } else {
-                    dispatch({ type: onSuccessDispatch, payload: params })
-                }
-            };
-
-
+                dispatch({ type: onSuccessDispatch, payload: reponseData });
+            }
             // Toast Message
             if (displayToast) {
                 toast.success(response.data.message);

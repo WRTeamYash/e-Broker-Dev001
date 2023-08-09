@@ -15,6 +15,7 @@ import { IoMdArrowDropright } from "react-icons/io"
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import { Card } from 'react-bootstrap';
 import { FiArrowRight } from 'react-icons/fi';
+import Loader from '@/Components/Loader/Loader';
 
 
 
@@ -278,12 +279,13 @@ const ArticleDeatils = () => {
                                 >
                                     {isLoading ? (
                                         // Show skeleton loading when data is being fetched
-                                        <div className="col-12 loading_data">
-                                            <Skeleton height={20} count={22} />
-                                        </div>
+                                        // <div className="col-12 loading_data">
+                                        //     <Skeleton height={20} count={22} />
+                                        // </div>
+                                        <Loader />
                                     ) :
                                         ArticleStaticData?.map((ele) => (
-                                            <SwiperSlide id="related-swiper-slider" >
+                                            <SwiperSlide id="related-swiper-slider" key={ele.id}>
                                                 <Card id='articles_main_card'>
                                                     <Card.Img variant="top" id='articles_card_img' src={ele.articleImg} />
                                                     <span id='apartment_tag'>{ele.propType}</span>

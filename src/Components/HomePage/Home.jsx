@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -5,7 +6,6 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'next/image';
-// import a from 'react-dom'
 import HeroSlider, {
     Slide, ButtonsNav
 } from "hero-slider";
@@ -48,6 +48,7 @@ import FilterModal from '../Filter/FilterModal';
 import Skeleton from 'react-loading-skeleton';
 import MobileHeadline from '../MobileHeadlines/MobileHeadline';
 import Link from 'next/link';
+import Loader from '../Loader/Loader';
 
 
 
@@ -56,7 +57,7 @@ import Link from 'next/link';
 
 
 const HomePage = () => {
-    // console.log(SlideImage01.src)
+
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;
     outline: 1px solid #000;
@@ -73,10 +74,6 @@ const HomePage = () => {
     const handleCloseModal = () => {
         setShowFilterModal(false);
     };
-    const handleFilter = () => {
-        // console.log("test")
-        handleOpenFilterModal()
-    }
     let FeaturestaticData = [
         {
             id: 1,
@@ -524,7 +521,6 @@ const HomePage = () => {
                                     <span
                                         // className="text" data-text="Featured"
                                         className='highlight'
-                                        data-aos="fade-left" data-aos-duration="5000"
                                     > Featured</span>
                                 </span> Listings
                             </span>
@@ -555,15 +551,18 @@ const HomePage = () => {
                         <div id='feature_cards' className='row'>
                             {isLoading ? (
                                 // Show skeleton loading when data is being fetched
-                                <div className="col-12 loading_data">
-                                    <Skeleton height={20} count={22} />
-                                </div>
+                                // <div className="col-12 loading_data">
+                                //     <Skeleton height={20} count={22} />
+                                // </div>
+                                <Loader />
+                        
+                                
                             ) :
                                 FeaturestaticData?.map((ele) => (
-                                    <div className='col-sm-12 col-md-6 col-lg-3'>
+                                    <div className='col-sm-12 col-md-6 col-lg-3' key={ele.id}>
                                         <div className='card' id='main_card'>
                                             <img className='card-img' id='card_img' src={ele.image} />
-                                            <div class="card-img-overlay">
+                                            <div className="card-img-overlay">
                                                 <span className='feture_tag'>
                                                     {ele.feature}
                                                 </span>
@@ -691,12 +690,13 @@ const HomePage = () => {
                                 >
                                     {isLoading ? (
                                         // Show skeleton loading when data is being fetched
-                                        <div className="col-12 loading_data">
-                                            <Skeleton height={20} count={22} />
-                                        </div>
+                                        // <div className="col-12 loading_data">
+                                        //     <Skeleton height={20} count={22} />
+                                        // </div>
+                                        <Loader />
                                     ) :
                                         ApartStaticData?.map((ele) => (
-                                            <SwiperSlide id="aprt-swiper-slider" >
+                                            <SwiperSlide id="aprt-swiper-slider" key={ele.id} >
                                                 <Card id='main_aprt_card'>
                                                     <Card.Body>
                                                         <div className='apart_card_content'>
@@ -766,12 +766,13 @@ const HomePage = () => {
                             <div className='row'>
                                 {isLoading ? (
                                     // Show skeleton loading when data is being fetched
-                                    <div className="col-12 loading_data">
-                                        <Skeleton height={20} count={22} />
-                                    </div>
+                                    // <div className="col-12 loading_data">
+                                    //     <Skeleton height={20} count={22} />
+                                    // </div>
+                                    <Loader />
                                 ) :
                                     FeaturestaticData?.map((ele) => (
-                                        <div className="col-sm-12 col-md-6 col-lg-6">
+                                        <div className="col-sm-12 col-md-6 col-lg-6" key={ele.id}>
                                             <div className='card' id='main_prop_card'>
                                                 <img className='card-img' id='prop_card_img' src={ele.image} />
 
@@ -1030,15 +1031,16 @@ const HomePage = () => {
                         >
                             {isLoading ? (
                                 // Show skeleton loading when data is being fetched
-                                <div className="col-12 loading_data">
-                                    <Skeleton height={20} count={22} />
-                                </div>
+                                // <div className="col-12 loading_data">
+                                //     <Skeleton height={20} count={22} />
+                                // </div>
+                                <Loader />
                             ) :
                                 FeaturestaticData?.map((ele) => (
-                                    <SwiperSlide id="most-view-swiper-slider" >
+                                    <SwiperSlide id="most-view-swiper-slider" key={ele.id}>
                                         <div className='card' id='main_card'>
                                             <img className='card-img' id='card_img' src={ele.image} />
-                                            <div class="card-img-overlay">
+                                            <div className="card-img-overlay">
                                                 <span className='feture_tag'>
                                                     {ele.feature}
                                                 </span>
@@ -1149,12 +1151,13 @@ const HomePage = () => {
                             >
                                 {isLoading ? (
                                     // Show skeleton loading when data is being fetched
-                                    <div className="col-12 loading_data">
-                                        <Skeleton height={20} count={22} />
-                                    </div>
+                                    // <div className="col-12 loading_data">
+                                    //     <Skeleton height={20} count={22} />
+                                    // </div>
+                                    <Loader />
                                 ) :
                                     agentsData?.map((ele) => (
-                                        <SwiperSlide id="agent-swiper-slider" >
+                                        <SwiperSlide id="agent-swiper-slider" key={ele.id}>
                                             <Card id='main_agent_card'>
                                                 <Card.Body>
                                                     <div className='agent_card_content'>

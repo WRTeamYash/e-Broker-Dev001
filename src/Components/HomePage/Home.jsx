@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -49,6 +49,8 @@ import Skeleton from 'react-loading-skeleton';
 import MobileHeadline from '../MobileHeadlines/MobileHeadline';
 import Link from 'next/link';
 import Loader from '../Loader/Loader';
+import { GetCategorieApi, GetFeturedListingsApi, GetSliderApi } from '@/store/actions/campaign';
+import { useRouter } from 'next/router';
 
 
 
@@ -65,8 +67,14 @@ const HomePage = () => {
     padding: 8px;
     border: 2px solid #fff;"></span>`;
     };
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [showFilterModal, setShowFilterModal] = useState(false);
+    const router = useRouter()
+
+
+
+
+
     const handleOpenFilterModal = () => {
         setShowFilterModal(true);
     };
@@ -74,6 +82,7 @@ const HomePage = () => {
     const handleCloseModal = () => {
         setShowFilterModal(false);
     };
+
     let FeaturestaticData = [
         {
             id: 1,
@@ -188,43 +197,7 @@ const HomePage = () => {
             parking: "2 Parking"
         },
     ]
-    let ApartStaticData = [
-        {
-            id: 1,
-            apart_name: "Villa",
-            apart_prop_count: "22 Properties"
-        },
-        {
-            id: 1,
-            apart_name: "Banglow",
-            apart_prop_count: "22 Properties"
-        },
-        {
-            id: 2,
-            apart_name: "Panthouse",
-            apart_prop_count: "22 Properties"
-        },
-        {
-            id: 3,
-            apart_name: "House",
-            apart_prop_count: "22 Properties"
-        },
-        {
-            id: 4,
-            apart_name: "Land",
-            apart_prop_count: "22 Properties"
-        },
-        {
-            id: 5,
-            apart_name: "Villa",
-            apart_prop_count: "22 Properties"
-        },
-        {
-            id: 6,
-            apart_name: "Villa",
-            apart_prop_count: "22 Properties"
-        },
-    ]
+
     let agentsData = [
         {
             id: 1,
@@ -352,6 +325,85 @@ const HomePage = () => {
 
         }
     };
+
+
+
+    // API IMPLEMENT
+    // SLIDER API 
+    const [slider, setSlider] = useState()
+    useEffect(() => {
+        GetSliderApi((response) => {
+            const sliderData = response.data;
+            // console.log("slider Data =========", sliderData.data)
+            setIsLoading(false)
+            setSlider(sliderData);
+        }, (error) => {
+            console.log(error)
+        })
+    }, [])
+
+    // GET CATEGORIES
+    const [getCategories, setGetCategories] = useState()
+    useEffect(() => {
+        GetCategorieApi((response) => {
+            const categoryData = response.data;
+            // console.log("category data ================",categoryData)
+            setIsLoading(false)
+            setGetCategories(categoryData);
+        }, (error) => {
+            console.log(error)
+        })
+    }, [])
+
+
+    // GET FEATURED LISTINGS and 
+    const [getFeaturedListing, setGetFeaturedListing] = useState()
+    useEffect(() => {
+        GetFeturedListingsApi("1", "", "", "", (response) => {
+            const FeaturedListingData = response.data;
+            // console.log("featured data ============", FeaturedListingData)
+            setIsLoading(false)
+            setGetFeaturedListing(FeaturedListingData);
+        }, (error) => {
+            console.log(error)
+        })
+    }, [])
+
+    // GET PROPERTY BY CATEGORY_ID
+    const [getPropByCategoryId, setGetPropByCategoryId] = useState()
+    useEffect(() => {
+        GetFeturedListingsApi("", "", "", "", (response) => {
+            const MostViewed = response.data;
+            console.log("most viewed data ============", MostViewed)
+            setIsLoading(false)
+            setGetMostViewedProp(MostViewed);
+        }, (error) => {
+            console.log(error)
+        })
+    }, [])
+    // GET MOST VIEWED PROPERTIES
+    const [getMostViewedProp, setGetMostViewedProp] = useState()
+    useEffect(() => {
+        GetFeturedListingsApi("", "1", "", "", (response) => {
+            const MostViewed = response.data;
+            console.log("most viewed data ============", MostViewed)
+            setIsLoading(false)
+            setGetMostViewedProp(MostViewed);
+        }, (error) => {
+            console.log(error)
+        })
+    }, [])
+
+    const handleViewCateData = (id) => {
+        console.log(id)
+        router.push("/all-properties")
+    }
+
+
+
+
+
+
     return (
         <>
             <section id='mainheroImage'>
@@ -376,94 +428,58 @@ const HomePage = () => {
 
                 >
 
-                    <Slide
-                        background={{
-                            backgroundImageSrc: SlideImage01.src,
-                        }}
+                    {
+                        isLoading ?
+                            (
+                                // <Loader />
+                                // <div className="col-12 loading_data">
+                                //     <Skeleton height={20} count={20} />
+                                // </div>
+                                <Loader />
+                            ) :
+                            slider &&
+                            slider.map((single, index) => {
+                                return (
+                                    <Slide
+                                        background={{
+                                            // backgroundImageSrc: SlideImage01.src,
+                                            backgroundImageSrc: single.image,
+                                        }}
+                                        key={index}
 
-                    >
-                        <div className='container'>
-                            <Wrapper>
-                                <div id='herotexts'>
-                                    <div>
-                                        <span className='btn' id='priceteg'> $1,999,000</span>
-                                        <h1 id="hero_headlines">Serene Haven Retreat</h1>
-                                        <span id='specifiaction'>Bedrooms: 5, Bathrooms: 4, Balcony: 2, Pool: 1</span>
-                                    </div>
+                                    >
+                                        <div className='container'>
+                                            <Wrapper>
+                                                <div id='herotexts'>
+                                                    <div>
+                                                        <span className='btn' id='priceteg'> {single.property_price}</span>
+                                                        <h1 id="hero_headlines">{single.property_title}</h1>
+                                                        {single.parameters && single.parameters.slice(0, 4).map((elem, index) => (
 
-                                    <div id='viewall_hero_prop'>
-                                        <button className='view_prop'>
-                                            <FaEye size={20} className='icon' />
-                                            view Properties
-                                        </button>
-                                        <div>
-                                            <GoPlay className='playbutton' size={50} />
+                                                            <span id='specifiaction'> {elem.name}: {elem.value} </span>
+                                                        ))
+
+                                                        }
+                                                    </div>
+
+                                                    <div id='viewall_hero_prop'>
+                                                        <button className='view_prop'>
+                                                            <FaEye size={20} className='icon' />
+                                                            view Properties
+                                                        </button>
+                                                        <div>
+                                                            <GoPlay className='playbutton' size={50} />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </Wrapper>
                                         </div>
-                                    </div>
+                                    </Slide>
 
-                                </div>
-                            </Wrapper>
-                        </div>
-                    </Slide>
-
-                    <Slide
-                        background={{
-                            backgroundImageSrc: SlideImage02.src,
-                        }}
-                    >
-                        <div className='container'>
-                            <Wrapper>
-                                <div id='herotexts'>
-                                    <div>
-                                        <span className='btn' id='priceteg'> $1,999,000</span>
-                                        <h1 id="hero_headlines">Serene Haven Retreat</h1>
-                                        <span id='specifiaction'>Bedrooms: 5, Bathrooms: 4, Balcony: 2, Pool: 1</span>
-                                    </div>
-
-                                    <div id='viewall_hero_prop'>
-                                        <button className='view_prop'>
-                                            <FaEye size={20} className='icon' />
-                                            view Properties
-                                        </button>
-                                        <div>
-                                            <GoPlay className='playbutton' size={50} />
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </Wrapper>
-                        </div>
-                    </Slide>
-
-                    <Slide
-                        background={{
-                            backgroundImageSrc: SlideImage03.src,
-                        }}
-                    >
-                        <div className='container'>
-                            <Wrapper>
-                                <div id='herotexts'>
-                                    <div>
-                                        <span className='btn' id='priceteg'> $1,999,000</span>
-                                        <h1 id="hero_headlines">Serene Haven Retreat</h1>
-                                        <span id='specifiaction'>Bedrooms: 5, Bathrooms: 4, Balcony: 2, Pool: 1</span>
-                                    </div>
-
-                                    <div id='viewall_hero_prop'>
-                                        <button className='view_prop'>
-                                            <FaEye size={20} className='icon' />
-                                            view Properties
-                                        </button>
-                                        <div>
-                                            <GoPlay className='playbutton' size={50} />
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </Wrapper>
-                        </div>
-                    </Slide>
-
+                                )
+                            }
+                            )}
                     {/* <ButtonsNav /> */}
 
                 </HeroSlider>
@@ -551,78 +567,73 @@ const HomePage = () => {
                         <div id='feature_cards' className='row'>
                             {isLoading ? (
                                 // Show skeleton loading when data is being fetched
-                                // <div className="col-12 loading_data">
-                                //     <Skeleton height={20} count={22} />
-                                // </div>
-                                <Loader />
-                        
-                                
+                                <div className="col-12 loading_data">
+                                    <Skeleton height={20} count={20} />
+                                </div>
+                                // <Loader />
+
                             ) :
-                                FeaturestaticData?.map((ele) => (
-                                    <div className='col-sm-12 col-md-6 col-lg-3' key={ele.id}>
-                                        <div className='card' id='main_card'>
-                                            <img className='card-img' id='card_img' src={ele.image} />
-                                            <div className="card-img-overlay">
-                                                <span className='feture_tag'>
-                                                    {ele.feature}
-                                                </span>
-                                                <span className='like_tag'>
-                                                    <AiOutlineHeart size={25} />
-                                                </span>
+                                getFeaturedListing?.slice(0, 8).map((ele, index) => (
+                                    <div className='col-sm-12 col-md-6 col-lg-3' key={index}>
+                                        <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                                            <div className='card' id='main_card'>
+                                                <img className='card-img' id='card_img' src={ele.title_image} />
+                                                <div className="card-img-overlay">
 
-
-                                            </div>
-
-
-
-                                            <div className='card-body'>
-                                                <span className='sell_teg'>
-                                                    {ele.sell}
-                                                </span>
-                                                <span className='price_teg'>
-                                                    {ele.price}
-                                                </span>
-                                                <div id='feature_card_mainbody'>
-
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='feture_body_title'> {ele.prop_type} </span>
-                                                </div>
-                                                <div id='feature_card_middletext'>
-                                                    <span>
-                                                        {ele.prop_loc}
+                                                    {ele.promoted ? (
+                                                        <span className='feture_tag'>
+                                                            Feature
+                                                        </span>
+                                                    ) : null}
+                                                    <span className='like_tag'>
+                                                        <AiOutlineHeart size={25} />
                                                     </span>
-                                                    <p>
-                                                        {ele.prop_city}
-                                                    </p>
+
+
+                                                </div>
+
+
+
+                                                <div className='card-body'>
+                                                    <span className='sell_teg'>
+                                                        {ele.propery_type}
+                                                    </span>
+                                                    <span className='price_teg'>
+                                                        $ {ele.price}
+                                                    </span>
+                                                    <div id='feature_card_mainbody'>
+
+                                                        <div className="cate_image">
+                                                            <img src={ele.category.image} alt="" />
+                                                        </div>
+                                                        <span className='feture_body_title'> {ele.category.category} </span>
+                                                    </div>
+                                                    <div id='feature_card_middletext'>
+                                                        <span>
+                                                            {ele.title}
+                                                        </span>
+                                                        <p>
+                                                            {ele.city} , {ele.state},  {ele.country}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+
+                                                <div className='card-footer' id='feature_card_footer'>
+                                                    <div className="row">
+
+                                                        {ele.parameters && ele.parameters.slice(0, 4).map((elem, index) => (
+                                                            <div className="col-sm-12 col-md-6" key={index}>
+                                                                <div id='footer_content' key={index}>
+                                                                    <Image src={elem.image} alt="" width={20} height={16} />
+                                                                    <p className='text_footer'> {elem.name}</p>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                             </div>
-
-
-                                            <div className='card-footer' id='feature_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={22} />
-                                                        <p className='text_footer'> {ele.bedroom} </p>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={22} />
-                                                        <p className='text_footer'> {ele.sq_fit} </p>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={22} />
-                                                        <p className='text_footer'> {ele.bath} </p>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={22} />
-                                                        <p className='text_footer'> {ele.parking} </p>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </Link>
                                     </div>
                                 ))}
                         </div>
@@ -695,22 +706,27 @@ const HomePage = () => {
                                         // </div>
                                         <Loader />
                                     ) :
-                                        ApartStaticData?.map((ele) => (
-                                            <SwiperSlide id="aprt-swiper-slider" key={ele.id} >
-                                                <Card id='main_aprt_card'>
-                                                    <Card.Body>
-                                                        <div className='apart_card_content'>
-                                                            <div id='apart_icon'>
-                                                                <MdOutlineVilla size={40} className='solo_icon' />
+                                        getCategories && getCategories?.map((ele, index) => (
+                                            <SwiperSlide id="aprt-swiper-slider" key={index} >
+                                                <Link href="/all-properties/[slug]" as={`/all-properties/${ele.id}`} passHref
+                                                >
+                                                    {console.log("category data", ele)}
+                                                    <Card id='main_aprt_card'>
+                                                        <Card.Body>
+                                                            <div className='apart_card_content'>
+                                                                <div id='apart_icon'>
+                                                                    <img src={ele.image} alt="" className='solo_icon' />
+                                                                </div>
+                                                                <div id='apart_name'>
+                                                                    {ele.category}
+                                                                    <div id='propertie_count'>{ele.properties_count} Propertis</div>
+                                                                </div>
                                                             </div>
-                                                            <div id='apart_name'>
-                                                                {ele.apart_name}
-                                                                <div id='propertie_count'>{ele.apart_prop_count}</div>
-                                                            </div>
-                                                        </div>
-                                                    </Card.Body>
-                                                </Card>
+                                                        </Card.Body>
+                                                    </Card>
+                                                </Link>
                                             </SwiperSlide>
+
                                         ))}
                                 </Swiper>
                             </div>
@@ -721,127 +737,126 @@ const HomePage = () => {
 
             {/* ===== PROPERTIE SECTION ====== */}
             <section id='main_properties'>
-                <div className='container'>
-                    <div id='prop'>
-                        <div className='prop_header'>
-                            <div data-aos="fade-right" data-aos-duration="1000">
-                                <h3>
-                                    Most <span
-                                    // className="hovertext2"
-                                    >
-                                        <span
-                                            // className="text" data-text="Viewed"
-                                            className='highlight'
-                                            data-aos="fade-left" data-aos-duration="5000"
-                                        > Viewed</span>
-                                    </span> Properties
-                                </h3>
-                            </div>
-                            <div className='rightside_prop_header'>
-                                <Link href="most-viewed-properties">
-                                    <button className="learn-more" id="viewall">
-                                        <span aria-hidden="true" className="circle">
-                                            <span className="icon arrow"></span>
-                                        </span>
-                                        <span className="button-text">See All Properties</span>
-                                    </button>
-                                </Link>
+                <div className='properties_section'>
+                    <div className='container'>
+                        <div id='prop'>
+                            <div className='prop_header'>
+                                <div data-aos="fade-right" data-aos-duration="1000">
+                                    <h3>
+                                        Most <span
+                                        // className="hovertext2"
+                                        >
+                                            <span
+                                                // className="text" data-text="Viewed"
+                                                className='highlight'
+                                                data-aos="fade-left" data-aos-duration="5000"
+                                            > Viewed</span>
+                                        </span> Properties
+                                    </h3>
+                                </div>
+                                <div className='rightside_prop_header'>
+                                    <Link href="most-viewed-properties">
+                                        <button className="learn-more" id="viewall">
+                                            <span aria-hidden="true" className="circle">
+                                                <span className="icon arrow"></span>
+                                            </span>
+                                            <span className="button-text">See All Properties</span>
+                                        </button>
+                                    </Link>
+
+                                </div>
 
                             </div>
+                            <div className="mobile-headline-view">
+                                <MobileHeadline data={{
+                                    start: "Most",
+                                    center: "Viewed",
+                                    end: "Properties",
+                                    link: "/most-viewed-properties"
 
+                                }
+                                } />
+                            </div>
                         </div>
-                        <div className="mobile-headline-view">
-                            <MobileHeadline data={{
-                                start: "Most",
-                                center: "Viewed",
-                                end: "Properties",
-                                link: "/most-viewed-properties"
-
-                            }
-                            } />
-                        </div>
-                    </div>
-                    <div id='prop_cards'>
-                        <div className='cards_sec'>
-                            <div className='row'>
-                                {isLoading ? (
-                                    // Show skeleton loading when data is being fetched
-                                    // <div className="col-12 loading_data">
-                                    //     <Skeleton height={20} count={22} />
-                                    // </div>
-                                    <Loader />
-                                ) :
-                                    FeaturestaticData?.map((ele) => (
-                                        <div className="col-sm-12 col-md-6 col-lg-6" key={ele.id}>
-                                            <div className='card' id='main_prop_card'>
-                                                <img className='card-img' id='prop_card_img' src={ele.image} />
-
-
-                                                <div className="card-body" id='main_card_body'>
-                                                    <span className='prop_feature'>
-                                                        {ele.feature}
-                                                    </span>
-                                                    <span className='prop_like'>
-                                                        <AiOutlineHeart size={25} />
-                                                    </span>
-                                                    <span className='prop_sell'>
-                                                        {ele.sell}
-                                                    </span>
-                                                    <span className='prop_price'>
-                                                        {ele.price}
-                                                    </span>
-
-                                                    <div>
-                                                        <div id='prop_card_mainbody'>
-                                                            <BiHomeSmile size={23} />
-                                                            <span className='body_title'> {ele.prop_type} </span>
-                                                        </div>
-                                                        <div id='prop_card_middletext'>
-                                                            <span>
-                                                                {ele.prop_loc}
-                                                            </span>
-                                                            <p>
-                                                                {ele.prop_city}
-                                                            </p>
-                                                        </div>
+                        <div id='prop_cards'>
+                            <div className='cards_sec'>
+                                <div className='row'>
+                                    {isLoading ? (
+                                        // Show skeleton loading when data is being fetched
+                                        // <div className="col-12 loading_data">
+                                        //     <Skeleton height={20} count={22} />
+                                        // </div>
+                                        <Loader />
+                                    ) :
+                                        getMostViewedProp?.slice(0, 6).map((ele, index) => (
+                                            <div className="col-sm-12 col-md-6 col-lg-6" key={index}>
+                                                <div className='card' id='main_prop_card'>
+                                                    <div className='image_div col-md-4'>
+                                                        <img className='card-img' id='prop_card_img' src={ele.title_image} />
                                                     </div>
-                                                    <Card.Footer id='prop_card_footer'>
-                                                        <div className='footer_body'>
-                                                            <div id='footer_content'>
-                                                                <RiHotelBedLine size={25} />
-                                                                <span className='text_footer'> {ele.bedroom} </span>
+
+
+                                                    <div className="card-body" id='main_card_body'>
+                                                        {ele.promoted ? (
+                                                            <span className='prop_feature'>
+                                                                Feature
+                                                            </span>
+                                                        ) : null}
+                                                        <span className='prop_like'>
+                                                            <AiOutlineHeart size={25} />
+                                                        </span>
+                                                        <span className='prop_sell'>
+                                                            {ele.propery_type}
+                                                        </span>
+                                                        <span className='prop_price'>
+                                                            $ {ele.price}
+                                                        </span>
+
+                                                        <div>
+                                                            <div id='prop_card_mainbody'>
+                                                                {/* <BiHomeSmile size={23} /> */}
+                                                                <div className="cate_image">
+                                                                    <img src={ele.category.image} alt="" />
+                                                                </div>
+                                                                <span className='body_title'> {ele.category.category} </span>
                                                             </div>
-                                                            <div id='footer_content'>
-                                                                <RiBuilding3Line size={25} />
-                                                                <span className='text_footer'>{ele.sq_fit} </span>
+                                                            <div id='prop_card_middletext'>
+                                                                <span>
+                                                                    {ele.title}
+                                                                </span>
+                                                                <p>
+                                                                    {ele.city} , {ele.state},  {ele.country}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <Card.Footer id='prop_card_footer'>
+
+                                                            <div className="row">
+
+                                                                {ele.parameters && ele.parameters.slice(0, 4).map((elem, index) => (
+                                                                    <div className="col-sm-12 col-md-6" key={index}>
+                                                                        <div id='footer_content' key={index}>
+                                                                            <img src={elem.image} alt="" />
+                                                                            <p className='text_footer'> {elem.name}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                ))}
                                                             </div>
 
-                                                        </div>
-                                                        <div className='footer_body'>
-                                                            <div id='footer_content'>
-                                                                <FiCloudDrizzle size={25} />
-                                                                <span className='text_footer'>  {ele.bath} </span>
-                                                            </div>
-                                                            <div id='footer_content'>
-                                                                <RiParkingBoxLine size={25} />
-                                                                <span className='text_footer'>  {ele.parking} </span>
-                                                            </div>
+                                                        </Card.Footer>
+                                                    </div>
 
-                                                        </div>
-                                                    </Card.Footer>
                                                 </div>
 
                                             </div>
+                                        ))}
+                                </div>
 
-                                        </div>
-                                    ))}
                             </div>
-
                         </div>
+
                     </div>
-
                 </div>
-
             </section>
 
             {/* ===== PROPERTIES NEARBY CITY  SECTION ====== */}
@@ -865,12 +880,12 @@ const HomePage = () => {
                         </div>
                         <div className='rightside_prop_city_header'>
                             <Link href="/properties-nearby-city">
-                            <button className="learn-more" id="viewall">
-                                <span aria-hidden="true" className="circle">
-                                    <span className="icon arrow"></span>
-                                </span>
-                                <span className="button-text">See All Properties</span>
-                            </button>
+                                <button className="learn-more" id="viewall">
+                                    <span aria-hidden="true" className="circle">
+                                        <span className="icon arrow"></span>
+                                    </span>
+                                    <span className="button-text">See All Properties</span>
+                                </button>
                             </Link>
                         </div>
                     </div>
@@ -992,12 +1007,12 @@ const HomePage = () => {
                         </div>
                         <div className='rightside_most_fav_header'>
                             <Link href="/mostfav-properties">
-                            <button className="learn-more" id="viewall">
-                                <span aria-hidden="true" className="circle">
-                                    <span className="icon arrow"></span>
-                                </span>
-                                <span className="button-text">See All Properties</span>
-                            </button>
+                                <button className="learn-more" id="viewall">
+                                    <span aria-hidden="true" className="circle">
+                                        <span className="icon arrow"></span>
+                                    </span>
+                                    <span className="button-text">See All Properties</span>
+                                </button>
                             </Link>
                         </div>
                     </div>
@@ -1115,9 +1130,9 @@ const HomePage = () => {
                             <span>Browse By Agents
                             </span>
                             <Link href="/listby-agents">
-                            <button className='mt-3'> <FiEye className="mx-2" size={25} />
-                                View all Agent
-                            </button>
+                                <button className='mt-3'> <FiEye className="mx-2" size={25} />
+                                    View all Agent
+                                </button>
                             </Link>
                         </div>
                     </div>
@@ -1211,12 +1226,12 @@ const HomePage = () => {
                         </div>
                         <div className='rightside_article_headlin'>
                             <Link href="/articles">
-                            <button className="learn-more" id="viewall">
-                                <span aria-hidden="true" className="circle">
-                                    <span className="icon arrow"></span>
-                                </span>
-                                <span className="button-text">See All Properties</span>
-                            </button>
+                                <button className="learn-more" id="viewall">
+                                    <span aria-hidden="true" className="circle">
+                                        <span className="icon arrow"></span>
+                                    </span>
+                                    <span className="button-text">See All Properties</span>
+                                </button>
                             </Link>
                         </div>
                     </div>

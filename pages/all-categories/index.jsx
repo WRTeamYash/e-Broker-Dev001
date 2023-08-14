@@ -1,49 +1,30 @@
 "use client"
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Loader from '@/Components/Loader/Loader'
-import React, { useState } from 'react'
+import { GetCategorieApi } from '@/store/actions/campaign'
+import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap'
 import { MdOutlineVilla } from 'react-icons/md'
 
 const AllCategories = () => {
     const [isLoading, setIsLoading] = useState(false)
-    let ApartStaticData = [
-        {
-            id: 1,
-            apart_name: "Villa",
-            apart_prop_count: "22 Properties"
-        },
-        {
-            id: 1,
-            apart_name: "Banglow",
-            apart_prop_count: "22 Properties"
-        },
-        {
-            id: 2,
-            apart_name: "Panthouse",
-            apart_prop_count: "22 Properties"
-        },
-        {
-            id: 3,
-            apart_name: "House",
-            apart_prop_count: "22 Properties"
-        },
-        {
-            id: 4,
-            apart_name: "Land",
-            apart_prop_count: "22 Properties"
-        },
-        {
-            id: 5,
-            apart_name: "Villa",
-            apart_prop_count: "22 Properties"
-        },
-        {
-            id: 6,
-            apart_name: "Villa",
-            apart_prop_count: "22 Properties"
-        },
-    ]
+
+
+    // GET CATEGORIES
+    const [getCategories, setGetCategories] = useState()
+    useEffect(() => {
+        GetCategorieApi((response) => {
+            const categoryData = response.data;
+            // console.log("slider Data =========", sliderData.data)
+            setIsLoading(false)
+            setGetCategories(categoryData);
+            // console.log("category data ================",categoryData)
+        }, (error) => {
+            console.log(error)
+        })
+    }, [])
+
+
     return (
         <>
             <Breadcrumb title="All Categories" />
@@ -53,21 +34,21 @@ const AllCategories = () => {
                         <div className="row">
                             {isLoading ? (
                                 // Show skeleton loading when data is being fetched
-                               <Loader />
+                                <Loader />
                             ) :
-                                ApartStaticData?.map((ele) => (
+                                getCategories?.map((ele) => (
 
 
                                     <div className="col-12 col-md-6 col-lg-2" key={ele.id}>
-                                        <Card id='main_cate_card'>
+                                        <Card id='main_aprt_card'>
                                             <Card.Body>
-                                                <div className='cate_card_content'>
-                                                    <div id='cate_icon'>
-                                                        <MdOutlineVilla size={40} className='cate_solo_icon' />
+                                                <div className='apart_card_content'>
+                                                    <div id='apart_icon'>
+                                                        <img src={ele.image} alt="" className='solo_icon' />
                                                     </div>
-                                                    <div id='cate_name'>
-                                                        {ele.apart_name}
-                                                        <div id='propertie_count'>{ele.apart_prop_count}</div>
+                                                    <div id='apart_name'>
+                                                        {ele.category}
+                                                        <div id='propertie_count'>{ele.properties_count} Propertis</div>
                                                     </div>
                                                 </div>
                                             </Card.Body>

@@ -1,8 +1,10 @@
 const GET_SETTINGS = "get_system_settings"
 const USER_SIGNUP = "user_signup"
 const UPDATE_PROFILE = "update_profile"
-
-
+const GET_SLIDERS = "get_slider"
+const GET_CATEGORES = "get_categories"
+const GET_PROPETRES ="get_property"
+// GET SETTINGS
 export const getSettingApi = (type, user_id) => {
 
     return {
@@ -16,6 +18,8 @@ export const getSettingApi = (type, user_id) => {
 
     }
 }
+
+// USER SIGNUP
 export const user_signupApi = (name, email, mobile, type, address, firebase_id, logintype, profile) => {
     let data = new FormData();
     data.append("name", name);
@@ -34,7 +38,8 @@ export const user_signupApi = (name, email, mobile, type, address, firebase_id, 
 
     }
 }
-export const update_profile = (userid ,name, email, mobile, type, address, firebase_id, logintype, profile) => {
+// UPDATE PROFILE
+export const update_profile = (userid, name, email, mobile, type, address, firebase_id, logintype, profile) => {
     let data = new FormData();
     data.append("userid", userid);
     data.append("name", name);
@@ -50,6 +55,53 @@ export const update_profile = (userid ,name, email, mobile, type, address, fireb
         method: 'POST',
         data,
         authorizationHeader: true,
+
+    }
+}
+
+// GET Slider 
+
+export const getSliderApi = () => {
+
+    return {
+        url: `${GET_SLIDERS}`,
+        method: "GET",
+        params: {
+
+        },
+        authorizationHeader: false,
+
+    }
+}
+
+// GET CATEGORIES
+
+export const getCategorieApi = (user_id) => {
+
+    return {
+        url: `${GET_CATEGORES}`,
+        method: "GET",
+        params: {
+            
+        },
+        authorizationHeader: false,
+
+    }
+}
+
+// GET PROMOTED PROPETRS // FEATURED PROPETRS 
+export const getAllProperties = (promoted, top_rated, id, category_id) => {
+
+    return {
+        url: `${GET_PROPETRES}`,
+        method: "GET",
+        params: {
+            promoted: promoted,
+            top_rated: top_rated,
+            id, id,
+            category_id: category_id,
+        },
+        authorizationHeader: false,
 
     }
 }

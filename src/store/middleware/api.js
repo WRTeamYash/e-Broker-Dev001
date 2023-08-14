@@ -53,7 +53,7 @@ const api = ({ dispatch, getState }) => next => async action => {
             onError,
             headers,
         });
-        console.log(response)
+        // console.log(response)
         if (response.data.error) {
             // console.log("reserr",response)
             // Dispatch Default onError Event
@@ -83,7 +83,7 @@ const api = ({ dispatch, getState }) => next => async action => {
             let reponseData = { ...response.data, requestData: payloadData };
             dispatch(actions.apiCallSuccess(reponseData));
             // Dispatch custom onSuccess Event
-            console.log("response" ,response.data)
+            // console.log("response" ,response.data)
             if (onSuccess) onSuccess(response.data);
             if (onSuccessDispatch) {
                 dispatch({ type: onSuccessDispatch, payload: reponseData });

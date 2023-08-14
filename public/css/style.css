@@ -710,6 +710,9 @@ body {
   margin-top: 2px;
   text-transform: capitalize;
 }
+.dropdown:hover .dropdown-menu{
+  display: block;
+}
 .dropdown-menu {
   width: 26vh !important;
 }
@@ -1250,9 +1253,12 @@ button.learn-more .button-text {
 #main_card {
   width: 100%;
   border-radius: 12px;
+  height: 100%;
 }
 #card_img {
   border-radius: 12px 12px 0 0;
+  height: 25vh;
+  object-fit: cover;
 }
 #feature_cards #main_card .card-img-overlay {
   background: none;
@@ -1297,10 +1303,12 @@ button.learn-more .button-text {
   border: none;
   color: #ffffff;
   position: absolute;
-  padding: 0 16px;
+  padding: 0 12px;
   /* top: 225px; */
   width: 65px;
   margin-top: -30px;
+  /* align-items: center; */
+  text-align: center;
 }
 .price_teg {
   position: absolute;
@@ -1341,14 +1349,14 @@ div#feature_card_footer.card-footer {
   /* padding: 16px 16px; */
   border-radius: 0 0 12px 12px;
   background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
   gap: 20px;
 }
-.footer_body {
-  display: flex;
-  flex-direction: column;
+div#feature_card_footer .row{
+  width: 100%;
+  gap: 0;
 }
+
+
 #footer_content {
   display: flex;
   flex-direction: row;
@@ -1398,7 +1406,7 @@ div#feature_card_footer.card-footer {
   position: relative;
   bottom: 0;
   background-color: #fff;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 #view_appartment {
@@ -1521,7 +1529,9 @@ div#feature_card_footer.card-footer {
   margin-top: -50px;
   z-index: 10;
   height: fit-content;
-  margin: 60px 0;
+}
+.properties_section {
+  padding: 70px 0px;
 }
 .prop_header {
   display: flex;
@@ -1555,9 +1565,15 @@ div#feature_card_footer.card-footer {
   height: 100%;
   border-radius: 12px;
 }
+/* .image_div{
+  width: 30%;
+
+} */
 #prop_card_img {
-  height: 240px;
-  width: auto;
+  width: 100%;
+  height: 100%;
+object-fit: cover;
+  aspect-ratio: 1/1;
   border-radius: 12px 0 0 12px;
 }
 #main_card_body {
@@ -1569,7 +1585,7 @@ div#feature_card_footer.card-footer {
   padding: 5px;
   opacity: 1;
   border: none;
-  cursor: pointer;
+  
   color: #ffffff;
   position: absolute;
   left: 10px;
@@ -1598,14 +1614,14 @@ div#feature_card_footer.card-footer {
   border-radius: 5px;
   opacity: 1;
   border: none;
-  cursor: pointer;
+  text-align: center;
   color: #ffffff;
-  padding: 5px 12px 5px 14px;
+  padding: 5px 10px;
   position: absolute;
   width: 60px;
   left: 10px;
   /* bottom: 9px; */
-  margin-top: 180px;
+  margin-top: 210px;
   /* margin-left: -392px; */
 }
 .prop_price {
@@ -1616,8 +1632,8 @@ div#feature_card_footer.card-footer {
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
-  margin-left: -150px;
-  margin-top: 180px;
+  margin-left: -100px;
+  margin-top: 220px;
 }
 
 #prop_card_mainbody {
@@ -2350,10 +2366,15 @@ option:hover {
   border-radius: 12px;
   cursor: pointer;
 }
+.img_div{
+  width: 30%;
+}
 #all-prop-containt #all_prop_card_img {
-  height: 220px;
+  height: 100%;  
   width: 100%;
+  aspect-ratio: 1/0.6;
   border-radius: 12px 0 0 12px;
+  object-fit: cover;
 }
 #all-prop-containt #all_prop_card_body {
   width: 100%;
@@ -2399,7 +2420,7 @@ option:hover {
 }
 #all-prop-containt .all_prop_price {
   position: absolute;
-  margin-left: -150px;
+  margin-left: -100px;
   margin-top: 170px;
   font-weight: 500;
   letter-spacing: 0px;
@@ -2414,6 +2435,9 @@ option:hover {
   height: 25px;
   width: 100%;
   color: var(--primary-color);
+}
+#all-prop-containt #all_prop_sub_body .sub_body_middletext{
+margin-top: 10px;
 }
 #all-prop-containt #all_prop_card_footer {
   background-color: #fff;
@@ -2692,8 +2716,8 @@ option:hover {
   border-radius: 8px;
   text-transform: capitalize;
   position: absolute;
-  bottom: 1vh;
-  left: 79%;
+margin-top: -50px;
+margin-left: 30%;
 }
 .right-imgs01 {
   width: 100%;
@@ -2722,7 +2746,7 @@ option:hover {
 #prop-deatls-card .card-body p {
   text-align: left;
   color: #282f39;
-  font-size: small;
+  font-size: medium;
 }
 #prop-deatls-card .card-body button {
   border: none;
@@ -2735,13 +2759,8 @@ option:hover {
   justify-content: space-between;
   gap: 30px;
 }
-.uper-specification {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  gap: 10%;
+#features-amenities .card-body .row{
+  gap: 20px 0;
 }
 .down-specification {
   display: flex;
@@ -2779,14 +2798,34 @@ option:hover {
 }
 #prop-address {
   text-transform: capitalize;
-  gap: -50px !important;
+  /* gap: -50px !important; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 .adrs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
   font-size: medium;
   font-weight: 400;
   color: #282f39;
+  width: 30%;
 }
-.adrs-value {
+.adrs02 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  font-size: medium;
+  font-weight: 400;
+  color: #282f39;
+  width: 70%;
+}
+.adrs_value {
   /* font-size: small; */
   color: #282f39c2;
 }
@@ -3402,7 +3441,9 @@ div#all-articles_card_footer .allarticles_footer_text p {
   padding: 30px;
 }
 /* =============================== ALL FEATURED PROPERTIES SECTION CSS */
-
+a{
+  text-decoration: none;
+}
 #featured_prop_section {
   position: relative;
   bottom: 9vh;
@@ -3410,6 +3451,13 @@ div#all-articles_card_footer .allarticles_footer_text p {
 }
 #featured_prop_section .row {
   gap: 20px 0;
+}
+.feature-section-cards .row a{
+  text-decoration: none;
+}
+#featured_prop_section .row a{
+  text-decoration: none;
+
 }
 
 /* =============================== ALL MOST VIEWED PROPERTIES SECTION CSS */

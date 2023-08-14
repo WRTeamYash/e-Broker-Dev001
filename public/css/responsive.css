@@ -227,7 +227,7 @@
     margin-top: 0;
     width: 100%;
   }
-  #all-articles-deatil-content #main-content .recent-article-card{
+  #all-articles-deatil-content #main-content .recent-article-card {
     margin: 0;
     width: 100%;
   }
@@ -354,7 +354,7 @@
     margin-top: 0;
     width: 100%;
   }
-  #all-articles-deatil-content #main-content .recent-article-card{
+  #all-articles-deatil-content #main-content .recent-article-card {
     margin: 0;
     width: 100%;
   }
@@ -953,7 +953,7 @@
 
 @media only screen and (min-width: 1400px) and (max-width: 1650px) {
   .img-overlay button {
-    left: 64%;
+    margin-left: 25%;
   }
 
   .uper-specification,
@@ -993,7 +993,7 @@
 
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
   .img-overlay button {
-    left: 64%;
+    margin-left: 22%;
   }
 
   #all-content-deatil {
@@ -1055,11 +1055,7 @@
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .img-overlay button {
-    left: 54%;
-  }
-
-  .img-overlay button {
-    left: 64%;
+    margin-left: 12%;
   }
 
   #all-content-deatil {
@@ -1108,7 +1104,7 @@
   }
 
   .owner-contact {
-    gap: 24px;
+    gap: 15px;
   }
 
   .deatilss {
@@ -1161,7 +1157,7 @@
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   #prop-images .col-lg-3 {
     display: flex;
-    width: 44vw;
+    width: 100%;
     flex-direction: row;
   }
 
@@ -1175,12 +1171,12 @@
   }
 
   .middle-img {
-    width: 84vw;
+    /* width: 84vw; */
     height: 42vh;
   }
 
   .img-overlay button {
-    left: 74%;
+    margin-left: 22%;
   }
 
   .right-imgs01 {
@@ -1199,7 +1195,7 @@
   #prop-video,
   #prop-360-view,
   #owner-deatils-card {
-    width: 85vw;
+    /* width: 85vw; */
   }
 
   #owner-deatils-card {
@@ -1289,14 +1285,13 @@
   }
 
   .middle-img {
-    width: 80vw;
+    /* width: 80vw; */
     height: 30vh;
   }
 
   .img-overlay button {
-    left: 46%;
+    margin-left: 0%;
   }
-
   .right-imgs01 {
     border-radius: 0 0px 0 12px;
   }
@@ -1411,13 +1406,13 @@
   }
 
   .middle-img {
-    width: 80vw;
+    /* width: 80vw; */
     height: 30vh;
   }
 
   .img-overlay button {
     padding: 2px 14px;
-    left: 40%;
+    margin-left: 0%;
   }
 
   .right-imgs01 {

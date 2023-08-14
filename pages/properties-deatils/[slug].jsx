@@ -42,9 +42,20 @@ import { Fascinate } from 'next/font/google'
 import { FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
 import Loader from '@/Components/Loader/Loader';
+import { GetFeturedListingsApi } from '@/store/actions/campaign';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
-const PropertieDeatils = () => {
+const PropertieDeatils = (propertySlugData) => {
+    const [isLoading, setIsLoading] = useState(true)
 
+    const [expanded, setExpanded] = useState(false);
+    const [propertyData, setPropertyData] = useState()
+    useEffect(() => {
+        setPropertyData(propertySlugData.propertySlugData[0])
+        setIsLoading(false)
+        console.log(propertyData)
+    }, [propertySlugData])
 
     // const [currentScene, setCurrentScene] = useState(realistic_big_house)
     const renderBullet = (index, className) => {
@@ -54,38 +65,31 @@ const PropertieDeatils = () => {
     padding: 8px;
     border: 2px solid #fff;"></span>`;
     };
-    // const krpanoConfigPath = '../../Components/Panorama/js/krpano.xml'; // Replace with the correct path to your krpano.xml file
+    const [imageURL, setImageURL] = useState('');
 
-    const handleShowPlayer = () => {
-        const videoBackgroundContainer = document.querySelector('.video-background.container');
-        const videoIframe = document.getElementById('video-iframe');
-        const playButton = document.getElementById('video-play-button');
-
-        // Hide the video background container and show the iframe
-        videoBackgroundContainer.style.display = 'none';
-        videoIframe.style.display = 'block';
-
-        // Show the play button when the video is paused
-        videoIframe.addEventListener('pause', () => {
-            playButton.style.display = 'block';
-        });
-
-        // Hide the play button when the video is playing
-        videoIframe.addEventListener('play', () => {
-            playButton.style.display = 'none';
-        });
-
-
-    }
     useEffect(() => {
-        pannellum.viewer('panorama', {
-            "type": "equirectangular",
-            "panorama": realistic_villa.src,
-            "autoLoad": true
+        if (propertyData && propertyData.threeD_image) {
+            setImageURL(propertyData.threeD_image);
+        }
+    }, [propertyData]);
 
-        });
-    }, [])
-    const [isLoading, setIsLoading] = useState(false)
+    useEffect(() => {
+        if (imageURL) {
+            pannellum.viewer('panorama', {
+                "type": "equirectangular",
+                "panorama": imageURL,
+                "autoLoad": true
+            });
+        }
+    }, [imageURL]);
+
+
+
+
+
+
+
+    console.log(propertyData && propertyData.threeD_image)
 
     let FeaturestaticData = [
         {
@@ -235,12 +239,12 @@ const PropertieDeatils = () => {
     return (
         <>
             <Breadcrumb data={{
-                type: "House",
-                title: "Serene Haven Retreat",
-                loc: "778 Country St. Panama City, FL",
-                propertyType: "Sell",
-                time: "6 months ago",
-                price: "$999999"
+                type: propertyData && propertyData.category.category,
+                title: propertyData && propertyData.title,
+                loc: propertyData && propertyData.address,
+                propertyType: propertyData && propertyData.propery_type,
+                time: propertyData && propertyData.post_created,
+                price: propertyData && propertyData.price
 
             }} />
             <section className='properties-deatil-page'>
@@ -251,8 +255,12 @@ const PropertieDeatils = () => {
                     <div className='container'>
                         <div className='row' id='prop-images'>
                             <div className='col-lg-3 col-md-4 col-sm-12' id='prop-left-images'>
-                                <Image src={PropImg01} className='left-imgs01' />
-                                <Image src={PropImg02} className='left-imgs02' />
+                                <div>
+                                    <img src={PropImg01.src} className='left-imgs01' />
+                                </div>
+                                <div>
+                                    <img src={PropImg02.src} className='left-imgs02' />
+                                </div>
                             </div>
                             <div className='col-lg-6 col-md-4 col-sm-12 text-center' id='prop-main-image'>
                                 <Image src={PropImg03} className='middle-img' />
@@ -261,8 +269,12 @@ const PropertieDeatils = () => {
                                 </div>
                             </div>
                             <div className='col-lg-3 col-md-4 col-sm-12' id='prop-right-images'>
-                                <Image src={PropImg04} className='right-imgs01' />
-                                <Image src={PropImg05} className='right-imgs02' />
+                                <div>
+                                    <Image src={PropImg04} className='right-imgs01' />
+                                </div>
+                                <div>
+                                    <Image src={PropImg05} className='right-imgs02' />
+                                </div>
                             </div>
                         </div>
                         <div className='row' id='prop-all-deatils-cards'>
@@ -272,15 +284,21 @@ const PropertieDeatils = () => {
                                         About Propertie
                                     </div>
                                     <div className="card-body">
-                                        <p>
-                                            Introducing a captivating property that embodies timeless elegance and modern luxury. Nestled in a picturesque location, this exquisite residence offers the perfect blend of sophistication and comfort. As you step through the grand entrance, you are greeted by an impressive foyer adorned with stunning architectural details, setting the tone for the exceptional craftsmanship that awaits. </p>
-                                        <p>
-                                            The expansive living spaces showcase impeccable attention to detail, with high ceilings, large windows, and an abundance of natural light that bathes the interior in a warm glow. The open floor plan seamlessly connects the living, dining, and entertaining areas, providing a seamless flow for both intimate gatherings and grand soirees. </p>
-                                        <p>
-                                            The gourmet kitchen is a culinary enthusiast's dream, featuring top-of-the-line appliances, custom cabinetry, and a center island that invites creativity and culinary exploration. Adjoining the kitchen is a cozy breakfast nook, ideal for enjoying a morning coffee while overlooking the serene landscaped gardens.
-                                        </p>
-
-                                        <button>Read More <AiOutlineArrowRight className="mx-2" size={18} /></button>
+                                        {propertyData && propertyData.description && (
+                                            <>
+                                                <p>
+                                                    {expanded
+                                                        ? propertyData.description
+                                                        : propertyData.description.substring(0, 100) + '...'}
+                                                </p>
+                                                {propertyData.description.length > 100 && (
+                                                    <button onClick={() => setExpanded(!expanded)}>
+                                                        {expanded ? 'Show Less' : 'Show More'}
+                                                        <AiOutlineArrowRight className="mx-2" size={18} />
+                                                    </button>
+                                                )}
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="card " id='features-amenities'>
@@ -288,139 +306,28 @@ const PropertieDeatils = () => {
                                         Features & Amenities
                                     </div>
                                     <div className="card-body">
-                                        <div className='uper-specification'>
-                                            <div id='specification'>
-                                                <div className='spec-icon'>
-                                                    <LiaDumbbellSolid size={35} />
-                                                </div>
-                                                <div id='specs-deatils'>
-                                                    <div>
-                                                        <span>Fitness</span>
-                                                    </div>
-                                                    <div>
-                                                        <span id='spacs-count'>1</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id='specification'>
-                                                <div className='spec-icon'>
-                                                    <MdSecurity size={35} />
-                                                </div>
-                                                <div id='specs-deatils'>
-                                                    <div>
-                                                        <span>Security</span>
-                                                    </div>
-                                                    <div>
-                                                        <span id='spacs-count'>2</span>
+
+                                        <div className="row">
+
+
+                                            {propertyData && propertyData.parameters && propertyData.parameters.map((elem, index) =>
+                                            (
+                                                <div className="col-sm-12 col-md-6 col-lg-4">
+                                                    <div id='specification'>
+                                                        <div className='spec-icon'>
+                                                            <Image src={elem.image} width={20} height={16} />
+                                                        </div>
+                                                        <div id='specs-deatils'>
+                                                            <div>
+                                                                <span>{elem.name}</span>
+                                                            </div>
+                                                            <div>
+                                                                <span id='spacs-count'>{elem.value}</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div id='specification'>
-                                                <div className='spec-icon'>
-                                                    <MdKitchen size={35} />
-                                                </div>
-                                                <div id='specs-deatils'>
-                                                    <div>
-                                                        <span>Kitchen</span>
-                                                    </div>
-                                                    <div>
-                                                        <span id='spacs-count'>1</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id='specification'>
-                                                <div className='spec-icon'>
-                                                    <RiPlantLine size={35} />
-                                                </div>
-                                                <div id='specs-deatils'>
-                                                    <div>
-                                                        <span>Garden</span>
-                                                    </div>
-                                                    <div>
-                                                        <span id='spacs-count'>1</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id='specification'>
-                                                <div className='spec-icon'>
-                                                    <RiParkingBoxLine size={35} />
-                                                </div>
-                                                <div id='specs-deatils'>
-                                                    <div>
-                                                        <span>Parking</span>
-                                                    </div>
-                                                    <div>
-                                                        <span id='spacs-count'>2</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className='down-specification'>
-                                            <div id='specification'>
-                                                <div className='spec-icon'>
-                                                    <MdBalcony size={35} />
-                                                </div>
-                                                <div id='specs-deatils'>
-                                                    <div>
-                                                        <span>Balcony</span>
-                                                    </div>
-                                                    <div>
-                                                        <span id='spacs-count'>2</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id='specification'>
-                                                <div className='spec-icon'>
-                                                    <LiaSwimmingPoolSolid size={35} />
-                                                </div>
-                                                <div id='specs-deatils'>
-                                                    <div>
-                                                        <span>Pool</span>
-                                                    </div>
-                                                    <div>
-                                                        <span id='spacs-count'>1</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id='specification'>
-                                                <div className='spec-icon'>
-                                                    <TbAirConditioning size={35} />
-                                                </div>
-                                                <div id='specs-deatils'>
-                                                    <div>
-                                                        <span>AC</span>
-                                                    </div>
-                                                    <div>
-                                                        <span id='spacs-count'>5</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id='specification'>
-                                                <div className='spec-icon'>
-                                                    <BiCctv size={35} />
-                                                </div>
-                                                <div id='specs-deatils'>
-                                                    <div>
-                                                        <span>CCTV</span>
-                                                    </div>
-                                                    <div>
-                                                        <span id='spacs-count'>5</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id='specification'>
-                                                <div className='spec-icon'>
-                                                    <AiOutlineWifi size={35} />
-                                                </div>
-                                                <div id='specs-deatils'>
-                                                    <div>
-                                                        <span>Wifi</span>
-                                                    </div>
-                                                    <div>
-                                                        <span id='spacs-count'>2</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
@@ -429,9 +336,9 @@ const PropertieDeatils = () => {
                                         Address
                                     </div>
                                     <div className='card-body'>
-                                        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4" id='prop-address'>
-                                            <div className="col adrs">
-                                                <div className=''>
+                                        <div className="row" id='prop-address'>
+                                            <div className="adrs">
+                                                <div>
                                                     <span>Address</span>
                                                 </div>
                                                 <div className=''>
@@ -440,90 +347,79 @@ const PropertieDeatils = () => {
                                                 <div className=''>
                                                     <span>State</span>
                                                 </div>
-                                            </div>
-                                            <div className='col adrs-value'>
-                                                <div>
-                                                    <span className=''>bhuj near dmart</span>
-                                                </div>
-                                                <div>
-                                                    <span className=''>Bhuj</span>
-                                                </div>
-                                                <div>
-                                                    <span className=''>Gujarat</span>
-                                                </div>
-                                            </div>
-                                            <div className="col adrs">
                                                 <div className=''>
                                                     <span>Country</span>
                                                 </div>
-                                                <div className=''>
-                                                    <span>Zip Code</span>
+                                            </div>
+                                            <div className="adrs02">
+                                                <div className="adrs_value">
+                                                    <span>{propertyData && propertyData.address}</span>
                                                 </div>
-                                                <div className=''>
-                                                    <span>Client Address</span>
+                                                <div className="adrs_value">
+                                                    <span className=''>{propertyData && propertyData.city}</span>
+                                                </div>
+
+                                                <div className="adrs_value">
+                                                    <span className=''>{propertyData && propertyData.state}</span>
+                                                </div>
+                                                <div className="adrs_value">
+                                                    <span className=''>{propertyData && propertyData.country}</span>
                                                 </div>
                                             </div>
-                                            <div className='col adrs-value'>
-                                                <div>
-                                                    <span className=''>India</span>
-                                                </div>
-                                                <div>
-                                                    <span className=''>370001</span>
-                                                </div>
-                                                <div>
-                                                    <span className=''>bhuj kodki road near dmart bhuj kutch</span>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
-
-                                    <div className='prop-location-map'>
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.2756631211932!2d69.64143297622796!3d23.233053779026758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3950e1e328911c2f%3A0xd3fbdee849719bee!2sShree%20Softech!5e0!3m2!1sen!2sin!4v1689831653200!5m2!1sen!2sin"
-                                            style={{
-                                                width: "100%", height: "300px", style: "border:0", allowFullScreen: "", loading: "lazy", referrerpolicy: "no-referrer-when-downgrade",
-                                                borderRadius: "12px"
-
-                                            }}
-                                        >
-                                        </iframe>
-                                    </div>
                                 </div>
-                                <div className='card' id='prop-video'>
-                                    <div className="card-header">
-                                        Video
-                                    </div>
-                                    <div className="card-body">
-                                        {!play
-                                            ?
-                                            <div className='video-background container' style={{
-                                                backgroundImage: `url("https://img.youtube.com/vi/y9j-BL5ocW8/maxresdefault.jpg")`,
-                                            }}>
-                                                <div id='video-play-button'>
-                                                    <button onClick={() => setPlay(true)}
-                                                    // href="https://youtu.be/y9j-BL5ocW8" target='_blank'
-                                                    >
-                                                        <PiPlayCircleThin className='button-icon' size={80} />
-                                                    </button>
+
+
+                                {propertyData && propertyData.video_link ? (
+
+
+                                    <div className='card' id='prop-video'>
+                                        <div className="card-header">
+                                            Video
+                                        </div>
+                                        <div className="card-body">
+                                            {!play
+                                                ?
+                                                <div className='video-background container' style={{
+                                                    backgroundImage: `url(${propertyData && propertyData.video_link}/maxresdefault.jpg)`,
+                                                    backgroundSize: 'cover', // You might want to adjust the background size based on your design
+                                                    backgroundPosition: 'center center', // You might want to adjust the position based on your design
+                                                }}>
+                                                    <div id='video-play-button'>
+                                                        <button onClick={() => setPlay(true)}
+                                                        // href="https://youtu.be/y9j-BL5ocW8" target='_blank'
+                                                        >
+                                                            <PiPlayCircleThin className='button-icon' size={80} />
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            :
-                                            <div >
-                                                <iframe
-                                                    width="100%"
-                                                    height="500"
-                                                    src="https://www.youtube.com/embed/y9j-BL5ocW8"
-                                                    title="YouTube video player"
-                                                    frameborder="0"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                    allowfullscreen
-                                                    id="video-iframe"
-                                                    onPause={() => setPlay(false)}
-                                                ></iframe>
-                                            </div>
-                                        }
+                                                :
+                                                <div >
+                                                    <iframe
+                                                        width="100%"
+                                                        height="500"
+                                                        src={propertyData && propertyData.video_link}
+                                                        title="YouTube video player"
+                                                        frameborder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                        allowFullScreen
+                                                        id="video-iframe"
+                                                        onPause={() => setPlay(false)}
+                                                    ></iframe>
+                                                </div>
+                                            }
 
+                                        </div>
                                     </div>
-                                </div>
+                                ) :
+                                    null
+                                }
+
+
+                                {/* {propertyData && propertyData.threeD_image ? ( */}
+
                                 <div className="card" id="prop-360-view">
                                     <div className="card-header">
                                         360° Virtual Tour
@@ -544,16 +440,20 @@ const PropertieDeatils = () => {
                                         </div>
                                     </div>
                                 </div>
+                                {/* ) : */}
+                                {/* null */}
+                                {/* } */}
+
                             </div>
                             <div className='col-12 col-md-12 col-lg-3'>
                                 <div className="card" id='owner-deatils-card'>
                                     <div className="card-header" id='card-owner-header'>
                                         <div>
-                                            <img src={agentimg.src} className='owner-img' alt="" />
+                                            <img src={propertyData && propertyData.profile} className='owner-img' alt="" />
                                         </div>
                                         <div className='owner-deatils'>
-                                            <span className='owner-name'> Michael Smith </span>
-                                            <span className='owner-add'> <CiLocationOn size={20} />  Los Angeles </span>
+                                            <span className='owner-name'> {propertyData && propertyData.customer_name}</span>
+                                            <span className='owner-add'> <CiLocationOn size={20} />{propertyData && propertyData.address}</span>
                                         </div>
                                     </div>
                                     <div className="card-body">
@@ -561,7 +461,7 @@ const PropertieDeatils = () => {
                                             <div ><FiPhoneCall id='call-o' size={60} /></div>
                                             <div className='deatilss'>
                                                 <span className='o-d'>Call</span>
-                                                <span className='value'>01234 56789</span>
+                                                <span className='value'>{propertyData && propertyData.mobile}</span>
                                             </div>
 
                                         </div>
@@ -569,7 +469,7 @@ const PropertieDeatils = () => {
                                             <div ><FiMail id='mail-o' size={60} /></div>
                                             <div className='deatilss'>
                                                 <span className='o-d'>Mail</span>
-                                                <span className='value'>michael.smith@example.com</span>
+                                                <span className='value'>{propertyData && propertyData.email}</span>
                                             </div>
 
                                         </div>
@@ -644,7 +544,7 @@ const PropertieDeatils = () => {
                                                             {ele.sell}
                                                         </span>
                                                         <span className='similer_price_tag'>
-                                                           {ele.price}
+                                                            {ele.price}
                                                         </span>
 
                                                         <div>
@@ -698,6 +598,25 @@ const PropertieDeatils = () => {
             </section >
         </>
     )
+}
+export async function getServerSideProps(context) {
+    // Get the slug parameter from the URL
+    const { slug } = context.query;
+
+    // Fetch data from the external API using the slug parameter in the URL
+    try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?id=${slug}`);
+        const propertySlugData = response.data.data; // Assuming your API response is a JSON object
+        // console.log("property Data", propertySlugData)
+        return {
+            props: { propertySlugData }
+        };
+    } catch (error) {
+        console.error("Error fetching property data:", error);
+        return {
+            props: { propertySlugData: null } // You can handle the error case appropriately in your component
+        };
+    }
 }
 
 export default PropertieDeatils

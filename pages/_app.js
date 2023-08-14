@@ -2,7 +2,7 @@
 import { Provider } from 'react-redux'
 import { store, persistor } from '../src/store/store'
 import { PersistGate } from 'redux-persist/integration/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { Children, Fragment, useEffect } from 'react'
 import './globals.css'
 import { Manrope } from 'next/font/google'
@@ -15,14 +15,20 @@ import Head from 'next/head'
 import Header from '@/Components/Header/Header'
 import Footer from '@/Components/Footer/Footer'
 import { settingsLoaded } from '@/store/reducer/settingsSlice'
+import Loader from '@/Components/Loader/Loader'
 // import Document, { Html, Head, Main, NextScript } from 'next/document';
 const manrope = Manrope({ subsets: ['latin'] })
 
 function MyApp({ Component, pageProps, data }) {
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         settingsLoaded(null, null, (res) => {
-            console.log(res)
+            setTimeout(() => {
+                console.log(res)
+                setIsLoading(false)
+
+            }, 5000)
         },
             (err) => {
                 console.log(err)
@@ -46,7 +52,17 @@ function MyApp({ Component, pageProps, data }) {
             <Provider store={store}>
                 <PersistGate persistor={persistor}>
                     <Header />
-                    <Component {...pageProps} data={data} />
+                    {
+                        isLoading ?
+                            (
+                                // <Loader />
+                                <Loader />
+                            ) :
+                            (
+
+                                <Component {...pageProps} data={data} />
+                            )
+                    }
                     <Footer />
                 </PersistGate>
             </Provider>

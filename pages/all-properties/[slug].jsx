@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
 import { ButtonGroup, Col, Row } from 'react-bootstrap'
 import { RiSendPlane2Line, RiGridFill, RiHotelBedLine, RiParkingBoxLine, RiBuilding3Line, RiPlantLine } from 'react-icons/ri'
@@ -12,8 +12,10 @@ import { BiHomeSmile, BiCctv } from 'react-icons/bi'
 import Link from 'next/link'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Loader from '@/Components/Loader/Loader'
+import axios from 'axios'
+import Image from 'next/image'
 
-const AllProperties = () => {
+const AllProperties = (propertySlugData) => {
   const [grid, setGrid] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
 
@@ -164,6 +166,19 @@ const AllProperties = () => {
       games: "1 Indoor Game"
     },
   ]
+
+
+  const [CategoryListByPropertyData, setCategoryListByPropertyData] = useState()
+  useEffect(() => {
+    if (propertySlugData && propertySlugData.propertySlugData) {
+      // Update the state with the new data
+      setCategoryListByPropertyData(propertySlugData.propertySlugData);
+      // Turn off loading
+      setIsLoading(false);
+    }
+  }, [propertySlugData]);
+
+  console.log(CategoryListByPropertyData)
   return (
     <>
       <Breadcrumb title="All Properties" />
@@ -264,7 +279,7 @@ const AllProperties = () => {
                 <div className="card">
                   <div className="card-body" id='all-prop-headline-card'>
                     <div>
-                      <span>16 Properties Found of 53</span>
+                      <span>{CategoryListByPropertyData ? ` ${CategoryListByPropertyData.length} Properties Found of 53` : 'Loading...'}</span>
                     </div>
                     <div >
                       <button className='mx-3' id='layout-buttons' onClick={() => setGrid(false)}>
@@ -288,77 +303,59 @@ const AllProperties = () => {
                         // </div>
                         <Loader />
                       ) :
-                        AllPropertieSataticCards?.map((ele) => (  
-                          <Link href="/properties-deatils">
+                        CategoryListByPropertyData?.map((ele) => (
+                          <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
                             <Card id='all_prop_main_card' key={ele.id}>
-                              <div>
-                                <Card.Img variant="top" id='all_prop_card_img' src={ele.image} />
+                              <div className='img_div'>
+                                <img className='card-img' id='all_prop_card_img' src={ele.title_image} />
                               </div>
                               <div>
                                 <Card.Body id='all_prop_card_body'>
-                                  <span className='all_prop_feature'>
-                                    {ele.feature}
-                                  </span>
+
+                                  {ele.promoted ? (
+                                    <span className='all_prop_feature'>
+                                      Feature
+                                    </span>
+                                  ) : null}
+
                                   <span className='all_prop_like'>
                                     <AiOutlineHeart size={25} />
                                   </span>
                                   <span className='all_prop_sell'>
-                                    {ele.sell}
+                                    {ele.propery_type}
                                   </span>
                                   <span className='all_prop_price'>
-                                    {ele.price}
+                                    $ {ele.price}
                                   </span>
 
                                   <div>
                                     <div id='all_prop_sub_body'>
-                                      <BiHomeSmile size={23} />
-                                      <span className='sub_body_title'> {ele.prop_type} </span>
+                                      <div className="cate_image">
+                                        <img src={ele.category.image} alt="" />
+                                      </div>
+                                      <span className='sub_body_title'> {ele.category.category}</span>
                                     </div>
                                     <div id='sub_body_middletext'>
                                       <span>
-                                        {ele.prop_loc}
+                                        {ele.title}
                                       </span>
                                       <p>
-                                        {ele.prop_city}
+                                        {ele.city} , {ele.state},  {ele.country}
                                       </p>
                                     </div>
                                   </div>
                                   <Card.Footer id='all_prop_card_footer'>
                                     <div className='all_footer_body'>
-                                      <div className='row'>
-                                        <div className='col-sm-12 col-md-6 col-lg-3'>
-                                          <RiHotelBedLine size={25} />
-                                          <span className='text_footer'> {ele.bedroom} </span>
-                                        </div>
-                                        <div className='col-sm-12 col-md-6 col-lg-3'>
-                                          <BiCctv size={25} />
-                                          <span className='text_footer'> {ele.cctv} </span>
-                                        </div>
+                                      <div className="row">
 
-                                        <div className='col-sm-12 col-md-6 col-lg-3'>
-                                          <RiBuilding3Line size={25} />
-                                          <span className='text_footer'> {ele.sq_fit} </span>
-                                        </div>
-                                        <div className='col-sm-12 col-md-6 col-lg-3'>
-                                          <FiDroplet size={25} />
-                                          <span className='text_footer'> {ele.pool} </span>
-                                        </div>
-                                        <div className='col-sm-12 col-md-6 col-lg-3'>
-                                          <FiCloudDrizzle size={25} />
-                                          <span className='text_footer'> {ele.bath} </span>
-                                        </div>
-                                        <div className='col-sm-12 col-md-6 col-lg-3'>
-                                          <RiPlantLine size={25} />
-                                          <span className='text_footer'> {ele.garden} </span>
-                                        </div>
-                                        <div className='col-sm-12 col-md-6 col-lg-3'>
-                                          <RiParkingBoxLine size={25} />
-                                          <span className='text_footer'> {ele.parking} </span>
-                                        </div>
-                                        <div className='col-sm-12 col-md-6 col-lg-3'>
-                                          <GiGamepad size={25} />
-                                          <span className='text_footer'> {ele.games}</span>
-                                        </div>
+                                        {ele.parameters && ele.parameters.slice(0, 6).map((elem, index) => (
+                                          <div className="col-sm-12 col-md-4" key={index}>
+                                            <div id='footer_content' key={index}>
+                                              <Image src={elem.image} alt="" width={20} height={16} />
+                                              <p className='text_footer'> {elem.name}</p>
+                                            </div>
+                                          </div>
+                                        ))}
                                       </div>
                                     </div>
 
@@ -448,6 +445,25 @@ const AllProperties = () => {
       </div>
     </>
   )
+}
+export async function getServerSideProps(context) {
+  // Get the slug parameter from the URL
+  const { slug } = context.query;
+
+  // Fetch data from the external API using the slug parameter in the URL
+  try {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?category_id=${slug}`);
+    const propertySlugData = response.data.data; // Assuming your API response is a JSON object
+    // console.log("list by category property Data", propertySlugData)
+    return {
+      props: { propertySlugData }
+    };
+  } catch (error) {
+    console.error("Error fetching property data:", error);
+    return {
+      props: { propertySlugData: null } // You can handle the error case appropriately in your component
+    };
+  }
 }
 
 export default AllProperties

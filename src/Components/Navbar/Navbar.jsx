@@ -113,7 +113,7 @@ const Nav = () => {
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item><Link href="subscription-plan">Subscription Plan</Link></Dropdown.Item>
+                                            <Dropdown.Item><Link href="/subscription-plan">Subscription Plan</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/articles">Articles</Link></Dropdown.Item>
                                             <Dropdown.Item onClick={handleOpenAcModal}>Area Converter</Dropdown.Item>
                                             <Dropdown.Item href='/terms&condition'>Terms & Condition </Dropdown.Item>

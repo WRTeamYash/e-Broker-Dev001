@@ -730,7 +730,7 @@ body {
   color: #282f39;
   transition: all 0.3s ease-out;
   background: transparent;
-  text-decoration: none;
+
 }
 #language {
   width: 5vw !important;
@@ -1721,9 +1721,7 @@ div#prop_card_footer.card-footer {
   height: 100%;
   border: none;
 }
-#a-tags-link {
-  text-decoration: none !important;
-}
+
 #cityImgTop,
 #group_card {
   margin-bottom: 20px;
@@ -2364,9 +2362,6 @@ option:hover {
   flex-direction: column;
   gap: 30px;
   height: fit-content;
-}
-#all-prop-containt .all-prop-cards a {
-  text-decoration: none;
 }
 
 #all-prop-containt #all_prop_main_card {
@@ -3096,9 +3091,6 @@ margin-left: 30%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-#all-articles-cards a {
-  text-decoration: none;
 }
 #articles_main_card {
   width: 100%;
@@ -3852,9 +3844,7 @@ a{
   gap: 30px;
   height: fit-content;
 }
-#agentDetailsSect .all-prop-cards a {
-  text-decoration: none;
-}
+
 
 #agentDetailsSect #all_prop_main_card {
   display: flex;

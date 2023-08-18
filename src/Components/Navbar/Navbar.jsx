@@ -100,7 +100,7 @@ const Nav = () => {
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item> <Link href="/all-properties">All Properties</Link></Dropdown.Item>
+                                            {/* <Dropdown.Item> <Link href="/all-properties/slug">All Properties</Link></Dropdown.Item> */}
                                             <Dropdown.Item><Link href="/featured-properties">Featured Properties</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/most-viewed-properties">Most Viewed Properties</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/properties-nearby-city">Nearby Cities Properties</Link></Dropdown.Item>

@@ -16,7 +16,7 @@ const index = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [getFeaturedListing, setGetFeaturedListing] = useState()
     useEffect(() => {
-        GetFeturedListingsApi("1", "", "",(response) => {
+        GetFeturedListingsApi("1", "", "","", "",(response) => {
             const FeaturedListingData = response.data;
             // console.log("featured data ============", FeaturedListingData)
             setIsLoading(false)
@@ -40,7 +40,7 @@ const index = () => {
                         ) :
                             getFeaturedListing?.map((ele, index) => (
                                 <div className='col-sm-12 col-md-6 col-lg-3' key={index}>
-                                    <Link href="/properties-deatils">
+                                   <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
                                         <div className='card' id='main_card'>
                                             <img className='card-img' id='card_img' src={ele.title_image} />
                                             <div className="card-img-overlay">

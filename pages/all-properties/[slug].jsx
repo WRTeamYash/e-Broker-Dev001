@@ -178,7 +178,7 @@ const AllProperties = (propertySlugData) => {
     }
   }, [propertySlugData]);
 
-  console.log(CategoryListByPropertyData)
+  // console.log(CategoryListByPropertyData)
   return (
     <>
       <Breadcrumb title="All Properties" />
@@ -279,7 +279,7 @@ const AllProperties = (propertySlugData) => {
                 <div className="card">
                   <div className="card-body" id='all-prop-headline-card'>
                     <div>
-                      <span>{CategoryListByPropertyData ? ` ${CategoryListByPropertyData.length} Properties Found of 53` : 'Loading...'}</span>
+                      <span>{CategoryListByPropertyData ? ` ${CategoryListByPropertyData.length} Properties Found ` : 'Loading...'}</span>
                     </div>
                     <div >
                       <button className='mx-3' id='layout-buttons' onClick={() => setGrid(false)}>
@@ -372,14 +372,17 @@ const AllProperties = (propertySlugData) => {
                       <div className='row' id='all-prop-col-cards'>
 
                         {
-                          AllPropertieSataticCards?.map((ele) => (
+                          CategoryListByPropertyData?.map((ele) => (
                             <div className='col-12 col-md-6 col-lg-4'>
                               <div className='card' id='main_card'>
-                                <img className='card-img' id='card_img' src={ele.image} />
+                              <img className='card-img' id='card_img' src={ele.title_image} />
                                 <div className="card-img-overlay">
-                                  <span className='feture_tag'>
-                                    {ele.feature}
-                                  </span>
+                                  {ele.promoted ? (
+
+                                    <span className='feture_tag'>
+                                      Feature
+                                    </span>
+                                  ) : null}
                                   <span className='like_tag'>
                                     <AiOutlineHeart size={25} />
                                   </span>
@@ -387,49 +390,39 @@ const AllProperties = (propertySlugData) => {
 
                                 <div className='card-body'>
                                   <span className='sell_teg'>
-                                    {ele.sell}
+                                    {ele.propery_type}
                                   </span>
                                   <span className='price_teg'>
-                                    {ele.price}
+                                    $ {ele.price}
                                   </span>
                                   <div id='feature_card_mainbody'>
 
-                                    <BiHomeSmile size={23} />
-                                    <span className='feture_body_title'> {ele.prop_type} </span>
+                                    <div className="cate_image">
+                                      <img src={ele.category.image} alt="" />
+                                    </div>
+                                    <span className='feture_body_title'> {ele.category.category}</span>
                                   </div>
                                   <div id='feature_card_middletext'>
                                     <span>
-                                      {ele.prop_loc}
+                                      {ele.title}
                                     </span>
                                     <p>
-                                      {ele.prop_city}
+                                      {ele.city} , {ele.state},  {ele.country}
                                     </p>
                                   </div>
                                 </div>
 
-
                                 <div className='card-footer' id='feature_card_footer'>
-                                  <div className='footer_body'>
-                                    <div id='footer_content'>
-                                      <RiHotelBedLine size={22} />
-                                      <p className='text_footer'> {ele.bedroom} </p>
-                                    </div>
-                                    <div id='footer_content'>
-                                      <RiBuilding3Line size={22} />
-                                      <p className='text_footer'> {ele.sq_fit} </p>
-                                    </div>
+                                  <div className="row">
 
-                                  </div>
-                                  <div className='footer_body'>
-                                    <div id='footer_content'>
-                                      <FiCloudDrizzle size={22} />
-                                      <p className='text_footer'> {ele.bath} </p>
-                                    </div>
-                                    <div id='footer_content'>
-                                      <RiParkingBoxLine size={22} />
-                                      <p className='text_footer'> {ele.parking} </p>
-                                    </div>
-
+                                    {ele.parameters && ele.parameters.slice(0, 4).map((elem, index) => (
+                                      <div className="col-sm-12 col-md-6" key={index}>
+                                        <div id='footer_content' key={index}>
+                                          <Image src={elem.image} alt="" width={20} height={16} />
+                                          <p className='text_footer'> {elem.name}</p>
+                                        </div>
+                                      </div>
+                                    ))}
                                   </div>
                                 </div>
                               </div>

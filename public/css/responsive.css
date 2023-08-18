@@ -6,7 +6,13 @@
   }
   #prop_card_img {
     height: 100%;
-    width: 50%;
+    /* width: 50%; */
+  }
+  .prop_price{
+    margin-top: 195px;
+  }
+  .prop_sell{
+    margin-top: 188px;
   }
 }
 @media only screen and (min-width: 1400px) {
@@ -32,7 +38,13 @@
   /* APARTMENT CSS END  */
   #prop_card_img {
     height: 100%;
-    width: 50%;
+    /* width: 50%; */
+  }
+  .prop_price{
+    margin-top: 195px;
+  }
+  .prop_sell{
+    margin-top: 188px;
   }
   .download_app_platforms #playstore_logo img,
   #appstore_logo img {
@@ -46,6 +58,7 @@
   .feature-section-cards #feature_cards .col-lg-3 {
     width: 33%;
   }
+
 
   .feature_header {
     display: none;
@@ -74,6 +87,9 @@
 
   /* APARTMENT CSS END  */
   /* MOST VIEWED PROPERTIES START */
+  #main_properties .col-md-4{
+    width: 100%;
+  }
   #prop {
     padding-top: 30px;
     top: 0;
@@ -270,6 +286,9 @@
 
   /* APARTMENT CSS END  */
   /* MOST VIEWED PROPERTIES START */
+  #main_properties .col-md-4{
+    width: 100%;
+  }
   .prop_header {
     display: none;
   }

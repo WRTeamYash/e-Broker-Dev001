@@ -4,6 +4,7 @@ const UPDATE_PROFILE = "update_profile"
 const GET_SLIDERS = "get_slider"
 const GET_CATEGORES = "get_categories"
 const GET_PROPETRES ="get_property"
+const GET_ARTICLES ="get_articles"
 // GET SETTINGS
 export const getSettingApi = (type, user_id) => {
 
@@ -89,8 +90,8 @@ export const getCategorieApi = (user_id) => {
     }
 }
 
-// GET PROMOTED PROPETRS // FEATURED PROPETRS 
-export const getAllProperties = (promoted, top_rated, id, category_id) => {
+// GET PROMOTED PROPETRS // FEATURED PROPETRS // GET MOST FAV
+export const getAllProperties = (promoted, top_rated, id, category_id, most_liked) => {
 
     return {
         url: `${GET_PROPETRES}`,
@@ -100,6 +101,21 @@ export const getAllProperties = (promoted, top_rated, id, category_id) => {
             top_rated: top_rated,
             id, id,
             category_id: category_id,
+            most_liked:most_liked,
+        },
+        authorizationHeader: false,
+
+    }
+}
+
+// GET ARTICLES
+export const getArticlesApi = (id) => {
+
+    return {
+        url: `${GET_ARTICLES}`,
+        method: "GET",
+        params: {
+            id:id
         },
         authorizationHeader: false,
 

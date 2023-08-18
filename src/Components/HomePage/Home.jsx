@@ -49,7 +49,7 @@ import Skeleton from 'react-loading-skeleton';
 import MobileHeadline from '../MobileHeadlines/MobileHeadline';
 import Link from 'next/link';
 import Loader from '../Loader/Loader';
-import { GetCategorieApi, GetFeturedListingsApi, GetSliderApi } from '@/store/actions/campaign';
+import { GetAllArticlesApi, GetCategorieApi, GetFeturedListingsApi, GetSliderApi } from '@/store/actions/campaign';
 import { useRouter } from 'next/router';
 
 
@@ -69,6 +69,9 @@ const HomePage = () => {
     };
     const [isLoading, setIsLoading] = useState(true)
     const [showFilterModal, setShowFilterModal] = useState(false);
+    const [expanded, setExpanded] = useState(false);
+    const [expandedStates, setExpandedStates] = useState([]);
+
     const router = useRouter()
 
 
@@ -334,9 +337,11 @@ const HomePage = () => {
     useEffect(() => {
         GetSliderApi((response) => {
             const sliderData = response.data;
-            // console.log("slider Data =========", sliderData.data)
+            // console.log("slider data ================", sliderData)
+            // console.log("slider data ================", sliderData[0].propertys_id)
             setIsLoading(false)
             setSlider(sliderData);
+            // console.log("slider data ================", slider[0].propertys_id)
         }, (error) => {
             console.log(error)
         })
@@ -347,7 +352,7 @@ const HomePage = () => {
     useEffect(() => {
         GetCategorieApi((response) => {
             const categoryData = response.data;
-            // console.log("category data ================",categoryData)
+            console.log("category data ================",categoryData)
             setIsLoading(false)
             setGetCategories(categoryData);
         }, (error) => {
@@ -359,7 +364,7 @@ const HomePage = () => {
     // GET FEATURED LISTINGS and 
     const [getFeaturedListing, setGetFeaturedListing] = useState()
     useEffect(() => {
-        GetFeturedListingsApi("1", "", "", "", (response) => {
+        GetFeturedListingsApi("1", "", "", "", "", (response) => {
             const FeaturedListingData = response.data;
             // console.log("featured data ============", FeaturedListingData)
             setIsLoading(false)
@@ -369,39 +374,53 @@ const HomePage = () => {
         })
     }, [])
 
-    // GET PROPERTY BY CATEGORY_ID
-    const [getPropByCategoryId, setGetPropByCategoryId] = useState()
-    useEffect(() => {
-        GetFeturedListingsApi("", "", "", "", (response) => {
-            const MostViewed = response.data;
-            console.log("most viewed data ============", MostViewed)
-            setIsLoading(false)
-            setGetMostViewedProp(MostViewed);
-        }, (error) => {
-            console.log(error)
-        })
-    }, [])
+
     // GET MOST VIEWED PROPERTIES
     const [getMostViewedProp, setGetMostViewedProp] = useState()
     useEffect(() => {
-        GetFeturedListingsApi("", "1", "", "", (response) => {
+        GetFeturedListingsApi("", "1", "", "", "", (response) => {
             const MostViewed = response.data;
-            console.log("most viewed data ============", MostViewed)
+            // console.log("most viewed data ============", MostViewed)
             setIsLoading(false)
             setGetMostViewedProp(MostViewed);
         }, (error) => {
             console.log(error)
         })
     }, [])
+    // GET MOST Fav PROPERTIES
 
-    const handleViewCateData = (id) => {
-        console.log(id)
-        router.push("/all-properties")
-    }
+    const [getMostFavProperties, setGetMostFavProperties] = useState()
+    useEffect(() => {
+        GetFeturedListingsApi("", "", "", "", "1", (response) => {
+            const MostFav = response.data;
+            // console.log("most fav data ============", MostFav)
+            setIsLoading(false)
+            setGetMostFavProperties(MostFav);
+        }, (error) => {
+            console.log(error)
+        })
+    }, [])
 
+    // GET ARTICLES
+    const [getArticles, setGetArticles] = useState()
 
+    useEffect(() => {
+        GetAllArticlesApi("", (response) => {
+            const Articles = response.data;
+            // console.log("article data ============", Articles)
+            setIsLoading(false)
+            setGetArticles(Articles);
+            setExpandedStates(new Array(Articles.length).fill(false));
+        }, (error) => {
+            console.log(error)
+        })
+    }, [])
 
-
+    const stripHtmlTags = (htmlString) => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlString;
+        return tempDiv.textContent || tempDiv.innerText || '';
+    };
 
 
     return (
@@ -443,7 +462,7 @@ const HomePage = () => {
                                     <Slide
                                         background={{
                                             // backgroundImageSrc: SlideImage01.src,
-                                            backgroundImageSrc: single.image,
+                                            backgroundImageSrc: single.property_title_image,
                                         }}
                                         key={index}
 
@@ -452,7 +471,7 @@ const HomePage = () => {
                                             <Wrapper>
                                                 <div id='herotexts'>
                                                     <div>
-                                                        <span className='btn' id='priceteg'> {single.property_price}</span>
+                                                        <span className='btn' id='priceteg'> $ {single.property_price}</span>
                                                         <h1 id="hero_headlines">{single.property_title}</h1>
                                                         {single.parameters && single.parameters.slice(0, 4).map((elem, index) => (
 
@@ -463,15 +482,16 @@ const HomePage = () => {
                                                     </div>
 
                                                     <div id='viewall_hero_prop'>
+                                                        <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${single.propertys_id}`} passHref>
                                                         <button className='view_prop'>
                                                             <FaEye size={20} className='icon' />
                                                             view Properties
                                                         </button>
+                                                        </Link>
                                                         <div>
                                                             <GoPlay className='playbutton' size={50} />
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </Wrapper>
                                         </div>
@@ -706,11 +726,10 @@ const HomePage = () => {
                                         // </div>
                                         <Loader />
                                     ) :
-                                        getCategories && getCategories?.map((ele, index) => (
-                                            <SwiperSlide id="aprt-swiper-slider" key={index} >
-                                                <Link href="/all-properties/[slug]" as={`/all-properties/${ele.id}`} passHref
-                                                >
-                                                    {console.log("category data", ele)}
+                                    getCategories && getCategories?.map((ele, index) => (
+                                        (ele.properties_count !== 0 && ele.properties_count !== "") ? (
+                                            <SwiperSlide id="aprt-swiper-slider" key={index}>
+                                                <Link href="/all-properties/[slug]" as={`/all-properties/${ele.id}`} passHref>
                                                     <Card id='main_aprt_card'>
                                                         <Card.Body>
                                                             <div className='apart_card_content'>
@@ -726,8 +745,9 @@ const HomePage = () => {
                                                     </Card>
                                                 </Link>
                                             </SwiperSlide>
-
-                                        ))}
+                                        ) : null
+                                    ))}
+                                    
                                 </Swiper>
                             </div>
                         </div>
@@ -790,63 +810,65 @@ const HomePage = () => {
                                     ) :
                                         getMostViewedProp?.slice(0, 6).map((ele, index) => (
                                             <div className="col-sm-12 col-md-6 col-lg-6" key={index}>
-                                                <div className='card' id='main_prop_card'>
-                                                    <div className='image_div col-md-4'>
-                                                        <img className='card-img' id='prop_card_img' src={ele.title_image} />
-                                                    </div>
-
-
-                                                    <div className="card-body" id='main_card_body'>
-                                                        {ele.promoted ? (
-                                                            <span className='prop_feature'>
-                                                                Feature
-                                                            </span>
-                                                        ) : null}
-                                                        <span className='prop_like'>
-                                                            <AiOutlineHeart size={25} />
-                                                        </span>
-                                                        <span className='prop_sell'>
-                                                            {ele.propery_type}
-                                                        </span>
-                                                        <span className='prop_price'>
-                                                            $ {ele.price}
-                                                        </span>
-
-                                                        <div>
-                                                            <div id='prop_card_mainbody'>
-                                                                {/* <BiHomeSmile size={23} /> */}
-                                                                <div className="cate_image">
-                                                                    <img src={ele.category.image} alt="" />
-                                                                </div>
-                                                                <span className='body_title'> {ele.category.category} </span>
-                                                            </div>
-                                                            <div id='prop_card_middletext'>
-                                                                <span>
-                                                                    {ele.title}
-                                                                </span>
-                                                                <p>
-                                                                    {ele.city} , {ele.state},  {ele.country}
-                                                                </p>
-                                                            </div>
+                                                <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                                                    <div className='card' id='main_prop_card'>
+                                                        <div className='image_div col-md-4'>
+                                                            <img className='card-img' id='prop_card_img' src={ele.title_image} />
                                                         </div>
-                                                        <Card.Footer id='prop_card_footer'>
 
-                                                            <div className="row">
 
-                                                                {ele.parameters && ele.parameters.slice(0, 4).map((elem, index) => (
-                                                                    <div className="col-sm-12 col-md-6" key={index}>
-                                                                        <div id='footer_content' key={index}>
-                                                                            <img src={elem.image} alt="" />
-                                                                            <p className='text_footer'> {elem.name}</p>
-                                                                        </div>
+                                                        <div className="card-body" id='main_card_body'>
+                                                            {ele.promoted ? (
+                                                                <span className='prop_feature'>
+                                                                    Feature
+                                                                </span>
+                                                            ) : null}
+                                                            <span className='prop_like'>
+                                                                <AiOutlineHeart size={25} />
+                                                            </span>
+                                                            <span className='prop_sell'>
+                                                                {ele.propery_type}
+                                                            </span>
+                                                            <span className='prop_price'>
+                                                                $ {ele.price}
+                                                            </span>
+
+                                                            <div>
+                                                                <div id='prop_card_mainbody'>
+                                                                    {/* <BiHomeSmile size={23} /> */}
+                                                                    <div className="cate_image">
+                                                                        <img src={ele.category.image} alt="" />
                                                                     </div>
-                                                                ))}
+                                                                    <span className='body_title'> {ele.category.category} </span>
+                                                                </div>
+                                                                <div id='prop_card_middletext'>
+                                                                    <span>
+                                                                        {ele.title}
+                                                                    </span>
+                                                                    <p>
+                                                                        {ele.city} , {ele.state},  {ele.country}
+                                                                    </p>
+                                                                </div>
                                                             </div>
+                                                            <Card.Footer id='prop_card_footer'>
 
-                                                        </Card.Footer>
+                                                                <div className="row">
+
+                                                                    {ele.parameters && ele.parameters.slice(0, 4).map((elem, index) => (
+                                                                        <div className="col-sm-12 col-md-6" key={index}>
+                                                                            <div id='footer_content' key={index}>
+                                                                                <img src={elem.image} alt="" />
+                                                                                <p className='text_footer'> {elem.name}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+
+                                                            </Card.Footer>
+                                                        </div>
+
                                                     </div>
-
-                                                </div>
+                                                </Link>
 
                                             </div>
                                         ))}
@@ -1051,71 +1073,68 @@ const HomePage = () => {
                                 // </div>
                                 <Loader />
                             ) :
-                                FeaturestaticData?.map((ele) => (
-                                    <SwiperSlide id="most-view-swiper-slider" key={ele.id}>
-                                        <div className='card' id='main_card'>
-                                            <img className='card-img' id='card_img' src={ele.image} />
-                                            <div className="card-img-overlay">
-                                                <span className='feture_tag'>
-                                                    {ele.feature}
-                                                </span>
-                                                <span className='like_tag'>
-                                                    <AiOutlineHeart size={25} />
-                                                </span>
+                                getMostFavProperties?.map((ele, index) => (
+                                    <SwiperSlide id="most-view-swiper-slider" key={index}>
+                                        <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                                            <div className='card' id='main_card'>
+                                                <img className='card-img' id='card_img' src={ele.title_image} />
+                                                <div className="card-img-overlay">
 
-
-                                            </div>
-
-
-
-                                            <div className='card-body'>
-                                                <span className='sell_teg'>
-                                                    {ele.sell}
-                                                </span>
-                                                <span className='price_teg'>
-                                                    {ele.price}
-                                                </span>
-                                                <div id='feature_card_mainbody'>
-
-                                                    <BiHomeSmile size={23} />
-                                                    <span className='feture_body_title'> {ele.prop_type} </span>
-                                                </div>
-                                                <div id='feature_card_middletext'>
-                                                    <span>
-                                                        {ele.prop_loc}
+                                                    {ele.promoted ? (
+                                                        <span className='feture_tag'>
+                                                            Feature
+                                                        </span>
+                                                    ) : null}
+                                                    <span className='like_tag'>
+                                                        <AiOutlineHeart size={25} />
                                                     </span>
-                                                    <p>
-                                                        {ele.prop_city}
-                                                    </p>
+
+
+                                                </div>
+
+
+
+                                                <div className='card-body'>
+                                                    <span className='sell_teg'>
+                                                        {ele.propery_type}
+                                                    </span>
+                                                    <span className='price_teg'>
+                                                        $ {ele.price}
+                                                    </span>
+                                                    <div id='feature_card_mainbody'>
+
+                                                        <div className="cate_image">
+                                                            <img src={ele.category.image} alt="" />
+                                                        </div>
+                                                        <span className='feture_body_title'> {ele.category.category} </span>
+                                                    </div>
+                                                    <div id='feature_card_middletext'>
+                                                        <span>
+                                                            {ele.title}
+                                                        </span>
+                                                        <p>
+                                                            {ele.city} , {ele.state},  {ele.country}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+
+                                                <div className='card-footer' id='feature_card_footer'>
+                                                    <div className="row">
+
+                                                        {ele.parameters && ele.parameters.slice(0, 4).map((elem, index) => (
+                                                            <div className="col-sm-12 col-md-6" key={index}>
+                                                                <div id='footer_content' key={index}>
+                                                                    <Image src={elem.image} alt="" width={20} height={16} />
+                                                                    <p className='text_footer'> {elem.name}</p>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </Link>
 
-
-                                            <div className='card-footer' id='feature_card_footer'>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <RiHotelBedLine size={22} />
-                                                        <p className='text_footer'> {ele.bedroom} </p>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiBuilding3Line size={22} />
-                                                        <p className='text_footer'> {ele.sq_fit} </p>
-                                                    </div>
-
-                                                </div>
-                                                <div className='footer_body'>
-                                                    <div id='footer_content'>
-                                                        <FiCloudDrizzle size={22} />
-                                                        <p className='text_footer'> {ele.bath} </p>
-                                                    </div>
-                                                    <div id='footer_content'>
-                                                        <RiParkingBoxLine size={22} />
-                                                        <p className='text_footer'> {ele.parking} </p>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
                                     </SwiperSlide>
                                 ))}
                         </Swiper>
@@ -1244,134 +1263,62 @@ const HomePage = () => {
                         } />
                     </div>
                     <div className='row' id='article_cards'>
-                        <div className='col-12 col-md-6 col-lg-3'>
-                            <Card id='article_main_card'>
-                                <Card.Img variant="top" id='article_card_img' src={cardImg.src} />
-                                <span id='apartment_tag'>aprtment</span>
-                                <Card.Body id='article_card_body'>
+                        {isLoading ? (
+                            // Show skeleton loading when data is being fetched
+                            <div className="col-12 loading_data">
+                                <Skeleton height={20} count={22} />
+                            </div>
+                            // <Loader />
+                        ) :
+                            getArticles?.slice(0, 3).map((ele, index) => (
 
-                                    <div id='article_card_headline'>
-                                        <span>
-                                            Property Purchase Laws in USA
-                                        </span>
-                                        <p>
-                                            The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...
-                                        </p>
-                                    </div>
-                                    <div id='readmore_article'>
-                                        <button className='readmore'> Read More  <FiArrowRight size={20} /></button>
+                                <div className='col-12 col-md-6 col-lg-3' key={index}>
+                                    <Card id='article_main_card'>
+                                        <Card.Img variant="top" id='article_card_img' src={ele.image} />
+                                        <span id='apartment_tag'>aprtment</span>
+                                        <Card.Body id='article_card_body'>
 
-                                    </div>
+                                            <div id='article_card_headline'>
+                                                <span>
+                                                    Property Purchase Laws in USA
+                                                </span>
+                                                {ele && ele.description && (
+                                                    <>
+                                                        <p>
+                                                            {expandedStates[index]
+                                                                ? stripHtmlTags(ele.description)
+                                                                : stripHtmlTags(ele.description).substring(0, 100) + '...'}
+                                                        </p>
+                                                        {ele.description.length > 100 && (
+                                                            <div id='readmore_article'>
 
-                                </Card.Body>
-                                <Card.Footer id='article_card_footer'>
-                                    <div id='admin_pic'>
-                                        <img src={adminlogo.src} alt="" className='admin' />
-                                    </div>
-                                    <div className='article_footer_text'>
-                                        <span className='byadmin'> By Admin
-                                        </span>
-                                        <p>1 day ago</p>
-                                    </div>
-                                </Card.Footer>
-                            </Card>
-                        </div>
-                        <div className='col-12 col-md-6 col-lg-3'>
-                            <Card id='article_main_card'>
-                                <Card.Img variant="top" id='article_card_img' src={cardImg.src} />
-                                <span id='apartment_tag'>aprtment</span>
-                                <Card.Body id='article_card_body'>
-
-                                    <div id='article_card_headline'>
-                                        <span>
-                                            Property Purchase Laws in USA
-                                        </span>
-                                        <p>
-                                            The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...
-                                        </p>
-                                    </div>
-                                    <div id='readmore_article'>
-                                        <button className='readmore'> Read More  <FiArrowRight size={20} /></button>
-
-                                    </div>
-
-                                </Card.Body>
-                                <Card.Footer id='article_card_footer'>
-                                    <div id='admin_pic'>
-                                        <img src={adminlogo.src} alt="" className='admin' />
-                                    </div>
-                                    <div className='article_footer_text'>
-                                        <span className='byadmin'> By Admin
-                                        </span>
-                                        <p>1 day ago</p>
-                                    </div>
-                                </Card.Footer>
-                            </Card>
-                        </div>
-                        <div className='col-12 col-md-6 col-lg-3'>
-                            <Card id='article_main_card'>
-                                <Card.Img variant="top" id='article_card_img' src={cardImg.src} />
-                                <span id='apartment_tag'>aprtment</span>
-                                <Card.Body id='article_card_body'>
-
-                                    <div id='article_card_headline'>
-                                        <span>
-                                            Property Purchase Laws in USA
-                                        </span>
-                                        <p>
-                                            The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...
-                                        </p>
-                                    </div>
-                                    <div id='readmore_article'>
-                                        <button className='readmore'> Read More  <FiArrowRight size={20} /></button>
-
-                                    </div>
-
-                                </Card.Body>
-                                <Card.Footer id='article_card_footer'>
-                                    <div id='admin_pic'>
-                                        <img src={adminlogo.src} alt="" className='admin' />
-                                    </div>
-                                    <div className='article_footer_text'>
-                                        <span className='byadmin'> By Admin
-                                        </span>
-                                        <p>1 day ago</p>
-                                    </div>
-                                </Card.Footer>
-                            </Card>
-                        </div>
-                        <div className='col-12 col-md-6 col-lg-3'>
-                            <Card id='article_main_card'>
-                                <Card.Img variant="top" id='article_card_img' src={cardImg.src} />
-                                <span id='apartment_tag'>aprtment</span>
-                                <Card.Body id='article_card_body'>
-
-                                    <div id='article_card_headline'>
-                                        <span>
-                                            Property Purchase Laws in USA
-                                        </span>
-                                        <p>
-                                            The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...
-                                        </p>
-                                    </div>
-                                    <div id='readmore_article'>
-                                        <button className='readmore'> Read More  <FiArrowRight size={20} /></button>
-
-                                    </div>
-
-                                </Card.Body>
-                                <Card.Footer id='article_card_footer'>
-                                    <div id='admin_pic'>
-                                        <img src={adminlogo.src} alt="" className='admin' />
-                                    </div>
-                                    <div className='article_footer_text'>
-                                        <span className='byadmin'> By Admin
-                                        </span>
-                                        <p>1 day ago</p>
-                                    </div>
-                                </Card.Footer>
-                            </Card>
-                        </div>
+                                                                <Link href="/article-deatils/[slug]" as={`/article-deatils/${ele.id}`} passHref>
+                                                                    <button
+                                                                        className='readmore'
+                                                                    >
+                                                                        Show More
+                                                                        <AiOutlineArrowRight className="mx-2" size={18} />
+                                                                    </button>
+                                                                </Link>
+                                                            </div>
+                                                        )}
+                                                    </>
+                                                )}
+                                            </div>
+                                        </Card.Body>
+                                        <Card.Footer id='article_card_footer'>
+                                            <div id='admin_pic'>
+                                                <img src={adminlogo.src} alt="" className='admin' />
+                                            </div>
+                                            <div className='article_footer_text'>
+                                                <span className='byadmin'> By Admin
+                                                </span>
+                                                <p>1 day ago</p>
+                                            </div>
+                                        </Card.Footer>
+                                    </Card>
+                                </div>
+                            ))}
 
                     </div>
                 </div>

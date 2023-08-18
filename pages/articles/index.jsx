@@ -1,11 +1,11 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
 import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import adminlogo from "@/assets/Images/Superman.jpeg"
 import { FiArrowRight, FiCloudDrizzle, FiEye } from 'react-icons/fi'
-import { AiOutlineUnorderedList, AiOutlineHeart } from 'react-icons/ai'
+import { AiOutlineUnorderedList, AiOutlineHeart, AiOutlineArrowRight } from 'react-icons/ai'
 import { RiGridFill } from 'react-icons/ri'
 import { IoMdArrowDropright } from "react-icons/io"
 import Card from 'react-bootstrap/Card';
@@ -13,12 +13,35 @@ import Image from 'next/image'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Link from 'next/link'
 import Loader from '@/Components/Loader/Loader'
+import { GetAllArticlesApi } from '@/store/actions/campaign'
 
 
 
 
 const Articles = () => {
     const [isLoading, setIsLoading] = useState(false)
+    const [expandedStates, setExpandedStates] = useState([]);
+
+    // GET ARTICLES
+    const [getArticles, setGetArticles] = useState()
+
+    useEffect(() => {
+        GetAllArticlesApi((response) => {
+            const Articles = response.data;
+            console.log("article data ============", Articles)
+            setIsLoading(false)
+            setGetArticles(Articles);
+            setExpandedStates(new Array(Articles.length).fill(false));
+        }, (error) => {
+            console.log(error)
+        })
+    }, [])
+
+    const stripHtmlTags = (htmlString) => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlString;
+        return tempDiv.textContent || tempDiv.innerText || '';
+    };
 
     let ArticleStaticData = [
         {
@@ -96,7 +119,7 @@ const Articles = () => {
                                     <div className="card">
                                         <div className="card-body" id='all-article-headline-card'>
                                             <div>
-                                                <span>16 Properties Found of 53</span>
+                                                <span>{getArticles ? ` ${getArticles.length} Articles Found` : 'Loading...'}</span>
                                             </div>
                                             <div className='grid-buttons'>
                                                 <button className='mx-3' id='layout-buttons'>
@@ -111,45 +134,59 @@ const Articles = () => {
                                     <div className='row' id='all-articles-cards'>
                                         {isLoading ? (
                                             // Show skeleton loading when data is being fetched
-                                            // <div className="col-12 loading_data">
-                                            //     <Skeleton height={20} count={22} />
-                                            // </div>
-                                            <Loader />
+                                            <div className="col-12 loading_data">
+                                                <Skeleton height={20} count={22} />
+                                            </div>
+                                            // <Loader />
                                         ) :
-                                            ArticleStaticData?.map((ele) => (
-                                                <div className='col-12 col-md-6 col-lg-4' key={ele.id}>
-                                                    <Link href="/article-deatils">
-                                                        <Card id='articles_main_card'>
-                                                            <Card.Img variant="top" id='articles_card_img' src={ele.articleImg} />
-                                                            <span id='apartment_tag'>{ele.propType}</span>
-                                                            <Card.Body id='all-articles_card_body'>
+                                            getArticles?.map((ele, index) => (
+                                                <div className='col-12 col-md-6 col-lg-4' key={index}>
+                                                    {/* <Link href="/article-deatils"> */}
+                                                    <Card id='article_main_card'>
+                                                        <Card.Img variant="top" id='article_card_img' src={ele.image} />
+                                                        <span id='apartment_tag'>aprtment</span>
+                                                        <Card.Body id='article_card_body'>
 
-                                                                <div id='all-articles_card_headline'>
-                                                                    <span>
-                                                                        {ele.propText}
-                                                                    </span>
-                                                                    <p>
-                                                                        {ele.propDecs}
-                                                                    </p>
-                                                                </div>
-                                                                <div id='readmore_article'>
-                                                                    <button className='readmore'> Read More  <FiArrowRight size={20} /></button>
+                                                            <div id='article_card_headline'>
+                                                                <span>
+                                                                    Property Purchase Laws in USA
+                                                                </span>
+                                                                {ele && ele.description && (
+                                                                    <>
+                                                                        <p>
+                                                                            {expandedStates[index]
+                                                                                ? stripHtmlTags(ele.description)
+                                                                                : stripHtmlTags(ele.description).substring(0, 100) + '...'}
+                                                                        </p>
+                                                                        {ele.description.length > 100 && (
+                                                                            <div id='readmore_article'>
 
-                                                                </div>
-
-                                                            </Card.Body>
-                                                            <Card.Footer id='all-articles_card_footer'>
-                                                                <div id='admin_pic'>
-                                                                    <img src={ele.profile} alt="" className='admin' />
-                                                                </div>
-                                                                <div className='all-articles_footer_text'>
-                                                                    <span className='byadmin'> {ele.by}
-                                                                    </span>
-                                                                    <p>{ele.time}</p>
-                                                                </div>
-                                                            </Card.Footer>
-                                                        </Card>
-                                                    </Link>
+                                                                                <Link href="/article-deatils/[slug]" as={`/article-deatils/${ele.id}`} passHref>
+                                                                                    <button
+                                                                                        className='readmore'
+                                                                                    >
+                                                                                        Show More
+                                                                                        <AiOutlineArrowRight className="mx-2" size={18} />
+                                                                                    </button>
+                                                                                </Link>
+                                                                            </div>
+                                                                        )}
+                                                                    </>
+                                                                )}
+                                                            </div>
+                                                        </Card.Body>
+                                                        <Card.Footer id='article_card_footer'>
+                                                            <div id='admin_pic'>
+                                                                <img src={adminlogo.src} alt="" className='admin' />
+                                                            </div>
+                                                            <div className='article_footer_text'>
+                                                                <span className='byadmin'> By Admin
+                                                                </span>
+                                                                <p>1 day ago</p>
+                                                            </div>
+                                                        </Card.Footer>
+                                                    </Card>
+                                                    {/* </Link> */}
                                                 </div>
                                             ))}
                                     </div>

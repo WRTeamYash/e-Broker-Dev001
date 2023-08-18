@@ -4,7 +4,6 @@ import { store, persistor } from '../src/store/store'
 import { PersistGate } from 'redux-persist/integration/react'
 import React, { useState } from 'react'
 import { Children, Fragment, useEffect } from 'react'
-import './globals.css'
 import { Manrope } from 'next/font/google'
 import 'bootstrap/dist/css/bootstrap.css'
 import "../public/css/style.css"

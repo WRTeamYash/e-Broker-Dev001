@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import adminlogo from "@/assets/Images/Superman.jpeg"
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -16,11 +16,24 @@ import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import { Card } from 'react-bootstrap';
 import { FiArrowRight } from 'react-icons/fi';
 import Loader from '@/Components/Loader/Loader';
+import axios from 'axios';
 
 
 
 
-const ArticleDeatils = () => {
+const ArticleDeatils = (propertySlugData) => {
+    const [isLoading, setIsLoading] = useState(false)
+    const [articleData, setArticleData] = useState()
+    useEffect(() => {
+        setArticleData(propertySlugData.propertySlugData[0].description)
+        setIsLoading(false)
+        // console.log(propertySlugData.propertySlugData[0])
+        console.log(articleData)
+    }, [propertySlugData])
+
+
+
+
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;
     outline: 1px solid #000;
@@ -28,7 +41,6 @@ const ArticleDeatils = () => {
     padding: 8px;
     border: 2px solid #fff;"></span>`;
     };
-    const [isLoading, setIsLoading] = useState(false)
 
     let ArticleStaticData = [
         {
@@ -131,6 +143,20 @@ const ArticleDeatils = () => {
                                 <div className='all-article-rightside'>
                                     <div className='article_all_deatil_card'>
                                         <div className="card">
+                                            <div className="card-title">
+                                                About Article 
+                                            </div>
+                                            {isLoading ? (
+                                                // Show skeleton loading when data is being fetched
+                                                <div className="col-12 loading_data">
+                                                    <Skeleton height={20} count={20} />
+                                                </div>
+                                                // <Loader />
+                                            ) : (
+                                                
+                                                // Render the privacy policy data when not loading
+                                                <div className='article_deatils_description' dangerouslySetInnerHTML={{ __html: articleData || '' }} />
+                                            )}
                                         </div>
                                     </div>
 
@@ -327,5 +353,26 @@ const ArticleDeatils = () => {
         </>
     )
 }
+
+export async function getServerSideProps(context) {
+    // Get the slug parameter from the URL
+    const { slug } = context.query;
+
+    // Fetch data from the external API using the slug parameter in the URL
+    try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_articles?id=${slug}`);
+        const propertySlugData = response.data.data; // Assuming your API response is a JSON object
+        // console.log("property Data", propertySlugData)
+        return {
+            props: { propertySlugData }
+        };
+    } catch (error) {
+        console.error("Error fetching property data:", error);
+        return {
+            props: { propertySlugData: null } // You can handle the error case appropriately in your component
+        };
+    }
+}
+
 
 export default ArticleDeatils

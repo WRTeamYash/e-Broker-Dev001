@@ -116,7 +116,10 @@ const Nav = () => {
                                             <Dropdown.Item><Link href="/subscription-plan">Subscription Plan</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/articles">Articles</Link></Dropdown.Item>
                                             <Dropdown.Item onClick={handleOpenAcModal}>Area Converter</Dropdown.Item>
-                                            <Dropdown.Item href='/terms&condition'>Terms & Condition </Dropdown.Item>
+                                            <Dropdown.Item><Link  href='/terms&condition'>
+                                            Terms & Condition 
+                                            </Link>
+                                            </Dropdown.Item>
                                             <Dropdown.Item> <Link href="/privacy-policy">Privacy Policy </Link></Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>

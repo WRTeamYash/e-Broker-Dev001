@@ -1,8 +1,6 @@
 "use client"
 import React from 'react'
-// import "./FooterSectionSec.css"
 import eBroker from '@/assets/eBrokerLogo.svg';
-
 import { FiMail, FiPhone } from "react-icons/fi"
 import { AiOutlineInstagram, AiOutlineLinkedin } from "react-icons/ai"
 import { CiFacebook } from "react-icons/ci"

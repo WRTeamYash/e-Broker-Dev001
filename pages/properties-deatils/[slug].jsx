@@ -1,50 +1,33 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
-import { ButtonGroup } from 'react-bootstrap'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
-import 'swiper/css/pagination';
-
-// import './styles.css';
-
+import 'swiper/css/pagination'
 // import required modules
 import { FreeMode, Pagination } from 'swiper/modules';
-import { RiSendPlane2Line, RiGridFill, RiHotelBedLine, RiParkingBoxLine, RiBuilding3Line, RiPlantLine, RiThumbUpFill } from 'react-icons/ri'
-import { AiOutlinePlayCircle, AiOutlineHeart, AiOutlineArrowRight, AiOutlineWifi, AiFillPlayCircle } from 'react-icons/ai'
+import { RiSendPlane2Line, RiHotelBedLine, RiParkingBoxLine, RiBuilding3Line, RiPlantLine, RiThumbUpFill } from 'react-icons/ri'
+import { AiOutlineArrowRight, AiOutlineHeart } from 'react-icons/ai'
 import { Card } from 'react-bootstrap'
-import { GiGamepad } from 'react-icons/gi'
-import { MdSecurity, MdKitchen, MdBalcony } from 'react-icons/md'
-import { TbAirConditioning } from "react-icons/tb"
-import { FiArrowRightCircle, FiCloudDrizzle, FiEye } from 'react-icons/fi'
-import { PiPlayCircleThin } from 'react-icons/pi'
-import { BiHomeSmile, BiCctv, BiTime } from 'react-icons/bi'
+import { BiHomeSmile, BiTime } from 'react-icons/bi'
 import { CiLocationOn } from 'react-icons/ci'
-import { LiaDumbbellSolid, LiaSwimmingPoolSolid } from 'react-icons/lia'
-import { SlDocs } from 'react-icons/sl'
-import Link from 'next/link'
 import PropImg01 from "@/assets/Images/Featured_List_4.jpg"
 import PropImg02 from "@/assets/Images/Featured_List_5.jpg"
 import PropImg03 from "@/assets/Images/Featured_List_6.jpg"
 import PropImg04 from "@/assets/Images/Featured_List_7.jpg"
 import PropImg05 from "@/assets/Images/Featured_List_8.jpg"
-import agentimg from "@/assets/Images/Superman.jpeg"
-import realistic_villa from "@/assets/Images/realistic_villa.jpg"
 import cardImg from '@/assets/Images/Featured_List_1.jpg'
-
-
 import Image from 'next/image'
-import { Fascinate } from 'next/font/google'
-import { FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
+import { FiCloudDrizzle, FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
 import Loader from '@/Components/Loader/Loader';
-import { GetFeturedListingsApi } from '@/store/actions/campaign';
-import { useRouter } from 'next/router';
 import axios from 'axios';
+import GoogleMap from '@/Components/GoogleMap/GoogleMap';
+import { PiPlayCircleThin } from 'react-icons/pi';
+import ReactPlayer from 'react-player';
 
 const PropertieDeatils = (propertySlugData) => {
     const [isLoading, setIsLoading] = useState(true)
@@ -54,9 +37,12 @@ const PropertieDeatils = (propertySlugData) => {
     useEffect(() => {
         setPropertyData(propertySlugData.propertySlugData[0])
         setIsLoading(false)
-        console.log(propertyData)
+        // console.log(propertyData&& propertySlugData.propertySlugData[0])
     }, [propertySlugData])
-
+    // console.log(propertyData && propertySlugData.propertySlugData[0])
+    console.log(propertyData && propertyData.latitude)
+    console.log(propertyData && propertyData.longitude)
+    console.log(process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY)
     // const [currentScene, setCurrentScene] = useState(realistic_big_house)
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;
@@ -82,14 +68,6 @@ const PropertieDeatils = (propertySlugData) => {
             });
         }
     }, [imageURL]);
-
-
-
-
-
-
-
-    console.log(propertyData && propertyData.threeD_image)
 
     let FeaturestaticData = [
         {
@@ -207,6 +185,14 @@ const PropertieDeatils = (propertySlugData) => {
     ]
 
     const [play, setPlay] = useState(false)
+
+    const videoLink = propertyData && propertyData.video_link;
+    const videoId = videoLink ? videoLink.split('/').pop() : null;
+    
+    const backgroundImageUrl = videoId
+        ? `url(https://img.youtube.com/vi/${videoId}/maxresdefault.jpg)`
+        : 'none';
+
     const breakpoints = {
         320: {
             slidesPerView: 1,
@@ -310,28 +296,37 @@ const PropertieDeatils = (propertySlugData) => {
                                         <div className="row">
 
 
-                                            {propertyData && propertyData.parameters && propertyData.parameters.map((elem, index) =>
-                                            (
-                                                <div className="col-sm-12 col-md-6 col-lg-4">
-                                                    <div id='specification'>
-                                                        <div className='spec-icon'>
-                                                            <Image src={elem.image} width={20} height={16} />
-                                                        </div>
-                                                        <div id='specs-deatils'>
-                                                            <div>
-                                                                <span>{elem.name}</span>
+                                            {propertyData && propertyData.parameters && propertyData.parameters.map((elem, index) => (
+                                                // Check if the value is an empty string
+                                                (elem.value !== "" && elem.value !== "0") ? (
+                                                    <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
+                                                        <div id='specification'>
+                                                            <div className='spec-icon'>
+                                                                <Image src={elem.image} width={20} height={16} />
                                                             </div>
-                                                            <div>
-                                                                <span id='spacs-count'>{elem.value}</span>
+                                                            <div id='specs-deatils'>
+                                                                <div>
+                                                                    <span>{elem.name}</span>
+                                                                </div>
+                                                                <div className='valueDiv'>
+                                                                    {/* Check if the value is a link */}
+                                                                    {typeof elem.value === 'string' && elem.value.startsWith('https://') ? (
+                                                                        <a id='spacs-count' href={elem.value} target="_blank" rel="noopener noreferrer">
+                                                                            {elem.value}
+                                                                        </a>
+                                                                    ) : (
+                                                                        <span id='spacs-count'>{elem.value}</span>
+                                                                    )}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                ) : null
                                             ))}
                                         </div>
                                     </div>
                                 </div>
-                                <div className='card' id='propertie-address'>
+                                <div className='card' id='propertie_address'>
                                     <div className="card-header">
                                         Address
                                     </div>
@@ -368,6 +363,18 @@ const PropertieDeatils = (propertySlugData) => {
                                             </div>
 
                                         </div>
+                                        {propertyData ? (
+                                            <Card className='google_map'>
+                                                <GoogleMap
+                                                    latitude={propertyData.latitude}
+                                                    longitude={propertyData.longitude}
+                                                    google={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}
+                                                />
+                                            </Card>
+                                        ) : (
+                                            null
+                                        )}
+
                                     </div>
                                 </div>
 
@@ -379,11 +386,15 @@ const PropertieDeatils = (propertySlugData) => {
                                         <div className="card-header">
                                             Video
                                         </div>
+                                        {console.log(propertyData.video_link)}
+                                        {console.log(propertyData.video_link.slice(17))}
+                                        {console.log(videoId)}
+                                        {console.log(videoLink)}
                                         <div className="card-body">
                                             {!play
                                                 ?
                                                 <div className='video-background container' style={{
-                                                    backgroundImage: `url(${propertyData && propertyData.video_link}/maxresdefault.jpg)`,
+                                                    backgroundImage: backgroundImageUrl,
                                                     backgroundSize: 'cover', // You might want to adjust the background size based on your design
                                                     backgroundPosition: 'center center', // You might want to adjust the position based on your design
                                                 }}>
@@ -397,7 +408,7 @@ const PropertieDeatils = (propertySlugData) => {
                                                 </div>
                                                 :
                                                 <div >
-                                                    <iframe
+                                                    {/* <iframe
                                                         width="100%"
                                                         height="500"
                                                         src={propertyData && propertyData.video_link}
@@ -407,7 +418,16 @@ const PropertieDeatils = (propertySlugData) => {
                                                         allowFullScreen
                                                         id="video-iframe"
                                                         onPause={() => setPlay(false)}
-                                                    ></iframe>
+                                                    ></iframe> */}
+                                                    <ReactPlayer
+                                                        width="100%"
+                                                        height="500px"
+                                                        url={propertyData && propertyData.video_link}
+                                                        playing={play}
+                                                        controls={true}
+                                                        onPlay={() => setPlay(true)}
+                                                        onPause={() => setPlay(false)}
+                                                    />
                                                 </div>
                                             }
 

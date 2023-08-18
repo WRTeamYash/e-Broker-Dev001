@@ -149,7 +149,7 @@ const Location = ({ isOpen, onClose, onSelectLocation }) => {
         <Loader />
       )
         : (
-          <LoadScript googleMapsApiKey='AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE' libraries={libraries}>
+          <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY} libraries={libraries}>
             <Modal show={isOpen} onHide={onClose} size="md" centered className='current_loction_modal' backdrop="static" keyboard={false}>
               <Modal.Header>
                 <Modal.Title>Select Your Current Location</Modal.Title>

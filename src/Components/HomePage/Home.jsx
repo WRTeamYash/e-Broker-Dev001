@@ -69,7 +69,6 @@ const HomePage = () => {
     };
     const [isLoading, setIsLoading] = useState(true)
     const [showFilterModal, setShowFilterModal] = useState(false);
-    const [expanded, setExpanded] = useState(false);
     const [expandedStates, setExpandedStates] = useState([]);
 
 

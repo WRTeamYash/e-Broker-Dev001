@@ -1,5 +1,4 @@
-"use client"
-
+'use client'
 import React, { useEffect, useState } from 'react'
 import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
 import cardImg from '@/assets/Images/Featured_List_1.jpg'

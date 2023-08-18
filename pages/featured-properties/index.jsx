@@ -1,11 +1,7 @@
-"use client"
+'use client'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import React, { useEffect, useState } from 'react'
-import cardImg from '@/assets/Images/Featured_List_1.jpg'
-import { RiBuilding3Line, RiHotelBedLine, RiParkingBoxLine } from 'react-icons/ri'
-import { FiCloudDrizzle } from 'react-icons/fi'
 import { AiOutlineHeart } from 'react-icons/ai'
-import { BiHomeSmile } from 'react-icons/bi'
 import { GetFeturedListingsApi } from '@/store/actions/campaign'
 import Image from 'next/image'
 import Link from 'next/link'

@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from 'react';
 import Logo from '@/assets/Logo_Color.png';
 import { RiUserSmileLine } from 'react-icons/ri'

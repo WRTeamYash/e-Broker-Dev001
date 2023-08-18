@@ -1,3 +1,4 @@
+'use client'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Loader from '@/Components/Loader/Loader'
 import { settingsData } from '@/store/reducer/settingsSlice'

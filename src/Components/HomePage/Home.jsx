@@ -50,7 +50,7 @@ import MobileHeadline from '../MobileHeadlines/MobileHeadline';
 import Link from 'next/link';
 import Loader from '../Loader/Loader';
 import { GetAllArticlesApi, GetCategorieApi, GetFeturedListingsApi, GetSliderApi } from '@/store/actions/campaign';
-import { useRouter } from 'next/router';
+
 
 
 
@@ -72,7 +72,7 @@ const HomePage = () => {
     const [expanded, setExpanded] = useState(false);
     const [expandedStates, setExpandedStates] = useState([]);
 
-    const router = useRouter()
+
 
 
 

@@ -1,4 +1,4 @@
-
+'use client'
 import React from 'react';
 // ** Next Import
 import Document, { Html, Head, Main, NextScript } from 'next/document';

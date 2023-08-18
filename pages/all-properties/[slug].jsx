@@ -7,13 +7,14 @@ import { AiOutlineUnorderedList, AiOutlineHeart } from 'react-icons/ai'
 import { Card } from 'react-bootstrap'
 import { GiGamepad } from 'react-icons/gi'
 import cardImg from '@/assets/Images/Featured_List_1.jpg'
-import { FiDroplet, FiCloudDrizzle } from 'react-icons/fi'
-import { BiHomeSmile, BiCctv } from 'react-icons/bi'
+
 import Link from 'next/link'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Loader from '@/Components/Loader/Loader'
 import axios from 'axios'
 import Image from 'next/image'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const AllProperties = (propertySlugData) => {
   const [grid, setGrid] = useState(false);
@@ -298,10 +299,10 @@ const AllProperties = (propertySlugData) => {
                     <div className='all-prop-cards' id='rowCards'>
                       {isLoading ? (
                         // Show skeleton loading when data is being fetched
-                        // <div className="col-12 loading_data">
-                        //   <Skeleton height={20} count={22} />
-                        // </div>
-                        <Loader />
+                        <div className="col-12 loading_data">
+                          <Skeleton height={20} count={22} />
+                        </div>
+                        // <Loader />
                       ) :
                         CategoryListByPropertyData?.map((ele) => (
                           <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>

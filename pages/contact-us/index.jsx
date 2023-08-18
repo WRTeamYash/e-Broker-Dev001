@@ -1,3 +1,4 @@
+'use client'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import React from 'react'
 import { AiFillLinkedin } from 'react-icons/ai'

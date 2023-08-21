@@ -59,7 +59,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         if (phonenum !== null) {
             generateOTP(phonenum)
         }
-
+console.log(phonenum)
     }, [phonenum])
 
 
@@ -83,13 +83,13 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                     // toast.success("please fill your personal deatils")
                     // Check if any of the required fields is empty
                     if (!res.error) {
-                        
+
                         if (
                             signupData.name === "" ||
-                        signupData.email === "" ||
-                        signupData.address === "" ||
-                        signupData.profile === "" ||
-                        signupData.logintype === ""
+                            signupData.email === "" ||
+                            signupData.address === "" ||
+                            signupData.profile === "" ||
+                            signupData.logintype === ""
                         ) {
                             // If any field is empty, execute this block
                             console.log("open register");  // Log a message
@@ -102,11 +102,11 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                             onClose();  // Close the modal
                         }
 
-                        
-                        
+
+
                     }
-                    },
-                    (err) => {
+                },
+                (err) => {
                     console.log(err)
                     toast.error(err)
                 })

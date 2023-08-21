@@ -4,14 +4,14 @@
     width: 450px;
     height: 500px;
   }
-  #prop_card_img {
+  .horizontal_card #prop_card_img {
     height: 100%;
     /* width: 50%; */
   }
-  .prop_price{
+  .horizontal_card #main_prop_card_body .prop_price{
     margin-top: 195px;
   }
-  .prop_sell{
+  .horizontal_card #main_prop_card_body .prop_sell{
     margin-top: 188px;
   }
 }
@@ -24,9 +24,9 @@
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
   /* HEADER CSS START */
-  .dropdown-menu {
+  /* .dropdown-menu {
     width: 13vw !important;
-  }
+  } */
 
   /* HEADER CSS END  */
   /* APARTMENT CSS START  */
@@ -36,14 +36,14 @@
     height: 500px;
   }
   /* APARTMENT CSS END  */
-  #prop_card_img {
+  .horizontal_card #prop_card_img {
     height: 100%;
     /* width: 50%; */
   }
-  .prop_price{
+  .horizontal_card #main_prop_card_body .prop_price{
     margin-top: 195px;
   }
-  .prop_sell{
+  .horizontal_card #main_prop_card_body .prop_sell{
     margin-top: 188px;
   }
   .download_app_platforms #playstore_logo img,
@@ -97,20 +97,20 @@
   #prop_cards {
     top: 0;
   }
-  #main_prop_card {
+  .horizontal_card .main_prop_card {
     flex-direction: column;
   }
-  #prop_card_img {
+  .horizontal_card #prop_card_img {
     border-radius: 12px 12px 0 0 !important;
   }
-  .prop_like {
+  .horizontal_card #main_prop_card_body .prop_like {
     right: 10px;
     top: 10px;
   }
-  .prop_sell {
+  .horizontal_card #main_prop_card_body .prop_sell {
     margin-top: -60px;
   }
-  .prop_price {
+  .horizontal_card .prop_price {
     right: 10px;
     margin-top: -60px !important;
   }
@@ -292,20 +292,20 @@
   .prop_header {
     display: none;
   }
-  #main_prop_card {
-    flex-direction: column;
+  .horizontal_card #main_prop_card{
+    flex-direction: column ;
   }
-  #prop_card_img {
+  .horizontal_card #prop_card_img {
     border-radius: 12px 12px 0 0 !important;
   }
-  .prop_like {
+.horizontal_card #main_prop_card_body .prop_like {
     right: 10px;
     top: 10px;
   }
-  .prop_sell {
+.horizontal_card #main_prop_card_body .prop_sell {
     margin-top: -60px;
   }
-  .prop_price {
+  .horizontal_card #main_prop_card_body .prop_price {
     right: 10px;
     margin-top: -60px !important;
   }
@@ -454,20 +454,20 @@
   .prop_header {
     display: none;
   }
-  #main_prop_card {
+  .horizontal_card #main_prop_card{
     flex-direction: column;
   }
-  #prop_card_img {
+  .horizontal_card #prop_card_img {
     border-radius: 12px 12px 0 0 !important;
   }
-  .prop_like {
+  .horizontal_card #main_prop_card_body .prop_like {
     right: 10px;
     top: 10px;
   }
-  .prop_sell {
+ .horizontal_card .main_prop_card_body  {
     margin-top: -60px;
   }
-  .prop_price {
+  .horizontal_card #main_prop_card_body .prop_price {
     right: 10px;
     margin-top: -60px !important;
   }
@@ -586,20 +586,20 @@
   .prop_header {
     display: none;
   }
-  #main_prop_card {
+  .horizontal_card #main_prop_card{
     flex-direction: column;
   }
-  #prop_card_img {
+  .horizontal_card #prop_card_img {
     border-radius: 12px 12px 0 0 !important;
   }
-  .prop_like {
+  .horizontal_card #main_prop_card_body .prop_like {
     right: 10px;
     top: 10px;
   }
-  .prop_sell {
+  .horizontal_card #main_prop_card_body .prop_sell {
     margin-top: -60px;
   }
-  .prop_price {
+  .horizontal_card #main_prop_card_body .prop_price {
     right: 10px;
     margin-top: -60px !important;
   }

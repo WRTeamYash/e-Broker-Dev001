@@ -16,170 +16,22 @@ import Image from 'next/image'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-const AllProperties = (propertySlugData) => {
+const AllProperties = ({ propertySlugData }) => {
   const [grid, setGrid] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
-
-  let AllPropertieSataticCards = [
-    {
-      id: 1,
-      image: cardImg.src,
-      feature: "Feature",
-      sell: "Sell",
-      price: "$1,999,000 / USD",
-      prop_type: "Home",
-      prop_loc: "Luxury villa in Rego Park",
-      prop_city: "California City, CA, USA",
-      bedroom: "5 Bedroom",
-      bath: "2 Bath",
-      sq_fit: "1200 sq fit",
-      parking: "2 Parking",
-      cctv: "4 CCTV",
-      pool: "2 Pool",
-      garden: "1 Garden",
-      games: "1 Indoor Game"
-    },
-    {
-      id: 2,
-      image: cardImg.src,
-      feature: "Feature",
-      sell: "Sell",
-      price: "$1,999,000 / USD",
-      prop_type: "Home",
-      prop_loc: "Luxury villa in Rego Park",
-      prop_city: "California City, CA, USA",
-      bedroom: "5 Bedroom",
-      bath: "2 Bath",
-      sq_fit: "1200 sq fit",
-      parking: "2 Parking",
-      cctv: "4 CCTV",
-      pool: "2 Pool",
-      garden: "1 Garden",
-      games: "1 Indoor Game"
-
-    },
-    {
-      id: 3,
-      image: cardImg.src,
-      feature: "Feature",
-      sell: "Sell",
-      price: "$1,999,000 / USD",
-      prop_type: "Home",
-      prop_loc: "Luxury villa in Rego Park",
-      prop_city: "California City, CA, USA",
-      bedroom: "5 Bedroom",
-      bath: "2 Bath",
-      sq_fit: "1200 sq fit",
-      parking: "2 Parking",
-      cctv: "4 CCTV",
-      pool: "2 Pool",
-      garden: "1 Garden",
-      games: "1 Indoor Game"
-    },
-    {
-      id: 4,
-      image: cardImg.src,
-      feature: "Feature",
-      sell: "Sell",
-      price: "$1,999,000 / USD",
-      prop_type: "Home",
-      prop_loc: "Luxury villa in Rego Park",
-      prop_city: "California City, CA, USA",
-      bedroom: "5 Bedroom",
-      bath: "2 Bath",
-      sq_fit: "1200 sq fit",
-      parking: "2 Parking",
-      cctv: "4 CCTV",
-      pool: "2 Pool",
-      garden: "1 Garden",
-      games: "1 Indoor Game"
-    },
-    {
-      id: 5,
-      image: cardImg.src,
-      feature: "Feature",
-      sell: "Sell",
-      price: "$1,999,000 / USD",
-      prop_type: "Home",
-      prop_loc: "Luxury villa in Rego Park",
-      prop_city: "California City, CA, USA",
-      bedroom: "5 Bedroom",
-      bath: "2 Bath",
-      sq_fit: "1200 sq fit",
-      parking: "2 Parking",
-      cctv: "4 CCTV",
-      pool: "2 Pool",
-      garden: "1 Garden",
-      games: "1 Indoor Game"
-    },
-    {
-      id: 6,
-      image: cardImg.src,
-      feature: "Feature",
-      sell: "Sell",
-      price: "$1,999,000 / USD",
-      prop_type: "Home",
-      prop_loc: "Luxury villa in Rego Park",
-      prop_city: "California City, CA, USA",
-      bedroom: "5 Bedroom",
-      bath: "2 Bath",
-      sq_fit: "1200 sq fit",
-      parking: "2 Parking",
-      cctv: "4 CCTV",
-      pool: "2 Pool",
-      garden: "1 Garden",
-      games: "1 Indoor Game"
-    },
-    {
-      id: 7,
-      image: cardImg.src,
-      feature: "Feature",
-      sell: "Sell",
-      price: "$1,999,000 / USD",
-      prop_type: "Home",
-      prop_loc: "Luxury villa in Rego Park",
-      prop_city: "California City, CA, USA",
-      bedroom: "5 Bedroom",
-      bath: "2 Bath",
-      sq_fit: "1200 sq fit",
-      parking: "2 Parking",
-      cctv: "4 CCTV",
-      pool: "2 Pool",
-      garden: "1 Garden",
-      games: "1 Indoor Game"
-    },
-    {
-      id: 8,
-      image: cardImg.src,
-      feature: "Feature",
-      sell: "Sell",
-      price: "$1,999,000 / USD",
-      prop_type: "Home",
-      prop_loc: "Luxury villa in Rego Park",
-      prop_city: "California City, CA, USA",
-      bedroom: "5 Bedroom",
-      bath: "2 Bath",
-      sq_fit: "1200 sq fit",
-      parking: "2 Parking",
-      cctv: "4 CCTV",
-      pool: "2 Pool",
-      garden: "1 Garden",
-      games: "1 Indoor Game"
-    },
-  ]
-
-
   const [CategoryListByPropertyData, setCategoryListByPropertyData] = useState()
+
   useEffect(() => {
-    if (propertySlugData && propertySlugData.propertySlugData) {
+    if (propertySlugData && propertySlugData.data) {
       // Update the state with the new data
-      setCategoryListByPropertyData(propertySlugData.propertySlugData);
+      setCategoryListByPropertyData(propertySlugData.data);
+      console.log(propertySlugData.data)
       // Turn off loading
       setIsLoading(false);
     }
   }, [propertySlugData]);
 
-  // console.log(CategoryListByPropertyData)
+  console.log(CategoryListByPropertyData)
   return (
     <>
       <Breadcrumb title="All Properties" />
@@ -280,7 +132,7 @@ const AllProperties = (propertySlugData) => {
                 <div className="card">
                   <div className="card-body" id='all-prop-headline-card'>
                     <div>
-                      <span>{CategoryListByPropertyData ? ` ${CategoryListByPropertyData.length} Properties Found ` : 'Loading...'}</span>
+                      <span>{propertySlugData.total && `${propertySlugData.total } Properties Found`}</span>
                     </div>
                     <div >
                       <button className='mx-3' id='layout-buttons' onClick={() => setGrid(false)}>
@@ -376,7 +228,7 @@ const AllProperties = (propertySlugData) => {
                           CategoryListByPropertyData?.map((ele) => (
                             <div className='col-12 col-md-6 col-lg-4'>
                               <div className='card' id='main_card'>
-                              <img className='card-img' id='card_img' src={ele.title_image} />
+                                <img className='card-img' id='card_img' src={ele.title_image} />
                                 <div className="card-img-overlay">
                                   {ele.promoted ? (
 
@@ -443,19 +295,38 @@ const AllProperties = (propertySlugData) => {
 export async function getServerSideProps(context) {
   // Get the slug parameter from the URL
   const { slug } = context.query;
-
+  console.log("find slug", slug)
+  console.log("query", context.query)
   // Fetch data from the external API using the slug parameter in the URL
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?category_id=${slug}`);
-    const propertySlugData = response.data.data; // Assuming your API response is a JSON object
-    // console.log("list by category property Data", propertySlugData)
-    return {
-      props: { propertySlugData }
-    };
+    if (slug === "slug") {
+      // this is for all Property data fetch 
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property`);
+      const propertySlugData = response.data;// Assuming your API response is a JSON object
+
+      // console.log("==================================================================================== property Data", propertySlugData)
+      return {
+        props: { propertySlugData }
+      };
+    } else {
+      // this is for particuler fetch data by ctaegory id 
+
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?category_id=${slug}`);
+      const propertySlugData = response.data; // Assuming your API response is a JSON object
+
+
+      // console.log("====================================================================================list by category property Data", propertySlugData)
+      return {
+        props: { propertySlugData }
+      };
+    }
+
   } catch (error) {
     console.error("Error fetching property data:", error);
     return {
-      props: { propertySlugData: null } // You can handle the error case appropriately in your component
+      props: {
+        propertySlugData: null
+      } // You can handle the error case appropriately in your component
     };
   }
 }

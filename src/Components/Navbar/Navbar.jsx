@@ -9,11 +9,12 @@ import { FiPlusCircle } from 'react-icons/fi';
 import LoginModal from '../LoginModal/LoginModal';
 import AreaConverter from '../AreaConverter/AreaConverter';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import {  useSelector } from 'react-redux';
-import {  logoutSuccess, userSignUpData } from '@/store/reducer/authSlice';
+import { useSelector } from 'react-redux';
+import { logoutSuccess, userSignUpData } from '@/store/reducer/authSlice';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { toast } from 'react-hot-toast';
+import { GetFeturedListingsApi } from '@/store/actions/campaign';
 
 
 const Nav = () => {
@@ -51,7 +52,16 @@ const Nav = () => {
     const handleCloseAcModal = () => {
         setAreaConverterModal(false);
     };
-
+    const handleAllProperties = () => {
+        // GetFeturedListingsApi("", "", "", "", "", (response) => {
+        //     const fetchAllProp = response.data;
+        //     console.log("all prop data ============", fetchAllProp)
+        //     setIsLoading(false)
+        //     // setGetMostFavProperties(MostFav);
+        // }, (error) => {
+        //     console.log(error)
+        // })
+    }
 
     const handleLogout = () => {
         confirmAlert({
@@ -62,7 +72,7 @@ const Nav = () => {
                     label: "Yes",
                     onClick: () => {
                         logoutSuccess()
-                        toast.success("Logout Successfully") 
+                        toast.success("Logout Successfully")
                     }
                 },
                 {
@@ -100,7 +110,7 @@ const Nav = () => {
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            {/* <Dropdown.Item> <Link href="/all-properties/slug">All Properties</Link></Dropdown.Item> */}
+                                            <Dropdown.Item onClick={handleAllProperties}> <Link href="/all-properties/slug">All Properties</Link></Dropdown.Item>
                                             <Dropdown.Item><Link href="/featured-properties">Featured Properties</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/most-viewed-properties">Most Viewed Properties</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/properties-nearby-city">Nearby Cities Properties</Link></Dropdown.Item>
@@ -117,8 +127,8 @@ const Nav = () => {
                                             <Dropdown.Item><Link href="/subscription-plan">Subscription Plan</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/articles">Articles</Link></Dropdown.Item>
                                             <Dropdown.Item onClick={handleOpenAcModal}>Area Converter</Dropdown.Item>
-                                            <Dropdown.Item><Link  href='/terms&condition'>
-                                            Terms & Condition 
+                                            <Dropdown.Item><Link href='/terms&condition'>
+                                                Terms & Condition
                                             </Link>
                                             </Dropdown.Item>
                                             <Dropdown.Item> <Link href="/privacy-policy">Privacy Policy </Link></Dropdown.Item>

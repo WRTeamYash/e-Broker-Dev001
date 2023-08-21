@@ -23,10 +23,11 @@ const Articles = () => {
 
     // GET ARTICLES
     const [getArticles, setGetArticles] = useState()
-
+    const [total, setTotal] = useState()
     useEffect(() => {
-        GetAllArticlesApi((response) => {
+        GetAllArticlesApi("", (response) => {
             const Articles = response.data;
+            setTotal(response.total)
             console.log("article data ============", Articles)
             setIsLoading(false)
             setGetArticles(Articles);
@@ -42,69 +43,6 @@ const Articles = () => {
         return tempDiv.textContent || tempDiv.innerText || '';
     };
 
-    let ArticleStaticData = [
-        {
-            id: 1,
-            articleImg: cardImg.src,
-            propType: "Apartment",
-            propText: " Property Purchase Laws in USA",
-            propDecs: " The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...",
-            profile: adminlogo.src,
-            by: "By Admin",
-            time: "1 day ago"
-        },
-        {
-            id: 2,
-            articleImg: cardImg.src,
-            propType: "Apartment",
-            propText: " Property Purchase Laws in USA",
-            propDecs: " The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...",
-            profile: adminlogo.src,
-            by: "By Admin",
-            time: "1 day ago"
-        },
-        {
-            id: 3,
-            articleImg: cardImg.src,
-            propType: "Apartment",
-            propText: " Property Purchase Laws in USA",
-            propDecs: " The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...",
-            profile: adminlogo.src,
-            by: "By Admin",
-            time: "1 day ago"
-        },
-        {
-            id: 4,
-            articleImg: cardImg.src,
-            propType: "Apartment",
-            propText: " Property Purchase Laws in USA",
-            propDecs: " The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...",
-            profile: adminlogo.src,
-            by: "By Admin",
-            time: "1 day ago"
-        },
-        {
-            id: 5,
-            articleImg: cardImg.src,
-            propType: "Apartment",
-            propText: " Property Purchase Laws in USA",
-            propDecs: " The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...",
-            profile: adminlogo.src,
-            by: "By Admin",
-            time: "1 day ago"
-        },
-        {
-            id: 6,
-            articleImg: cardImg.src,
-            propType: "Apartment",
-            propText: " Property Purchase Laws in USA",
-            propDecs: " The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...",
-            profile: adminlogo.src,
-            by: "By Admin",
-            time: "1 day ago"
-        },
-
-    ]
     return (
         <>
             <Breadcrumb title='Article' />
@@ -118,7 +56,7 @@ const Articles = () => {
                                     <div className="card">
                                         <div className="card-body" id='all-article-headline-card'>
                                             <div>
-                                                <span>{getArticles ? ` ${getArticles.length} Articles Found` : 'Loading...'}</span>
+                                                <span>{total ? ` ${total} Articles Found` : 'Loading...'}</span>
                                             </div>
                                             <div className='grid-buttons'>
                                                 <button className='mx-3' id='layout-buttons'>

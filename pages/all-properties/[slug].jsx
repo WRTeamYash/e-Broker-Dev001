@@ -14,7 +14,7 @@ import Loader from '@/Components/Loader/Loader'
 import axios from 'axios'
 import Image from 'next/image'
 import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+
 
 const AllProperties = ({ propertySlugData }) => {
   const [grid, setGrid] = useState(false);

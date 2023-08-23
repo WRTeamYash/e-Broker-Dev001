@@ -8,6 +8,7 @@
 }
 body {
   background-color: var(--primary-background);
+  overflow-x: hidden;
 }
 /* Swiper Slider  */
 .swiper {
@@ -22,6 +23,11 @@ body {
 
 .skeleton_img {
   border-radius: 8px 8px 0px 0px !important;
+  top: -4px;
+}
+
+.article_card_img {
+  border-radius: 12px 12px 0px 0px !important;
   top: -4px;
 }
 
@@ -1532,7 +1538,6 @@ button.learn-more .button-text {
   position: relative;
   bottom: 0;
   background-color: #fff;
-  /* overflow: hidden; */
 }
 
 #view_appartment {
@@ -1602,6 +1607,7 @@ button.learn-more .button-text {
   background-color: var(--primary-background);
   border: none;
   border-radius: 10px;
+  cursor: pointer;
   width: 100%;
   height: 262px;
 }
@@ -2055,7 +2061,7 @@ h3 {
 #article_card_img {
   border-radius: 30px;
   width: auto;
-  height: 190px;
+  height: 220px;
   padding: 15px;
 }
 

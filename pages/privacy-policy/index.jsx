@@ -4,7 +4,7 @@ import Loader from '@/Components/Loader/Loader'
 import { settingsData } from '@/store/reducer/settingsSlice'
 import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+
 
 import { useSelector } from 'react-redux'
 

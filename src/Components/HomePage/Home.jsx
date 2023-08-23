@@ -45,18 +45,22 @@ import 'swiper/css/pagination';
 // import required modules
 import { FreeMode, Pagination } from 'swiper/modules';
 import FilterModal from '../Filter/FilterModal';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css'
 import MobileHeadline from '../MobileHeadlines/MobileHeadline';
 import Link from 'next/link';
 import Loader from '../Loader/Loader';
 
 import { GetAllArticlesApi, GetCategorieApi, GetFeturedListingsApi, GetSliderApi } from '@/store/actions/campaign';
 
-import CustomSkeleton from '../Skeleton/CustomSkeleton';
+import VerticalCardSkeleton from '../Skeleton/VerticalCardSkeleton';
 import VerticalCard from '../Cards/VerticleCard';
 import HorizontalCard from '../Cards/HorizontalCard';
 import CustomHorizontalSkeleton from '../Skeleton/CustomHorizontalSkeleton';
+import CategoryCard from '../Cards/CategoryCard';
+import CustomCategorySkeleton from '../Skeleton/CustomCategorySkeleton';
+import AgentCardSkeleton from '../Skeleton/AgentCardSkeleton';
+import AgentCard from '../Cards/AgentCard';
+import ArticleCard from '../Cards/ArticleCard';
+import ArticleCardSkeleton from '../Skeleton/ArticleCardSkeleton';
 
 
 
@@ -217,8 +221,6 @@ const HomePage = () => {
 
         }
     };
-
-
 
     // API IMPLEMENT
     // SLIDER API 
@@ -476,12 +478,10 @@ const HomePage = () => {
                         <div id='feature_cards' className='row'>
                             {isLoading ? (
                                 // Show skeleton loading when data is being fetched
-                                // <div className="col-12 loading_data">
-                                //     <Skeleton height={20} count={20} />
-                                // </div>
+
                                 Array.from({ length: 8 }).map((_, index) => (
                                     <div className='col-sm-12 col-md-6 col-lg-3 loading_data' key={index}>
-                                        <CustomSkeleton />
+                                        <VerticalCardSkeleton />
                                     </div>
                                 ))
                                 // <Loader />  
@@ -560,7 +560,30 @@ const HomePage = () => {
                                     {isLoading ? (
                                         // Show skeleton loading when data is being fetched
                                         <div className="col-12 loading_data">
-                                            <Skeleton height={20} count={10} />
+                                            <Swiper
+                                                //  slidesPerView={4}
+                                                // loop={true}
+                                                spaceBetween={30}
+                                                freeMode={true}
+                                                pagination={{
+                                                    clickable: true,
+                                                    renderBullet: renderBullet
+                                                }}
+                                                modules={[FreeMode, Pagination]}
+                                                className='aprtment-swiper'
+                                                breakpoints={breakpoints}
+                                                style={{
+                                                    // width: "1200px"
+                                                }}
+
+
+                                            >
+                                                {Array.from({ length: 6 }).map((_, index) => (
+                                                <SwiperSlide>
+                                                    <CustomCategorySkeleton />
+                                                </SwiperSlide>
+                                                ))}
+                                            </Swiper>
                                         </div>
 
                                     ) :
@@ -568,20 +591,7 @@ const HomePage = () => {
                                             (ele.properties_count !== 0 && ele.properties_count !== "") ? (
                                                 <SwiperSlide id="aprt-swiper-slider" key={index}>
                                                     <Link href="/all-properties/[slug]" as={`/all-properties/${ele.id}`} passHref>
-                                                        <Card id='main_aprt_card'>
-                                                            <Card.Body>
-                                                                <div className='apart_card_content'>
-                                                                    <div id='apart_icon'>
-                                                                        <img src={ele.image} alt="" className='solo_icon' />
-                                                                    </div>
-                                                                    <div id='apart_name'>
-                                                                        {ele.category}
-                                                                        <div id='propertie_count'>{ele.properties_count} Propertis</div>
-                                                                    </div>
-                                                                </div>
-                                                            </Card.Body>
-                                                        </Card>
-
+                                                        <CategoryCard ele={ele} />
                                                     </Link>
                                                 </SwiperSlide>
                                             ) : null
@@ -643,74 +653,16 @@ const HomePage = () => {
                                     {isLoading ? (
                                         // Show skeleton loading when data is being fetched
                                         Array.from({ length: 8 }).map((_, index) => (
-                                        <div className="col-sm-12 col-md-6 col-lg-6 loading_data">
-                                           <CustomHorizontalSkeleton />
-                                        </div>
+                                            <div className="col-sm-12 col-md-6 col-lg-6 loading_data">
+                                                <CustomHorizontalSkeleton />
+                                            </div>
                                         ))
                                         // <Loader />
                                     ) :
                                         getMostViewedProp?.slice(0, 6).map((ele, index) => (
                                             <div className="col-sm-12 col-md-6 col-lg-6" key={index}>
                                                 <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
-
                                                     <HorizontalCard ele={ele} />
-                                                    {/* <div className='card' id='main_prop_card'>
-                                                        <div className='image_div col-md-4'>
-                                                            <img className='card-img' id='prop_card_img' src={ele.title_image} />
-                                                        </div>
-
-
-                                                        <div className="card-body" id='main_card_body'>
-                                                            {ele.promoted ? (
-                                                                <span className='prop_feature'>
-                                                                    Feature
-                                                                </span>
-                                                            ) : null}
-                                                            <span className='prop_like'>
-                                                                <AiOutlineHeart size={25} />
-                                                            </span>
-                                                            <span className='prop_sell'>
-                                                                {ele.propery_type}
-                                                            </span>
-                                                            <span className='prop_price'>
-                                                                $ {ele.price}
-                                                            </span>
-
-                                                            <div>
-                                                                <div id='prop_card_mainbody'>
-                                                             
-                                                                    <div className="cate_image">
-                                                                        <img src={ele.category.image} alt="" />
-                                                                    </div>
-                                                                    <span className='body_title'> {ele.category.category} </span>
-                                                                </div>
-                                                                <div id='prop_card_middletext'>
-                                                                    <span>
-                                                                        {ele.title}
-                                                                    </span>
-                                                                    <p>
-                                                                        {ele.city} , {ele.state},  {ele.country}
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                            <Card.Footer id='prop_card_footer'>
-
-                                                                <div className="row">
-
-                                                                    {ele.parameters && ele.parameters.slice(0, 4).map((elem, index) => (
-                                                                        <div className="col-sm-12 col-md-6" key={index}>
-                                                                            <div id='footer_content' key={index}>
-                                                                                <img src={elem.image} alt="" />
-                                                                                <p className='text_footer'> {elem.name}</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
-
-                                                            </Card.Footer>
-                                                        </div>
-
-                                                    </div> */}
                                                 </Link>
 
                                             </div>
@@ -911,9 +863,33 @@ const HomePage = () => {
                         >
                             {isLoading ? (
                                 // Show skeleton loading when data is being fetched
-                                <div className="col-12 loading_data">
-                                    <Skeleton height={20} count={20} />
-                                </div>
+                                <Swiper
+                                    slidesPerView={4}
+                                    // loop={true}
+                                    spaceBetween={30}
+                                    freeMode={true}
+                                    pagination={{
+                                        clickable: true,
+                                        renderBullet: renderBullet
+                                    }}
+                                    modules={[FreeMode, Pagination]}
+                                    className='most-view-swiper'
+                                    breakpoints={breakpointsMostFav}
+                                    style={{
+                                        // width: "auto"
+                                    }}
+
+
+                                >
+                                    {Array.from({ length: 6 }).map((_, index) => (
+                                        <SwiperSlide>
+                                            <div className="loading_data">
+                                                <VerticalCardSkeleton />
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+
                                 // <Loader />
                             ) :
                                 getMostFavProperties?.map((ele, index) => (
@@ -971,39 +947,38 @@ const HomePage = () => {
                             >
                                 {isLoading ? (
                                     // Show skeleton loading when data is being fetched
-                                    <div className="col-12 loading_data">
-                                        <Skeleton height={20} count={20} />
-                                    </div>
+                                    <Swiper
+                                        //  slidesPerView={4}
+                                        // loop={true}
+                                        spaceBetween={30}
+                                        freeMode={true}
+                                        pagination={{
+                                            clickable: true,
+                                            renderBullet: renderBullet
+                                        }}
+                                        modules={[FreeMode, Pagination]}
+                                        className='agent-swiper'
+                                        breakpoints={breakpointAgents}
+                                        style={{
+                                            // width: "1200px"
+                                        }}
+
+
+                                    >
+                                        {Array.from({ length: 6 }).map((_, index) => (
+                                            <SwiperSlide>
+                                                <div className="loading_data">
+                                                    <AgentCardSkeleton />
+                                                </div>
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+
                                     // <Loader />
                                 ) :
                                     agentsData?.map((ele) => (
                                         <SwiperSlide id="agent-swiper-slider" key={ele.id}>
-                                            <Card id='main_agent_card'>
-                                                <Card.Body>
-                                                    <div className='agent_card_content'>
-                                                        <div>
-
-                                                            <img src={ele.agentimg} className='agent-profile' width={100} height={100} />
-                                                        </div>
-                                                        <div className='mt-2'>
-                                                            <span className='agent-name'>
-                                                                {ele.agentName}
-                                                            </span>
-                                                        </div>
-                                                        <div>
-                                                            <span className='agent-main'>
-                                                                {ele.agentEmail}
-                                                            </span>
-                                                        </div>
-                                                        <div className='view-all-agent mt-5'>
-                                                            <span>
-                                                                {ele.agentProp}
-                                                            </span>
-                                                            <FiArrowRightCircle size={25} className='view-agent-deatils' />
-                                                        </div>
-                                                    </div>
-                                                </Card.Body>
-                                            </Card>
+                                            <AgentCard ele={ele} />
                                         </SwiperSlide>
                                     ))}
                             </Swiper>
@@ -1051,58 +1026,16 @@ const HomePage = () => {
                     <div className='row' id='article_cards'>
                         {isLoading ? (
                             // Show skeleton loading when data is being fetched
-                            <div className="col-12 loading_data">
-                                <Skeleton height={20} count={22} />
-                            </div>
-                            // <Loader />
+                            Array.from({ length: 4 }).map((_, index) => (
+                                <div className="col-sm-12 col-md-6 col-lg-3 loading_data">
+                                    <ArticleCardSkeleton />
+                                </div>
+                            ))
                         ) :
                             getArticles?.slice(0, 3).map((ele, index) => (
 
                                 <div className='col-12 col-md-6 col-lg-3' key={index}>
-                                    <Card id='article_main_card'>
-                                        <Card.Img variant="top" id='article_card_img' src={ele.image} />
-                                        <span id='apartment_tag'>aprtment</span>
-                                        <Card.Body id='article_card_body'>
-
-                                            <div id='article_card_headline'>
-                                                <span>
-                                                    Property Purchase Laws in USA
-                                                </span>
-                                                {ele && ele.description && (
-                                                    <>
-                                                        <p>
-                                                            {expandedStates[index]
-                                                                ? stripHtmlTags(ele.description)
-                                                                : stripHtmlTags(ele.description).substring(0, 100) + '...'}
-                                                        </p>
-                                                        {ele.description.length > 100 && (
-                                                            <div id='readmore_article'>
-
-                                                                <Link href="/article-deatils/[slug]" as={`/article-deatils/${ele.id}`} passHref>
-                                                                    <button
-                                                                        className='readmore'
-                                                                    >
-                                                                        Show More
-                                                                        <AiOutlineArrowRight className="mx-2" size={18} />
-                                                                    </button>
-                                                                </Link>
-                                                            </div>
-                                                        )}
-                                                    </>
-                                                )}
-                                            </div>
-                                        </Card.Body>
-                                        <Card.Footer id='article_card_footer'>
-                                            <div id='admin_pic'>
-                                                <img src={adminlogo.src} alt="" className='admin' />
-                                            </div>
-                                            <div className='article_footer_text'>
-                                                <span className='byadmin'> By Admin
-                                                </span>
-                                                <p>1 day ago</p>
-                                            </div>
-                                        </Card.Footer>
-                                    </Card>
+                                    <ArticleCard ele={ele} index={index} expandedStates={expandedStates} />
                                 </div>
                             ))}
 

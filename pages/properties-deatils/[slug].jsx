@@ -28,6 +28,7 @@ import axios from 'axios';
 import GoogleMap from '@/Components/GoogleMap/GoogleMap';
 import { PiPlayCircleThin } from 'react-icons/pi';
 import ReactPlayer from 'react-player';
+import VerticalCard from '@/Components/Cards/VerticleCard';
 
 const PropertieDeatils = (propertySlugData) => {
     const [isLoading, setIsLoading] = useState(true)
@@ -72,115 +73,115 @@ const PropertieDeatils = (propertySlugData) => {
     let FeaturestaticData = [
         {
             id: 1,
-            image: cardImg.src,
-            feature: "Feature",
-            sell: "Sell",
+            title_image: cardImg.src,
+            promoted: "1",
+            propery_type: "Sell",
             price: "$1,999,000 / USD",
-            prop_type: "Home",
-            prop_loc: "Luxury villa in Rego Park",
-            prop_city: "California City, CA, USA",
-            bedroom: "5 Bedroom",
-            bath: "2 Bath",
-            sq_fit: "1200 sq fit",
-            parking: "2 Parking"
+            category: "Home",
+            title: "Luxury villa in Rego Park",
+            city: "California City, CA, USA",
+            // bedroom: "5 Bedroom",
+            // bath: "2 Bath",
+            // sq_fit: "1200 sq fit",
+            // parking: "2 Parking"
         },
         {
             id: 2,
-            image: cardImg.src,
-            feature: "Feature",
-            sell: "Sell",
+            title_image: cardImg.src,
+            promoted: "1",
+            propery_type: "Sell",
             price: "$1,999,000 / USD",
-            prop_type: "Home",
-            prop_loc: "Luxury villa in Rego Park",
-            prop_city: "California City, CA, USA",
-            bedroom: "5 Bedroom",
-            bath: "2 Bath",
-            sq_fit: "1200 sq fit",
-            parking: "2 Parking"
+            category: "Home",
+            title: "Luxury villa in Rego Park",
+            city: "California City, CA, USA",
+            // bedroom: "5 Bedroom",
+            // bath: "2 Bath",
+            // sq_fit: "1200 sq fit",
+            // parking: "2 Parking"
         },
         {
             id: 3,
-            image: cardImg.src,
-            feature: "Feature",
-            sell: "Sell",
+            title_image: cardImg.src,
+            promoted: "1",
+            propery_type: "Sell",
             price: "$1,999,000 / USD",
-            prop_type: "Home",
-            prop_loc: "Luxury villa in Rego Park",
-            prop_city: "California City, CA, USA",
-            bedroom: "5 Bedroom",
-            bath: "2 Bath",
-            sq_fit: "1200 sq fit",
-            parking: "2 Parking"
+            category: "Home",
+            title: "Luxury villa in Rego Park",
+            city: "California City, CA, USA",
+            // bedroom: "5 Bedroom",
+            // bath: "2 Bath",
+            // sq_fit: "1200 sq fit",
+            // parking: "2 Parking"
         },
         {
             id: 4,
-            image: cardImg.src,
-            feature: "Feature",
-            sell: "Sell",
+            title_image: cardImg.src,
+            promoted: "1",
+            propery_type: "Sell",
             price: "$1,999,000 / USD",
-            prop_type: "Home",
-            prop_loc: "Luxury villa in Rego Park",
-            prop_city: "California City, CA, USA",
-            bedroom: "5 Bedroom",
-            bath: "2 Bath",
-            sq_fit: "1200 sq fit",
-            parking: "2 Parking"
+            category: "Home",
+            title: "Luxury villa in Rego Park",
+            city: "California City, CA, USA",
+            // bedroom: "5 Bedroom",
+            // bath: "2 Bath",
+            // sq_fit: "1200 sq fit",
+            // parking: "2 Parking"
         },
         {
             id: 5,
-            image: cardImg.src,
-            feature: "Feature",
-            sell: "Sell",
+            title_image: cardImg.src,
+            promoted: "1",
+            propery_type: "Sell",
             price: "$1,999,000 / USD",
-            prop_type: "Home",
-            prop_loc: "Luxury villa in Rego Park",
-            prop_city: "California City, CA, USA",
-            bedroom: "5 Bedroom",
-            bath: "2 Bath",
-            sq_fit: "1200 sq fit",
-            parking: "2 Parking"
+            category: "Home",
+            title: "Luxury villa in Rego Park",
+            city: "California City, CA, USA",
+            // bedroom: "5 Bedroom",
+            // bath: "2 Bath",
+            // sq_fit: "1200 sq fit",
+            // parking: "2 Parking"
         },
         {
             id: 6,
-            image: cardImg.src,
-            feature: "Feature",
-            sell: "Sell",
+            title_image: cardImg.src,
+            promoted: "1",
+            propery_type: "Sell",
             price: "$1,999,000 / USD",
-            prop_type: "Home",
-            prop_loc: "Luxury villa in Rego Park",
-            prop_city: "California City, CA, USA",
-            bedroom: "5 Bedroom",
-            bath: "2 Bath",
-            sq_fit: "1200 sq fit",
-            parking: "2 Parking"
+            category: "Home",
+            title: "Luxury villa in Rego Park",
+            city: "California City, CA, USA",
+            // bedroom: "5 Bedroom",
+            // bath: "2 Bath",
+            // sq_fit: "1200 sq fit",
+            // parking: "2 Parking"
         },
         {
             id: 7,
-            image: cardImg.src,
-            feature: "Feature",
-            sell: "Sell",
+            title_image: cardImg.src,
+            promoted: "1",
+            propery_type: "Sell",
             price: "$1,999,000 / USD",
-            prop_type: "Home",
-            prop_loc: "Luxury villa in Rego Park",
-            prop_city: "California City, CA, USA",
-            bedroom: "5 Bedroom",
-            bath: "2 Bath",
-            sq_fit: "1200 sq fit",
-            parking: "2 Parking"
+            category: "Home",
+            title: "Luxury villa in Rego Park",
+            city: "California City, CA, USA",
+            // bedroom: "5 Bedroom",
+            // bath: "2 Bath",
+            // sq_fit: "1200 sq fit",
+            // parking: "2 Parking"
         },
         {
             id: 8,
-            image: cardImg.src,
-            feature: "Feature",
-            sell: "Sell",
+            title_image: cardImg.src,
+            promoted: "1",
+            propery_type: "Sell",
             price: "$1,999,000 / USD",
-            prop_type: "Home",
-            prop_loc: "Luxury villa in Rego Park",
-            prop_city: "California City, CA, USA",
-            bedroom: "5 Bedroom",
-            bath: "2 Bath",
-            sq_fit: "1200 sq fit",
-            parking: "2 Parking"
+            category: "Home",
+            title: "Luxury villa in Rego Park",
+            city: "California City, CA, USA",
+            // bedroom: "5 Bedroom",
+            // bath: "2 Bath",
+            // sq_fit: "1200 sq fit",
+            // parking: "2 Parking"
         },
     ]
 
@@ -188,7 +189,7 @@ const PropertieDeatils = (propertySlugData) => {
 
     const videoLink = propertyData && propertyData.video_link;
     const videoId = videoLink ? videoLink.split('/').pop() : null;
-    
+
     const backgroundImageUrl = videoId
         ? `url(https://img.youtube.com/vi/${videoId}/maxresdefault.jpg)`
         : 'none';
@@ -386,10 +387,10 @@ const PropertieDeatils = (propertySlugData) => {
                                         <div className="card-header">
                                             Video
                                         </div>
-                                        {console.log(propertyData.video_link)}
+                                        {/* {console.log(propertyData.video_link)}
                                         {console.log(propertyData.video_link.slice(17))}
                                         {console.log(videoId)}
-                                        {console.log(videoLink)}
+                                        {console.log(videoLink)} */}
                                         <div className="card-body">
                                             {!play
                                                 ?
@@ -408,17 +409,6 @@ const PropertieDeatils = (propertySlugData) => {
                                                 </div>
                                                 :
                                                 <div >
-                                                    {/* <iframe
-                                                        width="100%"
-                                                        height="500"
-                                                        src={propertyData && propertyData.video_link}
-                                                        title="YouTube video player"
-                                                        frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                        allowFullScreen
-                                                        id="video-iframe"
-                                                        onPause={() => setPlay(false)}
-                                                    ></iframe> */}
                                                     <ReactPlayer
                                                         width="100%"
                                                         height="500px"
@@ -438,18 +428,18 @@ const PropertieDeatils = (propertySlugData) => {
                                 }
 
 
-                                {/* {propertyData && propertyData.threeD_image ? ( */}
+                                {propertyData && propertyData.threeD_image ? (
 
-                                <div className="card" id="prop-360-view">
-                                    <div className="card-header">
-                                        360° Virtual Tour
-                                    </div>
-                                    <div className="card-body">
+                                    <div className="card" id="prop-360-view">
+                                        <div className="card-header">
+                                            360° Virtual Tour
+                                        </div>
+                                        <div className="card-body">
 
-                                        <div id="virtual-view">
+                                            <div id="virtual-view">
 
-                                            <div id="panorama"></div>
-                                            {/* <iframe width="100%" height="500" allowfullscreen style={{
+                                                <div id="panorama"></div>
+                                                {/* <iframe width="100%" height="500" allowfullscreen style={{
                                             backgroundImage: `url(${ViewPageImg.src})`,
                                             borderStyle: "none",
                                             borderRadius: "12px"
@@ -457,12 +447,12 @@ const PropertieDeatils = (propertySlugData) => {
                                             src="https://cdn.pannellum.org/2.5/pannellum.htm#panorama=
                                             https://thumbs.dreamstime.com/b/grodno-belarus-september-full-panorama-equirectangular-spherical-equidistant-projection-interier-banquet-hall-ancient-138802019.jpg?w=2048"
                                             aut></iframe> */}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                {/* ) : */}
-                                {/* null */}
-                                {/* } */}
+                                ) :
+                                    null
+                                }
 
                             </div>
                             <div className='col-12 col-md-12 col-lg-3'>
@@ -551,63 +541,7 @@ const PropertieDeatils = (propertySlugData) => {
                                     ) :
                                         FeaturestaticData?.map((ele) => (
                                             <SwiperSlide id="similer-swiper-slider" key={ele.id}>
-                                                <Card id='similer-main_card'>
-                                                    <Card.Img variant="top" id='card_img' src={ele.image} />
-                                                    <Card.Body>
-                                                        <span className='similer_feture_tag'>
-                                                            {ele.feature}
-                                                        </span>
-                                                        <span className='similer_like_tag'>
-                                                            <AiOutlineHeart size={25} />
-                                                        </span>
-                                                        <span className='similer_sell_tag'>
-                                                            {ele.sell}
-                                                        </span>
-                                                        <span className='similer_price_tag'>
-                                                            {ele.price}
-                                                        </span>
-
-                                                        <div>
-                                                            <div id='feature_card_mainbody'>
-                                                                <BiHomeSmile size={23} />
-                                                                <span className='feture_body_title'> {ele.prop_type} </span>
-                                                            </div>
-                                                            <div id='feature_card_middletext'>
-                                                                <span>
-                                                                    {ele.prop_loc}
-                                                                </span>
-                                                                <p>
-                                                                    {ele.prop_city}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </Card.Body>
-
-                                                    <Card.Footer id='feature_card_footer'>
-                                                        <div className='footer_body'>
-                                                            <div id='footer_content'>
-                                                                <RiHotelBedLine size={22} />
-                                                                <p className='text_footer'> {ele.bedroom} </p>
-                                                            </div>
-                                                            <div id='footer_content'>
-                                                                <RiBuilding3Line size={22} />
-                                                                <p className='text_footer'> {ele.sq_fit} </p>
-                                                            </div>
-
-                                                        </div>
-                                                        <div className='footer_body'>
-                                                            <div id='footer_content'>
-                                                                <FiCloudDrizzle size={22} />
-                                                                <p className='text_footer'>{ele.bath} </p>
-                                                            </div>
-                                                            <div id='footer_content'>
-                                                                <RiParkingBoxLine size={22} />
-                                                                <p className='text_footer'> {ele.parking} </p>
-                                                            </div>
-
-                                                        </div>
-                                                    </Card.Footer>
-                                                </Card>
+                                                <VerticalCard ele={ele} />
                                             </SwiperSlide>
                                         ))}
                                 </Swiper>

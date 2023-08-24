@@ -2,10 +2,11 @@
 import Link from 'next/link';
 import React from 'react'
 import { BsArrowRight } from 'react-icons/bs'
+import { IoIosArrowForward } from 'react-icons/io';
 
 const MobileHeadline = (props) => {
-    const {data} = props;
-    
+    const { data } = props;
+
     return (
         <>
             <div className="container">
@@ -25,7 +26,11 @@ const MobileHeadline = (props) => {
                     </div>
                     <div>
                         <Link href={data.link}>
-                        <button id='view_all_arrow'><BsArrowRight size={30} /></button>
+                            <button className="mobileViewArrow" >
+                                <IoIosArrowForward  size={25}/>
+                            </button>
+
+
                         </Link>
                     </div>
                 </div>

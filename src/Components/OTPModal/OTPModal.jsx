@@ -71,7 +71,7 @@ console.log(phonenum)
             console.log(result.user.phoneNumber)
             console.log(result.user.uid)
 
-            signupLoaded("", "", result.user.phoneNumber, "3", "", result.user.uid, "", "",
+            signupLoaded("", "", result.user.phoneNumber.replace("+", ""), "3", "", result.user.uid, "", "",
                 (res) => {
                     console.log(res)
                     let signupData = res.data

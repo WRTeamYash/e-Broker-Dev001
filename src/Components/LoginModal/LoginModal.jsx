@@ -56,6 +56,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                         <label htmlFor="phone">Phone Number</label>
                         <PhoneInput
                             defaultCountry='IN'
+                            disabledCountryCode="true"
                             value={value}
                             onChange={setValue}
                             className="custom-phone-input"

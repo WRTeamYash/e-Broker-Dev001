@@ -341,10 +341,6 @@ const HomePage = () => {
                     {
                         isLoading ?
                             (
-                                // <Loader />
-                                // <div className="col-12 loading_data">
-                                //     <Skeleton height={20} count={20} />
-                                // </div>
                                 <Loader />
                             ) :
                             slider &&

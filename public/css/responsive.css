@@ -9,10 +9,10 @@
     /* width: 50%; */
   }
   .horizontal_card #main_prop_card_body .prop_price{
-    margin-top: 195px;
+    margin-top: 165px;
   }
   .horizontal_card #main_prop_card_body .prop_sell{
-    margin-top: 188px;
+    margin-top: 160px;
   }
 }
 @media only screen and (min-width: 1400px) {
@@ -20,6 +20,7 @@
   .dropdown-menu {
     width: 13vw !important;
   }
+
   /* HEADER CSS END  */
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
@@ -41,10 +42,10 @@
     /* width: 50%; */
   }
   .horizontal_card #main_prop_card_body .prop_price{
-    margin-top: 195px;
+    margin-top: 165px;
   }
   .horizontal_card #main_prop_card_body .prop_sell{
-    margin-top: 188px;
+    margin-top: 160px;
   }
   .download_app_platforms #playstore_logo img,
   #appstore_logo img {
@@ -97,7 +98,7 @@
   #prop_cards {
     top: 0;
   }
-  .horizontal_card .main_prop_card {
+  .horizontal_card #main_prop_card {
     flex-direction: column;
   }
   .horizontal_card #prop_card_img {
@@ -763,7 +764,7 @@
     top: 10px;
   }
   .prop_sell {
-    margin-top: -60px;
+    margin-top: -60px !important;
   }
   .prop_price {
     right: 10px;
@@ -891,6 +892,7 @@
     border: 2px solid var(--primary-color);
     box-shadow: var(--primary-color) !important;
   }
+  
 }
 
 /* Shaihid's resposives css  */
@@ -1207,16 +1209,6 @@
     height: 100%;
     border-radius: 0px 12px 0px 0px;
   }
-
-  .about-propertie,
-  #features-amenities,
-  #propertie-address,
-  #prop-video,
-  #prop-360-view,
-  #owner-deatils-card {
-    /* width: 85vw; */
-  }
-
   #owner-deatils-card {
     margin-top: 24px;
   }

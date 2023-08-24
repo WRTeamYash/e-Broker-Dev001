@@ -26,9 +26,9 @@ function VerticalCard({ ele }) {
                     </span>
                     <div className='feature_card_mainbody'>
                         <div className="cate_image">
-                            <img src={ele.category.image} alt="" />
+                            <img src={ele.category && ele.category.image} alt="" />
                         </div>
-                        <span className='feature_body_title'> {ele.category.category} </span>
+                        <span className='feature_body_title'> {ele.category && ele.category.category} </span>
                     </div>
                     <div className='feature_card_middletext'>
                         <span>

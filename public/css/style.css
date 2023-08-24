@@ -1554,7 +1554,7 @@ button.learn-more .button-text {
 #apartments {
   position: relative;
   bottom: 0;
-  background-color: #fff;
+  background-color: #fff !important;
   /* overflow: hidden; */
 }
 

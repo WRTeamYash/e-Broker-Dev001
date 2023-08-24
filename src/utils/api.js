@@ -5,6 +5,11 @@ const GET_SLIDERS = "get_slider"
 const GET_CATEGORES = "get_categories"
 const GET_PROPETRES ="get_property"
 const GET_ARTICLES ="get_articles"
+const GET_COUNT_BY_CITIES_CATEGORIS ="get_count_by_cities_categoris"
+
+
+
+
 // GET SETTINGS
 export const getSettingApi = (type, user_id) => {
 
@@ -116,6 +121,19 @@ export const getArticlesApi = (id) => {
         method: "GET",
         params: {
             id:id
+        },
+        authorizationHeader: false,
+
+    }
+}
+
+// GET_COUNT_BY_CITIES_CATEGORIS
+export const getCountByCitysCategories = () => {
+    return {
+        url: `${GET_COUNT_BY_CITIES_CATEGORIS}`,
+        method: "GET",
+        params: {
+          
         },
         authorizationHeader: false,
 

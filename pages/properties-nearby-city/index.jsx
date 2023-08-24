@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import cityImage01 from "@/assets/Images/City_1.jpg"
 import cityImage02 from "@/assets/Images/City_2.jpg"
@@ -11,6 +11,7 @@ import cityImage07 from "@/assets/Images/City_2.jpg"
 import cityImage08 from "@/assets/Images/City_4.jpg"
 import Skeleton from 'react-loading-skeleton'
 import Loader from '@/Components/Loader/Loader'
+import { GetCountByCitysCategorisApi } from '@/store/actions/campaign'
 
 const PropertiesNearbyCity = () => {
 
@@ -65,6 +66,21 @@ const PropertiesNearbyCity = () => {
             decs: "20 properties"
         },
     ]
+
+     // GET_COUNT_BY_CITIES_CATEGORIS
+     const [getNearByCitysData, setGetNearByCitysData] = useState()
+     useEffect(() => {
+         GetCountByCitysCategorisApi((response) => {
+ 
+             const cityData = response.city_data
+             console.log(cityData)
+             setIsLoading(false)
+             setGetNearByCitysData(cityData);
+         },
+             (error) => {
+                 console.log(error)
+             })
+     }, [])
     return (
         <>
             <Breadcrumb title='Properties Nearby Cities' />
@@ -77,15 +93,15 @@ const PropertiesNearbyCity = () => {
                         // </div>
                         <Loader />
                     ) :
-                       staticData?.map((ele) => (
+                    getNearByCitysData?.map((ele) => (
 
                             <div className='col-12 col-md-6 col-lg-3' key={ele.id}>
                                 <div className="card bg-dark text-white mb-3" id='nearby-city-img'>
                                     <img src={ele.image} className="card-img" alt="..." id='city-img' />
                                     <div className="card-img-overlay">
                                         <div id='city_img_headlines'>
-                                            <h4 className="card-title">{ele.title}</h4>
-                                            <p className="card-text">{ele.decs}</p>
+                                            <h4 className="card-title">{ele.City}</h4>
+                                            <p className="card-text">{ele.Count} Properties</p>
                                         </div>
                                     </div>
                                 </div>

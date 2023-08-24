@@ -49,7 +49,7 @@ import MobileHeadline from '../MobileHeadlines/MobileHeadline';
 import Link from 'next/link';
 import Loader from '../Loader/Loader';
 
-import { GetAllArticlesApi, GetCategorieApi, GetFeturedListingsApi, GetSliderApi } from '@/store/actions/campaign';
+import { GetAllArticlesApi, GetCategorieApi, GetCountByCitysCategorisApi, GetFeturedListingsApi, GetSliderApi } from '@/store/actions/campaign';
 
 import VerticalCardSkeleton from '../Skeleton/VerticalCardSkeleton';
 import VerticalCard from '../Cards/VerticleCard';
@@ -243,7 +243,7 @@ const HomePage = () => {
     useEffect(() => {
         GetCategorieApi((response) => {
             const categoryData = response.data;
-            console.log("category data ================", categoryData)
+            // console.log("category data ================", categoryData)
             setIsLoading(false)
             setGetCategories(categoryData);
         }, (error) => {
@@ -306,12 +306,37 @@ const HomePage = () => {
             console.log(error)
         })
     }, [])
+    // GET_COUNT_BY_CITIES_CATEGORIS
+    const [getNearByCitysData, setGetNearByCitysData] = useState()
+    useEffect(() => {
+        GetCountByCitysCategorisApi((response) => {
 
-    const stripHtmlTags = (htmlString) => {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = htmlString;
-        return tempDiv.textContent || tempDiv.innerText || '';
-    };
+            const cityData = response.city_data
+            console.log(cityData)
+            setIsLoading(false)
+            setGetNearByCitysData(cityData);
+        },
+            (error) => {
+                console.log(error)
+            })
+    }, [])
+    // console.log(getNearByCitysData[0])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     return (
@@ -575,9 +600,9 @@ const HomePage = () => {
 
                                             >
                                                 {Array.from({ length: 6 }).map((_, index) => (
-                                                <SwiperSlide>
-                                                    <CustomCategorySkeleton />
-                                                </SwiperSlide>
+                                                    <SwiperSlide>
+                                                        <CustomCategorySkeleton />
+                                                    </SwiperSlide>
                                                 ))}
                                             </Swiper>
                                         </div>
@@ -673,6 +698,8 @@ const HomePage = () => {
             </section>
 
             {/* ===== PROPERTIES NEARBY CITY  SECTION ====== */}
+
+
             <section id='main_citySection'>
                 <div
                     className='container'
@@ -713,84 +740,73 @@ const HomePage = () => {
                         } />
                     </div>
                     <div className='row' id='nearBy-Citys'>
-                        <div className='col-lg-6'>
-                            <div className="card bg-dark text-white mb-3" id='cityImgTop'
-                            // id='city_card_bottom'
-                            >
-                                <img src={cityImage03.src} className="card-img" alt="..." id='TopImg' />
+                        <div className='col-lg-6' id='city_image_main_div'>
+                            {/* <Link href="/all-properties/[slug]" as={`/all-properties/${getNearByCitysData[0].City}`} passHref> */}
+                                <div className="card bg-dark text-white mb-3" id='cityImgTop'>
+                                    <img src={getNearByCitysData && getNearByCitysData[0].image} className="card-img" alt="..." id='TopImg' />
+                                    <div className="card-img-overlay">
+                                        <div id='city_img_headlines'>
+                                            <h4 className="card-title">{getNearByCitysData && getNearByCitysData[0].City} </h4>
+                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[0].Count} Properties </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/* </Link> */}
+                        </div>
+                        <div className='col-12 col-md-6 col-lg-3' id='city_img_div'>
+                            <div className="card bg-dark text-white mb-3" id='group_card'>
+                                <img src={getNearByCitysData && getNearByCitysData[1].image} className="card-img" alt="..." id='TopImg' />
                                 <div className="card-img-overlay">
                                     <div id='city_img_headlines'>
-                                        <h4 className="card-title">San Francisco</h4>
-                                        <p className="card-text">13 Properties</p>
+                                        <h4 className="card-title">{getNearByCitysData && getNearByCitysData[1].City}</h4>
+                                        <p className="card-text">{getNearByCitysData && getNearByCitysData[1].Count} Properties</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className='col-12 col-md-6 col-lg-3'>
-                            <div className="card bg-dark text-white mb-3"
-                                id='group_card'
-                            >
-                                <img src={cityImage01.src} className="card-img" alt="..." id='TopImg' />
+                        <div className='col-12 col-md-6 col-lg-3' id='city_img_div'>
+                            <div className="card bg-dark text-white mb-3" id='group_card'>
+                                <img src={getNearByCitysData && getNearByCitysData[7].image} className="card-img" alt="..." id='TopImg' />
                                 <div className="card-img-overlay">
                                     <div id='city_img_headlines'>
-                                        <h4 className="card-title">New York</h4>
-                                        <p className="card-text">22 Properties</p>
+                                        <h4 className="card-title">{getNearByCitysData && getNearByCitysData[7].City}</h4>
+                                        <p className="card-text">{getNearByCitysData && getNearByCitysData[7].Count} Properties</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className='col-12 col-md-6 col-lg-3'>
-                            <div className="card bg-dark text-white mb-3"
-                                id='group_card'
-                            >
-                                <img src={cityImage02.src} className="card-img" alt="..." id='TopImg' />
+                        <div className='col-12 col-md-6 col-lg-3' id='city_img_div01'>
+                            <div className="card bg-dark text-white" id='group_card'>
+                                <img src={getNearByCitysData && getNearByCitysData[3].image} className="card-img" alt="..." id='TopImg' />
                                 <div className="card-img-overlay">
                                     <div id='city_img_headlines'>
-                                        <h4 className="card-title">California</h4>
-                                        <p className="card-text">18 Properties</p>
+                                        <h4 className="card-title">{getNearByCitysData && getNearByCitysData[3].City}</h4>
+                                        <p className="card-text">{getNearByCitysData && getNearByCitysData[3].Count} Properties</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className='col-12 col-md-6 col-lg-3'
-
-                        >
-                            <div className="card bg-dark text-white" id='group_card'
-                            // id='city_card'
-                            >
-                                <img src={cityImage01.src} className="card-img" alt="..." id='TopImg' />
+                        <div className='col-12 col-md-6 col-lg-3' id='city_img_div01'>
+                            <div className="card bg-dark text-white " id='group_card'>
+                                <img src={getNearByCitysData && getNearByCitysData[4].image} className="card-img" alt="..." id='TopImg' />
                                 <div className="card-img-overlay">
                                     <div id='city_img_headlines'>
-                                        <h4 className="card-title">Chicago</h4>
-                                        <p className="card-text">20 Properties</p>
+                                        <h4 className="card-title">{getNearByCitysData && getNearByCitysData[4].City}</h4>
+                                        <p className="card-text">{getNearByCitysData && getNearByCitysData[4].Count} Properties</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className='col-12 col-md-6 col-lg-3'
-
-                        >
-                            <div className="card bg-dark text-white " id='group_card'
-                            >
-                                <img src={cityImage02.src} className="card-img" alt="..." id='TopImg' />
-                                <div className="card-img-overlay">
-                                    <div id='city_img_headlines'>
-                                        <h4 className="card-title">Los Angeles</h4>
-                                        <p className="card-text">15 Properties</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='col-lg-6'>
+                        <div className='col-lg-6' id='city_image_main_div'>
                             <div className="card bg-dark text-white" id='cityImgTop'
                             >
-                                <img src={cityImage03.src} className="card-img" alt="..." id='TopImg'
+                                <img src={getNearByCitysData && getNearByCitysData[5].image} className="card-img" alt="..." id='TopImg'
                                 //  id='bottom_city_card_img' 
                                 />
                                 <div className="card-img-overlay">
                                     <div id='city_img_headlines'>
-                                        <h4 className="card-title">Danver</h4>
-                                        <p className="card-text">13 Properties</p>
+                                        <h4 className="card-title">{getNearByCitysData && getNearByCitysData[5].City} </h4>
+                                        <p className="card-text">{getNearByCitysData && getNearByCitysData[5].Count} </p>
                                     </div>
                                 </div>
                             </div>

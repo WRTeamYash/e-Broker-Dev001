@@ -1,4 +1,4 @@
-import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi } from "@/utils/api";
+import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
@@ -48,6 +48,17 @@ export const GetFeturedListingsApi = ( promoted, top_rated, id, category_id, mos
 export const GetAllArticlesApi = (id, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
         ...getArticlesApi(id),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+
+// GET_COUNT_BY_CITIES_CATEGORIS
+export const GetCountByCitysCategorisApi =(onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...getCountByCitysCategories(),
         displayToast: false,
         onStart,
         onSuccess,

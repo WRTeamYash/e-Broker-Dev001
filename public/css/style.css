@@ -1555,7 +1555,7 @@ button.learn-more .button-text {
   position: relative;
   bottom: 0;
   background-color: #fff;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 #view_appartment {

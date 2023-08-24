@@ -72,6 +72,9 @@
     display: block;
     padding-bottom: 20px;
   }
+  #apartments{
+    overflow: hidden;
+  }
   #apartment_all_content #all-apart-cards {
     width: 100%;
   }
@@ -271,6 +274,9 @@
     display: block;
     padding-bottom: 0px;
   }
+  #apartments{
+    overflow: hidden;
+  }
   #apartment_all_content #all-apart-cards {
     width: 100%;
   }
@@ -436,6 +442,9 @@
     display: block;
     padding-bottom: 10px;
   }
+  #apartments{
+    overflow: hidden;
+  }
   #apartment_all_content #all-apart-cards {
     width: 100%;
   }
@@ -563,6 +572,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  #apartments{
+    overflow: hidden;
   }
   #apartment_all_content #all-apart-cards {
     width: 100%;
@@ -733,6 +745,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  #apartments{
+    overflow: hidden;
   }
   #apartment_all_content #all-apart-cards {
     width: 100%;

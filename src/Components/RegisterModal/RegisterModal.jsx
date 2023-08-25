@@ -9,8 +9,8 @@ import Location from '../Location/Location';
 const RegisterModal = ({ isOpen, onClose }) => {
     const [showCurrentLoc, setShowCurrentLoc] = useState(false);
 
-    console.log("isOpen:", isOpen);
-    console.log("showCurrentLoc:", showCurrentLoc);
+    // console.log("isOpen:", isOpen);
+    // console.log("showCurrentLoc:", showCurrentLoc);
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');

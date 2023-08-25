@@ -12,6 +12,8 @@ import { GetAllArticlesApi } from '@/store/actions/campaign'
 import ArticleCard from '@/Components/Cards/ArticleCard'
 import Skeleton from 'react-loading-skeleton'
 import ArticleCardSkeleton from '@/Components/Skeleton/ArticleCardSkeleton'
+import HorizontalCard from '@/Components/Cards/HorizontalCard'
+import ArticleHorizonatalCard from '@/Components/Cards/ArticleHorizonatalCard'
 
 
 
@@ -19,6 +21,7 @@ import ArticleCardSkeleton from '@/Components/Skeleton/ArticleCardSkeleton'
 const Articles = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [expandedStates, setExpandedStates] = useState([]);
+    const [grid, setGrid] = useState(false);
 
     // GET ARTICLES
     const [getArticles, setGetArticles] = useState()
@@ -60,10 +63,10 @@ const Articles = () => {
                                                     <span>{total} Articles Found  </span>
                                                 </div>
                                                 <div className='grid-buttons'>
-                                                    <button className='mx-3' id='layout-buttons'>
+                                                    <button className='mx-3' id='layout-buttons' onClick={() => setGrid(false)}>
                                                         <AiOutlineUnorderedList size={25} />
                                                     </button>
-                                                    <button id='layout-buttons'>
+                                                    <button id='layout-buttons' onClick={() => setGrid(true)}>
                                                         <RiGridFill size={25} />
                                                     </button>
                                                 </div>
@@ -74,25 +77,51 @@ const Articles = () => {
                                             <Skeleton height={50} count={1} />
                                         </div>
                                     )}
+                                    {
+                                        !grid ?
+                                            // Row cards
+                                            <div className='all-prop-cards' id='rowCards'>
+                                                <div className='row' id='all-articles-cards'>
+                                                    {isLoading ? (
+                                                        // Show skeleton loading when data is being fetched
+                                                        Array.from({ length: getArticles ? getArticles.length : 6 }).map((_, index) => (
+                                                            <div className='col-sm-12 col-md-6 col-lg-4 loading_data' key={index}>
+                                                                <ArticleCardSkeleton />
+                                                            </div>
+                                                        ))
+                                                        // <Loader />
+                                                    ) :
+                                                        getArticles?.map((ele, index) => (
+                                                            <div className='col-12 col-md-6 col-lg-4' key={index}>
+                                                                {/* <Link href="/article-deatils"> */}
+                                                                <ArticleCard ele={ele} expandedStates={expandedStates} index={index} />
+                                                                {/* </Link> */}
+                                                            </div>
+                                                        ))}
+                                                </div>
+                                            </div>
+                                            : <div id='columnCards'>
+                                                <div className="row">
 
-                                    <div className='row' id='all-articles-cards'>
-                                        {isLoading ? (
-                                            // Show skeleton loading when data is being fetched
-                                            Array.from({ length: getArticles ? getArticles.length : 6 }).map((_, index) => (
-                                                <div className='col-sm-12 col-md-6 col-lg-4 loading_data' key={index}>
-                                                    <ArticleCardSkeleton />
+                                                    {isLoading ? (
+                                                        // Show skeleton loading when data is being fetched
+                                                        Array.from({ length: getArticles ? getArticles.length : 6 }).map((_, index) => (
+                                                            <div className='col-sm-12 col-md-6 col-lg-4 loading_data' key={index}>
+                                                                <ArticleCardSkeleton />
+                                                            </div>
+                                                        ))
+                                                        // <Loader />
+                                                    ) :
+                                                        getArticles?.map((ele, index) => (
+                                                            <div className='col-12' key={index}>
+                                                                {/* <Link href="/article-deatils"> */}
+                                                                <ArticleHorizonatalCard ele={ele} expandedStates={expandedStates} index={index} />
+                                                                {/* </Link> */}
+                                                            </div>
+                                                        ))}
                                                 </div>
-                                            ))
-                                            // <Loader />
-                                        ) :
-                                            getArticles?.map((ele, index) => (
-                                                <div className='col-12 col-md-6 col-lg-4' key={index}>
-                                                    {/* <Link href="/article-deatils"> */}
-                                                    <ArticleCard ele={ele} expandedStates={expandedStates} index={index} />
-                                                    {/* </Link> */}
-                                                </div>
-                                            ))}
-                                    </div>
+                                            </div>
+                                    }
                                 </div>
                             </div>
                             <div className="col-12 col-md-6 col-lg-3">

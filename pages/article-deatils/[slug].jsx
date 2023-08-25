@@ -16,6 +16,7 @@ import { Card } from 'react-bootstrap';
 import { FiArrowRight } from 'react-icons/fi';
 import Loader from '@/Components/Loader/Loader';
 import axios from 'axios';
+import Skeleton from 'react-loading-skeleton';
 
 
 
@@ -24,10 +25,10 @@ const ArticleDeatils = (propertySlugData) => {
     const [isLoading, setIsLoading] = useState(false)
     const [articleData, setArticleData] = useState()
     useEffect(() => {
-        setArticleData(propertySlugData.propertySlugData[0].description)
+        setArticleData(propertySlugData.propertySlugData[0])
         setIsLoading(false)
-        // console.log(propertySlugData.propertySlugData[0])
-        console.log(articleData)
+        console.log(propertySlugData.propertySlugData[0])
+        // console.log(articleData)
     }, [propertySlugData])
 
 
@@ -142,9 +143,9 @@ const ArticleDeatils = (propertySlugData) => {
                                 <div className='all-article-rightside'>
                                     <div className='article_all_deatil_card'>
                                         <div className="card">
-                                            <div className="card-title">
-                                                About Article 
-                                            </div>
+                                            {/* <div className="card-title">
+                                               {articleData.title}
+                                            </div> */}
                                             {isLoading ? (
                                                 // Show skeleton loading when data is being fetched
                                                 <div className="col-12 loading_data">
@@ -152,9 +153,16 @@ const ArticleDeatils = (propertySlugData) => {
                                                 </div>
                                                 // <Loader />
                                             ) : (
-                                                
-                                                // Render the privacy policy data when not loading
-                                                <div className='article_deatils_description' dangerouslySetInnerHTML={{ __html: articleData || '' }} />
+                                                <>
+                                                <div>
+                                                Title :-{articleData.title}
+                                                </div>
+                                                    <div className='article_img_div'>
+                                                        <img src={articleData.image} alt="" className='article_title_img'/>
+                                                    </div>
+                                                {/* // Render the privacy policy data when not loading */}
+                                                    <div className='article_deatils_description' dangerouslySetInnerHTML={{ __html: articleData.description || '' }} />
+                                                </>
                                             )}
                                         </div>
                                     </div>

@@ -14,7 +14,7 @@ import { logoutSuccess, userSignUpData } from '@/store/reducer/authSlice';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { toast } from 'react-hot-toast';
-import { GetFeturedListingsApi } from '@/store/actions/campaign';
+
 
 
 const Nav = () => {
@@ -52,16 +52,7 @@ const Nav = () => {
     const handleCloseAcModal = () => {
         setAreaConverterModal(false);
     };
-    const handleAllProperties = () => {
-        // GetFeturedListingsApi("", "", "", "", "", (response) => {
-        //     const fetchAllProp = response.data;
-        //     console.log("all prop data ============", fetchAllProp)
-        //     setIsLoading(false)
-        //     // setGetMostFavProperties(MostFav);
-        // }, (error) => {
-        //     console.log(error)
-        // })
-    }
+
 
     const handleLogout = () => {
         confirmAlert({
@@ -110,7 +101,7 @@ const Nav = () => {
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item onClick={handleAllProperties}> <Link href="/all-properties/slug">All Properties</Link></Dropdown.Item>
+                                            <Dropdown.Item > <Link href="/properties/all-properties/">All Properties</Link></Dropdown.Item>
                                             <Dropdown.Item><Link href="/featured-properties">Featured Properties</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/most-viewed-properties">Most Viewed Properties</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/properties-nearby-city">Nearby Cities Properties</Link></Dropdown.Item>

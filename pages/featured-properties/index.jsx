@@ -14,7 +14,7 @@ const index = () => {
     const [getFeaturedListing, setGetFeaturedListing] = useState()
     useEffect(() => {
         setIsLoading(true)
-        GetFeturedListingsApi("1", "", "", "", "", (response) => {
+        GetFeturedListingsApi("1", "", "", "", "", "","", (response) => {
             const FeaturedListingData = response.data;
             // console.log("featured data ============", FeaturedListingData)
             setIsLoading(false)

@@ -17,7 +17,7 @@ const index = () => {
     const [getMostFavProperties, setGetMostFavProperties] = useState()
     useEffect(() => {
         setIsLoading(true)
-        GetFeturedListingsApi("", "", "", "", "1", (response) => {
+        GetFeturedListingsApi("", "", "", "", "1","","", (response) => {
             const MostFav = response.data;
             // console.log("most fav data ============", MostFav)
             setIsLoading(false)

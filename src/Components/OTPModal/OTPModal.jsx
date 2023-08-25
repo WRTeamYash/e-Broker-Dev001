@@ -59,7 +59,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         if (phonenum !== null) {
             generateOTP(phonenum)
         }
-console.log(phonenum)
+// console.log(phonenum)
     }, [phonenum])
 
 
@@ -68,12 +68,12 @@ console.log(phonenum)
         let confirmationResult = window.confirmationResult;
         confirmationResult.confirm(otp).then(async (result) => {
             // User verified successfully.
-            console.log(result.user.phoneNumber)
-            console.log(result.user.uid)
+            // console.log(result.user.phoneNumber)
+            // console.log(result.user.uid)
 
             signupLoaded("", "", result.user.phoneNumber.replace("+", ""), "3", "", result.user.uid, "", "",
                 (res) => {
-                    console.log(res)
+                    // console.log(res)
                     let signupData = res.data
                     console.log(signupData)
                     // Show a success toast notification
@@ -92,12 +92,12 @@ console.log(phonenum)
                             signupData.logintype === ""
                         ) {
                             // If any field is empty, execute this block
-                            console.log("open register");  // Log a message
+                            // console.log("open register");  // Log a message
                             navigate.push("/user_register");  // Redirect to "/user_register"
                             onClose();  // Close the modal
                         } else {
                             // If all fields have values, execute this block
-                            console.log(res.message);  // Log a message
+                            // console.log(res.message);  // Log a message
                             toast.success(res.message);  // Show a success toast
                             onClose();  // Close the modal
                         }

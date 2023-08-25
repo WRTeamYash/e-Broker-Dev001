@@ -12,10 +12,11 @@ import cityImage08 from "@/assets/Images/City_4.jpg"
 import Skeleton from 'react-loading-skeleton'
 import Loader from '@/Components/Loader/Loader'
 import { GetCountByCitysCategorisApi } from '@/store/actions/campaign'
+import Link from 'next/link'
 
 const PropertiesNearbyCity = () => {
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     let staticData = [
         {
             id: 1,
@@ -67,48 +68,52 @@ const PropertiesNearbyCity = () => {
         },
     ]
 
-     // GET_COUNT_BY_CITIES_CATEGORIS
-     const [getNearByCitysData, setGetNearByCitysData] = useState()
-     useEffect(() => {
-         GetCountByCitysCategorisApi((response) => {
- 
-             const cityData = response.city_data
-             console.log(cityData)
-             setIsLoading(false)
-             setGetNearByCitysData(cityData);
-         },
-             (error) => {
-                 console.log(error)
-             })
-     }, [])
+    // GET_COUNT_BY_CITIES_CATEGORIS
+    const [getNearByCitysData, setGetNearByCitysData] = useState()
+    useEffect(() => {
+        GetCountByCitysCategorisApi((response) => {
+            setIsLoading(true)
+            const cityData = response.city_data
+            // console.log(cityData)
+            setIsLoading(false)
+            setGetNearByCitysData(cityData);
+        },
+            (error) => {
+                console.log(error)
+            })
+    }, [])
     return (
         <>
             <Breadcrumb title='Properties Nearby Cities' />
             <section id='all-nearby-citys'>
                 <div className="all-city-images row">
                     {isLoading ? (
-                        // Show skeleton loading when data is being fetched
-                        // <div className="col-12 loading_data">
-                        //     <Skeleton height={20} count={22} />
-                        // </div>
-                        <Loader />
-                    ) :
-                    getNearByCitysData?.map((ele) => (
-
-                            <div className='col-12 col-md-6 col-lg-3' key={ele.id}>
-                                <div className="card bg-dark text-white mb-3" id='nearby-city-img'>
-                                    <img src={ele.image} className="card-img" alt="..." id='city-img' />
-                                    <div className="card-img-overlay">
-                                        <div id='city_img_headlines'>
-                                            <h4 className="card-title">{ele.City}</h4>
-                                            <p className="card-text">{ele.Count} Properties</p>
-                                        </div>
-                                    </div>
-                                </div>
+                        Array.from({ length: getNearByCitysData ? getNearByCitysData.length : 12 }).map((_, index) => (
+                            <div className='col-sm-12 col-md-6 col-lg-3 loading_data' key={index}>
+                                <Skeleton width="100%" height="350px" />
                             </div>
                         ))
-                    
-                }
+
+                    ) :
+                        getNearByCitysData?.map((ele) => (
+
+                            <div className='col-12 col-md-6 col-lg-3' key={ele.id}>
+                                <Link href="/all-properties/[slug]" as={`/all-properties/${ele.City}`} passHref>
+                                    <div className="card bg-dark text-white mb-3" id='nearby-city-img'>
+                                        <img src={ele.image} className="card-img" alt="..." id='city-img' />
+                                        <div className="card-img-overlay">
+                                            <div id='city_img_headlines'>
+                                                <h4 className="card-title">{ele.City}</h4>
+                                                <p className="card-text">{ele.Count} Properties</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+
+                            </div>
+                        ))
+
+                    }
                 </div>
             </section>
         </>

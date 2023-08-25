@@ -14,7 +14,7 @@ const index = () => {
     const [getFeaturedListing, setGetFeaturedListing] = useState()
     useEffect(() => {
         setIsLoading(true)
-        GetFeturedListingsApi("", "1", "", "", "", (response) => {
+        GetFeturedListingsApi("", "1", "", "", "", "", "", (response) => {
             const MostViewed = response.data;
             // console.log("most viewed data ============", MostViewed)
             setIsLoading(false)

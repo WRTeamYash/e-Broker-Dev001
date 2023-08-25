@@ -30,7 +30,12 @@ body {
   border-radius: 12px 12px 0px 0px !important;
   top: -4px;
 }
+.article_img_div{
 
+}
+.article_title_img{
+  
+}
 /* ================================ LOADER============================= */
 /* Loader.css */
 .loader-container {
@@ -2524,6 +2529,10 @@ option:hover {
   height: fit-content;
   border-radius: 12px;
   cursor: pointer;
+  margin: 0;
+}
+#all_prop_main_card_rows_cols{
+  padding: 0;
 }
 .img_div {
   width: 30%;
@@ -2536,10 +2545,11 @@ option:hover {
   object-fit: cover;
 }
 #all-prop-containt #all_prop_card_img_col {
-  height: 100%;
   width: 100%;
-  aspect-ratio: 1/0.6;
-  border-radius: 12px 12px 0 0;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+  border-radius: 12px 0 0 12px;
   object-fit: cover;
 }
 #all-prop-containt #all_prop_card_body {
@@ -2579,9 +2589,8 @@ option:hover {
   cursor: pointer;
   color: #ffffff;
   left: 10px;
-  /* padding: 5px 12px 5px 14px; */
   position: absolute;
-  margin-top: 160px;
+  margin-top: 190px;
   width: 60px;
   padding: 5px 10px;
   text-align: center;
@@ -2589,7 +2598,7 @@ option:hover {
 #all-prop-containt .all_prop_price {
   position: absolute;
   margin-left: -100px;
-  margin-top: 170px;
+  margin-top: 200px;
   font-weight: 500;
   letter-spacing: 0px;
   color: #ffffff;
@@ -2607,15 +2616,35 @@ option:hover {
 #all-prop-containt #all_prop_sub_body .sub_body_middletext {
   margin-top: 10px;
 }
+#sub_body_middletext{
+  margin-top: 10px;
+}
+#sub_body_middletext p{
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #282f39c2;
+  opacity: 1;
+
+}
 #all-prop-containt #all_prop_card_footer {
   background-color: #fff;
   width: 100%;
 }
 #all-prop-containt #all_footer_content {
   display: flex;
-  /* flex-direction: column; */
-  gap: 30px;
+  align-items: center;
+  text-align: center;
+  justify-content: flex-start;
+  gap: 10px;
 }
+#all-prop-containt #all_footer_content div{
+  width: 20px;
+  height: 20px;
+}
+#all-prop-containt #all_footer_content p{
+margin-bottom: 0;
+}
+
 #all-prop-containt #all_prop_card_footer .all_footer_body .row {
   gap: 10px 0px;
 }
@@ -2625,20 +2654,19 @@ option:hover {
 #all-prop-containt #all-prop-col-cards .card-img-overlay {
   background: none;
 }
-@media only screen and (min-width: 1200px) and (max-width: 1344px) {
+@media only screen and (min-width: 1200px) and (max-width: 1600px) {
   #all-prop-containt #all_prop_card_footer .all_footer_body .row .col-lg-3 {
     width: 33%;
   }
   #all-prop-containt #all_prop_card_img {
-    height: 240px;
     width: 100%;
     border-radius: 12px 0 0 12px;
   }
   #all-prop-containt .all_prop_sell {
-    margin-top: 180px;
+    margin-top: 170px;
   }
   #all-prop-containt .all_prop_price {
-    margin-top: 190px;
+    margin-top: 180px;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
@@ -2650,8 +2678,11 @@ option:hover {
     border-radius: 12px;
     cursor: pointer;
   }
+  #all_prop_main_card_rows_cols{
+    width: 100%;
+  }
   #all-prop-containt #all_prop_card_img {
-    height: 240px;
+
     width: 100%;
     border-radius: 12px 12px 0 0;
   }
@@ -2665,7 +2696,7 @@ option:hover {
   }
   #all-prop-containt .all_prop_price {
     margin-top: -55px;
-    margin-left: 75%;
+    margin-left: 82%;
   }
 }
 @media only screen and (min-width: 490px) and (max-width: 767px) {
@@ -2678,7 +2709,7 @@ option:hover {
     cursor: pointer;
   }
   #all-prop-containt #all_prop_card_img {
-    height: 240px;
+
     width: 100%;
     border-radius: 12px 12px 0 0;
   }
@@ -2705,21 +2736,22 @@ option:hover {
     cursor: pointer;
   }
   #all-prop-containt #all_prop_card_img {
-    height: 240px;
+    /* height: 240px; */
+    object-fit: cover;
     width: 100%;
     border-radius: 12px 12px 0 0;
   }
   #all-prop-containt .all_prop_like {
     margin-left: 80%;
-    /* right: 68%; */
+
   }
   #all-prop-containt .all_prop_sell {
     margin-top: -60px;
-    /* bottom: 0px !important; */
+
   }
   #all-prop-containt .all_prop_price {
     margin-top: -50px;
-    margin-left: 53%;
+    margin-left: 65%;
   }
 }
 @media only screen and (max-width: 375px) {
@@ -2732,7 +2764,7 @@ option:hover {
     cursor: pointer;
   }
   #all-prop-containt #all_prop_card_img {
-    height: 240px;
+    object-fit: cover;
     width: 100%;
     border-radius: 12px 12px 0 0;
   }
@@ -2746,7 +2778,7 @@ option:hover {
   }
   #all-prop-containt .all_prop_price {
     margin-top: -50px;
-    margin-left: 45%;
+    margin-left: 65%;
     font-size: small;
   }
 }
@@ -4214,4 +4246,78 @@ a {
     margin-left: 45%;
     font-size: small;
   }
+}
+
+
+/* article horizontal card  */
+/* CSS for the article-horizontal-card */
+.article-horizontal-card {
+  display: flex;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.article-card-image {
+  flex: 1;
+  max-width: 200px; /* Adjust as needed */
+}
+
+.article-card-img {
+  width: 100%;
+  height: auto;
+}
+
+.article-card-content {
+  flex: 2;
+  padding: 0 20px;
+}
+
+.article-apartment-tag {
+  background-color: #f2f2f2;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.article-card-headline span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+p {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.article-readmore {
+  margin-top: 10px;
+}
+
+.article-readmore-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.article-arrow-icon {
+  margin-left: 5px;
+}
+
+.article-admin {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.article-footer-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.article-byadmin {
+  font-size: 14px;
 }

@@ -13,6 +13,7 @@ import VerticalCard from '../Cards/VerticleCard';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import VerticalCardSkeleton from '../Skeleton/VerticalCardSkeleton';
+import Link from 'next/link';
 
 
 
@@ -53,8 +54,8 @@ const SimilerPropertySlider = (props) => {
             slidesPerView: 4
         }
     };
- 
-    
+
+
     return (
         <div div id='similer-properties'>
             <div className='similer-headline'>
@@ -90,40 +91,43 @@ const SimilerPropertySlider = (props) => {
 
                 >
                     {props.isLoading ? (
-                        
+
                         <Swiper
-                        slidesPerView={4}
-                        // loop={true}
-                        spaceBetween={30}
-                        freeMode={true}
-                        pagination={{
-                            clickable: true,
-                            renderBullet: renderBullet
-                        }}
-                        modules={[FreeMode, Pagination]}
-                        className='most-view-swiper'
-                        breakpoints={breakpoints}
-                        style={{
-                            // width: "auto"
-                        }}
+                            slidesPerView={4}
+                            // loop={true}
+                            spaceBetween={30}
+                            freeMode={true}
+                            pagination={{
+                                clickable: true,
+                                renderBullet: renderBullet
+                            }}
+                            modules={[FreeMode, Pagination]}
+                            className='most-view-swiper'
+                            breakpoints={breakpoints}
+                            style={{
+                                // width: "auto"
+                            }}
 
 
-                    >
-                        {Array.from({ length: 6 }).map((_, index) => (
-                            <SwiperSlide>
-                                <div className="loading_data">
-                                    <VerticalCardSkeleton />
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+                        >
+                            {Array.from({ length: 6 }).map((_, index) => (
+                                <SwiperSlide>
+                                    <div className="loading_data">
+                                        <VerticalCardSkeleton />
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
 
                     ) :
                         props.data?.map((ele) => (
                             <SwiperSlide id="similer-swiper-slider" key={ele.id}>
-                                <VerticalCard ele={ele} />
+                                <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                                    <VerticalCard ele={ele} />
+                                </Link>
                             </SwiperSlide>
                         ))}
+                        
                 </Swiper>
             </div>
         </div>

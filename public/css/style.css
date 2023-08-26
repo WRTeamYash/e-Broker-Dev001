@@ -7,7 +7,7 @@
   --primary-background: #f4f5f4;
 }
 body {
-  background-color: var(--primary-background);
+  background-color: var(--primary-background) !important;
   overflow-x: hidden;
 }
 /* Swiper Slider  */
@@ -1677,7 +1677,7 @@ button.learn-more .button-text {
 /* ========== PROPERTIE CSS ======================= */
 
 #main_properties {
-  background-color: var(--primary-background);
+  /* background-color: var(--primary-background); */
   position: relative;
   margin-top: -50px;
   z-index: 10;
@@ -1947,7 +1947,7 @@ h3 {
   display: none;
 }
 #most_fav {
-  background-color: var(--primary-background);
+  /* background-color: var(--primary-background); */
   height: fit-content;
   margin: 60px 0;
 }
@@ -2066,7 +2066,7 @@ h3 {
   height: auto;
   overflow: hidden;
   padding-bottom: 50px;
-  background-color: var(--primary-background);
+  /* background-color: var(--primary-background); */
 }
 .article_headline {
   display: flex;
@@ -2316,7 +2316,7 @@ hr {
   /* text-transform: uppercase; */
 }
 #all-prop-containt {
-  background-color: var(--primary-background);
+  /* background-color: var(--primary-background); */
   margin-top: -9vh;
   height: fit-content;
   padding-bottom: 50px;
@@ -3248,7 +3248,7 @@ margin-bottom: 0;
 
 /* ======== all-Article Page ============ */
 .all-articles {
-  background-color: var(--primary-background);
+  /* background-color: var(--primary-background); */
   margin-top: -9vh;
   height: fit-content;
 }
@@ -3434,7 +3434,7 @@ div#all-articles_card_footer .allarticles_footer_text p {
 
 #contact-us {
   margin-top: -90px;
-  background-color: var(--primary-background);
+  /* background-color: var(--primary-background); */
   padding: 50px 0;
 }
 .main-contactus {
@@ -3622,7 +3622,7 @@ div#all-articles_card_footer .allarticles_footer_text p {
 /* Privacy page  */
 
 #privacySect {
-  background: var(--primary-background);
+  /* background: var(--primary-background); */
   position: relative;
   bottom: 9vh;
   color: #282f39;
@@ -3638,7 +3638,7 @@ div#all-articles_card_footer .allarticles_footer_text p {
 
 /* terms and condition */
 #termsSect {
-  background: var(--primary-background);
+  /* background: var(--primary-background); */
   position: relative;
   bottom: 9vh;
   color: #282f39;

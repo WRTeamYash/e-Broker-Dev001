@@ -45,9 +45,9 @@ const AllProperties = ({ propertySlugData }) => {
     <>
       <Breadcrumb title="All Properties" />
 
-      <div className='all-properties container'>
 
-        <div id='all-prop-containt'>
+      <div id='all-prop-containt'>
+        <div className='all-properties container'>
           <div className='row ' id='main-all-prop'>
             <div className='col-12 col-md-12 col-lg-3'>
               <FilterForm />

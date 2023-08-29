@@ -19,27 +19,70 @@ import FilterForm from '@/Components/AllPropertyUi/FilterForm'
 import { useRouter } from 'next/router'
 import GridCard from '@/Components/AllPropertyUi/GridCard'
 import AllPropertieCard from '@/Components/AllPropertyUi/AllPropertieCard'
+import ReactPaginate from 'react-paginate'
+import { GetFeturedListingsApi } from '@/store/actions/campaign'
+import CustomHorizontalSkeleton from '@/Components/Skeleton/CustomHorizontalSkeleton'
 
 
-const AllProperties = ({ propertySlugData }) => {
+
+const AllProperties = ({ propertySlugData, pageIndex }) => {
   const [grid, setGrid] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
   const [CategoryListByPropertyData, setCategoryListByPropertyData] = useState()
-
-  const router = useRouter();
+  const [total, setTotal] = useState();
+  const [offsetdata, setOffsetdata] = useState(0);
+  const limit = 8
+  console.log("offset data", offsetdata)
 
   // console.log("router", router)
+  // console.log("===========================", propertySlugData)
 
+  // useEffect(() => {
+  //   setTotal(propertySlugData && propertySlugData.total);
+  //   if (propertySlugData && propertySlugData.data) {
+  //     // Extract only the data for the current page based on the limit and offset
+  //     const startIndex = offsetdata;
+  //     const endIndex = startIndex + limit;
+  //     const pageData = propertySlugData.data.slice(startIndex, endIndex);
+
+  //     // Update the state with the data for the current page
+  //     setCategoryListByPropertyData(pageData);
+  //     console.log(CategoryListByPropertyData)
+
+  //     // Turn off loading
+  //     setIsLoading(false);
+  //   }
+  // }, [propertySlugData, offsetdata]);
   useEffect(() => {
-    if (propertySlugData && propertySlugData.data) {
-      // Update the state with the new data
-      setCategoryListByPropertyData(propertySlugData.data);
-      // console.log(propertySlugData.data)
-      // Turn off loading
-      setIsLoading(false);
-    }
-  }, [propertySlugData]);
+    setIsLoading(true);
+    GetFeturedListingsApi(
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      offsetdata.toString(),
+      limit.toString(),
+      (response) => {
+        setTotal(response.total);
+        const propertyData = response.data;
+        setIsLoading(false);
+        setCategoryListByPropertyData(propertyData);
+        console.log(CategoryListByPropertyData)
+      },
+      (error) => {
+        setIsLoading(false);
+        console.log(error);
+      }
+    );
+  }, [offsetdata]);
 
+  const handlePageChange = (selectedPage) => {
+    const newOffset = selectedPage.selected * limit;
+    setOffsetdata(newOffset);
+  };
   // console.log(CategoryListByPropertyData)
   return (
     <>
@@ -54,7 +97,7 @@ const AllProperties = ({ propertySlugData }) => {
             </div>
             <div className='col-12 col-md-12 col-lg-9'>
               <div className='all-prop-rightside'>
-                <GridCard propertySlugData={propertySlugData} setGrid={setGrid} />
+                <GridCard total={total} setGrid={setGrid} />
 
                 {
                   !grid ?
@@ -62,9 +105,11 @@ const AllProperties = ({ propertySlugData }) => {
                     <div className='all-prop-cards' id='rowCards'>
                       {isLoading ? (
                         // Show skeleton loading when data is being fetched
-                        <div className="col-12 loading_data">
-                          <Skeleton height={20} count={22} />
-                        </div>
+                        Array.from({ length: 8 }).map((_, index) => (
+                          <div className="col-sm-12  loading_data">
+                            <CustomHorizontalSkeleton />
+                          </div>
+                        ))
                         // <Loader />
                       ) :
                         CategoryListByPropertyData?.map((ele) => (
@@ -89,39 +134,53 @@ const AllProperties = ({ propertySlugData }) => {
                       </div>
                     </div>
                 }
+              <div className="col-12">
+                <ReactPaginate
+                  previousLabel={"previous"}
+                  nextLabel={"next"}
+                  breakLabel="..."
+                  breakClassName="break-me"
+                  pageCount={Math.ceil(total / limit)}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={2}
+                  onPageChange={handlePageChange}
+                  containerClassName={"pagination"}
+                  previousLinkClassName={"pagination__link"}
+                  nextLinkClassName={"pagination__link"}
+                  disabledClassName={"pagination__link--disabled"}
+                  activeClassName={"pagination__link--active"}
+                />
+              </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </>
   )
 }
-export async function getServerSideProps() {
-  // Get the slug parameter from the URL
 
+// export async function getServerSideProps({ query: { page = 1 } }) {
+//   try {
+//     const pageIndex = parseInt(page);
+//     const rangeStart = (pageIndex - 1) * limit;
+//     const rangeEnd = rangeStart + limit;
 
-  // Fetch data from the external API using the slug parameter in the URL
-  try {
+//     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?offset=${rangeStart}&limit=${rangeEnd}`);
+//     const propertySlugData = response.data;
 
-    // this is for all Property data fetch 
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property`);
-    const propertySlugData = response.data;// Assuming your API response is a JSON object
+//     return {
+//       props: { propertySlugData, pageIndex }
+//     };
+//   } catch (error) {
+//     console.error("Error fetching property data:", error);
+//     return {
+//       props: {
+//         propertySlugData: null
+//       }
+//     };
+//   }
+// }
 
-    // console.log("==================================================================================== property Data", propertySlugData)
-    return {
-      props: { propertySlugData }
-    };
-
-
-  } catch (error) {
-    console.error("Error fetching property data:", error);
-    return {
-      props: {
-        propertySlugData: null
-      } // You can handle the error case appropriately in your component
-    };
-  }
-}
-
-export default AllProperties
+export default AllProperties;

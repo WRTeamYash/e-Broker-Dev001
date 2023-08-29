@@ -1979,7 +1979,7 @@ h3 {
 #browse-by-agents {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
 }
 .browse-agent {
   display: flex;
@@ -2312,12 +2312,12 @@ hr {
 }
 #all-prop-containt {
   /* background-color: var(--primary-background); */
-  margin-top: -9vh;
+  margin-top: -7vh; 
   height: fit-content;
   padding-bottom: 50px;
 }
-#main-all-prop {
-  padding-top: 3%;
+.all-properties .row {
+  gap: 20px 0px;
 }
 #filter-card {
   border: none;
@@ -2650,6 +2650,9 @@ margin-bottom: 0;
   background: none;
 }
 @media only screen and (min-width: 1200px) and (max-width: 1600px) {
+  #all-prop-containt #all_prop_main_card{
+    height: 230px;
+  }
   #all-prop-containt #all_prop_card_footer .all_footer_body .row .col-lg-3 {
     width: 33%;
   }
@@ -4314,12 +4317,23 @@ p {
   font-size: 14px;
 }
 
-/* Pagination styles */
-
+/* Pagination container styles */
 .pagination {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
+}
+
+/* Active link styles */
+.pagination li.pagination__link--active a {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* Active link hover styles */
+.pagination li.pagination__link--active a:hover {
+  color: #fff !important;
 }
 
 /* Pagination link styles */
@@ -4338,34 +4352,14 @@ p {
   text-decoration: none;
 }
 
-/* Hover styles */
+/* Link hover styles */
 .pagination li a:hover {
-  color: var(--primary-color) !important;
-  background-color: #f7f8f9; /* You can adjust the background color as needed */
-}
-
-/* Active link styles */
-.pagination a.pagination__link--active {
-  background-color: var(--primary-color) !important;
-  color: #fff;
-}
-
-.pagination a.pagination__link--active:hover {
-  color: #fff !important;
+  color: #000 !important;
 }
 
 /* Disabled link styles */
 .pagination__link--disabled a {
   cursor: not-allowed;
-  background-color: var(--primary-color); /* Use primary color here */
-  color: #fff; /* Text color when disabled */
-}
-
-/* Focus styles */
-.pagination a:focus {
-  box-shadow: none;
-}
-
-.pagination a:focus-visible {
-  outline: none;
+  background-color: #ebebe4 !important;
+  color: #c6c6c6;
 }

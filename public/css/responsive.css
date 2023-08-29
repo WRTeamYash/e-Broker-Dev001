@@ -978,10 +978,7 @@
 }
 
 @media only screen and (min-width: 1400px) and (max-width: 1850px) {
-  #main-all-prop {
-    margin: 0 3%;
-  }
-
+  
   #all-prop-containt .all-footer-body {
     gap: 16px;
   }
@@ -1072,10 +1069,7 @@
     width: 30px !important;
   }
 
-  #main-all-prop {
-    margin: 0 3%;
-  }
-
+  
   #main-all-prop .all-prop-rightside .all-footer-body {
     gap: 16px;
   }
@@ -1163,10 +1157,7 @@
     /* width: 10vw; */
   }
 
-  #main-all-prop {
-    margin: 0 3%;
-  }
-
+  
   #main-all-prop #main-all-prop-card {
     height: fit-content;
   }
@@ -1255,10 +1246,7 @@
     gap: 12px;
   }
 
-  #main-all-prop {
-    margin: 0 3%;
-  }
-
+  
   #main-all-prop-card {
     height: 100%;
     flex-direction: column;
@@ -1284,8 +1272,8 @@
   }
 
   #filter-title {
-    gap: 18%;
-    justify-content: flex-start;
+    padding: 10px 20px;
+    justify-content: space-between;
   }
 
   .filter-button-box #props-tabs #prop-sellbutton,
@@ -1381,10 +1369,7 @@
     gap: 12px;
   }
 
-  #main-all-prop {
-    margin: 0 3%;
-  }
-
+  
   #main-all-prop-card {
     height: fit-content;
   }
@@ -1516,10 +1501,7 @@
     width: 100%;
   }
 
-  #main-all-prop {
-    margin: 0 3%;
-  }
-
+  
   #main-all-prop-card {
     height: fit-content;
   }

@@ -11,14 +11,14 @@ import Loader from '@/Components/Loader/Loader';
 
 const Index = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [getFeaturedListing, setGetFeaturedListing] = useState([]);
+    const [getMostViewed, setMostViewed] = useState([]);
     const [total, setTotal] = useState(0);
     const [offsetdata, setOffsetdata] = useState(0);
-    console.log("offset data", offsetdata)
-    console.log(total)
+    // console.log("offset data", offsetdata)
+    // console.log(total)
     const limit = 8;
 
-    const pageCount = Math.ceil(total / limit); // Calculate the page count
+
 
     useEffect(() => {
         setIsLoading(true);
@@ -34,9 +34,9 @@ const Index = () => {
             limit.toString(),
             (response) => {
                 setTotal(response.total);
-                const FeaturedListingData = response.data;
+                const MostViewedData = response.data;
                 setIsLoading(false);
-                setGetFeaturedListing(FeaturedListingData);
+                setMostViewed(MostViewedData);
             },
             (error) => {
                 setIsLoading(false);
@@ -59,38 +59,40 @@ const Index = () => {
                 <div className='container'>
                     <div id='feature_cards' className='row'>
                         {isLoading ? (
-                            <div className="col-sm-12">
-                                <Loader />
-                            </div>
+                            Array.from({ length: 8 }).map((_, index) => (
+                                <div className='col-sm-12 col-md-6 col-lg-3 loading_data' key={index}>
+                                    <VerticalCardSkeleton />
+                                </div>
+                            ))
                         ) : (
                             <>
 
-                                {getFeaturedListing.map((ele, index) => (
+                                {getMostViewed.map((ele, index) => (
                                     <div className='col-sm-12 col-md-6 col-lg-3' key={index}>
                                         <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
                                             <VerticalCard ele={ele} />
                                         </Link>
                                     </div>
                                 ))}
-                                <div className="col-12">
-                                    <ReactPaginate
-                                        previousLabel={'Previous'}
-                                        nextLabel={'Next'}
-                                        breakLabel={'...'}
-                                        breakClassName={'break-me'}
-                                        marginPagesDisplayed={2}
-                                        pageCount={pageCount} 
-                                        pageRangeDisplayed={8}
-                                        onPageChange={handlePageChange}
-                                        containerClassName={'pagination'}
-                                        previousLinkClassName={'page-link'} 
-                                        nextLinkClassName={'page-link'} 
-                                        disabledClassName={"pagination__link--disabled"}
-                                        activeClassName={"pagination__link--active"}
-                                    />
-                                </div>
                             </>
                         )}
+                        <div className="col-12">
+                            <ReactPaginate
+                                previousLabel={"previous"}
+                                nextLabel={"next"}
+                                breakLabel="..."
+                                breakClassName="break-me"
+                                pageCount={Math.ceil(total / limit)}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                onPageChange={handlePageChange}
+                                containerClassName={"pagination"}
+                                previousLinkClassName={"pagination__link"}
+                                nextLinkClassName={"pagination__link"}
+                                disabledClassName={"pagination__link--disabled"}
+                                activeClassName={"pagination__link--active"}
+                            />
+                        </div>
                     </div>
                 </div>
             </section>

@@ -36,6 +36,7 @@ const Index = () => {
                 const FeaturedListingData = response.data;
                 setIsLoading(false);
                 setGetFeaturedListing(FeaturedListingData);
+                console.log(getFeaturedListing)
             },
             (error) => {
                 setIsLoading(false);
@@ -47,8 +48,10 @@ const Index = () => {
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
+        console.log("new offset", newOffset)
+        console.log("limit", limit)
     };
-    
+
 
     return (
         <>
@@ -57,9 +60,11 @@ const Index = () => {
                 <div className='container'>
                     <div id='feature_cards' className='row'>
                         {isLoading ? (
-                            <div className="col-sm-12">
-                                <Loader />
-                            </div>
+                            Array.from({ length: 8 }).map((_, index) => (
+                                <div className='col-sm-12 col-md-6 col-lg-3 loading_data' key={index}>
+                                    <VerticalCardSkeleton />
+                                </div>
+                            ))
                         ) : (
                             <>
 
@@ -70,25 +75,25 @@ const Index = () => {
                                         </Link>
                                     </div>
                                 ))}
-                                <div className="col-12">
-                                    <ReactPaginate
-                                        previousLabel={"previous"}
-                                        nextLabel={"next"}
-                                        breakLabel="..."
-                                        breakClassName="break-me"
-                                        pageCount={Math.ceil(total / limit)}
-                                        marginPagesDisplayed={2}
-                                        pageRangeDisplayed={5}
-                                        onPageChange={handlePageChange}
-                                        containerClassName={"pagination"}
-                                        previousLinkClassName={"pagination__link"}
-                                        nextLinkClassName={"pagination__link"}
-                                        disabledClassName={"pagination__link--disabled"}
-                                        activeClassName={"pagination__link--active"}
-                                    />
-                                </div>
                             </>
                         )}
+                        <div className="col-12">
+                            <ReactPaginate
+                                previousLabel={"previous"}
+                                nextLabel={"next"}
+                                breakLabel="..."
+                                breakClassName="break-me"
+                                pageCount={Math.ceil(total / limit)}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                onPageChange={handlePageChange}
+                                containerClassName={"pagination"}
+                                previousLinkClassName={"pagination__link"}
+                                nextLinkClassName={"pagination__link"}
+                                disabledClassName={"pagination__link--disabled"}
+                                activeClassName={"pagination__link--active"}
+                            />
+                        </div>
                     </div>
                 </div>
             </section>

@@ -1,44 +1,74 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
-import { ButtonGroup, Col, Row } from 'react-bootstrap'
-import { RiSendPlane2Line, RiGridFill, RiHotelBedLine, RiParkingBoxLine, RiBuilding3Line, RiPlantLine } from 'react-icons/ri'
-import { AiOutlineUnorderedList, AiOutlineHeart } from 'react-icons/ai'
-import { Card } from 'react-bootstrap'
-import { GiGamepad } from 'react-icons/gi'
-import cardImg from '@/assets/Images/Featured_List_1.jpg'
 
 import Link from 'next/link'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
-import Loader from '@/Components/Loader/Loader'
 import axios from 'axios'
-import Image from 'next/image'
 import Skeleton from 'react-loading-skeleton'
 import VerticalCard from '@/Components/Cards/VerticleCard'
 import FilterForm from '@/Components/AllPropertyUi/FilterForm'
 import { useRouter } from 'next/router'
 import GridCard from '@/Components/AllPropertyUi/GridCard'
 import AllPropertieCard from '@/Components/AllPropertyUi/AllPropertieCard'
+import ReactPaginate from 'react-paginate'
+import { GetFeturedListingsApi } from '@/store/actions/campaign'
+import CustomHorizontalSkeleton from '@/Components/Skeleton/CustomHorizontalSkeleton'
 
 
-const AllProperties = ({ propertySlugData }) => {
+const AllProperties = () => {
   const [grid, setGrid] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
   const [CategoryListByPropertyData, setCategoryListByPropertyData] = useState()
+  const [total, setTotal] = useState();
+  const [offsetdata, setOffsetdata] = useState(0);
+  const limit = 8
+  console.log("offset data", offsetdata)
 
   const router = useRouter();
+  const cateId = router.query
+  console.log(cateId)
+  useEffect(() => {
+    setIsLoading(true);
+    GetFeturedListingsApi(
+      "",
+      "",
+      "",
+      cateId,
+      "",
+      "",
+      "",
+      offsetdata.toString(),
+      limit.toString(),
+      (response) => {
+        setTotal(response.total);
+        const propertyData = response.data;
+        setIsLoading(false);
+        setCategoryListByPropertyData(propertyData);
+        console.log(CategoryListByPropertyData)
+      },
+      (error) => {
+        setIsLoading(false);
+        console.log(error);
+      }
+    );
+  }, [offsetdata]);
+
+  const handlePageChange = (selectedPage) => {
+    const newOffset = selectedPage.selected * limit;
+    setOffsetdata(newOffset);
+  };
 
   // console.log("router", router)
 
-  useEffect(() => {
-    if (propertySlugData && propertySlugData.data) {
-      // Update the state with the new data
-      setCategoryListByPropertyData(propertySlugData.data);
-      // console.log(propertySlugData.data)
-      // Turn off loading
-      setIsLoading(false);
-    }
-  }, [propertySlugData]);
+  // useEffect(() => {
+  //   if (propertySlugData && propertySlugData.data) {
+  //     // Update the state with the new data
+  //     setCategoryListByPropertyData(propertySlugData.data);
+  //     // console.log(propertySlugData.data)
+  //     // Turn off loading
+  //     setIsLoading(false);
+  //   }
+  // }, [propertySlugData]);
 
   // console.log(CategoryListByPropertyData)
   return (
@@ -54,18 +84,18 @@ const AllProperties = ({ propertySlugData }) => {
             </div>
             <div className='col-12 col-md-12 col-lg-9'>
               <div className='all-prop-rightside'>
-                <GridCard propertySlugData={propertySlugData} setGrid={setGrid} />
+              <GridCard total={total} setGrid={setGrid} />
 
                 {
                   !grid ?
                     // Row cards
                     <div className='all-prop-cards' id='rowCards'>
                       {isLoading ? (
-                        // Show skeleton loading when data is being fetched
-                        <div className="col-12 loading_data">
-                          <Skeleton height={20} count={22} />
-                        </div>
-                        // <Loader />
+                        Array.from({ length: 8 }).map((_, index) => (
+                          <div className="col-sm-12  loading_data">
+                            <CustomHorizontalSkeleton />
+                          </div>
+                        ))
                       ) :
                         CategoryListByPropertyData?.map((ele) => (
                           <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
@@ -90,6 +120,23 @@ const AllProperties = ({ propertySlugData }) => {
                     </div>
                 }
               </div>
+              <div className="col-12">
+                <ReactPaginate
+                  previousLabel={"previous"}
+                  nextLabel={"next"}
+                  breakLabel="..."
+                  breakClassName="break-me"
+                  pageCount={Math.ceil(total / limit)}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageChange}
+                  containerClassName={"pagination"}
+                  previousLinkClassName={"pagination__link"}
+                  nextLinkClassName={"pagination__link"}
+                  disabledClassName={"pagination__link--disabled"}
+                  activeClassName={"pagination__link--active"}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -97,32 +144,32 @@ const AllProperties = ({ propertySlugData }) => {
     </>
   )
 }
-export async function getServerSideProps(context) {
-  // Get the slug parameter from the URL
-  const { slug } = context.query;
-  console.log("find slug", slug)
-  console.log("query", context.query)
-  // Fetch data from the external API using the slug parameter in the URL
-  try {
+// export async function getServerSideProps(context) {
+//   // Get the slug parameter from the URL
+//   const { slug } = context.query;
+//   console.log("find slug", slug)
+//   console.log("query", context.query)
+//   // Fetch data from the external API using the slug parameter in the URL
+//   try {
 
-    // this is for all Property data fetch 
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?category_id=${slug}`);
-    const propertySlugData = response.data;// Assuming your API response is a JSON object
+//     // this is for all Property data fetch 
+//     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?category_id=${slug}`);
+//     const propertySlugData = response.data;// Assuming your API response is a JSON object
 
-    // console.log("==================================================================================== list by category property Data", propertySlugData)
-    return {
-      props: { propertySlugData }
-    };
+//     // console.log("==================================================================================== list by category property Data", propertySlugData)
+//     return {
+//       props: { propertySlugData }
+//     };
 
 
-  } catch (error) {
-    console.error("Error fetching property data:", error);
-    return {
-      props: {
-        propertySlugData: null
-      } // You can handle the error case appropriately in your component
-    };
-  }
-}
+//   } catch (error) {
+//     console.error("Error fetching property data:", error);
+//     return {
+//       props: {
+//         propertySlugData: null
+//       } // You can handle the error case appropriately in your component
+//     };
+//   }
+// }
 
 export default AllProperties

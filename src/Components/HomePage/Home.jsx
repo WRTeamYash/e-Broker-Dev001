@@ -68,7 +68,7 @@ const HomePage = () => {
     };
 
     const priceSymbol = useSelector(settingsData)
-    const CurrencySymbol = priceSymbol.currency_symbol 
+    const CurrencySymbol = priceSymbol.currency_symbol
 
 
 
@@ -213,7 +213,7 @@ const HomePage = () => {
             slidesPerView: 3,
         },
         1400: {
-            slidesPerView: 3,
+            slidesPerView: 4,
 
         }
     };
@@ -223,7 +223,7 @@ const HomePage = () => {
     const [slider, setSlider] = useState()
     useEffect(() => {
         GetSliderApi((response) => {
-            const sliderData = response.data;     
+            const sliderData = response.data;
             setIsLoading(false)
             setSlider(sliderData);
         }, (error) => {
@@ -247,7 +247,7 @@ const HomePage = () => {
     // GET FEATURED LISTINGS and 
     const [getFeaturedListing, setGetFeaturedListing] = useState()
     useEffect(() => {
-        GetFeturedListingsApi("1", "", "", "", "", "", "","","", (response) => {
+        GetFeturedListingsApi("1", "", "", "", "", "", "", "", "", (response) => {
             const FeaturedListingData = response.data;
             // console.log("featured data ============", FeaturedListingData)
             setIsLoading(false)
@@ -261,7 +261,7 @@ const HomePage = () => {
     // GET MOST VIEWED PROPERTIES
     const [getMostViewedProp, setGetMostViewedProp] = useState()
     useEffect(() => {
-        GetFeturedListingsApi("", "1", "", "", "", "", "","","", (response) => {
+        GetFeturedListingsApi("", "1", "", "", "", "", "", "", "", (response) => {
             const MostViewed = response.data;
             // console.log("most viewed data ============", MostViewed)
             setIsLoading(false)
@@ -274,7 +274,7 @@ const HomePage = () => {
 
     const [getMostFavProperties, setGetMostFavProperties] = useState()
     useEffect(() => {
-        GetFeturedListingsApi("", "", "", "", "1", "", "","","", (response) => {
+        GetFeturedListingsApi("", "", "", "", "1", "", "", "", "", (response) => {
             const MostFav = response.data;
             // console.log("most fav data ============", MostFav)
             setIsLoading(false)
@@ -937,88 +937,91 @@ const HomePage = () => {
             </section>
             {/* ===== AGENT SECTION =======  */}
             <section id='agent_section'>
-                <div className='row'>
-                    <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
-                        <div className='browse-agent'>
-                            <span>Browse By Agents
-                            </span>
-                            <Link href="/listby-agents">
-                                <button className='mt-3'> <FiEye className="mx-2" size={25} />
-                                    View all Agent
-                                </button>
-                            </Link>
+                <div className="container">
+
+                    <div className='row'>
+                        <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
+                            <div className='browse-agent'>
+                                <span>Browse By Agents
+                                </span>
+                                <Link href="/listby-agents">
+                                    <button className='mt-3'> <FiEye className="mx-2" size={25} />
+                                        View all Agent
+                                    </button>
+                                </Link>
+                            </div>
                         </div>
-                    </div>
-                    <div className="mobile-headline-view">
-                        <MobileHeadline data={{
-                            start: " Browse By",
-                            center: "Agents",
-                            link: "/listby-agents"
-                        }
-                        } />
-                    </div>
-                    <div className="col-sm-12 col-md-4 col-lg-9" id='agent-slider-cards'>
-                        <div className='agents-cards'>
-                            <Swiper
-                                //  slidesPerView={4}
-                                // loop={true}
-                                spaceBetween={30}
-                                freeMode={true}
-                                pagination={{
-                                    clickable: true,
-                                    renderBullet: renderBullet
-                                }}
-                                modules={[FreeMode, Pagination]}
-                                className='agent-swiper'
-                                breakpoints={breakpointAgents}
-                                style={{
-                                    // width: "1200px"
-                                }}
+                        <div className="mobile-headline-view">
+                            <MobileHeadline data={{
+                                start: " Browse By",
+                                center: "Agents",
+                                link: "/listby-agents"
+                            }
+                            } />
+                        </div>
+                        <div className="col-sm-12 col-md-4 col-lg-9" id='agent-slider-cards'>
+                            <div className='agents-cards'>
+                                <Swiper
+                                    slidesPerView={4}
+                                    // loop={true}
+                                    spaceBetween={30}
+                                    freeMode={true}
+                                    pagination={{
+                                        clickable: true,
+                                        renderBullet: renderBullet
+                                    }}
+                                    modules={[FreeMode, Pagination]}
+                                    className='agent-swiper'
+                                    breakpoints={breakpointAgents}
+                                    style={{
+                                        // width: "1200px"
+                                    }}
 
 
-                            >
-                                {isLoading ? (
-                                    // Show skeleton loading when data is being fetched
-                                    <Swiper
-                                        //  slidesPerView={4}
-                                        // loop={true}
-                                        spaceBetween={30}
-                                        freeMode={true}
-                                        pagination={{
-                                            clickable: true,
-                                            renderBullet: renderBullet
-                                        }}
-                                        modules={[FreeMode, Pagination]}
-                                        className='agent-swiper'
-                                        breakpoints={breakpointAgents}
-                                        style={{
-                                            // width: "1200px"
-                                        }}
+                                >
+                                    {isLoading ? (
+                                        // Show skeleton loading when data is being fetched
+                                        <Swiper
+                                            //  slidesPerView={4}
+                                            // loop={true}
+                                            spaceBetween={30}
+                                            freeMode={true}
+                                            pagination={{
+                                                clickable: true,
+                                                renderBullet: renderBullet
+                                            }}
+                                            modules={[FreeMode, Pagination]}
+                                            className='agent-swiper'
+                                            breakpoints={breakpointAgents}
+                                            style={{
+                                                // width: "1200px"
+                                            }}
 
 
-                                    >
-                                        {Array.from({ length: 6 }).map((_, index) => (
-                                            <SwiperSlide>
-                                                <div className="loading_data">
-                                                    <AgentCardSkeleton />
-                                                </div>
+                                        >
+                                            {Array.from({ length: 6 }).map((_, index) => (
+                                                <SwiperSlide>
+                                                    <div className="loading_data">
+                                                        <AgentCardSkeleton />
+                                                    </div>
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
+
+                                        // <Loader />
+                                    ) :
+                                        agentsData?.map((ele) => (
+                                            <SwiperSlide id="agent-swiper-slider" key={ele.id}>
+                                                <AgentCard ele={ele} />
                                             </SwiperSlide>
                                         ))}
-                                    </Swiper>
-
-                                    // <Loader />
-                                ) :
-                                    agentsData?.map((ele) => (
-                                        <SwiperSlide id="agent-swiper-slider" key={ele.id}>
-                                            <AgentCard ele={ele} />
-                                        </SwiperSlide>
-                                    ))}
-                            </Swiper>
+                                </Swiper>
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
-
             </section>
             {/* ========== ARTICLE SECTION ========== */}
             <section id='articles'>

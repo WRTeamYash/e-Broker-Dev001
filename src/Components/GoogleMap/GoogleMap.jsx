@@ -1,23 +1,28 @@
-'use client'
-import {  Map, Marker } from 'google-maps-react';
 import React from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
+const Map = (props) => {
+  const containerStyle = {
+    width: '100%',
+    height: '400px',
+  };
 
-const GoogleMap = (props) => {
-    if (!window.google) {
-        // Google Maps API is not loaded yet, you can display a loading message or handle it as needed.
-        return <div>Loading Google Maps...</div>;
-    }
+  const center = {
+    lat: parseFloat(props.latitude),
+    lng: parseFloat(props.longitude),
+  };
 
-    return (
-        <Map
-            google={props.google}
-            zoom={14}
-            initialCenter={{ lat: props.latitude, lng: props.longitude }}
-        >
-            <Marker position={{ lat: props.latitude, lng: props.longitude }} />
-        </Map>
-    );
+  return (
+    <LoadScript googleMapsApiKey={props.google}>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={14}
+      >
+        <Marker position={center} />
+      </GoogleMap>
+    </LoadScript>
+  );
 };
 
-export default GoogleMap;
+export default Map;

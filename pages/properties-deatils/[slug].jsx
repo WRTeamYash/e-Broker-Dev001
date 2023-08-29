@@ -17,13 +17,13 @@ import { FiCloudDrizzle, FiMail, FiMessageSquare, FiPhoneCall } from 'react-icon
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
 import Loader from '@/Components/Loader/Loader';
 import axios from 'axios';
-import GoogleMap from '@/Components/GoogleMap/GoogleMap';
+
 import { PiPlayCircleThin } from 'react-icons/pi';
 import ReactPlayer from 'react-player';
-import VerticalCard from '@/Components/Cards/VerticleCard';
 import SimilerPropertySlider from '@/Components/SimilerPropertySlider/SimilerPropertySlider'
 import { settingsData } from '@/store/reducer/settingsSlice'
 import { useSelector } from 'react-redux'
+import Map from '@/Components/GoogleMap/GoogleMap'
 
 const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
     // console.log("similer data", propertySlugData2)
@@ -334,11 +334,13 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                         {propertyData ? (
                                             <Card className='google_map'>
                                                 {GoogleMapApiKey ? (
-                                                    <GoogleMap
+                                                    <Map
                                                         latitude={propertyData.latitude}
                                                         longitude={propertyData.longitude}
+                                                        // google="AIzaSyD6djyrbNtjhf_ssrww2YkXITUgsS6sYmo"
+                                                        // google="AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE"
                                                         google={GoogleMapApiKey}
-                                                    />
+                                                        />
                                                 ) : (
                                                     <div>Loading map...</div>
                                                 )}

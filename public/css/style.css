@@ -3016,7 +3016,7 @@ margin-bottom: 0;
   font-size: medium;
   font-weight: 400;
   color: #282f39;
-  width: 30%;
+  width: 30% !important;
 }
 .adrs02 {
   display: flex;

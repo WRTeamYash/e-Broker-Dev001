@@ -1090,6 +1090,21 @@
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .enquiry {
+    /* flex-direction: column; */
+    gap: 10px;
+  }
+  #prop-all-deatils-cards{
+    gap: 20px 0px;
+    flex-direction: column-reverse;
+  }
+  #prop-all-deatils-cards .col-lg-9{
+    width: 100%;
+  }
+
+  #prop-all-deatils-cards .col-lg-3{
+    width: 100%;
+  }
   .img-overlay button {
     margin-left: 12%;
   }
@@ -1119,7 +1134,7 @@
   }
 
   .enquiry {
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: 10px;
   }
 
@@ -1196,7 +1211,10 @@
     width: 100%;
     flex-direction: row;
   }
-
+  #prop-all-deatils-cards{
+    gap: 20px 0px;
+    flex-direction: column-reverse;
+  }
   #prop-images {
     flex-direction: column;
     gap: 12px;
@@ -1321,7 +1339,10 @@
   .right-imgs01 {
     border-radius: 0 0px 0 12px;
   }
-
+  #prop-all-deatils-cards{
+    gap: 20px 0px;
+    flex-direction: column-reverse;
+  }
   .left-imgs02 {
     width: 100%;
     height: 100%;
@@ -1412,6 +1433,10 @@
 }
 
 @media only screen and (min-width: 320px) and (max-width: 424px) {
+  #prop-all-deatils-cards{
+    gap: 20px 0px;
+    flex-direction: column-reverse;
+  }
   #prop-images .col-lg-3 {
     display: flex;
     width: 100%;
@@ -1560,6 +1585,9 @@
   .posted-duration {
     flex-direction: column;
     gap: 20px;
+  }
+  .enquiry .enquiry-buttons{
+    font-size: 13px;
   }
 }
 

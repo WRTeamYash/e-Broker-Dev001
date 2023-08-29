@@ -3026,7 +3026,7 @@ margin-bottom: 0;
   font-size: medium;
   font-weight: 400;
   color: #282f39;
-  width: 70%;
+  width: 70% !important;
 }
 .adrs_value {
   color: #282f39c2;

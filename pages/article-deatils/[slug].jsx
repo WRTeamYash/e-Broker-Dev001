@@ -28,7 +28,7 @@ const ArticleDeatils = (propertySlugData) => {
         setArticleData(propertySlugData.propertySlugData[0])
         setIsLoading(false)
         console.log(propertySlugData.propertySlugData[0])
-        // console.log(articleData)
+        console.log(articleData)
     }, [propertySlugData])
 
 
@@ -155,13 +155,13 @@ const ArticleDeatils = (propertySlugData) => {
                                             ) : (
                                                 <>
                                                 <div>
-                                                Title :-{articleData.title}
+                                                Title :-{articleData && articleData.title}
                                                 </div>
                                                     <div className='article_img_div'>
-                                                        <img src={articleData.image} alt="" className='article_title_img'/>
+                                                        <img src={articleData && articleData.image} alt="" className='article_tit       le_img'/>
                                                     </div>
                                                 {/* // Render the privacy policy data when not loading */}
-                                                    <div className='article_deatils_description' dangerouslySetInnerHTML={{ __html: articleData.description || '' }} />
+                                                    <div className='article_deatils_description' dangerouslySetInnerHTML={{ __html: articleData && articleData.description || '' }} />
                                                 </>
                                             )}
                                         </div>

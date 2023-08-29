@@ -22,9 +22,11 @@ import { PiPlayCircleThin } from 'react-icons/pi';
 import ReactPlayer from 'react-player';
 import VerticalCard from '@/Components/Cards/VerticleCard';
 import SimilerPropertySlider from '@/Components/SimilerPropertySlider/SimilerPropertySlider'
+import { settingsData } from '@/store/reducer/settingsSlice'
+import { useSelector } from 'react-redux'
 
 const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
-    console.log("similer data", propertySlugData2)
+    // console.log("similer data", propertySlugData2)
     const [isLoading, setIsLoading] = useState(true)
 
     const [expanded, setExpanded] = useState(false);
@@ -34,7 +36,9 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
         setIsLoading(false)
 
     }, [propertySlugData])
-
+    const GoogleMapData = useSelector(settingsData)
+    const GoogleMapApiKey = GoogleMapData.place_api_key
+    console.log(GoogleMapApiKey)
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;
     outline: 1px solid #000;
@@ -329,11 +333,15 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                         </div>
                                         {propertyData ? (
                                             <Card className='google_map'>
-                                                <GoogleMap
-                                                    latitude={propertyData.latitude}
-                                                    longitude={propertyData.longitude}
-                                                    google={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}
-                                                />
+                                                {GoogleMapApiKey ? (
+                                                    <GoogleMap
+                                                        latitude={propertyData.latitude}
+                                                        longitude={propertyData.longitude}
+                                                        google={GoogleMapApiKey}
+                                                    />
+                                                ) : (
+                                                    <div>Loading map...</div>
+                                                )}
                                             </Card>
                                         ) : (
                                             null

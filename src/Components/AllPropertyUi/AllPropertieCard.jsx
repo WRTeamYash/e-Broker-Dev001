@@ -1,9 +1,16 @@
+import { settingsData } from '@/store/reducer/settingsSlice'
 import Image from 'next/image'
 import React from 'react'
 import { Card } from 'react-bootstrap'
 import { AiOutlineHeart } from 'react-icons/ai'
+import { useSelector } from 'react-redux'
 
 const AllPropertieCard = ({ ele }) => {
+
+const priceSymbol = useSelector(settingsData)
+const CurrencySymbol = priceSymbol.currency_symbol
+// console.log(CurrencySymbol)
+
     return (
         <Card id='all_prop_main_card' className="row" key={ele.id}>
             <div className='col-md-4' style={{ padding: "0" }} id='all_prop_main_card_rows_cols'>
@@ -25,7 +32,7 @@ const AllPropertieCard = ({ ele }) => {
                         {ele.propery_type}
                     </span>
                     <span className='all_prop_price'>
-                        $ {ele.price}
+                       {CurrencySymbol} {ele.price}
                     </span>
 
                     <div>

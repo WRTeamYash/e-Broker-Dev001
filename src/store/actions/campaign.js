@@ -3,9 +3,9 @@ import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
 // update profile
-export const UpdateProfileApi = (userid ,name, email, mobile, type, address, firebase_id, logintype, profile, onSuccess, onError, onStart) => {
+export const UpdateProfileApi = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
-        ...update_profile(userid ,name, email, mobile, type, address, firebase_id, logintype, profile),
+        ...update_profile(userid, name, email, mobile, type, address, firebase_id, logintype, profile),
         displayToast: false,
         onStart,
         onSuccess,
@@ -25,7 +25,7 @@ export const GetSliderApi = (onSuccess, onError, onStart) => {
     }))
 };
 // GET CATEGORIES
-export const GetCategorieApi = ( onSuccess, onError, onStart) => {
+export const GetCategorieApi = (onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
         ...getCategorieApi(),
         displayToast: false,
@@ -35,9 +35,9 @@ export const GetCategorieApi = ( onSuccess, onError, onStart) => {
     }))
 };
 // GET PROPERTIES
-export const GetFeturedListingsApi = ( promoted, top_rated, id, category_id, most_liked, city, get_simiilar, onSuccess, onError, onStart) => {
+export const GetFeturedListingsApi = (promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
-        ...getAllProperties(promoted, top_rated, id, category_id, most_liked, city, get_simiilar),
+        ...getAllProperties(promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit),
         displayToast: false,
         onStart,
         onSuccess,
@@ -56,7 +56,7 @@ export const GetAllArticlesApi = (id, onSuccess, onError, onStart) => {
 }
 
 // GET_COUNT_BY_CITIES_CATEGORIS
-export const GetCountByCitysCategorisApi =(onSuccess, onError, onStart) => {
+export const GetCountByCitysCategorisApi = (onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
         ...getCountByCitysCategories(),
         displayToast: false,

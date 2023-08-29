@@ -8,13 +8,17 @@ import { AiOutlinePlayCircle, AiOutlineHeart, AiOutlineArrowRight, AiOutlineWifi
 import { SlDocs } from 'react-icons/sl'
 
 import { BiHomeSmile, BiCctv, BiTime } from 'react-icons/bi'
+import { useSelector } from 'react-redux'
+import { settingsData } from '@/store/reducer/settingsSlice'
 
 
 
 const Breadcrumb = (props) => {
 
     let { data, title } = props;
-
+    const priceSymbol = useSelector(settingsData)
+    console.log(priceSymbol)
+    const CurrencySymbol = priceSymbol.currency_symbol
 
 
 
@@ -44,7 +48,7 @@ const Breadcrumb = (props) => {
 
                         </div>
                         <div className='right-side-content'>
-                            <span> $ {data.price} </span>
+                            <span> {CurrencySymbol} {data.price} </span>
                             <div>
                                 <button><AiOutlineHeart size={25} /></button>
                                 <button><SlDocs size={25} /></button>

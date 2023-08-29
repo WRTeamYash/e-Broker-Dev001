@@ -79,9 +79,9 @@ const page = () => {
 
                             >
                                 <SwiperSlide>
-                                    <div className="card text-white" id='current_pakage_card'
+                                    <div className="card text-white" id='current_package_card'
                                     >
-                                        <div id='pakage_headlines'>
+                                        <div id='package_headlines'>
                                             <span className="card_title">Current Package</span>
                                             <h1 className="card_text">$7000</h1>
                                         </div>
@@ -107,9 +107,9 @@ const page = () => {
                                     </div>
                                 </SwiperSlide>
                                 <SwiperSlide>
-                                    <div className="card text-white" id='other_pakage_card'
+                                    <div className="card text-white" id='other_package_card'
                                     >
-                                        <div id='pakage_headlines'>
+                                        <div id='package_headlines'>
                                             <span className="other_card_title">Current Package</span>
                                             <h1 className="card_text">$6.7</h1>
                                         </div>
@@ -141,9 +141,9 @@ const page = () => {
                                     </div>
                                 </SwiperSlide>
                                 <SwiperSlide>
-                                    <div className="card text-white" id='other_pakage_card'
+                                    <div className="card text-white" id='other_package_card'
                                     >
-                                        <div id='pakage_headlines'>
+                                        <div id='package_headlines'>
                                             <span className="other_card_title">Current Package</span>
                                             <h1 className="card_text">$6.7</h1>
                                         </div>
@@ -175,9 +175,9 @@ const page = () => {
                                     </div>
                                 </SwiperSlide>
                                 <SwiperSlide>
-                                    <div className="card text-white" id='other_pakage_card'
+                                    <div className="card text-white" id='other_package_card'
                                     >
-                                        <div id='pakage_headlines'>
+                                        <div id='package_headlines'>
                                             <span className="other_card_title">Current Package</span>
                                             <h1 className="card_text">$6.7</h1>
                                         </div>
@@ -209,9 +209,9 @@ const page = () => {
                                     </div>
                                 </SwiperSlide>
                                 <SwiperSlide>
-                                    <div className="card text-white" id='other_pakage_card'
+                                    <div className="card text-white" id='other_package_card'
                                     >
-                                        <div id='pakage_headlines'>
+                                        <div id='package_headlines'>
                                             <span className="other_card_title">Current Package</span>
                                             <h1 className="card_text">$6.7</h1>
                                         </div>

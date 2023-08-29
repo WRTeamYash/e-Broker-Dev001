@@ -2,9 +2,9 @@
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Loader from '@/Components/Loader/Loader'
 import { settingsData } from '@/store/reducer/settingsSlice'
+import { useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
-import { useSelector } from 'react-redux'
 
 
 

@@ -1,7 +1,12 @@
+import { settingsData } from '@/store/reducer/settingsSlice';
 import React from 'react'
 import { AiOutlineHeart } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
 const HorizontalCard = ({ ele }) => {
+    
+    const priceSymbol = useSelector(settingsData)
+    const CurrencySymbol = priceSymbol.currency_symbol
     return (
         <div className='horizontal_card'>
             <div className='card' id='main_prop_card' >
@@ -23,7 +28,7 @@ const HorizontalCard = ({ ele }) => {
                         {ele.propery_type}
                     </span>
                     <span className='prop_price'>
-                        $ {ele.price}
+                       {CurrencySymbol} {ele.price}
                     </span>
 
                     <div>

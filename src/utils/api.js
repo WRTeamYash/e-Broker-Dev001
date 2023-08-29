@@ -96,7 +96,7 @@ export const getCategorieApi = (user_id) => {
 }
 
 // GET PROMOTED PROPETRS // FEATURED PROPETRS // GET MOST FAV
-export const getAllProperties = (promoted, top_rated, id, category_id, most_liked,city, get_simiilar) => {
+export const getAllProperties = (promoted, top_rated, id, category_id, most_liked,city, get_simiilar, offset, limit) => {
 
     return {
         url: `${GET_PROPETRES}`,
@@ -108,7 +108,10 @@ export const getAllProperties = (promoted, top_rated, id, category_id, most_like
             category_id: category_id,
             most_liked:most_liked,
             city:city,
-            get_simiilar: get_simiilar
+            get_simiilar: get_simiilar,
+            offset:offset,
+            limit:limit
+
         },
         authorizationHeader: false,
 

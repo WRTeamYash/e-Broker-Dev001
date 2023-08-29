@@ -120,8 +120,8 @@ const SimilerPropertySlider = (props) => {
                         </Swiper>
 
                     ) :
-                        props.data?.map((ele) => (
-                            <SwiperSlide id="similer-swiper-slider" key={ele.id}>
+                        props.data?.map((ele, index) => (
+                            <SwiperSlide id="similer-swiper-slider" key={index}>
                                 <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
                                     <VerticalCard ele={ele} />
                                 </Link>

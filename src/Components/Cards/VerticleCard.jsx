@@ -1,7 +1,11 @@
+import { settingsData } from '@/store/reducer/settingsSlice';
 import React from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
 function VerticalCard({ ele }) {
+    const priceSymbol = useSelector(settingsData)
+    const CurrencySymbol = priceSymbol.currency_symbol
     return (
         <div className='verticle_card'>
             <div className='card verticle_main_card' >
@@ -22,7 +26,7 @@ function VerticalCard({ ele }) {
                     {ele.propery_type}
                     </span>
                     <span className='price_teg'>
-                        $ {ele.price}
+                    {CurrencySymbol} {ele.price}
                     </span>
                     <div className='feature_card_mainbody'>
                         <div className="cate_image">
@@ -45,7 +49,9 @@ function VerticalCard({ ele }) {
                         {ele.parameters && ele.parameters.slice(0, 4).map((elem, index) => (
                             <div className="col-sm-12 col-md-6 " key={index}>
                                 <div className='footer_content' key={index}>
+                                    <div>
                                     <img src={elem.image} alt="" width={20} height={16} />
+                                    </div>
                                     <p className='text_footer'> {elem.name}</p>
                                 </div>
                             </div>

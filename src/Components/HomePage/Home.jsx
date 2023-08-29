@@ -49,6 +49,8 @@ import AgentCard from '../Cards/AgentCard';
 import ArticleCard from '../Cards/ArticleCard';
 import ArticleCardSkeleton from '../Skeleton/ArticleCardSkeleton';
 import NearByCitysSkeleton from '../Skeleton/NearByCitysSkeleton';
+import { settingsData } from '@/store/reducer/settingsSlice';
+import { useSelector } from 'react-redux';
 
 
 
@@ -64,6 +66,12 @@ const HomePage = () => {
     padding: 8px;
     border: 2px solid #fff;"></span>`;
     };
+
+    const priceSymbol = useSelector(settingsData)
+    const CurrencySymbol = priceSymbol.currency_symbol 
+
+
+
     const [isLoading, setIsLoading] = useState(true)
     const [showFilterModal, setShowFilterModal] = useState(false);
     const [expandedStates, setExpandedStates] = useState([]);
@@ -239,7 +247,7 @@ const HomePage = () => {
     // GET FEATURED LISTINGS and 
     const [getFeaturedListing, setGetFeaturedListing] = useState()
     useEffect(() => {
-        GetFeturedListingsApi("1", "", "", "", "", "", "", (response) => {
+        GetFeturedListingsApi("1", "", "", "", "", "", "","","", (response) => {
             const FeaturedListingData = response.data;
             // console.log("featured data ============", FeaturedListingData)
             setIsLoading(false)
@@ -253,7 +261,7 @@ const HomePage = () => {
     // GET MOST VIEWED PROPERTIES
     const [getMostViewedProp, setGetMostViewedProp] = useState()
     useEffect(() => {
-        GetFeturedListingsApi("", "1", "", "", "", "", "", (response) => {
+        GetFeturedListingsApi("", "1", "", "", "", "", "","","", (response) => {
             const MostViewed = response.data;
             // console.log("most viewed data ============", MostViewed)
             setIsLoading(false)
@@ -266,7 +274,7 @@ const HomePage = () => {
 
     const [getMostFavProperties, setGetMostFavProperties] = useState()
     useEffect(() => {
-        GetFeturedListingsApi("", "", "", "", "1", "", "", (response) => {
+        GetFeturedListingsApi("", "", "", "", "1", "", "","","", (response) => {
             const MostFav = response.data;
             // console.log("most fav data ============", MostFav)
             setIsLoading(false)
@@ -368,7 +376,7 @@ const HomePage = () => {
                                             <Wrapper>
                                                 <div id='herotexts'>
                                                     <div>
-                                                        <span className='btn' id='priceteg'> $ {single.property_price}</span>
+                                                        <span className='btn' id='priceteg'> {CurrencySymbol} {single.property_price}</span>
                                                         <h1 id="hero_headlines">{single.property_title}</h1>
                                                         {single.parameters && single.parameters.slice(0, 4).map((elem, index) => (
 

@@ -4,8 +4,15 @@ import { Modal } from 'react-bootstrap';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import Loader from '../Loader/Loader';
+import { settingsData } from '@/store/reducer/settingsSlice';
+import { useSelector } from 'react-redux';
 
 const Location = ({ isOpen, onClose, onSelectLocation }) => {
+
+
+  const GoogleMapData = useSelector(settingsData);
+  const GoogleMapApi = GoogleMapData.place_api_key;
+  console.log("================================================",GoogleMapApi)
   const libraries = ['places'];
   const [isAddressLoading, setisAddressLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
@@ -149,7 +156,7 @@ const Location = ({ isOpen, onClose, onSelectLocation }) => {
         <Loader />
       )
         : (
-          <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY} libraries={libraries}>
+          <LoadScript googleMapsApiKey={GoogleMapApi} libraries={libraries}>
             <Modal show={isOpen} onHide={onClose} size="md" centered className='current_loction_modal' backdrop="static" keyboard={false}>
               <Modal.Header>
                 <Modal.Title>Select Your Current Location</Modal.Title>

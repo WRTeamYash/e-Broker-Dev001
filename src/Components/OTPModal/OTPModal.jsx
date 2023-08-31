@@ -75,7 +75,6 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                 (res) => {
                     // console.log(res)
                     let signupData = res.data
-                    console.log(signupData)
                     // Show a success toast notification
                     // toast.success(res.message)
                     // onClose()
@@ -226,7 +225,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                         )}
                     </div>
                     <div className='continue'>
-                        <button className='continue-button' onClick={handleConfirm}>
+                        <button type='button' className='continue-button' onClick={handleConfirm}>
                             Confirm
                         </button>
                     </div>

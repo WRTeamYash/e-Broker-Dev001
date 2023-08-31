@@ -7,6 +7,7 @@ import { CiFacebook } from "react-icons/ci"
 import { ImPinterest2 } from "react-icons/im"
 import playstore from "../../assets/playStore.png"
 import appstore from "../../assets/appStore.png"
+import Link from 'next/link';
 
 
 
@@ -51,38 +52,38 @@ const Footer = () => {
                                 <span> Properties</span>
                             </div>
                             <div className='prop_links'>
-                                <span>
+                                <Link href="/properties/all-properties">
                                     All Properties
-                                </span>
+                                </Link>
                             </div>
                             <div className='prop_links'>
-                                <span>
+                                <Link href="/featured-properties">
                                     Featured Properties
-                                </span>
+                                </Link>
                             </div>
 
                             <div className='prop_links'>
-                                <span>
+                                <Link href="/most-viewed-properties">
                                     Most Viewed Properties
-                                </span>
+                                </Link>
                             </div>
 
                             <div className='prop_links'>
-                                <span>
+                                <Link href="/properties-nearby-city">
                                     Nearby Cities Properties
-                                </span>
+                                </Link>
                             </div>
 
                             <div className='prop_links'>
-                                <span>
+                                <Link href="/mostfav-properties">
                                     Most Favorites Properties
-                                </span>
+                                </Link>
                             </div>
 
                             <div className='prop_links'>
-                                <span>
+                                <Link href="/listby-agents">
                                     List by Agents Properties
-                                </span>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -92,32 +93,25 @@ const Footer = () => {
                                 <span> Pages</span>
                             </div>
                             <div className='page_links'>
-                                <span>
+                                <Link href="/subscription-plan">
                                     Subscription Plan
-                                </span>
+                                </Link>
                             </div>
                             <div className='page_links'>
-                                <span>
+                                <Link href="/articles">
                                     Articles
-                                </span>
+                                </Link>
                             </div>
-
                             <div className='page_links'>
-                                <span>
-                                    Area Converter
-                                </span>
-                            </div>
-
-                            <div className='page_links'>
-                                <span>
+                                <Link href="/terms&condition">
                                     Terms & Condition
-                                </span>
+                                </Link>
                             </div>
 
                             <div className='page_links'>
-                                <span>
+                                <Link href="/privacy-policy">
                                     Privacy Policy
-                                </span>
+                                </Link>
                             </div>
                         </div>
                     </div>

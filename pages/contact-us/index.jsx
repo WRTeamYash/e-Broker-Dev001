@@ -60,13 +60,13 @@ const ContactUs = () => {
                                                         placeholder='Enetr subject' />
                                                 </div>
                                             </div>
-                                            <div className='contact-submit'>
-                                                <button className='contact-submit-button'>
-                                                    Submit
-                                                </button>
-                                            </div>
                                         </div>
                                     </form>
+                                    <div className='contact-submit'>
+                                        <button className='contact-submit-button'>
+                                            Submit
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@ const ContactUs = () => {
                                         <div className="col-12">
                                             <div className='contact-info-deatils'>
                                                 <div className='contact-icons'>
-                                                    <FiPhoneCall size={30} className='contact-solo-icons'  />
+                                                    <FiPhoneCall size={30} className='contact-solo-icons' />
                                                 </div>
                                                 <div className='contact-deatils'>
                                                     <p>Telephone</p>
@@ -105,8 +105,8 @@ const ContactUs = () => {
                                         <div className="col-12">
                                             <div className='contact-info-deatils'>
                                                 <div className='contact-icons'>
-                                                    <FiMail size={30} 
-                                                    className='contact-solo-icons' />
+                                                    <FiMail size={30}
+                                                        className='contact-solo-icons' />
                                                 </div>
                                                 <div className='contact-deatils'>
                                                     <p>Email Us</p>

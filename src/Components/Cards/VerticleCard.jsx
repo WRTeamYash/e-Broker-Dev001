@@ -1,3 +1,4 @@
+"use client"
 import { AddFavourite } from '@/store/actions/campaign';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import React, { useEffect, useState } from 'react';
@@ -6,7 +7,7 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 
 function VerticalCard({ ele }) {
-    console.log(ele)
+    // console.log(ele)
     const priceSymbol = useSelector(settingsData)
     const CurrencySymbol = priceSymbol.currency_symbol
 

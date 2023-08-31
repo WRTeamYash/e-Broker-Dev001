@@ -14,7 +14,7 @@ const Index = () => {
     const [getFeaturedListing, setGetFeaturedListing] = useState([]);
     const [total, setTotal] = useState(0);
     const [offsetdata, setOffsetdata] = useState(0);
-    console.log("offset data", offsetdata)
+    // console.log("offset data", offsetdata)
     const limit = 8;
 
     // const pageCount = Math.ceil(total / limit); // Calculate the page count

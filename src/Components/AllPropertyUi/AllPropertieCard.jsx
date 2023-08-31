@@ -1,15 +1,62 @@
+import { AddFavourite } from '@/store/actions/campaign'
 import { settingsData } from '@/store/reducer/settingsSlice'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap'
-import { AiOutlineHeart } from 'react-icons/ai'
+import { toast } from 'react-hot-toast'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { useSelector } from 'react-redux'
 
 const AllPropertieCard = ({ ele }) => {
 
-const priceSymbol = useSelector(settingsData)
-const CurrencySymbol = priceSymbol.currency_symbol
-// console.log(CurrencySymbol)
+    const priceSymbol = useSelector(settingsData)
+    const CurrencySymbol = priceSymbol.currency_symbol
+
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    console.log(isLoggedIn)
+    // Initialize isLiked based on ele.is_favourite
+    const [isLiked, setIsLiked] = useState(ele.is_favourite === 1);
+
+    // Initialize isDisliked as false
+    const [isDisliked, setIsDisliked] = useState(false);
+
+    const handleLike = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("isLoggedIn:", isLoggedIn);
+        if (isLoggedIn && isLoggedIn.data && isLoggedIn.data.token) {
+            console.log("like", ele.id);
+            AddFavourite(ele.id, "1", (response) => {
+                setIsLiked(true);
+                setIsDisliked(false);
+                toast.success(response.message);
+            }, (error) => {
+                console.log(error);
+            });
+        } else {
+            toast.error("Please login first to add this property to favorites.");
+        }
+
+    };
+
+    const handleDislike = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        AddFavourite(ele.id, "0", (response) => {
+            setIsLiked(false);
+            setIsDisliked(true);
+            toast.success(response.message);
+        }, (error) => {
+            console.log(error);
+        });
+    };
+
+    useEffect(() => {
+        // Update the state based on ele.is_favourite when the component mounts
+        setIsLiked(ele.is_favourite === 1);
+        setIsDisliked(false);
+    }, [ele.is_favourite]);
+    // console.log(CurrencySymbol)
 
     return (
         <Card id='all_prop_main_card' className="row" key={ele.id}>
@@ -26,13 +73,21 @@ const CurrencySymbol = priceSymbol.currency_symbol
                     ) : null}
 
                     <span className='all_prop_like'>
-                        <AiOutlineHeart size={25} />
+                    {isLiked ? (
+                            <AiFillHeart size={25} className='liked_property' onClick={handleDislike} />
+                        ) : (
+                            isDisliked ? (
+                                <AiOutlineHeart size={25} className='disliked_property' onClick={handleLike} />
+                            ) : (
+                                <AiOutlineHeart size={25} onClick={handleLike} />
+                            )
+                        )}
                     </span>
                     <span className='all_prop_sell'>
                         {ele.propery_type}
                     </span>
                     <span className='all_prop_price'>
-                       {CurrencySymbol} {ele.price}
+                        {CurrencySymbol} {ele.price}
                     </span>
 
                     <div>
@@ -59,7 +114,7 @@ const CurrencySymbol = priceSymbol.currency_symbol
                                 <div className="col-sm-12 col-md-4" key={index}>
                                     <div id='all_footer_content' key={index}>
                                         <div>
-                                        <Image src={elem.image} alt="" width={20} height={20} />
+                                            <Image src={elem.image} alt="" width={20} height={20} />
                                         </div>
                                         <p className='text_footer'> {elem.name}</p>
                                     </div>

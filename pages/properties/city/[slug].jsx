@@ -39,6 +39,7 @@ const AllProperties = () => {
       "",
       offsetdata.toString(),
       limit.toString(),
+      "",
       (response) => {
         setTotal(response.total);
         const propertyData = response.data;

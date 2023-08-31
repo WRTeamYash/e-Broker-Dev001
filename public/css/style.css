@@ -2193,7 +2193,7 @@ div#article_card_footer .article_footer_text p {
   top: 4rem;
   gap: 10px 0;
 }
-.footer_span {
+#footer a {
   font-size: 14px;
   color: #ffffffc2;
 }
@@ -3412,9 +3412,6 @@ div#all-articles_card_footer .allarticles_footer_text p {
   bottom: 6vh;
   margin: 60px 0;
 }
-.all-city-images {
-  margin: 0 8%;
-}
 #nearby-city-img {
   border: none;
 }
@@ -3648,10 +3645,7 @@ div#all-articles_card_footer .allarticles_footer_text p {
   border: none;
   padding: 30px;
 }
-#footer a{
-  text-decoration: none !important;
-  color: #fff;
-}
+
 /* =============================== ALL FEATURED PROPERTIES SECTION CSS */
 a {
   text-decoration: none !important;

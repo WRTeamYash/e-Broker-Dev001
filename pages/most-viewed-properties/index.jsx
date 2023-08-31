@@ -8,6 +8,7 @@ import VerticalCard from '@/Components/Cards/VerticleCard';
 import VerticalCardSkeleton from '@/Components/Skeleton/VerticalCardSkeleton';
 import ReactPaginate from 'react-paginate';
 import Loader from '@/Components/Loader/Loader';
+import { useSelector } from 'react-redux';
 
 const Index = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -17,11 +18,14 @@ const Index = () => {
     // console.log("offset data", offsetdata)
     // console.log(total)
     const limit = 8;
-
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+    console.log(userCurrentId)
 
 
     useEffect(() => {
         setIsLoading(true);
+        if(!isLoggedIn){
         GetFeturedListingsApi(
             "",
             "2",
@@ -32,6 +36,7 @@ const Index = () => {
             "",
             offsetdata.toString(),
             limit.toString(),
+            "",
             (response) => {
                 setTotal(response.total);
                 const MostViewedData = response.data;
@@ -43,6 +48,30 @@ const Index = () => {
                 console.log(error);
             }
         );
+    }else{
+        GetFeturedListingsApi(
+            "",
+            "2",
+            "",
+            "",
+            "",
+            "",
+            "",
+            offsetdata.toString(),
+            limit.toString(),
+            userCurrentId,
+            (response) => {
+                setTotal(response.total);
+                const MostViewedData = response.data;
+                setIsLoading(false);
+                setMostViewed(MostViewedData);
+            },
+            (error) => {
+                setIsLoading(false);
+                console.log(error);
+            }
+        );
+    }
     }, [offsetdata]);
 
     const handlePageChange = (selectedPage) => {

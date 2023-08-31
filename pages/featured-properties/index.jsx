@@ -8,6 +8,7 @@ import VerticalCard from '@/Components/Cards/VerticleCard';
 import VerticalCardSkeleton from '@/Components/Skeleton/VerticalCardSkeleton';
 import ReactPaginate from 'react-paginate';
 import Loader from '@/Components/Loader/Loader';
+import { useSelector } from 'react-redux';
 
 const Index = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -16,33 +17,63 @@ const Index = () => {
     const [offsetdata, setOffsetdata] = useState(0);
     // console.log("offset data", offsetdata)
     const limit = 8;
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+    console.log(userCurrentId)
 
     // const pageCount = Math.ceil(total / limit); // Calculate the page count
 
     useEffect(() => {
         setIsLoading(true);
-        GetFeturedListingsApi(
-            "1",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            (response) => {
-                setTotal(response.total);
-                const FeaturedListingData = response.data;
-                setIsLoading(false);
-                setGetFeaturedListing(FeaturedListingData);
-                console.log(getFeaturedListing)
-            },
-            (error) => {
-                setIsLoading(false);
-                console.log(error);
-            }
-        );
+        if (!isLoggedIn) {
+            GetFeturedListingsApi(
+                "1",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                offsetdata.toString(),
+                limit.toString(),
+                "",
+                (response) => {
+                    setTotal(response.total);
+                    const FeaturedListingData = response.data;
+                    setIsLoading(false);
+                    setGetFeaturedListing(FeaturedListingData);
+                    console.log(getFeaturedListing)
+                },
+                (error) => {
+                    setIsLoading(false);
+                    console.log(error);
+                }
+            );
+        } else {
+            GetFeturedListingsApi(
+                "1",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                offsetdata.toString(),
+                limit.toString(),
+                userCurrentId,
+                (response) => {
+                    setTotal(response.total);
+                    const FeaturedListingData = response.data;
+                    setIsLoading(false);
+                    setGetFeaturedListing(FeaturedListingData);
+                    console.log(getFeaturedListing)
+                },
+                (error) => {
+                    setIsLoading(false);
+                    console.log(error);
+                }
+            );
+        }
     }, [offsetdata]);
 
     const handlePageChange = (selectedPage) => {

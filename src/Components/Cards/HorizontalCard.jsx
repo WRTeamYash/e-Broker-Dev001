@@ -1,12 +1,62 @@
+import { AddFavourite } from '@/store/actions/campaign';
 import { settingsData } from '@/store/reducer/settingsSlice';
-import React from 'react'
-import { AiOutlineHeart } from 'react-icons/ai';
+import React, { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 
 const HorizontalCard = ({ ele }) => {
-    
+
     const priceSymbol = useSelector(settingsData)
     const CurrencySymbol = priceSymbol.currency_symbol
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    console.log(isLoggedIn)
+    // Initialize isLiked based on ele.is_favourite
+    const [isLiked, setIsLiked] = useState(ele.is_favourite === 1);
+
+    // Initialize isDisliked as false
+    const [isDisliked, setIsDisliked] = useState(false);
+
+    const handleLike = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("isLoggedIn:", isLoggedIn);
+        if (isLoggedIn && isLoggedIn.data && isLoggedIn.data.token) {
+            console.log("like", ele.id);
+            AddFavourite(ele.id, "1", (response) => {
+                setIsLiked(true);
+                setIsDisliked(false);
+                toast.success(response.message);
+            }, (error) => {
+                console.log(error);
+            });
+        } else {
+            toast.error("Please login first to add this property to favorites.");
+        }
+
+    };
+
+    const handleDislike = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        AddFavourite(ele.id, "0", (response) => {
+            setIsLiked(false);
+            setIsDisliked(true);
+            toast.success(response.message);
+        }, (error) => {
+            console.log(error);
+        });
+    };
+
+    useEffect(() => {
+        // Update the state based on ele.is_favourite when the component mounts
+        setIsLiked(ele.is_favourite === 1);
+        setIsDisliked(false);
+    }, [ele.is_favourite]);
+
+
+
+
     return (
         <div className='horizontal_card'>
             <div className='card' id='main_prop_card' >
@@ -22,13 +72,21 @@ const HorizontalCard = ({ ele }) => {
                         </span>
                     ) : null}
                     <span className='prop_like'>
-                        <AiOutlineHeart size={25} />
+                        {isLiked ? (
+                            <AiFillHeart size={25} className='liked_property' onClick={handleDislike} />
+                        ) : (
+                            isDisliked ? (
+                                <AiOutlineHeart size={25} className='disliked_property' onClick={handleLike} />
+                            ) : (
+                                <AiOutlineHeart size={25} onClick={handleLike} />
+                            )
+                        )}
                     </span>
                     <span className='prop_sell'>
                         {ele.propery_type}
                     </span>
                     <span className='prop_price'>
-                       {CurrencySymbol} {ele.price}
+                        {CurrencySymbol} {ele.price}
                     </span>
 
                     <div>

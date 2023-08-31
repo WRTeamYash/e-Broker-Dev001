@@ -35,9 +35,9 @@ export const GetCategorieApi = (onSuccess, onError, onStart) => {
     }))
 };
 // GET PROPERTIES
-export const GetFeturedListingsApi = (promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, onSuccess, onError, onStart) => {
+export const GetFeturedListingsApi = (promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user,  onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
-        ...getAllProperties(promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit),
+        ...getAllProperties(promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user),
         displayToast: false,
         onStart,
         onSuccess,

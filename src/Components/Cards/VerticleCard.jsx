@@ -12,7 +12,7 @@ function VerticalCard({ ele }) {
     const CurrencySymbol = priceSymbol.currency_symbol
 
     const isLoggedIn = useSelector((state) => state.User_signup);
-
+    console.log(isLoggedIn)
     // Initialize isLiked based on ele.is_favourite
     const [isLiked, setIsLiked] = useState(ele.is_favourite === 1);
 
@@ -22,7 +22,7 @@ function VerticalCard({ ele }) {
     const handleLike = (e) => {
         e.preventDefault();
         e.stopPropagation();
-
+        console.log("isLoggedIn:", isLoggedIn);
         if (isLoggedIn && isLoggedIn.data && isLoggedIn.data.token) {
             console.log("like", ele.id);
             AddFavourite(ele.id, "1", (response) => {
@@ -33,8 +33,9 @@ function VerticalCard({ ele }) {
                 console.log(error);
             });
         } else {
-            toast.warning("Please login first to add this property to favorites.");
+            toast.error("Please login first to add this property to favorites.");
         }
+
     };
 
     const handleDislike = (e) => {

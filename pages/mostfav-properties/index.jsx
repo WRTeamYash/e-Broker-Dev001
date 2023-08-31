@@ -32,6 +32,7 @@ const Index = () => {
             "",
             offsetdata.toString(),
             limit.toString(),
+            "",
             (response) => {
                 setTotal(response.total);
                 const MostViewedData = response.data;

@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps, data }) {
                 console.log(res)
                 setIsLoading(false)
 
-            }, 5000)
+            }, 1000)
         },
             (err) => {
                 console.log(err)

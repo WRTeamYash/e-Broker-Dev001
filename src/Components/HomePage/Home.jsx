@@ -242,46 +242,87 @@ const HomePage = () => {
             console.log(error)
         })
     }, [])
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+    console.log(userCurrentId)
+
+
+
+
 
 
     // GET FEATURED LISTINGS and 
     const [getFeaturedListing, setGetFeaturedListing] = useState()
+
     useEffect(() => {
-        GetFeturedListingsApi("1", "", "", "", "", "", "", "", "", (response) => {
-            const FeaturedListingData = response.data;
-            // console.log("featured data ============", FeaturedListingData)
-            setIsLoading(false)
-            setGetFeaturedListing(FeaturedListingData);
-        }, (error) => {
-            console.log(error)
-        })
+        if (!isLoggedIn) {
+            GetFeturedListingsApi("1", "", "", "", "", "", "", "", "", "", (response) => {
+                const FeaturedListingData = response.data;
+                // console.log("featured data ============", FeaturedListingData)
+                setIsLoading(false)
+                setGetFeaturedListing(FeaturedListingData);
+            }, (error) => {
+                console.log(error)
+            })
+        } else {
+            GetFeturedListingsApi("1", "", "", "", "", "", "", "", "", userCurrentId, (response) => {
+                const FeaturedListingData = response.data;
+                // console.log("featured data ============", FeaturedListingData)
+                setIsLoading(false)
+                setGetFeaturedListing(FeaturedListingData);
+            }, (error) => {
+                console.log(error)
+            })
+        }
     }, [])
 
 
     // GET MOST VIEWED PROPERTIES
     const [getMostViewedProp, setGetMostViewedProp] = useState()
     useEffect(() => {
-        GetFeturedListingsApi("", "1", "", "", "", "", "", "", "", (response) => {
-            const MostViewed = response.data;
-            // console.log("most viewed data ============", MostViewed)
-            setIsLoading(false)
-            setGetMostViewedProp(MostViewed);
-        }, (error) => {
-            console.log(error)
-        })
+        if (!isLoggedIn) {
+            GetFeturedListingsApi("", "1", "", "", "", "", "", "", "", "", (response) => {
+                const MostViewed = response.data;
+                // console.log("most viewed data ============", MostViewed)
+                setIsLoading(false)
+                setGetMostViewedProp(MostViewed);
+            }, (error) => {
+                console.log(error)
+            })
+        } else {
+            GetFeturedListingsApi("", "1", "", "", "", "", "", "", "", userCurrentId, (response) => {
+                const MostViewed = response.data;
+                // console.log("most viewed data ============", MostViewed)
+                setIsLoading(false)
+                setGetMostViewedProp(MostViewed);
+            }, (error) => {
+                console.log(error)
+            })
+        }
     }, [])
     // GET MOST Fav PROPERTIES
 
     const [getMostFavProperties, setGetMostFavProperties] = useState()
     useEffect(() => {
-        GetFeturedListingsApi("", "", "", "", "1", "", "", "", "", (response) => {
-            const MostFav = response.data;
-            // console.log("most fav data ============", MostFav)
-            setIsLoading(false)
-            setGetMostFavProperties(MostFav);
-        }, (error) => {
-            console.log(error)
-        })
+        if (!isLoggedIn) {
+            GetFeturedListingsApi("", "", "", "", "1", "", "", "", "", "", (response) => {
+                const MostFav = response.data;
+                // console.log("most fav data ============", MostFav)
+                setIsLoading(false)
+                setGetMostFavProperties(MostFav);
+            }, (error) => {
+                console.log(error)
+            })
+        } else (
+            GetFeturedListingsApi("", "", "", "", "1", "", "", "", "", userCurrentId, (response) => {
+                const MostFav = response.data;
+                // console.log("most fav data ============", MostFav)
+                setIsLoading(false)
+                setGetMostFavProperties(MostFav);
+            }, (error) => {
+                console.log(error)
+            })
+        )
     }, [])
 
     // GET ARTICLES

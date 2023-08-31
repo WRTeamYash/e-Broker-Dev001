@@ -20,8 +20,9 @@ import { useRouter } from 'next/router'
 import GridCard from '@/Components/AllPropertyUi/GridCard'
 import AllPropertieCard from '@/Components/AllPropertyUi/AllPropertieCard'
 import ReactPaginate from 'react-paginate'
-import { GetFeturedListingsApi } from '@/store/actions/campaign'
+import { AddFavourite, GetFeturedListingsApi } from '@/store/actions/campaign'
 import CustomHorizontalSkeleton from '@/Components/Skeleton/CustomHorizontalSkeleton'
+import { useSelector } from 'react-redux'
 
 
 
@@ -33,50 +34,61 @@ const AllProperties = ({ propertySlugData, pageIndex }) => {
   const [offsetdata, setOffsetdata] = useState(0);
   const limit = 8
   console.log("offset data", offsetdata)
-
-  // console.log("router", router)
-  // console.log("===========================", propertySlugData)
-
-  // useEffect(() => {
-  //   setTotal(propertySlugData && propertySlugData.total);
-  //   if (propertySlugData && propertySlugData.data) {
-  //     // Extract only the data for the current page based on the limit and offset
-  //     const startIndex = offsetdata;
-  //     const endIndex = startIndex + limit;
-  //     const pageData = propertySlugData.data.slice(startIndex, endIndex);
-
-  //     // Update the state with the data for the current page
-  //     setCategoryListByPropertyData(pageData);
-  //     console.log(CategoryListByPropertyData)
-
-  //     // Turn off loading
-  //     setIsLoading(false);
-  //   }
-  // }, [propertySlugData, offsetdata]);
+  const isLoggedIn = useSelector((state) => state.User_signup);
+  const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+  console.log(userCurrentId)
+  
   useEffect(() => {
     setIsLoading(true);
-    GetFeturedListingsApi(
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      offsetdata.toString(),
-      limit.toString(),
-      (response) => {
-        setTotal(response.total);
-        const propertyData = response.data;
-        setIsLoading(false);
-        setCategoryListByPropertyData(propertyData);
-        console.log(CategoryListByPropertyData)
-      },
-      (error) => {
-        setIsLoading(false);
-        console.log(error);
-      }
-    );
+    if(!isLoggedIn){
+      GetFeturedListingsApi(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        offsetdata.toString(),
+        limit.toString(),
+        "",
+        (response) => {
+          setTotal(response.total);
+          const propertyData = response.data;
+          setIsLoading(false);
+          setCategoryListByPropertyData(propertyData);
+          console.log(CategoryListByPropertyData)
+        },
+        (error) => {
+          setIsLoading(false);
+          console.log(error);
+        }
+      );
+    }else{
+      GetFeturedListingsApi(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        offsetdata.toString(),
+        limit.toString(),
+        userCurrentId,
+        (response) => {
+          setTotal(response.total);
+          const propertyData = response.data;
+          setIsLoading(false);
+          setCategoryListByPropertyData(propertyData);
+          console.log(CategoryListByPropertyData)
+        },
+        (error) => {
+          setIsLoading(false);
+          console.log(error);
+        }
+      );
+    }
   }, [offsetdata]);
 
   const handlePageChange = (selectedPage) => {

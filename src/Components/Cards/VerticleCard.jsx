@@ -1,14 +1,65 @@
+import { AddFavourite } from '@/store/actions/campaign';
 import { settingsData } from '@/store/reducer/settingsSlice';
-import React from 'react';
-import { AiOutlineHeart } from 'react-icons/ai';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 
 function VerticalCard({ ele }) {
+    console.log(ele)
     const priceSymbol = useSelector(settingsData)
     const CurrencySymbol = priceSymbol.currency_symbol
+
+    const isLoggedIn = useSelector((state) => state.User_signup);
+
+    // Initialize isLiked based on ele.is_favourite
+    const [isLiked, setIsLiked] = useState(ele.is_favourite === 1);
+
+    // Initialize isDisliked as false
+    const [isDisliked, setIsDisliked] = useState(false);
+
+    const handleLike = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (isLoggedIn && isLoggedIn.data && isLoggedIn.data.token) {
+            console.log("like", ele.id);
+            AddFavourite(ele.id, "1", (response) => {
+                setIsLiked(true);
+                setIsDisliked(false);
+                toast.success(response.message);
+            }, (error) => {
+                console.log(error);
+            });
+        } else {
+            toast.warning("Please login first to add this property to favorites.");
+        }
+    };
+
+    const handleDislike = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        AddFavourite(ele.id, "0", (response) => {
+            setIsLiked(false);
+            setIsDisliked(true);
+            toast.success(response.message);
+        }, (error) => {
+            console.log(error);
+        });
+    };
+
+    useEffect(() => {
+        // Update the state based on ele.is_favourite when the component mounts
+        setIsLiked(ele.is_favourite === 1);
+        setIsDisliked(false);
+    }, [ele.is_favourite]);
+
+
+
+
     return (
         <div className='verticle_card'>
-            <div className='card verticle_main_card' >
+            <div className='card verticle_main_card'>
                 <img className='card-img' id='verticle_card_img' src={ele.title_image} alt="" />
                 <div className="card-img-overlay">
                     {ele.promoted ? (
@@ -16,17 +67,26 @@ function VerticalCard({ ele }) {
                             Feature
                         </span>
                     ) : null}
+
                     <span className='like_tag'>
-                        <AiOutlineHeart size={25} />
+                        {isLiked ? (
+                            <AiFillHeart size={25} className='liked_property' onClick={handleDislike} />
+                        ) : (
+                            isDisliked ? (
+                                <AiOutlineHeart size={25} className='disliked_property' onClick={handleLike} />
+                            ) : (
+                                <AiOutlineHeart size={25} onClick={handleLike} />
+                            )
+                        )}
                     </span>
                 </div>
 
                 <div className='card-body'>
                     <span className='sell_teg'>
-                    {ele.propery_type}
+                        {ele.propery_type}
                     </span>
                     <span className='price_teg'>
-                    {CurrencySymbol} {ele.price}
+                        {CurrencySymbol} {ele.price}
                     </span>
                     <div className='feature_card_mainbody'>
                         <div className="cate_image">
@@ -50,7 +110,7 @@ function VerticalCard({ ele }) {
                             <div className="col-sm-12 col-md-6 " key={index}>
                                 <div className='footer_content' key={index}>
                                     <div>
-                                    <img src={elem.image} alt="" width={20} height={16} />
+                                        <img src={elem.image} alt="" width={20} height={16} />
                                     </div>
                                     <p className='text_footer'> {elem.name}</p>
                                 </div>

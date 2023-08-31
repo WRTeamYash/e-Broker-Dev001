@@ -37,7 +37,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
 
     }, [propertySlugData])
     const GoogleMapData = useSelector(settingsData)
-    const GoogleMapApiKey = GoogleMapData.place_api_key
+    const GoogleMapApiKey = GoogleMapData && GoogleMapData.place_api_key
     console.log(GoogleMapApiKey)
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;

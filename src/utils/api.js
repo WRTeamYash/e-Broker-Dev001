@@ -6,6 +6,7 @@ const GET_CATEGORES = "get_categories"
 const GET_PROPETRES ="get_property"
 const GET_ARTICLES ="get_articles"
 const GET_COUNT_BY_CITIES_CATEGORIS ="get_count_by_cities_categoris"
+const ADD_FAVOURITE ="add_favourite"
 
 
 
@@ -141,6 +142,20 @@ export const getCountByCitysCategories = () => {
           
         },
         authorizationHeader: false,
+
+    }
+}
+
+// ADD_FAVOURITE
+export const addFavourite = (property_id, type) => {
+    return {
+        url: `${ADD_FAVOURITE}`,
+        method: "POST",
+        data: {
+            property_id:property_id,
+            type:type
+        },
+        authorizationHeader: true,
 
     }
 }

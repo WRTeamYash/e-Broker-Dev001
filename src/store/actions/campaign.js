@@ -1,4 +1,4 @@
-import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories } from "@/utils/api";
+import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
@@ -65,3 +65,15 @@ export const GetCountByCitysCategorisApi = (onSuccess, onError, onStart) => {
         onError,
     }))
 }
+
+// // ADD_FAVOURITE
+export const AddFavourite = (property_id, type, onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...addFavourite(property_id, type),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+

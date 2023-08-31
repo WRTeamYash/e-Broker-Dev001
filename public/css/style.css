@@ -1245,6 +1245,9 @@ button.learn-more .button-text {
   top: 10px;
   right: 10px;
 }
+.liked_property{
+  color: var(--primary-color);
+}
 .verticle_card .verticle_main_card .sell_teg {
   background: var(--primary-sell);
   border-radius: 5px;

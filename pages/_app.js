@@ -16,6 +16,7 @@ import Header from '@/Components/Header/Header'
 import Footer from '@/Components/Footer/Footer'
 import { settingsLoaded } from '@/store/reducer/settingsSlice'
 import Loader from '@/Components/Loader/Loader'
+import { Toaster } from 'react-hot-toast'
 // import Document, { Html, Head, Main, NextScript } from 'next/document';
 const manrope = Manrope({ subsets: ['latin'] })
 
@@ -64,6 +65,7 @@ function MyApp({ Component, pageProps, data }) {
                             )
                     }
                     <Footer />
+                    <Toaster />
                 </PersistGate>
             </Provider>
         </Fragment>

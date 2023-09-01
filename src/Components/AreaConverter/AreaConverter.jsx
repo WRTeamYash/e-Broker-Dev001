@@ -53,12 +53,13 @@ const AreaConverter = ({ isOpen, onClose }) => {
 
 
     return (
-        <div id='areaConvert-modal'>
+        <div >
 
             <Modal show={isOpen} onHide={onClose}
                 size="md"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
+                className='areaConvert-modal'
             >
                 <Modal.Header>
                     <Modal.Title>Area Converter</Modal.Title>

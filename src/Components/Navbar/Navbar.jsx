@@ -33,6 +33,7 @@ const Nav = () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
+
     const handleScroll = () => {
         setScroll(window.scrollY);
     };
@@ -40,6 +41,7 @@ const Nav = () => {
     const [showModal, setShowModal] = useState(false);
     const [areaconverterModal, setAreaConverterModal] = useState(false)
     const handleOpenModal = () => {
+        setShow(false)
         setShowModal(true);
     };
 
@@ -47,6 +49,7 @@ const Nav = () => {
         setShowModal(false);
     };
     const handleOpenAcModal = () => {
+        setShow(false)
         setAreaConverterModal(true);
     };
     const handleCloseAcModal = () => {
@@ -181,15 +184,17 @@ const Nav = () => {
 
                                     </li>
                                     <li className="nav-item">
-                                        <button className="btn" id="addbutton"><FiPlusCircle size={20} className='mx-2 add-nav-button' /> Add Property</button>
+                                        {signupData?.data?.data.name && ( // Check if the user is properly logged in
+                                            <button className="btn" id="addbutton">
+                                                <FiPlusCircle size={20} className='mx-2 add-nav-button' /> Add Property
+                                            </button>
+                                        )}
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </nav>
-                {/* <MobileNav show={handleShow} onClose={handleClose} /> */}
-
             </header>
             <div>
                 <Offcanvas show={show} onHide={handleClose} placement='end' scroll={false} backdrop={true} style={{
@@ -201,83 +206,102 @@ const Nav = () => {
                         </Offcanvas.Title>
                         <Offcanvas.Title>
                             <CloseButton onClick={handleClose} />
-                            {/* <span className='title-icon' onClick={handleClose}><AiOutlineClose size={24} /></span> */}
+
                         </Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <div className="mobile_nav">
                             <ul className="navbar-nav" id='mobile-ul'>
                                 <li className="nav-item">
-                                    {/* <div className='mobile-nav-buttons'>
-              <AiOutlineHome size={24} /> */}
+
                                     <button className="nav-link" aria-current="page"> <Link className="nav-link" href="/" onClick={handleClose}>Home</Link> </button>
-                                    {/* </div> */}
                                 </li>
                                 <Dropdown>
-                                    {/* <div className='mobile-nav-dropdown'>
-              <FaBuilding size={22} className='' /> */}
                                     <Dropdown.Toggle id="dropdown-basic">
                                         Properties
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
-                                        <Dropdown.Item> <Link href="/Pages/AllProperties" onClick={handleClose}>All Properties</Link></Dropdown.Item>
-                                        <Dropdown.Item href="">Featured Properties</Dropdown.Item>
-                                        <Dropdown.Item href="">Most Viewed Properties</Dropdown.Item>
-                                        <Dropdown.Item href="">Nearby Cities Properties</Dropdown.Item>
-                                        <Dropdown.Item href="">Most Favorites Properties</Dropdown.Item>
-                                        <Dropdown.Item href="">List by Agents Properties</Dropdown.Item>
+                                        <Dropdown.Item > <Link href="/properties/all-properties/" onClick={handleClose}>All Properties</Link></Dropdown.Item>
+                                        <Dropdown.Item><Link href="/featured-properties" onClick={handleClose}>Featured Properties</Link></Dropdown.Item>
+                                        <Dropdown.Item> <Link href="/most-viewed-properties" onClick={handleClose}>Most Viewed Properties</Link></Dropdown.Item>
+                                        <Dropdown.Item> <Link href="/properties-nearby-city" onClick={handleClose}>Nearby Cities Properties</Link></Dropdown.Item>
+                                        <Dropdown.Item><Link href="/mostfav-properties" onClick={handleClose}>Most Favorites Properties </Link></Dropdown.Item>
+                                        <Dropdown.Item><Link href="/listby-agents" onClick={handleClose}></Link>List by Agents</Dropdown.Item>
                                     </Dropdown.Menu>
-                                    {/* </div> */}
                                 </Dropdown>
 
                                 <Dropdown>
-                                    {/* <div className='mobile-nav-dropdown'>
-              <RiPagesLine size={22} /> */}
+
                                     <Dropdown.Toggle id="dropdown-basic">
                                         Pages
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
-                                        <Dropdown.Item href="">All Properties</Dropdown.Item>
-                                        <Dropdown.Item href="">Featured Properties</Dropdown.Item>
-                                        <Dropdown.Item href="">Most Viewed Properties</Dropdown.Item>
-                                        <Dropdown.Item href="">Nearby Cities Properties</Dropdown.Item>
-                                        <Dropdown.Item href="">Most Favorites Properties</Dropdown.Item>
-                                        <Dropdown.Item href="">List by Agents Properties</Dropdown.Item>
+                                        <Dropdown.Item><Link href="/subscription-plan" onClick={handleClose}>Subscription Plan</Link></Dropdown.Item>
+                                        <Dropdown.Item> <Link href="/articles" onClick={handleClose}>Articles</Link></Dropdown.Item>
+                                        <Dropdown.Item onClick={handleOpenAcModal}>Area Converter</Dropdown.Item>
+                                        <Dropdown.Item><Link href='/terms&condition' onClick={handleClose}>
+                                            Terms & Condition
+                                        </Link>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item> <Link href="/privacy-policy">Privacy Policy </Link></Dropdown.Item>
                                     </Dropdown.Menu>
-                                    {/* </div> */}
                                 </Dropdown>
                                 <li className="nav-item">
-                                    {/* <div className='mobile-nav-buttons'>
-              <RiContactsLine size={20} c /> */}
-                                    <button className="nav-link active" to="/">  Contact Us</button>
-                                    {/* </div> */}
+
+                                    <button className="nav-link active" to="/" onClick={handleClose}> Contact Us</button>
                                 </li>
                                 <li className="nav-item">
-                                    <button className="nav-link active" to="/">About Us</button>
+                                    <button className="nav-link active" to="/" onClick={handleClose}>About Us</button>
                                 </li>
-                                {/* </ul>
-          <ul className="navbar-nav ml-auto"> */}
+
                                 <Dropdown id='mobile-dropdown'>
                                     <Dropdown.Toggle id="dropdown-basic">
-                                        {/* <MdLanguage size={20} className='icon' /> */}
                                         Language
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu id='language'>
-                                        <Dropdown.Item href="">English</Dropdown.Item>
-                                        <Dropdown.Item href="">Arebic</Dropdown.Item>
+                                        <Dropdown.Item href="" onClick={handleClose}>English</Dropdown.Item>
+                                        <Dropdown.Item href="" onClick={handleClose}>Arebic</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                                 <li className="nav-item">
-                                    <a className="nav-link active" to="/">
-                                        {/* <RiUserSmileLine size={20} className='icon' /> */}
-                                        Login/Register</a>
+                                    {
+                                        // Check if signupData.data is null
+                                        signupData?.data === null ? (
+                                            <a className="nav-link" to="/" onClick={handleOpenModal}>
+                                                <RiUserSmileLine size={20} className='icon' />
+                                                Login/Register
+                                            </a>
+                                        ) :
+                                            // Check if mobile and firebase_id are present
+                                            signupData?.data?.data.mobile && signupData?.data?.data.firebase_id && signupData?.data?.data.name === "" ? (
+                                                <span className="nav-link">Welcome, Guest</span>
+                                            ) :
+                                                // If name is present, show "Welcome, {name}"
+                                                signupData?.data?.data.name ? (
+                                                    <Dropdown>
+                                                        <Dropdown.Toggle id="dropdown-basic01">
+                                                            <RiUserSmileLine size={20} className='icon01' />
+                                                            {/* <Avatar size={16} src={signupData.data.data.profile}/> */}
+                                                            {signupData.data.data.name}
+                                                        </Dropdown.Toggle>
+
+                                                        <Dropdown.Menu id='language'>
+                                                            <Dropdown.Item href="">Dashboard</Dropdown.Item>
+                                                            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
+                                                ) : null // Handle any other cases or conditions here
+                                    }
+
                                 </li>
                                 <li className="nav-item">
-                                    <button className="" id="addbutton-mobile">
-                                        {/* <AiOutlinePlusCircle size={20} className='icon' /> */}
-                                        Add Property</button>
+                                    {signupData?.data?.data.name && ( // Check if the user is properly logged in
+                                        <button className="btn" id="addbutton">
+                                            <FiPlusCircle size={20} className='mx-2 add-nav-button' /> Add Property
+                                        </button>
+                                    )}
                                 </li>
                             </ul>
 

@@ -11,6 +11,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { signupLoaded } from '../../store/reducer/authSlice'; // Update the import path as needed
 
 import { useRouter } from 'next/router';
+import { GetFeturedListingsApi } from '@/store/actions/campaign';
 
 const OTPModal = ({ isOpen, onClose, phonenum }) => {
     const [otp, setOTP] = useState('');
@@ -59,9 +60,8 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         if (phonenum !== null) {
             generateOTP(phonenum)
         }
-// console.log(phonenum)
+        // console.log(phonenum)
     }, [phonenum])
-
 
     const handleConfirm = (e) => {
         e.preventDefault()
@@ -76,9 +76,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                     // console.log(res)
                     let signupData = res.data
                     // Show a success toast notification
-                    // toast.success(res.message)
-                    // onClose()
-
+                    
                     // toast.success("please fill your personal deatils")
                     // Check if any of the required fields is empty
                     if (!res.error) {
@@ -96,14 +94,11 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                             onClose();  // Close the modal
                         } else {
                             // If all fields have values, execute this block
-                            // console.log(res.message);  // Log a message
                             toast.success(res.message);  // Show a success toast
                             onClose();  // Close the modal
                         }
-
-
-
                     }
+                   
                 },
                 (err) => {
                     console.log(err)
@@ -182,54 +177,58 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 className='otp-modal'
+                backdrop="static"
             >
                 <Modal.Header>
                     <Modal.Title>Login</Modal.Title>
                     <RiCloseCircleLine className='close-icon' size={40} onClick={onClose} />
                 </Modal.Header>
                 <Modal.Body>
-                    <div className='modal-body-heading'>
-                        <h4>OTP Verification Code</h4>
-                        <span>
-                            Enter OTP code sent to {phonenum}
-                        </span>
-                    </div>
-                    <div className='userInput'>
-                        {Array.from({ length: 6 }).map((_, index) => (
-                            <input
-                                key={index}
-                                className='otp-field'
-                                type='text'
-                                maxLength={1}
-                                value={otp[index] || ''}
-                                onChange={(e) => handleChange(e, index)}
-                                onKeyDown={(e) => handleKeyDown(e, index)}
-                                ref={(inputRef) => (inputRefs.current[index] = inputRef)}
-                            />
-                        ))}
-                    </div>
+                    <form>
+
+                        <div className='modal-body-heading'>
+                            <h4>OTP Verification Code</h4>
+                            <span>
+                                Enter OTP code sent to {phonenum}
+                            </span>
+                        </div>
+                        <div className='userInput'>
+                            {Array.from({ length: 6 }).map((_, index) => (
+                                <input
+                                    key={index}
+                                    className='otp-field'
+                                    type='text'
+                                    maxLength={1}
+                                    value={otp[index] || ''}
+                                    onChange={(e) => handleChange(e, index)}
+                                    onKeyDown={(e) => handleKeyDown(e, index)}
+                                    ref={(inputRef) => (inputRefs.current[index] = inputRef)}
+                                />
+                            ))}
+                        </div>
 
 
 
-                    <div className='resend-code'>
-                        {resendTimer > 0 ? (
-                            <div>
-                                <span className='resend-text'> Resend Code in
+                        <div className='resend-code'>
+                            {resendTimer > 0 ? (
+                                <div>
+                                    <span className='resend-text'> Resend Code in
 
-                                </span>
-                                <span className='resend-time'> {resendTimer} seconds
-                                </span>
-                            </div>
-                        ) : (
-                            <span id='re-text' onClick={handleResendOTP}>Resend OTP</span>
-                        )}
-                    </div>
-                    <div className='continue'>
-                        <button type='button' className='continue-button' onClick={handleConfirm}>
-                            Confirm
-                        </button>
-                    </div>
+                                    </span>
+                                    <span className='resend-time'> {resendTimer} seconds
+                                    </span>
+                                </div>
+                            ) : (
+                                <span id='re-text' onClick={handleResendOTP}>Resend OTP</span>
+                            )}
+                        </div>
+                        <div className='continue'>
+                            <button type='submit' className='continue-button' onClick={handleConfirm}>
+                                Confirm
+                            </button>
+                        </div>
 
+                    </form>
                 </Modal.Body>
 
             </Modal >

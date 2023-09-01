@@ -17,7 +17,6 @@ const Breadcrumb = (props) => {
 
     let { data, title } = props;
     const priceSymbol = useSelector(settingsData)
-    console.log(priceSymbol)
     const CurrencySymbol = priceSymbol.currency_symbol
 
 

@@ -20,12 +20,10 @@ const Index = () => {
     const limit = 8;
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    console.log(userCurrentId)
-
+    // console.log(userCurrentId)
 
     useEffect(() => {
         setIsLoading(true);
-        if(!isLoggedIn){
         GetFeturedListingsApi(
             "",
             "2",
@@ -36,7 +34,7 @@ const Index = () => {
             "",
             offsetdata.toString(),
             limit.toString(),
-            "",
+            isLoggedIn ? userCurrentId : "",
             (response) => {
                 setTotal(response.total);
                 const MostViewedData = response.data;
@@ -48,31 +46,8 @@ const Index = () => {
                 console.log(error);
             }
         );
-    }else{
-        GetFeturedListingsApi(
-            "",
-            "2",
-            "",
-            "",
-            "",
-            "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            userCurrentId,
-            (response) => {
-                setTotal(response.total);
-                const MostViewedData = response.data;
-                setIsLoading(false);
-                setMostViewed(MostViewedData);
-            },
-            (error) => {
-                setIsLoading(false);
-                console.log(error);
-            }
-        );
-    }
-    }, [offsetdata]);
+    
+    }, [offsetdata, isLoggedIn]);
 
     const handlePageChange = (selectedPage) => {
         console.log("select page================", selectedPage);

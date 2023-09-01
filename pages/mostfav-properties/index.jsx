@@ -8,6 +8,7 @@ import VerticalCard from '@/Components/Cards/VerticleCard';
 import VerticalCardSkeleton from '@/Components/Skeleton/VerticalCardSkeleton';
 import ReactPaginate from 'react-paginate';
 import Loader from '@/Components/Loader/Loader';
+import { useSelector } from 'react-redux';
 
 const Index = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +18,8 @@ const Index = () => {
     // console.log("offset data", offsetdata)
     // console.log(total)
     const limit = 8;
-
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
 
 
     useEffect(() => {
@@ -32,7 +34,7 @@ const Index = () => {
             "",
             offsetdata.toString(),
             limit.toString(),
-            "",
+            isLoggedIn ? userCurrentId : "",
             (response) => {
                 setTotal(response.total);
                 const MostViewedData = response.data;
@@ -44,13 +46,13 @@ const Index = () => {
                 console.log(error);
             }
         );
-    }, [offsetdata]);
+    }, [offsetdata, isLoggedIn]);
 
     const handlePageChange = (selectedPage) => {
-        console.log("select page================", selectedPage);
+        // console.log("select page================", selectedPage);
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
-        console.log("new offset", newOffset)
+        // console.log("new offset", newOffset)
     };
 
     return (

@@ -19,13 +19,12 @@ const Index = () => {
     const limit = 8;
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    console.log(userCurrentId)
+    // console.log(userCurrentId)
 
     // const pageCount = Math.ceil(total / limit); // Calculate the page count
 
     useEffect(() => {
         setIsLoading(true);
-        if (!isLoggedIn) {
             GetFeturedListingsApi(
                 "1",
                 "",
@@ -36,7 +35,7 @@ const Index = () => {
                 "",
                 offsetdata.toString(),
                 limit.toString(),
-                "",
+                isLoggedIn ? userCurrentId : "",
                 (response) => {
                     setTotal(response.total);
                     const FeaturedListingData = response.data;
@@ -49,32 +48,7 @@ const Index = () => {
                     console.log(error);
                 }
             );
-        } else {
-            GetFeturedListingsApi(
-                "1",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                offsetdata.toString(),
-                limit.toString(),
-                userCurrentId,
-                (response) => {
-                    setTotal(response.total);
-                    const FeaturedListingData = response.data;
-                    setIsLoading(false);
-                    setGetFeaturedListing(FeaturedListingData);
-                    console.log(getFeaturedListing)
-                },
-                (error) => {
-                    setIsLoading(false);
-                    console.log(error);
-                }
-            );
-        }
-    }, [offsetdata]);
+    }, [offsetdata, isLoggedIn]);
 
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;

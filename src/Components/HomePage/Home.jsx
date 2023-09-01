@@ -51,6 +51,7 @@ import ArticleCardSkeleton from '../Skeleton/ArticleCardSkeleton';
 import NearByCitysSkeleton from '../Skeleton/NearByCitysSkeleton';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import { useSelector } from 'react-redux';
+import Skeleton from 'react-loading-skeleton';
 
 
 
@@ -253,77 +254,48 @@ const HomePage = () => {
 
     // GET FEATURED LISTINGS and 
     const [getFeaturedListing, setGetFeaturedListing] = useState()
-
     useEffect(() => {
-        if (!isLoggedIn) {
-            GetFeturedListingsApi("1", "", "", "", "", "", "", "", "", "", (response) => {
-                const FeaturedListingData = response.data;
-                // console.log("featured data ============", FeaturedListingData)
-                setIsLoading(false)
-                setGetFeaturedListing(FeaturedListingData);
-            }, (error) => {
-                console.log(error)
-            })
-        } else {
-            GetFeturedListingsApi("1", "", "", "", "", "", "", "", "", userCurrentId, (response) => {
-                const FeaturedListingData = response.data;
-                // console.log("featured data ============", FeaturedListingData)
-                setIsLoading(false)
-                setGetFeaturedListing(FeaturedListingData);
-            }, (error) => {
-                console.log(error)
-            })
-        }
-    }, [])
+        // if (!isLoggedIn) {
+        GetFeturedListingsApi("1", "", "", "", "", "", "", "", "", isLoggedIn ? userCurrentId : "", (response) => {
+            const FeaturedListingData = response.data;
+            // console.log("featured data ============", FeaturedListingData)
+            setIsLoading(false)
+            setGetFeaturedListing(FeaturedListingData);
+        }, (error) => {
+            console.log(error)
+        })
+    }, [isLoggedIn])
 
 
     // GET MOST VIEWED PROPERTIES
     const [getMostViewedProp, setGetMostViewedProp] = useState()
     useEffect(() => {
-        if (!isLoggedIn) {
-            GetFeturedListingsApi("", "1", "", "", "", "", "", "", "", "", (response) => {
-                const MostViewed = response.data;
-                // console.log("most viewed data ============", MostViewed)
-                setIsLoading(false)
-                setGetMostViewedProp(MostViewed);
-            }, (error) => {
-                console.log(error)
-            })
-        } else {
-            GetFeturedListingsApi("", "1", "", "", "", "", "", "", "", userCurrentId, (response) => {
-                const MostViewed = response.data;
-                // console.log("most viewed data ============", MostViewed)
-                setIsLoading(false)
-                setGetMostViewedProp(MostViewed);
-            }, (error) => {
-                console.log(error)
-            })
-        }
-    }, [])
+
+        GetFeturedListingsApi("", "1", "", "", "", "", "", "", "", isLoggedIn ? userCurrentId : "", (response) => {
+            const MostViewed = response.data;
+            // console.log("most viewed data ============", MostViewed)
+            setIsLoading(false)
+            setGetMostViewedProp(MostViewed);
+        }, (error) => {
+            console.log(error)
+        })
+
+    }, [isLoggedIn])
     // GET MOST Fav PROPERTIES
 
     const [getMostFavProperties, setGetMostFavProperties] = useState()
     useEffect(() => {
-        if (!isLoggedIn) {
-            GetFeturedListingsApi("", "", "", "", "1", "", "", "", "", "", (response) => {
-                const MostFav = response.data;
-                // console.log("most fav data ============", MostFav)
-                setIsLoading(false)
-                setGetMostFavProperties(MostFav);
-            }, (error) => {
-                console.log(error)
-            })
-        } else (
-            GetFeturedListingsApi("", "", "", "", "1", "", "", "", "", userCurrentId, (response) => {
-                const MostFav = response.data;
-                // console.log("most fav data ============", MostFav)
-                setIsLoading(false)
-                setGetMostFavProperties(MostFav);
-            }, (error) => {
-                console.log(error)
-            })
-        )
-    }, [])
+
+        GetFeturedListingsApi("", "", "", "", "1", "", "", "", "", isLoggedIn ? userCurrentId : "", (response) => {
+            const MostFav = response.data;
+            // console.log("most fav data ============", MostFav)
+            setIsLoading(false)
+            setGetMostFavProperties(MostFav);
+        }, (error) => {
+            console.log(error)
+        })
+
+    }, [isLoggedIn])
 
     // GET ARTICLES
     const [getArticles, setGetArticles] = useState()
@@ -495,63 +467,62 @@ const HomePage = () => {
                 <div className='container'>
 
                     <div id='main_features'>
-                        <div className='feature_header'>
-                            <span className='headline' data-aos="fade-right" data-aos-duration="1000">
-                                Discover Our <span
-                                // className="hovertext1" 
-                                >
-                                    <span
-                                        // className="text" data-text="Featured"
-                                        className='highlight'
-                                    > Featured</span>
-                                </span> Listings
-                            </span>
-                            <div className='rightside_header'>
-                                <Link href="/featured-properties">
-                                    <button className="learn-more" id="viewall">
-                                        <span aria-hidden="true" className="circle">
-                                            <span className="icon arrow"></span>
-                                        </span>
-
-                                        <span className="button-text">See All Properties</span>
-                                    </button>
-                                </Link>
-                            </div>
-
-                        </div>
-                        <div className="mobile-headline-view">
-                            <MobileHeadline data={{
-                                start: " Discover Our",
-                                center: "Featured",
-                                end: "Listings",
-                                link: "/featured-properties"
-                            }
-                            } />
-                        </div>
-                    </div>
-                    <div className='feature-section-cards'>
-                        <div id='feature_cards' className='row'>
+                        <div>
                             {isLoading ? (
-                                // Show skeleton loading when data is being fetched
-
-                                Array.from({ length: 8 }).map((_, index) => (
-                                    <div className='col-sm-12 col-md-6 col-lg-3 loading_data' key={index}>
-                                        <VerticalCardSkeleton />
+                                <Skeleton width="100%" height={20} />
+                            ) : (
+                                <>
+                                    <div className='feature_header'>
+                                        <span className='headline' data-aos="fade-right" data-aos-duration="1000">
+                                            Discover Our <span className='highlight'>Featured</span> Listings
+                                        </span>
+                                        <div className='rightside_header'>
+                                            <Link href="/featured-properties">
+                                                <button className="learn-more" id="viewall">
+                                                    <span aria-hidden="true" className="circle">
+                                                        <span className="icon arrow"></span>
+                                                    </span>
+                                                    <span className="button-text">See All Properties</span>
+                                                </button>
+                                            </Link>
+                                        </div>
                                     </div>
-                                ))
-                                // <Loader />  
-
-                            ) :
-                                getFeaturedListing?.slice(0, 8).map((ele, index) => (
-                                    <div className='col-sm-12 col-md-6 col-lg-3' key={index}>
-                                        <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
-                                            <VerticalCard ele={ele} />
-                                        </Link>
+                                    <div className="mobile-headline-view">
+                                        <MobileHeadline data={{
+                                            start: " Discover Our",
+                                            center: "Featured",
+                                            end: "Listings",
+                                            link: "/featured-properties"
+                                        }} />
                                     </div>
-                                ))}
+                                </>
+                            )}
                         </div>
-                    </div>
 
+                        <div className='feature-section-cards'>
+                            <div id='feature_cards' className='row'>
+                                {isLoading ? (
+                                    // Show skeleton loading when data is being fetched
+
+                                    Array.from({ length: 8 }).map((_, index) => (
+                                        <div className='col-sm-12 col-md-6 col-lg-3 loading_data' key={index}>
+                                            <VerticalCardSkeleton />
+                                        </div>
+                                    ))
+                                    // <Loader />  
+
+                                ) :
+                                    getFeaturedListing?.slice(0, 8).map((ele, index) => (
+                                        <div className='col-sm-12 col-md-6 col-lg-3' key={index}>
+                                            <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                                                <VerticalCard ele={ele} />
+                                            </Link>
+                                        </div>
+                                    ))}
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </section >
 

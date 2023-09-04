@@ -8,7 +8,6 @@ const AgentCard = ({ ele }) => {
             <Card.Body>
                 <div className='agent_card_content'>
                     <div>
-
                         <img src={ele.agentimg} className='agent-profile' width={100} height={100} />
                     </div>
                     <div className='mt-2'>

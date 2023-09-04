@@ -48,7 +48,7 @@ const Articles = () => {
 
     return (
         <>
-            <Breadcrumb title='Article' />
+            <Breadcrumb title='Articles' />
             <div className='all-articles'>
 
                 <div id='all-articles-content'>

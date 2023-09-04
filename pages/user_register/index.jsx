@@ -99,7 +99,7 @@ const index = () => {
                             <div className="card">
                                 <div className="card-header">
                                     <div className="card-title">
-                                        personal information
+                                    Personal Informantion
                                     </div>
                                 </div>
                                 <div className="card-body">

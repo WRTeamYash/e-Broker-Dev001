@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { GetFeturedListingsApi } from '@/store/actions/campaign';
 
 const OTPModal = ({ isOpen, onClose, phonenum }) => {
+    
     const [otp, setOTP] = useState('');
     const inputRefs = useRef([]);
     const [showTimer, setShowTimer] = useState(false);
@@ -180,7 +181,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                 backdrop="static"
             >
                 <Modal.Header>
-                    <Modal.Title>Login</Modal.Title>
+                    <Modal.Title>Verification</Modal.Title>
                     <RiCloseCircleLine className='close-icon' size={40} onClick={onClose} />
                 </Modal.Header>
                 <Modal.Body>

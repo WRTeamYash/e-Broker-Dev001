@@ -49,7 +49,7 @@ const Footer = () => {
                     <div className='col-12 col-md-6 col-lg-3' >
                         <div id='footer_prop_section'>
                             <div id='footer_headlines'>
-                                <span> Properties</span>
+                                <span>Properties</span>
                             </div>
                             <div className='prop_links'>
                                 <Link href="/properties/all-properties">
@@ -118,7 +118,7 @@ const Footer = () => {
                     <div className='col-12 col-md-6 col-lg-3'>
                         <div id='footer_download_section'>
                             <div id='footer_headlines'>
-                                <span> Download Apps</span>
+                                <span>Download Apps</span>
                             </div>
                             <div className='download_app_desc'>
                                 <span>Get the latest resources for downloading, installing, and updating eBroker app. Select your device platform and Use Our app.</span>

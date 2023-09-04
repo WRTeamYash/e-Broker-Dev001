@@ -14,11 +14,13 @@ import { logoutSuccess, userSignUpData } from '@/store/reducer/authSlice';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { toast } from 'react-hot-toast';
+import { settingsData } from '@/store/reducer/settingsSlice';
 
 
 
 const Nav = () => {
     const signupData = useSelector(userSignUpData);
+    const settingData = useSelector(settingsData)
     const [show, setShow] = useState(false);
     const [headerTop, setHeaderTop] = useState(0);
     const [scroll, setScroll] = useState(0);
@@ -183,13 +185,13 @@ const Nav = () => {
                                         }
 
                                     </li>
-                                    <li className="nav-item">
-                                        {signupData?.data?.data.name && ( // Check if the user is properly logged in
+                                    {signupData?.data?.data.name && settingData && (
+                                        <li className="nav-item">
                                             <button className="btn" id="addbutton">
-                                                <FiPlusCircle size={20} className='mx-2 add-nav-button' /> Add Property
+                                                <FiPlusCircle size={20} className='mx-2 add-nav-button' /> 
                                             </button>
-                                        )}
-                                    </li>
+                                        </li>
+                                    )}
                                 </ul>
                             </div>
                         </div>

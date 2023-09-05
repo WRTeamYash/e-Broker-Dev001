@@ -24,6 +24,7 @@ import SimilerPropertySlider from '@/Components/SimilerPropertySlider/SimilerPro
 import { settingsData } from '@/store/reducer/settingsSlice'
 import { useSelector } from 'react-redux'
 import Map from '@/Components/GoogleMap/GoogleMap'
+import Skeleton from 'react-loading-skeleton'
 
 const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
     // console.log("similer data", propertySlugData2)
@@ -222,12 +223,12 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                                     <Map
                                                         latitude={propertyData.latitude}
                                                         longitude={propertyData.longitude}
-                                                        // google="AIzaSyD6djyrbNtjhf_ssrww2YkXITUgsS6sYmo"
-                                                        // google="AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE"
                                                         google={GoogleMapApiKey}
                                                         />
                                                 ) : (
-                                                    <div>Loading map...</div>
+                                                    <div>
+                                                       <Skeleton height={200} width={"100%"}/>
+                                                    </div>
                                                 )}
                                             </Card>
                                         ) : (

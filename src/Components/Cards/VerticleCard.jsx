@@ -12,7 +12,7 @@ function VerticalCard({ ele }) {
     const CurrencySymbol = priceSymbol.currency_symbol
 
     const isLoggedIn = useSelector((state) => state.User_signup);
-    console.log(isLoggedIn)
+    // console.log(isLoggedIn)
     // Initialize isLiked based on ele.is_favourite
     const [isLiked, setIsLiked] = useState(ele.is_favourite === 1);
 
@@ -22,9 +22,9 @@ function VerticalCard({ ele }) {
     const handleLike = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log("isLoggedIn:", isLoggedIn);
+        // console.log("isLoggedIn:", isLoggedIn);
         if (isLoggedIn && isLoggedIn.data && isLoggedIn.data.token) {
-            console.log("like", ele.id);
+            // console.log("like", ele.id);
             AddFavourite(ele.id, "1", (response) => {
                 setIsLiked(true);
                 setIsDisliked(false);
@@ -62,7 +62,9 @@ function VerticalCard({ ele }) {
     return (
         <div className='verticle_card'>
             <div className='card verticle_main_card'>
-                <img className='card-img' id='verticle_card_img' src={ele.title_image} alt="" />
+                <div className='verticle_card_img_div'>
+                    <img className='card-img' id='verticle_card_img' src={ele.title_image} alt="" />
+                </div>
                 <div className="card-img-overlay">
                     {ele.promoted ? (
                         <span className='feature_tag'>
@@ -94,7 +96,7 @@ function VerticalCard({ ele }) {
                         <div className="cate_image">
                             <img src={ele.category && ele.category.image} alt="" />
                         </div>
-                        <span className='feature_body_title'> {ele.category && ele.category.category} </span>
+                        <span className='feature_body_title'> {ele.category && ele.category.category}  </span>
                     </div>
                     <div className='feature_card_middletext'>
                         <span>

@@ -546,6 +546,13 @@ body {
   padding: 5px;
   cursor: pointer;
 }
+.videoPlayer-modal .close-icon {
+  color: #fff;
+  background: #000;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
 .filter-modal .modal-body form {
   display: flex;
   flex-direction: column;
@@ -924,8 +931,16 @@ body {
   border-radius: 50%;
   background: #ffffff14;
   border: none;
-  /* background-color: #ffffff; */
-  /* width: 50%; */
+}
+.playbutton {
+  text-decoration: none;
+  color: #fff !important;
+  background-color: transparent;
+  border-radius: 100%;
+  transition: all 0.3s ease-in-out 0s;
+  box-shadow: #fff 0px 0px 0px 0px;
+  animation: 2s cubic-bezier(0.8, 0, 0, 1) 0s infinite normal none running pulse;
+  cursor: pointer;
 }
 #searchbox {
   position: relative;
@@ -1223,24 +1238,19 @@ button.learn-more .button-text {
   width: 100%;
   border-radius: 12px;
   height: 100%;
+  background: transparent;
+}
+.verticle_card .verticle_main_card .verticle_card_img_div {
+  box-shadow: 0px -50px 20px -4px rgba(0, 0, 0, 0.5) inset;
+  border-radius: 12px 12px 0 0;
 }
 .verticle_card .verticle_main_card #verticle_card_img {
   border-radius: 12px 12px 0 0;
   height: 25vh;
   object-fit: cover;
   position: relative;
-  overflow: hidden;
+  z-index: -1;
 }
-/* .verticle_card .verticle_main_card #verticle_card_img::after{
-  content: '';
-  position: absolute;
-  width: 100%;
-  top: 195px;
-  height: 49px;
-  left: 0;
-  background: linear-gradient(to bottom, rgb(229 229 229 / 0%), rgb(1 1 1 / 80%));
-
-} */
 .verticle_card .verticle_main_card .card-img-overlay {
   background: none;
   height: 50%;
@@ -1291,6 +1301,13 @@ button.learn-more .button-text {
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
+  /* background-color: var(--primary-color);
+  padding: 5px 10px ;
+  border-radius: 5px;
+  text-align: center; */
+}
+.verticle_card .verticle_main_card .card-body {
+  background-color: #fff;
 }
 .verticle_card .verticle_main_card .card-body .feature_card_mainbody {
   display: flex;
@@ -2226,6 +2243,7 @@ div#article_card_footer .article_footer_text p {
   display: flex;
   flex-direction: row;
   gap: 20px;
+  cursor: pointer;
 }
 #footer_prop_section {
   display: flex;
@@ -3474,7 +3492,7 @@ div#all-articles_card_footer .allarticles_footer_text p {
     text-align: center;
     gap: 10px !important;
   }
-  .contact-submit{
+  .contact-submit {
     justify-content: center !important;
   }
   .contact-info .card-body .row {
@@ -4396,6 +4414,7 @@ p {
   align-items: center;
   justify-content: center;
   margin-top: 30px;
+  flex-wrap: wrap;
 }
 
 /* Active link styles */

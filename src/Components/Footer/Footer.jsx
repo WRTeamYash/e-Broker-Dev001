@@ -8,11 +8,17 @@ import { ImPinterest2 } from "react-icons/im"
 import playstore from "../../assets/playStore.png"
 import appstore from "../../assets/appStore.png"
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { settingsData } from '@/store/reducer/settingsSlice';
 
 
 
 
 const Footer = () => {
+
+    const systemData = useSelector(settingsData)
+    const webdata = systemData && systemData
+    console.log(webdata)
     return (
         <section id='footer'>
             <div className='container'>
@@ -24,24 +30,31 @@ const Footer = () => {
                             </div>
                             <div>
                                 <FiMail size={25} /> <span className='footer_span'>Email</span> <br />
-                                <span className='footer_span_value'>adminn@ebroker.in</span>
+                                <span className='footer_span_value'>{webdata.company_email}</span>
                             </div>
                             <div>
                                 <FiPhone size={25} /> <span className='footer_span'>Contact one</span> <br />
-                                <span className='footer_span_value'>7874664341</span>
+                                <span className='footer_span_value'>{webdata.company_tel1}</span>
                             </div>
                             <div>
                                 <FiPhone size={25} /> <span className='footer_span'>Contact Two</span> <br />
-                                <span className='footer_span_value'>1234567890</span>
+                                <span className='footer_span_value'>{webdata.company_tel2}</span>
                             </div>
                             <div>
                                 <h4> Follow Us</h4>
                                 <div id='follow_us'>
+                                    <a href="https://www.facebook.com/wrteam.in/"  target="_blank">
                                     <CiFacebook size={28} />
+                                    </a>
+                                    <a href="https://www.instagram.com/wrteam.in"  target="_blank">
                                     <AiOutlineInstagram size={28} />
+                                    </a>
+                                    <a href="">
                                     <ImPinterest2 size={25} />
+                                    </a>
+                                    <a href="https://in.linkedin.com/company/wrteam" target='_blank'>
                                     <AiOutlineLinkedin size={28} />
-
+                                    </a>
                                 </div>
                             </div>
                         </div>

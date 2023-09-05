@@ -8,14 +8,9 @@ import Wrapper from "@/Components/Wrapper/Wrapper"
 import Catagory from "@/assets/Images/Category_BG.jpg"
 import agentimg from "@/assets/Images/Superman.jpeg"
 
-
-import { FiArrowRightCircle, FiCloudDrizzle, FiEye } from 'react-icons/fi'
-import { AiOutlineArrowRight, AiOutlineHeart } from 'react-icons/ai'
-import { BiHomeSmile } from 'react-icons/bi'
-import { RiHotelBedLine, RiParkingBoxLine, RiBuilding3Line } from 'react-icons/ri'
 import { BsArrowRight } from "react-icons/bs"
 import { FaEye } from 'react-icons/fa'
-import { FiSearch, FiArrowRight } from 'react-icons/fi'
+import { FiSearch, FiArrowRight, FiEye } from 'react-icons/fi'
 import { GoPlay } from 'react-icons/go'
 import { BiFilter } from 'react-icons/bi'
 import { MdOutlineVilla } from "react-icons/md";
@@ -52,6 +47,7 @@ import NearByCitysSkeleton from '../Skeleton/NearByCitysSkeleton';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import { useSelector } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
+import VideoPlayerModal from "../PlayerModal/VideoPlayerModal.jsx"
 
 
 
@@ -75,9 +71,8 @@ const HomePage = () => {
 
     const [isLoading, setIsLoading] = useState(true)
     const [showFilterModal, setShowFilterModal] = useState(false);
+    const [showVideoModal, setShowVideoModal] = useState(false);
     const [expandedStates, setExpandedStates] = useState([]);
-
-
 
 
 
@@ -89,6 +84,7 @@ const HomePage = () => {
 
     const handleCloseModal = () => {
         setShowFilterModal(false);
+        setShowVideoModal(false);
     };
 
     let agentsData = [
@@ -245,7 +241,7 @@ const HomePage = () => {
     }, [])
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    console.log(userCurrentId)
+    // console.log(userCurrentId)
 
 
 
@@ -376,6 +372,7 @@ const HomePage = () => {
                             ) :
                             slider &&
                             slider.map((single, index) => {
+                                console.log(single)
                                 return (
                                     <Slide
                                         background={{
@@ -406,9 +403,20 @@ const HomePage = () => {
                                                                 view Properties
                                                             </button>
                                                         </Link>
-                                                        <div>
-                                                            <GoPlay className='playbutton' size={50} />
-                                                        </div>
+
+                                                        {single && single.video_link ? (
+                                                            <>
+                                                                <div>
+                                                                    <GoPlay className='playbutton' size={50} onClick={() => {
+                                                                        setShowVideoModal(true)
+
+                                                                    }} />
+                                                                </div>
+
+                                                                <VideoPlayerModal isOpen={showVideoModal} onClose={handleCloseModal} data={single}/>
+                                                            </>
+                                                        ) : null
+                                                        }
                                                     </div>
                                                 </div>
                                             </Wrapper>

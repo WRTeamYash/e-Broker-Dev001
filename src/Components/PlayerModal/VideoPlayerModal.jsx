@@ -28,7 +28,7 @@ const VideoPlayerModal = ({ isOpen, onClose, data }) => {
                 <Modal.Body>
                     <ReactPlayer
                         width="100%"
-                        height="100%"
+                        height="600px"
                         url={videoData && videoData.video_link}
                         // playing={play}
                         controls={true}

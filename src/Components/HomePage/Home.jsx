@@ -48,6 +48,8 @@ import { settingsData } from '@/store/reducer/settingsSlice';
 import { useSelector } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 import VideoPlayerModal from "../PlayerModal/VideoPlayerModal.jsx"
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 import Aos from 'aos';
 
 
@@ -325,9 +327,7 @@ const HomePage = () => {
     }, [])
     // console.log(getNearByCitysData[0])
 
-    useEffect(() => {
-        Aos.init();
-    }, [])
+    AOS.init();
 
 
 
@@ -872,10 +872,7 @@ const HomePage = () => {
                                 Most <span
                                 // className="hovertext3"
                                 >
-                                    <span className='highlight'
-                                        data-aos="fade-left" data-aos-duration="5000"
-                                    // className="text" data-text="Favorites"
-                                    >Favorites</span>
+                                    <span className='highlight'>Favorites</span>
                                 </span> Properties
                             </h3>
                         </div>

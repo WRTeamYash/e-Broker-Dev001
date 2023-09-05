@@ -60,10 +60,10 @@ const AllPropertieCard = ({ ele }) => {
 
     return (
         <Card id='all_prop_main_card' className="row" key={ele.id}>
-            <div className='col-md-4' id='all_prop_main_card_rows_cols'>
+            <div className='col-md-4' id='all_prop_main_card01'>
                 <img className='card-img' id='all_prop_card_img' src={ele.title_image} />
             </div>
-            <div className='col-md-8' id='all_prop_main_card_rows_cols'>
+            <div className='col-md-8' id='all_prop_main_card02'>
                 <Card.Body id='all_prop_card_body'>
 
                     {ele.promoted ? (

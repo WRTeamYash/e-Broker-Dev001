@@ -728,7 +728,7 @@ const HomePage = () => {
                                     <span
                                         // className="text" data-text="Nearby"
                                         className='highlight'
-                                        data-aos="fade-left" data-aos-duration="5000"
+                                        
                                     >Nearby</span>
                                 </span> Cities
                             </h3>
@@ -958,10 +958,10 @@ const HomePage = () => {
                 </div>
             </section>
             {/* ===== AGENT SECTION =======  */}
-            <section id='agent_section'>
+            <section id='agent_section' data-aos="fade-up" data-aos-duration="7000">
                 <div className="container">
 
-                    <div className='row' data-aos="fade-up" data-aos-duration="2000">
+                    <div className='row' >
                         <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
                             <div className='browse-agent'>
                                 <span>Browse By Agents
@@ -1055,7 +1055,7 @@ const HomePage = () => {
                                 // className="hovertext3"
                                 >
                                     <span className='highlight'
-                                        data-aos="fade-left" data-aos-duration="5000"
+                                       
                                     // className="text" data-text="Articles"
                                     >Articles</span>
                                 </span>

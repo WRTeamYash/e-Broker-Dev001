@@ -48,6 +48,7 @@ import { settingsData } from '@/store/reducer/settingsSlice';
 import { useSelector } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 import VideoPlayerModal from "../PlayerModal/VideoPlayerModal.jsx"
+import Aos from 'aos';
 
 
 
@@ -324,6 +325,9 @@ const HomePage = () => {
     }, [])
     // console.log(getNearByCitysData[0])
 
+    useEffect(() => {
+        Aos.init();
+    }, [])
 
 
 
@@ -413,7 +417,7 @@ const HomePage = () => {
                                                                     }} />
                                                                 </div>
 
-                                                                <VideoPlayerModal isOpen={showVideoModal} onClose={handleCloseModal} data={single}/>
+                                                                <VideoPlayerModal isOpen={showVideoModal} onClose={handleCloseModal} data={single} />
                                                             </>
                                                         ) : null
                                                         }
@@ -480,8 +484,8 @@ const HomePage = () => {
                                 <Skeleton width="100%" height={20} />
                             ) : (
                                 <>
-                                    <div className='feature_header'>
-                                        <span className='headline' data-aos="fade-right" data-aos-duration="1000">
+                                    <div className='feature_header' data-aos="fade-right" data-aos-duration="1000">
+                                        <span className='headline' >
                                             Discover Our <span className='highlight'>Featured</span> Listings
                                         </span>
                                         <div className='rightside_header'>
@@ -495,7 +499,7 @@ const HomePage = () => {
                                             </Link>
                                         </div>
                                     </div>
-                                    <div className="mobile-headline-view">
+                                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
                                         <MobileHeadline data={{
                                             start: " Discover Our",
                                             center: "Featured",
@@ -508,7 +512,7 @@ const HomePage = () => {
                         </div>
 
                         <div className='feature-section-cards'>
-                            <div id='feature_cards' className='row'>
+                            <div id='feature_cards' className='row' data-aos="fade-left" data-aos-duration="1000">
                                 {isLoading ? (
                                     // Show skeleton loading when data is being fetched
 
@@ -521,7 +525,7 @@ const HomePage = () => {
 
                                 ) :
                                     getFeaturedListing?.slice(0, 8).map((ele, index) => (
-                                        <div className='col-sm-12 col-md-6 col-lg-3' key={index}>
+                                        <div className='col-sm-12 col-md-6 col-lg-3' key={index} >
                                             <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
                                                 <VerticalCard ele={ele} />
                                             </Link>
@@ -537,7 +541,7 @@ const HomePage = () => {
 
 
             {/* APARTMENT SECTION */}
-            <section id='apartments'>
+            <section id='apartments' data-aos="fade-up" data-aos-duration="1000">
                 <div id='apartment_all_content'>
                     <div className="row">
                         <div className="col-sm-12 col-md-4 col-lg-4" id='view-all-apartment'>
@@ -560,7 +564,7 @@ const HomePage = () => {
 
                             </div>
                         </div>
-                        <div className="mobile-headline-view">
+                        <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
                             <MobileHeadline data={{
                                 start: "Explore",
                                 center: "Apartment",
@@ -643,16 +647,14 @@ const HomePage = () => {
                 <div className='properties_section'>
                     <div className='container'>
                         <div id='prop'>
-                            <div className='prop_header'>
-                                <div data-aos="fade-right" data-aos-duration="1000">
+                            <div className='prop_header' data-aos="fade-right" data-aos-duration="1000">
+                                <div >
                                     <h3>
                                         Most <span
                                         // className="hovertext2"
                                         >
                                             <span
-                                                // className="text" data-text="Viewed"
                                                 className='highlight'
-                                                data-aos="fade-left" data-aos-duration="5000"
                                             > Viewed</span>
                                         </span> Properties
                                     </h3>
@@ -670,7 +672,7 @@ const HomePage = () => {
                                 </div>
 
                             </div>
-                            <div className="mobile-headline-view">
+                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
                                 <MobileHeadline data={{
                                     start: "Most",
                                     center: "Viewed",
@@ -681,9 +683,9 @@ const HomePage = () => {
                                 } />
                             </div>
                         </div>
-                        <div id='prop_cards'>
+                        <div id='prop_cards' data-aos="fade-left" data-aos-duration="1000">
                             <div className='cards_sec'>
-                                <div className='row'>
+                                <div className='row' >
                                     {isLoading ? (
                                         // Show skeleton loading when data is being fetched
                                         Array.from({ length: 8 }).map((_, index) => (
@@ -717,8 +719,8 @@ const HomePage = () => {
                 <div
                     className='container'
                 >
-                    <div className='prop_city_header'>
-                        <div data-aos="fade-right" data-aos-duration="1000">
+                    <div className='prop_city_header' data-aos="fade-right" data-aos-duration="1000">
+                        <div >
                             <h3>
                                 Properties <span
                                 // className="hovertext3"
@@ -742,7 +744,7 @@ const HomePage = () => {
                             </Link>
                         </div>
                     </div>
-                    <div className="mobile-headline-view">
+                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
                         <MobileHeadline data={{
                             start: " Properties",
                             center: "Nearby",
@@ -752,106 +754,110 @@ const HomePage = () => {
                         }
                         } />
                     </div>
+                    <div data-aos="fade-left" data-aos-duration="1000">
 
-                    {isLoading ? (
-                        // Show skeleton UI
-                        <div className="skeleton-container">
-                            <NearByCitysSkeleton />
-                        </div>
-                    ) : (
-                        // Show actual data when loading is complete
+                        {isLoading ? (
+                            // Show skeleton UI
+                            <div className="skeleton-container">
+                                <NearByCitysSkeleton />
+                            </div>
+                        ) : (
 
-                        getNearByCitysData ?
-                            (
-                                <div className='row' id='nearBy-Citys'>
+                            // Show actual data when loading is complete
 
-                                    <div className='col-12 col-md-6 col-lg-3' id='city_img_div'>
-                                        <Link href={`/properties/city/${getNearByCitysData[1].City}`}>
-                                            <div className="card bg-dark text-white mb-3" id='group_card'>
-                                                <img src={getNearByCitysData && getNearByCitysData[1].image} className="card-img" alt="..." id='TopImg' />
-                                                <div className="card-img-overlay">
-                                                    <div id='city_img_headlines'>
-                                                        <h4 className="card-title">{getNearByCitysData && getNearByCitysData[1].City}</h4>
-                                                        <p className="card-text">{getNearByCitysData && getNearByCitysData[1].Count} Properties</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                    <div className='col-12 col-md-6 col-lg-3' id='city_img_div'>
-                                        <Link href={`/properties/city/${getNearByCitysData[2].City}`}>
-                                            <div className="card bg-dark text-white mb-3" id='group_card'>
-                                                <img src={getNearByCitysData && getNearByCitysData[2].image} className="card-img" alt="..." id='TopImg' />
-                                                <div className="card-img-overlay">
-                                                    <div id='city_img_headlines'>
-                                                        <h4 className="card-title">{getNearByCitysData && getNearByCitysData[2].City}</h4>
-                                                        <p className="card-text">{getNearByCitysData && getNearByCitysData[2].Count} Properties</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                    <div className='col-lg-6' id='city_image_main_div'>
-                                        <Link href={`/properties/city/${getNearByCitysData[0].City}`}>
-                                            <div className="card bg-dark text-white mb-3" id='cityImgTop'>
-                                                <img src={getNearByCitysData && getNearByCitysData[0].image} className="card-img" alt="..." id='TopImg' />
-                                                <div className="card-img-overlay">
-                                                    <div id='city_img_headlines'>
-                                                        <h4 className="card-title">{getNearByCitysData && getNearByCitysData[0].City} </h4>
-                                                        <p className="card-text">{getNearByCitysData && getNearByCitysData[0].Count} Properties </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                    <div className='col-lg-6' id='city_image_main_div'>
-                                        <Link href={`/properties/city/${getNearByCitysData[5].City}`}>
+                            getNearByCitysData ?
+                                (
+                                    <div className='row' id='nearBy-Citys'>
 
-                                            <div className="card bg-dark text-white" id='cityImgTop'
-                                            >
-                                                <img src={getNearByCitysData && getNearByCitysData[5].image} className="card-img" alt="..." id='TopImg'
-                                                //  id='bottom_city_card_img' 
-                                                />
-                                                <div className="card-img-overlay">
-                                                    <div id='city_img_headlines'>
-                                                        <h4 className="card-title">{getNearByCitysData && getNearByCitysData[5].City} </h4>
-                                                        <p className="card-text">{getNearByCitysData && getNearByCitysData[5].Count} </p>
+                                        <div className='col-12 col-md-6 col-lg-3' id='city_img_div'>
+                                            <Link href={`/properties/city/${getNearByCitysData[1].City}`}>
+                                                <div className="card bg-dark text-white mb-3" id='group_card'>
+                                                    <img src={getNearByCitysData && getNearByCitysData[1].image} className="card-img" alt="..." id='TopImg' />
+                                                    <div className="card-img-overlay">
+                                                        <div id='city_img_headlines'>
+                                                            <h4 className="card-title">{getNearByCitysData && getNearByCitysData[1].City}</h4>
+                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[1].Count} Properties</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                    <div className='col-12 col-md-6 col-lg-3' id='city_img_div01'>
-                                        <Link href={`/properties/city/${getNearByCitysData[3].City}`}>
-                                            <div className="card bg-dark text-white" id='group_card'>
-                                                <img src={getNearByCitysData && getNearByCitysData[3].image} className="card-img" alt="..." id='TopImg' />
-                                                <div className="card-img-overlay">
-                                                    <div id='city_img_headlines'>
-                                                        <h4 className="card-title">{getNearByCitysData && getNearByCitysData[3].City}</h4>
-                                                        <p className="card-text">{getNearByCitysData && getNearByCitysData[3].Count} Properties</p>
+                                            </Link>
+                                        </div>
+                                        <div className='col-12 col-md-6 col-lg-3' id='city_img_div'>
+                                            <Link href={`/properties/city/${getNearByCitysData[2].City}`}>
+                                                <div className="card bg-dark text-white mb-3" id='group_card'>
+                                                    <img src={getNearByCitysData && getNearByCitysData[2].image} className="card-img" alt="..." id='TopImg' />
+                                                    <div className="card-img-overlay">
+                                                        <div id='city_img_headlines'>
+                                                            <h4 className="card-title">{getNearByCitysData && getNearByCitysData[2].City}</h4>
+                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[2].Count} Properties</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                    <div className='col-12 col-md-6 col-lg-3' id='city_img_div01'>
-                                        <Link href={`/properties/city/${getNearByCitysData[4].City}`}>
-                                            <div className="card bg-dark text-white " id='group_card'>
-                                                <img src={getNearByCitysData && getNearByCitysData[4].image} className="card-img" alt="..." id='TopImg' />
-                                                <div className="card-img-overlay">
-                                                    <div id='city_img_headlines'>
-                                                        <h4 className="card-title">{getNearByCitysData && getNearByCitysData[4].City}</h4>
-                                                        <p className="card-text">{getNearByCitysData && getNearByCitysData[4].Count} Properties</p>
+                                            </Link>
+                                        </div>
+                                        <div className='col-lg-6' id='city_image_main_div'>
+                                            <Link href={`/properties/city/${getNearByCitysData[0].City}`}>
+                                                <div className="card bg-dark text-white mb-3" id='cityImgTop'>
+                                                    <img src={getNearByCitysData && getNearByCitysData[0].image} className="card-img" alt="..." id='TopImg' />
+                                                    <div className="card-img-overlay">
+                                                        <div id='city_img_headlines'>
+                                                            <h4 className="card-title">{getNearByCitysData && getNearByCitysData[0].City} </h4>
+                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[0].Count} Properties </p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </Link>
-                                    </div>
+                                            </Link>
+                                        </div>
+                                        <div className='col-lg-6' id='city_image_main_div'>
+                                            <Link href={`/properties/city/${getNearByCitysData[5].City}`}>
 
-                                </div>
-                            ) : null
-                    )
-                    }
+                                                <div className="card bg-dark text-white" id='cityImgTop'
+                                                >
+                                                    <img src={getNearByCitysData && getNearByCitysData[5].image} className="card-img" alt="..." id='TopImg'
+                                                    //  id='bottom_city_card_img' 
+                                                    />
+                                                    <div className="card-img-overlay">
+                                                        <div id='city_img_headlines'>
+                                                            <h4 className="card-title">{getNearByCitysData && getNearByCitysData[5].City} </h4>
+                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[5].Count} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                        <div className='col-12 col-md-6 col-lg-3' id='city_img_div01'>
+                                            <Link href={`/properties/city/${getNearByCitysData[3].City}`}>
+                                                <div className="card bg-dark text-white" id='group_card'>
+                                                    <img src={getNearByCitysData && getNearByCitysData[3].image} className="card-img" alt="..." id='TopImg' />
+                                                    <div className="card-img-overlay">
+                                                        <div id='city_img_headlines'>
+                                                            <h4 className="card-title">{getNearByCitysData && getNearByCitysData[3].City}</h4>
+                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[3].Count} Properties</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                        <div className='col-12 col-md-6 col-lg-3' id='city_img_div01'>
+                                            <Link href={`/properties/city/${getNearByCitysData[4].City}`}>
+                                                <div className="card bg-dark text-white " id='group_card'>
+                                                    <img src={getNearByCitysData && getNearByCitysData[4].image} className="card-img" alt="..." id='TopImg' />
+                                                    <div className="card-img-overlay">
+                                                        <div id='city_img_headlines'>
+                                                            <h4 className="card-title">{getNearByCitysData && getNearByCitysData[4].City}</h4>
+                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[4].Count} Properties</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </div>
+
+                                    </div>
+                                ) : null
+                        )
+                        }
+
+                    </div>
                 </div>
             </section>
 
@@ -860,9 +866,8 @@ const HomePage = () => {
             {/* ===== MOST FAV SECTION =======  */}
             <section id='most_fav'>
                 <div className='container'>
-                    <div className='most_fav_header'>
-                        <div data-aos="fade-right" data-aos-duration="1000">
-
+                    <div className='most_fav_header' data-aos="fade-right" data-aos-duration="1000">
+                        <div>
                             <h3>
                                 Most <span
                                 // className="hovertext3"
@@ -885,7 +890,7 @@ const HomePage = () => {
                             </Link>
                         </div>
                     </div>
-                    <div className="mobile-headline-view">
+                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
                         <MobileHeadline data={{
                             start: " Most",
                             center: "Favorites",
@@ -894,7 +899,7 @@ const HomePage = () => {
                         }
                         } />
                     </div>
-                    <div id="most-view-properties">
+                    <div id="most-view-properties" data-aos="fade-left" data-aos-duration="1000">
                         <Swiper
                             slidesPerView={4}
                             // loop={true}
@@ -959,7 +964,7 @@ const HomePage = () => {
             <section id='agent_section'>
                 <div className="container">
 
-                    <div className='row'>
+                    <div className='row' data-aos="fade-up" data-aos-duration="1000">
                         <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
                             <div className='browse-agent'>
                                 <span>Browse By Agents
@@ -971,7 +976,7 @@ const HomePage = () => {
                                 </Link>
                             </div>
                         </div>
-                        <div className="mobile-headline-view">
+                        <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000" >
                             <MobileHeadline data={{
                                 start: " Browse By",
                                 center: "Agents",
@@ -1046,8 +1051,8 @@ const HomePage = () => {
             {/* ========== ARTICLE SECTION ========== */}
             <section id='articles'>
                 <div className='container'>
-                    <div className='article_headline'>
-                        <div data-aos="fade-right" data-aos-duration="1000">
+                    <div className='article_headline' data-aos="fade-right" data-aos-duration="1000">
+                        <div >
                             <h3>
                                 Our <span
                                 // className="hovertext3"
@@ -1070,7 +1075,7 @@ const HomePage = () => {
                             </Link>
                         </div>
                     </div>
-                    <div className="mobile-headline-view">
+                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
                         <MobileHeadline data={{
                             start: " Our",
                             center: "Articles",
@@ -1078,7 +1083,7 @@ const HomePage = () => {
                         }
                         } />
                     </div>
-                    <div className='row' id='article_cards'>
+                    <div className='row' id='article_cards' data-aos="fade-left" data-aos-duration="1000">
                         {isLoading ? (
                             // Show skeleton loading when data is being fetched
                             Array.from({ length: 4 }).map((_, index) => (

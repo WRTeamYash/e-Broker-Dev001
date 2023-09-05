@@ -2601,6 +2601,7 @@ option:hover {
 #all-prop-containt #all_prop_card_body {
   width: 100%;
   background-color: #fff;
+  border-radius: 0 12px 12px 0;
 }
 #all-prop-containt .all_prop_feature {
   background: var(--primary-color);

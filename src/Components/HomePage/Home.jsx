@@ -484,7 +484,7 @@ const HomePage = () => {
                                 <Skeleton width="100%" height={20} />
                             ) : (
                                 <>
-                                    <div className='feature_header' data-aos="fade-right" data-aos-duration="1000">
+                                    <div className='feature_header' data-aos="fade-right" data-aos-duration="2000">
                                         <span className='headline' >
                                             Discover Our <span className='highlight'>Featured</span> Listings
                                         </span>
@@ -499,7 +499,7 @@ const HomePage = () => {
                                             </Link>
                                         </div>
                                     </div>
-                                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
+                                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                                         <MobileHeadline data={{
                                             start: " Discover Our",
                                             center: "Featured",
@@ -512,7 +512,7 @@ const HomePage = () => {
                         </div>
 
                         <div className='feature-section-cards'>
-                            <div id='feature_cards' className='row' data-aos="fade-left" data-aos-duration="1000">
+                            <div id='feature_cards' className='row' data-aos="fade-left" data-aos-duration="2000">
                                 {isLoading ? (
                                     // Show skeleton loading when data is being fetched
 
@@ -541,7 +541,7 @@ const HomePage = () => {
 
 
             {/* APARTMENT SECTION */}
-            <section id='apartments' data-aos="fade-up" data-aos-duration="1000">
+            <section id='apartments' data-aos="fade-up" data-aos-duration="2000">
                 <div id='apartment_all_content'>
                     <div className="row">
                         <div className="col-sm-12 col-md-4 col-lg-4" id='view-all-apartment'>
@@ -564,7 +564,7 @@ const HomePage = () => {
 
                             </div>
                         </div>
-                        <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
+                        <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                             <MobileHeadline data={{
                                 start: "Explore",
                                 center: "Apartment",
@@ -647,7 +647,7 @@ const HomePage = () => {
                 <div className='properties_section'>
                     <div className='container'>
                         <div id='prop'>
-                            <div className='prop_header' data-aos="fade-right" data-aos-duration="1000">
+                            <div className='prop_header' data-aos="fade-right" data-aos-duration="2000">
                                 <div >
                                     <h3>
                                         Most <span
@@ -672,7 +672,7 @@ const HomePage = () => {
                                 </div>
 
                             </div>
-                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
+                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                                 <MobileHeadline data={{
                                     start: "Most",
                                     center: "Viewed",
@@ -683,7 +683,7 @@ const HomePage = () => {
                                 } />
                             </div>
                         </div>
-                        <div id='prop_cards' data-aos="fade-left" data-aos-duration="1000">
+                        <div id='prop_cards' data-aos="fade-left" data-aos-duration="2000">
                             <div className='cards_sec'>
                                 <div className='row' >
                                     {isLoading ? (
@@ -719,7 +719,7 @@ const HomePage = () => {
                 <div
                     className='container'
                 >
-                    <div className='prop_city_header' data-aos="fade-right" data-aos-duration="1000">
+                    <div className='prop_city_header' data-aos="fade-right" data-aos-duration="2000">
                         <div >
                             <h3>
                                 Properties <span
@@ -744,7 +744,7 @@ const HomePage = () => {
                             </Link>
                         </div>
                     </div>
-                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
+                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                         <MobileHeadline data={{
                             start: " Properties",
                             center: "Nearby",
@@ -754,7 +754,7 @@ const HomePage = () => {
                         }
                         } />
                     </div>
-                    <div data-aos="fade-left" data-aos-duration="1000">
+                    <div data-aos="fade-left" data-aos-duration="2000">
 
                         {isLoading ? (
                             // Show skeleton UI
@@ -866,7 +866,7 @@ const HomePage = () => {
             {/* ===== MOST FAV SECTION =======  */}
             <section id='most_fav'>
                 <div className='container'>
-                    <div className='most_fav_header' data-aos="fade-right" data-aos-duration="1000">
+                    <div className='most_fav_header' data-aos="fade-right" data-aos-duration="2000">
                         <div>
                             <h3>
                                 Most <span
@@ -887,7 +887,7 @@ const HomePage = () => {
                             </Link>
                         </div>
                     </div>
-                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
+                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                         <MobileHeadline data={{
                             start: " Most",
                             center: "Favorites",
@@ -896,7 +896,7 @@ const HomePage = () => {
                         }
                         } />
                     </div>
-                    <div id="most-view-properties" data-aos="fade-left" data-aos-duration="1000">
+                    <div id="most-view-properties" data-aos="fade-left" data-aos-duration="2000">
                         <Swiper
                             slidesPerView={4}
                             // loop={true}
@@ -961,7 +961,7 @@ const HomePage = () => {
             <section id='agent_section'>
                 <div className="container">
 
-                    <div className='row' data-aos="fade-up" data-aos-duration="1000">
+                    <div className='row' data-aos="fade-up" data-aos-duration="2000">
                         <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
                             <div className='browse-agent'>
                                 <span>Browse By Agents
@@ -973,7 +973,7 @@ const HomePage = () => {
                                 </Link>
                             </div>
                         </div>
-                        <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000" >
+                        <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000" >
                             <MobileHeadline data={{
                                 start: " Browse By",
                                 center: "Agents",
@@ -1048,7 +1048,7 @@ const HomePage = () => {
             {/* ========== ARTICLE SECTION ========== */}
             <section id='articles'>
                 <div className='container'>
-                    <div className='article_headline' data-aos="fade-right" data-aos-duration="1000">
+                    <div className='article_headline' data-aos="fade-right" data-aos-duration="2000">
                         <div >
                             <h3>
                                 Our <span
@@ -1072,7 +1072,7 @@ const HomePage = () => {
                             </Link>
                         </div>
                     </div>
-                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
+                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                         <MobileHeadline data={{
                             start: " Our",
                             center: "Articles",
@@ -1080,7 +1080,7 @@ const HomePage = () => {
                         }
                         } />
                     </div>
-                    <div className='row' id='article_cards' data-aos="fade-left" data-aos-duration="1000">
+                    <div className='row' id='article_cards' data-aos="fade-left" data-aos-duration="2000">
                         {isLoading ? (
                             // Show skeleton loading when data is being fetched
                             Array.from({ length: 4 }).map((_, index) => (

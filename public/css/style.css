@@ -1495,6 +1495,8 @@ button.learn-more .button-text {
   position: relative;
   bottom: 0;
   padding-bottom: 130px;
+  overflow-x: hidden;
+
 }
 
 #main_features {
@@ -1722,7 +1724,8 @@ button.learn-more .button-text {
 /* ========== PROPERTIE CSS ======================= */
 
 #main_properties {
-  /* background-color: var(--primary-background); */
+  overflow-x: hidden;
+
   position: relative;
   margin-top: -50px;
   z-index: 10;
@@ -1881,6 +1884,8 @@ div#prop_card_footer.card-footer {
   z-index: 10;
   padding: 50px 0;
   background: #fff;
+  overflow-x: hidden;
+
 }
 #city_con {
   margin: 0 8% 0 8%;
@@ -1996,6 +2001,7 @@ h3 {
   /* background-color: var(--primary-background); */
   height: fit-content;
   margin: 60px 0;
+  overflow-x: hidden;
 }
 
 .most_fav_header {
@@ -2023,7 +2029,7 @@ h3 {
 /* =========== AGENT SECTION CSS =================== */
 
 #agent_section {
-  /* height: 60vh; */
+ overflow-x: hidden;
   overflow: hidden;
   background-color: #fff;
 }

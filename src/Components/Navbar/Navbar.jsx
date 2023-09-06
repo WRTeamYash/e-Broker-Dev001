@@ -136,7 +136,7 @@ const Nav = () => {
                                         </li>
                                     </Link>
                                     <li className="nav-item">
-                                        <a className="nav-link " to="/">About Us</a>
+                                        <Link className="nav-link" href="/about-us">About Us</Link>
                                     </li>
                                 </ul>
                             </div>

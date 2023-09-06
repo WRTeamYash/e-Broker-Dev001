@@ -39,7 +39,6 @@
   /* APARTMENT CSS END  */
   .horizontal_card #prop_card_img {
     height: 100%;
-    /* width: 50%; */
   }
   .horizontal_card #main_prop_card_body .prop_price{
     margin-top: 165px;
@@ -100,6 +99,9 @@
   }
   #prop_cards {
     top: 0;
+  }
+  .horizontal_card .image_div{
+    border-radius: 12px 12px 0 0px;
   }
   .horizontal_card #main_prop_card {
     flex-direction: column;
@@ -302,6 +304,9 @@
   .horizontal_card #main_prop_card{
     flex-direction: column ;
   }
+  .horizontal_card .image_div{
+    border-radius: 12px 12px 0 0px;
+  }
   .horizontal_card #prop_card_img {
     border-radius: 12px 12px 0 0 !important;
   }
@@ -465,16 +470,19 @@
     display: none;
   }
   .horizontal_card #main_prop_card{
-    flex-direction: column;
+    flex-direction: column ;
+  }
+  .horizontal_card .image_div{
+    border-radius: 12px 12px 0 0px;
   }
   .horizontal_card #prop_card_img {
     border-radius: 12px 12px 0 0 !important;
   }
-  .horizontal_card #main_prop_card_body .prop_like {
+.horizontal_card #main_prop_card_body .prop_like {
     right: 10px;
     top: 10px;
   }
- .horizontal_card .main_prop_card_body  {
+.horizontal_card #main_prop_card_body .prop_sell {
     margin-top: -60px;
   }
   .horizontal_card #main_prop_card_body .prop_price {
@@ -600,16 +608,19 @@
     display: none;
   }
   .horizontal_card #main_prop_card{
-    flex-direction: column;
+    flex-direction: column ;
+  }
+  .horizontal_card .image_div{
+    border-radius: 12px 12px 0 0px;
   }
   .horizontal_card #prop_card_img {
     border-radius: 12px 12px 0 0 !important;
   }
-  .horizontal_card #main_prop_card_body .prop_like {
+.horizontal_card #main_prop_card_body .prop_like {
     right: 10px;
     top: 10px;
   }
-  .horizontal_card #main_prop_card_body .prop_sell {
+.horizontal_card #main_prop_card_body .prop_sell {
     margin-top: -60px;
   }
   .horizontal_card #main_prop_card_body .prop_price {
@@ -768,20 +779,23 @@
   .prop_header {
     display: none;
   }
-  #main_prop_card {
-    flex-direction: column;
+  .horizontal_card #main_prop_card{
+    flex-direction: column ;
   }
-  #prop_card_img {
+  .horizontal_card .image_div{
+    border-radius: 12px 12px 0 0px;
+  }
+  .horizontal_card #prop_card_img {
     border-radius: 12px 12px 0 0 !important;
   }
-  .prop_like {
+.horizontal_card #main_prop_card_body .prop_like {
     right: 10px;
     top: 10px;
   }
-  .prop_sell {
-    margin-top: -60px !important;
+.horizontal_card #main_prop_card_body .prop_sell {
+    margin-top: -60px;
   }
-  .prop_price {
+  .horizontal_card #main_prop_card_body .prop_price {
     right: 10px;
     margin-top: -60px !important;
   }

@@ -1378,7 +1378,7 @@ button.learn-more .button-text {
 .horizontal_card #main_prop_card_body {
   width: 100%;
   background-color: #fff;
-  border-radius: 0 12px 12px 0;
+  border-radius: 12px;
 }
 .horizontal_card #main_prop_card_body .prop_feature {
   background: var(--primary-color);

@@ -21,7 +21,7 @@ const FilterModal = ({ isOpen, onClose }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <form action="">
-                        <div className='filter-button-box-modal'>
+                        {/* <div className='filter-button-box-modal'>
                             <ButtonGroup className='modal-btn-grup'>
                                 <ul className="nav nav-tabs" id="props-tabs-modal">
                                     <li className="">
@@ -39,7 +39,7 @@ const FilterModal = ({ isOpen, onClose }) => {
                                     </li>
                                 </ul>
                             </ButtonGroup>
-                        </div>
+                        </div> */}
                         <div className='first-grup'>
                             <div className='prop-type-modal'>
                                 <span>Propertie Type</span>

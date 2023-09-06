@@ -1,4 +1,5 @@
 
+"use client"
 import { store } from '@/store/store';
 import localeTranslations from './locale/en.json';
 import { useSelector } from 'react-redux';
@@ -19,7 +20,7 @@ import { useSelector } from 'react-redux';
 // };
 
 export const translate = (label) => {
-    const state = store.getState();
+  const state = store.getState();
   const langLabel = state.Language.languages.file_name[label];
 
   // const langLabel = useSelector((state) => state.Language.languages.file_name[label]);

@@ -120,7 +120,7 @@ const Nav = () => {
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item > <Link href="/properties/all-properties/">{translate("allProperties")}</Link></Dropdown.Item>
+                                            <Dropdown.Item ><Link href="/properties/all-properties/">{translate("allProperties")}</Link></Dropdown.Item>
                                             <Dropdown.Item><Link href="/featured-properties">{translate("featuredProp")}</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/most-viewed-properties">{translate("mostViewedProp")}</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/properties-nearby-city">{translate("nearbyCities")}</Link></Dropdown.Item>

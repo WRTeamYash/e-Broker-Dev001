@@ -3,6 +3,7 @@ import React from 'react'
 import { Card } from 'react-bootstrap'
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import adminlogo from "@/assets/Images/Superman.jpeg"
+import { translate } from '@/utils';
 
 
 const ArticleHorizonatalCard = ({ ele, expandedStates, index }) => {
@@ -36,7 +37,7 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index }) => {
                                     <div className="article-readmore">
                                         <Link href="/article-deatils/[slug]" as={`/article-deatils/${ele.id}`} passHref>
                                             <button className="article-readmore-button">
-                                                Show More <AiOutlineArrowRight className="article-arrow-icon" size={18} />
+                                               {translate("showMore")} <AiOutlineArrowRight className="article-arrow-icon" size={18} />
                                             </button>
                                         </Link>
                                     </div>
@@ -49,7 +50,7 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index }) => {
                             <img src={adminlogo.src} alt="" className="article-admin" />
                         </div>
                         <div className="article-footer-text">
-                            <span className="article-byadmin">By Admin</span>
+                            <span className="article-byadmin">{translate("byAdmin")}</span>
                             <p>1 day ago</p>
                         </div>
                     </div>

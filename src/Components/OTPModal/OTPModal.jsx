@@ -12,6 +12,7 @@ import { signupLoaded } from '../../store/reducer/authSlice'; // Update the impo
 
 import { useRouter } from 'next/router';
 import { GetFeturedListingsApi } from '@/store/actions/campaign';
+import { translate } from '@/utils';
 
 const OTPModal = ({ isOpen, onClose, phonenum }) => {
     
@@ -181,16 +182,16 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                 backdrop="static"
             >
                 <Modal.Header>
-                    <Modal.Title>Verification</Modal.Title>
+                    <Modal.Title>{translate("verification")}</Modal.Title>
                     <RiCloseCircleLine className='close-icon' size={40} onClick={onClose} />
                 </Modal.Header>
                 <Modal.Body>
                     <form>
 
                         <div className='modal-body-heading'>
-                            <h4>OTP Verification Code</h4>
+                            <h4>{translate("otpVerification")}</h4>
                             <span>
-                                Enter OTP code sent to {phonenum}
+                              {translate("enterOtp")} {phonenum}
                             </span>
                         </div>
                         <div className='userInput'>
@@ -213,19 +214,19 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                         <div className='resend-code'>
                             {resendTimer > 0 ? (
                                 <div>
-                                    <span className='resend-text'> Resend Code in
+                                    <span className='resend-text'> {translate("resendCodeIn")}
 
                                     </span>
-                                    <span className='resend-time'> {resendTimer} seconds
+                                    <span className='resend-time'> {resendTimer} {translate("seconds")}
                                     </span>
                                 </div>
                             ) : (
-                                <span id='re-text' onClick={handleResendOTP}>Resend OTP</span>
+                                <span id='re-text' onClick={handleResendOTP}>{translate("resendOtp")}</span>
                             )}
                         </div>
                         <div className='continue'>
                             <button type='submit' className='continue-button' onClick={handleConfirm}>
-                                Confirm
+                               {translate("confirm")}
                             </button>
                         </div>
 

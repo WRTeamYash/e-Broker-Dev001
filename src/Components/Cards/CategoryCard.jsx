@@ -1,3 +1,4 @@
+import { translate } from '@/utils'
 import React from 'react'
 import { Card } from 'react-bootstrap'
 
@@ -12,7 +13,7 @@ const CategoryCard = ({ ele }) => {
                         </div>
                         <div id='apart_name'>
                             {ele.category}
-                            <div id='propertie_count'>{ele.properties_count} Properties</div>
+                            <div id='propertie_count'>{ele.properties_count} {translate("properties")}</div>
                         </div>
                     </div>
                 </Card.Body>

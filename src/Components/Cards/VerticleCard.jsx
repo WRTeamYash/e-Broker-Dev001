@@ -1,6 +1,7 @@
 "use client"
 import { AddFavourite } from '@/store/actions/campaign';
 import { settingsData } from '@/store/reducer/settingsSlice';
+import { translate } from '@/utils';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
@@ -9,7 +10,7 @@ import { useSelector } from 'react-redux';
 function VerticalCard({ ele }) {
     // console.log(ele)
     const priceSymbol = useSelector(settingsData)
-    const CurrencySymbol = priceSymbol.currency_symbol
+    const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
 
     const isLoggedIn = useSelector((state) => state.User_signup);
     // console.log(isLoggedIn)
@@ -68,7 +69,7 @@ function VerticalCard({ ele }) {
                 <div className="card-img-overlay">
                     {ele.promoted ? (
                         <span className='feature_tag'>
-                            Feature
+                          {translate("feature")}
                         </span>
                     ) : null}
 

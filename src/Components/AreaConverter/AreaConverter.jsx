@@ -1,4 +1,5 @@
 "use client"
+import { translate } from '@/utils';
 import React, { useState } from 'react';
 // import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -62,20 +63,20 @@ const AreaConverter = ({ isOpen, onClose }) => {
                 className='areaConvert-modal'
             >
                 <Modal.Header>
-                    <Modal.Title>Area Converter</Modal.Title>
+                    <Modal.Title>{translate("areaConverter")}</Modal.Title>
                     <RiCloseCircleLine className='close-icon' size={40} onClick={onClose} />
                 </Modal.Header>
                 <Modal.Body>
                     <div className='modal-body-heading'>
-                        <h4>Convert Sq. ft to Sq. m</h4>
+                        <h4>{translate("sqftTosqm")}</h4>
                         <span>
-                            Enter the value and select desired unit
+                          {translate("enterTheValue&desiredUnit")}
                         </span>
                     </div>
                     <div className='area-conrt-fields'>
                         <div className='sq-ft'>
                             <label>
-                                from:
+                            {translate("form")}
                             </label>
                             <div className="btn-group" role="group">
 
@@ -100,7 +101,7 @@ const AreaConverter = ({ isOpen, onClose }) => {
                         <div className='sq-ft'>
 
                             <label>
-                                to:
+                            {translate("to")}
                             </label>
                             <div>
 
@@ -108,7 +109,7 @@ const AreaConverter = ({ isOpen, onClose }) => {
                                     // value={toUnit} 
                                     onChange={handleToUnitChange}
                                     id='sq-m'>
-                                    <option value="">Choose Value</option>
+                                    <option value="">{translate("chooseValue")}</option>
                                     {Object.keys(unitData).map((unitKey) => (
                                         <option key={unitKey} value={unitKey}>
                                             {unitData[unitKey].name}
@@ -131,7 +132,7 @@ const AreaConverter = ({ isOpen, onClose }) => {
                     )}
                 </Modal.Body>
                 <Modal.Footer className='area-footer'>
-                    <button className='convert-button' onClick={convertValue}>Convert</button>
+                    <button className='convert-button' onClick={convertValue}>{translate("convert")}</button>
 
                 </Modal.Footer>
             </Modal >

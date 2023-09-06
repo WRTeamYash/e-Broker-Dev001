@@ -7,6 +7,7 @@ import PhoneInput from 'react-phone-number-input'
 import OTPModal from '../OTPModal/OTPModal';
 import validator from 'validator'
 import { toast } from 'react-hot-toast';
+import { translate } from '@/utils';
 
 const LoginModal = ({ isOpen, onClose }) => {
     const [showOtpModal, setShowOtpModal] = useState(false);
@@ -43,20 +44,20 @@ const LoginModal = ({ isOpen, onClose }) => {
                 className='login-modal'
             >
                 <Modal.Header>
-                    <Modal.Title>Login/Register</Modal.Title>
+                    <Modal.Title>{translate("login&Regiser")}</Modal.Title>
                     <RiCloseCircleLine className='close-icon' size={40} onClick={onClose} />
                 </Modal.Header>
                 <Modal.Body>
                     <form>
 
                         <div className='modal-body-heading'>
-                            <h4>Enter Your Mobile Number</h4>
+                            <h4>{translate("enterMobile")}</h4>
                             <span>
-                                We will send you a confirmation code
+                            {translate("sendCode")}
                             </span>
                         </div>
                         <div className="mobile-number">
-                            <label htmlFor="phone">Phone Number</label>
+                            <label htmlFor="phone">{translate("phoneNumber")}</label>
                             <PhoneInput
                                 defaultCountry='IN'
                                 disabledCountryCode="true"
@@ -66,14 +67,14 @@ const LoginModal = ({ isOpen, onClose }) => {
                             />
                         </div>
                         <div className='continue'>
-                            <button type='submit' className='continue-button' onClick={onSignUp}>Continue</button>
+                            <button type='submit' className='continue-button' onClick={onSignUp}>{translate("continue")}</button>
                         </div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
                     <span>
-                        By clicking continue you agree to our <a href='/terms&condition'>
-                            Terms & Conditions </a> <span className='mx-1'> and </span> <a href='/privacy-policy'> Privacy Policy </a>
+                    {translate("byclick")} <a href='/terms&condition'>
+                    {translate("terms&condition")}</a> <span className='mx-1'> {translate("and")} </span> <a href='/privacy-policy'> {translate("privacyPolicy")} </a>
                     </span>
                 </Modal.Footer>
 

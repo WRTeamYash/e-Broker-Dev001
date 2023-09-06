@@ -9,6 +9,7 @@ import VerticalCardSkeleton from '@/Components/Skeleton/VerticalCardSkeleton';
 import ReactPaginate from 'react-paginate';
 import Loader from '@/Components/Loader/Loader';
 import { useSelector } from 'react-redux';
+import { translate } from '@/utils';
 
 const Index = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -60,7 +61,7 @@ const Index = () => {
 
     return (
         <>
-            <Breadcrumb title="Featured All Properties" />
+            <Breadcrumb title={translate("featurdAllProp")} />
             <section id='featured_prop_section'>
                 <div className='container'>
                     <div id='feature_cards' className='row'>

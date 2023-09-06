@@ -4,8 +4,10 @@ import {persistStore, persistReducer} from 'redux-persist'
 // import storage from '../utils/storage';
 import settingsReducer from "./reducer/settingsSlice"
 import authReducer from './reducer/authSlice';
+import languageSlice from './reducer/languageSlice';
 import api from './middleware/api'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+
 
 const persistConfig = {
   key: 'root',
@@ -14,7 +16,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   Settings: settingsReducer,
   User_signup: authReducer,
-  // Update_profile: updateProfileReducer
+  Language: languageSlice, // Import the reducer correctly
  
 });
 
@@ -23,6 +25,7 @@ export const store = configureStore({
   middleware: [
     api
   ]
+  
 })
 
 export const persistor = persistStore(store);

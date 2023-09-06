@@ -10,15 +10,17 @@ import appstore from "../../assets/appStore.png"
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { settingsData } from '@/store/reducer/settingsSlice';
+import { languageLoaded } from '@/store/reducer/languageSlice';
+import { translate } from '@/utils';
 
 
 
 
 const Footer = () => {
 
+
     const systemData = useSelector(settingsData)
     const webdata = systemData && systemData
-    console.log(webdata)
     return (
         <section id='footer'>
             <div className='container'>
@@ -29,19 +31,19 @@ const Footer = () => {
                                 <img src={eBroker.src} alt="eBroker_logo" />
                             </div>
                             <div>
-                                <FiMail size={25} /> <span className='footer_span'>Email</span> <br />
-                                <span className='footer_span_value'>{webdata.company_email}</span>
+                                <FiMail size={25} /> <span className='footer_span'>{translate("email")}</span> <br />
+                                <span className='footer_span_value'>{webdata && webdata.company_email}</span>
                             </div>
                             <div>
-                                <FiPhone size={25} /> <span className='footer_span'>Contact one</span> <br />
-                                <span className='footer_span_value'>{webdata.company_tel1}</span>
+                                <FiPhone size={25} /> <span className='footer_span'>{translate("contactOne")}</span> <br />
+                                <span className='footer_span_value'>{webdata && webdata.company_tel1}</span>
                             </div>
                             <div>
-                                <FiPhone size={25} /> <span className='footer_span'>Contact Two</span> <br />
-                                <span className='footer_span_value'>{webdata.company_tel2}</span>
+                                <FiPhone size={25} /> <span className='footer_span'>{translate("contactTwo")}</span> <br />
+                                <span className='footer_span_value'>{webdata && webdata.company_tel2}</span>
                             </div>
                             <div>
-                                <h4> Follow Us</h4>
+                                <h4> {translate("followUs")}</h4>
                                 <div id='follow_us'>
                                     <a href="https://www.facebook.com/wrteam.in/"  target="_blank">
                                     <CiFacebook size={28} />
@@ -62,7 +64,7 @@ const Footer = () => {
                     <div className='col-12 col-md-6 col-lg-3' >
                         <div id='footer_prop_section'>
                             <div id='footer_headlines'>
-                                <span>Properties</span>
+                                <span>{translate("properties")}</span>
                             </div>
                             <div className='prop_links'>
                                 <Link href="/properties/all-properties">
@@ -103,7 +105,7 @@ const Footer = () => {
                     <div className='col-12 col-md-6 col-lg-3' >
                         <div id='footer_page_section'>
                             <div id='footer_headlines'>
-                                <span> Pages</span>
+                                <span>{translate("pages")}</span>
                             </div>
                             <div className='page_links'>
                                 <Link href="/subscription-plan">
@@ -131,7 +133,7 @@ const Footer = () => {
                     <div className='col-12 col-md-6 col-lg-3'>
                         <div id='footer_download_section'>
                             <div id='footer_headlines'>
-                                <span>Download Apps</span>
+                                <span>{translate("downloadApps")}</span>
                             </div>
                             <div className='download_app_desc'>
                                 <span>Get the latest resources for downloading, installing, and updating eBroker app. Select your device platform and Use Our app.</span>

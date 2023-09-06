@@ -14,6 +14,7 @@ import Skeleton from 'react-loading-skeleton'
 import ArticleCardSkeleton from '@/Components/Skeleton/ArticleCardSkeleton'
 import HorizontalCard from '@/Components/Cards/HorizontalCard'
 import ArticleHorizonatalCard from '@/Components/Cards/ArticleHorizonatalCard'
+import { translate } from '@/utils'
 
 
 
@@ -48,7 +49,7 @@ const Articles = () => {
 
     return (
         <>
-            <Breadcrumb title='Articles' />
+            <Breadcrumb title={translate("articles")} />
             <div className='all-articles'>
 
                 <div id='all-articles-content'>
@@ -60,7 +61,7 @@ const Articles = () => {
                                         <div className="card">
                                             <div className="card-body" id='all-article-headline-card'>
                                                 <div>
-                                                    <span>{total} Articles Found  </span>
+                                                    <span>{total} {translate("articleFound")} </span>
                                                 </div>
                                                 <div className='grid-buttons'>
                                                     <button className='mx-3' id='layout-buttons' onClick={() => setGrid(false)}>
@@ -129,7 +130,7 @@ const Articles = () => {
                                     <div className='cate-card'>
                                         <div className="card">
                                             <div className="card-header">
-                                                Categories
+                                                {translate("categories")}
                                             </div>
                                             <div className="card-body">
                                                 <div className='cate-list'>

@@ -3,6 +3,7 @@ import React from 'react'
 import { Card } from 'react-bootstrap'
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import adminlogo from "@/assets/Images/Superman.jpeg"
+import { translate } from '@/utils';
 
 
 const ArticleCard = ({ ele, expandedStates, index }) => {
@@ -40,7 +41,7 @@ const ArticleCard = ({ ele, expandedStates, index }) => {
                                             <button
                                                 className='readmore'
                                             >
-                                                Show More
+                                                {translate("showMore")}
                                                 <AiOutlineArrowRight className="mx-2" size={18} />
                                             </button>
                                         </Link>
@@ -55,7 +56,7 @@ const ArticleCard = ({ ele, expandedStates, index }) => {
                         <img src={adminlogo.src} alt="" className='admin' />
                     </div>
                     <div className='article_footer_text'>
-                        <span className='byadmin'> By Admin
+                        <span className='byadmin'> {translate("byadmin")}
                         </span>
                         <p>1 day ago</p>
                     </div>

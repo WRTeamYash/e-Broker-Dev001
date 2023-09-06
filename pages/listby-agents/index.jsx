@@ -7,6 +7,7 @@ import { FiArrowRightCircle } from 'react-icons/fi'
 import Loader from '@/Components/Loader/Loader'
 import AgentCard from '@/Components/Cards/AgentCard'
 import AgentCardSkeleton from '@/Components/Skeleton/AgentCardSkeleton'
+import { translate } from '@/utils'
 
 
 
@@ -73,7 +74,7 @@ const index = () => {
     ]
     return (
         <>
-            <Breadcrumb title="All Agents" />
+            <Breadcrumb title={translate("allAgents")} />
             <section id='all_agents_section'>
                 <div className='container'>
                     <div id='feature_cards' className='row'>

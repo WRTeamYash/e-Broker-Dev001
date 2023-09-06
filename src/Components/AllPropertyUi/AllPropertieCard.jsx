@@ -1,5 +1,6 @@
 import { AddFavourite } from '@/store/actions/campaign'
 import { settingsData } from '@/store/reducer/settingsSlice'
+import { translate } from '@/utils'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap'
@@ -10,7 +11,7 @@ import { useSelector } from 'react-redux'
 const AllPropertieCard = ({ ele }) => {
 
     const priceSymbol = useSelector(settingsData)
-    const CurrencySymbol = priceSymbol.currency_symbol
+    const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
 
     const isLoggedIn = useSelector((state) => state.User_signup);
     console.log(isLoggedIn)
@@ -68,7 +69,7 @@ const AllPropertieCard = ({ ele }) => {
 
                     {ele.promoted ? (
                         <span className='all_prop_feature'>
-                            Feature
+                           {translate("feature")}
                         </span>
                     ) : null}
 

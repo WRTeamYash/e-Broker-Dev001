@@ -2,10 +2,9 @@
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Loader from '@/Components/Loader/Loader'
 import { settingsData } from '@/store/reducer/settingsSlice'
+import { translate } from '@/utils'
 import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
-
-
 import { useSelector } from 'react-redux'
 
 
@@ -29,7 +28,7 @@ const page = () => {
 
     return (
         <>
-            <Breadcrumb title="Privacy Policy" />
+            <Breadcrumb title={translate("privacyPolicy")}/>
             <section id="privacySect">
                 <div className="container">
                     <div className='card'>

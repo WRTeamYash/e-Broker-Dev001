@@ -17,6 +17,7 @@ import { FiArrowRight } from 'react-icons/fi';
 import Loader from '@/Components/Loader/Loader';
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
+import { translate } from '@/utils';
 
 
 
@@ -133,7 +134,7 @@ const ArticleDeatils = (propertySlugData) => {
     };
     return (
         <>
-            <Breadcrumb title='Article Deatils' />
+            <Breadcrumb title={translate("articleDeatils")} />
             <div className='all-articles'>
 
                 <div id='all-articles-deatil-content'>

@@ -7,7 +7,7 @@ const GET_PROPETRES ="get_property"
 const GET_ARTICLES ="get_articles"
 const GET_COUNT_BY_CITIES_CATEGORIS ="get_count_by_cities_categoris"
 const ADD_FAVOURITE ="add_favourite"
-
+const GET_LANGUAGES = "get_languages"
 
 
 
@@ -157,6 +157,21 @@ export const addFavourite = (property_id, type) => {
             type:type
         },
         authorizationHeader: true,
+
+    }
+}
+
+// GET_LANGUAGES
+
+export const getLanguages = (language_code, web_language_file) => {
+    return {
+        url: `${GET_LANGUAGES}`,
+        method: "GET",
+        params: {
+            language_code:language_code,
+            web_language_file:web_language_file
+        },
+        authorizationHeader: false,
 
     }
 }

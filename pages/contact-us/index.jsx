@@ -7,6 +7,7 @@ import { FiMail, FiPhoneCall } from 'react-icons/fi';
 import { MdLocationPin } from 'react-icons/md';
 import { PiFacebookLogoBold } from 'react-icons/pi';
 import { Toaster, toast } from 'react-hot-toast';
+import { translate } from '@/utils';
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
@@ -71,15 +72,15 @@ const ContactUs = () => {
 
     return (
         <>
-            <Breadcrumb title="Contact Us" />
+            <Breadcrumb title={translate("contactUs")} />
             <section id='contact-us'>
                 <div className='container'>
                     <div className="row" id='main-rows-cols'>
                         <div className='col-12 col-md-6 col-lg-8' id='left-side-contact-form'>
                             <div className="card contactus-card">
                                 <div className="card-header">
-                                    <h3>Have questions?</h3>
-                                    <span>get in touch!</span>
+                                    <h3>{translate("haveQue")}</h3>
+                                    <span>{translate("getInTouch")}</span>
                                 </div>
                                 <div className="card-body">
                                     <form ref={formRef} onSubmit={handleContactUsSubmit}>
@@ -87,7 +88,7 @@ const ContactUs = () => {
                                             <div className="col-sm-12 col-md-6">
                                                 {/* First Name */}
                                                 <div className="form-inputs">
-                                                    <label htmlFor="firstName">First Name</label>
+                                                    <label htmlFor="firstName">{translate("firstName")}</label>
                                                     <input
                                                         type="text"
                                                         className="form-custom-input"
@@ -101,7 +102,7 @@ const ContactUs = () => {
                                             <div className="col-sm-12 col-md-6">
                                                 {/* Last Name */}
                                                 <div className="form-inputs">
-                                                    <label htmlFor="lastName">Last Name</label>
+                                                    <label htmlFor="lastName">{translate("lastName")}</label>
                                                     <input
                                                         type="text"
                                                         className="form-custom-input"
@@ -115,7 +116,7 @@ const ContactUs = () => {
                                             <div className="col-sm-12 col-md-6">
                                                 {/* Email */}
                                                 <div className="form-inputs">
-                                                    <label htmlFor="email">Email</label>
+                                                    <label htmlFor="email">{translate("email")}</label>
                                                     <input
                                                         type="text"
                                                         className="form-custom-input"
@@ -129,7 +130,7 @@ const ContactUs = () => {
                                             <div className="col-sm-12 col-md-6">
                                                 {/* Subject */}
                                                 <div className="form-inputs">
-                                                    <label htmlFor="subject">Subject</label>
+                                                    <label htmlFor="subject">{translate("subject")}</label>
                                                     <input
                                                         type="text"
                                                         className="form-custom-input"
@@ -143,7 +144,7 @@ const ContactUs = () => {
                                             <div className="col-sm-12">
                                                 {/* Message */}
                                                 <div className="form-inputs">
-                                                    <label htmlFor="message">Message</label>
+                                                    <label htmlFor="message">{translate("message")}</label>
                                                     <textarea
                                                         rows={8}
                                                         className="form-custom-input-textarea"
@@ -157,7 +158,7 @@ const ContactUs = () => {
                                         </div>
                                         <div className='contact-submit'>
                                             <button className='contact-submit-button' type='submit'>
-                                                Submit
+                                            {translate("submit")}
                                             </button>
                                         </div>
                                     </form>
@@ -168,7 +169,7 @@ const ContactUs = () => {
                             <div className="card contact-info">
                                 <div className="card-header">
                                     <h3>
-                                        Contact Info
+                                    {translate("contactInfo")}
                                     </h3>
                                 </div>
                                 <div className="card-body">
@@ -209,7 +210,7 @@ const ContactUs = () => {
                                             </div>
                                         </div>
                                         <div className='col-12' id='contactus-socialPlatforms'>
-                                            <h3>Folow Us</h3>
+                                            <h3>Follow Us</h3>
                                             <div className="row">
                                                 <div className="col-sm-12 col-md-6 col-lg-3" id='social-platforms'>
                                                     <button className="social-platforms-icons"><PiFacebookLogoBold size={30} /></button>

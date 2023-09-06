@@ -1,5 +1,5 @@
 "use client"
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import { store, persistor } from '../src/store/store'
 import { PersistGate } from 'redux-persist/integration/react'
 import React, { useState } from 'react'
@@ -12,15 +12,17 @@ import 'react-loading-skeleton/dist/skeleton.css'
 // import "../public/css/responsiveStyle.css"
 
 import Head from 'next/head'
-import Header from '@/Components/Header/Header'
-import Footer from '@/Components/Footer/Footer'
+
 import { settingsLoaded } from '@/store/reducer/settingsSlice'
 import Loader from '@/Components/Loader/Loader'
 import { Toaster } from 'react-hot-toast'
+import Layout from '@/Components/Layout/Layout'
+
 // import Document, { Html, Head, Main, NextScript } from 'next/document';
 const manrope = Manrope({ subsets: ['latin'] })
 
 function MyApp({ Component, pageProps, data }) {
+
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
@@ -36,7 +38,6 @@ function MyApp({ Component, pageProps, data }) {
             })
 
     }, []);
-
     return (
         <Fragment>
 
@@ -52,19 +53,17 @@ function MyApp({ Component, pageProps, data }) {
 
             <Provider store={store}>
                 <PersistGate persistor={persistor}>
-                    <Header />
-                    {
-                        isLoading ?
-                            (
-                                // <Loader />
-                                <Loader />
-                            ) :
-                            (
+                        {
+                            isLoading ?
+                                (<Loader />
+                                ) :
+                                (
+                    <Layout>
+                                    <Component {...pageProps} data={data} />
+                    </Layout>
+                                )
+                        }
 
-                                <Component {...pageProps} data={data} />
-                            )
-                    }
-                    <Footer />
                     <Toaster />
                 </PersistGate>
             </Provider>

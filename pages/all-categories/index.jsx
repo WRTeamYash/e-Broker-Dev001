@@ -4,6 +4,7 @@ import CategoryCard from '@/Components/Cards/CategoryCard'
 import Loader from '@/Components/Loader/Loader'
 import CustomCategorySkeleton from '@/Components/Skeleton/CustomCategorySkeleton'
 import { GetCategorieApi } from '@/store/actions/campaign'
+import { translate } from '@/utils'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap'
@@ -31,7 +32,7 @@ const AllCategories = () => {
 
     return (
         <>
-            <Breadcrumb title="All Categories" />
+            <Breadcrumb title={translate("allCategories")} />
             <section id='view_all_cate_section'>
                 <div className='cate_section'>
                     <div className="container">

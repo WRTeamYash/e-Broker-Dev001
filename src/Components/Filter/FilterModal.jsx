@@ -6,6 +6,7 @@ import { RiSendPlane2Line } from 'react-icons/ri'
 import { GrRefresh } from 'react-icons/gr'
 // import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { translate } from '@/utils';
 const FilterModal = ({ isOpen, onClose }) => {
     return (
         <>
@@ -16,7 +17,7 @@ const FilterModal = ({ isOpen, onClose }) => {
                 className='filter-modal'
             >
                 <Modal.Header>
-                    <Modal.Title>Filter Properties</Modal.Title>
+                    <Modal.Title>{translate("filterProp")}</Modal.Title>
                     <RiCloseCircleLine className='close-icon' size={40} onClick={onClose} />
                 </Modal.Header>
                 <Modal.Body>
@@ -42,7 +43,7 @@ const FilterModal = ({ isOpen, onClose }) => {
                         </div> */}
                         <div className='first-grup'>
                             <div className='prop-type-modal'>
-                                <span>Propertie Type</span>
+                            <span>{translate("propTypes")}</span>
                                 <select className="form-select" aria-label="Default select">
                                     <option value="" defaultValue>Select Type</option>
                                     <option value="1">One</option>
@@ -51,7 +52,7 @@ const FilterModal = ({ isOpen, onClose }) => {
                                 </select>
                             </div>
                             <div className='prop-location-modal'>
-                                <span>Location</span>
+                            <span>{translate("selectYourLocation")}</span>
                                 <select className="form-select" aria-label="Default select">
                                     <option defaultValue >Select Location (Optional)</option>
                                     <option value="1">One</option>
@@ -62,7 +63,7 @@ const FilterModal = ({ isOpen, onClose }) => {
                         </div>
                         <div className="second-grup">
                             <div className='budget-price-modal'>
-                                <span>Budget(Price)</span>
+                            <span>{translate("budget")}</span>
                                 <div className='budget-inputs'>
                                     <input className='price-input' placeholder='Min Price' />
                                     <input className='price-input' placeholder='Max Price' />
@@ -71,24 +72,24 @@ const FilterModal = ({ isOpen, onClose }) => {
                         </div>
                         <div className="third-grup">
                             <div className='posted-since'>
-                                <span>Posted Since</span>
+                            <span>{translate("postedSince")}</span>
                                 <div className='posted-duration-modal'>
                                     <div className="form-check">
                                         <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked />
                                         <span className="form-check-label" htmlFor="flexRadioDefault1">
-                                            Anytime
+                                        {translate("anytime")}
                                         </span>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
                                         <span className="form-check-label" htmlFor="flexRadioDefault2">
-                                            Last Week
+                                        {translate("lastWeek")}
                                         </span>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" />
                                         <span className="form-check-label" htmlFor="flexRadioDefault3">
-                                            Yesterday
+                                        {translate("yesteraday")}
                                         </span>
                                     </div>
                                 </div>
@@ -102,13 +103,13 @@ const FilterModal = ({ isOpen, onClose }) => {
                     <div className='clear-filter-modal'>
                         <GrRefresh size={25} />
                         <button id='clear-filter-button'>
-                            Clear Filter
+                        {translate("clearFilter")}
                         </button>
                     </div>
                     <div className='apply-filter-modal'>
                         <RiSendPlane2Line size={25} />
                         <button id='apply-filter-button'>
-                            Apply Filter
+                        {translate("applyFilter")}
                         </button>
                     </div>
 

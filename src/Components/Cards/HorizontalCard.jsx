@@ -1,5 +1,6 @@
 import { AddFavourite } from '@/store/actions/campaign';
 import { settingsData } from '@/store/reducer/settingsSlice';
+import { translate } from '@/utils';
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
@@ -8,7 +9,7 @@ import { useSelector } from 'react-redux';
 const HorizontalCard = ({ ele }) => {
 
     const priceSymbol = useSelector(settingsData)
-    const CurrencySymbol = priceSymbol.currency_symbol
+    const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
     const isLoggedIn = useSelector((state) => state.User_signup);
     // console.log(isLoggedIn)
     // Initialize isLiked based on ele.is_favourite
@@ -68,7 +69,7 @@ const HorizontalCard = ({ ele }) => {
                 <div className="card-body" id='main_prop_card_body'>
                     {ele.promoted ? (
                         <span className='prop_feature'>
-                            Feature
+                            {translate("feature")}
                         </span>
                     ) : null}
                     <span className='prop_like'>

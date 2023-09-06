@@ -10,7 +10,7 @@ const VideoPlayerModal = ({ isOpen, onClose, data }) => {
         return tempDiv.textContent || tempDiv.innerText || '';
     };
     const videoData = data
-    console.log(videoData)
+    // console.log(videoData)
     return (
         <>
             <Modal show={isOpen} onHide={onClose}

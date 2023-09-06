@@ -15,12 +15,16 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { toast } from 'react-hot-toast';
 import { settingsData } from '@/store/reducer/settingsSlice';
+import { languageLoaded } from '@/store/reducer/languageSlice';
+import { translate } from '@/utils';
 
 
 
 const Nav = () => {
     const signupData = useSelector(userSignUpData);
     const settingData = useSelector(settingsData)
+    const LanguageList = settingData && settingData.languages;
+    const [selectedLanguage, setSelectedLanguage] = useState();
     const [show, setShow] = useState(false);
     const [headerTop, setHeaderTop] = useState(0);
     const [scroll, setScroll] = useState(0);
@@ -35,6 +39,16 @@ const Nav = () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
+    const handleLanguageChange = (languageCode) => {
+        console.log(languageCode); // Log the updated languageCode directly
+
+        languageLoaded(languageCode, "1", (response) => {
+            console.log(response)
+        },
+            (error) => {
+                console.log(error)
+            })
+    };
 
     const handleScroll = () => {
         setScroll(window.scrollY);
@@ -61,21 +75,21 @@ const Nav = () => {
 
     const handleLogout = () => {
         confirmAlert({
-            title: "Logout!",
-            message: "Are You sure !",
+            title: translate("logout"),
+            message: translate("areYouSure"),
             buttons: [
                 {
-                    label: "Yes",
+                    label: translate(yes),
                     onClick: () => {
                         logoutSuccess()
-                        toast.success("Logout Successfully")
+                        toast.success(translate("logoutSuccess"))
                     }
                 },
                 {
-                    label: "No",
+                    label: translate("no"),
                     onClick: () => {
                         // Optionally, you can perform some action here if the user clicks "No"
-                        toast.error("Logout Cancelled.");
+                        toast.error(translate("logoutcancel"));
                     }
                 }
             ]
@@ -98,45 +112,45 @@ const Nav = () => {
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                     <li className="nav-item">
-                                        <Link className="nav-link active" aria-current="page" href="/">Home</Link>
+                                        <Link className="nav-link active" aria-current="page" href="/">{translate("home")}</Link>
                                     </li>
                                     <Dropdown>
                                         <Dropdown.Toggle id="dropdown-basic">
-                                            Properties
+                                        {translate("properties")}
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item > <Link href="/properties/all-properties/">All Properties</Link></Dropdown.Item>
-                                            <Dropdown.Item><Link href="/featured-properties">Featured Properties</Link></Dropdown.Item>
-                                            <Dropdown.Item> <Link href="/most-viewed-properties">Most Viewed Properties</Link></Dropdown.Item>
-                                            <Dropdown.Item> <Link href="/properties-nearby-city">Nearby Cities Properties</Link></Dropdown.Item>
-                                            <Dropdown.Item><Link href="/mostfav-properties">Most Favorites Properties </Link></Dropdown.Item>
-                                            <Dropdown.Item><Link href="/listby-agents"></Link>List by Agents</Dropdown.Item>
+                                            <Dropdown.Item > <Link href="/properties/all-properties/">{translate("allProperties")}</Link></Dropdown.Item>
+                                            <Dropdown.Item><Link href="/featured-properties">{translate("featuredProp")}</Link></Dropdown.Item>
+                                            <Dropdown.Item> <Link href="/most-viewed-properties">{translate("mostViewedProp")}</Link></Dropdown.Item>
+                                            <Dropdown.Item> <Link href="/properties-nearby-city">{translate("nearbyCities")}</Link></Dropdown.Item>
+                                            <Dropdown.Item><Link href="/mostfav-properties">{translate("mostFavProp")}</Link></Dropdown.Item>
+                                            <Dropdown.Item><Link href="/listby-agents"></Link>{translate("listByAgents")}</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <Dropdown>
                                         <Dropdown.Toggle id="dropdown-basic">
-                                            Pages
+                                            {translate("pages")}
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item><Link href="/subscription-plan">Subscription Plan</Link></Dropdown.Item>
-                                            <Dropdown.Item> <Link href="/articles">Articles</Link></Dropdown.Item>
-                                            <Dropdown.Item onClick={handleOpenAcModal}>Area Converter</Dropdown.Item>
+                                            <Dropdown.Item><Link href="/subscription-plan">{translate("subscriptionPlan")}</Link></Dropdown.Item>
+                                            <Dropdown.Item> <Link href="/articles">{translate("articles")}</Link></Dropdown.Item>
+                                            <Dropdown.Item onClick={handleOpenAcModal}>{translate("areaConverter")}</Dropdown.Item>
                                             <Dropdown.Item><Link href='/terms&condition'>
-                                                Terms & Condition
+                                               {translate("terms&condition")}
                                             </Link>
                                             </Dropdown.Item>
-                                            <Dropdown.Item> <Link href="/privacy-policy">Privacy Policy </Link></Dropdown.Item>
+                                            <Dropdown.Item> <Link href="/privacy-policy">{translate("privacyPolicy")}</Link></Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <Link href="/contact-us" id='a-tags-link'>
                                         <li className="nav-item nav-link">
-                                            Contact Us
+                                         {translate("contactUs")}
                                         </li>
                                     </Link>
                                     <li className="nav-item">
-                                        <Link className="nav-link" href="/about-us">About Us</Link>
+                                        <Link className="nav-link" href="/about-us">{translate("aboutUs")}</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -148,10 +162,11 @@ const Nav = () => {
                                         <Dropdown.Toggle id="dropdown-basic">
                                             Language
                                         </Dropdown.Toggle>
+                                        <Dropdown.Menu id='language' >
+                                            {LanguageList && LanguageList.map((ele, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleLanguageChange(ele.code)}>{ele.name}</Dropdown.Item>
 
-                                        <Dropdown.Menu id='language'>
-                                            <Dropdown.Item href="">English</Dropdown.Item>
-                                            <Dropdown.Item href="">Arabic</Dropdown.Item>
+                                            ))}
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <li className="nav-item">
@@ -160,12 +175,12 @@ const Nav = () => {
                                             signupData?.data === null ? (
                                                 <a className="nav-link" to="/" onClick={handleOpenModal}>
                                                     <RiUserSmileLine size={20} className='icon' />
-                                                    Login/Register
+                                                    {translate("login&Regiser")}
                                                 </a>
                                             ) :
                                                 // Check if mobile and firebase_id are present
                                                 signupData?.data?.data.mobile && signupData?.data?.data.firebase_id && signupData?.data?.data.name === "" ? (
-                                                    <span className="nav-link">Welcome, Guest</span>
+                                                    <span className="nav-link">{translate("welcmGuest")}</span>
                                                 ) :
                                                     // If name is present, show "Welcome, {name}"
                                                     signupData?.data?.data.name ? (
@@ -177,8 +192,8 @@ const Nav = () => {
                                                             </Dropdown.Toggle>
 
                                                             <Dropdown.Menu id='language'>
-                                                                <Dropdown.Item href="">Dashboard</Dropdown.Item>
-                                                                <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                                                                <Dropdown.Item href="">{translate("dashboard")}</Dropdown.Item>
+                                                                <Dropdown.Item onClick={handleLogout}>{translate("logout")}</Dropdown.Item>
                                                             </Dropdown.Menu>
                                                         </Dropdown>
                                                     ) : null // Handle any other cases or conditions here
@@ -188,7 +203,8 @@ const Nav = () => {
                                     {signupData?.data?.data.name && settingData && (
                                         <li className="nav-item">
                                             <button className="btn" id="addbutton">
-                                                <FiPlusCircle size={20} className='mx-2 add-nav-button' /> 
+                                                <FiPlusCircle size={20} className='mx-2 add-nav-button' />
+                                                {translate("addProp")}
                                             </button>
                                         </li>
                                     )}
@@ -263,8 +279,10 @@ const Nav = () => {
                                         Language
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu id='language'>
-                                        <Dropdown.Item href="" onClick={handleClose}>English</Dropdown.Item>
-                                        <Dropdown.Item href="" onClick={handleClose}>Arebic</Dropdown.Item>
+                                        {LanguageList?.map((ele, index) => (
+                                            <Dropdown.Item href="" onClick={handleClose}>{ele.name}</Dropdown.Item>
+
+                                        ))}
                                     </Dropdown.Menu>
                                 </Dropdown>
                                 <li className="nav-item">

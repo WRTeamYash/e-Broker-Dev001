@@ -6,6 +6,7 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import Loader from '../Loader/Loader';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import { useSelector } from 'react-redux';
+import { translate } from '@/utils';
 
 const Location = ({ isOpen, onClose, onSelectLocation }) => {
 
@@ -159,7 +160,7 @@ const Location = ({ isOpen, onClose, onSelectLocation }) => {
           <LoadScript googleMapsApiKey={GoogleMapApi} libraries={libraries}>
             <Modal show={isOpen} onHide={onClose} size="md" centered className='current_loction_modal' backdrop="static" keyboard={false}>
               <Modal.Header>
-                <Modal.Title>Select Your Current Location</Modal.Title>
+                <Modal.Title>{translate("selectYourCurrentLocation")}</Modal.Title>
                 <RiCloseCircleLine className='close-icon' size={40} onClick={onClose} />
               </Modal.Header>
               <Modal.Body>
@@ -173,7 +174,7 @@ const Location = ({ isOpen, onClose, onSelectLocation }) => {
               </Modal.Body>
               <Modal.Footer>
                 <div className='confirm_loc'>
-                  <button onClick={handleConfirmLocation}>Confirm</button>
+                  <button onClick={handleConfirmLocation}>{translate("confirm")}</button>
                 </div>
               </Modal.Footer>
             </Modal>

@@ -23,6 +23,7 @@ import ReactPaginate from 'react-paginate'
 import { AddFavourite, GetFeturedListingsApi } from '@/store/actions/campaign'
 import CustomHorizontalSkeleton from '@/Components/Skeleton/CustomHorizontalSkeleton'
 import { useSelector } from 'react-redux'
+import { translate } from '@/utils'
 
 
 
@@ -98,7 +99,7 @@ const AllProperties = ({ propertySlugData, pageIndex }) => {
   // console.log(CategoryListByPropertyData)
   return (
     <>
-      <Breadcrumb title="All Properties" />
+      <Breadcrumb title={translate("allProperties")} />
 
 
       <div id='all-prop-containt'>

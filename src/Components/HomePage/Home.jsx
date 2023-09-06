@@ -49,8 +49,11 @@ import { useSelector } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 import VideoPlayerModal from "../PlayerModal/VideoPlayerModal.jsx"
 import AOS from 'aos';
-import 'aos/dist/aos.css'; 
+import 'aos/dist/aos.css';
 import Aos from 'aos';
+import { translate } from '@/utils';
+import { languageLoaded } from '@/store/reducer/languageSlice';
+import localeTranslations from '../../utils/locale/en.json';
 
 
 
@@ -58,7 +61,7 @@ import Aos from 'aos';
 
 
 const HomePage = () => {
-
+   
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;
     outline: 1px solid #000;
@@ -68,7 +71,7 @@ const HomePage = () => {
     };
 
     const priceSymbol = useSelector(settingsData)
-    const CurrencySymbol = priceSymbol.currency_symbol
+    const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
 
 
 
@@ -331,20 +334,6 @@ const HomePage = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     return (
         <>
             <section id='mainheroImage'>
@@ -376,7 +365,6 @@ const HomePage = () => {
                             ) :
                             slider &&
                             slider.map((single, index) => {
-                                console.log(single)
                                 return (
                                     <Slide
                                         background={{
@@ -404,7 +392,7 @@ const HomePage = () => {
                                                         <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${single.propertys_id}`} passHref>
                                                             <button className='view_prop'>
                                                                 <FaEye size={20} className='icon' />
-                                                                view Properties
+                                                               {translate("viewAll")}
                                                             </button>
                                                         </Link>
 
@@ -442,14 +430,14 @@ const HomePage = () => {
                                 <a className="nav-link tab-active" aria-current="page" id="sellbutton" onClick={(e) => {
                                     e.target.classList.add('tab-active')
                                     document.getElementById('rentbutton').classList.remove('tab-active')
-                                }}>Sell</a>
+                                }}>{translate("sell")}</a>
                             </li>
                             <li className="">
                                 <a className="nav-link" onClick={(e) => {
                                     e.target.classList.add('tab-active')
                                     document.getElementById('sellbutton').classList.remove('tab-active')
 
-                                }} aria-current="page" id="rentbutton">Rent</a>
+                                }} aria-current="page" id="rentbutton">{translate("rent")}</a>
                             </li>
                         </ul>
                     </ButtonGroup>
@@ -463,8 +451,8 @@ const HomePage = () => {
                                 console.log("showFilterModal")
                                 setShowFilterModal(true)
 
-                            }}> <BiFilter size={25} /> Filter</button>
-                            <button className='find'>Search</button>
+                            }}> <BiFilter size={25} />{translate("filter")}</button>
+                            <button className='find'>{translate("search")}</button>
 
                         </div>
                     </div>
@@ -486,7 +474,7 @@ const HomePage = () => {
                                 <>
                                     <div className='feature_header' data-aos="fade-right" data-aos-duration="2000">
                                         <span className='headline' >
-                                            Discover Our <span className='highlight'>Featured</span> Listings
+                                        {translate("discoverOur")} <span className='highlight'>{translate("featured")}</span> {translate("listings")}
                                         </span>
                                         <div className='rightside_header'>
                                             <Link href="/featured-properties">
@@ -494,16 +482,16 @@ const HomePage = () => {
                                                     <span aria-hidden="true" className="circle">
                                                         <span className="icon arrow"></span>
                                                     </span>
-                                                    <span className="button-text">See All Properties</span>
+                                                    <span className="button-text">{translate("seeAllProp")}</span>
                                                 </button>
                                             </Link>
                                         </div>
                                     </div>
                                     <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                                         <MobileHeadline data={{
-                                            start: " Discover Our",
-                                            center: "Featured",
-                                            end: "Listings",
+                                            start: translate("discoverOur"),
+                                            center: translate("featured"),
+                                            end: translate("listings"),
                                             link: "/featured-properties"
                                         }} />
                                     </div>
@@ -552,12 +540,12 @@ const HomePage = () => {
                             >
                                 <div className='container' id='appartment_text'>
                                     <h1>
-                                        Explore Apartment Types
+                                       {translate("exploreApartment")}
                                     </h1>
                                     <Link href="/all-categories">
                                         <button className='view_apart'>
                                             <FaEye size={20} className='icon' />
-                                            See all categories
+                                            {translate("seeAllCate")}
                                         </button>
                                     </Link>
                                 </div>
@@ -566,9 +554,9 @@ const HomePage = () => {
                         </div>
                         <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                             <MobileHeadline data={{
-                                start: "Explore",
-                                center: "Apartment",
-                                end: "Types",
+                                start: translate("explore"),
+                                center: translate("apart"),
+                                end: translate("types"),
                                 link: "/all-categories"
 
                             }
@@ -650,13 +638,13 @@ const HomePage = () => {
                             <div className='prop_header' data-aos="fade-right" data-aos-duration="2000">
                                 <div >
                                     <h3>
-                                        Most <span
+                                        {translate("most")} <span
                                         // className="hovertext2"
                                         >
                                             <span
                                                 className='highlight'
-                                            > Viewed</span>
-                                        </span> Properties
+                                            > {translate("viewed")}</span>
+                                        </span> {translate("properties")}
                                     </h3>
                                 </div>
                                 <div className='rightside_prop_header'>
@@ -665,7 +653,7 @@ const HomePage = () => {
                                             <span aria-hidden="true" className="circle">
                                                 <span className="icon arrow"></span>
                                             </span>
-                                            <span className="button-text">See All Properties</span>
+                                            <span className="button-text">{translate("seeAllProp")}</span>
                                         </button>
                                     </Link>
 
@@ -674,9 +662,9 @@ const HomePage = () => {
                             </div>
                             <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                                 <MobileHeadline data={{
-                                    start: "Most",
-                                    center: "Viewed",
-                                    end: "Properties",
+                                    start: translate("most"),
+                                    center: translate("viewed"),
+                                    end: translate("properties"),
                                     link: "/most-viewed-properties"
 
                                 }
@@ -722,15 +710,13 @@ const HomePage = () => {
                     <div className='prop_city_header' data-aos="fade-right" data-aos-duration="2000">
                         <div >
                             <h3>
-                                Properties <span
-                                // className="hovertext3"
-                                >
+                                {translate("properties")} <span>
                                     <span
                                         // className="text" data-text="Nearby"
                                         className='highlight'
-                                        
-                                    >Nearby</span>
-                                </span> Cities
+
+                                    > {translate("nearby")}</span>
+                                </span>  {translate("cities")}
                             </h3>
                         </div>
                         <div className='rightside_prop_city_header'>
@@ -739,16 +725,16 @@ const HomePage = () => {
                                     <span aria-hidden="true" className="circle">
                                         <span className="icon arrow"></span>
                                     </span>
-                                    <span className="button-text">See All Properties</span>
+                                    <span className="button-text"> {translate("properties")}</span>
                                 </button>
                             </Link>
                         </div>
                     </div>
                     <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                         <MobileHeadline data={{
-                            start: " Properties",
-                            center: "Nearby",
-                            end: "Cities",
+                             start: translate("properties"),
+                             center: translate("nearby"),
+                             end: translate("cities"),
                             link: "/properties-nearby-city"
 
                         }
@@ -776,7 +762,7 @@ const HomePage = () => {
                                                     <div className="card-img-overlay">
                                                         <div id='city_img_headlines'>
                                                             <h4 className="card-title">{getNearByCitysData && getNearByCitysData[1].City}</h4>
-                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[1].Count} Properties</p>
+                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[1].Count} {translate("properties")}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -789,7 +775,7 @@ const HomePage = () => {
                                                     <div className="card-img-overlay">
                                                         <div id='city_img_headlines'>
                                                             <h4 className="card-title">{getNearByCitysData && getNearByCitysData[2].City}</h4>
-                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[2].Count} Properties</p>
+                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[2].Count} {translate("properties")}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -802,7 +788,7 @@ const HomePage = () => {
                                                     <div className="card-img-overlay">
                                                         <div id='city_img_headlines'>
                                                             <h4 className="card-title">{getNearByCitysData && getNearByCitysData[0].City} </h4>
-                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[0].Count} Properties </p>
+                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[0].Count} {translate("properties")} </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -819,7 +805,7 @@ const HomePage = () => {
                                                     <div className="card-img-overlay">
                                                         <div id='city_img_headlines'>
                                                             <h4 className="card-title">{getNearByCitysData && getNearByCitysData[5].City} </h4>
-                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[5].Count} </p>
+                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[5].Count} {translate("properties")}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -832,7 +818,7 @@ const HomePage = () => {
                                                     <div className="card-img-overlay">
                                                         <div id='city_img_headlines'>
                                                             <h4 className="card-title">{getNearByCitysData && getNearByCitysData[3].City}</h4>
-                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[3].Count} Properties</p>
+                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[3].Count} {translate("properties")}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -845,7 +831,7 @@ const HomePage = () => {
                                                     <div className="card-img-overlay">
                                                         <div id='city_img_headlines'>
                                                             <h4 className="card-title">{getNearByCitysData && getNearByCitysData[4].City}</h4>
-                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[4].Count} Properties</p>
+                                                            <p className="card-text">{getNearByCitysData && getNearByCitysData[4].Count} {translate("properties")}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -869,11 +855,11 @@ const HomePage = () => {
                     <div className='most_fav_header' data-aos="fade-right" data-aos-duration="2000">
                         <div>
                             <h3>
-                                Most <span
+                                {translate("most")} <span
                                 // className="hovertext3"
                                 >
-                                    <span className='highlight'>Favorites</span>
-                                </span> Properties
+                                    <span className='highlight'>{translate("fav")}</span>
+                                </span> {translate("properties")}
                             </h3>
                         </div>
                         <div className='rightside_most_fav_header'>
@@ -882,16 +868,16 @@ const HomePage = () => {
                                     <span aria-hidden="true" className="circle">
                                         <span className="icon arrow"></span>
                                     </span>
-                                    <span className="button-text">See All Properties</span>
+                                    <span className="button-text">{translate("seeAllProp")}</span>
                                 </button>
                             </Link>
                         </div>
                     </div>
                     <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                         <MobileHeadline data={{
-                            start: " Most",
-                            center: "Favorites",
-                            end: "Properties",
+                           start: translate("most"),
+                           center: translate("fav"),
+                           end: translate("properties"),
                             link: "/mostfav-properties"
                         }
                         } />
@@ -964,19 +950,19 @@ const HomePage = () => {
                     <div className='row' >
                         <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
                             <div className='browse-agent'>
-                                <span>Browse By Agents
+                                <span>{translate("browseByAgents")}
                                 </span>
                                 <Link href="/listby-agents">
                                     <button className='mt-3'> <FiEye className="mx-2" size={25} />
-                                        View all Agent
+                                       {translate("viewAllAgents")}
                                     </button>
                                 </Link>
                             </div>
                         </div>
                         <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000" >
                             <MobileHeadline data={{
-                                start: " Browse By",
-                                center: "Agents",
+                                start: translate("browser"),
+                                center:translate("agents"),
                                 link: "/listby-agents"
                             }
                             } />
@@ -1051,13 +1037,13 @@ const HomePage = () => {
                     <div className='article_headline' data-aos="fade-right" data-aos-duration="2000">
                         <div >
                             <h3>
-                                Our <span
+                                {translate("our")} <span
                                 // className="hovertext3"
                                 >
                                     <span className='highlight'
-                                       
+
                                     // className="text" data-text="Articles"
-                                    >Articles</span>
+                                    >{translate("articles")}</span>
                                 </span>
                             </h3>
                         </div>
@@ -1067,15 +1053,15 @@ const HomePage = () => {
                                     <span aria-hidden="true" className="circle">
                                         <span className="icon arrow"></span>
                                     </span>
-                                    <span className="button-text">See All Properties</span>
+                                    <span className="button-text">{translate("seeAllProp")}</span>
                                 </button>
                             </Link>
                         </div>
                     </div>
                     <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                         <MobileHeadline data={{
-                            start: " Our",
-                            center: "Articles",
+                            start: translate("our"),
+                            center:translate("articles"),
                             link: "/articles"
                         }
                         } />

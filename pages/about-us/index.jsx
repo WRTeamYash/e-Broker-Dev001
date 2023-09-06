@@ -5,6 +5,7 @@ import { settingsData } from '@/store/reducer/settingsSlice'
 import { useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
+import { translate } from '@/utils'
 
 
 
@@ -33,7 +34,7 @@ const page = () => {
 
     return (
         <>
-            <Breadcrumb title="About Us" />
+            <Breadcrumb title={translate("aboutUs")} />
             <section id="termsSect">
                 <div className="container">
                     <div className='card'>

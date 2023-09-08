@@ -21,7 +21,7 @@ import { useSelector } from 'react-redux';
 
 export const translate = (label) => {
   const state = store.getState();
-  const langLabel = state.Language.languages.file_name;
+  const langLabel = state.Language.languages.file_name[label];
 
   // const langLabel = useSelector((state) => state.Language.languages.file_name[label]);
   const enTranslation = localeTranslations;

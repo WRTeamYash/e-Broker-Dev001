@@ -44,6 +44,9 @@ const Nav = () => {
 
         languageLoaded(languageCode, "1", (response) => {
             // console.log(response)
+            const currentLang = response && response.data.name
+            console.log(currentLang)
+            setSelectedLanguage(currentLang)
         },
             (error) => {
                 console.log(error)
@@ -160,7 +163,7 @@ const Nav = () => {
                                 <ul className="navbar-nav ml-auto">
                                     <Dropdown>
                                         <Dropdown.Toggle id="dropdown-basic">
-                                            Language
+                                        {selectedLanguage ? selectedLanguage : 'Language'}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu id='language' >
                                             {LanguageList && LanguageList.map((ele, index) => (

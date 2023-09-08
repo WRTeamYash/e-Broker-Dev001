@@ -7,12 +7,12 @@ import { useSelector } from 'react-redux'
 
 const Home = () => {
 
-// const lang = useSelector(languageData)
-// console.log("languageData",lang)
-//   // useSelector(languageData)  
-//   useEffect(()=>{
-//     console.log("render")
-//   },[lang]);
+const lang = useSelector(languageData)
+console.log("languageData",lang)
+  // useSelector(languageData)  
+  useEffect(()=>{
+    console.log("render")
+  },[lang]);
 
   return (
     <div>

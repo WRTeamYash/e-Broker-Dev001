@@ -79,7 +79,7 @@ const Nav = () => {
             message: translate("areYouSure"),
             buttons: [
                 {
-                    label: translate(yes),
+                    label: translate("yes"),
                     onClick: () => {
                         logoutSuccess()
                         toast.success(translate("logoutSuccess"))

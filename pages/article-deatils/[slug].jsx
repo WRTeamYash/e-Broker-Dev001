@@ -18,6 +18,8 @@ import Loader from '@/Components/Loader/Loader';
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
 import { translate } from '@/utils';
+import { useSelector } from 'react-redux';
+import { languageData } from '@/store/reducer/languageSlice';
 
 
 
@@ -32,7 +34,12 @@ const ArticleDeatils = (propertySlugData) => {
         // console.log(articleData)
     }, [propertySlugData])
 
-
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        // console.log("render")
+      },[lang]);
 
 
     const renderBullet = (index, className) => {

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { RiSendPlane2Line, RiHotelBedLine, RiParkingBoxLine, RiBuilding3Line, RiPlantLine, RiThumbUpFill } from 'react-icons/ri'
 import { AiOutlineArrowRight, AiOutlineHeart } from 'react-icons/ai'
 import { Card } from 'react-bootstrap'
-import { BiHomeSmile, BiTime } from 'react-icons/bi'
 import { CiLocationOn } from 'react-icons/ci'
 import PropImg01 from "@/assets/Images/Featured_List_4.jpg"
 import PropImg02 from "@/assets/Images/Featured_List_5.jpg"
@@ -12,7 +11,6 @@ import PropImg03 from "@/assets/Images/Featured_List_6.jpg"
 import PropImg04 from "@/assets/Images/Featured_List_7.jpg"
 import PropImg05 from "@/assets/Images/Featured_List_8.jpg"
 import cardImg from '@/assets/Images/Featured_List_1.jpg'
-import Image from 'next/image'
 import { FiCloudDrizzle, FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
 import Loader from '@/Components/Loader/Loader';
@@ -25,6 +23,8 @@ import { settingsData } from '@/store/reducer/settingsSlice'
 import { useSelector } from 'react-redux'
 import Map from '@/Components/GoogleMap/GoogleMap'
 import Skeleton from 'react-loading-skeleton'
+import { languageData } from '@/store/reducer/languageSlice'
+import { translate } from '@/utils'
 
 const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
     // console.log("similer data", propertySlugData2)
@@ -54,7 +54,13 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
             setImageURL(propertyData.threeD_image);
         }
     }, [propertyData]);
-
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        // console.log("render")
+      },[lang]);
+  
     useEffect(() => {
         if (imageURL) {
             pannellum.viewer('panorama', {
@@ -103,17 +109,17 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                 </div>
                             </div>
                             <div className='col-lg-6 col-md-4 col-sm-12 text-center' id='prop-main-image'>
-                                <Image src={PropImg03} className='middle-img' />
+                                <img src={PropImg03.src} className='middle-img' />
                                 <div className="img-overlay">
-                                    <button> See all Photos</button>
+                                    <button> {translate("seeAllPhotos")}</button>
                                 </div>
                             </div>
                             <div className='col-lg-3 col-md-4 col-sm-12' id='prop-right-images'>
                                 <div>
-                                    <Image src={PropImg04} className='right-imgs01' />
+                                    <img src={PropImg04.src} className='right-imgs01' />
                                 </div>
                                 <div>
-                                    <Image src={PropImg05} className='right-imgs02' />
+                                    <img src={PropImg05.src} className='right-imgs02' />
                                 </div>
                             </div>
                         </div>
@@ -121,7 +127,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                             <div className='col-12 col-md-12 col-lg-9' id='prop-deatls-card'>
                                 <div className="card about-propertie">
                                     <div className="card-header">
-                                        About Propertie
+                                        {translate("aboutProp")}
                                     </div>
                                     <div className="card-body">
                                         {propertyData && propertyData.description && (
@@ -143,7 +149,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                 </div>
                                 <div className="card " id='features-amenities'>
                                     <div className="card-header">
-                                        Features & Amenities
+                                    {translate("aboutProp")}
                                     </div>
                                     <div className="card-body">
 
@@ -156,7 +162,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                                     <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
                                                         <div id='specification'>
                                                             <div className='spec-icon'>
-                                                                <Image src={elem.image} width={20} height={16} />
+                                                                <img src={elem.image} width={20} height={16} />
                                                             </div>
                                                             <div id='specs-deatils'>
                                                                 <div>
@@ -182,22 +188,22 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                 </div>
                                 <div className='card' id='propertie_address'>
                                     <div className="card-header">
-                                        Address
+                                    {translate("feature&Amenties")}
                                     </div>
                                     <div className='card-body'>
                                         <div className="row" id='prop-address'>
                                             <div className="adrs">
                                                 <div>
-                                                    <span>Address</span>
+                                                    <span> {translate("address")}</span>
                                                 </div>
                                                 <div className=''>
-                                                    <span>City</span>
+                                                    <span> {translate("city")}</span>
                                                 </div>
                                                 <div className=''>
-                                                    <span>State</span>
+                                                    <span> {translate("state")}</span>
                                                 </div>
                                                 <div className=''>
-                                                    <span>Country</span>
+                                                    <span> {translate("country")}</span>
                                                 </div>
                                             </div>
                                             <div className="adrs02">
@@ -244,7 +250,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
 
                                     <div className='card' id='prop-video'>
                                         <div className="card-header">
-                                            Video
+                                        {translate("video")}
                                         </div>
                                         {/* {console.log(propertyData.video_link)}
                                         {console.log(propertyData.video_link.slice(17))}
@@ -291,7 +297,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
 
                                     <div className="card" id="prop-360-view">
                                         <div className="card-header">
-                                            360° Virtual Tour
+                                        {translate("vertualView")}
                                         </div>
                                         <div className="card-body">
 
@@ -329,7 +335,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                         <div className='owner-contact'>
                                             <div ><FiPhoneCall id='call-o' size={60} /></div>
                                             <div className='deatilss'>
-                                                <span className='o-d'>Call</span>
+                                                <span className='o-d'> {translate("call")}</span>
                                                 <span className='value'>{propertyData && propertyData.mobile}</span>
                                             </div>
 
@@ -337,7 +343,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                         <div className='owner-contact'>
                                             <div ><FiMail id='mail-o' size={60} /></div>
                                             <div className='deatilss'>
-                                                <span className='o-d'>Mail</span>
+                                                <span className='o-d'> {translate("mail")}</span>
                                                 <span className='value'>{propertyData && propertyData.email}</span>
                                             </div>
 
@@ -345,13 +351,13 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                         <div className='owner-contact'>
                                             <div ><FiMessageSquare id='chat-o' size={60} /></div>
                                             <div className='deatilss'>
-                                                <span className='o-d'>Chat</span>
-                                                <span className='value'>Start a chat</span>
+                                                <span className='o-d'> {translate("chat")}</span>
+                                                <span className='value'> {translate("startAChat")}</span>
                                             </div>
                                         </div>
                                         <div className='enquiry'>
-                                            <button className='enquiry-buttons'> <RiSendPlane2Line className='mx-1' size={20} /> Send Enquiry</button>
-                                            <button className='enquiry-buttons'> <RiThumbUpFill className='mx-1' size={20} />Interest</button>
+                                            <button className='enquiry-buttons'> <RiSendPlane2Line className='mx-1' size={20} />{translate("sendEnquiry")}</button>
+                                            <button className='enquiry-buttons'> <RiThumbUpFill className='mx-1' size={20} />{translate("intrest")}</button>
                                         </div>
                                     </div>
                                 </div>

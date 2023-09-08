@@ -6,11 +6,19 @@ import { useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { translate } from '@/utils'
+import { languageData } from '@/store/reducer/languageSlice'
 
 
 
 
 const page = () => {
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        // translate()
+        // console.log("about render")
+      },[lang]);
 
     const AboutUs = useSelector(settingsData)
     const AboutUsData = AboutUs?.about_us

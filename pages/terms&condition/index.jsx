@@ -5,6 +5,8 @@ import { settingsData } from '@/store/reducer/settingsSlice'
 import { useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
+import { translate } from '@/utils'
+import { languageData } from '@/store/reducer/languageSlice'
 
 
 
@@ -25,9 +27,15 @@ const page = () => {
         }, 2000);
     }, []);
 
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        // console.log("render")
+      },[lang]);
     return (
         <>
-            <Breadcrumb title="Terms & Condition" />
+            <Breadcrumb title={translate("terms&condition")} />
             <section id="termsSect">
                 <div className="container">
                     <div className='card'>

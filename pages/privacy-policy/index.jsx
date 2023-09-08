@@ -1,6 +1,7 @@
 'use client'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Loader from '@/Components/Loader/Loader'
+import { languageData } from '@/store/reducer/languageSlice'
 import { settingsData } from '@/store/reducer/settingsSlice'
 import { translate } from '@/utils'
 import React, { useEffect, useState } from 'react'
@@ -25,7 +26,12 @@ const page = () => {
             setIsLoading(false);
         }, 2000);
     }, []);
-
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        // console.log("render")
+      },[lang]);
     return (
         <>
             <Breadcrumb title={translate("privacyPolicy")}/>

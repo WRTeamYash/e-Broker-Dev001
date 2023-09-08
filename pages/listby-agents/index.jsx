@@ -1,6 +1,6 @@
 "use client"
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import agentimg from "@/assets/Images/Superman.jpeg"
 import { Card } from 'react-bootstrap'
 import { FiArrowRightCircle } from 'react-icons/fi'
@@ -8,12 +8,19 @@ import Loader from '@/Components/Loader/Loader'
 import AgentCard from '@/Components/Cards/AgentCard'
 import AgentCardSkeleton from '@/Components/Skeleton/AgentCardSkeleton'
 import { translate } from '@/utils'
+import { useSelector } from 'react-redux'
+import { languageData } from '@/store/reducer/languageSlice'
 
 
 
 const index = () => {
     const [isLoading, setIsLoading] = useState(false)
-
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        // console.log("render")
+      },[lang]);
     let agentsData = [
         {
             id: 1,

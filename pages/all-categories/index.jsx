@@ -4,16 +4,26 @@ import CategoryCard from '@/Components/Cards/CategoryCard'
 import Loader from '@/Components/Loader/Loader'
 import CustomCategorySkeleton from '@/Components/Skeleton/CustomCategorySkeleton'
 import { GetCategorieApi } from '@/store/actions/campaign'
+import { languageData } from '@/store/reducer/languageSlice'
 import { translate } from '@/utils'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap'
 import { MdOutlineVilla } from 'react-icons/md'
+import { useSelector } from 'react-redux'
 
 const AllCategories = () => {
+
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        translate()
+        // console.log("breadcrumb render")
+      },[lang]);
+
+
     const [isLoading, setIsLoading] = useState(false)
-
-
     // GET CATEGORIES
     const [getCategories, setGetCategories] = useState()
     useEffect(() => {

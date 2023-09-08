@@ -13,6 +13,8 @@ import AllPropertieCard from '@/Components/AllPropertyUi/AllPropertieCard'
 import ReactPaginate from 'react-paginate'
 import { GetFeturedListingsApi } from '@/store/actions/campaign'
 import CustomHorizontalSkeleton from '@/Components/Skeleton/CustomHorizontalSkeleton'
+import { useSelector } from 'react-redux'
+import { languageData } from '@/store/reducer/languageSlice'
 
 
 const AllProperties = () => {
@@ -27,51 +29,50 @@ const AllProperties = () => {
   const router = useRouter();
   const cateId = router.query
   // console.log(cateId)
+  const isLoggedIn = useSelector((state) => state.User_signup);
+  const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+     
+  const lang = useSelector(languageData)
+  // console.log("languageData",lang)
+    // useSelector(languageData)  
+    useEffect(()=>{
+      // console.log("render")
+    },[lang]);
+
+
   useEffect(() => {
     setIsLoading(true);
-    GetFeturedListingsApi(
-      "",
-      "",
-      "",
-      cateId,
-      "",
-      "",
-      "",
-      offsetdata.toString(),
-      limit.toString(),
-      "",
-      (response) => {
-        setTotal(response.total);
-        const propertyData = response.data;
-        setIsLoading(false);
-        setCategoryListByPropertyData(propertyData);
-        // console.log(CategoryListByPropertyData)
-      },
-      (error) => {
-        setIsLoading(false);
-        console.log(error);
-      }
-    );
-  }, [offsetdata]);
-
+   
+      GetFeturedListingsApi(
+        "",
+        "",
+        "",
+        cateId,
+        "",
+        "",
+        "",
+        offsetdata.toString(),
+        limit.toString(),
+        isLoggedIn ? userCurrentId : "",
+        (response) => {
+          setTotal(response.total);
+          const propertyData = response.data;
+          setIsLoading(false);
+          setCategoryListByPropertyData(propertyData);
+          // console.log(CategoryListByPropertyData)
+        },
+        (error) => {
+          setIsLoading(false);
+          console.log(error);
+        }
+      );
+    
+  }, [offsetdata, isLoggedIn]);
   const handlePageChange = (selectedPage) => {
     const newOffset = selectedPage.selected * limit;
     setOffsetdata(newOffset);
   };
 
-  // console.log("router", router)
-
-  // useEffect(() => {
-  //   if (propertySlugData && propertySlugData.data) {
-  //     // Update the state with the new data
-  //     setCategoryListByPropertyData(propertySlugData.data);
-  //     // console.log(propertySlugData.data)
-  //     // Turn off loading
-  //     setIsLoading(false);
-  //   }
-  // }, [propertySlugData]);
-
-  // console.log(CategoryListByPropertyData)
   return (
     <>
       <Breadcrumb title="All Properties" />

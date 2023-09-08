@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
 
 import { CiLocationOn } from 'react-icons/ci'
@@ -10,6 +10,8 @@ import { SlDocs } from 'react-icons/sl'
 import { BiHomeSmile, BiCctv, BiTime } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { settingsData } from '@/store/reducer/settingsSlice'
+import { languageData } from '@/store/reducer/languageSlice'
+import { translate } from '@/utils'
 
 
 
@@ -20,6 +22,9 @@ const Breadcrumb = (props) => {
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
 
 
+
+
+ 
 
     return (
         <div id='breadcrumb'

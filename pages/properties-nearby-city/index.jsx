@@ -4,6 +4,9 @@ import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Skeleton from 'react-loading-skeleton'
 import { GetCountByCitysCategorisApi } from '@/store/actions/campaign'
 import Link from 'next/link'
+import { translate } from '@/utils'
+import { useSelector } from 'react-redux'
+import { languageData } from '@/store/reducer/languageSlice'
 
 const PropertiesNearbyCity = () => {
 
@@ -24,9 +27,15 @@ const PropertiesNearbyCity = () => {
                 console.log(error)
             })
     }, [])
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+    // useSelector(languageData)  
+    useEffect(() => {
+        // console.log("render")
+    }, [lang]);
     return (
         <>
-            <Breadcrumb title='Properties Nearby Cities' />
+            <Breadcrumb title={translate("propNearByCities")} />
             <section id='all-nearby-citys'>
                 <div className="container">
                     <div className="all-city-images row">
@@ -47,7 +56,7 @@ const PropertiesNearbyCity = () => {
                                             <div className="card-img-overlay">
                                                 <div id='city_img_headlines'>
                                                     <h4 className="card-title">{ele.City}</h4>
-                                                    <p className="card-text">{ele.Count} Properties</p>
+                                                    <p className="card-text">{ele.Count} {translate("properties")}</p>
                                                 </div>
                                             </div>
                                         </div>

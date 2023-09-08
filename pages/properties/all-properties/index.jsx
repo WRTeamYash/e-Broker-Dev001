@@ -24,6 +24,7 @@ import { AddFavourite, GetFeturedListingsApi } from '@/store/actions/campaign'
 import CustomHorizontalSkeleton from '@/Components/Skeleton/CustomHorizontalSkeleton'
 import { useSelector } from 'react-redux'
 import { translate } from '@/utils'
+import { languageData } from '@/store/reducer/languageSlice'
 
 
 
@@ -37,11 +38,19 @@ const AllProperties = ({ propertySlugData, pageIndex }) => {
   console.log("offset data", offsetdata)
   const isLoggedIn = useSelector((state) => state.User_signup);
   const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-  console.log(userCurrentId)
-  
+  // console.log(userCurrentId)
+     
+  const lang = useSelector(languageData)
+  // console.log("languageData",lang)
+    // useSelector(languageData)  
+    useEffect(()=>{
+      // console.log("render")
+    },[lang]);
+
+
   useEffect(() => {
     setIsLoading(true);
-    if(!isLoggedIn){
+   
       GetFeturedListingsApi(
         "",
         "",
@@ -52,7 +61,7 @@ const AllProperties = ({ propertySlugData, pageIndex }) => {
         "",
         offsetdata.toString(),
         limit.toString(),
-        "",
+        isLoggedIn ? userCurrentId : "",
         (response) => {
           setTotal(response.total);
           const propertyData = response.data;
@@ -65,32 +74,8 @@ const AllProperties = ({ propertySlugData, pageIndex }) => {
           console.log(error);
         }
       );
-    }else{
-      GetFeturedListingsApi(
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        offsetdata.toString(),
-        limit.toString(),
-        userCurrentId,
-        (response) => {
-          setTotal(response.total);
-          const propertyData = response.data;
-          setIsLoading(false);
-          setCategoryListByPropertyData(propertyData);
-          // console.log(CategoryListByPropertyData)
-        },
-        (error) => {
-          setIsLoading(false);
-          console.log(error);
-        }
-      );
-    }
-  }, [offsetdata]);
+    
+  }, [offsetdata, isLoggedIn]);
 
   const handlePageChange = (selectedPage) => {
     const newOffset = selectedPage.selected * limit;

@@ -15,6 +15,8 @@ import ArticleCardSkeleton from '@/Components/Skeleton/ArticleCardSkeleton'
 import HorizontalCard from '@/Components/Cards/HorizontalCard'
 import ArticleHorizonatalCard from '@/Components/Cards/ArticleHorizonatalCard'
 import { translate } from '@/utils'
+import { useSelector } from 'react-redux'
+import { languageData } from '@/store/reducer/languageSlice'
 
 
 
@@ -27,6 +29,13 @@ const Articles = () => {
     // GET ARTICLES
     const [getArticles, setGetArticles] = useState()
     const [total, setTotal] = useState()
+
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        // console.log("render")
+      },[lang]);
     useEffect(() => {
         setIsLoading(true)
         GetAllArticlesApi("", (response) => {

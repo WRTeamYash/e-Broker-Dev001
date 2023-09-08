@@ -10,10 +10,12 @@ import { useEffect } from 'react';
 
 const Layout = ({ children }) => {
 
-    useEffect(() =>{
-
-    },[languageData])
-    useSelector(languageData)
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        // console.log("render")
+      },[lang]);
     return (
         <div>
             <Header />

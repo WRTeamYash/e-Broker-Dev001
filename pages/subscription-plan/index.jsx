@@ -1,6 +1,6 @@
 'use client'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Pagination } from 'swiper/modules';
 // Import Swiper styles
@@ -9,8 +9,19 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 
 import { BiSolidCheckCircle } from 'react-icons/bi';
+import { languageData } from '@/store/reducer/languageSlice';
+import { useSelector } from 'react-redux';
+import { translate } from '@/utils';
 
 const page = () => {
+
+
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        // console.log("render")
+      },[lang]);
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;
     outline: 1px solid #000;
@@ -47,14 +58,14 @@ const page = () => {
     };
     return (
         <>
-            <Breadcrumb title="Subscription plan" />
+            <Breadcrumb title={translate("subscriptionPlan")} />
 
             <section id='subscription'>
                 <div className='container'>
                     <span className='headline' data-aos="fade-right" data-aos-duration="1000">
-                        Choose a <span >
-                            <span className='highlight' data-aos="fade-left" data-aos-duration="5000"> Plan</span>
-                        </span> that's right for you
+                    {translate("chooseA")} <span>
+                            <span className='highlight' data-aos="fade-left" data-aos-duration="5000"> {translate("plan")}</span>
+                        </span> {translate("thatsRightForYou")}
                     </span>
 
                     <div className="subsCards-Wrapper">

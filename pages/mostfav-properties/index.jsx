@@ -10,6 +10,7 @@ import ReactPaginate from 'react-paginate';
 import Loader from '@/Components/Loader/Loader';
 import { useSelector } from 'react-redux';
 import { translate } from '@/utils';
+import { languageData } from '@/store/reducer/languageSlice';
 
 const Index = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +23,12 @@ const Index = () => {
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
 
-
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        // console.log("render")
+      },[lang]);
     useEffect(() => {
         setIsLoading(true);
         GetFeturedListingsApi(

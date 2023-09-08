@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
 import { AiFillLinkedin } from 'react-icons/ai';
 import { BsInstagram, BsPinterest } from 'react-icons/bs';
@@ -8,8 +8,17 @@ import { MdLocationPin } from 'react-icons/md';
 import { PiFacebookLogoBold } from 'react-icons/pi';
 import { Toaster, toast } from 'react-hot-toast';
 import { translate } from '@/utils';
+import { useSelector } from 'react-redux';
+import { languageData } from '@/store/reducer/languageSlice';
 
 const ContactUs = () => {
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        // console.log("render")
+      },[lang]);
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',

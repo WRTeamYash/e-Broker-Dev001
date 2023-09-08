@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import { BiCurrentLocation } from 'react-icons/bi';
 import Location from '@/Components/Location/Location';
@@ -13,6 +13,8 @@ import { UpdateProfileApi } from '@/store/actions/campaign';
 import { MdAddPhotoAlternate } from 'react-icons/md';
 import { AiOutlineCamera } from 'react-icons/ai';
 import dummyimg from "../../src/assets/Images/user_profile.png"
+import { languageData } from '@/store/reducer/languageSlice';
+import { translate } from '@/utils';
 
 
 const index = () => {
@@ -35,6 +37,14 @@ const index = () => {
     const [address, setAddress] = useState('');
     const [image, setImage] = useState(null)
 
+
+
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        // console.log("render")
+      },[lang]);
     const handleOpenLocModal = () => {
         // onClose()
         setShowCurrentLoc(true)
@@ -85,7 +95,7 @@ const index = () => {
 
     return (
         <>
-            <Breadcrumb title="Basic Information" />
+            <Breadcrumb title={translate("basicInfo")} />
             <section id='user_register'>
                 <div className="container">
                     <div className="row" id='register_main_card'>
@@ -99,7 +109,7 @@ const index = () => {
                             <div className="card">
                                 <div className="card-header">
                                     <div className="card-title">
-                                    Personal Informantion
+                                    {translate("basicInfo")}
                                     </div>
                                 </div>
                                 <div className="card-body">
@@ -139,7 +149,7 @@ const index = () => {
                                                 </div> */}
                                                 <div className="col-sm-12 col-md-6">
                                                     <div className='user_fields'>
-                                                        <span>Username</span>
+                                                        <span>{translate("userName")}</span>
                                                         <input type="text" name="uname" placeholder='Enter Your Name Please' value={username} onChange={(e) => setUsername(e.target.value)
                                                         }
                                                         />
@@ -147,16 +157,16 @@ const index = () => {
                                                 </div>
                                                 <div className="col-sm-12 col-md-6">
                                                     <div className='user_fields'>
-                                                        <span>Email</span>
+                                                        <span>{translate("email")}</span>
                                                         <input type="email" name="email" placeholder='Enter Your Email Please' value={email} onChange={(e) => setEmail(e.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-sm-12 col-md-12">
                                                     <div className='user_fields'>
-                                                        <span>Location</span>
+                                                        <span>{translate("location")}</span>
                                                         <div className='current_loc_div' onClick={handleOpenLocModal}>
                                                             <BiCurrentLocation size={30} className='current_loc' />
-                                                            <span>Select Your Current Location</span>
+                                                            <span>{translate("selectYourCurrentLocation")}</span>
                                                         </div>
                                                         {selectedLocation && (
                                                             <input
@@ -169,7 +179,7 @@ const index = () => {
                                                 </div>
                                                 <div className="col-sm-12 col-md-12">
                                                     <div className='user_fields'>
-                                                        <span>Address</span>
+                                                        <span>{translate("address")}</span>
                                                         <textarea rows={4} className="current_address"
                                                             placeholder='Enetr address' value={address} onChange={(e) => setAddress(e.target.value)} />
                                                     </div>
@@ -181,7 +191,7 @@ const index = () => {
                                 <div className="card-footer">
                                     <div className='basic_submit'>
                                         <button onClick={handleSubmitInfo}>
-                                            Submit
+                                        {translate("submit")}
                                         </button>
                                     </div>
                                 </div>

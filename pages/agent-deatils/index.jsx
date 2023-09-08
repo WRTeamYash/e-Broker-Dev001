@@ -1,6 +1,6 @@
 'use client'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CiFacebook, CiLocationOn } from 'react-icons/ci'
 import { FiCloudDrizzle, FiDroplet, FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
 import { RiBuilding3Line, RiGridFill, RiHotelBedLine, RiParkingBoxLine, RiPlantLine, RiSendPlane2Line, RiThumbUpFill } from 'react-icons/ri'
@@ -14,8 +14,17 @@ import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import { BiCctv, BiHomeSmile } from 'react-icons/bi'
 import { GiGamepad } from 'react-icons/gi'
 import Loader from '@/Components/Loader/Loader'
+import { languageData } from '@/store/reducer/languageSlice'
+import { useSelector } from 'react-redux'
 
 const page = () => {
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+      // useSelector(languageData)  
+      useEffect(()=>{
+        translate()
+        // console.log("breadcrumb render")
+      },[lang]);
 
     const [grid, setGrid] = useState(false);
     const [isLoading, setIsLoading] = useState(false)

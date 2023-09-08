@@ -28,8 +28,8 @@ const ArticleDeatils = (propertySlugData) => {
     useEffect(() => {
         setArticleData(propertySlugData.propertySlugData[0])
         setIsLoading(false)
-        console.log(propertySlugData.propertySlugData[0])
-        console.log(articleData)
+        // console.log(propertySlugData.propertySlugData[0])
+        // console.log(articleData)
     }, [propertySlugData])
 
 

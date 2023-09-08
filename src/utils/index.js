@@ -27,10 +27,10 @@ export const translate = (label) => {
   const enTranslation = localeTranslations;
 
   if (langLabel) {
-    console.log("server side", langLabel);
+    // console.log("server side", langLabel);
     return langLabel;
   } else {
-    console.log("local side", enTranslation);
+    // console.log("local side", enTranslation);
     return enTranslation[label];
   }
 };

@@ -42,7 +42,7 @@ const Index = () => {
                     const FeaturedListingData = response.data;
                     setIsLoading(false);
                     setGetFeaturedListing(FeaturedListingData);
-                    console.log(getFeaturedListing)
+                    // console.log(getFeaturedListing)
                 },
                 (error) => {
                     setIsLoading(false);
@@ -54,7 +54,7 @@ const Index = () => {
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
-        console.log("new offset", newOffset)
+        // console.log("new offset", newOffset)
         console.log("limit", limit)
     };
 

@@ -23,7 +23,7 @@ export const authSlice = createSlice({
         },
         signupSucess: (user_signup, action) => {
             user_signup.data = action.payload;
-            console.log("for auth token ", action.payload)
+            // console.log("for auth token ", action.payload)
             user_signup.loading = true;
 
         },
@@ -34,7 +34,7 @@ export const authSlice = createSlice({
         updateDataSuccess: (user_signup, action) => {
             // user_signup.loading = false;
             user_signup.data = action.payload;
-            console.log("updateData", action)
+            // console.log("updateData", action)
 
         },
         userLogout: (user_signup) => {

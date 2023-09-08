@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps, data }) {
     useEffect(() => {
         settingsLoaded(null, null, (res) => {
             setTimeout(() => {
-                console.log(res)
+                // console.log(res)
                 setIsLoading(false)
 
             }, 1000)

@@ -40,10 +40,10 @@ const Nav = () => {
         };
     }, []);
     const handleLanguageChange = (languageCode) => {
-        console.log(languageCode); // Log the updated languageCode directly
+        // console.log(languageCode); // Log the updated languageCode directly
 
         languageLoaded(languageCode, "1", (response) => {
-            console.log(response)
+            // console.log(response)
         },
             (error) => {
                 console.log(error)

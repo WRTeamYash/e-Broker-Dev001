@@ -51,10 +51,10 @@ const Index = () => {
     }, [offsetdata, isLoggedIn]);
 
     const handlePageChange = (selectedPage) => {
-        console.log("select page================", selectedPage);
+        // console.log("select page================", selectedPage);
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
-        console.log("new offset", newOffset)
+        // console.log("new offset", newOffset)
     };
 
     return (

@@ -14,7 +14,7 @@ const AllPropertieCard = ({ ele }) => {
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
 
     const isLoggedIn = useSelector((state) => state.User_signup);
-    console.log(isLoggedIn)
+    // console.log(isLoggedIn)
     // Initialize isLiked based on ele.is_favourite
     const [isLiked, setIsLiked] = useState(ele.is_favourite === 1);
 
@@ -24,9 +24,9 @@ const AllPropertieCard = ({ ele }) => {
     const handleLike = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log("isLoggedIn:", isLoggedIn);
+        // console.log("isLoggedIn:", isLoggedIn);
         if (isLoggedIn && isLoggedIn.data && isLoggedIn.data.token) {
-            console.log("like", ele.id);
+            // console.log("like", ele.id);
             AddFavourite(ele.id, "1", (response) => {
                 setIsLiked(true);
                 setIsDisliked(false);

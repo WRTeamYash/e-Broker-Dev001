@@ -50,6 +50,6 @@ export const languageLoaded = (language_code, web_language_file, onSuccess, onEr
 // Selectors
 
 export const languageData = createSelector(
-  state => state.Language,
-  Language => Language.data
-)
+  (state) => state.Language,
+  (Language) => Language.languages // Use 'languages' instead of 'data'
+);

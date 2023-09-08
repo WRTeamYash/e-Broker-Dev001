@@ -18,13 +18,13 @@ import dummyimg from "../../src/assets/Images/user_profile.png"
 const index = () => {
     const navigate = useRouter()
     const signupData = useSelector(userSignUpData)
-    console.log("signup data", signupData)
+    // console.log("signup data", signupData)
    
     const navigateToHome = () => {
         navigate.push("/");
     };
     if (signupData === null) {
-        console.log("test")
+        // console.log("test")
         navigateToHome();
     }
     const [showCurrentLoc, setShowCurrentLoc] = useState(false);
@@ -52,12 +52,12 @@ const index = () => {
     // useEffect(() => {
 
     // }, [])
-    console.log("profile", image)
+    // console.log("profile", image)
     const handleSubmitInfo = (e) => {
         e.preventDefault();
         UpdateProfileApi(signupData.data.data.id, username, email, signupData.data.data.mobile, "3", address, signupData.data.data.firebase_id, "mobile", image, (res) => {
-            console.log(res)
-            console.log(res.message)
+            // console.log(res)
+            // console.log(res.message)
             toast.success(res.message)
             loadUpdateData(res.data)
             navigate.push("/")

@@ -58,7 +58,7 @@ const AllProperties = ({ propertySlugData, pageIndex }) => {
           const propertyData = response.data;
           setIsLoading(false);
           setCategoryListByPropertyData(propertyData);
-          console.log(CategoryListByPropertyData)
+          // console.log(CategoryListByPropertyData)
         },
         (error) => {
           setIsLoading(false);
@@ -82,7 +82,7 @@ const AllProperties = ({ propertySlugData, pageIndex }) => {
           const propertyData = response.data;
           setIsLoading(false);
           setCategoryListByPropertyData(propertyData);
-          console.log(CategoryListByPropertyData)
+          // console.log(CategoryListByPropertyData)
         },
         (error) => {
           setIsLoading(false);

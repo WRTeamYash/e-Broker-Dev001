@@ -22,11 +22,11 @@ const AllProperties = () => {
   const [total, setTotal] = useState();
   const [offsetdata, setOffsetdata] = useState(0);
   const limit = 8
-  console.log("offset data", offsetdata)
+  // console.log("offset data", offsetdata)
 
   const router = useRouter();
   const cateId = router.query
-  console.log(cateId)
+  // console.log(cateId)
   useEffect(() => {
     setIsLoading(true);
     GetFeturedListingsApi(
@@ -45,7 +45,7 @@ const AllProperties = () => {
         const propertyData = response.data;
         setIsLoading(false);
         setCategoryListByPropertyData(propertyData);
-        console.log(CategoryListByPropertyData)
+        // console.log(CategoryListByPropertyData)
       },
       (error) => {
         setIsLoading(false);

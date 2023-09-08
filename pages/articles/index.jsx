@@ -32,7 +32,7 @@ const Articles = () => {
         GetAllArticlesApi("", (response) => {
             const Articles = response.data;
             setTotal(response.total)
-            console.log("article data ============", Articles)
+            // console.log("article data ============", Articles)
             setIsLoading(false)
             setGetArticles(Articles);
             setExpandedStates(new Array(Articles.length).fill(false));

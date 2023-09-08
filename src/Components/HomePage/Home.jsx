@@ -61,7 +61,6 @@ import { languageData } from '@/store/reducer/languageSlice';
 
 
 const HomePage = () => {
-    useSelector(languageData)
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;
     outline: 1px solid #000;

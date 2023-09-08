@@ -52,8 +52,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Aos from 'aos';
 import { translate } from '@/utils';
-import { languageLoaded } from '@/store/reducer/languageSlice';
 import localeTranslations from '../../utils/locale/en.json';
+import { languageData } from '@/store/reducer/languageSlice';
 
 
 
@@ -61,7 +61,7 @@ import localeTranslations from '../../utils/locale/en.json';
 
 
 const HomePage = () => {
-   
+    useSelector(languageData)
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;
     outline: 1px solid #000;
@@ -332,7 +332,7 @@ const HomePage = () => {
 
     AOS.init();
 
-
+    // useSelector(languageLoaded)
 
     return (
         <>
@@ -392,7 +392,7 @@ const HomePage = () => {
                                                         <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${single.propertys_id}`} passHref>
                                                             <button className='view_prop'>
                                                                 <FaEye size={20} className='icon' />
-                                                               {translate("viewAll")}
+                                                                {translate("viewAll")}
                                                             </button>
                                                         </Link>
 
@@ -474,7 +474,7 @@ const HomePage = () => {
                                 <>
                                     <div className='feature_header' data-aos="fade-right" data-aos-duration="2000">
                                         <span className='headline' >
-                                        {translate("discoverOur")} <span className='highlight'>{translate("featured")}</span> {translate("listings")}
+                                            {translate("discoverOur")} <span className='highlight'>{translate("featured")}</span> {translate("listings")}
                                         </span>
                                         <div className='rightside_header'>
                                             <Link href="/featured-properties">
@@ -540,7 +540,7 @@ const HomePage = () => {
                             >
                                 <div className='container' id='appartment_text'>
                                     <h1>
-                                       {translate("exploreApartment")}
+                                        {translate("exploreApartment")}
                                     </h1>
                                     <Link href="/all-categories">
                                         <button className='view_apart'>
@@ -732,9 +732,9 @@ const HomePage = () => {
                     </div>
                     <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                         <MobileHeadline data={{
-                             start: translate("properties"),
-                             center: translate("nearby"),
-                             end: translate("cities"),
+                            start: translate("properties"),
+                            center: translate("nearby"),
+                            end: translate("cities"),
                             link: "/properties-nearby-city"
 
                         }
@@ -875,9 +875,9 @@ const HomePage = () => {
                     </div>
                     <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                         <MobileHeadline data={{
-                           start: translate("most"),
-                           center: translate("fav"),
-                           end: translate("properties"),
+                            start: translate("most"),
+                            center: translate("fav"),
+                            end: translate("properties"),
                             link: "/mostfav-properties"
                         }
                         } />
@@ -954,7 +954,7 @@ const HomePage = () => {
                                 </span>
                                 <Link href="/listby-agents">
                                     <button className='mt-3'> <FiEye className="mx-2" size={25} />
-                                       {translate("viewAllAgents")}
+                                        {translate("viewAllAgents")}
                                     </button>
                                 </Link>
                             </div>
@@ -962,7 +962,7 @@ const HomePage = () => {
                         <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000" >
                             <MobileHeadline data={{
                                 start: translate("browser"),
-                                center:translate("agents"),
+                                center: translate("agents"),
                                 link: "/listby-agents"
                             }
                             } />
@@ -1061,7 +1061,7 @@ const HomePage = () => {
                     <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                         <MobileHeadline data={{
                             start: translate("our"),
-                            center:translate("articles"),
+                            center: translate("articles"),
                             link: "/articles"
                         }
                         } />

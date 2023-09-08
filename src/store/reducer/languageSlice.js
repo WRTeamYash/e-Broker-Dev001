@@ -16,7 +16,7 @@ export const languageSlice = createSlice({
       language.loading = true;
     },
     languagesSuccess: (language, action) => {
-        console.log(action)
+      console.log(action)
       language.languages = action.payload.data;
 
       language.loading = false;
@@ -32,24 +32,24 @@ export default languageSlice.reducer;
 
 // API CALLS
 
-export const languageLoaded =(language_code, web_language_file, onSuccess, onError, onStart) =>{
-    store.dispatch(apiCallBegan({
-        ...getLanguages(language_code, web_language_file),
-        displayToast: false,
-        onStartDispatch: languagesRequested.type,
-        onSuccessDispatch: languagesSuccess.type,
-        onErrorDispatch: languagesFailure.type,
-        onStart,
-        onSuccess,
-        onError
+export const languageLoaded = (language_code, web_language_file, onSuccess, onError, onStart) => {
+  store.dispatch(apiCallBegan({
+    ...getLanguages(language_code, web_language_file),
+    displayToast: false,
+    onStartDispatch: languagesRequested.type,
+    onSuccessDispatch: languagesSuccess.type,
+    onErrorDispatch: languagesFailure.type,
+    onStart,
+    onSuccess,
+    onError
 
-    }))
+  }))
 }
 
 
 // Selectors
 
-export const languageData =createSelector(
-    state => state.Language,
-    Language => Language.data
+export const languageData = createSelector(
+  state => state.Language,
+  Language => Language.data
 )

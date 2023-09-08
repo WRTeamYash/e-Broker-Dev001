@@ -17,6 +17,7 @@ import { settingsLoaded } from '@/store/reducer/settingsSlice'
 import Loader from '@/Components/Loader/Loader'
 import { Toaster } from 'react-hot-toast'
 import Layout from '@/Components/Layout/Layout'
+import { languageData } from '@/store/reducer/languageSlice'
 
 // import Document, { Html, Head, Main, NextScript } from 'next/document';
 const manrope = Manrope({ subsets: ['latin'] })
@@ -53,16 +54,16 @@ function MyApp({ Component, pageProps, data }) {
 
             <Provider store={store}>
                 <PersistGate persistor={persistor}>
-                        {
-                            isLoading ?
-                                (<Loader />
-                                ) :
-                                (
-                    <Layout>
+                    {
+                        isLoading ?
+                            (<Loader />
+                            ) :
+                            (
+                                <Layout>
                                     <Component {...pageProps} data={data} />
-                    </Layout>
-                                )
-                        }
+                                </Layout>
+                            )
+                    }
 
                     <Toaster />
                 </PersistGate>

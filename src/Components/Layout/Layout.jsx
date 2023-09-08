@@ -3,16 +3,17 @@ import React from 'react'
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import { useSelector } from 'react-redux';
-import { languageLoaded } from '@/store/reducer/languageSlice';
+import { languageData } from '@/store/reducer/languageSlice';
+import HomePage from '../HomePage/Home';
 
 
 const Layout = ({ children }) => {
 
-    // useSelector(languageLoaded)
+    useSelector(languageData)
     return (
         <div>
             <Header />
-            {children}
+           {children}
             <Footer />
         </div>
     )

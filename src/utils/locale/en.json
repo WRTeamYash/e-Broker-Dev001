@@ -73,7 +73,7 @@
   "pages": "Pages",
   "subscriptionPlan": "Subscription Plan",
   "downloadApps": "Download Apps",
-  "logout": "Logout!",
+  "logout": "Logout",
   "areYouSure": "Are You sure!",
   "yes": "Yes",
   "logoutSuccess": "Logout Successfully",
@@ -133,6 +133,7 @@
   "continue":"Continue",
   "and":"and",
   "byclick":" By clicking continue you agree to our",
-  "nearbyCities":"Nearby Cities Properties"
+  "nearbyCities":"Nearby Cities Properties",
+  "confirm":"Confirm"
 
 }

@@ -73,7 +73,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
             // console.log(result.user.phoneNumber)
             // console.log(result.user.uid)
 
-            signupLoaded("", "", result.user.phoneNumber.replace("+", ""), "3", "", result.user.uid, "", "",
+            signupLoaded("", "", result.user.phoneNumber.replace("+", ""), "1", "", result.user.uid, "", "",
                 (res) => {
                     // console.log(res)
                     let signupData = res.data
@@ -87,7 +87,6 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                             signupData.name === "" ||
                             signupData.email === "" ||
                             signupData.address === "" ||
-                            signupData.profile === "" ||
                             signupData.logintype === ""
                         ) {
                             // If any field is empty, execute this block

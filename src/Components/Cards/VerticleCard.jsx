@@ -8,12 +8,14 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 
 function VerticalCard({ ele }) {
+    console.log(ele)
+    console.log("first time ",ele.is_favourite)
     // console.log(ele)
     const priceSymbol = useSelector(settingsData)
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
 
     const isLoggedIn = useSelector((state) => state.User_signup);
-    // console.log(isLoggedIn)
+  
     // Initialize isLiked based on ele.is_favourite
     const [isLiked, setIsLiked] = useState(ele.is_favourite === 1);
 
@@ -30,6 +32,8 @@ function VerticalCard({ ele }) {
                 setIsLiked(true);
                 setIsDisliked(false);
                 toast.success(response.message);
+                console.log("when i liked ", ele.is_favourite)
+                console.log("when i liked then data  ", ele)
             }, (error) => {
                 console.log(error);
             });
@@ -46,6 +50,8 @@ function VerticalCard({ ele }) {
             setIsLiked(false);
             setIsDisliked(true);
             toast.success(response.message);
+            console.log("when i disliked ", ele.is_favourite)
+            console.log("when i disliked then data  ", ele)
         }, (error) => {
             console.log(error);
         });
@@ -56,6 +62,7 @@ function VerticalCard({ ele }) {
         setIsLiked(ele.is_favourite === 1);
         setIsDisliked(false);
     }, [ele.is_favourite]);
+
 
 
 

@@ -1,30 +1,86 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
 
 import { CiLocationOn } from 'react-icons/ci'
-import { RiSendPlane2Line, RiGridFill, RiHotelBedLine, RiParkingBoxLine, RiBuilding3Line, RiPlantLine, RiThumbUpFill } from 'react-icons/ri'
-import { AiOutlinePlayCircle, AiOutlineHeart, AiOutlineArrowRight, AiOutlineWifi, AiFillPlayCircle } from 'react-icons/ai'
+
 import { SlDocs } from 'react-icons/sl'
 
 import { BiHomeSmile, BiCctv, BiTime } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { settingsData } from '@/store/reducer/settingsSlice'
-import { languageData } from '@/store/reducer/languageSlice'
-import { translate } from '@/utils'
+import { toast } from 'react-hot-toast'
+import { AddFavourite } from '@/store/actions/campaign'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
+
+
 
 
 
 const Breadcrumb = (props) => {
 
+    console.log(props.data && props.data.is_favourite)
     let { data, title } = props;
     const priceSymbol = useSelector(settingsData)
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
 
 
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+    console.log(userCurrentId)
+    // Initialize isLiked based on props.is_favourite
+    const [isLiked, setIsLiked] = useState(props.data && props.data.is_favourite === 1);
+
+    // Initialize isDisliked as false
+    const [isDisliked, setIsDisliked] = useState(false);
+
+    const handleLike = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // console.log("isLoggedIn:", isLoggedIn);
+        if (isLoggedIn && isLoggedIn.data && isLoggedIn.data.token) {
+            // console.log("like", props.id);
+            AddFavourite(userCurrentId, "1", (response) => {
+                setIsLiked(true);
+                setIsDisliked(false);
+                toast.success(response.message);
+                console.log("when i liked ", props.data && props.data.is_favourite)
+                console.log("when i liked then data  ", [props.data])
+            }, (error) => {
+                console.log(error);
+            });
+        } else {
+            toast.error("Please login first to add this property to favorites.");
+        }
+
+    };
+
+    const handleDislike = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        AddFavourite(userCurrentId, "0", (response) => {
+            setIsLiked(false);
+            setIsDisliked(true);
+            toast.success(response.message);
+            console.log("when i disliked ", props.data && props.data.is_favourite)
+            console.log("when i disliked then data  ", props.data)
+        }, (error) => {
+            console.log(error);
+        });
+    };
+
+    useEffect(() => {
+        // Update the state based on props.is_favourite when the component mounts
+        setIsLiked(props.data && props.data.is_favourite === 1);
+        setIsDisliked(false);
+    }, [props.data && props.data.is_favourite]);
 
 
- 
+
+
+
+
+
 
     return (
         <div id='breadcrumb'
@@ -54,7 +110,32 @@ const Breadcrumb = (props) => {
                         <div className='right-side-content'>
                             <span> {CurrencySymbol} {data.price} </span>
                             <div>
-                                <button><AiOutlineHeart size={25} /></button>
+                                {/* <button onClick={handleLike}>
+                                    <button>
+                                        {isLiked ? (
+                                            <AiFillHeart size={25} className='liked_property' />
+                                        ) : (
+                                            <AiOutlineHeart size={25} />
+                                        )}
+                                    </button>
+                                </button> */}
+
+                                {isLiked ? (
+                                    <button onClick={handleDislike} >
+                                        <AiFillHeart size={25} className='liked_property' />
+                                    </button>
+                                ) : (
+                                    isDisliked ? (
+                                        <button onClick={handleLike}>
+                                            <AiOutlineHeart size={25} className='disliked_property' />
+                                        </button>
+                                    ) : (
+                                        <button onClick={handleLike} >
+                                            <AiOutlineHeart size={25} />
+                                        </button>
+                                    )
+                                )}
+
                                 <button><SlDocs size={25} /></button>
                             </div>
                         </div>

@@ -259,7 +259,7 @@ const HomePage = () => {
         // if (!isLoggedIn) {
         GetFeturedListingsApi("1", "", "", "", "", "", "", "", "", isLoggedIn ? userCurrentId : "", (response) => {
             const FeaturedListingData = response.data;
-            // console.log("featured data ============", FeaturedListingData)
+            console.log("featured data ============", FeaturedListingData)
             setIsLoading(false)
             setGetFeaturedListing(FeaturedListingData);
         }, (error) => {
@@ -498,6 +498,7 @@ const HomePage = () => {
                             )}
                         </div>
 
+                                {/* {console.log(getFeaturedListing)} */}
                         <div className='feature-section-cards'>
                             <div id='feature_cards' className='row' data-aos="fade-left" data-aos-duration="2000">
                                 {isLoading ? (
@@ -510,7 +511,7 @@ const HomePage = () => {
                                     ))
                                     // <Loader />  
 
-                                ) :
+                                    ) :
                                     getFeaturedListing?.slice(0, 8).map((ele, index) => (
                                         <div className='col-sm-12 col-md-6 col-lg-3' key={index} >
                                             <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>

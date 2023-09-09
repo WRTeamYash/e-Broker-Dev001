@@ -25,21 +25,102 @@ import Map from '@/Components/GoogleMap/GoogleMap'
 import Skeleton from 'react-loading-skeleton'
 import { languageData } from '@/store/reducer/languageSlice'
 import { translate } from '@/utils'
+import { store } from '@/store/store'
+import { useRouter } from 'next/router'
+import { GetFeturedListingsApi } from '@/store/actions/campaign'
 
-const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
-    // console.log("similer data", propertySlugData2)
+
+
+
+const PropertieDeatils = () => {
+
+
+    const router = useRouter();
+    const propId = router.query
+    console.log(propId)
     const [isLoading, setIsLoading] = useState(true)
-
     const [expanded, setExpanded] = useState(false);
-    const [propertyData, setPropertyData] = useState()
-    useEffect(() => {
-        setPropertyData(propertySlugData[0])
-        setIsLoading(false)
+    const [getPropData, setPropData] = useState()
+    const [getSimilerData, setSimilerData] = useState()
 
-    }, [propertySlugData])
     const GoogleMapData = useSelector(settingsData)
     const GoogleMapApiKey = GoogleMapData && GoogleMapData.place_api_key
-    // console.log(GoogleMapApiKey)
+    const lang = useSelector(languageData)
+
+    useEffect(() => {
+
+    }, [lang]);
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+
+
+    useEffect(() => {
+        setIsLoading(true);
+
+        GetFeturedListingsApi(
+            "",
+            "",
+            propId,
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            isLoggedIn ? userCurrentId : "",
+            (response) => {
+
+                const propertyData = response.data;
+                console.log(propertyData)
+                setIsLoading(false);
+                setPropData(propertyData[0]);
+                console.log(getPropData)
+            },
+            (error) => {
+                setIsLoading(false);
+                console.log(error);
+            }
+        );
+
+    }, [isLoggedIn]);
+    useEffect(() => {
+        setIsLoading(true);
+
+        GetFeturedListingsApi(
+            "",
+            "",
+            propId,
+            "",
+            "",
+            "",
+            "1",
+            "",
+            "",
+            isLoggedIn ? userCurrentId : "",
+            (response) => {
+
+                const propertyData = response.data;
+                console.log(propertyData)
+                setIsLoading(false);
+                setSimilerData(propertyData);
+                // console.log(CategoryListByPropertyData)
+            },
+            (error) => {
+                setIsLoading(false);
+                console.log(error);
+            }
+        );
+
+    }, [isLoggedIn]);
+
+
+
+
+
+
+
+
+
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;
     outline: 1px solid #000;
@@ -50,17 +131,11 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
     const [imageURL, setImageURL] = useState('');
 
     useEffect(() => {
-        if (propertyData && propertyData.threeD_image) {
-            setImageURL(propertyData.threeD_image);
+        if (getPropData && getPropData.threeD_image) {
+            setImageURL(getPropData.threeD_image);
         }
-    }, [propertyData]);
-    const lang = useSelector(languageData)
-    // console.log("languageData",lang)
-      // useSelector(languageData)  
-      useEffect(()=>{
-        // console.log("render")
-      },[lang]);
-  
+    }, [getPropData]);
+
     useEffect(() => {
         if (imageURL) {
             pannellum.viewer('panorama', {
@@ -73,25 +148,23 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
 
     const [play, setPlay] = useState(false)
 
-    const videoLink = propertyData && propertyData.video_link;
+    const videoLink = getPropData && getPropData.video_link;
     const videoId = videoLink ? videoLink.split('/').pop() : null;
 
     const backgroundImageUrl = videoId
         ? `url(https://img.youtube.com/vi/${videoId}/maxresdefault.jpg)`
         : 'none';
 
-
-
     return (
         <>
             <Breadcrumb data={{
-                type: propertyData && propertyData.category.category,
-                title: propertyData && propertyData.title,
-                loc: propertyData && propertyData.address,
-                propertyType: propertyData && propertyData.propery_type,
-                time: propertyData && propertyData.post_created,
-                price: propertyData && propertyData.price
-
+                type: getPropData && getPropData.category.category,
+                title: getPropData && getPropData.title,
+                loc: getPropData && getPropData.address,
+                propertyType: getPropData && getPropData.propery_type,
+                time: getPropData && getPropData.post_created,
+                price: getPropData && getPropData.price,
+                is_favourite: getPropData && getPropData.is_favourite
             }} />
             <section className='properties-deatil-page'>
 
@@ -130,14 +203,14 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                         {translate("aboutProp")}
                                     </div>
                                     <div className="card-body">
-                                        {propertyData && propertyData.description && (
+                                        {getPropData && getPropData.description && (
                                             <>
                                                 <p>
                                                     {expanded
-                                                        ? propertyData.description
-                                                        : propertyData.description.substring(0, 100) + '...'}
+                                                        ? getPropData.description
+                                                        : getPropData.description.substring(0, 100) + '...'}
                                                 </p>
-                                                {propertyData.description.length > 100 && (
+                                                {getPropData.description.length > 100 && (
                                                     <button onClick={() => setExpanded(!expanded)}>
                                                         {expanded ? 'Show Less' : 'Show More'}
                                                         <AiOutlineArrowRight className="mx-2" size={18} />
@@ -149,14 +222,14 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                 </div>
                                 <div className="card " id='features-amenities'>
                                     <div className="card-header">
-                                    {translate("aboutProp")}
+                                        {translate("aboutProp")}
                                     </div>
                                     <div className="card-body">
 
                                         <div className="row">
 
 
-                                            {propertyData && propertyData.parameters && propertyData.parameters.map((elem, index) => (
+                                            {getPropData && getPropData.parameters && getPropData.parameters.map((elem, index) => (
                                                 // Check if the value is an empty string
                                                 (elem.value !== "" && elem.value !== "0") ? (
                                                     <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
@@ -188,7 +261,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                 </div>
                                 <div className='card' id='propertie_address'>
                                     <div className="card-header">
-                                    {translate("feature&Amenties")}
+                                        {translate("feature&Amenties")}
                                     </div>
                                     <div className='card-body'>
                                         <div className="row" id='prop-address'>
@@ -208,32 +281,32 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                             </div>
                                             <div className="adrs02">
                                                 <div className="adrs_value">
-                                                    <span>{propertyData && propertyData.address}</span>
+                                                    <span>{getPropData && getPropData.address}</span>
                                                 </div>
                                                 <div className="adrs_value">
-                                                    <span className=''>{propertyData && propertyData.city}</span>
+                                                    <span className=''>{getPropData && getPropData.city}</span>
                                                 </div>
 
                                                 <div className="adrs_value">
-                                                    <span className=''>{propertyData && propertyData.state}</span>
+                                                    <span className=''>{getPropData && getPropData.state}</span>
                                                 </div>
                                                 <div className="adrs_value">
-                                                    <span className=''>{propertyData && propertyData.country}</span>
+                                                    <span className=''>{getPropData && getPropData.country}</span>
                                                 </div>
                                             </div>
 
                                         </div>
-                                        {propertyData ? (
+                                        {getPropData ? (
                                             <Card className='google_map'>
                                                 {GoogleMapApiKey ? (
                                                     <Map
-                                                        latitude={propertyData.latitude}
-                                                        longitude={propertyData.longitude}
+                                                        latitude={getPropData.latitude}
+                                                        longitude={getPropData.longitude}
                                                         google={GoogleMapApiKey}
-                                                        />
+                                                    />
                                                 ) : (
                                                     <div>
-                                                       <Skeleton height={200} width={"100%"}/>
+                                                        <Skeleton height={200} width={"100%"} />
                                                     </div>
                                                 )}
                                             </Card>
@@ -245,15 +318,15 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                 </div>
 
 
-                                {propertyData && propertyData.video_link ? (
+                                {getPropData && getPropData.video_link ? (
 
 
                                     <div className='card' id='prop-video'>
                                         <div className="card-header">
-                                        {translate("video")}
+                                            {translate("video")}
                                         </div>
-                                        {/* {console.log(propertyData.video_link)}
-                                        {console.log(propertyData.video_link.slice(17))}
+                                        {/* {console.log(getPropData.video_link)}
+                                        {console.log(getPropData.video_link.slice(17))}
                                         {console.log(videoId)}
                                         {console.log(videoLink)} */}
                                         <div className="card-body">
@@ -277,7 +350,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                                     <ReactPlayer
                                                         width="100%"
                                                         height="500px"
-                                                        url={propertyData && propertyData.video_link}
+                                                        url={getPropData && getPropData.video_link}
                                                         playing={play}
                                                         controls={true}
                                                         onPlay={() => setPlay(true)}
@@ -293,11 +366,11 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                 }
 
 
-                                {propertyData && propertyData.threeD_image ? (
+                                {getPropData && getPropData.threeD_image ? (
 
                                     <div className="card" id="prop-360-view">
                                         <div className="card-header">
-                                        {translate("vertualView")}
+                                            {translate("vertualView")}
                                         </div>
                                         <div className="card-body">
 
@@ -324,11 +397,11 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                 <div className="card" id='owner-deatils-card'>
                                     <div className="card-header" id='card-owner-header'>
                                         <div>
-                                            <img src={propertyData && propertyData.profile} className='owner-img' alt="" />
+                                            <img src={getPropData && getPropData.profile} className='owner-img' alt="" />
                                         </div>
                                         <div className='owner-deatils'>
-                                            <span className='owner-name'> {propertyData && propertyData.customer_name}</span>
-                                            <span className='owner-add'> <CiLocationOn size={20} />{propertyData && propertyData.address}</span>
+                                            <span className='owner-name'> {getPropData && getPropData.customer_name}</span>
+                                            <span className='owner-add'> <CiLocationOn size={20} />{getPropData && getPropData.address}</span>
                                         </div>
                                     </div>
                                     <div className="card-body">
@@ -336,7 +409,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                             <div ><FiPhoneCall id='call-o' size={60} /></div>
                                             <div className='deatilss'>
                                                 <span className='o-d'> {translate("call")}</span>
-                                                <span className='value'>{propertyData && propertyData.mobile}</span>
+                                                <span className='value'>{getPropData && getPropData.mobile}</span>
                                             </div>
 
                                         </div>
@@ -344,7 +417,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                             <div ><FiMail id='mail-o' size={60} /></div>
                                             <div className='deatilss'>
                                                 <span className='o-d'> {translate("mail")}</span>
-                                                <span className='value'>{propertyData && propertyData.email}</span>
+                                                <span className='value'>{getPropData && getPropData.email}</span>
                                             </div>
 
                                         </div>
@@ -363,7 +436,7 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
                                 </div>
                             </div>
                         </div>
-                        <SimilerPropertySlider isLoading={isLoading} data={propertySlugData2} />
+                        <SimilerPropertySlider isLoading={isLoading} data={getSimilerData} />
 
                     </div>
                 </div>
@@ -371,28 +444,27 @@ const PropertieDeatils = ({ propertySlugData, propertySlugData2 }) => {
         </>
     )
 }
-export async function getServerSideProps(context) {
-    // Get the slug parameter from the URL
-    const { slug } = context.query;
+// export async function getServerSideProps(context) {
+//     // Get the slug parameter from the URL
+//     const { slug } = context.query;
 
-    try {
-        // Fetch data from the first API endpoint
-        const response1 = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?id=${slug}`);
-        const propertySlugData = response1.data.data; // Assuming your API response is a JSON object
-
-        // Fetch data from the second API endpoint
-        const response2 = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?id=${slug}&get_simiilar=1`);
-        const propertySlugData2 = response2.data.data; // Assuming your API response is a JSON object
-        // console.log("=====================", propertySlugData2)
-        // You can now use propertySlugData1 and propertySlugData2 in your component
-        return {
-            props: { propertySlugData, propertySlugData2 }
-        };
-    } catch (error) {
-        console.error("Error fetching property data:", error);
-        return {
-            props: { propertySlugData: null, propertySlugData2: null } // You can handle the error case appropriately in your component
-        };
-    }
-}
+//     try {
+//         // Fetch data from the first API endpoint
+//         const response1 = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?id=${slug}`);
+//         const propertySlugData = response1.data.data; // Assuming your API response is a JSON object
+//         // Fetch data from the second API endpoint
+//         const response2 = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?id=${slug}&get_simiilar=1`);
+//         const propertySlugData2 = response2.data.data; // Assuming your API response is a JSON object
+//         // console.log("=====================", propertySlugData2)
+//         // You can now use propertySlugData1 and propertySlugData2 in your component
+//         return {
+//             props: { propertySlugData, propertySlugData2 }
+//         };
+//     } catch (error) {
+//         console.error("Error fetching property data:", error);
+//         return {
+//             props: { propertySlugData: null, propertySlugData2: null } // You can handle the error case appropriately in your component
+//         };
+//     }
+// }
 export default PropertieDeatils

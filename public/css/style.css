@@ -179,6 +179,46 @@ body {
   font-size: medium !important;
   line-height: 25px;
 }
+@media only screen and (max-width: 767px) {
+  .login-modal .modal-footer {
+    margin-top: 0 !important;
+    padding: 0 50px !important;
+  }
+  @media only screen and (max-width: 574px) {
+    .login-modal .modal-footer {
+      padding: 0 !important;
+    }
+    .otp-modal .modal-body {
+      padding: 10px !important;
+    }
+    .otp-field {
+      width: 40px !important;
+      height: 40px !important;
+    }
+    .userInput {
+      gap: 15px !important;
+    }
+    @media only screen and (max-width: 401px) {
+      .userInput {
+        justify-content: space-between !important;
+        gap: 05px !important;
+      }
+      .otp-field {
+        width: 35px !important;
+        height: 35px !important;
+      }
+    }
+  }
+  .mobile-number {
+    margin-top: 30px !important;
+  }
+  .custom-phone-input {
+    margin-top: 10px !important;
+  }
+  .continue {
+    margin-top: 40px;
+  }
+}
 .modal-footer a {
   color: var(--primary-color) !important;
 }
@@ -201,9 +241,12 @@ body {
 }
 .userInput {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   margin-top: 20px;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 .otp-field {
   width: 50px;
@@ -619,7 +662,7 @@ body {
   margin-left: 10px;
   gap: 10px;
 }
-@media only screen and (max-width:991px) {
+@media only screen and (max-width: 991px) {
   .posted-duration-modal {
     flex-direction: column;
   }
@@ -689,11 +732,11 @@ body {
   border: none;
   background-color: transparent !important;
 }
-@media only screen and (max-width: 574px){
-  .apply-filter-modal{
+@media only screen and (max-width: 574px) {
+  .apply-filter-modal {
     width: 100% !important;
   }
-  .clear-filter-modal{
+  .clear-filter-modal {
     width: 100% !important;
   }
 }
@@ -1383,7 +1426,7 @@ button.learn-more .button-text {
   border-radius: 12px;
   background-color: transparent;
 }
-.horizontal_card .image_div{
+.horizontal_card .image_div {
   border-radius: 12px 0 0 12px;
   box-shadow: 0px -70px 20px -4px rgba(0, 0, 0, 0.5) inset;
 }
@@ -1516,7 +1559,6 @@ button.learn-more .button-text {
   bottom: 0;
   padding-bottom: 130px;
   overflow-x: hidden;
-
 }
 
 #main_features {
@@ -1806,7 +1848,6 @@ button.learn-more .button-text {
   position: absolute;
   left: 10px;
   top: 9px;
-
 }
 
 .prop_like {
@@ -1905,7 +1946,6 @@ div#prop_card_footer.card-footer {
   padding: 50px 0;
   background: #fff;
   overflow-x: hidden;
-
 }
 #city_con {
   margin: 0 8% 0 8%;
@@ -2049,7 +2089,7 @@ h3 {
 /* =========== AGENT SECTION CSS =================== */
 
 #agent_section {
- overflow-x: hidden;
+  overflow-x: hidden;
   overflow: hidden;
   background-color: #fff;
 }
@@ -2371,7 +2411,7 @@ hr {
   position: relative;
   /* margin-top: ; */
   bottom: 90px;
-  z-index: -1;
+  /* z-index: -1; */
 }
 .main-prop--img {
   width: 100%;
@@ -2484,7 +2524,7 @@ hr {
   color: #282f39c2;
   font-size: 15px;
 }
-.form-select:focus  {
+.form-select:focus {
   outline: none !important;
   border: none !important;
   box-shadow: none !important;
@@ -2607,13 +2647,12 @@ option {
   margin: 0;
   background-color: transparent;
 }
-.img_div{
+.img_div {
   border-radius: 12px 0 0 12px;
   box-shadow: 0px -70px 20px -4px rgba(0, 0, 0, 0.5) inset;
 }
 #all_prop_main_card_rows_cols {
   padding: 0;
-  
 }
 .img_div {
   width: 30%;
@@ -2944,6 +2983,9 @@ option {
   border: none;
   background-color: #fff;
   padding: 10px;
+  cursor: pointer;
+  /* z-index: 99; */
+  position: relative;
 }
 #all-prop-deatil-containt {
   background-color: var(--primary-background);

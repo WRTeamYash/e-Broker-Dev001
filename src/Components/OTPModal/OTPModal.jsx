@@ -15,11 +15,12 @@ import { GetFeturedListingsApi } from '@/store/actions/campaign';
 import { translate } from '@/utils';
 
 const OTPModal = ({ isOpen, onClose, phonenum }) => {
-    
+
     const [otp, setOTP] = useState('');
     const inputRefs = useRef([]);
     const [showTimer, setShowTimer] = useState(false);
     const [resendTimer, setResendTimer] = useState(60);
+    const [showLoader, setShowLoader] = useState(false);
     const navigate = useRouter()
     const generateRecaptcha = () => {
         if (!window.recaptchaVerifier) {
@@ -51,7 +52,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         signInWithPhoneNumber(authentication, formatPh, appVerifier)
             .then(confirmationResult => {
                 window.confirmationResult = confirmationResult;
-                toast.success("OTP SENT SUCCESFULLY")
+                toast.success(translate("otpSentsuccess"))
             }).catch((error) => {
 
                 console.log(error)
@@ -67,18 +68,17 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
 
     const handleConfirm = (e) => {
         e.preventDefault()
+        setShowLoader(true)
         let confirmationResult = window.confirmationResult;
         confirmationResult.confirm(otp).then(async (result) => {
             // User verified successfully.
-            // console.log(result.user.phoneNumber)
-            // console.log(result.user.uid)
 
             signupLoaded("", "", result.user.phoneNumber.replace("+", ""), "1", "", result.user.uid, "", "",
                 (res) => {
                     // console.log(res)
                     let signupData = res.data
                     // Show a success toast notification
-                    
+                    setShowLoader(false);
                     // toast.success("please fill your personal deatils")
                     // Check if any of the required fields is empty
                     if (!res.error) {
@@ -99,9 +99,10 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                             onClose();  // Close the modal
                         }
                     }
-                   
+
                 },
                 (err) => {
+                    setShowLoader(false);
                     console.log(err)
                     toast.error(err)
                 })
@@ -190,7 +191,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                         <div className='modal-body-heading'>
                             <h4>{translate("otpVerification")}</h4>
                             <span>
-                              {translate("enterOtp")} {phonenum}
+                                {translate("enterOtp")} {phonenum}
                             </span>
                         </div>
                         <div className='userInput'>
@@ -225,7 +226,17 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                         </div>
                         <div className='continue'>
                             <button type='submit' className='continue-button' onClick={handleConfirm}>
-                               {translate("confirm")}
+                                {showLoader ? (
+                                    <div className="loader-container-otp">
+                                        <div className="loader-otp"></div>
+                                    </div>
+                                ) : (
+                                    // <button type='submit' className='continue-button' onClick={handleConfirm}>
+                                    <span>
+                                        {translate("confirm")}
+                                    </span>
+                                    // </button>
+                                )}
                             </button>
                         </div>
 

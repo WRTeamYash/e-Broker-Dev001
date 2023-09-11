@@ -19,17 +19,16 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 
 const Breadcrumb = (props) => {
 
-    console.log(props.data && props.data.is_favourite)
-    let { data, title } = props;
+    // console.log(props)
+    let { data, title} = props;
     const priceSymbol = useSelector(settingsData)
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
 
 
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    console.log(userCurrentId)
-    // Initialize isLiked based on props.is_favourite
-    const [isLiked, setIsLiked] = useState(props.data && props.data.is_favourite === 1);
+    // Initialize isLiked based on props.data.is_favourite 
+    const [isLiked, setIsLiked] = useState(props.data && props.data.is_favourite);
 
     // Initialize isDisliked as false
     const [isDisliked, setIsDisliked] = useState(false);
@@ -39,13 +38,13 @@ const Breadcrumb = (props) => {
         e.stopPropagation();
         // console.log("isLoggedIn:", isLoggedIn);
         if (isLoggedIn && isLoggedIn.data && isLoggedIn.data.token) {
-            // console.log("like", props.id);
-            AddFavourite(userCurrentId, "1", (response) => {
+            // console.log("like", userCurrentId);
+            AddFavourite(props.data.propId, "1", (response) => {
                 setIsLiked(true);
                 setIsDisliked(false);
                 toast.success(response.message);
-                console.log("when i liked ", props.data && props.data.is_favourite)
-                console.log("when i liked then data  ", [props.data])
+                // console.log("when i liked ", props.data.is_favourite )
+                // console.log("when i liked then data  ", props.data)
             }, (error) => {
                 console.log(error);
             });
@@ -62,16 +61,16 @@ const Breadcrumb = (props) => {
             setIsLiked(false);
             setIsDisliked(true);
             toast.success(response.message);
-            console.log("when i disliked ", props.data && props.data.is_favourite)
-            console.log("when i disliked then data  ", props.data)
+            // console.log("when i disliked ", props.data.is_favourite )
+            // console.log("when i disliked then data  ", props.data)
         }, (error) => {
             console.log(error);
         });
     };
 
     useEffect(() => {
-        // Update the state based on props.is_favourite when the component mounts
-        setIsLiked(props.data && props.data.is_favourite === 1);
+        // Update the state based on props.data.is_favourite  when the component mounts
+        setIsLiked(props.data && props.data.is_favourite  === 1);
         setIsDisliked(false);
     }, [props.data && props.data.is_favourite]);
 
@@ -110,16 +109,6 @@ const Breadcrumb = (props) => {
                         <div className='right-side-content'>
                             <span> {CurrencySymbol} {data.price} </span>
                             <div>
-                                {/* <button onClick={handleLike}>
-                                    <button>
-                                        {isLiked ? (
-                                            <AiFillHeart size={25} className='liked_property' />
-                                        ) : (
-                                            <AiOutlineHeart size={25} />
-                                        )}
-                                    </button>
-                                </button> */}
-
                                 {isLiked ? (
                                     <button onClick={handleDislike} >
                                         <AiFillHeart size={25} className='liked_property' />

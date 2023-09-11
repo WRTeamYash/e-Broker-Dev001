@@ -64,7 +64,6 @@ function MyApp({ Component, pageProps, data }) {
                                 </Layout>
                             )
                     }
-
                     <Toaster />
                 </PersistGate>
             </Provider>

@@ -37,7 +37,7 @@ const PropertieDeatils = () => {
 
     const router = useRouter();
     const propId = router.query
-    console.log(propId)
+    // console.log(propId)
     const [isLoading, setIsLoading] = useState(true)
     const [expanded, setExpanded] = useState(false);
     const [getPropData, setPropData] = useState()
@@ -71,7 +71,7 @@ const PropertieDeatils = () => {
             (response) => {
 
                 const propertyData = response.data;
-                console.log(propertyData)
+                console.log("++++++++++++++++++++++++++++++++",propertyData)
                 setIsLoading(false);
                 setPropData(propertyData[0]);
                 console.log(getPropData)
@@ -164,8 +164,9 @@ const PropertieDeatils = () => {
                 propertyType: getPropData && getPropData.propery_type,
                 time: getPropData && getPropData.post_created,
                 price: getPropData && getPropData.price,
-                is_favourite: getPropData && getPropData.is_favourite
-            }} />
+                is_favourite: getPropData && getPropData.is_favourite,
+                propId: getPropData && getPropData.id
+            }}/>
             <section className='properties-deatil-page'>
 
 

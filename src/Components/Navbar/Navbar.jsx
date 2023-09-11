@@ -77,6 +77,7 @@ const Nav = () => {
 
 
     const handleLogout = () => {
+       handleClose()
         confirmAlert({
             title: translate("logout"),
             message: translate("areYouSure"),
@@ -234,7 +235,7 @@ const Nav = () => {
                         <div className="mobile_nav">
                             <ul className="navbar-nav" id='mobile-ul'>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" href="/">{translate("home")}</Link>
+                                    <Link className="nav-link active" aria-current="page" href="/" onClick={handleClose}>{translate("home")}</Link>
                                 </li>
                                 <Dropdown>
                                     <Dropdown.Toggle id="dropdown-basic">
@@ -242,12 +243,12 @@ const Nav = () => {
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
-                                        <Dropdown.Item ><Link href="/properties/all-properties/">{translate("allProperties")}</Link></Dropdown.Item>
-                                        <Dropdown.Item><Link href="/featured-properties">{translate("featuredProp")}</Link></Dropdown.Item>
-                                        <Dropdown.Item> <Link href="/most-viewed-properties">{translate("mostViewedProp")}</Link></Dropdown.Item>
-                                        <Dropdown.Item> <Link href="/properties-nearby-city">{translate("nearbyCities")}</Link></Dropdown.Item>
-                                        <Dropdown.Item><Link href="/mostfav-properties">{translate("mostFavProp")}</Link></Dropdown.Item>
-                                        <Dropdown.Item><Link href="/listby-agents"></Link>{translate("listByAgents")}</Dropdown.Item>
+                                        <Dropdown.Item ><Link href="/properties/all-properties/" onClick={handleClose}>{translate("allProperties")}</Link></Dropdown.Item>
+                                        <Dropdown.Item><Link href="/featured-properties" onClick={handleClose}>{translate("featuredProp")}</Link></Dropdown.Item>
+                                        <Dropdown.Item> <Link href="/most-viewed-properties" onClick={handleClose}>{translate("mostViewedProp")}</Link></Dropdown.Item>
+                                        <Dropdown.Item> <Link href="/properties-nearby-city" onClick={handleClose}>{translate("nearbyCities")}</Link></Dropdown.Item>
+                                        <Dropdown.Item><Link href="/mostfav-properties" onClick={handleClose}>{translate("mostFavProp")}</Link></Dropdown.Item>
+                                        <Dropdown.Item><Link href="/listby-agents" onClick={handleClose}></Link>{translate("listByAgents")}</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                                 <Dropdown>
@@ -256,18 +257,18 @@ const Nav = () => {
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
-                                        <Dropdown.Item><Link href="/subscription-plan">{translate("subscriptionPlan")}</Link></Dropdown.Item>
-                                        <Dropdown.Item> <Link href="/articles">{translate("articles")}</Link></Dropdown.Item>
+                                        <Dropdown.Item><Link href="/subscription-plan" onClick={handleClose}>{translate("subscriptionPlan")}</Link></Dropdown.Item>
+                                        <Dropdown.Item> <Link href="/articles" onClick={handleClose}>{translate("articles")}</Link></Dropdown.Item>
                                         <Dropdown.Item onClick={handleOpenAcModal}>{translate("areaConverter")}</Dropdown.Item>
-                                        <Dropdown.Item><Link href='/terms&condition'>
+                                        <Dropdown.Item><Link href='/terms&condition' onClick={handleClose}>
                                             {translate("terms&condition")}
                                         </Link>
                                         </Dropdown.Item>
-                                        <Dropdown.Item> <Link href="/privacy-policy">{translate("privacyPolicy")}</Link></Dropdown.Item>
+                                        <Dropdown.Item> <Link href="/privacy-policy" onClick={handleClose}>{translate("privacyPolicy")}</Link></Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                                 <li className="nav-item">
-                                    <Link className="nav-link" href="/contact-us">{translate("contactUs")}</Link>
+                                    <Link className="nav-link" href="/contact-us" onClick={handleClose}>{translate("contactUs")}</Link>
                                 </li>
                                 {/* <li className="nav-item">
                                     <Link href="/contact-us" id='a-tags-link'>
@@ -275,7 +276,7 @@ const Nav = () => {
                                     </Link>
                                 </li> */}
                                 <li className="nav-item">
-                                    <Link className="nav-link" href="/about-us">{translate("aboutUs")}</Link>
+                                    <Link className="nav-link" href="/about-us" onClick={handleClose}>{translate("aboutUs")}</Link>
                                 </li>
                                 <Dropdown>
                                     <Dropdown.Toggle id="dropdown-basic">

@@ -13,23 +13,23 @@ const LoginModal = ({ isOpen, onClose }) => {
     const [showOtpModal, setShowOtpModal] = useState(false);
     const [phonenum, setPhonenum] = useState('');
     const [value, setValue] = useState()
+        const onSignUp = (e) => {
+            e.preventDefault();
+            if (value === undefined) {
+                toast.error("Please enter phone number!")
+            }
+            else if (validator.isMobilePhone(value)) {
+                setPhonenum(value)
+                onClose()
+                setShowOtpModal(true)
+                e.target.form.reset();
+            }
+            else {
+                toast.error("Enter a valid phone number")
+            }
 
-    const onSignUp = (e) => {
-        e.preventDefault();
-        if (value === undefined) {
-            toast.error("Please enter phone number!")
-        }
-        else if (validator.isMobilePhone(value)) {
-            setPhonenum(value)
-            onClose()
-            setShowOtpModal(true)
-        }
-        else {
-            toast.error("Enter a valid phone number")
-        }
 
-
-    }
+        }
     const handlOTPModalClose = () => {
         setShowOtpModal(false);
     };
@@ -53,7 +53,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                         <div className='modal-body-heading'>
                             <h4>{translate("enterMobile")}</h4>
                             <span>
-                            {translate("sendCode")}
+                                {translate("sendCode")}
                             </span>
                         </div>
                         <div className="mobile-number">
@@ -73,8 +73,8 @@ const LoginModal = ({ isOpen, onClose }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <span>
-                    {translate("byclick")} <a href='/terms&condition'>
-                    {translate("terms&condition")}</a> <span className='mx-1'> {translate("and")} </span> <a href='/privacy-policy'> {translate("privacyPolicy")} </a>
+                        {translate("byclick")} <a href='/terms&condition'>
+                            {translate("terms&condition")}</a> <span className='mx-1'> {translate("and")} </span> <a href='/privacy-policy'> {translate("privacyPolicy")} </a>
                     </span>
                 </Modal.Footer>
 

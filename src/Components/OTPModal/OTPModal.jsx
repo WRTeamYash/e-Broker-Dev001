@@ -22,6 +22,8 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
     const [resendTimer, setResendTimer] = useState(60);
     const [showLoader, setShowLoader] = useState(false);
     const navigate = useRouter()
+
+    const otpInputRef = useRef(null);
     const generateRecaptcha = () => {
         if (!window.recaptchaVerifier) {
             window.recaptchaVerifier = new RecaptchaVerifier(authentication, 'recaptcha-container', {
@@ -170,7 +172,11 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         generateOTP(phonenum)
         toast.success("OTP Resend Successfully")
     };
-
+    useEffect(() => {
+        if (!isOpen && otpInputRef.current) {
+          otpInputRef.current.focus();
+        }
+      }, [isOpen]);
     return (
         <>
 

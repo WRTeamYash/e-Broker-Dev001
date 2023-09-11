@@ -868,7 +868,6 @@
     display: flex;
     align-items: center;
     text-align: center;
-
 }
   .nav-item {
     color: #fff !important;
@@ -877,6 +876,7 @@
     width: 100%;
     border-radius: 10px;
     text-align: -webkit-center;
+    padding:  0 20px;
   }
   .mobile-nav-buttons {
     display: flex;
@@ -897,6 +897,7 @@
     text-align: -webkit-center;
     margin-left: 4rem;
     margin-right: 4rem;
+    padding: 0 20px;
   }
   div.dropdown {
     width: 100%;

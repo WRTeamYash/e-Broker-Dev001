@@ -11,6 +11,7 @@ import Loader from '@/Components/Loader/Loader';
 import { useSelector } from 'react-redux';
 import { translate } from '@/utils';
 import { languageData } from '@/store/reducer/languageSlice';
+import Pagination from '@/Components/Pagination/ReactPagination'
 
 const Index = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -59,6 +60,7 @@ const Index = () => {
         // console.log("select page================", selectedPage);
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
+        window.scrollTo(0, 0);
         // console.log("new offset", newOffset)
     };
 
@@ -87,21 +89,7 @@ const Index = () => {
                             </>
                         )}
                         <div className="col-12">
-                            <ReactPaginate
-                                previousLabel={"previous"}
-                                nextLabel={"next"}
-                                breakLabel="..."
-                                breakClassName="break-me"
-                                pageCount={Math.ceil(total / limit)}
-                                marginPagesDisplayed={2}
-                                pageRangeDisplayed={5}
-                                onPageChange={handlePageChange}
-                                containerClassName={"pagination"}
-                                previousLinkClassName={"pagination__link"}
-                                nextLinkClassName={"pagination__link"}
-                                disabledClassName={"pagination__link--disabled"}
-                                activeClassName={"pagination__link--active"}
-                            />
+                        <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
                         </div>
                     </div>
                 </div>

@@ -43,6 +43,7 @@ const PropertieDeatils = () => {
     const [getPropData, setPropData] = useState()
     const [getSimilerData, setSimilerData] = useState()
 
+
     const GoogleMapData = useSelector(settingsData)
     const GoogleMapApiKey = GoogleMapData && GoogleMapData.place_api_key
     const lang = useSelector(languageData)

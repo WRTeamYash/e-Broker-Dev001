@@ -6,24 +6,26 @@ import Image from 'next/image';
 import Link from 'next/link';
 import VerticalCard from '@/Components/Cards/VerticleCard';
 import VerticalCardSkeleton from '@/Components/Skeleton/VerticalCardSkeleton';
-import ReactPaginate from 'react-paginate';
 import Loader from '@/Components/Loader/Loader';
 import { useSelector } from 'react-redux';
 import { translate } from '@/utils';
 import { languageData } from '@/store/reducer/languageSlice';
+import Pagination from '@/Components/Pagination/ReactPagination'
 
 const Index = () => {
 
     const lang = useSelector(languageData)
     // console.log("languageData",lang)
-      // useSelector(languageData)  
-      useEffect(()=>{
+    // useSelector(languageData)  
+    useEffect(() => {
         // console.log("render")
-      },[lang]);
+    }, [lang]);
     const [isLoading, setIsLoading] = useState(false);
     const [getFeaturedListing, setGetFeaturedListing] = useState([]);
     const [total, setTotal] = useState(0);
     const [offsetdata, setOffsetdata] = useState(0);
+    const [scroll, setScroll] = useState(0);
+
     // console.log("offset data", offsetdata)
     const limit = 8;
     const isLoggedIn = useSelector((state) => state.User_signup);
@@ -34,36 +36,41 @@ const Index = () => {
 
     useEffect(() => {
         setIsLoading(true);
-            GetFeturedListingsApi(
-                "1",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                offsetdata.toString(),
-                limit.toString(),
-                isLoggedIn ? userCurrentId : "",
-                (response) => {
-                    setTotal(response.total);
-                    const FeaturedListingData = response.data;
-                    setIsLoading(false);
-                    setGetFeaturedListing(FeaturedListingData);
-                    // console.log(getFeaturedListing)
-                },
-                (error) => {
-                    setIsLoading(false);
-                    console.log(error);
-                }
-            );
+        GetFeturedListingsApi(
+            "1",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            offsetdata.toString(),
+            limit.toString(),
+            isLoggedIn ? userCurrentId : "",
+            (response) => {
+                setTotal(response.total);
+                const FeaturedListingData = response.data;
+                setIsLoading(false);
+                setGetFeaturedListing(FeaturedListingData);
+                // console.log(getFeaturedListing)
+            },
+            (error) => {
+                setIsLoading(false);
+                console.log(error);
+            }
+        );
     }, [offsetdata, isLoggedIn]);
 
+    const handleScroll = () => {
+        setScroll(window.scrollY);
+    };
     const handlePageChange = (selectedPage) => {
+
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
+        window.scrollTo(0, 0);
         // console.log("new offset", newOffset)
-        console.log("limit", limit)
+        // console.log("limit", limit)
     };
 
 
@@ -92,21 +99,7 @@ const Index = () => {
                             </>
                         )}
                         <div className="col-12">
-                            <ReactPaginate
-                                previousLabel={"previous"}
-                                nextLabel={"next"}
-                                breakLabel="..."
-                                breakClassName="break-me"
-                                pageCount={Math.ceil(total / limit)}
-                                marginPagesDisplayed={2}
-                                pageRangeDisplayed={5}
-                                onPageChange={handlePageChange}
-                                containerClassName={"pagination"}
-                                previousLinkClassName={"pagination__link"}
-                                nextLinkClassName={"pagination__link"}
-                                disabledClassName={"pagination__link--disabled"}
-                                activeClassName={"pagination__link--active"}
-                            />
+                            <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
                         </div>
                     </div>
                 </div>

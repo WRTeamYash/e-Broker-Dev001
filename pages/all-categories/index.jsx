@@ -59,7 +59,7 @@ const AllCategories = () => {
                                 getCategories && getCategories?.map((ele, index) => (
                                     (ele.properties_count !== 0 && ele.properties_count !== "") ? (
                                         <div className='col-sm-12 col-md-6 col-lg-2' key={index}>
-                                            <Link href="/all-properties/[slug]" as={`/all-properties/${ele.id}`} passHref>
+                                              <Link href={`/properties/categories/${ele.id}`}>
                                                 <CategoryCard ele={ele} />
                                             </Link>
                                         </div>

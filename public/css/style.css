@@ -2702,7 +2702,7 @@ option {
 #all-prop-containt #all_prop_card_body {
   width: 100%;
   background-color: #fff;
-  border-radius: 0 12px 12px 0;
+  border-radius: 0 0 12px 12px;
 }
 #all-prop-containt .all_prop_feature {
   background: var(--primary-color);
@@ -2814,10 +2814,13 @@ option {
     border-radius: 12px 0 0 12px;
   }
   #all-prop-containt .all_prop_sell {
-    margin-top: 170px;
+    margin-top: 180px;
   }
   #all-prop-containt .all_prop_price {
-    margin-top: 180px;
+    margin-top: 190px;
+  }
+  #all-prop-containt #all_footer_content p{
+    font-size: smaller;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
@@ -2825,12 +2828,17 @@ option {
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: -moz-fit-content;
     height: fit-content;
     border-radius: 12px;
     cursor: pointer;
-  }
+    gap: 0;
+}
   #all_prop_main_card_rows_cols {
     width: 100%;
+  }
+  #all-prop-containt .img_div {
+    border-radius: 12px 12px 0 0;
   }
   #all-prop-containt #all_prop_card_img {
     width: 100%;
@@ -2857,7 +2865,12 @@ option {
     height: fit-content;
     border-radius: 12px;
     cursor: pointer;
+    gap: 0;
   }
+  #all-prop-containt .img_div {
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+}
   #all-prop-containt #all_prop_card_img {
     width: 100%;
     border-radius: 12px 12px 0 0;
@@ -2883,7 +2896,12 @@ option {
     height: fit-content;
     border-radius: 12px;
     cursor: pointer;
+    gap: 0;
   }
+  #all-prop-containt .img_div {
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+}
   #all-prop-containt #all_prop_card_img {
     /* height: 240px; */
     object-fit: cover;
@@ -2898,7 +2916,7 @@ option {
   }
   #all-prop-containt .all_prop_price {
     margin-top: -50px;
-    margin-left: 65%;
+    margin-left: 75%;
   }
 }
 @media only screen and (max-width: 375px) {

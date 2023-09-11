@@ -101,7 +101,7 @@ const AllProperties = () => {
                       ) :
                         CategoryListByPropertyData?.map((ele) => (
                           <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
-                            <AllPropertieCard ele={ele} />
+                           <AllPropertieCard ele={ele} />
                           </Link>
                         ))}
                     </div>

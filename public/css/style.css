@@ -883,7 +883,13 @@ body {
   color: #000;
   background-color: #ffffff;
   display: flex;
-  /* flex-direction: row; */
+  justify-content: center;
+  align-items: center;
+}
+#addbutton-mobile {
+  color: #fff;
+  /* background-color: #ffffff; */
+  display: flex;
   justify-content: center;
   align-items: center;
 }

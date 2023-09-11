@@ -20,11 +20,13 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
     const inputRefs = useRef([]);
     const [showTimer, setShowTimer] = useState(false);
     const [resendTimer, setResendTimer] = useState(60);
-    const [showLoader, setShowLoader] = useState(false);
+    const [showLoader, setShowLoader] = useState(true);
+    const [otpSent, setOTPSent] = useState(true); // Add a state to track OTP sent status
     const navigate = useRouter()
 
     const otpInputRef = useRef(null);
     const generateRecaptcha = () => {
+     
         if (!window.recaptchaVerifier) {
             window.recaptchaVerifier = new RecaptchaVerifier(authentication, 'recaptcha-container', {
                 'size': 'invisible'
@@ -35,7 +37,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
     }
     useEffect(() => {
         generateRecaptcha();
-
+        setShowLoader(true)
         return () => {
             if (window.recaptchaVerifier) {
                 window.recaptchaVerifier.clear();
@@ -55,15 +57,18 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
             .then(confirmationResult => {
                 window.confirmationResult = confirmationResult;
                 toast.success(translate("otpSentsuccess"))
+                setOTPSent(true); // Set OTP sent status to true
+                setShowLoader(false); 
             }).catch((error) => {
-
                 console.log(error)
+                setShowLoader(false);
             })
     }
     useEffect(() => {
 
         if (phonenum !== null) {
             generateOTP(phonenum)
+            // setShowLoader(true);     // Show loader when OTP generation starts
         }
         // console.log(phonenum)
     }, [phonenum])
@@ -174,9 +179,9 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
     };
     useEffect(() => {
         if (!isOpen && otpInputRef.current) {
-          otpInputRef.current.focus();
+            otpInputRef.current.focus();
         }
-      }, [isOpen]);
+    }, [isOpen]);
     return (
         <>
 

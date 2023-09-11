@@ -38,7 +38,6 @@ const Breadcrumb = (props) => {
         e.stopPropagation();
         // console.log("isLoggedIn:", isLoggedIn);
         if (isLoggedIn && isLoggedIn.data && isLoggedIn.data.token) {
-            // console.log("like", userCurrentId);
             AddFavourite(props.data.propId, "1", (response) => {
                 setIsLiked(true);
                 setIsDisliked(false);
@@ -57,7 +56,7 @@ const Breadcrumb = (props) => {
     const handleDislike = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        AddFavourite(userCurrentId, "0", (response) => {
+        AddFavourite(props.data.propId, "0", (response) => {
             setIsLiked(false);
             setIsDisliked(true);
             toast.success(response.message);

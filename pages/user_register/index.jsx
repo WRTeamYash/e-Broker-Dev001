@@ -1,4 +1,4 @@
-"use client"
+
 import React, { useEffect, useState } from 'react';
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import { BiCurrentLocation } from 'react-icons/bi';
@@ -15,6 +15,7 @@ import { AiOutlineCamera } from 'react-icons/ai';
 import dummyimg from "../../src/assets/Images/user_profile.png"
 import { languageData } from '@/store/reducer/languageSlice';
 import { translate } from '@/utils';
+import Layout from '@/Components/Layout/Layout';
 
 
 const index = () => {
@@ -94,7 +95,7 @@ const index = () => {
     };
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("basicInfo")} />
             <section id='user_register'>
                 <div className="container">
@@ -204,7 +205,7 @@ const index = () => {
             </section>
             {showCurrentLoc && <Location isOpen={true} onClose={handleCloseLocModal} onSelectLocation={handleSelectLocation}
             />}
-        </>
+        </Layout>
     )
 }
 

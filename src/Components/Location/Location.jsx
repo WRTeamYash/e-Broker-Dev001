@@ -1,4 +1,4 @@
-"use client"
+
 import React, { useEffect, useState, useMemo } from 'react';
 import { Modal } from 'react-bootstrap';
 import { RiCloseCircleLine } from 'react-icons/ri';
@@ -13,7 +13,7 @@ const Location = ({ isOpen, onClose, onSelectLocation }) => {
 
   const GoogleMapData = useSelector(settingsData);
   const GoogleMapApi = GoogleMapData.place_api_key;
-  console.log("================================================",GoogleMapApi)
+  // console.log("================================================",GoogleMapApi)
   const libraries = ['places'];
   const [isAddressLoading, setisAddressLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false)

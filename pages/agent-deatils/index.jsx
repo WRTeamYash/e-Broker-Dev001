@@ -1,4 +1,4 @@
-'use client'
+
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import React, { useEffect, useState } from 'react'
 import { CiFacebook, CiLocationOn } from 'react-icons/ci'
@@ -177,7 +177,7 @@ const page = () => {
         },
     ]
     return (
-        <>
+        <Layout>
 
             <section id='agentDetailsSect'>
                 <Breadcrumb title="" />
@@ -336,7 +336,7 @@ const page = () => {
                                                         <Loader />
                                                     ) :
                                                         AllPropertieSataticCards?.map((ele) => (
-                                                            <Link href="">
+                                                            <Link href="/">
                                                                 <Card id='all_prop_main_card' key={ele.id}>
                                                                     <div>
                                                                         <Card.Img variant="top" id='all_prop_card_img' src={ele.image} />
@@ -498,7 +498,7 @@ const page = () => {
 
             </section >
 
-        </>
+        </Layout>
     )
 }
 

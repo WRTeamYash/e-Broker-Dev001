@@ -1,5 +1,6 @@
-'use client'
+
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
+import Layout from '@/Components/Layout/Layout'
 import Loader from '@/Components/Loader/Loader'
 import { languageData } from '@/store/reducer/languageSlice'
 import { settingsData } from '@/store/reducer/settingsSlice'
@@ -33,7 +34,7 @@ const page = () => {
         // console.log("render")
       },[lang]);
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("privacyPolicy")}/>
             <section id="privacySect">
                 <div className="container">
@@ -51,7 +52,7 @@ const page = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </Layout>
     )
 }
 

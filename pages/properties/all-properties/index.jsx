@@ -1,4 +1,4 @@
-"use client"
+
 import React, { useEffect, useState } from 'react'
 import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
 import { ButtonGroup, Col, Row } from 'react-bootstrap'
@@ -26,6 +26,7 @@ import { useSelector } from 'react-redux'
 import { translate } from '@/utils'
 import { languageData } from '@/store/reducer/languageSlice'
 import Pagination from '@/Components/Pagination/ReactPagination'
+import Layout from '@/Components/Layout/Layout'
 
 
 
@@ -63,6 +64,12 @@ const AllProperties = ({ propertySlugData, pageIndex }) => {
         offsetdata.toString(),
         limit.toString(),
         isLoggedIn ? userCurrentId : "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
         (response) => {
           setTotal(response.total);
           const propertyData = response.data;
@@ -85,7 +92,7 @@ const AllProperties = ({ propertySlugData, pageIndex }) => {
   };
   // console.log(CategoryListByPropertyData)
   return (
-    <>
+    <Layout>
       <Breadcrumb title={translate("allProperties")} />
 
 
@@ -143,7 +150,7 @@ const AllProperties = ({ propertySlugData, pageIndex }) => {
 
         </div>
       </div>
-    </>
+    </Layout>
   )
 }
 

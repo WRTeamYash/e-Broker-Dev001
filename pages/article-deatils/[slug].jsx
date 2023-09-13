@@ -1,4 +1,4 @@
-"use client"
+
 import React, { useEffect, useState } from 'react'
 import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import adminlogo from "@/assets/Images/Superman.jpeg"
@@ -20,26 +20,40 @@ import Skeleton from 'react-loading-skeleton';
 import { translate } from '@/utils';
 import { useSelector } from 'react-redux';
 import { languageData } from '@/store/reducer/languageSlice';
+import Layout from '@/Components/Layout/Layout';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { GetAllArticlesApi } from '@/store/actions/campaign';
 
 
 
 
-const ArticleDeatils = (propertySlugData) => {
+const ArticleDeatils = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [articleData, setArticleData] = useState()
+    const router = useRouter();
+    const articleId = router.query
+
     useEffect(() => {
-        setArticleData(propertySlugData.propertySlugData[0])
-        setIsLoading(false)
-        // console.log(propertySlugData.propertySlugData[0])
-        // console.log(articleData)
-    }, [propertySlugData])
+        setIsLoading(true);
+        GetAllArticlesApi(articleId, (response) => {
+            const AData = response.data[0]
+            console.log(AData)
+            setIsLoading(false);
+            setArticleData(AData)
+
+        },
+            (error) => {
+                console.log(error)
+                setIsLoading(true)
+            })
+    }, [])
 
     const lang = useSelector(languageData)
-    // console.log("languageData",lang)
-      // useSelector(languageData)  
-      useEffect(()=>{
-        // console.log("render")
-      },[lang]);
+
+    useEffect(() => {
+
+    }, [lang]);
 
 
     const renderBullet = (index, className) => {
@@ -141,253 +155,240 @@ const ArticleDeatils = (propertySlugData) => {
     };
     return (
         <>
-            <Breadcrumb title={translate("articleDeatils")} />
-            <div className='all-articles'>
+            {/* <Head >
+                <title>
+                    {propertySlugData && propertySlugData.propertySlugData[0].title}
+                </title>
+            </Head> */}
+            <Layout>
+                <Breadcrumb title={translate("articleDeatils")} />
+                <div className='all-articles'>
 
-                <div id='all-articles-deatil-content'>
-                    <div className="container">
-                        <div className="row" id='main-content'>
-                            <div className="col-12 col-md-6 col-lg-9">
-                                <div className='all-article-rightside'>
-                                    <div className='article_all_deatil_card'>
-                                        <div className="card">
-                                            {/* <div className="card-title">
-                                               {articleData.title}
-                                            </div> */}
-                                            {isLoading ? (
-                                                // Show skeleton loading when data is being fetched
-                                                <div className="col-12 loading_data">
-                                                    <Skeleton height={20} count={20} />
-                                                </div>
-                                                // <Loader />
-                                            ) : (
-                                                <>
-                                                <div>
-                                                Title :-{articleData && articleData.title}
-                                                </div>
-                                                    <div className='article_img_div'>
-                                                        <img src={articleData && articleData.image} alt="" className='article_tit       le_img'/>
-                                                    </div>
-                                                {/* // Render the privacy policy data when not loading */}
-                                                    <div className='article_deatils_description' dangerouslySetInnerHTML={{ __html: articleData && articleData.description || '' }} />
-                                                </>
-                                            )}
-                                        </div>
-                                    </div>
+                    <div id='all-articles-deatil-content'>
+                        <div className="container">
+                            <div className="row" id='main-content'>
+                                <div className="col-12 col-md-6 col-lg-9">
+                                    <div className='all-article-rightside'>
+                                        <div className='article_all_deatil_card'>
+                                            <div className="card">
 
-                                </div>
-                            </div>
-                            <div className="col-12 col-md-6 col-lg-3">
-                                <div className="all-articles-leftside">
-                                    <div className='cate-card'>
-                                        <div className="card">
-                                            <div className="card-header">
-                                                Categories
-                                            </div>
-                                            <div className="card-body">
-                                                <div className='cate-list'>
-                                                    <span>Townhouse</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Codno</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Commercial</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Plote</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Land</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>House</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Banglow</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Penthouse</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Villa</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
+                                                {isLoading ? (
+                                                    // Show skeleton loading when data is being fetched
+                                                    <div className="col-12 loading_data">
+                                                        <Skeleton height={20} count={20} />
+                                                    </div>
+                                                    // <Loader />
+                                                ) : (
+                                                    <>
+                                                        <div>
+                                                            Title :-{articleData && articleData.title}
+                                                        </div>
+                                                        <div className='article_img_div'>
+                                                            <img src={articleData && articleData.image} alt="" className='article_title_img' />
+                                                        </div>
+                                                        {/* // Render the privacy policy data when not loading */}
+                                                        <div className='article_deatils_description' dangerouslySetInnerHTML={{ __html: articleData && articleData.description || '' }} />
+                                                    </>
+                                                )}
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className='popular-tag-card'>
-                                        <div className="card">
-                                            <div className="card-header">
-                                                Popular Tags
-                                            </div>
-                                            <div className="card-body">
-                                                <div className="pop-tags">
-                                                    <span>apartment</span>
-                                                    <span>modern</span>
-                                                    <span>building</span>
-                                                    <span>luxarious</span>
-                                                    <span>real estate</span>
-                                                    <span>Villa</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='recent-article-card'>
-                                        <div className="card">
-                                            <div className="card-header">
-                                                Recent Articles
-                                            </div>
-                                            <div className="card-body">
-                                                <div className='resent-article-deatils'>
-                                                    <div className='resent-article-image'>
-                                                        <img src={adminlogo.src} alt="" className='resent-article-image' />
-                                                    </div>
-                                                    <div className='resent-article-desc'>
-                                                        <span>Average U.S. Rental Price Hits a Two-Year High</span>
-                                                    </div>
-                                                </div>
-                                                <div className='resent-article-deatils'>
-                                                    <div className='resent-article-image'>
-                                                        <img src={adminlogo.src} alt="" className='resent-article-image' />
-                                                    </div>
-                                                    <div className='resent-article-desc'>
-                                                        <span>Average U.S. Rental Price Hits a Two-Year High</span>
-                                                    </div>
-                                                </div>
-                                                <div className='resent-article-deatils'>
-                                                    <div className='resent-article-image'>
-                                                        <img src={adminlogo.src} alt="" className='resent-article-image' />
-                                                    </div>
-                                                    <div className='resent-article-desc'>
-                                                        <span>Average U.S. Rental Price Hits a Two-Year High</span>
-                                                    </div>
-                                                </div>
-                                                <div className='resent-article-deatils'>
-                                                    <div className='resent-article-image'>
-                                                        <img src={adminlogo.src} alt="" className='resent-article-image' />
-                                                    </div>
-                                                    <div className='resent-article-desc'>
-                                                        <span>Average U.S. Rental Price Hits a Two-Year High</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
+                                <div className="col-12 col-md-6 col-lg-3">
+                                    <div className="all-articles-leftside">
+                                        <div className='cate-card'>
+                                            <div className="card">
+                                                <div className="card-header">
+                                                    Categories
+                                                </div>
+                                                <div className="card-body">
+                                                    <div className='cate-list'>
+                                                        <span>Townhouse</span>
+                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
+                                                    </div>
+                                                    <div className='cate-list'>
+                                                        <span>Codno</span>
+                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
+                                                    </div>
+                                                    <div className='cate-list'>
+                                                        <span>Commercial</span>
+                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
+                                                    </div>
+                                                    <div className='cate-list'>
+                                                        <span>Plote</span>
+                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
+                                                    </div>
+                                                    <div className='cate-list'>
+                                                        <span>Land</span>
+                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
+                                                    </div>
+                                                    <div className='cate-list'>
+                                                        <span>House</span>
+                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
+                                                    </div>
+                                                    <div className='cate-list'>
+                                                        <span>Banglow</span>
+                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
+                                                    </div>
+                                                    <div className='cate-list'>
+                                                        <span>Penthouse</span>
+                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
+                                                    </div>
+                                                    <div className='cate-list'>
+                                                        <span>Villa</span>
+                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='popular-tag-card'>
+                                            <div className="card">
+                                                <div className="card-header">
+                                                    Popular Tags
+                                                </div>
+                                                <div className="card-body">
+                                                    <div className="pop-tags">
+                                                        <span>apartment</span>
+                                                        <span>modern</span>
+                                                        <span>building</span>
+                                                        <span>luxarious</span>
+                                                        <span>real estate</span>
+                                                        <span>Villa</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='recent-article-card'>
+                                            <div className="card">
+                                                <div className="card-header">
+                                                    Recent Articles
+                                                </div>
+                                                <div className="card-body">
+                                                    <div className='resent-article-deatils'>
+                                                        <div className='resent-article-image'>
+                                                            <img src={adminlogo.src} alt="" className='resent-article-image' />
+                                                        </div>
+                                                        <div className='resent-article-desc'>
+                                                            <span>Average U.S. Rental Price Hits a Two-Year High</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className='resent-article-deatils'>
+                                                        <div className='resent-article-image'>
+                                                            <img src={adminlogo.src} alt="" className='resent-article-image' />
+                                                        </div>
+                                                        <div className='resent-article-desc'>
+                                                            <span>Average U.S. Rental Price Hits a Two-Year High</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className='resent-article-deatils'>
+                                                        <div className='resent-article-image'>
+                                                            <img src={adminlogo.src} alt="" className='resent-article-image' />
+                                                        </div>
+                                                        <div className='resent-article-desc'>
+                                                            <span>Average U.S. Rental Price Hits a Two-Year High</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className='resent-article-deatils'>
+                                                        <div className='resent-article-image'>
+                                                            <img src={adminlogo.src} alt="" className='resent-article-image' />
+                                                        </div>
+                                                        <div className='resent-article-desc'>
+                                                            <span>Average U.S. Rental Price Hits a Two-Year High</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div id='related_articles_section'>
-                            <div className='related-headline'>
-                                <span className='headline'
-                                    data-aos="fade-right" data-aos-duration="1000"
-                                >
-                                    Related  <span
+                            <div id='related_articles_section'>
+                                <div className='related-headline'>
+                                    <span className='headline'
+                                        data-aos="fade-right" data-aos-duration="1000"
                                     >
-                                        <span
-                                            className='highlight'
-                                        // data-aos="fade-left" data-aos-duration="5000"
-                                        > Articles</span>
+                                        Related  <span
+                                        >
+                                            <span
+                                                className='highlight'
+                                            // data-aos="fade-left" data-aos-duration="5000"
+                                            > Articles</span>
+                                        </span>
                                     </span>
-                                </span>
-                            </div>
-                            <div className="related_articles_slider">
-                                <Swiper
-                                    slidesPerView={4}
-                                    // loop={true}
-                                    spaceBetween={30}
-                                    freeMode={true}
-                                    pagination={{
-                                        clickable: true,
-                                        renderBullet: renderBullet
-                                    }}
-                                    modules={[FreeMode, Pagination]}
-                                    className='related-swiper'
-                                    breakpoints={breakpoints}
-                                    style={{
-                                        // width: "auto"
-                                    }}
+                                </div>
+                                <div className="related_articles_slider">
+                                    <Swiper
+                                        slidesPerView={4}
+                                        // loop={true}
+                                        spaceBetween={30}
+                                        freeMode={true}
+                                        pagination={{
+                                            clickable: true,
+                                            renderBullet: renderBullet
+                                        }}
+                                        modules={[FreeMode, Pagination]}
+                                        className='related-swiper'
+                                        breakpoints={breakpoints}
+                                        style={{
+                                            // width: "auto"
+                                        }}
 
 
-                                >
-                                    {isLoading ? (
-                                        // Show skeleton loading when data is being fetched
-                                        // <div className="col-12 loading_data">
-                                        //     <Skeleton height={20} count={22} />
-                                        // </div>
-                                        <Loader />
-                                    ) :
-                                        ArticleStaticData?.map((ele) => (
-                                            <SwiperSlide id="related-swiper-slider" key={ele.id}>
-                                                <Card id='articles_main_card'>
-                                                    <Card.Img variant="top" id='articles_card_img' src={ele.articleImg} />
-                                                    <span id='apartment_tag'>{ele.propType}</span>
-                                                    <Card.Body id='all-articles_card_body'>
+                                    >
+                                        {isLoading ? (
+                                            // Show skeleton loading when data is being fetched
+                                            // <div className="col-12 loading_data">
+                                            //     <Skeleton height={20} count={22} />
+                                            // </div>
+                                            <Loader />
+                                        ) :
+                                            ArticleStaticData?.map((ele) => (
+                                                <SwiperSlide id="related-swiper-slider" key={ele.id}>
+                                                    <Card id='articles_main_card'>
+                                                        <Card.Img variant="top" id='articles_card_img' src={ele.articleImg} />
+                                                        <span id='apartment_tag'>{ele.propType}</span>
+                                                        <Card.Body id='all-articles_card_body'>
 
-                                                        <div id='all-articles_card_headline'>
-                                                            <span>
-                                                                {ele.propText}
-                                                            </span>
-                                                            <p>
-                                                                {ele.propDecs}
-                                                            </p>
-                                                        </div>
-                                                        <div id='readmore_article'>
-                                                            <button className='readmore'> Read More  <FiArrowRight size={20} /></button>
+                                                            <div id='all-articles_card_headline'>
+                                                                <span>
+                                                                    {ele.propText}
+                                                                </span>
+                                                                <p>
+                                                                    {ele.propDecs}
+                                                                </p>
+                                                            </div>
+                                                            <div id='readmore_article'>
+                                                                <button className='readmore'> Read More  <FiArrowRight size={20} /></button>
 
-                                                        </div>
+                                                            </div>
 
-                                                    </Card.Body>
-                                                    <Card.Footer id='all-articles_card_footer'>
-                                                        <div id='admin_pic'>
-                                                            <img src={ele.profile} alt="" className='admin' />
-                                                        </div>
-                                                        <div className='all-articles_footer_text'>
-                                                            <span className='byadmin'> {ele.by}
-                                                            </span>
-                                                            <p>{ele.time}</p>
-                                                        </div>
-                                                    </Card.Footer>
-                                                </Card>
-                                            </SwiperSlide>
-                                        ))}
-                                </Swiper>
+                                                        </Card.Body>
+                                                        <Card.Footer id='all-articles_card_footer'>
+                                                            <div id='admin_pic'>
+                                                                <img src={ele.profile} alt="" className='admin' />
+                                                            </div>
+                                                            <div className='all-articles_footer_text'>
+                                                                <span className='byadmin'> {ele.by}
+                                                                </span>
+                                                                <p>{ele.time}</p>
+                                                            </div>
+                                                        </Card.Footer>
+                                                    </Card>
+                                                </SwiperSlide>
+                                            ))}
+                                    </Swiper>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Layout>
         </>
     )
 }
 
-export async function getServerSideProps(context) {
-    // Get the slug parameter from the URL
-    const { slug } = context.query;
 
-    // Fetch data from the external API using the slug parameter in the URL
-    try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_articles?id=${slug}`);
-        const propertySlugData = response.data.data; // Assuming your API response is a JSON object
-        // console.log("property Data", propertySlugData)
-        return {
-            props: { propertySlugData }
-        };
-    } catch (error) {
-        console.error("Error fetching property data:", error);
-        return {
-            props: { propertySlugData: null } // You can handle the error case appropriately in your component
-        };
-    }
-}
 
 
 export default ArticleDeatils

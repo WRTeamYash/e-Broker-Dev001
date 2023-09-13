@@ -1,4 +1,4 @@
-"use client"
+
 import React from 'react'
 import Nav from '../Navbar/Navbar.jsx'
 import { useSelector } from 'react-redux'

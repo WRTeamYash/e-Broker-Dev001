@@ -11,6 +11,7 @@ import Pagination from '@/Components/Pagination/ReactPagination'
 import { useSelector } from 'react-redux';
 import { translate } from '@/utils';
 import { languageData } from '@/store/reducer/languageSlice';
+import Layout from '@/Components/Layout/Layout';
 
 const Index = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +46,12 @@ const Index = () => {
             offsetdata.toString(),
             limit.toString(),
             isLoggedIn ? userCurrentId : "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             (response) => {
                 setTotal(response.total);
                 const MostViewedData = response.data;
@@ -68,7 +75,7 @@ const Index = () => {
     };
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("mostViewedProp")} />
             <section id='featured_prop_section'>
                 <div className='container'>
@@ -97,7 +104,7 @@ const Index = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </Layout>
     );
 };
 

@@ -1,4 +1,4 @@
-'use client'
+
 import React, { useEffect, useState } from 'react'
 import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
 import cardImg from '@/assets/Images/Featured_List_1.jpg'
@@ -17,6 +17,8 @@ import ArticleHorizonatalCard from '@/Components/Cards/ArticleHorizonatalCard'
 import { translate } from '@/utils'
 import { useSelector } from 'react-redux'
 import { languageData } from '@/store/reducer/languageSlice'
+import Layout from '@/Components/Layout/Layout'
+import Link from 'next/link'
 
 
 
@@ -57,7 +59,7 @@ const Articles = () => {
     };
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("articles")} />
             <div className='all-articles'>
 
@@ -204,7 +206,7 @@ const Articles = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </Layout>
     )
 }
 

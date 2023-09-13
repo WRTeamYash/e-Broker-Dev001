@@ -1,4 +1,4 @@
-"use client"
+
 import { AddFavourite } from '@/store/actions/campaign';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import { translate } from '@/utils';

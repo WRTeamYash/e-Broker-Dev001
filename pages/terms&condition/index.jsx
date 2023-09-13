@@ -1,4 +1,4 @@
-"use client"
+
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Loader from '@/Components/Loader/Loader'
 import { settingsData } from '@/store/reducer/settingsSlice'
@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { translate } from '@/utils'
 import { languageData } from '@/store/reducer/languageSlice'
+import Layout from '@/Components/Layout/Layout'
 
 
 
@@ -34,7 +35,7 @@ const page = () => {
         // console.log("render")
       },[lang]);
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("terms&condition")} />
             <section id="termsSect">
                 <div className="container">
@@ -52,7 +53,7 @@ const page = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </Layout>
     )
 }
 

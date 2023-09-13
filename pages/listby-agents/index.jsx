@@ -1,4 +1,4 @@
-"use client"
+
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import React, { useEffect, useState } from 'react'
 import agentimg from "@/assets/Images/Superman.jpeg"
@@ -10,6 +10,7 @@ import AgentCardSkeleton from '@/Components/Skeleton/AgentCardSkeleton'
 import { translate } from '@/utils'
 import { useSelector } from 'react-redux'
 import { languageData } from '@/store/reducer/languageSlice'
+import Layout from '@/Components/Layout/Layout'
 
 
 
@@ -80,7 +81,7 @@ const index = () => {
         }
     ]
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("allAgents")} />
             <section id='all_agents_section'>
                 <div className='container'>
@@ -102,7 +103,7 @@ const index = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </Layout>
     )
 }
 

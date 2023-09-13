@@ -3,10 +3,10 @@ const USER_SIGNUP = "user_signup"
 const UPDATE_PROFILE = "update_profile"
 const GET_SLIDERS = "get_slider"
 const GET_CATEGORES = "get_categories"
-const GET_PROPETRES ="get_property"
-const GET_ARTICLES ="get_articles"
-const GET_COUNT_BY_CITIES_CATEGORIS ="get_count_by_cities_categoris"
-const ADD_FAVOURITE ="add_favourite"
+const GET_PROPETRES = "get_property"
+const GET_ARTICLES = "get_articles"
+const GET_COUNT_BY_CITIES_CATEGORIS = "get_count_by_cities_categoris"
+const ADD_FAVOURITE = "add_favourite"
 const GET_LANGUAGES = "get_languages"
 
 
@@ -89,15 +89,15 @@ export const getCategorieApi = (user_id) => {
         url: `${GET_CATEGORES}`,
         method: "GET",
         params: {
-            
+
         },
         authorizationHeader: false,
 
     }
 }
 
-// GET PROMOTED PROPETRS // FEATURED PROPETRS // GET MOST FAV
-export const getAllProperties = (promoted, top_rated, id, category_id, most_liked,city, get_simiilar, offset, limit, current_user) => {
+// get Propertyes 
+export const getAllProperties = (promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country) => {
 
     return {
         url: `${GET_PROPETRES}`,
@@ -107,13 +107,18 @@ export const getAllProperties = (promoted, top_rated, id, category_id, most_like
             top_rated: top_rated,
             id, id,
             category_id: category_id,
-            most_liked:most_liked,
-            city:city,
+            most_liked: most_liked,
+            city: city,
             get_simiilar: get_simiilar,
-            offset:offset,
-            limit:limit,
-            current_user:current_user
-
+            offset: offset,
+            limit: limit,
+            current_user: current_user,
+            property_type: property_type,
+            max_price: max_price,
+            min_price: min_price,
+            posted_since: posted_since,
+            state: state,
+            country: country
         },
         authorizationHeader: false,
 
@@ -127,7 +132,7 @@ export const getArticlesApi = (id) => {
         url: `${GET_ARTICLES}`,
         method: "GET",
         params: {
-            id:id
+            id: id
         },
         authorizationHeader: false,
 
@@ -140,7 +145,7 @@ export const getCountByCitysCategories = () => {
         url: `${GET_COUNT_BY_CITIES_CATEGORIS}`,
         method: "GET",
         params: {
-          
+
         },
         authorizationHeader: false,
 
@@ -153,8 +158,8 @@ export const addFavourite = (property_id, type) => {
         url: `${ADD_FAVOURITE}`,
         method: "POST",
         data: {
-            property_id:property_id,
-            type:type
+            property_id: property_id,
+            type: type
         },
         authorizationHeader: true,
 
@@ -168,8 +173,8 @@ export const getLanguages = (language_code, web_language_file) => {
         url: `${GET_LANGUAGES}`,
         method: "GET",
         params: {
-            language_code:language_code,
-            web_language_file:web_language_file
+            language_code: language_code,
+            web_language_file: web_language_file
         },
         authorizationHeader: false,
 

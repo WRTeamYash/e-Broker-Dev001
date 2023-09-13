@@ -1,4 +1,4 @@
-"use client"
+
 import React from 'react'
 import eBroker from '@/assets/eBrokerLogo.svg';
 import { FiMail, FiPhone } from "react-icons/fi"
@@ -51,7 +51,7 @@ const Footer = () => {
                                     <a href="https://www.instagram.com/wrteam.in"  target="_blank">
                                     <AiOutlineInstagram size={28} />
                                     </a>
-                                    <a href="">
+                                    <a href="/">
                                     <ImPinterest2 size={25} />
                                     </a>
                                     <a href="https://in.linkedin.com/company/wrteam" target='_blank'>

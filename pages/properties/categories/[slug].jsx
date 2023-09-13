@@ -1,4 +1,4 @@
-"use client"
+
 import React, { useEffect, useState } from 'react'
 
 import Link from 'next/link'
@@ -55,6 +55,12 @@ const AllProperties = () => {
         offsetdata.toString(),
         limit.toString(),
         isLoggedIn ? userCurrentId : "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
         (response) => {
           setTotal(response.total);
           const propertyData = response.data;
@@ -76,7 +82,7 @@ const AllProperties = () => {
   };
 
   return (
-    <>
+    <Layout>
       <Breadcrumb title="All Properties" />
 
 
@@ -131,7 +137,7 @@ const AllProperties = () => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   )
 }
 // export async function getServerSideProps(context) {

@@ -1,6 +1,7 @@
-"use client"
+
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import CategoryCard from '@/Components/Cards/CategoryCard'
+import Layout from '@/Components/Layout/Layout'
 import Loader from '@/Components/Loader/Loader'
 import CustomCategorySkeleton from '@/Components/Skeleton/CustomCategorySkeleton'
 import { GetCategorieApi } from '@/store/actions/campaign'
@@ -41,7 +42,7 @@ const AllCategories = () => {
 
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("allCategories")} />
             <section id='view_all_cate_section'>
                 <div className='cate_section'>
@@ -69,7 +70,7 @@ const AllCategories = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </Layout>
     )
 }
 

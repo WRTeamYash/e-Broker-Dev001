@@ -1,4 +1,4 @@
-"use client"
+
 import React, { useEffect, useState } from 'react'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import Skeleton from 'react-loading-skeleton'
@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { translate } from '@/utils'
 import { useSelector } from 'react-redux'
 import { languageData } from '@/store/reducer/languageSlice'
+import Layout from '@/Components/Layout/Layout'
 
 const PropertiesNearbyCity = () => {
 
@@ -34,7 +35,7 @@ const PropertiesNearbyCity = () => {
         // console.log("render")
     }, [lang]);
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("propNearByCities")} />
             <section id='all-nearby-citys'>
                 <div className="container">
@@ -69,7 +70,7 @@ const PropertiesNearbyCity = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </Layout>
     )
 }
 

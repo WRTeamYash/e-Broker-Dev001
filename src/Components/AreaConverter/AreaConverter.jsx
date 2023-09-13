@@ -1,4 +1,4 @@
-"use client"
+
 import { translate } from '@/utils';
 import React, { useState } from 'react';
 // import Button from 'react-bootstrap/Button';

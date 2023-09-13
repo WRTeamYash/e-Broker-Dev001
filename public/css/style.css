@@ -30,7 +30,22 @@ body {
   border-radius: 12px 12px 0px 0px !important;
   top: -4px;
 }
-
+.article_img_div{
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 20px;
+  border-radius: 12px !important;
+}
+.article_title_img {
+  aspect-ratio: 1/1;
+  max-width: 100%;
+  /* height: article; */
+}
+.serach_page_tab {
+  position: relative;
+  bottom: 10vh;
+}
 /* ================================ LOADER============================= */
 /* Loader.css */
 .loader-container {
@@ -780,6 +795,9 @@ body {
   font-family: var(--primary-font);
   padding: 0 !important;
 }
+.navbar-brand {
+  padding-top: 0;
+}
 .is-sticky {
   position: fixed !important;
   top: 0 !important;
@@ -986,8 +1004,10 @@ body {
   color: #ffffff;
   background-color: var(--primary-color);
   font-family: var(--primary-font);
-  font-size: 40px;
+  font-size: 35px;
   line-height: 55px;
+  padding: 5px 10px;
+  border-radius: 8px;
 }
 #hero_headlines {
   margin-top: 10px;
@@ -2550,6 +2570,14 @@ hr {
   font-size: small;
   font-weight: bold;
 }
+/* :where(.css-dev-only-do-not-override-18iikkb).ant-select .ant-select-selector {
+  width: 100%;
+  margin-top: 10px;
+  background-color: #f5f5f5 !important;
+  border: none;
+  color: #282f39c2;
+  font-size: 15px;
+} */
 .form-select {
   margin-top: 10px;
   background-color: #f5f5f5 !important;
@@ -3673,6 +3701,22 @@ div#all-articles_card_footer .allarticles_footer_text p {
   border: none;
   border-radius: 8px;
   padding: 10px;
+}
+.searchLocationInput{
+  margin-top: 10px;
+  width: 100%;
+  height: 3.5vh;
+  background: var(--primary-background);
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: #282f39c2;
+}
+.pac-container{
+  z-index:9999 !important;
+}
+.searchLocationInput:focus{
+  outline: none;
 }
 .form-custom-input:focus {
   outline: none;

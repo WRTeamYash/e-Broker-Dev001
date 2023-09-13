@@ -1,4 +1,4 @@
-"use client"
+
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { BiCurrentLocation } from 'react-icons/bi';

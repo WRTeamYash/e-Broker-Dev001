@@ -26,10 +26,10 @@ const Index = () => {
 
     const lang = useSelector(languageData)
     // console.log("languageData",lang)
-      // useSelector(languageData)  
-      useEffect(()=>{
+    // useSelector(languageData)  
+    useEffect(() => {
         // console.log("render")
-      },[lang]);
+    }, [lang]);
     useEffect(() => {
         setIsLoading(true);
         GetFeturedListingsApi(
@@ -43,6 +43,12 @@ const Index = () => {
             offsetdata.toString(),
             limit.toString(),
             isLoggedIn ? userCurrentId : "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             (response) => {
                 setTotal(response.total);
                 const MostViewedData = response.data;
@@ -65,7 +71,7 @@ const Index = () => {
     };
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("mostFavProp")} />
             <section id='featured_prop_section'>
                 <div className='container'>
@@ -89,12 +95,12 @@ const Index = () => {
                             </>
                         )}
                         <div className="col-12">
-                        <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                            <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
                         </div>
                     </div>
                 </div>
             </section>
-        </>
+        </Layout>
     );
 };
 

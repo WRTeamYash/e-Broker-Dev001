@@ -10,6 +10,7 @@ import { Toaster, toast } from 'react-hot-toast';
 import { translate } from '@/utils';
 import { useSelector } from 'react-redux';
 import { languageData } from '@/store/reducer/languageSlice';
+import Layout from '@/Components/Layout/Layout';
 
 const ContactUs = () => {
     const lang = useSelector(languageData)
@@ -68,7 +69,6 @@ const ContactUs = () => {
 
         if (validateForm()) {
             // Submit the form data or perform other actions
-            toast.success("We are respond you very soon, Thanks for Contact")
             setFormData({
                 firstName: '',
                 lastName: '',
@@ -77,10 +77,11 @@ const ContactUs = () => {
                 message: '',
             });
         }
+            toast.success("We are respond you very soon, Thanks for Contact")
     };
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("contactUs")} />
             <section id='contact-us'>
                 <div className='container'>
@@ -253,7 +254,7 @@ const ContactUs = () => {
                
             </section >
 
-        </>
+        </Layout>
     )
 }
 

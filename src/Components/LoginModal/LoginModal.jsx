@@ -1,4 +1,4 @@
-"use client"
+
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { RiCloseCircleLine } from 'react-icons/ri';

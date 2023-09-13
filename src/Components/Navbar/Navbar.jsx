@@ -1,4 +1,4 @@
-'use client'
+
 import React, { useState, useEffect } from 'react';
 import Logo from '@/assets/Logo_Color.png';
 import { RiUserSmileLine } from 'react-icons/ri'
@@ -196,7 +196,7 @@ const Nav = () => {
                                                             </Dropdown.Toggle>
 
                                                             <Dropdown.Menu id='language'>
-                                                                <Dropdown.Item href="">{translate("dashboard")}</Dropdown.Item>
+                                                                <Dropdown.Item href="/">{translate("dashboard")}</Dropdown.Item>
                                                                 <Dropdown.Item onClick={handleLogout}>{translate("logout")}</Dropdown.Item>
                                                             </Dropdown.Menu>
                                                         </Dropdown>
@@ -312,7 +312,7 @@ const Nav = () => {
                                                         </Dropdown.Toggle>
 
                                                         <Dropdown.Menu id='language'>
-                                                            <Dropdown.Item href="">{translate("dashboard")}</Dropdown.Item>
+                                                            <Dropdown.Item href="/">{translate("dashboard")}</Dropdown.Item>
                                                             <Dropdown.Item onClick={handleLogout}>{translate("logout")}</Dropdown.Item>
                                                         </Dropdown.Menu>
                                                     </Dropdown>

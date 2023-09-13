@@ -1,6 +1,5 @@
-"use client"
-import React, { useEffect, useState } from 'react'
 
+import React, { useEffect, useState } from 'react'
 import { RiSendPlane2Line, RiHotelBedLine, RiParkingBoxLine, RiBuilding3Line, RiPlantLine, RiThumbUpFill } from 'react-icons/ri'
 import { AiOutlineArrowRight, AiOutlineHeart } from 'react-icons/ai'
 import { Card } from 'react-bootstrap'
@@ -13,8 +12,7 @@ import PropImg05 from "@/assets/Images/Featured_List_8.jpg"
 import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import { FiCloudDrizzle, FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
-import Loader from '@/Components/Loader/Loader';
-import axios from 'axios';
+
 
 import { PiPlayCircleThin } from 'react-icons/pi';
 import ReactPlayer from 'react-player';
@@ -25,9 +23,11 @@ import Map from '@/Components/GoogleMap/GoogleMap'
 import Skeleton from 'react-loading-skeleton'
 import { languageData } from '@/store/reducer/languageSlice'
 import { translate } from '@/utils'
-import { store } from '@/store/store'
 import { useRouter } from 'next/router'
 import { GetFeturedListingsApi } from '@/store/actions/campaign'
+import Layout from '@/Components/Layout/Layout'
+import Header from '@/Components/Header/Header'
+import Footer from '@/Components/Footer/Footer'
 
 
 
@@ -46,6 +46,7 @@ const PropertieDeatils = () => {
 
     const GoogleMapData = useSelector(settingsData)
     const GoogleMapApiKey = GoogleMapData && GoogleMapData.place_api_key
+    // console.log(GoogleMapApiKey)
     const lang = useSelector(languageData)
 
     useEffect(() => {
@@ -69,10 +70,16 @@ const PropertieDeatils = () => {
             "",
             "",
             isLoggedIn ? userCurrentId : "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             (response) => {
 
                 const propertyData = response.data;
-                console.log("++++++++++++++++++++++++++++++++",propertyData)
+                // console.log("++++++++++++++++++++++++++++++++",propertyData)
                 setIsLoading(false);
                 setPropData(propertyData[0]);
                 console.log(getPropData)
@@ -98,6 +105,12 @@ const PropertieDeatils = () => {
             "",
             "",
             isLoggedIn ? userCurrentId : "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             (response) => {
 
                 const propertyData = response.data;
@@ -113,14 +126,6 @@ const PropertieDeatils = () => {
         );
 
     }, [isLoggedIn]);
-
-
-
-
-
-
-
-
 
     const renderBullet = (index, className) => {
         return `<span class="${className}" style="background-color: #087c7c;
@@ -138,8 +143,8 @@ const PropertieDeatils = () => {
     }, [getPropData]);
 
     useEffect(() => {
-        if (imageURL) {
-            pannellum.viewer('panorama', {
+        if (imageURL && imageURL) {
+            pannellum?.viewer('panorama', {
                 "type": "equirectangular",
                 "panorama": imageURL,
                 "autoLoad": true
@@ -158,6 +163,8 @@ const PropertieDeatils = () => {
 
     return (
         <>
+            {/* <Layout> */}
+            <Header />
             <Breadcrumb data={{
                 type: getPropData && getPropData.category.category,
                 title: getPropData && getPropData.title,
@@ -167,10 +174,8 @@ const PropertieDeatils = () => {
                 price: getPropData && getPropData.price,
                 is_favourite: getPropData && getPropData.is_favourite,
                 propId: getPropData && getPropData.id
-            }}/>
+            }} />
             <section className='properties-deatil-page'>
-
-
 
                 <div id='all-prop-deatil-containt'>
                     <div className='container'>
@@ -224,7 +229,7 @@ const PropertieDeatils = () => {
                                 </div>
                                 <div className="card " id='features-amenities'>
                                     <div className="card-header">
-                                        {translate("aboutProp")}
+                                        {translate("feature&Amenties")}
                                     </div>
                                     <div className="card-body">
 
@@ -261,64 +266,66 @@ const PropertieDeatils = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='card' id='propertie_address'>
-                                    <div className="card-header">
-                                        {translate("feature&Amenties")}
-                                    </div>
-                                    <div className='card-body'>
-                                        <div className="row" id='prop-address'>
-                                            <div className="adrs">
-                                                <div>
-                                                    <span> {translate("address")}</span>
+                                {getPropData && getPropData.latitude && getPropData.longitude ? (
+                                    <div className='card' id='propertie_address'>
+                                        <div className="card-header">
+                                            {translate("address")}
+                                        </div>
+                                        <div className='card-body'>
+                                            <div className="row" id='prop-address'>
+                                                <div className="adrs">
+                                                    <div>
+                                                        <span> {translate("address")}</span>
+                                                    </div>
+                                                    <div className=''>
+                                                        <span> {translate("city")}</span>
+                                                    </div>
+                                                    <div className=''>
+                                                        <span> {translate("state")}</span>
+                                                    </div>
+                                                    <div className=''>
+                                                        <span> {translate("country")}</span>
+                                                    </div>
                                                 </div>
-                                                <div className=''>
-                                                    <span> {translate("city")}</span>
-                                                </div>
-                                                <div className=''>
-                                                    <span> {translate("state")}</span>
-                                                </div>
-                                                <div className=''>
-                                                    <span> {translate("country")}</span>
-                                                </div>
-                                            </div>
-                                            <div className="adrs02">
-                                                <div className="adrs_value">
-                                                    <span>{getPropData && getPropData.address}</span>
-                                                </div>
-                                                <div className="adrs_value">
-                                                    <span className=''>{getPropData && getPropData.city}</span>
+                                                <div className="adrs02">
+                                                    <div className="adrs_value">
+                                                        <span>{getPropData && getPropData.address}</span>
+                                                    </div>
+                                                    <div className="adrs_value">
+                                                        <span className=''>{getPropData && getPropData.city}</span>
+                                                    </div>
+
+                                                    <div className="adrs_value">
+                                                        <span className=''>{getPropData && getPropData.state}</span>
+                                                    </div>
+                                                    <div className="adrs_value">
+                                                        <span className=''>{getPropData && getPropData.country}</span>
+                                                    </div>
                                                 </div>
 
-                                                <div className="adrs_value">
-                                                    <span className=''>{getPropData && getPropData.state}</span>
-                                                </div>
-                                                <div className="adrs_value">
-                                                    <span className=''>{getPropData && getPropData.country}</span>
-                                                </div>
                                             </div>
+                                            {getPropData ? (
+                                                <Card className='google_map'>
+                                                    {GoogleMapApiKey ? (
+                                                        <Map
+                                                            latitude={getPropData.latitude}
+                                                            longitude={getPropData.longitude}
+                                                            google={GoogleMapApiKey}
+                                                        />
+                                                    ) : (
+                                                        <div>
+                                                            <Skeleton height={200} width={"100%"} />
+                                                        </div>
+                                                    )}
+                                                </Card>
+                                            ) : (
+                                                null
+                                            )}
 
                                         </div>
-                                        {getPropData ? (
-                                            <Card className='google_map'>
-                                                {GoogleMapApiKey ? (
-                                                    <Map
-                                                        latitude={getPropData.latitude}
-                                                        longitude={getPropData.longitude}
-                                                        google={GoogleMapApiKey}
-                                                    />
-                                                ) : (
-                                                    <div>
-                                                        <Skeleton height={200} width={"100%"} />
-                                                    </div>
-                                                )}
-                                            </Card>
-                                        ) : (
-                                            null
-                                        )}
-
                                     </div>
-                                </div>
-
+                                ) : null
+                                }
 
                                 {getPropData && getPropData.video_link ? (
 
@@ -443,7 +450,11 @@ const PropertieDeatils = () => {
                     </div>
                 </div>
             </section >
+            <Footer />
+            {/* </Layout> */}
         </>
+
+
     )
 }
 // export async function getServerSideProps(context) {

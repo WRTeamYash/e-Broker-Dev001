@@ -1,4 +1,4 @@
-'use client'
+
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import React, { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,6 +12,7 @@ import { BiSolidCheckCircle } from 'react-icons/bi';
 import { languageData } from '@/store/reducer/languageSlice';
 import { useSelector } from 'react-redux';
 import { translate } from '@/utils';
+import Layout from '@/Components/Layout/Layout';
 
 const page = () => {
 
@@ -57,7 +58,7 @@ const page = () => {
         }
     };
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("subscriptionPlan")} />
 
             <section id='subscription'>
@@ -264,7 +265,7 @@ const page = () => {
                 </div>
             </section>
 
-        </>
+        </Layout>
     )
 }
 

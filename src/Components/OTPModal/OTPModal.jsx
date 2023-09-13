@@ -1,4 +1,4 @@
-"use client"
+
 import React, { useState, useRef, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { RiCloseCircleLine } from 'react-icons/ri';
@@ -11,7 +11,6 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { signupLoaded } from '../../store/reducer/authSlice'; // Update the import path as needed
 
 import { useRouter } from 'next/router';
-import { GetFeturedListingsApi } from '@/store/actions/campaign';
 import { translate } from '@/utils';
 
 const OTPModal = ({ isOpen, onClose, phonenum }) => {

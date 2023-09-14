@@ -27,9 +27,9 @@ const Footer = () => {
                 <div className='row' id='footer_deatils'>
                     <div className='col-12 col-md-6 col-lg-3' >
                         <div id='footer_logo_section'>
-                            <div>
-                                <img src={eBroker.src} alt="eBroker_logo" />
-                            </div>
+                            <Link href="/">
+                                <img src={eBroker.src} alt="eBroker_logo"/>
+                            </Link>
                             <div>
                                 <FiMail size={25} /> <span className='footer_span'>{translate("email")}</span> <br />
                                 <span className='footer_span_value'>{webdata && webdata.company_email}</span>
@@ -141,11 +141,15 @@ const Footer = () => {
 
                             <div className='download_app_platforms'>
                                 <div id='playstore_logo'>
+                                    <a href="https://play.google.com/store/apps/details?id=com.ebroker.wrteam" target='_blank'>
                                     <img src={playstore.src} alt="" />
+                                    </a>
                                 </div>
 
                                 <div id='appstore_logo'>
+                                <a href="https://testflight.apple.com/join/nrmIds1a" target='_blank'>
                                     <img src={appstore.src} alt="" />
+                                </a>
                                 </div>
                             </div>
                         </div>

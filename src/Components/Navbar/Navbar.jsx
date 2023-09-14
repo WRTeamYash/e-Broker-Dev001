@@ -129,7 +129,7 @@ const Nav = () => {
                                             <Dropdown.Item> <Link href="/most-viewed-properties">{translate("mostViewedProp")}</Link></Dropdown.Item>
                                             <Dropdown.Item> <Link href="/properties-nearby-city">{translate("nearbyCities")}</Link></Dropdown.Item>
                                             <Dropdown.Item><Link href="/mostfav-properties">{translate("mostFavProp")}</Link></Dropdown.Item>
-                                            <Dropdown.Item><Link href="/listby-agents"></Link>{translate("listByAgents")}</Dropdown.Item>
+                                            {/* <Dropdown.Item><Link href="/listby-agents"></Link>{translate("listByAgents")}</Dropdown.Item> */}
                                         </Dropdown.Menu>
                                     </Dropdown>
                                     <Dropdown>
@@ -248,7 +248,7 @@ const Nav = () => {
                                         <Dropdown.Item> <Link href="/most-viewed-properties" onClick={handleClose}>{translate("mostViewedProp")}</Link></Dropdown.Item>
                                         <Dropdown.Item> <Link href="/properties-nearby-city" onClick={handleClose}>{translate("nearbyCities")}</Link></Dropdown.Item>
                                         <Dropdown.Item><Link href="/mostfav-properties" onClick={handleClose}>{translate("mostFavProp")}</Link></Dropdown.Item>
-                                        <Dropdown.Item><Link href="/listby-agents" onClick={handleClose}></Link>{translate("listByAgents")}</Dropdown.Item>
+                                        {/* <Dropdown.Item><Link href="/listby-agents" onClick={handleClose}></Link>{translate("listByAgents")}</Dropdown.Item> */}
                                     </Dropdown.Menu>
                                 </Dropdown>
                                 <Dropdown>

@@ -92,7 +92,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                         if (
                             signupData.name === "" ||
                             signupData.email === "" ||
-                            signupData.address === "" ||
+                            // signupData.address === "" ||
                             signupData.logintype === ""
                         ) {
                             // If any field is empty, execute this block

@@ -56,7 +56,7 @@ const ArticleCard = ({ ele, expandedStates, index }) => {
                         <img src={adminlogo.src} alt="" className='admin' />
                     </div>
                     <div className='article_footer_text'>
-                        <span className='byadmin'> {translate("byadmin")}
+                        <span className='byadmin'> {translate("byAdmin")}
                         </span>
                         <p>1 day ago</p>
                     </div>

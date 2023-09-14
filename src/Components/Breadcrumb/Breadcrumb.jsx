@@ -36,7 +36,7 @@ const Breadcrumb = (props) => {
     const handleLike = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        // console.log("isLoggedIn:", isLoggedIn);
+        console.log("isLoggedIn:", isLoggedIn);
         if (isLoggedIn && isLoggedIn.data && isLoggedIn.data.token) {
             AddFavourite(props.data.propId, "1", (response) => {
                 setIsLiked(true);
@@ -48,6 +48,7 @@ const Breadcrumb = (props) => {
                 console.log(error);
             });
         } else {
+            console.log("log first")
             toast.error("Please login first to add this property to favorites.");
         }
 

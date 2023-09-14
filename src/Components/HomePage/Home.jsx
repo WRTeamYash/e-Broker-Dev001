@@ -139,15 +139,15 @@ const HomePage = () => {
             // spaceBetween: 40
         },
         576: {
-            slidesPerView: 1.5,
+            slidesPerView: 2,
             // spaceBetween: 40
         },
         768: {
-            slidesPerView: 2,
+            slidesPerView: 3,
 
         },
         992: {
-            slidesPerView: 3,
+            slidesPerView: 4,
 
         },
         1200: {
@@ -580,26 +580,17 @@ const HomePage = () => {
 
                 {/* APARTMENT SECTION */}
                 <section id='apartments' data-aos="fade-up" data-aos-duration="2000">
-                    <div id='apartment_all_content'>
+                    <div className='container'>
                         <div className="row">
-                            <div className="col-sm-12 col-md-4 col-lg-4" id='view-all-apartment'>
-                                <div id='view_appartment'
-                                    style={{
-                                        backgroundImage: `url(${Catagory.src})`,
-                                    }}
-                                >
-                                    <div className='container' id='appartment_text'>
-                                        <h1>
-                                            {translate("exploreApartment")}
-                                        </h1>
-                                        <Link href="/all-categories">
-                                            <button className='view_apart'>
-                                                <FaEye size={20} className='icon' />
-                                                {translate("seeAllCate")}
-                                            </button>
-                                        </Link>
-                                    </div>
-
+                        <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
+                                <div className='browse-agent'>
+                                    <span>{translate("exploreApartment")}
+                                    </span>
+                                    <Link href="/all-categories">
+                                        <button className='mt-3'> <FiEye className="mx-2" size={25} />
+                                            {translate("viewAll")}
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
@@ -612,12 +603,10 @@ const HomePage = () => {
                                 }
                                 } />
                             </div>
-                            <div className="col-sm-12 col-md-8 col-lg-8" id='all-apart-cards'>
+                            <div className="col-sm-12 col-md-8 col-lg-9" id='all-apart-cards'>
 
                                 <div className='aprt_cards'>
                                     <Swiper
-                                        //  slidesPerView={4}
-                                        // loop={true}
                                         spaceBetween={30}
                                         freeMode={true}
                                         pagination={{
@@ -994,10 +983,10 @@ const HomePage = () => {
                     </div>
                 </section>
                 {/* ===== AGENT SECTION =======  */}
-                <section id='agent_section' data-aos="fade-up" data-aos-duration="7000">
+                {/* <section id='agent_section' data-aos="fade-up" data-aos-duration="7000">
                     <div className="container">
 
-                        <div className='row' >
+                        <div className='row'>
                             <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
                                 <div className='browse-agent'>
                                     <span>{translate("browseByAgents")}
@@ -1080,12 +1069,12 @@ const HomePage = () => {
                         </div>
 
                     </div>
-                </section>
+                </section> */}
                 {/* ========== ARTICLE SECTION ========== */}
                 <section id='articles'>
                     <div className='container'>
                         <div className='article_headline' data-aos="fade-right" data-aos-duration="2000">
-                            <div >
+                            <div>
                                 <h3>
                                     {translate("our")} <span
                                     // className="hovertext3"

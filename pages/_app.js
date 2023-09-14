@@ -11,6 +11,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 // import "../public/css/responsiveStyle.css"
 
 import Head from 'next/head'
+import { Toaster } from 'react-hot-toast'
 
 
 // import Document, { Html, Head, Main, NextScript } from 'next/document';
@@ -37,7 +38,7 @@ function MyApp({ Component, pageProps, data }) {
 
                 <Component {...pageProps} data={data} />
 
-                {/* <Toaster /> */}
+                <Toaster />
                 </PersistGate>
             </Provider>
         </Fragment>

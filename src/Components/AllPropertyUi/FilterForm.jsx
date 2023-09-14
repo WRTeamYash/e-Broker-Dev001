@@ -77,7 +77,7 @@ const FiletrForm = () => {
             <div className="form-check">
               <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" />
               <label className="form-check-label" htmlFor="flexRadioDefault3">
-                {translate("yesteraday")}
+                {translate("yesterday")}
               </label>
             </div>
           </div>

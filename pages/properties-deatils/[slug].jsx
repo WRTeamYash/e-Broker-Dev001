@@ -46,7 +46,7 @@ const PropertieDeatils = () => {
 
     const GoogleMapData = useSelector(settingsData)
     const GoogleMapApiKey = GoogleMapData && GoogleMapData.place_api_key
-    // console.log(GoogleMapApiKey)
+    console.log(GoogleMapApiKey)
     const lang = useSelector(languageData)
 
     useEffect(() => {

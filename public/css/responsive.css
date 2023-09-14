@@ -74,9 +74,10 @@
   #apartments{
     overflow: hidden;
   }
-  #apartment_all_content #all-apart-cards {
-    width: 100%;
+ #all-apart-cards{
+    width: 100% !important;
   }
+  
   .aprt_cards {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
@@ -279,7 +280,7 @@
   #apartments{
     overflow: hidden;
   }
-  #apartment_all_content #all-apart-cards {
+ #all-apart-cards{
     width: 100%;
   }
   .aprt_cards {
@@ -450,7 +451,7 @@
   #apartments{
     overflow: hidden;
   }
-  #apartment_all_content #all-apart-cards {
+ #all-apart-cards{
     width: 100%;
   }
   .aprt_cards {
@@ -584,7 +585,7 @@
   #apartments{
     overflow: hidden;
   }
-  #apartment_all_content #all-apart-cards {
+ #all-apart-cards{
     width: 100%;
   }
   .aprt_cards {
@@ -760,7 +761,7 @@
   #apartments{
     overflow: hidden;
   }
-  #apartment_all_content #all-apart-cards {
+ #all-apart-cards{
     width: 100%;
   }
   .aprt_cards {

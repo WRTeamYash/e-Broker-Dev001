@@ -16,12 +16,15 @@ import CustomHorizontalSkeleton from '@/Components/Skeleton/CustomHorizontalSkel
 import { languageData } from '@/store/reducer/languageSlice'
 import { useSelector } from 'react-redux'
 import Pagination from '@/Components/Pagination/ReactPagination'
+import Layout from '@/Components/Layout/Layout'
+import { translate } from '@/utils'
 
 
 const AllProperties = () => {
   const [grid, setGrid] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
   const [CategoryListByPropertyData, setCategoryListByPropertyData] = useState()
+  const [cityName, setCityName] = useState("")
   const [total, setTotal] = useState();
   const [offsetdata, setOffsetdata] = useState(0);
   const limit = 8
@@ -29,6 +32,7 @@ const AllProperties = () => {
 
   const router = useRouter();
   const city = router.query
+  // console.log(city.slug)
   const isLoggedIn = useSelector((state) => state.User_signup);
   const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
   // console.log(city)
@@ -81,22 +85,9 @@ const AllProperties = () => {
     window.scrollTo(0, 0);
   };
 
-  // console.log("router", router)
-
-  // useEffect(() => {
-  //   if (propertySlugData && propertySlugData.data) {
-  //     // Update the state with the new data
-  //     setCategoryListByPropertyData(propertySlugData.data);
-  //     // console.log(propertySlugData.data)
-  //     // Turn off loading
-  //     setIsLoading(false);
-  //   }
-  // }, [propertySlugData]);
-
-  // console.log(CategoryListByPropertyData)
   return (
     <Layout>
-      <Breadcrumb title="All Properties" />
+      <Breadcrumb title={city.slug ? `Properties Listed in ${city.slug} ` : `No Properties in ${city.slug}`} />
 
 
       <div id='all-prop-containt'>
@@ -144,7 +135,7 @@ const AllProperties = () => {
                 }
               </div>
               <div className="col-12">
-                <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />I
+                <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
               </div>
             </div>
           </div>

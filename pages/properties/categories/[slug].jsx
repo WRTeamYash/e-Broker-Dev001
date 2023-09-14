@@ -16,12 +16,15 @@ import CustomHorizontalSkeleton from '@/Components/Skeleton/CustomHorizontalSkel
 import { useSelector } from 'react-redux'
 import { languageData } from '@/store/reducer/languageSlice'
 import Pagination from '@/Components/Pagination/ReactPagination'
+import Layout from '@/Components/Layout/Layout'
+import { translate } from '@/utils'
 
 
 const AllProperties = () => {
   const [grid, setGrid] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
   const [CategoryListByPropertyData, setCategoryListByPropertyData] = useState()
+  const [cateName, setCateName] = useState("")
   const [total, setTotal] = useState();
   const [offsetdata, setOffsetdata] = useState(0);
   const limit = 8
@@ -32,48 +35,52 @@ const AllProperties = () => {
   // console.log(cateId)
   const isLoggedIn = useSelector((state) => state.User_signup);
   const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-     
+
   const lang = useSelector(languageData)
   // console.log("languageData",lang)
-    // useSelector(languageData)  
-    useEffect(()=>{
-      // console.log("render")
-    },[lang]);
+  // useSelector(languageData)  
+  useEffect(() => {
+    // console.log("render")
+  }, [lang]);
 
 
   useEffect(() => {
     setIsLoading(true);
-   
-      GetFeturedListingsApi(
-        "",
-        "",
-        "",
-        cateId,
-        "",
-        "",
-        "",
-        offsetdata.toString(),
-        limit.toString(),
-        isLoggedIn ? userCurrentId : "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        (response) => {
-          setTotal(response.total);
-          const propertyData = response.data;
-          setIsLoading(false);
-          setCategoryListByPropertyData(propertyData);
-          // console.log(CategoryListByPropertyData)
-        },
-        (error) => {
-          setIsLoading(false);
-          console.log(error);
-        }
-      );
-    
+
+    GetFeturedListingsApi(
+      "",
+      "",
+      "",
+      cateId,
+      "",
+      "",
+      "",
+      offsetdata.toString(),
+      limit.toString(),
+      isLoggedIn ? userCurrentId : "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      (response) => {
+        setTotal(response.total);
+        const propertyData = response.data;
+        setIsLoading(false);
+        setCategoryListByPropertyData(propertyData);
+        // console.log(CategoryListByPropertyData)
+        // const Category = CategoryListByPropertyData && CategoryListByPropertyData[0].category.category
+        setCateName(propertyData && propertyData[0].category.category)
+        // console.log(cateName)
+
+      },
+      (error) => {
+        setIsLoading(false);
+        console.log(error);
+      }
+    );
+
   }, [offsetdata, isLoggedIn]);
   const handlePageChange = (selectedPage) => {
     const newOffset = selectedPage.selected * limit;
@@ -83,7 +90,7 @@ const AllProperties = () => {
 
   return (
     <Layout>
-      <Breadcrumb title="All Properties" />
+      <Breadcrumb title={cateName ? `${cateName} Properties` : `No Properties in ${cateName}`} />
 
 
       <div id='all-prop-containt'>
@@ -94,7 +101,7 @@ const AllProperties = () => {
             </div>
             <div className='col-12 col-md-12 col-lg-9'>
               <div className='all-prop-rightside'>
-              <GridCard total={total} setGrid={setGrid} />
+                <GridCard total={total} setGrid={setGrid} />
 
                 {
                   !grid ?
@@ -109,7 +116,7 @@ const AllProperties = () => {
                       ) :
                         CategoryListByPropertyData?.map((ele) => (
                           <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
-                           <AllPropertieCard ele={ele} />
+                            <AllPropertieCard ele={ele} />
                           </Link>
                         ))}
                     </div>
@@ -131,7 +138,7 @@ const AllProperties = () => {
                 }
               </div>
               <div className="col-12">
-              <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
               </div>
             </div>
           </div>

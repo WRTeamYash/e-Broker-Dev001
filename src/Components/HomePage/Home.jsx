@@ -1087,21 +1087,21 @@ const HomePage = () => {
                                 </h3>
                             </div>
                             <div className='rightside_article_headlin'>
-                                {/* <Link href="/articles"> */}
+                                <Link href="/articles">
                                 <button className="learn-more" id="viewall">
                                     <span aria-hidden="true" className="circle">
                                         <span className="icon arrow"></span>
                                     </span>
                                     <span className="button-text">{translate("seeAllProp")}</span>
                                 </button>
-                                {/* </Link> */}
+                                </Link>
                             </div>
                         </div>
                         <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                             <MobileHeadline data={{
                                 start: translate("our"),
                                 center: translate("articles"),
-                                // link: "/articles"
+                                link: "/articles"
                             }
                             } />
                         </div>

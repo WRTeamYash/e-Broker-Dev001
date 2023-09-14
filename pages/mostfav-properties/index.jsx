@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { translate } from '@/utils';
 import { languageData } from '@/store/reducer/languageSlice';
 import Pagination from '@/Components/Pagination/ReactPagination'
+import Layout from '@/Components/Layout/Layout';
 
 const Index = () => {
     const [isLoading, setIsLoading] = useState(false);

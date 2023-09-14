@@ -4,9 +4,9 @@ import { PersistGate } from 'redux-persist/integration/react'
 import React, { useState } from 'react'
 import {  Fragment } from 'react'
 import { Manrope } from 'next/font/google'
-import 'bootstrap/dist/css/bootstrap.css'
 import "../public/css/style.css"
 import "../public/css/responsive.css"
+import 'bootstrap/dist/css/bootstrap.css'
 import 'react-loading-skeleton/dist/skeleton.css'
 // import "../public/css/responsiveStyle.css"
 

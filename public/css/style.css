@@ -858,6 +858,7 @@ body {
 } */
 .dropdown-menu {
   width: 26vh !important;
+  /* width: 100%; */
 }
 .dropdown-item {
   text-transform: capitalize;
@@ -2749,7 +2750,7 @@ option {
   width: 100%;
   background-color: #fff;
   border-radius: 0 12px 12px 0px;
-  height: 230px;
+  height: 230px !important;
 }
 #all-prop-containt .all_prop_feature {
   background: var(--primary-color);

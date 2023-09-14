@@ -3667,45 +3667,7 @@ div#all-articles_card_footer .allarticles_footer_text p {
   padding: 20px;
   height: 90%;
 }
-@media only screen and (max-width: 767px) {
-  #contact-us .contactus-card {
-    height: 100%;
-  }
-  .contact-info {
-    border-radius: 12px !important;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 0px !important;
-  }
-  .contact-info-deatils {
-    justify-content: center !important;
-    flex-direction: column;
-    text-align: center;
-    gap: 10px !important;
-  }
-  .contact-submit {
-    justify-content: center !important;
-  }
-  .contact-info .card-body .row {
-    gap: 30px !important;
-  }
-  #contactus-socialPlatforms {
-    text-align: center;
-  }
-  #left-side-contact-form,
-  #right-side-contact-info {
-    padding-right: calc(var(--bs-gutter-x) * 0.5) !important;
-    padding-left: calc(var(--bs-gutter-x) * 0.5) !important;
-  }
-  #contactus-socialPlatforms .row {
-    justify-content: center;
-  }
-  #contactus-socialPlatforms #social-platforms {
-    width: 20%;
-    justify-content: center;
-    align-items: center;
-  }
-}
+
 #contact-us .contactus-card .card-header {
   border: none;
   background-color: #fff;
@@ -3777,12 +3739,51 @@ div#all-articles_card_footer .allarticles_footer_text p {
   padding-left: 0;
 }
 .contact-info {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  height: 100%;
-  padding: 60px 0;
-  border-radius: 0 12px 12px 0;
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border: none !important;
+  height: 100% !important;
+  padding: 60px 0 !important;
+  border-radius: 0 12px 12px 0 !important;
+}
+@media only screen and (max-width: 767px) {
+  #contact-us .contactus-card {
+    height: 100%;
+  }
+  .contact-info {
+    border-radius: 12px !important;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0px !important;
+  }
+  .contact-info-deatils {
+    justify-content: center !important;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px !important;
+  }
+  .contact-submit {
+    justify-content: center !important;
+  }
+  .contact-info .card-body .row {
+    gap: 30px !important;
+  }
+  #contactus-socialPlatforms {
+    text-align: center;
+  }
+  #left-side-contact-form,
+  #right-side-contact-info {
+    padding-right: calc(var(--bs-gutter-x) * 0.5) !important;
+    padding-left: calc(var(--bs-gutter-x) * 0.5) !important;
+  }
+  #contactus-socialPlatforms .row {
+    justify-content: center;
+  }
+  #contactus-socialPlatforms #social-platforms {
+    width: 20%;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .contact-info .card-header {
   padding: 20px;

@@ -2738,7 +2738,7 @@ option {
   width: 30%;
 }
 #all-prop-containt #all_prop_card_img {
-  height: 230px;
+  height: 230px !important;
   width: 100%;
   aspect-ratio: 1/0.6;
   border-radius: 12px 0 0 12px;

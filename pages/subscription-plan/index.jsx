@@ -79,7 +79,7 @@ const page = () => {
                                 freeMode={true}
                                 pagination={{
                                     clickable: true,
-                                    renderBullet: renderBullet
+                                    
                                 }}
                                 modules={[FreeMode, Pagination]}
                                 className='subscription-swiper'

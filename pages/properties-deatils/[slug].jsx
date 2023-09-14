@@ -41,12 +41,11 @@ const PropertieDeatils = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [expanded, setExpanded] = useState(false);
     const [getPropData, setPropData] = useState()
-    const [getSimilerData, setSimilerData] = useState()
 
 
     const GoogleMapData = useSelector(settingsData)
     const GoogleMapApiKey = GoogleMapData && GoogleMapData.place_api_key
-    console.log(GoogleMapApiKey)
+    // console.log(GoogleMapApiKey)
     const lang = useSelector(languageData)
 
     useEffect(() => {
@@ -58,7 +57,6 @@ const PropertieDeatils = () => {
 
     useEffect(() => {
         setIsLoading(true);
-
         GetFeturedListingsApi(
             "",
             "",
@@ -78,11 +76,11 @@ const PropertieDeatils = () => {
             "",
             (response) => {
 
-                const propertyData = response.data;
-                // console.log("++++++++++++++++++++++++++++++++",propertyData)
+                const propertyData = response && response.data;
+                // console.log(" data", propertyData[0].id)
                 setIsLoading(false);
                 setPropData(propertyData[0]);
-                console.log(getPropData)
+                // console.log(getPropData[0].id)
             },
             (error) => {
                 setIsLoading(false);
@@ -90,50 +88,45 @@ const PropertieDeatils = () => {
             }
         );
 
-    }, [isLoggedIn]);
-    useEffect(() => {
-        setIsLoading(true);
+    }, [isLoggedIn, propId]);
 
-        GetFeturedListingsApi(
-            "",
-            "",
-            propId,
-            "",
-            "",
-            "",
-            "1",
-            "",
-            "",
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            (response) => {
 
-                const propertyData = response.data;
-                console.log(propertyData)
-                setIsLoading(false);
-                setSimilerData(propertyData);
-                // console.log(CategoryListByPropertyData)
-            },
-            (error) => {
-                setIsLoading(false);
-                console.log(error);
-            }
-        );
+    // useEffect(() => {
+    //     setIsLoading(true);
 
-    }, [isLoggedIn]);
+    //     GetFeturedListingsApi(
+    //         "",
+    //         "",
+    //         propId.slug,
+    //         "",
+    //         "",
+    //         "",
+    //         1,
+    //         "",
+    //         "",
+    //         isLoggedIn ? userCurrentId : "",
+    //         "",
+    //         "",
+    //         "",
+    //         "",
+    //         "",
+    //         "",
+    //         (response) => {
 
-    const renderBullet = (index, className) => {
-        return `<span class="${className}" style="background-color: #087c7c;
-    outline: 1px solid #000;
-    font-size: 20px;
-    padding: 8px;
-    border: 2px solid #fff;"></span>`;
-    };
+    //             const propertyData = response.data;
+    //             // console.log("similer data", propertyData)
+    //             setIsLoading(false);
+    //             setSimilerData(propertyData);
+    //             // console.log(CategoryListByPropertyData)
+    //         },
+    //         (error) => {
+    //             setIsLoading(false);
+    //             console.log(error);
+    //         }
+    //     );
+
+    // }, [isLoggedIn]);
+
     const [imageURL, setImageURL] = useState('');
 
     useEffect(() => {
@@ -279,7 +272,7 @@ const PropertieDeatils = () => {
                                                     </div>
                                                     <div className=''>
                                                         <span> {translate("city")}</span>
-                                                    </div>
+                                                        slug                 </div>
                                                     <div className=''>
                                                         <span> {translate("state")}</span>
                                                     </div>
@@ -445,39 +438,17 @@ const PropertieDeatils = () => {
                                 </div>
                             </div>
                         </div>
-                        <SimilerPropertySlider isLoading={isLoading} data={getSimilerData} />
+
+                        <SimilerPropertySlider />
 
                     </div>
                 </div>
             </section >
             <Footer />
-            {/* </Layout> */}
         </>
 
 
     )
 }
-// export async function getServerSideProps(context) {
-//     // Get the slug parameter from the URL
-//     const { slug } = context.query;
 
-//     try {
-//         // Fetch data from the first API endpoint
-//         const response1 = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?id=${slug}`);
-//         const propertySlugData = response1.data.data; // Assuming your API response is a JSON object
-//         // Fetch data from the second API endpoint
-//         const response2 = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?id=${slug}&get_simiilar=1`);
-//         const propertySlugData2 = response2.data.data; // Assuming your API response is a JSON object
-//         // console.log("=====================", propertySlugData2)
-//         // You can now use propertySlugData1 and propertySlugData2 in your component
-//         return {
-//             props: { propertySlugData, propertySlugData2 }
-//         };
-//     } catch (error) {
-//         console.error("Error fetching property data:", error);
-//         return {
-//             props: { propertySlugData: null, propertySlugData2: null } // You can handle the error case appropriately in your component
-//         };
-//     }
-// }
 export default PropertieDeatils

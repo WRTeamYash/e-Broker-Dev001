@@ -1,4 +1,4 @@
-import React, { use, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -8,24 +8,58 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination'
 // import required modules
 import { FreeMode, Pagination } from 'swiper/modules';
-import Loader from '../Loader/Loader';
 import VerticalCard from '../Cards/VerticleCard';
-import axios from 'axios';
-import { useRouter } from 'next/router';
 import VerticalCardSkeleton from '../Skeleton/VerticalCardSkeleton';
 import Link from 'next/link';
+import { GetFeturedListingsApi } from '@/store/actions/campaign';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 
 
-const SimilerPropertySlider = (props) => {
+const SimilerPropertySlider = () => {
 
-    const renderBullet = (index, className) => {
-        return `<span class="${className}" style="background-color: #087c7c;
-    outline: 1px solid #000;
-    font-size: 20px;
-    padding: 8px;
-    border: 2px solid #fff;"></span>`;
-    };
+    const [isLoading, setIsLoading] = useState(true)
+    const [getSimilerData, setSimilerData] = useState()
+
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+    const router = useRouter();
+    const propId = router.query
+
+    useEffect(() => {
+        setIsLoading(true);
+
+        GetFeturedListingsApi(
+            "",
+            "",
+            propId.slug,
+            "",
+            "",
+            "",
+            "1",
+            "",
+            "",
+            isLoggedIn ? userCurrentId : "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            (response) => {
+
+                const propertyData = response.data;
+                setIsLoading(false);
+                setSimilerData(propertyData);
+            },
+            (error) => {
+                setIsLoading(false);
+                console.log(error);
+            }
+        );
+
+    }, [isLoggedIn, propId]);
 
 
     const breakpoints = {
@@ -79,7 +113,7 @@ const SimilerPropertySlider = (props) => {
                     freeMode={true}
                     pagination={{
                         clickable: true,
-                        renderBullet: renderBullet
+                        // 
                     }}
                     modules={[FreeMode, Pagination]}
                     className='similer-swiper'
@@ -90,24 +124,18 @@ const SimilerPropertySlider = (props) => {
 
 
                 >
-                    {props.isLoading ? (
+                    {isLoading ? (
 
                         <Swiper
                             slidesPerView={4}
-                            // loop={true}
                             spaceBetween={30}
                             freeMode={true}
                             pagination={{
                                 clickable: true,
-                                renderBullet: renderBullet
                             }}
                             modules={[FreeMode, Pagination]}
                             className='most-view-swiper'
                             breakpoints={breakpoints}
-                            style={{
-                                // width: "auto"
-                            }}
-
 
                         >
                             {Array.from({ length: 6 }).map((_, index) => (
@@ -120,14 +148,14 @@ const SimilerPropertySlider = (props) => {
                         </Swiper>
 
                     ) :
-                        props.data?.map((ele, index) => (
+                        getSimilerData && getSimilerData.map((ele, index) => (
                             <SwiperSlide id="similer-swiper-slider" key={index}>
                                 <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
                                     <VerticalCard ele={ele} />
                                 </Link>
                             </SwiperSlide>
                         ))}
-                        
+
                 </Swiper>
             </div>
         </div>

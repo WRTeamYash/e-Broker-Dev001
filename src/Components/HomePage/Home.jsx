@@ -611,7 +611,7 @@ const HomePage = () => {
                                         freeMode={true}
                                         pagination={{
                                             clickable: true,
-                                            renderBullet: renderBullet
+                                            
                                         }}
                                         modules={[FreeMode, Pagination]}
                                         className='aprtment-swiper'
@@ -632,7 +632,7 @@ const HomePage = () => {
                                                     freeMode={true}
                                                     pagination={{
                                                         clickable: true,
-                                                        renderBullet: renderBullet
+                                                        
                                                     }}
                                                     modules={[FreeMode, Pagination]}
                                                     className='aprtment-swiper'
@@ -929,7 +929,7 @@ const HomePage = () => {
                                 freeMode={true}
                                 pagination={{
                                     clickable: true,
-                                    renderBullet: renderBullet
+                                    
                                 }}
                                 modules={[FreeMode, Pagination]}
                                 className='most-view-swiper'
@@ -949,7 +949,7 @@ const HomePage = () => {
                                         freeMode={true}
                                         pagination={{
                                             clickable: true,
-                                            renderBullet: renderBullet
+                                            
                                         }}
                                         modules={[FreeMode, Pagination]}
                                         className='most-view-swiper'
@@ -1015,7 +1015,7 @@ const HomePage = () => {
                                         freeMode={true}
                                         pagination={{
                                             clickable: true,
-                                            renderBullet: renderBullet
+                                            
                                         }}
                                         modules={[FreeMode, Pagination]}
                                         className='agent-swiper'
@@ -1035,7 +1035,7 @@ const HomePage = () => {
                                                 freeMode={true}
                                                 pagination={{
                                                     clickable: true,
-                                                    renderBullet: renderBullet
+                                                    
                                                 }}
                                                 modules={[FreeMode, Pagination]}
                                                 className='agent-swiper'

@@ -51,6 +51,13 @@ body {
   position: relative;
   bottom: 10vh;
 }
+.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+  background-color: var(--primary-color);
+  outline: 1px solid #000;
+  font-size: 20px;
+  padding: 8px;
+  border: 2px solid #fff;
+}
 /* ================================ LOADER============================= */
 /* Loader.css */
 .loader-container {

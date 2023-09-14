@@ -16,18 +16,13 @@ const LoginModal = ({ isOpen, onClose }) => {
         const onSignUp = (e) => {
             e.preventDefault();
             if (value === undefined) {
-                toast.error("Please enter phone number!")
-            }
-            else if (validator.isMobilePhone(value)) {
-                setPhonenum(value)
-                onClose()
-                setShowOtpModal(true)
+                toast.error("Please enter phone number!");
+            } else {
+                setPhonenum(value);
+                onClose();
+                setShowOtpModal(true);
                 e.target.form.reset();
             }
-            else {
-                toast.error("Enter a valid phone number")
-            }
-
 
         }
     const handlOTPModalClose = () => {

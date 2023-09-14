@@ -23,11 +23,11 @@ const MobileHeadline = (props) => {
                         </span>
                     </div>
                     <div>
-                        {/* <Link href={data && data.link}> */}
+                        <Link href={data && data.link}>
                             <button className="mobileViewArrow" >
                                 <IoIosArrowForward size={25} />
                             </button>
-                        {/* </Link> */}
+                        </Link>
                     </div>
                 </div>
 

@@ -328,7 +328,7 @@ const ArticleDeatils = () => {
                                         freeMode={true}
                                         pagination={{
                                             clickable: true,
-                                            renderBullet: renderBullet
+                                            
                                         }}
                                         modules={[FreeMode, Pagination]}
                                         className='related-swiper'

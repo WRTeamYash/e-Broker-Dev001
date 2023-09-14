@@ -37,8 +37,13 @@ body {
   padding: 20px;
   border-radius: 12px !important;
 }
+.article_title{
+  padding: 20px;
+  font-size: 30px;
+  font-weight: 600;
+}
 .article_title_img {
-  aspect-ratio: 1/1;
+  aspect-ratio: 1/0.4;
   max-width: 100%;
   /* height: article; */
 }

@@ -180,14 +180,17 @@ const ArticleDeatils = () => {
                                                     // <Loader />
                                                 ) : (
                                                     <>
-                                                        <div>
-                                                            Title :-{articleData && articleData.title}
+                                                        <div className="container">
+                                                            <div className='article_img_div'>
+                                                                <img src={articleData && articleData.image} alt="" className='article_title_img' />
+                                                            </div>
+
+                                                            <div className='article_title'>
+                                                                {articleData && articleData.title}
+                                                            </div>
+                                                            {/* // Render the privacy policy data when not loading */}
+                                                            <div className='article_deatils_description' dangerouslySetInnerHTML={{ __html: articleData && articleData.description || '' }} />
                                                         </div>
-                                                        <div className='article_img_div'>
-                                                            <img src={articleData && articleData.image} alt="" className='article_title_img' />
-                                                        </div>
-                                                        {/* // Render the privacy policy data when not loading */}
-                                                        <div className='article_deatils_description' dangerouslySetInnerHTML={{ __html: articleData && articleData.description || '' }} />
                                                     </>
                                                 )}
                                             </div>

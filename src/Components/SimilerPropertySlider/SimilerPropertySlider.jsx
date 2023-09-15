@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { GetFeturedListingsApi } from '@/store/actions/campaign';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import { store } from '@/store/store';
 
 
 
@@ -89,7 +90,7 @@ const SimilerPropertySlider = () => {
         }
     };
 
-
+    const language = store.getState().Language.languages
     return (
         <div div id='similer-properties'>
             <div className='similer-headline'>
@@ -107,7 +108,7 @@ const SimilerPropertySlider = () => {
             </div>
             <div className='similer-prop-slider'>
                 <Swiper
-                dir="rtl"
+                    dir={language.rtl === "1" ? "rtl" : "ltr"}
                     slidesPerView={4}
                     // loop={true}
                     spaceBetween={30}
@@ -128,7 +129,7 @@ const SimilerPropertySlider = () => {
                     {isLoading ? (
 
                         <Swiper
-                        dir="rtl"
+                            dir={language.rtl === "1" ? "rtl" : "ltr"}
                             slidesPerView={4}
                             spaceBetween={30}
                             freeMode={true}

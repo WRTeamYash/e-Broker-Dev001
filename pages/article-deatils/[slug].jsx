@@ -24,6 +24,7 @@ import Layout from '@/Components/Layout/Layout';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { GetAllArticlesApi } from '@/store/actions/campaign';
+import { store } from '@/store/store';
 
 
 
@@ -153,6 +154,7 @@ const ArticleDeatils = () => {
             slidesPerView: 4
         }
     };
+    const language = store.getState().Language.languages
     return (
         <>
             {/* <Head >
@@ -320,9 +322,9 @@ const ArticleDeatils = () => {
                                         </span>
                                     </span>
                                 </div>
-                                <div className="related_articles_slider">
+                                <div className="related_articles_slider" >
                                     <Swiper
-                                    dir='rtl'
+                                    dir={language.rtl === "1" ? "rtl" : "ltr"}
                                         slidesPerView={4}
                                         // loop={true}
                                         spaceBetween={30}

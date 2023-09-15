@@ -13,6 +13,7 @@ import { languageData } from '@/store/reducer/languageSlice';
 import { useSelector } from 'react-redux';
 import { translate } from '@/utils';
 import Layout from '@/Components/Layout/Layout';
+import { store } from '@/store/store';
 
 const page = () => {
 
@@ -57,6 +58,7 @@ const page = () => {
             slidesPerView: 4
         }
     };
+    const language = store.getState().Language.languages
     return (
         <Layout>
             <Breadcrumb title={translate("subscriptionPlan")} />
@@ -73,7 +75,7 @@ const page = () => {
 
                         <div className="subsCards">
                             <Swiper
-                            dir='rtl'
+                            dir={language.rtl === "1" ? "rtl" : "ltr"}
                                 slidesPerView={4}
                                 // loop={true}
                                 spaceBetween={30}

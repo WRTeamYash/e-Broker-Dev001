@@ -130,8 +130,8 @@ const Articles = () => {
                                                         getArticles?.map((ele, index) => (
                                                             <div className='col-12 ' id='horizonatal_articles' key={index}>
                                                                 {/* <Link href="/article-deatils"> */}
-                                                                <ArticleHorizonatalCard ele={ele} expandedStates={expandedStates} index={index} />
-                                                                {/* </Link> */}
+                                                                <ArticleHorizonatalCard ele={ele} expandedStates={expandedStates} index={index} PlaceHolderImg={PlaceHolderImg}/>
+                                                                {/* </Link> */} 
                                                             </div>
                                                         ))}
                                                 </div>

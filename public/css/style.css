@@ -1437,7 +1437,6 @@ button.learn-more .button-text {
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
-
 }
 .verticle_card .verticle_main_card .card-body {
   background-color: #fff;
@@ -3171,20 +3170,19 @@ option {
   margin-left: 18%;
 }
 @media only screen and (max-width: 1199px) {
-  .see_all button{
+  .see_all button {
     margin-left: 10%;
     margin-top: -6%;
-
   }
 }
-@media only screen and (max-width: 991px){
-  .see_all button{
+@media only screen and (max-width: 991px) {
+  .see_all button {
     margin-left: 15%;
     margin-top: -6%;
   }
 }
-@media only screen and (max-width: 767px){
-  .see_all button{
+@media only screen and (max-width: 767px) {
+  .see_all button {
     margin-left: 10%;
     margin-top: -8%;
   }
@@ -3668,10 +3666,53 @@ div#all-articles_card_footer .allarticles_footer_text p {
 .article_card_image {
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 .article_Img {
   width: 100%;
   height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 12px;
+}
+.article-card-content {
+  padding: 20px 0;
+}
+.article-apartment-tag {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+.article-card-headline {
+  margin-top: 10px;
+}
+.article-card-headline span {
+  font-size: 16px;
+  font-weight: bold;
+}
+p {
+  font-weight: 300;
+  letter-spacing: 0px;
+  color: #282f39c2;
+  opacity: 1;
+  margin: 0;
+}
+.article-readmore-button {
+  color: #000;
+  background-color: #fff;
+  border: none;
+  margin-bottom: 20px;
+}
+#article-card-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
 }
 /* ==========================article deatils ======================== */
 #all-articles-deatil-content {
@@ -4634,7 +4675,7 @@ a {
 
 .article-card-image {
   flex: 1;
-  max-width: 200px; /* Adjust as needed */
+  max-width: 200px;
 }
 
 .article-card-img {
@@ -4642,38 +4683,8 @@ a {
   height: auto;
 }
 
-.article-card-content {
-  flex: 2;
-  padding: 0 20px;
-}
-
-.article-apartment-tag {
-  background-color: #f2f2f2;
-  padding: 5px 10px;
-  border-radius: 4px;
-}
-
-.article-card-headline span {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-p {
-  margin-top: 10px;
-  font-size: 16px;
-}
-
 .article-readmore {
   margin-top: 10px;
-}
-
-.article-readmore-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .article-arrow-icon {
@@ -4697,7 +4708,6 @@ p {
   font-size: 14px;
 }
 
-/* Pagination container styles */
 .pagination {
   display: flex;
   align-items: center;
@@ -4706,18 +4716,15 @@ p {
   flex-wrap: wrap;
 }
 
-/* Active link styles */
 .pagination li.pagination__link--active a {
   background-color: var(--primary-color);
   color: #fff;
 }
 
-/* Active link hover styles */
 .pagination li.pagination__link--active a:hover {
   color: #fff !important;
 }
 
-/* Pagination link styles */
 .pagination li a {
   position: relative;
   display: block;

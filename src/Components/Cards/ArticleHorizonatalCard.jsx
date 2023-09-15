@@ -50,12 +50,13 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) 
                                     </>
                                 )}
                             </div>
-                            <div className="article-card-footer">
-                                <div className="article-admin-pic">
-                                    <img src={adminlogo.src} alt="" className="article-admin" />
+                            <div className="card-footer" id='article-card-footer'>
+                                <div id='admin_pic'>
+                                    <img src={adminlogo.src} alt="" className='admin' />
                                 </div>
-                                <div className="article-footer-text">
-                                    <span className="article-byadmin">{translate("byAdmin")}</span>
+                                <div className='article_footer_text'>
+                                    <span className='byadmin'> {translate("byAdmin")}
+                                    </span>
                                     <p>1 day ago</p>
                                 </div>
                             </div>

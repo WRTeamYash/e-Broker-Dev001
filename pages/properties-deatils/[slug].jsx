@@ -4,12 +4,6 @@ import { RiSendPlane2Line, RiHotelBedLine, RiParkingBoxLine, RiBuilding3Line, Ri
 import { AiOutlineArrowRight, AiOutlineHeart } from 'react-icons/ai'
 import { Card, Carousel } from 'react-bootstrap'
 import { CiLocationOn } from 'react-icons/ci'
-import PropImg01 from "@/assets/Images/Featured_List_4.jpg"
-import PropImg02 from "@/assets/Images/Featured_List_5.jpg"
-import PropImg03 from "@/assets/Images/Featured_List_6.jpg"
-import PropImg04 from "@/assets/Images/Featured_List_7.jpg"
-import PropImg05 from "@/assets/Images/Featured_List_8.jpg"
-import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import { FiCloudDrizzle, FiMail, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
 
@@ -25,10 +19,12 @@ import { languageData } from '@/store/reducer/languageSlice'
 import { translate } from '@/utils'
 import { useRouter } from 'next/router'
 import { GetFeturedListingsApi } from '@/store/actions/campaign'
-import Layout from '@/Components/Layout/Layout'
 import Header from '@/Components/Header/Header'
 import Footer from '@/Components/Footer/Footer'
 import { Modal, ModalGateway } from 'react-images'
+import Gallery from 'react-photo-gallery'
+import Lightbox from 'yet-another-react-lightbox'
+import LightBox from '@/Components/LightBox/LightBox'
 
 
 
@@ -123,31 +119,33 @@ const PropertieDeatils = () => {
         ? `url(https://img.youtube.com/vi/${videoId}/maxresdefault.jpg)`
         : PlaceHolderImg;
 
-
-    const [currentImage, setCurrentImage] = useState(0);
+    const galleryPhotos = getPropData && getPropData.gallery;
     const [viewerIsOpen, setViewerIsOpen] = useState(false);
-    const galleryPhotos = getPropData && getPropData.gallery
-    console.log(galleryPhotos)
+    const [currentImage, setCurrentImage] = useState(0);
 
-    const openLightbox = useCallback((event, { index }) => {
+    const openLightbox = (event, { index }) => {
         setCurrentImage(index);
         setViewerIsOpen(true);
-    }, []);
+    };
+
     const closeLightbox = () => {
         setCurrentImage(0);
         setViewerIsOpen(false);
     };
 
-    const lightboxPhotos = galleryPhotos?.map((photo) => ({
-        src: photo.image_url, 
-        width: 1024,  
-        height: 768,  
-        caption: photo.image, 
-    }));
-      console.log(lightboxPhotos)
+    const lightboxPhotos = galleryPhotos?.map((photo) => (
+        {
+            src: photo.image_url,
+            width: 1024,
+            height: 768,
+            caption: photo.image,
+        })
+    );
+    // console.log(photo)
+    console.log(lightboxPhotos)
     return (
         <>
-           
+
             <Header />
             <Breadcrumb data={{
                 type: getPropData && getPropData.category.category,
@@ -163,34 +161,21 @@ const PropertieDeatils = () => {
 
                 <div id='all-prop-deatil-containt'>
                     <div className='container'>
-                        <div>
-                            {galleryPhotos && galleryPhotos.length > 0 && (
-                                <div className="row" id="prop-images">
-                                    <div className="col-lg-4 col-sm-12" id="prop-left-images">
-                                        <img src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="left-imgs01" />
-                                        <img src={galleryPhotos[2]?.image_url || PlaceHolderImg} className="left-imgs02" />
-                                    </div>
-                                    <div className="col-lg-8 col-sm-12 text-center" id="prop-main-image">
-                                        <img src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="middle-img" />
-                                        <div className="see_all">
-                                            <button onClick={(e) => openLightbox(e, { index: 0 })}>{translate("seeAllPhotos")}</button>
-                                        </div>
+                        {galleryPhotos && galleryPhotos.length > 0 && (
+                            <div className="row" id="prop-images">
+                                <div className="col-lg-4 col-sm-12" id="prop-left-images">
+                                    <img src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="left-imgs01" alt="Image 1" />
+                                    <img src={galleryPhotos[2]?.image_url || PlaceHolderImg} className="left-imgs02" alt="Image 2" />
+                                </div>
+                                <div className="col-lg-8 col-sm-12 text-center" id="prop-main-image">
+                                    <img src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="middle-img" alt="Main Image" />
+                                    <div className="see_all">
+                                        <button onClick={(e) => openLightbox(e, { index: 0 })}>{translate("seeAllPhotos")}</button>
                                     </div>
                                 </div>
-                            )}
-
-                            <ModalGateway>
-                                {viewerIsOpen ? (
-                                    <Modal onClose={closeLightbox}>
-
-                                        <Carousel
-                                            currentIndex={currentImage}
-                                            views={lightboxPhotos}
-                                        />
-                                    </Modal>
-                                ) : null}
-                            </ModalGateway>
-                        </div>
+                            </div>
+                        )}
+                        <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={closeLightbox} />
                         <div className='row' id='prop-all-deatils-cards'>
                             <div className='col-12 col-md-12 col-lg-9' id='prop-deatls-card'>
                                 <div className="card about-propertie">

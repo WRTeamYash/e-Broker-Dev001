@@ -34,14 +34,14 @@ const Nav = () => {
 
 
     const language = store.getState().Language.languages
-    console.log(language.rtl)
+    // console.log(language.rtl)
     useEffect(() => {
         if (language && language.rtl === 1) {
             document.documentElement.dir = "rtl";
-            console.log(document.documentElement.dir)
+            // console.log(document.documentElement.dir)
         } else {
             document.documentElement.dir = "ltr";
-            console.log(document.documentElement.dir)
+            // console.log(document.documentElement.dir)
 
         }
     }, [language]);

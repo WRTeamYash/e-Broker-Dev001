@@ -1,8 +1,8 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { RiSendPlane2Line, RiHotelBedLine, RiParkingBoxLine, RiBuilding3Line, RiPlantLine, RiThumbUpFill } from 'react-icons/ri'
 import { AiOutlineArrowRight, AiOutlineHeart } from 'react-icons/ai'
-import { Card } from 'react-bootstrap'
+import { Card, Carousel } from 'react-bootstrap'
 import { CiLocationOn } from 'react-icons/ci'
 import PropImg01 from "@/assets/Images/Featured_List_4.jpg"
 import PropImg02 from "@/assets/Images/Featured_List_5.jpg"
@@ -28,6 +28,7 @@ import { GetFeturedListingsApi } from '@/store/actions/campaign'
 import Layout from '@/Components/Layout/Layout'
 import Header from '@/Components/Header/Header'
 import Footer from '@/Components/Footer/Footer'
+import { Modal, ModalGateway } from 'react-images'
 
 
 
@@ -80,7 +81,7 @@ const PropertieDeatils = () => {
                 // console.log(" data", propertyData[0].id)
                 setIsLoading(false);
                 setPropData(propertyData[0]);
-                // console.log(getPropData[0].id)
+                console.log(getPropData)
             },
             (error) => {
                 setIsLoading(false);
@@ -91,41 +92,6 @@ const PropertieDeatils = () => {
     }, [isLoggedIn, propId]);
 
 
-    // useEffect(() => {
-    //     setIsLoading(true);
-
-    //     GetFeturedListingsApi(
-    //         "",
-    //         "",
-    //         propId.slug,
-    //         "",
-    //         "",
-    //         "",
-    //         1,
-    //         "",
-    //         "",
-    //         isLoggedIn ? userCurrentId : "",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         (response) => {
-
-    //             const propertyData = response.data;
-    //             // console.log("similer data", propertyData)
-    //             setIsLoading(false);
-    //             setSimilerData(propertyData);
-    //             // console.log(CategoryListByPropertyData)
-    //         },
-    //         (error) => {
-    //             setIsLoading(false);
-    //             console.log(error);
-    //         }
-    //     );
-
-    // }, [isLoggedIn]);
 
     const [imageURL, setImageURL] = useState('');
 
@@ -135,15 +101,18 @@ const PropertieDeatils = () => {
         }
     }, [getPropData]);
 
+    const DummyImgData = useSelector(settingsData)
+    const PlaceHolderImg = DummyImgData.img_placeholder
     useEffect(() => {
         if (imageURL && imageURL) {
             pannellum?.viewer('panorama', {
                 "type": "equirectangular",
-                "panorama": imageURL,
+                "panorama": imageURL && imageURL ? imageURL : PlaceHolderImg,
                 "autoLoad": true
             });
         }
     }, [imageURL]);
+
 
     const [play, setPlay] = useState(false)
 
@@ -152,11 +121,33 @@ const PropertieDeatils = () => {
 
     const backgroundImageUrl = videoId
         ? `url(https://img.youtube.com/vi/${videoId}/maxresdefault.jpg)`
-        : 'none';
+        : PlaceHolderImg;
 
+
+    const [currentImage, setCurrentImage] = useState(0);
+    const [viewerIsOpen, setViewerIsOpen] = useState(false);
+    const galleryPhotos = getPropData && getPropData.gallery
+    console.log(galleryPhotos)
+
+    const openLightbox = useCallback((event, { index }) => {
+        setCurrentImage(index);
+        setViewerIsOpen(true);
+    }, []);
+    const closeLightbox = () => {
+        setCurrentImage(0);
+        setViewerIsOpen(false);
+    };
+
+    const lightboxPhotos = galleryPhotos?.map((photo) => ({
+        src: photo.image_url, 
+        width: 1024,  
+        height: 768,  
+        caption: photo.image, 
+    }));
+      console.log(lightboxPhotos)
     return (
         <>
-            {/* <Layout> */}
+           
             <Header />
             <Breadcrumb data={{
                 type: getPropData && getPropData.category.category,
@@ -172,29 +163,33 @@ const PropertieDeatils = () => {
 
                 <div id='all-prop-deatil-containt'>
                     <div className='container'>
-                        <div className='row' id='prop-images'>
-                            <div className='col-lg-3 col-md-4 col-sm-12' id='prop-left-images'>
-                                <div>
-                                    <img src={PropImg01.src} className='left-imgs01' />
+                        <div>
+                            {galleryPhotos && galleryPhotos.length > 0 && (
+                                <div className="row" id="prop-images">
+                                    <div className="col-lg-4 col-sm-12" id="prop-left-images">
+                                        <img src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="left-imgs01" />
+                                        <img src={galleryPhotos[2]?.image_url || PlaceHolderImg} className="left-imgs02" />
+                                    </div>
+                                    <div className="col-lg-8 col-sm-12 text-center" id="prop-main-image">
+                                        <img src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="middle-img" />
+                                        <div className="see_all">
+                                            <button onClick={(e) => openLightbox(e, { index: 0 })}>{translate("seeAllPhotos")}</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <img src={PropImg02.src} className='left-imgs02' />
-                                </div>
-                            </div>
-                            <div className='col-lg-6 col-md-4 col-sm-12 text-center' id='prop-main-image'>
-                                <img src={PropImg03.src} className='middle-img' />
-                                <div className="img-overlay">
-                                    <button> {translate("seeAllPhotos")}</button>
-                                </div>
-                            </div>
-                            <div className='col-lg-3 col-md-4 col-sm-12' id='prop-right-images'>
-                                <div>
-                                    <img src={PropImg04.src} className='right-imgs01' />
-                                </div>
-                                <div>
-                                    <img src={PropImg05.src} className='right-imgs02' />
-                                </div>
-                            </div>
+                            )}
+
+                            <ModalGateway>
+                                {viewerIsOpen ? (
+                                    <Modal onClose={closeLightbox}>
+
+                                        <Carousel
+                                            currentIndex={currentImage}
+                                            views={lightboxPhotos}
+                                        />
+                                    </Modal>
+                                ) : null}
+                            </ModalGateway>
                         </div>
                         <div className='row' id='prop-all-deatils-cards'>
                             <div className='col-12 col-md-12 col-lg-9' id='prop-deatls-card'>
@@ -399,7 +394,7 @@ const PropertieDeatils = () => {
                                 <div className="card" id='owner-deatils-card'>
                                     <div className="card-header" id='card-owner-header'>
                                         <div>
-                                            <img src={getPropData && getPropData.profile} className='owner-img' alt="" />
+                                            <img src={getPropData && getPropData.profile ? getPropData.profile : PlaceHolderImg} className='owner-img' alt="" />
                                         </div>
                                         <div className='owner-deatils'>
                                             <span className='owner-name'> {getPropData && getPropData.customer_name}</span>

@@ -1,15 +1,22 @@
+import { settingsData } from '@/store/reducer/settingsSlice'
 import { translate } from '@/utils'
 import React from 'react'
 import { Card } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 
 const CategoryCard = ({ ele }) => {
+
+
+
+const DummyImgData = useSelector(settingsData)
+const PlaceHolderImg = DummyImgData.img_placeholder
     return (
         <div className='Category_card'>
             <Card id='main_aprt_card'>
                 <Card.Body>
                     <div className='apart_card_content'>
                         <div id='apart_icon'>
-                            <img src={ele.image} alt="" className='solo_icon' />
+                            <img src={ele.image ? ele.image : PlaceHolderImg} alt="" className='solo_icon' />
                         </div>
                         <div id='apart_name'>
                             {ele.category}

@@ -1437,10 +1437,7 @@ button.learn-more .button-text {
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
-  /* background-color: var(--primary-color);
-  padding: 5px 10px ;
-  border-radius: 5px;
-  text-align: center; */
+
 }
 .verticle_card .verticle_main_card .card-body {
   background-color: #fff;
@@ -3147,19 +3144,68 @@ option {
 .middle-img {
   width: 100%;
   height: 100%;
+  border-radius: 0 20px 20px 0;
 }
-.img-overlay {
+@media only screen and (max-width: 992px) {
+  .left-imgs01 {
+    border-radius: 20px;
+  }
+  .left-imgs02 {
+    border-radius: 20px;
+  }
+  .middle-img {
+    border-radius: 20px;
+  }
+}
+.prop-main-image {
   position: relative;
 }
-.img-overlay button {
+.see_all button {
   border: none;
   padding: 5px 20px;
   background: #fff;
   border-radius: 8px;
   text-transform: capitalize;
   position: absolute;
-  margin-top: -50px;
-  margin-left: 30%;
+  margin-top: -4%;
+  margin-left: 18%;
+}
+@media only screen and (max-width: 1199px) {
+  .see_all button{
+    margin-left: 10%;
+    margin-top: -6%;
+
+  }
+}
+@media only screen and (max-width: 991px){
+  .see_all button{
+    margin-left: 15%;
+    margin-top: -6%;
+  }
+}
+@media only screen and (max-width: 767px){
+  .see_all button{
+    margin-left: 10%;
+    margin-top: -8%;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .see_all button {
+    margin-left: 12%;
+    margin-top: -8%;
+  }
+}
+@media only screen and (max-width: 440px) {
+  .see_all button {
+    margin-left: 8%;
+    margin-top: -10%;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .see_all button {
+    margin-left: 0%;
+    margin-top: -12%;
+  }
 }
 .right-imgs01 {
   width: 100%;
@@ -4699,10 +4745,10 @@ p {
   color: #c6c6c6;
 }
 
-
 /* RTL  */
 
-[dir="rtl"] .verticle_card, .Category_card {
+[dir="rtl"] .verticle_card,
+.Category_card {
   direction: rtl;
 }
 [dir="rtl"] .verticle_card .verticle_main_card .price_teg {
@@ -4713,18 +4759,18 @@ p {
   left: 10px !important;
   right: unset !important;
 }
-[dir="rtl"] .horizontal_card #main_prop_card_body .prop_like{
+[dir="rtl"] .horizontal_card #main_prop_card_body .prop_like {
   right: 10px;
 }
-[dir="rtl"] .horizontal_card #main_prop_card_body .prop_sell{
- margin-left: 67%;
+[dir="rtl"] .horizontal_card #main_prop_card_body .prop_sell {
+  margin-left: 67%;
 }
-@media only screen and (max-width:1200px) {
-  [dir="rtl"] .horizontal_card #main_prop_card_body .prop_sell{
+@media only screen and (max-width: 1200px) {
+  [dir="rtl"] .horizontal_card #main_prop_card_body .prop_sell {
     margin-left: 0;
   }
 }
-[dir="rtl"] .horizontal_card #main_prop_card_body .prop_price{
+[dir="rtl"] .horizontal_card #main_prop_card_body .prop_price {
   right: 10px;
 }
 [dir="rtl"] .horizontal_card #prop_card_img {
@@ -4733,53 +4779,50 @@ p {
 [dir="rtl"] .horizontal_card .image_div {
   border-radius: 0 12px 12px 0;
 }
-[dir="rtl"] #searchbox #tabs #sellbutton{
+[dir="rtl"] #searchbox #tabs #sellbutton {
   border-radius: 0 8px 0px 0;
 }
-[dir="rtl"] #searchbox #tabs #rentbutton{
+[dir="rtl"] #searchbox #tabs #rentbutton {
   border-radius: 8px 0 0 0;
 }
-[dir="rtl"] #searchbox #tabs{
+[dir="rtl"] #searchbox #tabs {
   padding: 0;
 }
-[dir="rtl"] #searchcard{
+[dir="rtl"] #searchcard {
   border-radius: 8px 0 8px 8px;
 }
-[dir="rtl"] .hero-slider{
+[dir="rtl"] .hero-slider {
   direction: ltr;
 }
-[dir="rtl"] #herotexts{
+[dir="rtl"] #herotexts {
   direction: rtl;
 }
-[dir="rtl"] #all-prop-containt #all_prop_card_body{
+[dir="rtl"] #all-prop-containt #all_prop_card_body {
   border-radius: 12px 0 0 12px;
 }
 [dir="rtl"] #all-prop-containt .all_prop_feature {
-margin-left: 67%;
+  margin-left: 67%;
 }
 [dir="rtl"] #all-prop-containt .all_prop_like {
-right: 10px;
+  right: 10px;
 }
 [dir="rtl"] #all-prop-containt .all_prop_sell {
-margin-left: 67%;
+  margin-left: 67%;
 }
 [dir="rtl"] #all-prop-containt .all_prop_price {
   right: 10px;
 }
 [dir="rtl"] .img_div {
- border-radius: 0 12px 12px 0;
+  border-radius: 0 12px 12px 0;
 }
 [dir="rtl"] #all-prop-containt #all_prop_card_img {
   border-radius: 0 12px 12px 0;
-
 }
 [dir="rtl"] #sq-ft-slct {
   border-radius: 8px 0 0px 8px;
-
 }
 [dir="rtl"] #number-input {
   border-radius: 0px 8px 8px 0px;
-
 }
 /* [dir="rtl"] .index-module_Horizontal__8-P70.index-module_Next__sFCHR .index-module_Container__mtjRh {
 
@@ -4794,5 +4837,3 @@ margin-left: 67%;
   transition: none;
 }
  */
-
-

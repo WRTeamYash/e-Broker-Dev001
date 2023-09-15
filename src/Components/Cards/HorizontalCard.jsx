@@ -11,8 +11,9 @@ const HorizontalCard = ({ ele }) => {
     const priceSymbol = useSelector(settingsData)
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
     const isLoggedIn = useSelector((state) => state.User_signup);
-    // console.log(isLoggedIn)
-    // Initialize isLiked based on ele.is_favourite
+
+    const DummyImgData = useSelector(settingsData)
+    const PlaceHolderImg = DummyImgData.img_placeholder
     const [isLiked, setIsLiked] = useState(ele.is_favourite === 1);
 
     // Initialize isDisliked as false
@@ -62,7 +63,7 @@ const HorizontalCard = ({ ele }) => {
         <div className='horizontal_card'>
             <div className='card' id='main_prop_card' >
                 <div className='image_div col-md-4'>
-                    <img className='card-img' id='prop_card_img' src={ele.title_image} />
+                    <img className='card-img' id='prop_card_img' src={ele.title_image ? ele.title_image : PlaceHolderImg} />
                 </div>
 
 

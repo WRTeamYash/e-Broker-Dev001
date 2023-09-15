@@ -64,14 +64,15 @@ function VerticalCard({ ele }) {
     }, [ele.is_favourite]);
 
 
-
+    const DummyImgData = useSelector(settingsData)
+    const PlaceHolderImg = DummyImgData.img_placeholder
 
 
     return (
         <div className='verticle_card'>
             <div className='card verticle_main_card'>
                 <div className='verticle_card_img_div'>
-                    <img className='card-img' id='verticle_card_img' src={ele.title_image} alt="" />
+                    <img className='card-img' id='verticle_card_img' src={ele.title_image ? ele.title_image : PlaceHolderImg} alt="" />
                 </div>
                 <div className="card-img-overlay">
                     {ele.promoted ? (

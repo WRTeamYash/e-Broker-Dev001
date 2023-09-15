@@ -6,7 +6,7 @@ import adminlogo from "@/assets/Images/Superman.jpeg"
 import { translate } from '@/utils';
 
 
-const ArticleCard = ({ ele, expandedStates, index,PlaceHolderImg }) => {
+const ArticleCard = ({ ele, expandedStates, index, PlaceHolderImg }) => {
 
 
     const stripHtmlTags = (htmlString) => {

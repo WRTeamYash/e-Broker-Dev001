@@ -8,10 +8,10 @@
     height: 100%;
     /* width: 50%; */
   }
-  .horizontal_card #main_prop_card_body .prop_price{
+  .horizontal_card #main_prop_card_body .prop_price {
     margin-top: 165px;
   }
-  .horizontal_card #main_prop_card_body .prop_sell{
+  .horizontal_card #main_prop_card_body .prop_sell {
     margin-top: 160px;
   }
 }
@@ -40,10 +40,10 @@
   .horizontal_card #prop_card_img {
     height: 100%;
   }
-  .horizontal_card #main_prop_card_body .prop_price{
+  .horizontal_card #main_prop_card_body .prop_price {
     margin-top: 165px;
   }
-  .horizontal_card #main_prop_card_body .prop_sell{
+  .horizontal_card #main_prop_card_body .prop_sell {
     margin-top: 160px;
   }
   .download_app_platforms #playstore_logo img,
@@ -59,7 +59,6 @@
     width: 33%;
   }
 
-
   .feature_header {
     display: none;
   }
@@ -71,13 +70,13 @@
     display: block;
     padding-bottom: 20px;
   }
-  #apartments{
+  #apartments {
     overflow: hidden;
   }
- #all-apart-cards{
+  #all-apart-cards {
     width: 100% !important;
   }
-  
+
   .aprt_cards {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
@@ -91,7 +90,7 @@
 
   /* APARTMENT CSS END  */
   /* MOST VIEWED PROPERTIES START */
-  #main_properties .col-md-4{
+  #main_properties .col-md-4 {
     width: 100%;
   }
   #prop {
@@ -101,7 +100,7 @@
   #prop_cards {
     top: 0;
   }
-  .horizontal_card .image_div{
+  .horizontal_card .image_div {
     border-radius: 12px 12px 0 0px;
   }
   .horizontal_card #main_prop_card {
@@ -277,10 +276,10 @@
     display: block;
     padding-bottom: 0px;
   }
-  #apartments{
+  #apartments {
     overflow: hidden;
   }
- #all-apart-cards{
+  #all-apart-cards {
     width: 100%;
   }
   .aprt_cards {
@@ -296,26 +295,26 @@
 
   /* APARTMENT CSS END  */
   /* MOST VIEWED PROPERTIES START */
-  #main_properties .col-md-4{
+  #main_properties .col-md-4 {
     width: 100%;
   }
   .prop_header {
     display: none;
   }
-  .horizontal_card #main_prop_card{
-    flex-direction: column ;
+  .horizontal_card #main_prop_card {
+    flex-direction: column;
   }
-  .horizontal_card .image_div{
+  .horizontal_card .image_div {
     border-radius: 12px 12px 0 0px;
   }
   .horizontal_card #prop_card_img {
     border-radius: 12px 12px 0 0 !important;
   }
-.horizontal_card #main_prop_card_body .prop_like {
+  .horizontal_card #main_prop_card_body .prop_like {
     right: 10px;
     top: 10px;
   }
-.horizontal_card #main_prop_card_body .prop_sell {
+  .horizontal_card #main_prop_card_body .prop_sell {
     margin-top: -60px;
   }
   .horizontal_card #main_prop_card_body .prop_price {
@@ -448,10 +447,10 @@
     display: block;
     padding-bottom: 10px;
   }
-  #apartments{
+  #apartments {
     overflow: hidden;
   }
- #all-apart-cards{
+  #all-apart-cards {
     width: 100%;
   }
   .aprt_cards {
@@ -470,20 +469,20 @@
   .prop_header {
     display: none;
   }
-  .horizontal_card #main_prop_card{
-    flex-direction: column ;
+  .horizontal_card #main_prop_card {
+    flex-direction: column;
   }
-  .horizontal_card .image_div{
+  .horizontal_card .image_div {
     border-radius: 12px 12px 0 0px;
   }
   .horizontal_card #prop_card_img {
     border-radius: 12px 12px 0 0 !important;
   }
-.horizontal_card #main_prop_card_body .prop_like {
+  .horizontal_card #main_prop_card_body .prop_like {
     right: 10px;
     top: 10px;
   }
-.horizontal_card #main_prop_card_body .prop_sell {
+  .horizontal_card #main_prop_card_body .prop_sell {
     margin-top: -60px;
   }
   .horizontal_card #main_prop_card_body .prop_price {
@@ -582,10 +581,10 @@
     justify-content: center;
     align-items: center;
   }
-  #apartments{
+  #apartments {
     overflow: hidden;
   }
- #all-apart-cards{
+  #all-apart-cards {
     width: 100%;
   }
   .aprt_cards {
@@ -608,20 +607,20 @@
   .prop_header {
     display: none;
   }
-  .horizontal_card #main_prop_card{
-    flex-direction: column ;
+  .horizontal_card #main_prop_card {
+    flex-direction: column;
   }
-  .horizontal_card .image_div{
+  .horizontal_card .image_div {
     border-radius: 12px 12px 0 0px;
   }
   .horizontal_card #prop_card_img {
     border-radius: 12px 12px 0 0 !important;
   }
-.horizontal_card #main_prop_card_body .prop_like {
+  .horizontal_card #main_prop_card_body .prop_like {
     right: 10px;
     top: 10px;
   }
-.horizontal_card #main_prop_card_body .prop_sell {
+  .horizontal_card #main_prop_card_body .prop_sell {
     margin-top: -60px;
   }
   .horizontal_card #main_prop_card_body .prop_price {
@@ -758,10 +757,10 @@
     justify-content: center;
     align-items: center;
   }
-  #apartments{
+  #apartments {
     overflow: hidden;
   }
- #all-apart-cards{
+  #all-apart-cards {
     width: 100%;
   }
   .aprt_cards {
@@ -780,20 +779,20 @@
   .prop_header {
     display: none;
   }
-  .horizontal_card #main_prop_card{
-    flex-direction: column ;
+  .horizontal_card #main_prop_card {
+    flex-direction: column;
   }
-  .horizontal_card .image_div{
+  .horizontal_card .image_div {
     border-radius: 12px 12px 0 0px;
   }
   .horizontal_card #prop_card_img {
     border-radius: 12px 12px 0 0 !important;
   }
-.horizontal_card #main_prop_card_body .prop_like {
+  .horizontal_card #main_prop_card_body .prop_like {
     right: 10px;
     top: 10px;
   }
-.horizontal_card #main_prop_card_body .prop_sell {
+  .horizontal_card #main_prop_card_body .prop_sell {
     margin-top: -60px;
   }
   .horizontal_card #main_prop_card_body .prop_price {
@@ -860,7 +859,7 @@
     justify-content: center;
     display: flex;
     align-items: center;
-}
+  }
   .navbar-nav {
     align-items: flex-start;
     gap: 25px;
@@ -869,7 +868,7 @@
     display: flex;
     align-items: center;
     text-align: center;
-}
+  }
   .nav-item {
     color: #fff !important;
     background-color: var(--primary-color);
@@ -877,7 +876,7 @@
     width: 100%;
     border-radius: 10px;
     text-align: -webkit-center;
-    padding:  0 20px;
+    padding: 0 20px;
   }
   .mobile-nav-buttons {
     display: flex;
@@ -926,7 +925,6 @@
     border: 2px solid var(--primary-color);
     box-shadow: var(--primary-color) !important;
   }
-  
 }
 
 /* Shaihid's resposives css  */
@@ -997,17 +995,12 @@
 }
 
 @media only screen and (min-width: 1400px) and (max-width: 1850px) {
-  
   #all-prop-containt .all-footer-body {
     gap: 16px;
   }
 }
 
 @media only screen and (min-width: 1400px) and (max-width: 1650px) {
-  .img-overlay button {
-    margin-left: 25%;
-  }
-
   .uper-specification,
   .down-specification {
     gap: 4%;
@@ -1044,10 +1037,6 @@
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
-  .img-overlay button {
-    margin-left: 22%;
-  }
-
   #all-content-deatil {
     margin: 0 4%;
   }
@@ -1088,7 +1077,6 @@
     width: 30px !important;
   }
 
-  
   #main-all-prop .all-prop-rightside .all-footer-body {
     gap: 16px;
   }
@@ -1103,24 +1091,20 @@
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
-
   .enquiry {
     /* flex-direction: column; */
     gap: 10px;
   }
-  #prop-all-deatils-cards{
+  #prop-all-deatils-cards {
     gap: 20px 0px;
     flex-direction: column-reverse;
   }
-  #prop-all-deatils-cards .col-lg-9{
+  #prop-all-deatils-cards .col-lg-9 {
     width: 100%;
   }
 
-  #prop-all-deatils-cards .col-lg-3{
+  #prop-all-deatils-cards .col-lg-3 {
     width: 100%;
-  }
-  .img-overlay button {
-    margin-left: 12%;
   }
 
   #all-content-deatil {
@@ -1177,7 +1161,6 @@
     /* width: 10vw; */
   }
 
-  
   #main-all-prop #main-all-prop-card {
     height: fit-content;
   }
@@ -1217,13 +1200,12 @@
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-
   #prop-images .col-lg-3 {
     display: flex;
     width: 100%;
     flex-direction: row;
   }
-  #prop-all-deatils-cards{
+  #prop-all-deatils-cards {
     gap: 20px 0px;
     flex-direction: column-reverse;
   }
@@ -1236,24 +1218,10 @@
     width: 100%;
   }
 
-  .middle-img {
-    /* width: 84vw; */
-    height: 42vh;
-  }
-
-  .img-overlay button {
-    margin-left: 22%;
-  }
-
   .right-imgs01 {
     border-radius: 0 0px 0 12px;
   }
 
-  .left-imgs02 {
-    width: 100%;
-    height: 100%;
-    border-radius: 0px 12px 0px 0px;
-  }
   #owner-deatils-card {
     margin-top: 24px;
   }
@@ -1267,7 +1235,6 @@
     gap: 12px;
   }
 
-  
   #main-all-prop-card {
     height: 100%;
     flex-direction: column;
@@ -1329,33 +1296,20 @@
     gap: 12px;
   }
 
-  #prop-images img {
-    border-radius: 12px;
-  }
-
   #prop-main-image {
     width: 100%;
   }
 
-  .middle-img {
-    /* width: 80vw; */
-    height: 30vh;
-  }
-
-  .img-overlay button {
-    margin-left: 0%;
-  }
   .right-imgs01 {
     border-radius: 0 0px 0 12px;
   }
-  #prop-all-deatils-cards{
+  #prop-all-deatils-cards {
     gap: 20px 0px;
     flex-direction: column-reverse;
   }
   .left-imgs02 {
     width: 100%;
     height: 100%;
-    border-radius: 0px 12px 0px 0px;
   }
 
   .about-propertie,
@@ -1390,7 +1344,6 @@
     gap: 12px;
   }
 
-  
   #main-all-prop-card {
     height: fit-content;
   }
@@ -1439,7 +1392,7 @@
 }
 
 @media only screen and (min-width: 320px) and (max-width: 424px) {
-  #prop-all-deatils-cards{
+  #prop-all-deatils-cards {
     gap: 20px 0px;
     flex-direction: column-reverse;
   }
@@ -1454,22 +1407,8 @@
     gap: 12px;
   }
 
-  #prop-images img {
-    border-radius: 12px;
-  }
-
   #prop-main-image {
     width: 100%;
-  }
-
-  .middle-img {
-    /* width: 80vw; */
-    height: 30vh;
-  }
-
-  .img-overlay button {
-    padding: 2px 14px;
-    margin-left: 0%;
   }
 
   .right-imgs01 {
@@ -1522,7 +1461,6 @@
     width: 100%;
   }
 
-  
   #main-all-prop-card {
     height: fit-content;
   }
@@ -1589,7 +1527,7 @@
     flex-direction: column;
     gap: 20px;
   }
-  .enquiry .enquiry-buttons{
+  .enquiry .enquiry-buttons {
     font-size: 13px;
   }
 }

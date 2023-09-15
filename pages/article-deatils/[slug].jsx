@@ -322,6 +322,7 @@ const ArticleDeatils = () => {
                                 </div>
                                 <div className="related_articles_slider">
                                     <Swiper
+                                    dir='rtl'
                                         slidesPerView={4}
                                         // loop={true}
                                         spaceBetween={30}

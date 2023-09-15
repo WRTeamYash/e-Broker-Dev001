@@ -51,6 +51,7 @@ import 'aos/dist/aos.css';
 import { translate } from '@/utils';
 import Layout from '../Layout/Layout';
 import SearchTab from "../SearchTab/SearchTab.jsx"
+import { store } from '@/store/store';
 
 
 
@@ -374,11 +375,9 @@ const HomePage = () => {
                 console.log(error)
             })
     }, [])
-    // console.log(getNearByCitysData[0])
 
-    // AOS.init();
-
-    // useSelector(languageLoaded)
+    const language = store.getState().Language.languages
+    // console.log(language.rtl)
 
     return (
         <>
@@ -582,7 +581,7 @@ const HomePage = () => {
                 <section id='apartments' data-aos="fade-up" data-aos-duration="2000">
                     <div className='container'>
                         <div className="row">
-                        <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
+                            <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
                                 <div className='browse-agent'>
                                     <span>{translate("exploreApartment")}
                                     </span>
@@ -607,11 +606,11 @@ const HomePage = () => {
 
                                 <div className='aprt_cards'>
                                     <Swiper
+                                        dir= {language.rtl === "1" ? "rtl" : "ltr"}
                                         spaceBetween={30}
                                         freeMode={true}
                                         pagination={{
                                             clickable: true,
-                                            
                                         }}
                                         modules={[FreeMode, Pagination]}
                                         className='aprtment-swiper'
@@ -626,13 +625,12 @@ const HomePage = () => {
                                             // Show skeleton loading when data is being fetched
                                             <div className="col-12 loading_data">
                                                 <Swiper
-                                                    //  slidesPerView={4}
-                                                    // loop={true}
+                                                   dir= {language.rtl === "1" ? "rtl" : "ltr"}
                                                     spaceBetween={30}
                                                     freeMode={true}
                                                     pagination={{
                                                         clickable: true,
-                                                        
+
                                                     }}
                                                     modules={[FreeMode, Pagination]}
                                                     className='aprtment-swiper'
@@ -921,15 +919,16 @@ const HomePage = () => {
                             }
                             } />
                         </div>
-                        <div id="most-view-properties" data-aos="fade-left" data-aos-duration="2000">
+                        <div id="most-view-properties" data-aos="fade-left" data-aos-duration="2000" dir={language.rtl === "1" ? "rtl" : "ltr"}>
                             <Swiper
+                            //    dir= {language.rtl === "1" ? "rtl" : "ltr"}
                                 slidesPerView={4}
                                 // loop={true}
                                 spaceBetween={30}
                                 freeMode={true}
                                 pagination={{
                                     clickable: true,
-                                    
+
                                 }}
                                 modules={[FreeMode, Pagination]}
                                 className='most-view-swiper'
@@ -943,13 +942,14 @@ const HomePage = () => {
                                 {isLoading ? (
                                     // Show skeleton loading when data is being fetched
                                     <Swiper
+                                    dir= {language.rtl === "1" ? "rtl" : "ltr"}
                                         slidesPerView={4}
                                         // loop={true}
                                         spaceBetween={30}
                                         freeMode={true}
                                         pagination={{
                                             clickable: true,
-                                            
+
                                         }}
                                         modules={[FreeMode, Pagination]}
                                         className='most-view-swiper'
@@ -1009,6 +1009,7 @@ const HomePage = () => {
                             <div className="col-sm-12 col-md-4 col-lg-9" id='agent-slider-cards'>
                                 <div className='agents-cards'>
                                     <Swiper
+                                    dir="rtl"
                                         slidesPerView={4}
                                         // loop={true}
                                         spaceBetween={30}
@@ -1029,6 +1030,7 @@ const HomePage = () => {
                                         {isLoading ? (
                                             // Show skeleton loading when data is being fetched
                                             <Swiper
+                                            dir="rtl"
                                                 //  slidesPerView={4}
                                                 // loop={true}
                                                 spaceBetween={30}
@@ -1088,12 +1090,12 @@ const HomePage = () => {
                             </div>
                             <div className='rightside_article_headlin'>
                                 <Link href="/articles">
-                                <button className="learn-more" id="viewall">
-                                    <span aria-hidden="true" className="circle">
-                                        <span className="icon arrow"></span>
-                                    </span>
-                                    <span className="button-text">{translate("seeAllProp")}</span>
-                                </button>
+                                    <button className="learn-more" id="viewall">
+                                        <span aria-hidden="true" className="circle">
+                                            <span className="icon arrow"></span>
+                                        </span>
+                                        <span className="button-text">{translate("seeAllProp")}</span>
+                                    </button>
                                 </Link>
                             </div>
                         </div>

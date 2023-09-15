@@ -30,14 +30,14 @@ import Layout from '@/Components/Layout/Layout'
 
 
 
-const AllProperties = ({ propertySlugData, pageIndex }) => {
+const AllProperties = () => {
   const [grid, setGrid] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
   const [CategoryListByPropertyData, setCategoryListByPropertyData] = useState()
   const [total, setTotal] = useState();
   const [offsetdata, setOffsetdata] = useState(0);
   const limit = 8
-  console.log("offset data", offsetdata)
+  // console.log("offset data", offsetdata)
   const isLoggedIn = useSelector((state) => state.User_signup);
   const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
   // console.log(userCurrentId)
@@ -154,26 +154,5 @@ const AllProperties = ({ propertySlugData, pageIndex }) => {
   )
 }
 
-// export async function getServerSideProps({ query: { page = 1 } }) {
-//   try {
-//     const pageIndex = parseInt(page);
-//     const rangeStart = (pageIndex - 1) * limit;
-//     const rangeEnd = rangeStart + limit;
-
-//     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?offset=${rangeStart}&limit=${rangeEnd}`);
-//     const propertySlugData = response.data;
-
-//     return {
-//       props: { propertySlugData, pageIndex }
-//     };
-//   } catch (error) {
-//     console.error("Error fetching property data:", error);
-//     return {
-//       props: {
-//         propertySlugData: null
-//       }
-//     };
-//   }
-// }
 
 export default AllProperties;

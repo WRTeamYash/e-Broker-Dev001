@@ -107,6 +107,7 @@ const SimilerPropertySlider = () => {
             </div>
             <div className='similer-prop-slider'>
                 <Swiper
+                dir="rtl"
                     slidesPerView={4}
                     // loop={true}
                     spaceBetween={30}
@@ -127,6 +128,7 @@ const SimilerPropertySlider = () => {
                     {isLoading ? (
 
                         <Swiper
+                        dir="rtl"
                             slidesPerView={4}
                             spaceBetween={30}
                             freeMode={true}

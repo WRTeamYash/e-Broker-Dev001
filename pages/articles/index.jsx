@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux'
 import { languageData } from '@/store/reducer/languageSlice'
 import Layout from '@/Components/Layout/Layout'
 import Link from 'next/link'
+import { settingsData } from '@/store/reducer/settingsSlice'
 
 
 
@@ -57,7 +58,9 @@ const Articles = () => {
         tempDiv.innerHTML = htmlString;
         return tempDiv.textContent || tempDiv.innerText || '';
     };
-
+    const DummyImgData = useSelector(settingsData)
+    const PlaceHolderImg = DummyImgData.img_placeholder
+    // console.log(PlaceHolderImg)
     return (
         <Layout>
             <Breadcrumb title={translate("articles")} />
@@ -75,10 +78,10 @@ const Articles = () => {
                                                     <span>{total} {translate("articleFound")} </span>
                                                 </div>
                                                 <div className='grid-buttons'>
-                                                    <button className='mx-3' id='layout-buttons' onClick={() => setGrid(false)}>
+                                                    <button className='mx-3' id='layout-buttons' onClick={() => setGrid(true)}>
                                                         <AiOutlineUnorderedList size={25} />
                                                     </button>
-                                                    <button id='layout-buttons' onClick={() => setGrid(true)}>
+                                                    <button id='layout-buttons' onClick={() => setGrid(false)}>
                                                         <RiGridFill size={25} />
                                                     </button>
                                                 </div>
@@ -125,7 +128,7 @@ const Articles = () => {
                                                         // <Loader />
                                                     ) :
                                                         getArticles?.map((ele, index) => (
-                                                            <div className='col-12' key={index}>
+                                                            <div className='col-12 ' id='horizonatal_articles' key={index}>
                                                                 {/* <Link href="/article-deatils"> */}
                                                                 <ArticleHorizonatalCard ele={ele} expandedStates={expandedStates} index={index} />
                                                                 {/* </Link> */}

@@ -6,7 +6,7 @@ import adminlogo from "@/assets/Images/Superman.jpeg"
 import { translate } from '@/utils';
 
 
-const ArticleCard = ({ ele, expandedStates, index }) => {
+const ArticleCard = ({ ele, expandedStates, index,PlaceHolderImg }) => {
 
 
     const stripHtmlTags = (htmlString) => {
@@ -19,7 +19,7 @@ const ArticleCard = ({ ele, expandedStates, index }) => {
     return (
         <div>
             <Card id='article_main_card'>
-                <Card.Img variant="top" id='article_card_img' src={ele.image} />
+                <Card.Img variant="top" id='article_card_img' src={ele.image ? ele.image : PlaceHolderImg} />
                 <span id='apartment_tag'>aprtment</span>
                 <Card.Body id='article_card_body'>
 

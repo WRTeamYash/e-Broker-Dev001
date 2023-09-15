@@ -17,6 +17,7 @@ import { toast } from 'react-hot-toast';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import { languageLoaded } from '@/store/reducer/languageSlice';
 import { translate } from '@/utils';
+import { store } from '@/store/store';
 
 
 
@@ -30,6 +31,20 @@ const Nav = () => {
     const [scroll, setScroll] = useState(0);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+
+    const language = store.getState().Language.languages
+    console.log(language.rtl)
+    useEffect(() => {
+        if (language && language.rtl === 1) {
+            document.documentElement.dir = "rtl";
+            console.log(document.documentElement.dir)
+        } else {
+            document.documentElement.dir = "ltr";
+            console.log(document.documentElement.dir)
+
+        }
+    }, [language]);
 
     useEffect(() => {
         const header = document.querySelector(".header");
@@ -45,7 +60,7 @@ const Nav = () => {
         languageLoaded(languageCode, "1", (response) => {
             // console.log(response)
             const currentLang = response && response.data.name
-            console.log(currentLang)
+            // console.log(currentLang)
             setSelectedLanguage(currentLang)
         },
             (error) => {
@@ -77,7 +92,7 @@ const Nav = () => {
 
 
     const handleLogout = () => {
-       handleClose()
+        handleClose()
         confirmAlert({
             title: translate("logout"),
             message: translate("areYouSure"),
@@ -321,13 +336,13 @@ const Nav = () => {
 
                                 </li>
                                 {signupData?.data?.data.name && settingData && (
-                                        <li className="nav-item">
-                                            <button className="btn" id="addbutton-mobile">
-                                                <FiPlusCircle size={20} className='mx-2 add-nav-button' />
-                                                {translate("addProp")}
-                                            </button>
-                                        </li>
-                                    )}
+                                    <li className="nav-item">
+                                        <button className="btn" id="addbutton-mobile">
+                                            <FiPlusCircle size={20} className='mx-2 add-nav-button' />
+                                            {translate("addProp")}
+                                        </button>
+                                    </li>
+                                )}
                             </ul>
                         </div>
 

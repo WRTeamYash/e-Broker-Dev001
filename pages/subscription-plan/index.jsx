@@ -73,6 +73,7 @@ const page = () => {
 
                         <div className="subsCards">
                             <Swiper
+                            dir='rtl'
                                 slidesPerView={4}
                                 // loop={true}
                                 spaceBetween={30}

@@ -6,12 +6,14 @@ import { translate } from '@/utils';
 import { GetCategorieApi } from '@/store/actions/campaign';
 import LocationSearchBox from '../Location/LocationSearchBox';
 import toast from 'react-hot-toast';
-import { connect } from 'react-redux';
 import { GrRefresh } from 'react-icons/gr';
 import { RiCloseCircleLine, RiSendPlane2Line } from 'react-icons/ri';
+import { useRouter } from 'next/router';
 
 const SearchTab = () => {
+    const router = useRouter();
     const [showFilterModal, setShowFilterModal] = useState(false);
+    const [filterData, setFilterData] = useState("")
     const [formData, setFormData] = useState({
         propType: '',
         minPrice: '',
@@ -19,7 +21,7 @@ const SearchTab = () => {
         postedSince: '',
         selectedLocation: null,
     });
-    const [activeTab, setActiveTab] = useState('sell');
+    const [activeTab, setActiveTab] = useState(0);
     const [searchInput, setSearchInput] = useState('');
 
     const [getCategories, setGetCategories] = useState([]);
@@ -65,32 +67,56 @@ const SearchTab = () => {
     };
 
     const handleTabClick = (tab) => {
-        setActiveTab(tab);
+        setActiveTab(tab === 'sell' ? 0 : 1);
     };
-
     const handleApplyFilter = () => {
-        // Validate form data here
-        // if (!formData.propType || !formData.minPrice || !formData.maxPrice || !formData.postedSince) {
-        //     toast.error('Please fill all fields', {
-        //         position: 'top-center',
-        //     });
-        //     return;
-        // }
+        let postedSinceValue = '';
+        if (formData.postedSince === 'yesterday') {
+          postedSinceValue = '0';
+        } else if (formData.postedSince === 'lastWeek') {
+          postedSinceValue = '1';
+        }
+      
+        // Include the postedSince value in the filterData object
+        const filterData = {
+          propType: formData.propType,
+          minPrice: formData.minPrice,
+          maxPrice: formData.maxPrice,
+          postedSince: postedSinceValue, // Include it here
+          selectedLocation: formData.selectedLocation,
+        };
+      
+        // Set the filter data in state
+        setFilterData(filterData);
+      
+        setShowFilterModal(false); // Close the modal
+      };
+      
+    const handleSearch = (e) => {
 
-        // Collect the data you want to pass to the search function
+        e.preventDefault();
+
         const searchData = {
-            filterData: formData,
+            filterData: filterData,
             activeTab: activeTab,
             searchInput: searchInput,
         };
 
-        // Now you can perform your search action, passing searchData as needed.
-        // Example: performSearch(searchData);
-
+        localStorage.setItem('searchData', JSON.stringify(searchData));
         console.log(searchData);
-
         setShowFilterModal(false); // Close the modal
+
+        // Redirect to /search
+        router.push(`/search`);
+
+
     };
+
+
+
+
+
+
 
     const handleClearFilter = () => {
         setFormData({
@@ -99,7 +125,7 @@ const SearchTab = () => {
             maxPrice: '',
             postedSince: '',
         });
-        selectedLocation:""
+        selectedLocation: ""
     };
 
     return (
@@ -109,7 +135,7 @@ const SearchTab = () => {
                     <ul className="nav nav-tabs" id="tabs">
                         <li className="">
                             <a
-                                className={`nav-link ${activeTab === 'sell' ? 'tab-active' : ''}`}
+                                className={`nav-link ${activeTab === 0 ? 'tab-0' : ''}`}
                                 aria-current="page"
                                 id="sellbutton"
                                 onClick={() => handleTabClick('sell')}
@@ -119,7 +145,7 @@ const SearchTab = () => {
                         </li>
                         <li className="">
                             <a
-                                className={`nav-link ${activeTab === 'rent' ? 'tab-active' : ''}`}
+                                className={`nav-link ${activeTab === 1 ? 'tab-1' : ''}`}
                                 onClick={() => handleTabClick('rent')}
                                 aria-current="page"
                                 id="rentbutton"
@@ -145,7 +171,7 @@ const SearchTab = () => {
                             <BiFilter size={25} />
                             {translate('filter')}
                         </button>
-                        <button className="find" onClick={handleApplyFilter}>
+                        <button className="find" onClick={handleSearch}>
                             {translate('search')}
                         </button>
                     </div>

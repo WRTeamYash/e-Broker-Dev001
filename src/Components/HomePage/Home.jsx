@@ -272,6 +272,7 @@ const HomePage = () => {
             "",
             "",
             "",
+            "",
             (response) => {
                 const FeaturedListingData = response.data;
                 console.log("featured data ============", FeaturedListingData)
@@ -303,7 +304,9 @@ const HomePage = () => {
             "",
             "",
             "",
-            "", (response) => {
+            "", 
+            "", 
+            (response) => {
                 const MostViewed = response.data;
                 // console.log("most viewed data ============", MostViewed)
                 setIsLoading(false)
@@ -329,6 +332,7 @@ const HomePage = () => {
             "",
             "",
             isLoggedIn ? userCurrentId : "",
+            "",
             "",
             "",
             "",

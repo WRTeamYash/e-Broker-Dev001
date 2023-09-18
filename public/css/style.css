@@ -51,6 +51,10 @@ body {
   position: relative;
   bottom: 10vh;
 }
+.search_content {
+  position: relative;
+  bottom: 10vh;
+}
 .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
 .swiper-pagination-horizontal.swiper-pagination-bullets
   .swiper-pagination-bullet {
@@ -1185,23 +1189,26 @@ body {
   filter: brightness(0.5);
 }
 
-/* .nav-tabs .nav-link{
-      color: white !important;
-      background-color: var(--primary-color) !important;
-      border-top-left-radius: 0.25rem;
-        border-top-right-radius: 0.25rem;
-    } */
-/* .nav-tabs .nav-item.show .nav-link, */
+
 #searchbox .nav-tabs .nav-link {
   color: #000;
   background-color: #fff;
-  /* border-color: var(--primary-color) !important; */
 }
 .tab-active {
   background-color: var(--primary-color) !important;
   color: #fff !important;
   border-color: var(--primary-color) !important;
 }
+.tab-0, .tab-1 {
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+  border-color: var(--primary-color) !important;
+}
+/* .tab-1{
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+  border-color: var(--primary-color) !important;
+} */
 
 .mobileViewArrow {
   border-radius: 50%;

@@ -71,6 +71,7 @@ const PropertieDeatils = () => {
             "",
             "",
             "",
+            "",
             (response) => {
 
                 const propertyData = response && response.data;
@@ -103,7 +104,7 @@ const PropertieDeatils = () => {
         if (imageURL && imageURL) {
             pannellum?.viewer('panorama', {
                 "type": "equirectangular",
-                "panorama": imageURL && imageURL ? imageURL : PlaceHolderImg,
+                "panorama": imageURL && imageURL  ,
                 "autoLoad": true
             });
         }
@@ -142,7 +143,7 @@ const PropertieDeatils = () => {
         })
     );
     // console.log(photo)
-    console.log(lightboxPhotos)
+    // console.log(lightboxPhotos)
     return (
         <>
 

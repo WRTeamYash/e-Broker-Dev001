@@ -20,7 +20,7 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 const Breadcrumb = (props) => {
 
     // console.log(props)
-    let { data, title} = props;
+    let { data, title } = props;
     const priceSymbol = useSelector(settingsData)
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
 
@@ -70,7 +70,7 @@ const Breadcrumb = (props) => {
 
     useEffect(() => {
         // Update the state based on props.data.is_favourite  when the component mounts
-        setIsLiked(props.data && props.data.is_favourite  === 1);
+        setIsLiked(props.data && props.data.is_favourite === 1);
         setIsDisliked(false);
     }, [props.data && props.data.is_favourite]);
 
@@ -95,41 +95,49 @@ const Breadcrumb = (props) => {
                 </div>
                 : <>
                     <div id='breadcrumb-content' className='container'>
+                        <div className="row">
+                            <div className="col-12 col-md-6 col-lg-6">
+                                <div className='left-side-content'>
+                                    <span className='prop-types'>{data.type}</span>
+                                    <span className='prop-name'>{data.title}</span>
+                                    <span className='prop-Location'><CiLocationOn size={25} /> {data.loc}</span>
+                                    <div className='prop-sell-time'>
+                                        <span className='propertie-sell-tag'>{data.propertyType}</span>
+                                        <span> <BiTime size={20} /> {data.time}</span>
+                                    </div>
 
-                        <div className='left-side-content'>
-                            <span className='prop-types'>{data.type}</span>
-                            <span className='prop-name'>{data.title}</span>
-                            <span className='prop-Location'><CiLocationOn size={25} /> {data.loc}</span>
-                            <div className='prop-sell-time'>
-                                <span className='propertie-sell-tag'>{data.propertyType}</span>
-                                <span> <BiTime size={20} /> {data.time}</span>
+                                </div>
+
                             </div>
+                            <div className="col-12 col-md-6 col-lg-6">
+                                <div className='right-side-content'>
+                                    <span> {CurrencySymbol} {data.price} </span>
+                                    <div>
+                                        {isLiked ? (
+                                            <button onClick={handleDislike} >
+                                                <AiFillHeart size={25} className='liked_property' />
+                                            </button>
+                                        ) : (
+                                            isDisliked ? (
+                                                <button onClick={handleLike}>
+                                                    <AiOutlineHeart size={25} className='disliked_property' />
+                                                </button>
+                                            ) : (
+                                                <button onClick={handleLike} >
+                                                    <AiOutlineHeart size={25} />
+                                                </button>
+                                            )
+                                        )}
 
-                        </div>
-                        <div className='right-side-content'>
-                            <span> {CurrencySymbol} {data.price} </span>
-                            <div>
-                                {isLiked ? (
-                                    <button onClick={handleDislike} >
-                                        <AiFillHeart size={25} className='liked_property' />
-                                    </button>
-                                ) : (
-                                    isDisliked ? (
-                                        <button onClick={handleLike}>
-                                            <AiOutlineHeart size={25} className='disliked_property' />
-                                        </button>
-                                    ) : (
-                                        <button onClick={handleLike} >
-                                            <AiOutlineHeart size={25} />
-                                        </button>
-                                    )
-                                )}
-
-                                <button><SlDocs size={25} /></button>
+                                        <button><SlDocs size={25} /></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
-                </>}
+                </>
+            }
         </div>
     )
 }

@@ -3034,15 +3034,13 @@ option {
 #breadcrumb-content {
   position: relative;
   top: 170px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 .left-side-content {
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 .prop-types {
   color: var(--primary-color);
@@ -3059,6 +3057,33 @@ option {
   font-weight: 600;
   text-transform: capitalize;
   color: white;
+}
+@media only screen and (max-width: 991px) {
+  .prop-name {
+    font-size: 25px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .prop-name {
+    font-size: 18px;
+  }
+  .right-side-content {
+    align-items: flex-start !important;
+  }
+  #breadcrumb-content {
+    top: 120px !important;
+  }
+}
+@media only screen and (max-width: 424px) {
+  .prop-name {
+    font-size: 16px;
+  }
+  .right-side-content {
+    align-items: flex-start !important;
+  }
+  #breadcrumb-content {
+    top: 100px !important;
+  }
 }
 .prop-Location {
   display: flex;
@@ -3145,14 +3170,38 @@ option {
   height: 100%;
   border-radius: 0 20px 20px 0;
 }
+.one-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+.two-img01 {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px 0 0 20px;
+}
+.two-img02 {
+  width: 100%;
+  height: 100%;
+  border-radius: 0 20px 20px 0;
+}
+#prop-main-image01 {
+  height: 50vh;
+}
 @media only screen and (max-width: 992px) {
   .left-imgs01 {
-    border-radius: 20px;
+    border-radius: 20px !important;
   }
   .left-imgs02 {
-    border-radius: 20px;
+    border-radius: 20px !important;
   }
   .middle-img {
+    border-radius: 20px !important;
+  }
+  .two-img01 {
+    border-radius: 20px;
+  }
+  .two-img02 {
     border-radius: 20px;
   }
 }
@@ -3169,15 +3218,33 @@ option {
   margin-top: -4%;
   margin-left: 18%;
 }
+.see_all01 button {
+  border: none;
+  padding: 5px 20px;
+  background: #fff;
+  border-radius: 8px;
+  text-transform: capitalize;
+  position: absolute;
+  margin-top: -3%;
+  margin-left: 33%;
+}
 @media only screen and (max-width: 1199px) {
   .see_all button {
     margin-left: 10%;
     margin-top: -6%;
   }
+  .see_all01 button {
+    margin-left: 25%;
+    margin-top: -4%;
+  }
 }
 @media only screen and (max-width: 991px) {
   .see_all button {
     margin-left: 15%;
+    margin-top: -6%;
+  }
+  .see_all01 button {
+    margin-left: 50%;
     margin-top: -6%;
   }
 }
@@ -3186,17 +3253,32 @@ option {
     margin-left: 10%;
     margin-top: -8%;
   }
+  .see_all01 button {
+    margin-left: 45%;
+    margin-top: -6%;
+  }
 }
 @media only screen and (max-width: 575px) {
   .see_all button {
     margin-left: 12%;
     margin-top: -8%;
   }
+  .see_all01 button {
+    margin-left: 60%;
+    margin-top: -8%;
+  }
 }
 @media only screen and (max-width: 440px) {
+  #prop-main-image01 {
+    height: auto;
+  }
   .see_all button {
     margin-left: 8%;
     margin-top: -10%;
+  }
+  .see_all01 button {
+    margin-left: 45%;
+    margin-top: -11%;
   }
 }
 @media only screen and (max-width: 360px) {

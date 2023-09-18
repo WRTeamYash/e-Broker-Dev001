@@ -940,15 +940,12 @@
   }
 }
 
-@media only screen and (min-width: 425px) and (max-width: 767px) {
+@media only screen and (min-width: 425px) and (max-width: 991px) {
   #breadcrumb-content {
-    /* margin: 0 5% 0 5%; */
     top: 150px;
   }
 
-  .prop-name {
-    font-size: 25px;
-  }
+
 
   .prop-Location {
     font-size: 14px;
@@ -969,9 +966,6 @@
     top: 150px;
   }
 
-  .prop-name {
-    font-size: 25px;
-  }
 
   .prop-Location {
     font-size: 14px;

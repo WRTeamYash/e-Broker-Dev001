@@ -163,16 +163,36 @@ const PropertieDeatils = () => {
                     <div className='container'>
                         {galleryPhotos && galleryPhotos.length > 0 && (
                             <div className="row" id="prop-images">
-                                <div className="col-lg-4 col-sm-12" id="prop-left-images">
-                                    <img src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="left-imgs01" alt="Image 1" />
-                                    <img src={galleryPhotos[2]?.image_url || PlaceHolderImg} className="left-imgs02" alt="Image 2" />
-                                </div>
-                                <div className="col-lg-8 col-sm-12 text-center" id="prop-main-image">
-                                    <img src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="middle-img" alt="Main Image" />
-                                    <div className="see_all">
-                                        <button onClick={(e) => openLightbox(e, { index: 0 })}>{translate("seeAllPhotos")}</button>
+                                {galleryPhotos.length === 1 ? (
+                                    <div className="col-12" id="prop-main-image01">
+                                        <img src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="one-img" alt="Main Image" />
                                     </div>
-                                </div>
+                                ) : galleryPhotos.length === 2 ? (
+                                    <>
+                                        <div className="col-sm-12 col-md-6" id="prop-main-image">
+                                            <img src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="two-img01" alt="Main Image" />
+                                        </div>
+                                        <div className="col-sm-12 col-md-6" id="prop-main-image">
+                                            <img src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="two-img02" alt="Main Image" />
+                                            <div className="see_all01">
+                                                <button onClick={(e) => openLightbox(e, { index: 0 })}>{translate("seeAllPhotos")}</button>
+                                            </div>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="col-lg-4 col-sm-12" id="prop-left-images">
+                                            <img src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="left-imgs01" alt="Image 1" />
+                                            <img src={galleryPhotos[2]?.image_url || PlaceHolderImg} className="left-imgs02" alt="Image 2" />
+                                        </div>
+                                        <div className="col-lg-8 col-sm-12 text-center" id="prop-main-image">
+                                            <img src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="middle-img" alt="Main Image" />
+                                            <div className="see_all">
+                                                <button onClick={(e) => openLightbox(e, { index: 0 })}>{translate("seeAllPhotos")}</button>
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         )}
                         <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={closeLightbox} />

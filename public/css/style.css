@@ -3031,9 +3031,12 @@ option {
   bottom: 90px;
   z-index: -1;
 }
+#breadcrumb_row{
+  align-items: center;
+}
 #breadcrumb-content {
   position: relative;
-  top: 170px;
+  top: 150px;
 }
 .left-side-content {
   display: flex;

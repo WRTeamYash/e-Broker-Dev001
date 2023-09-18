@@ -95,7 +95,7 @@ const Breadcrumb = (props) => {
                 </div>
                 : <>
                     <div id='breadcrumb-content' className='container'>
-                        <div className="row">
+                        <div className="row" id='breadcrumb_row'>
                             <div className="col-12 col-md-6 col-lg-6">
                                 <div className='left-side-content'>
                                     <span className='prop-types'>{data.type}</span>

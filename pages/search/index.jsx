@@ -169,7 +169,7 @@ const SearchPage = () => {
             "",
             "",
             "",
-            "",
+            searchData.filterData?.propType ? searchData.filterData.propType : "",
             "",
             "",
             "",

@@ -264,8 +264,7 @@ const HomePage = () => {
             "",
             "",
             "",
-            isLoggedIn ? userCurrentId :
-                "",
+            isLoggedIn ? userCurrentId : "",
             "",
             "",
             "",
@@ -275,7 +274,7 @@ const HomePage = () => {
             "",
             (response) => {
                 const FeaturedListingData = response.data;
-                console.log("featured data ============", FeaturedListingData)
+                // console.log("featured data ============", FeaturedListingData)
                 setIsLoading(false)
                 setGetFeaturedListing(FeaturedListingData);
             }, (error) => {

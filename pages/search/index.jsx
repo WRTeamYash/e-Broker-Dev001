@@ -22,7 +22,8 @@ import NoData from '@/Components/NoDataFound/NoData.jsx';
 
 const SearchPage = () => {
     const searchedData = JSON.parse(localStorage.getItem('searchData'));
-    // console.log("searcheddata", searchedData)
+    console.log("searcheddata", searchedData)
+    console.log("city", searchedData.filterData.selectedLocation?.city)
     // console.log("searcheddata", searchedData.activeTab)
     const [searchData, setSearchData] = useState()
     const [filterData, setFilterData] = useState("")
@@ -61,7 +62,7 @@ const SearchPage = () => {
             "",
             searchedData.filterData?.propType ? searchedData.filterData.propType : "",
             "",
-            "",
+            searchedData.filterData.selectedLocation?.city ? searchedData.filterData.selectedLocation.city : "",
             "",
             "",
             "",
@@ -70,8 +71,8 @@ const SearchPage = () => {
             searchedData.filterData?.maxPrice ? searchedData.filterData.maxPrice : "",
             searchedData.filterData?.minPrice ? searchedData.filterData.minPrice : "0",
             searchedData.filterData?.postedSince ? searchedData.filterData.postedSince : "",
-            "",
-            "",
+            searchedData.filterData.selectedLocation?.state ? searchedData.filterData.selectedLocation.state : "",
+            searchedData.filterData.selectedLocation?.country ? searchedData.filterData.selectedLocation.country : "",
             searchedData && searchedData.searchInput,
             (response) => {
                 setTotal(response.total);
@@ -163,6 +164,7 @@ const SearchPage = () => {
             activeTab: activeTab,
             searchInput: searchInput,
         };
+        console.log(searchData)
         localStorage.setItem('searchData', JSON.stringify(searchData));
         // console.log(searchData);
         GetFeturedListingsApi(
@@ -171,7 +173,7 @@ const SearchPage = () => {
             "",
             searchData.filterData?.propType ? searchData.filterData.propType : "",
             "",
-            "",
+            searchData.filterData.selectedLocation?.city ? searchData.filterData.selectedLocation.city : "",
             "",
             "",
             "",
@@ -180,8 +182,8 @@ const SearchPage = () => {
             searchData.filterData?.maxPrice ? searchData.filterData.maxPrice : "",
             searchData.filterData?.minPrice ? searchData.filterData.minPrice : "0",
             searchData.filterData?.postedSince ? searchData.filterData.postedSince : "",
-            "",
-            "",
+            searchData.filterData.selectedLocation?.state ? searchData.filterData.selectedLocation.state : "",
+            searchData.filterData.selectedLocation?.country ? searchData.filterData.selectedLocation.country : "",
             searchData && searchData.searchInput,
             (response) => {
                 setTotal(response.total);

@@ -9,7 +9,6 @@ const LocationSearchBox = ({ onLocationSelected }) => {
     googleMapsApiKey: "AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE",
     libraries
   });
-
   const handlePlaceChanged = () => {
     const [place] = inputRef.current.getPlaces();
     if (place) {
@@ -20,27 +19,30 @@ const LocationSearchBox = ({ onLocationSelected }) => {
         lng: place.geometry.location.lng(),
         city: '',
         district: '',
-        state: ''
+        state: '',
+        country: ''
       };
-
+  
       // Split the formatted_address into components
-      const addressComponents = place.formatted_address.split(', ');
-
-      // Extract city, district, and state
-      if (addressComponents.length >= 1) {
-        locationData.city = addressComponents[0];
-      }
-      if (addressComponents.length >= 2) {
-        locationData.district = addressComponents[1];
-      }
-      if (addressComponents.length >= 3) {
-        locationData.state = addressComponents[2];
-      }
-
-      // console.log(locationData);
+      const addressComponents = place.address_components;
+  
+      // Extract city, district, state, and country
+      addressComponents.forEach(component => {
+        if (component.types.includes('locality')) {
+          locationData.city = component.long_name;
+        } else if (component.types.includes('sublocality')) {
+          locationData.district = component.long_name;
+        } else if (component.types.includes('administrative_area_level_1')) {
+          locationData.state = component.long_name;
+        } else if (component.types.includes('country')) {
+          locationData.country = component.long_name;
+        }
+      });
+  
       onLocationSelected(locationData); // Pass the data to the parent component
     }
-  }
+  };
+  
 
   return (
     isLoaded

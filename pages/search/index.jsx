@@ -22,7 +22,7 @@ import NoData from '@/Components/NoDataFound/NoData.jsx';
 
 const SearchPage = () => {
     const searchedData = JSON.parse(localStorage.getItem('searchData'));
-    console.log("searcheddata", searchedData)
+    // console.log("searcheddata", searchedData)
     // console.log("searcheddata", searchedData.activeTab)
     const [searchData, setSearchData] = useState()
     const [filterData, setFilterData] = useState("")
@@ -153,7 +153,7 @@ const SearchPage = () => {
 
     useEffect(() => {
         // You can access the updated filterData value here
-        console.log(filterData);
+        // console.log(filterData);
     }, [filterData]);
 
     const handleSearch = () => {
@@ -164,7 +164,7 @@ const SearchPage = () => {
             searchInput: searchInput,
         };
         localStorage.setItem('searchData', JSON.stringify(searchData));
-        console.log(searchData);
+        // console.log(searchData);
         GetFeturedListingsApi(
             "",
             "",

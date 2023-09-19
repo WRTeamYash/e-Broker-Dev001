@@ -10,7 +10,7 @@ import { GrRefresh } from 'react-icons/gr';
 import { RiCloseCircleLine, RiSendPlane2Line } from 'react-icons/ri';
 import { useRouter } from 'next/router';
 
-const SearchTab = () => {
+const SearchTab = ({ getCategories }) => {
     const router = useRouter();
     const [showFilterModal, setShowFilterModal] = useState(false);
     const [filterD, setFilterD] = useState()
@@ -24,25 +24,25 @@ const SearchTab = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [searchInput, setSearchInput] = useState('');
 
-    const [getCategories, setGetCategories] = useState([]);
+    // const [getCategories, setGetCategories] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const handleHideFilterModal = () => {
         setShowFilterModal(false)
     }
 
-    useEffect(() => {
-        GetCategorieApi(
-            (response) => {
-                const categoryData = response && response.data;
-                setIsLoading(false);
-                setGetCategories(categoryData);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-    }, []);
+    // useEffect(() => {
+    //     GetCategorieApi(
+    //         (response) => {
+    //             const categoryData = response && response.data;
+    //             setIsLoading(false);
+    //             setGetCategories(categoryData);
+    //         },
+    //         (error) => {
+    //             console.log(error);
+    //         }
+    //     );
+    // }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -130,7 +130,7 @@ const SearchTab = () => {
             selectedLocation: null, // Set to null to clear it
         });
     };
-    
+
 
     return (
         <div>

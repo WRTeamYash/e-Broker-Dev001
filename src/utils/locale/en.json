@@ -140,5 +140,7 @@
   "confirm":"Confirm",
   "otpSentsuccess":"OTP Sent Successfully",
   "noData":" No Data Found",
-  "noDatatext":"We're sorry what you were looking for. please try another way" 
+  "noDatatext":"We're sorry what you were looking for. please try another way",
+  "404":"404",
+  "PagenotFound":"This page could not be found." 
 }

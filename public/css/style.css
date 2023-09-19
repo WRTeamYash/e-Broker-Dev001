@@ -4846,7 +4846,13 @@ a {
   background-color: #ebebe4 !important;
   color: #c6c6c6;
 }
-
+/* ERROR PAGE */
+.errorPage{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
 /* No Data Found  */
 
 .noDataFound {

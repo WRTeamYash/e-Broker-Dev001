@@ -509,7 +509,7 @@ const HomePage = () => {
                         </div>
                     </div>
                     <FilterModal isOpen={showFilterModal} onClose={handleCloseModal} /> */}
-                    <SearchTab />
+                    <SearchTab getCategories={getCategories} />
                 </section>
 
 

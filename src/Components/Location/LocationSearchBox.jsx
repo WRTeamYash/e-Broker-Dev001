@@ -37,7 +37,7 @@ const LocationSearchBox = ({ onLocationSelected }) => {
         locationData.state = addressComponents[2];
       }
 
-      console.log(locationData);
+      // console.log(locationData);
       onLocationSelected(locationData); // Pass the data to the parent component
     }
   }

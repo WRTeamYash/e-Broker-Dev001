@@ -13,9 +13,9 @@ import { useRouter } from 'next/router';
 const SearchTab = () => {
     const router = useRouter();
     const [showFilterModal, setShowFilterModal] = useState(false);
-    const [filterData, setFilterData] = useState("")
+    const [filterD, setFilterD] = useState()
     const [formData, setFormData] = useState({
-        propType: '',
+        propType: '', // Set your default value here
         minPrice: '',
         maxPrice: '',
         postedSince: '',
@@ -72,32 +72,35 @@ const SearchTab = () => {
     const handleApplyFilter = () => {
         let postedSinceValue = '';
         if (formData.postedSince === 'yesterday') {
-          postedSinceValue = '0';
+            postedSinceValue = '0';
         } else if (formData.postedSince === 'lastWeek') {
-          postedSinceValue = '1';
+            postedSinceValue = '1';
         }
-      
+
         // Include the postedSince value in the filterData object
         const filterData = {
-          propType: formData.propType,
-          minPrice: formData.minPrice,
-          maxPrice: formData.maxPrice,
-          postedSince: postedSinceValue, // Include it here
-          selectedLocation: formData.selectedLocation,
+            propType: formData.propType || '', // Set to empty string if not selected
+            minPrice: formData.minPrice || '0', // Set to empty string if not selected
+            maxPrice: formData.maxPrice || '', // Set to empty string if not selected
+            postedSince: postedSinceValue, // Include it here
+            selectedLocation: formData.selectedLocation || null, // Set to null if not selected
         };
-      
+
         // Set the filter data in state
-        setFilterData(filterData);
-      
+        setFilterD(filterData);
+        // console.log(filterD)
         setShowFilterModal(false); // Close the modal
-      };
-      
+    };
+    useEffect(() => {
+        // You can access the updated filterD value here
+        console.log(filterD);
+    }, [filterD]);
     const handleSearch = (e) => {
 
         e.preventDefault();
 
         const searchData = {
-            filterData: filterData,
+            filterData: filterD,
             activeTab: activeTab,
             searchInput: searchInput,
         };
@@ -124,9 +127,10 @@ const SearchTab = () => {
             minPrice: '',
             maxPrice: '',
             postedSince: '',
+            selectedLocation: null, // Set to null to clear it
         });
-        selectedLocation: ""
     };
+    
 
     return (
         <div>
@@ -195,6 +199,8 @@ const SearchTab = () => {
                             <div className='prop-type-modal'>
                                 <span>{translate("propTypes")}</span>
                                 <select className="form-select" aria-label="Default select" name="propType" value={formData.propType} onChange={handleInputChange}>
+                                    <option value="">{translate("selectPropType")}</option>
+                                    {/* Add more options as needed */}
                                     {getCategories && getCategories?.map((ele, index) => (
                                         <option key={index} value={ele.id}>{ele.category}</option>
                                     ))}

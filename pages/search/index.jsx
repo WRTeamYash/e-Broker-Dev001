@@ -126,27 +126,32 @@ const SearchPage = () => {
     const handleApplyFilter = () => {
         let postedSinceValue = '';
         if (formData.postedSince === 'yesterday') {
-          postedSinceValue = '0';
+            postedSinceValue = '0';
         } else if (formData.postedSince === 'lastWeek') {
-          postedSinceValue = '1';
+            postedSinceValue = '1';
         }
-      
+    
         // Include the postedSince value in the filterData object
-        const filterData = {
-          propType: formData.propType,
-          minPrice: formData.minPrice,
-          maxPrice: formData.maxPrice,
-          postedSince: postedSinceValue, // Include it here
-          selectedLocation: formData.selectedLocation,
+        const newFilterData = {
+            propType: formData.propType,
+            minPrice: formData.minPrice,
+            maxPrice: formData.maxPrice,
+            postedSince: postedSinceValue,
+            selectedLocation: formData.selectedLocation,
         };
-      
+    
         // Set the filter data in state
-        setFilterData(filterData);
-        console.log(filterData)
-      
-        setShowFilterModal(false); // Close the modal
-      };
-      
+        setFilterData(newFilterData);
+    
+        // Close the modal
+        setShowFilterModal(false);
+    };
+    
+    useEffect(() => {
+        // You can access the updated filterData value here
+        console.log(filterData);
+    }, [filterData]);
+
     const handleSearch = () => {
         setIsLoading(true)
         const searchData = {
@@ -167,9 +172,9 @@ const SearchPage = () => {
             "",
             isLoggedIn ? userCurrentId : "",
             searchData && searchData.activeTab,
-            searchData && searchData.filterData.maxPrice ? searchData.filterData.maxPrice : "",
-            searchData && searchData.filterData.minPrice ? searchData.filterData.minPrice : "",
-            searchData && searchData.filterData.postedSince ? searchData.filterData.postedSince : "",
+            searchData.filterData?.maxPrice ? searchData.filterData.maxPrice : "",
+            searchData.filterData?.minPrice ? searchData.filterData.minPrice : "0",
+            searchData.filterData?.postedSince ? searchData.filterData.postedSince : "",
             "",
             "",
             searchData && searchData.searchInput,

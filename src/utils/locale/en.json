@@ -52,6 +52,7 @@
   "forSell": "For Sell",
   "forRent": "For Rent",
   "propTypes": "Propertie Type",
+  "selectPropType": "Select Propertie Type",
   "selectYourLocation": "Select Location (Optional)",
   "budget": "Budget(Price)",
   "postedSince": "Posted Since",

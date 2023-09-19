@@ -304,8 +304,8 @@ const HomePage = () => {
             "",
             "",
             "",
-            "", 
-            "", 
+            "",
+            "",
             (response) => {
                 const MostViewed = response.data;
                 // console.log("most viewed data ============", MostViewed)
@@ -610,7 +610,7 @@ const HomePage = () => {
 
                                 <div className='aprt_cards'>
                                     <Swiper
-                                        dir= {language.rtl === "1" ? "rtl" : "ltr"}
+                                        dir={language.rtl === "1" ? "rtl" : "ltr"}
                                         spaceBetween={30}
                                         freeMode={true}
                                         pagination={{
@@ -629,7 +629,7 @@ const HomePage = () => {
                                             // Show skeleton loading when data is being fetched
                                             <div className="col-12 loading_data">
                                                 <Swiper
-                                                   dir= {language.rtl === "1" ? "rtl" : "ltr"}
+                                                    dir={language.rtl === "1" ? "rtl" : "ltr"}
                                                     spaceBetween={30}
                                                     freeMode={true}
                                                     pagination={{
@@ -745,9 +745,7 @@ const HomePage = () => {
 
 
                 <section id='main_citySection'>
-                    <div
-                        className='container'
-                    >
+                    <div className='container'>
                         <div className='prop_city_header' data-aos="fade-right" data-aos-duration="2000">
                             <div >
                                 <h3>
@@ -766,7 +764,7 @@ const HomePage = () => {
                                         <span aria-hidden="true" className="circle">
                                             <span className="icon arrow"></span>
                                         </span>
-                                        <span className="button-text"> {translate("properties")}</span>
+                                        <span className="button-text"> {translate("seeAllProp")}</span>
                                     </button>
                                 </Link>
                             </div>
@@ -925,7 +923,7 @@ const HomePage = () => {
                         </div>
                         <div id="most-view-properties" data-aos="fade-left" data-aos-duration="2000" dir={language.rtl === "1" ? "rtl" : "ltr"}>
                             <Swiper
-                            //    dir= {language.rtl === "1" ? "rtl" : "ltr"}
+                                //    dir= {language.rtl === "1" ? "rtl" : "ltr"}
                                 slidesPerView={4}
                                 // loop={true}
                                 spaceBetween={30}
@@ -946,7 +944,7 @@ const HomePage = () => {
                                 {isLoading ? (
                                     // Show skeleton loading when data is being fetched
                                     <Swiper
-                                    dir= {language.rtl === "1" ? "rtl" : "ltr"}
+                                        dir={language.rtl === "1" ? "rtl" : "ltr"}
                                         slidesPerView={4}
                                         // loop={true}
                                         spaceBetween={30}

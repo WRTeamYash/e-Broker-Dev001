@@ -1,5 +1,5 @@
 import React from 'react'
-import NoDataFound from '../src/assets/Images/No_data_found.png'
+import NoPageFound from '../src/assets/Images/404.png'
 import { translate } from '@/utils'
 
 
@@ -8,9 +8,9 @@ const PageNotFound = () => {
         <div className='errorPage'>
             <div className="col-12 text-center">
                 <div>
-                    <img src={NoDataFound.src} alt="" />
+                    <img src={NoPageFound.src} alt="" />
                 </div>
-                <div className='no_data_found_text'>
+                <div className='no_page_found_text'>
                     <h3>
                         {translate("404")}
                     </h3>

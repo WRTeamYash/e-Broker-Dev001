@@ -4853,6 +4853,17 @@ a {
   justify-content: center;
   height: 100vh;
 }
+.no_page_found_text {
+  margin-top: 2%;
+  color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.no_page_found_text span {
+  color: #000;
+  font-size: medium;
+}
 /* No Data Found  */
 
 .noDataFound {

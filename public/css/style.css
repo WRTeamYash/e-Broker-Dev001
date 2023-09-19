@@ -1189,7 +1189,6 @@ body {
   filter: brightness(0.5);
 }
 
-
 #searchbox .nav-tabs .nav-link {
   color: #000;
   background-color: #fff;
@@ -1199,7 +1198,8 @@ body {
   color: #fff !important;
   border-color: var(--primary-color) !important;
 }
-.tab-0, .tab-1 {
+.tab-0,
+.tab-1 {
   background-color: var(--primary-color) !important;
   color: #fff !important;
   border-color: var(--primary-color) !important;
@@ -2096,7 +2096,7 @@ h3 {
   bottom: 12px;
 }
 #city_img_headlines p {
- color: #fff;
+  color: #fff;
 }
 .hovertext3 {
   position: relative;
@@ -3041,7 +3041,7 @@ option {
   bottom: 90px;
   z-index: -1;
 }
-#breadcrumb_row{
+#breadcrumb_row {
   align-items: center;
 }
 #breadcrumb-content {
@@ -4845,6 +4845,23 @@ a {
   cursor: not-allowed;
   background-color: #ebebe4 !important;
   color: #c6c6c6;
+}
+
+/* No Data Found  */
+
+.noDataFound {
+  fill: var(--primary-color);
+}
+.no_data_found_text {
+  margin-top: 2%;
+  color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.no_data_found_text span {
+  color: #000;
+  font-size: medium;
 }
 
 /* RTL  */

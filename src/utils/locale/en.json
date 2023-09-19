@@ -138,6 +138,7 @@
   "byclick":" By clicking continue you agree to our",
   "nearbyCities":"Nearby Cities Properties",
   "confirm":"Confirm",
-  "otpSentsuccess":"OTP Sent Successfully"
-
+  "otpSentsuccess":"OTP Sent Successfully",
+  "noData":" No Data Found",
+  "noDatatext":"We're sorry what you were looking for. please try another way" 
 }

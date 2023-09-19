@@ -15,10 +15,14 @@ import { useRouter } from 'next/router.js';
 import VerticalCardSkeleton from '@/Components/Skeleton/VerticalCardSkeleton.jsx';
 import Link from 'next/link.js';
 import VerticalCard from '@/Components/Cards/VerticleCard.jsx';
+import NoData from '@/Components/NoDataFound/NoData.jsx';
+
+
+
 
 const SearchPage = () => {
     const searchedData = JSON.parse(localStorage.getItem('searchData'));
-    // console.log("searcheddata", searchedData)
+    console.log("searcheddata", searchedData)
     // console.log("searcheddata", searchedData.activeTab)
     const [searchData, setSearchData] = useState()
     const [filterData, setFilterData] = useState("")
@@ -55,7 +59,7 @@ const SearchPage = () => {
             "",
             "",
             "",
-            "",
+            searchedData.filterData?.propType ? searchedData.filterData.propType : "",
             "",
             "",
             "",
@@ -63,9 +67,9 @@ const SearchPage = () => {
             "",
             isLoggedIn ? userCurrentId : "",
             searchedData && searchedData.activeTab,
-            searchedData && searchedData.filterData.maxPrice ? searchedData.filterData.maxPrice : "",
-            searchedData && searchedData.filterData.minPrice ? searchedData.filterData.minPrice : "",
-            searchedData && searchedData.filterData.postedSince ? searchedData.filterData.postedSince : "",
+            searchedData.filterData?.maxPrice ? searchedData.filterData.maxPrice : "",
+            searchedData.filterData?.minPrice ? searchedData.filterData.minPrice : "0",
+            searchedData.filterData?.postedSince ? searchedData.filterData.postedSince : "",
             "",
             "",
             searchedData && searchedData.searchInput,
@@ -130,7 +134,7 @@ const SearchPage = () => {
         } else if (formData.postedSince === 'lastWeek') {
             postedSinceValue = '1';
         }
-    
+
         // Include the postedSince value in the filterData object
         const newFilterData = {
             propType: formData.propType,
@@ -139,14 +143,14 @@ const SearchPage = () => {
             postedSince: postedSinceValue,
             selectedLocation: formData.selectedLocation,
         };
-    
+
         // Set the filter data in state
         setFilterData(newFilterData);
-    
+
         // Close the modal
         setShowFilterModal(false);
     };
-    
+
     useEffect(() => {
         // You can access the updated filterData value here
         console.log(filterData);
@@ -159,6 +163,7 @@ const SearchPage = () => {
             activeTab: activeTab,
             searchInput: searchInput,
         };
+        localStorage.setItem('searchData', JSON.stringify(searchData));
         console.log(searchData);
         GetFeturedListingsApi(
             "",
@@ -268,6 +273,7 @@ const SearchPage = () => {
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
+                    backdrop="static"
                     className="filter-modal"
                 >
                     <Modal.Header>
@@ -280,11 +286,14 @@ const SearchPage = () => {
                                 <div className='prop-type-modal'>
                                     <span>{translate("propTypes")}</span>
                                     <select className="form-select" aria-label="Default select" name="propType" value={formData.propType} onChange={handleInputChange}>
+                                        <option value="">{translate("selectPropType")}</option>
+                                        {/* Add more options as needed */}
                                         {getCategories && getCategories?.map((ele, index) => (
                                             <option key={index} value={ele.id}>{ele.category}</option>
                                         ))}
                                     </select>
                                 </div>
+
 
                                 <div className='prop-location-modal'>
                                     <span>{translate("selectYourLocation")}</span>
@@ -297,7 +306,7 @@ const SearchPage = () => {
                                     <div className='budget-inputs'>
                                         <input className='price-input' placeholder='Min Price' name="minPrice" value={formData.minPrice} onChange={handleInputChange} />
                                         <input className='price-input' placeholder='Max Price' name="maxPrice" value={formData.maxPrice} onChange={handleInputChange} />
-                                    </div>
+                                    </div>NoDataFound
                                 </div>
                             </div>
                             <div className="third-grup">
@@ -387,9 +396,7 @@ const SearchPage = () => {
                             </div>
                         ))
                     ) : (
-                        <div className="col-12 text-center">
-                            <h1>No Data Found</h1>
-                        </div>
+                        <NoData />
                     )}
                 </div>
             </div>

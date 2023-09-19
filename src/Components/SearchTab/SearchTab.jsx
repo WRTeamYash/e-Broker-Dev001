@@ -187,6 +187,7 @@ const SearchTab = () => {
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
+                backdrop="static"
                 className="filter-modal"
             >
                 <Modal.Header>

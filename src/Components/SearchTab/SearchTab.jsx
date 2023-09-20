@@ -159,7 +159,9 @@ const SearchTab = ({ getCategories }) => {
                         </li>
                     </ul>
                 </ButtonGroup>
+
                 <div id="searchcard">
+
                     <div id="searchbuttoon">
                         <FiSearch size={20} />
                         <input
@@ -180,6 +182,7 @@ const SearchTab = ({ getCategories }) => {
                         </button>
                     </div>
                 </div>
+
             </div>
             <Modal
                 show={showFilterModal}
@@ -217,8 +220,8 @@ const SearchTab = ({ getCategories }) => {
                             <div className='budget-price-modal'>
                                 <span>{translate("budget")}</span>
                                 <div className='budget-inputs'>
-                                    <input className='price-input' placeholder='Min Price' name="minPrice" value={formData.minPrice} onChange={handleInputChange} />
-                                    <input className='price-input' placeholder='Max Price' name="maxPrice" value={formData.maxPrice} onChange={handleInputChange} />
+                                    <input className='price-input' type='number' placeholder='Min Price' name="minPrice" value={formData.minPrice} onChange={handleInputChange} />
+                                    <input className='price-input' type='number' placeholder='Max Price' name="maxPrice" value={formData.maxPrice} onChange={handleInputChange} />
                                 </div>
                             </div>
                         </div>
@@ -278,13 +281,13 @@ const SearchTab = ({ getCategories }) => {
 
                     <div className='clear-filter-modal'>
                         <GrRefresh size={25} />
-                        <button id='clear-filter-button' onClick={handleClearFilter}>
+                        <button id='clear-filter-button' type='submit' onClick={handleClearFilter}>
                             {translate("clearFilter")}
                         </button>
                     </div>
                     <div className='apply-filter-modal'>
                         <RiSendPlane2Line size={25} />
-                        <button id='apply-filter-button' onClick={handleApplyFilter}>
+                        <button id='apply-filter-button' type='submit' onClick={handleApplyFilter}>
                             {translate("applyFilter")}
                         </button>
                     </div>

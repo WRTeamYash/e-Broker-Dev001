@@ -23,7 +23,7 @@ import NoData from '@/Components/NoDataFound/NoData.jsx';
 const SearchPage = () => {
     const searchedData = JSON.parse(localStorage.getItem('searchData'));
     console.log("searcheddata", searchedData)
-    console.log("city", searchedData.filterData.selectedLocation?.city)
+    // console.log("city", searchedData.filterData.selectedLocation?.city)
     // console.log("searcheddata", searchedData.activeTab)
     const [searchData, setSearchData] = useState()
     const [filterData, setFilterData] = useState("")
@@ -62,7 +62,7 @@ const SearchPage = () => {
             "",
             searchedData.filterData?.propType ? searchedData.filterData.propType : "",
             "",
-            searchedData.filterData.selectedLocation?.city ? searchedData.filterData.selectedLocation.city : "",
+            searchedData && searchedData.filterData && searchedData.filterData.selectedLocation && searchedData.filterData.selectedLocation?.city ? searchedData.filterData.selectedLocation.city : "",
             "",
             "",
             "",
@@ -71,8 +71,8 @@ const SearchPage = () => {
             searchedData.filterData?.maxPrice ? searchedData.filterData.maxPrice : "",
             searchedData.filterData?.minPrice ? searchedData.filterData.minPrice : "0",
             searchedData.filterData?.postedSince ? searchedData.filterData.postedSince : "",
-            searchedData.filterData.selectedLocation?.state ? searchedData.filterData.selectedLocation.state : "",
-            searchedData.filterData.selectedLocation?.country ? searchedData.filterData.selectedLocation.country : "",
+            searchedData && searchedData.filterData && searchedData.filterData.selectedLocation && searchedData.filterData.selectedLocation?.state ? searchedData.filterData.selectedLocation.state : "",
+            searchedData && searchedData.filterData && searchedData.filterData.selectedLocation && searchedData.filterData.selectedLocation?.country ? searchedData.filterData.selectedLocation.country : "",
             searchedData && searchedData.searchInput,
             (response) => {
                 setTotal(response.total);
@@ -173,7 +173,7 @@ const SearchPage = () => {
             "",
             searchData.filterData?.propType ? searchData.filterData.propType : "",
             "",
-            searchData.filterData.selectedLocation?.city ? searchData.filterData.selectedLocation.city : "",
+            searchData && searchData.filterData && searchData.filterData.selectedLocation && searchData.filterData.selectedLocation?.city ? searchData.filterData.selectedLocation.city : "",
             "",
             "",
             "",
@@ -182,8 +182,8 @@ const SearchPage = () => {
             searchData.filterData?.maxPrice ? searchData.filterData.maxPrice : "",
             searchData.filterData?.minPrice ? searchData.filterData.minPrice : "0",
             searchData.filterData?.postedSince ? searchData.filterData.postedSince : "",
-            searchData.filterData.selectedLocation?.state ? searchData.filterData.selectedLocation.state : "",
-            searchData.filterData.selectedLocation?.country ? searchData.filterData.selectedLocation.country : "",
+            searchData && searchData.filterData && searchData.filterData.selectedLocation && searchData.filterData.selectedLocation?.state ? searchData.filterData.selectedLocation.state : "",
+            searchData && searchData.filterData && searchData.filterData.selectedLocation && searchData.filterData.selectedLocation?.country ? searchData.filterData.selectedLocation.country : "",
             searchData && searchData.searchInput,
             (response) => {
                 setTotal(response.total);
@@ -256,6 +256,14 @@ const SearchPage = () => {
                                 name="propertySearch"
                                 value={searchInput}
                                 onChange={(e) => setSearchInput(e.target.value)}
+                                onKeyPress={(e) => {
+                                    if (e.key === 'Enter') {
+                                        // Prevent the default form submission behavior
+                                        e.preventDefault();
+                                        // Trigger the click event on the submit button
+                                        handleSearch();
+                                    }
+                                }}
                             />
                         </div>
                         <div id="leftside-buttons">
@@ -267,8 +275,10 @@ const SearchPage = () => {
                                 {translate('search')}
                             </button>
                         </div>
+
                     </div>
                 </div>
+
                 <Modal
                     show={showFilterModal}
                     onHide={handleHideFilterModal}
@@ -306,8 +316,8 @@ const SearchPage = () => {
                                 <div className='budget-price-modal'>
                                     <span>{translate("budget")}</span>
                                     <div className='budget-inputs'>
-                                        <input className='price-input' placeholder='Min Price' name="minPrice" value={formData.minPrice} onChange={handleInputChange} />
-                                        <input className='price-input' placeholder='Max Price' name="maxPrice" value={formData.maxPrice} onChange={handleInputChange} />
+                                        <input className='price-input' type='number' placeholder='Min Price' name="minPrice" value={formData.minPrice} onChange={handleInputChange} />
+                                        <input className='price-input' type='number' placeholder='Max Price' name="maxPrice" value={formData.maxPrice} onChange={handleInputChange} />
                                     </div>NoDataFound
                                 </div>
                             </div>
@@ -366,13 +376,13 @@ const SearchPage = () => {
 
                         <div className='clear-filter-modal'>
                             <GrRefresh size={25} />
-                            <button id='clear-filter-button' onClick={handleClearFilter}>
+                            <button id='clear-filter-button' type='submit' onClick={handleClearFilter}>
                                 {translate("clearFilter")}
                             </button>
                         </div>
                         <div className='apply-filter-modal'>
                             <RiSendPlane2Line size={25} />
-                            <button id='apply-filter-button' onClick={handleApplyFilter}>
+                            <button id='apply-filter-button' type='submit' onClick={handleApplyFilter}>
                                 {translate("applyFilter")}
                             </button>
                         </div>

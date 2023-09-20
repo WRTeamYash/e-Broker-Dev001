@@ -8,6 +8,7 @@ const GET_ARTICLES = "get_articles"
 const GET_COUNT_BY_CITIES_CATEGORIS = "get_count_by_cities_categoris"
 const ADD_FAVOURITE = "add_favourite"
 const GET_LANGUAGES = "get_languages"
+const CONTACT_US = "contct_us"
 
 
 
@@ -177,6 +178,24 @@ export const getLanguages = (language_code, web_language_file) => {
             language_code: language_code,
             web_language_file: web_language_file
         },
+        authorizationHeader: false,
+
+    }
+}
+
+
+// CONTACT US 
+export const ContactUs = (first_name, last_name, email, subject, message) => {
+    let data = new FormData();
+    data.append("first_name", first_name);
+    data.append("last_name", last_name);
+    data.append("email", email);
+    data.append("subject", subject);
+    data.append("message", message);
+    return {
+        url: `${CONTACT_US}`,
+        method: 'POST',
+        data,
         authorizationHeader: false,
 
     }

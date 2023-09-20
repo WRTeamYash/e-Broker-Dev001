@@ -1,4 +1,4 @@
-import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite } from "@/utils/api";
+import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
@@ -77,3 +77,13 @@ export const AddFavourite = (property_id, type, onSuccess, onError, onStart) => 
     }))
 }
 
+// contact us
+export const ContactUsApi = (first_name, last_name, email, subject, message, onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...ContactUs(first_name, last_name, email, subject, message),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+};

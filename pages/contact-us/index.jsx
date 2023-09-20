@@ -11,14 +11,15 @@ import { translate } from '@/utils';
 import { useSelector } from 'react-redux';
 import { languageData } from '@/store/reducer/languageSlice';
 import Layout from '@/Components/Layout/Layout';
+import { ContactUsApi } from '@/store/actions/campaign';
 
 const ContactUs = () => {
     const lang = useSelector(languageData)
     // console.log("languageData",lang)
-      // useSelector(languageData)  
-      useEffect(()=>{
+    // useSelector(languageData)  
+    useEffect(() => {
         // console.log("render")
-      },[lang]);
+    }, [lang]);
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -62,24 +63,35 @@ const ContactUs = () => {
             [name]: value,
         }));
     };
-
     const handleContactUsSubmit = (e) => {
         e.preventDefault();
-
-
-        if (validateForm()) {
-            // Submit the form data or perform other actions
-            setFormData({
-                firstName: '',
-                lastName: '',
-                email: '',
-                subject: '',
-                message: '',
-            });
+    
+        // Check if all fields are filled
+        if (!formData.firstName || !formData.lastName || !formData.email || !formData.subject || !formData.message) {
+            toast.error('Please fill all fields');
+        } else if (!isValidEmail(formData.email)) {
+            // Check if the email is valid
+            toast.error('Invalid email format');
+        } else {
+            // All fields are filled and email is valid, proceed with the API call
+            ContactUsApi(formData.firstName, formData.lastName, formData.email, formData.subject, formData.message,
+                (response) => {
+                    toast.success(response.message);
+    
+                    setFormData({
+                        firstName: '',
+                        lastName: '',
+                        email: '',
+                        subject: '',
+                        message: '',
+                    });
+                },
+                (error) => {
+                    toast.error(error);
+                });
         }
-            toast.success("We are respond you very soon, Thanks for Contact")
     };
-
+    
     return (
         <Layout>
             <Breadcrumb title={translate("contactUs")} />
@@ -168,7 +180,7 @@ const ContactUs = () => {
                                         </div>
                                         <div className='contact-submit'>
                                             <button className='contact-submit-button' type='submit'>
-                                            {translate("submit")}
+                                                {translate("submit")}
                                             </button>
                                         </div>
                                     </form>
@@ -179,7 +191,7 @@ const ContactUs = () => {
                             <div className="card contact-info">
                                 <div className="card-header">
                                     <h3>
-                                    {translate("contactInfo")}
+                                        {translate("contactInfo")}
                                     </h3>
                                 </div>
                                 <div className="card-body">
@@ -251,7 +263,7 @@ const ContactUs = () => {
                         </iframe>
                     </div>
                 </div>
-               
+
             </section >
 
         </Layout>

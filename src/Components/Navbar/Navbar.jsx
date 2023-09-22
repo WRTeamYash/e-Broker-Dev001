@@ -18,6 +18,7 @@ import { settingsData } from '@/store/reducer/settingsSlice';
 import { languageLoaded } from '@/store/reducer/languageSlice';
 import { translate } from '@/utils';
 import { store } from '@/store/store';
+import Swal from 'sweetalert2';
 
 
 
@@ -93,25 +94,22 @@ const Nav = () => {
 
     const handleLogout = () => {
         handleClose()
-        confirmAlert({
-            title: translate("logout"),
-            message: translate("areYouSure"),
-            buttons: [
-                {
-                    label: translate("yes"),
-                    onClick: () => {
-                        logoutSuccess()
-                        toast.success(translate("logoutSuccess"))
-                    }
-                },
-                {
-                    label: translate("no"),
-                    onClick: () => {
-                        // Optionally, you can perform some action here if the user clicks "No"
-                        toast.error(translate("logoutcancel"));
-                    }
-                }
-            ]
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#087c7c',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'yes! Logout'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                logoutSuccess();
+                toast.error(translate("logoutsucces"));
+
+            } else {
+                toast.error(translate("logoutcancel"));
+            }
         });
     };
 
@@ -211,7 +209,7 @@ const Nav = () => {
                                                             </Dropdown.Toggle>
 
                                                             <Dropdown.Menu id='language'>
-                                                                <Dropdown.Item href="/">{translate("dashboard")}</Dropdown.Item>
+                                                                <Dropdown.Item href="/user/dashboard">{translate("dashboard")}</Dropdown.Item>
                                                                 <Dropdown.Item onClick={handleLogout}>{translate("logout")}</Dropdown.Item>
                                                             </Dropdown.Menu>
                                                         </Dropdown>

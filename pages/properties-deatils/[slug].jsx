@@ -134,16 +134,16 @@ const PropertieDeatils = () => {
         setViewerIsOpen(false);
     };
 
-    const lightboxPhotos = galleryPhotos?.map((photo) => (
-        {
-            src: photo.image_url,
-            width: 1024,
-            height: 768,
-            caption: photo.image,
-        })
-    );
-    // console.log(photo)
-    // console.log(lightboxPhotos)
+    // const lightboxPhotos = galleryPhotos?.map((photo) => (
+    //     {
+    //         src: photo.image_url,
+    //         width: 1024,
+    //         height: 768,
+    //         caption: photo.image,
+    //     })
+    // );
+    // // console.log(photo)
+    // // console.log(lightboxPhotos)
     return (
         <>
 

@@ -6,7 +6,7 @@ import { BsInstagram, BsPinterest } from 'react-icons/bs';
 import { FiMail, FiPhoneCall } from 'react-icons/fi';
 import { MdLocationPin } from 'react-icons/md';
 import { PiFacebookLogoBold } from 'react-icons/pi';
-import { Toaster, toast } from 'react-hot-toast';
+import {  toast } from 'react-hot-toast';
 import { translate } from '@/utils';
 import { useSelector } from 'react-redux';
 import { languageData } from '@/store/reducer/languageSlice';
@@ -68,10 +68,10 @@ const ContactUs = () => {
     
         // Check if all fields are filled
         if (!formData.firstName || !formData.lastName || !formData.email || !formData.subject || !formData.message) {
-            toast.error('Please fill all fields');
+            toast.error(translate("allFields"));
         } else if (!isValidEmail(formData.email)) {
             // Check if the email is valid
-            toast.error('Invalid email format');
+            toast.error(translate("emailIsNotValid"));
         } else {
             // All fields are filled and email is valid, proceed with the API call
             ContactUsApi(formData.firstName, formData.lastName, formData.email, formData.subject, formData.message,

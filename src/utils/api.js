@@ -9,6 +9,7 @@ const GET_COUNT_BY_CITIES_CATEGORIS = "get_count_by_cities_categoris"
 const ADD_FAVOURITE = "add_favourite"
 const GET_LANGUAGES = "get_languages"
 const CONTACT_US = "contct_us"
+const GET_FAV = "get_favourite_property"
 
 
 
@@ -84,7 +85,7 @@ export const getSliderApi = () => {
 
 // GET CATEGORIES
 
-export const getCategorieApi = (user_id) => {
+export const getCategorieApi = () => {
 
     return {
         url: `${GET_CATEGORES}`,
@@ -200,3 +201,19 @@ export const ContactUs = (first_name, last_name, email, subject, message) => {
 
     }
 }
+
+// GET_FAV_PROPERTY
+
+export const getFav = (offset, limit) => {
+    return {
+        url: `${GET_FAV}`,
+        method: "GET",
+        params: {
+            offset: offset,
+            limit: limit
+        },
+        authorizationHeader: true,
+
+    }
+}
+

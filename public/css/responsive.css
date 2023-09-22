@@ -906,6 +906,13 @@
     color: #ffffff !important;
     border-radius: 10px;
   }
+  #dropdown {
+    width: 100%;
+    background-color: transparent;
+    width: 100%;
+    color: inherit;
+    border-radius: 10px;
+  }
   .dropdown-menu {
     width: 100%;
   }

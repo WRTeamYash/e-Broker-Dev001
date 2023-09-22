@@ -1,21 +1,8 @@
-import React, { useCallback, useState } from 'react';
-import Gallery from "react-photo-gallery";
+import React from 'react';
 import Carousel, { Modal, ModalGateway } from "react-images";
 
 const LightBox = ({ photos, viewerIsOpen, currentImage, onClose }) => {
-    // const openLightbox = useCallback((event, { photo, index }) => {
-    //     currentImage !== index && onClose(); // Close the lightbox if a different image is clicked
-    //     setCurrentImage(index);
-    //     setViewerIsOpen(true);
-    // }, [currentImage, onClose]);
 
-    // const closeLightbox = () => {
-    //     setCurrentImage(0);
-    //     setViewerIsOpen(false);
-    // };
-
-    // const [currentImage, setCurrentImage] = useState(currentImage || 0);
-    // const [viewerIsOpen, setViewerIsOpen] = useState(viewerIsOpen || false);
 
     if (!photos || photos.length === 0) {
         // Handle the case when photos is undefined or empty.
@@ -24,7 +11,7 @@ const LightBox = ({ photos, viewerIsOpen, currentImage, onClose }) => {
 
     return (
         <div>
-            {/* <Gallery photos={photos} onClick={openLightbox} /> */}
+        
             <ModalGateway>
                 {viewerIsOpen ? (
                     <Modal onClose={onClose}>

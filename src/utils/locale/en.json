@@ -142,5 +142,7 @@
   "noData":" No Data Found",
   "noDatatext":"We're sorry what you were looking for. please try another way",
   "404":"404",
-  "PagenotFound":"This page could not be found." 
+  "PagenotFound":"This page could not be found.",
+  "emailIsNotValid":"Invalid email format",
+  "allFields":"Please fill all fields"
 }

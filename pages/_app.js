@@ -18,7 +18,7 @@ import { Toaster } from 'react-hot-toast'
 const manrope = Manrope({ subsets: ['latin'] })
 
 function MyApp({ Component, pageProps, data }) {
-
+// console.log(Component)
 
     return (
         <Fragment>

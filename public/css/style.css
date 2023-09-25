@@ -5153,6 +5153,8 @@ a {
   flex-direction: row;
   width: 100%;
   border: none;
+  align-items: center;
+  justify-content: center;
 }
 @media only screen and (max-width:991px) {
   #listing_card {

@@ -29,7 +29,7 @@ export default function PropertyListingTable({ data }) {
     setAnchorEl(null);
   };
   const priceSymbol = useSelector(settingsData)
-    const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
+  const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
   // const classes = useStyles();
   return (
     <TableContainer component={Paper}>
@@ -49,27 +49,26 @@ export default function PropertyListingTable({ data }) {
         <TableBody>
           {data.map((e, index) => (
             <TableRow key={index}>
-              <TableCell component="th" scope="row">
-                <>
-                  <div className="card" id='listing_card'>
-                    <div className="listing_card_img">
-                      <img src={e.title_image} alt="" id='main_listing_img' />
-                      <span className='listing_type_tag'>
-                        {e.propery_type}
-                      </span>
-                    </div>
-                    <div className="listing_card_body">
-                      <span className='listing_prop_title'>{e.title}
-                      </span>
-                      <span className='listing_prop_loc'>
-                        {e.city} {e.state} {e.country}
-                      </span>
-                      <span className='listing_prop_pirce'>
-                       {CurrencySymbol} {e.price}
-                      </span>
-                    </div>
+              <TableCell component="th" scope="row" sx={{ width: "40%" }}>
+
+                <div className="card" id='listing_card'>
+                  <div className="listing_card_img">
+                    <img src={e.title_image} alt="" id='main_listing_img' />
+                    <span className='listing_type_tag'>
+                      {e.propery_type}
+                    </span>
                   </div>
-                </>
+                  <div className="listing_card_body">
+                    <span className='listing_prop_title'>{e.title}
+                    </span>
+                    <span className='listing_prop_loc'>
+                      {e.city} {e.state} {e.country}
+                    </span>
+                    <span className='listing_prop_pirce'>
+                      {CurrencySymbol} {e.price}
+                    </span>
+                  </div>
+                </div>
               </TableCell>
               <TableCell align="center">{e.category.category}</TableCell>
               <TableCell align="center">{e.total_view}</TableCell>

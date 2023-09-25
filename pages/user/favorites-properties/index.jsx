@@ -26,6 +26,7 @@ const index = () => {
   const isLoggedIn = useSelector((state) => state.User_signup);
   const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
 
+  
 
   useEffect(() => {
     GetFavPropertyApi(
@@ -34,8 +35,9 @@ const index = () => {
       (response) => {
         setTotal(response.total);
         const favPropData = response.data;
+        console.log(favPropData)
         setIsLoading(false)
-        setGetFavProp(favPropData); 
+        setGetFavProp(favPropData);
       }, (error) => {
         console.log(error)
       })
@@ -45,8 +47,8 @@ const index = () => {
     const newOffset = selectedPage.selected * limit;
     setOffsetdata(newOffset);
     window.scrollTo(0, 0);
-  
-};
+
+  };
 
   return (
     <VerticleLayout>
@@ -68,7 +70,7 @@ const index = () => {
                 {getFavProp?.map((ele, index) => (
                   <div className='col-sm-12 col-md-6 col-lg-3' key={index}>
                     <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
-                      <VerticalCard ele={ele} />
+                    <VerticalCard ele={ele}/>
                     </Link>
                   </div>
                 ))}

@@ -49,6 +49,7 @@ const SimilerPropertySlider = () => {
             "",
             "",
             "",
+            "",
             (response) => {
                 const propertyData = response.data;
                 setIsLoading(false);

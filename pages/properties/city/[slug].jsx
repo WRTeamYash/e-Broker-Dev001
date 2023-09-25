@@ -65,6 +65,7 @@ const AllProperties = () => {
       "",
       "",
       "",
+      "",
       (response) => {
         setTotal(response.total);
         const propertyData = response.data;

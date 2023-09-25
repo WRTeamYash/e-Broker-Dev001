@@ -72,6 +72,7 @@ const PropertieDeatils = () => {
             "",
             "",
             "",
+            "",
             (response) => {
 
                 const propertyData = response && response.data;

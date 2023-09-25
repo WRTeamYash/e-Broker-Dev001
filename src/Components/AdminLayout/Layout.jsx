@@ -7,20 +7,19 @@ import { languageData } from '@/store/reducer/languageSlice.js';
 const Layout = ({ children }) => {
 
     const [isLoading, setIsLoading] = useState(true)
-
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     useEffect(() => {
-      settingsLoaded(null, null, (res) => {
-        setTimeout(() => {
-          // console.log(res)
-          setIsLoading(false)
+      settingsLoaded(null, isLoggedIn ? userCurrentId : "", (res) => {
   
-        }, 1000)
+        setIsLoading(false)
+  
       },
         (err) => {
           console.log(err)
         })
   
-    }, []);
+    }, [isLoggedIn]);
     const lang = useSelector(languageData)
     useEffect(() => {
   

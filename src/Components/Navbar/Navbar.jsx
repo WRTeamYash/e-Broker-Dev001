@@ -19,12 +19,17 @@ import { languageLoaded } from '@/store/reducer/languageSlice';
 import { translate } from '@/utils';
 import { store } from '@/store/store';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
 
 
 const Nav = () => {
+
+    const router = useRouter()
     const signupData = useSelector(userSignUpData);
     const settingData = useSelector(settingsData)
+    // console.log(settingData)
+    const isSubscription = settingData?.subscription
     const LanguageList = settingData && settingData.languages;
     const [selectedLanguage, setSelectedLanguage] = useState();
     const [show, setShow] = useState(false);
@@ -91,7 +96,38 @@ const Nav = () => {
         setAreaConverterModal(false);
     };
 
-
+    const handleShowDashboard = () => {
+        if (isSubscription === true) { // Corrected the condition
+            router.push('/user/dashboard'); // Use an absolute path here
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You have not subscribed. Please subscribe first',
+                // footer: '<a href="">Why do I have this issue?</a>'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    router.push('/subscription-plan'); // Redirect to the subscription page
+                }
+            });
+        }
+    };
+    const handleAddProperty = () => {
+        if (isSubscription === true) { // Corrected the condition
+            router.push('/user/properties'); // Use an absolute path here
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You have not subscribed. Please subscribe first',
+                // footer: '<a href="">Why do I have this issue?</a>'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    router.push('/subscription-plan'); // Redirect to the subscription page
+                }
+            });
+        }
+    };
     const handleLogout = () => {
         handleClose()
         Swal.fire({
@@ -209,7 +245,7 @@ const Nav = () => {
                                                             </Dropdown.Toggle>
 
                                                             <Dropdown.Menu id='language'>
-                                                                <Dropdown.Item href="/user/dashboard">{translate("dashboard")}</Dropdown.Item>
+                                                                <Dropdown.Item onClick={handleShowDashboard}>{translate("dashboard")}</Dropdown.Item>
                                                                 <Dropdown.Item onClick={handleLogout}>{translate("logout")}</Dropdown.Item>
                                                             </Dropdown.Menu>
                                                         </Dropdown>
@@ -219,7 +255,7 @@ const Nav = () => {
                                     </li>
                                     {signupData?.data?.data.name && settingData && (
                                         <li className="nav-item">
-                                            <button className="btn" id="addbutton">
+                                            <button className="btn" id="addbutton" onClick={handleAddProperty}>
                                                 <FiPlusCircle size={20} className='mx-2 add-nav-button' />
                                                 {translate("addProp")}
                                             </button>

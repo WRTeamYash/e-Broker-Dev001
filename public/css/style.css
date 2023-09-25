@@ -5066,7 +5066,20 @@ a {
   background: var(--primary-color);
   transform-origin: 100% 0;
 }
-
+.active_status {
+  color: var(--primary-color);
+  background-color: #087c7c14;
+  padding: 5px 20px;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+}
+.inactive_status {
+  color: #e88d14;
+  background-color: #e88d1414;
+  padding: 5px 20px;
+  border: 1px solid #e88d14;
+  border-radius: 8px;
+}
 #dashboard_card {
   background: rgb(8, 124, 124) url("../../src/assets/Dashboard Image.jpg")
     no-repeat padding-box;
@@ -5091,16 +5104,16 @@ a {
   align-items: center;
   padding: 0 20px;
 }
-#dashboard_top_card{
+#dashboard_top_card {
   gap: 20px 0;
 }
-#dashboard_total_prop_card .totalprop span{
+#dashboard_total_prop_card .totalprop span {
   color: #282f39c2;
 }
 #dashboard_total_prop_card .total_prop_icon span {
   display: flex;
   width: 70px;
-  background: #282F39;
+  background: #282f39;
   color: var(--primary-text-color01);
   height: 70px;
   border: none;
@@ -5133,6 +5146,70 @@ a {
 
 .fav_card .row {
   gap: 20px 0;
+}
+
+#listing_card {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border: none;
+}
+@media only screen and (max-width:991px) {
+  #listing_card {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.listing_card_body{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+}
+      
+}
+.listing_card_img {
+  padding: 10px;
+}
+#main_listing_img {
+  object-fit: cover;
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+  position: relative;
+}
+
+.listing_type_tag {
+  position: absolute;
+  background-color: var(--primary-sell);
+  color: var(--primary-text-color01);
+  padding: 0 10px;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  margin-top: 12px;
+  margin-left: -140px;
+}
+.listing_card_body {
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+.listing_prop_title {
+  font-weight: bold;
+  font-size: medium;
+}
+.listing_prop_loc {
+  font-size: medium;
+  font-weight: 300;
+  color: #282f39c2;
+}
+.listing_prop_pirce {
+  color: var(--primary-color);
+  font-size: medium;
+  font-weight: bold;
 }
 /* .css-1r9jet7 {
   display: flex  !important;

@@ -74,6 +74,7 @@ const SearchPage = () => {
             searchedData && searchedData.filterData && searchedData.filterData.selectedLocation && searchedData.filterData.selectedLocation?.state ? searchedData.filterData.selectedLocation.state : "",
             searchedData && searchedData.filterData && searchedData.filterData.selectedLocation && searchedData.filterData.selectedLocation?.country ? searchedData.filterData.selectedLocation.country : "",
             searchedData && searchedData.searchInput,
+            "",
             (response) => {
                 setTotal(response.total);
                 const SearchD = response.data;
@@ -185,6 +186,7 @@ const SearchPage = () => {
             searchData && searchData.filterData && searchData.filterData.selectedLocation && searchData.filterData.selectedLocation?.state ? searchData.filterData.selectedLocation.state : "",
             searchData && searchData.filterData && searchData.filterData.selectedLocation && searchData.filterData.selectedLocation?.country ? searchData.filterData.selectedLocation.country : "",
             searchData && searchData.searchInput,
+            "",
             (response) => {
                 setTotal(response.total);
                 const SearchD = response.data;

@@ -1,4 +1,4 @@
-import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav} from "@/utils/api";
+import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
@@ -35,9 +35,9 @@ export const GetCategorieApi = (onSuccess, onError, onStart) => {
     }))
 };
 // GET PROPERTIES
-export const GetFeturedListingsApi = (promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, onSuccess, onError, onStart) => {
+export const GetFeturedListingsApi = (promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
-        ...getAllProperties(promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search),
+        ...getAllProperties(promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid),
         displayToast: false,
         onStart,
         onSuccess,

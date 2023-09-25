@@ -106,7 +106,7 @@ export default function VerticleLayout(props) {
     const { children } = props
 
     const theme = useTheme();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -128,10 +128,9 @@ export default function VerticleLayout(props) {
         }).then((result) => {
             if (result.isConfirmed) {
                 logoutSuccess();
-                toast.error(translate("logoutsuccess"));
+                toast.success(translate("logoutsucces"));
+                router.push('/')
 
-                    router.push('/')
-                
             } else {
                 toast.error(translate("logoutcancel"));
             }
@@ -301,9 +300,9 @@ export default function VerticleLayout(props) {
             </Drawer>
 
 
-            <Box component="main" sx={{ flexGrow: 1, overflowX: "hidden" }}>
+            <Box component="main" sx={{ flexGrow: 1, overflowX: "hidden", marginBottom:"100px" }}>
                 <DrawerHeader sx={{
-                    background: "#f5f5f5"
+                    background: "#f5f5f5",
                 }} />
 
 

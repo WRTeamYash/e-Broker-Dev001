@@ -272,6 +272,7 @@ const HomePage = () => {
             "",
             "",
             "",
+            "",
             (response) => {
                 const FeaturedListingData = response.data;
                 // console.log("featured data ============", FeaturedListingData)
@@ -305,6 +306,7 @@ const HomePage = () => {
             "",
             "",
             "",
+            "",
             (response) => {
                 const MostViewed = response.data;
                 // console.log("most viewed data ============", MostViewed)
@@ -331,6 +333,7 @@ const HomePage = () => {
             "",
             "",
             isLoggedIn ? userCurrentId : "",
+            "",
             "",
             "",
             "",
@@ -385,95 +388,95 @@ const HomePage = () => {
     return (
         <>
             <Layout>
+                {slider && slider.length > 0 ? (
+                    <section id='mainheroImage'>
+                        <HeroSlider
+                            height={"90vh"}
+                            slidingAnimation="fade"
+                            orientation="horizontal"
+                            initialSlide={1}
+                            onBeforeChange={(previousSlide, nextSlide) =>
+                                console.log("onBeforeChange", previousSlide, nextSlide)
+                            }
+                            onChange={(nextSlide) => console.log("onChange", nextSlide)}
+                            onAfterChange={(nextSlide) => console.log("onAfterChange", nextSlide)}
+                            settings={{
+                                slidingDuration: 400,
+                                slidingDelay: 100,
+                                shouldAutoplay: true,
+                                shouldDisplayButtons: true,
+                                autoplayDuration: 3000,
+                                height: "100vh"
+                            }}
 
-                <section id='mainheroImage'>
-                    <HeroSlider
-                        height={"90vh"}
-                        slidingAnimation="fade"
-                        orientation="horizontal"
-                        initialSlide={1}
-                        onBeforeChange={(previousSlide, nextSlide) =>
-                            console.log("onBeforeChange", previousSlide, nextSlide)
-                        }
-                        onChange={(nextSlide) => console.log("onChange", nextSlide)}
-                        onAfterChange={(nextSlide) => console.log("onAfterChange", nextSlide)}
-                        settings={{
-                            slidingDuration: 400,
-                            slidingDelay: 100,
-                            shouldAutoplay: true,
-                            shouldDisplayButtons: true,
-                            autoplayDuration: 3000,
-                            height: "100vh"
-                        }}
+                        >
 
-                    >
+                            {
+                                isLoading ?
+                                    (
+                                        <Loader />
+                                    ) :
+                                    slider &&
+                                    slider.map((single, index) => {
+                                        return (
+                                            <Slide
+                                                background={{
+                                                    // backgroundImageSrc: SlideImage01.src,
+                                                    backgroundImageSrc: single.property_title_image,
+                                                }}
+                                                key={index}
 
-                        {
-                            isLoading ?
-                                (
-                                    <Loader />
-                                ) :
-                                slider &&
-                                slider.map((single, index) => {
-                                    return (
-                                        <Slide
-                                            background={{
-                                                // backgroundImageSrc: SlideImage01.src,
-                                                backgroundImageSrc: single.property_title_image,
-                                            }}
-                                            key={index}
+                                            >
+                                                <div className='container'>
+                                                    <Wrapper>
+                                                        <div id='herotexts'>
+                                                            <div>
+                                                                <span id='priceteg'> {CurrencySymbol} {single.property_price}</span>
+                                                                <h1 id="hero_headlines">{single.property_title}</h1>
+                                                                {single.parameters && single.parameters.slice(0, 4).map((elem, index) => (
 
-                                        >
-                                            <div className='container'>
-                                                <Wrapper>
-                                                    <div id='herotexts'>
-                                                        <div>
-                                                            <span id='priceteg'> {CurrencySymbol} {single.property_price}</span>
-                                                            <h1 id="hero_headlines">{single.property_title}</h1>
-                                                            {single.parameters && single.parameters.slice(0, 4).map((elem, index) => (
+                                                                    <span id='specifiaction'> {elem.name}: {elem.value} </span>
+                                                                ))
 
-                                                                <span id='specifiaction'> {elem.name}: {elem.value} </span>
-                                                            ))
+                                                                }
+                                                            </div>
 
-                                                            }
+                                                            <div id='viewall_hero_prop'>
+                                                                <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${single.propertys_id}`} passHref>
+                                                                    <button className='view_prop'>
+                                                                        <FaEye size={20} className='icon' />
+                                                                        {translate("viewAll")}
+                                                                    </button>
+                                                                </Link>
+
+                                                                {single && single.video_link ? (
+                                                                    <>
+                                                                        <div>
+                                                                            <GoPlay className='playbutton' size={50} onClick={() => {
+                                                                                setShowVideoModal(true)
+
+                                                                            }} />
+                                                                        </div>
+
+                                                                        <VideoPlayerModal isOpen={showVideoModal} onClose={handleCloseModal} data={single} />
+                                                                    </>
+                                                                ) : null
+                                                                }
+                                                            </div>
                                                         </div>
+                                                    </Wrapper>
+                                                </div>
+                                            </Slide>
 
-                                                        <div id='viewall_hero_prop'>
-                                                            <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${single.propertys_id}`} passHref>
-                                                                <button className='view_prop'>
-                                                                    <FaEye size={20} className='icon' />
-                                                                    {translate("viewAll")}
-                                                                </button>
-                                                            </Link>
+                                        )
+                                    }
+                                    )}
+                            {/* <ButtonsNav /> */}
 
-                                                            {single && single.video_link ? (
-                                                                <>
-                                                                    <div>
-                                                                        <GoPlay className='playbutton' size={50} onClick={() => {
-                                                                            setShowVideoModal(true)
+                        </HeroSlider>
 
-                                                                        }} />
-                                                                    </div>
-
-                                                                    <VideoPlayerModal isOpen={showVideoModal} onClose={handleCloseModal} data={single} />
-                                                                </>
-                                                            ) : null
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </Wrapper>
-                                            </div>
-                                        </Slide>
-
-                                    )
-                                }
-                                )}
-                        {/* <ButtonsNav /> */}
-
-                    </HeroSlider>
-
-                    {/* Sell Rent  */}
-                    {/* <div id='searchbox' className='container'>
+                        {/* Sell Rent  */}
+                        {/* <div id='searchbox' className='container'>
                         <ButtonGroup >
                             <ul className="nav nav-tabs" id="tabs">
                                 <li className="">
@@ -508,481 +511,489 @@ const HomePage = () => {
                         </div>
                     </div>
                     <FilterModal isOpen={showFilterModal} onClose={handleCloseModal} /> */}
-                    <SearchTab getCategories={getCategories} />
-                </section>
-
+                        <SearchTab getCategories={getCategories} />
+                    </section>
+                ) : null}
 
 
                 {/* Feature Section  */}
-                <section id='feature'>
-                    <div className='container'>
-
-                        <div id='main_features'>
-                            <div>
-                                {isLoading ? (
-                                    <Skeleton width="100%" height={20} />
-                                ) : (
-                                    <>
-                                        <div className='feature_header' data-aos="fade-right" data-aos-duration="2000">
-                                            <span className='headline' >
-                                                {translate("discoverOur")} <span className='highlight'>{translate("featured")}</span> {translate("listings")}
-                                            </span>
-                                            <div className='rightside_header'>
-                                                <Link href="/featured-properties">
-                                                    <button className="learn-more" id="viewall">
-                                                        <span aria-hidden="true" className="circle">
-                                                            <span className="icon arrow"></span>
-                                                        </span>
-                                                        <span className="button-text">{translate("seeAllProp")}</span>
-                                                    </button>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
-                                            <MobileHeadline data={{
-                                                start: translate("discoverOur"),
-                                                center: translate("featured"),
-                                                end: translate("listings"),
-                                                link: "/featured-properties"
-                                            }} />
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-
-                            {/* {console.log(getFeaturedListing)} */}
-                            <div className='feature-section-cards'>
-                                <div id='feature_cards' className='row' data-aos="fade-left" data-aos-duration="2000">
+                {getFeaturedListing && getFeaturedListing.length > 0 ? (
+                    <section id='feature'>
+                        <div className='container'>
+                            <div id='main_features'>
+                                <div>
                                     {isLoading ? (
-                                        // Show skeleton loading when data is being fetched
-
-                                        Array.from({ length: 8 }).map((_, index) => (
-                                            <div className='col-sm-12 col-md-6 col-lg-3 loading_data' key={index}>
-                                                <VerticalCardSkeleton />
+                                        <Skeleton width="100%" height={20} />
+                                    ) : (
+                                        <>
+                                            <div className='feature_header' data-aos="fade-right" data-aos-duration="2000">
+                                                <span className='headline' >
+                                                    {translate("discoverOur")} <span className='highlight'>{translate("featured")}</span> {translate("listings")}
+                                                </span>
+                                                <div className='rightside_header'>
+                                                    <Link href="/featured-properties">
+                                                        <button className="learn-more" id="viewall">
+                                                            <span aria-hidden="true" className="circle">
+                                                                <span className="icon arrow"></span>
+                                                            </span>
+                                                            <span className="button-text">{translate("seeAllProp")}</span>
+                                                        </button>
+                                                    </Link>
+                                                </div>
                                             </div>
-                                        ))
-                                        // <Loader />  
-
-                                    ) :
-                                        getFeaturedListing?.slice(0, 8).map((ele, index) => (
-                                            <div className='col-sm-12 col-md-6 col-lg-3' key={index} >
-                                                <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
-                                                    <VerticalCard ele={ele} />
-                                                </Link>
+                                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
+                                                <MobileHeadline data={{
+                                                    start: translate("discoverOur"),
+                                                    center: translate("featured"),
+                                                    end: translate("listings"),
+                                                    link: "/featured-properties"
+                                                }} />
                                             </div>
-                                        ))}
+                                        </>
+                                    )}
                                 </div>
+
+                                {/* {console.log(getFeaturedListing)} */}
+                                <div className='feature-section-cards'>
+                                    <div id='feature_cards' className='row' data-aos="fade-left" data-aos-duration="2000">
+                                        {isLoading ? (
+                                            // Show skeleton loading when data is being fetched
+
+                                            Array.from({ length: 8 }).map((_, index) => (
+                                                <div className='col-sm-12 col-md-6 col-lg-3 loading_data' key={index}>
+                                                    <VerticalCardSkeleton />
+                                                </div>
+                                            ))
+                                            // <Loader />  
+
+                                        ) :
+                                            getFeaturedListing?.slice(0, 8).map((ele, index) => (
+                                                <div className='col-sm-12 col-md-6 col-lg-3' key={index} >
+                                                    <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                                                        <VerticalCard ele={ele} />
+                                                    </Link>
+                                                </div>
+                                            ))}
+                                    </div>
+                                </div>
+
                             </div>
-
                         </div>
-                    </div>
-                </section >
 
+                    </section >
+
+                ) : null}
 
 
                 {/* APARTMENT SECTION */}
-                <section id='apartments' data-aos="fade-up" data-aos-duration="2000">
-                    <div className='container'>
-                        <div className="row">
-                            <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
-                                <div className='browse-agent'>
-                                    <span>{translate("exploreApartment")}
-                                    </span>
-                                    <Link href="/all-categories">
-                                        <button className='mt-3'> <FiEye className="mx-2" size={25} />
-                                            {translate("viewAll")}
+
+                {getCategories && getCategories.length > 0 ? (
+                    <section id='apartments' data-aos="fade-up" data-aos-duration="2000">
+                        <div className='container'>
+                            <div className="row">
+                                <div className="col-sm-12 col-md-4 col-lg-3" id='browse-by-agents'>
+                                    <div className='browse-agent'>
+                                        <span>{translate("exploreApartment")}
+                                        </span>
+                                        <Link href="/all-categories">
+                                            <button className='mt-3'> <FiEye className="mx-2" size={25} />
+                                                {translate("viewAll")}
+                                            </button>
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
+                                    <MobileHeadline data={{
+                                        start: translate("explore"),
+                                        center: translate("apart"),
+                                        end: translate("types"),
+                                        link: "/all-categories"
+
+                                    }
+                                    } />
+                                </div>
+                                <div className="col-sm-12 col-md-8 col-lg-9" id='all-apart-cards'>
+
+                                    <div className='aprt_cards'>
+                                        <Swiper
+                                            dir={language.rtl === "1" ? "rtl" : "ltr"}
+                                            spaceBetween={30}
+                                            freeMode={true}
+                                            pagination={{
+                                                clickable: true,
+                                            }}
+                                            modules={[FreeMode, Pagination]}
+                                            className='aprtment-swiper'
+                                            breakpoints={breakpoints}
+                                            style={{
+                                                // width: "1200px"
+                                            }}
+
+
+                                        >
+                                            {isLoading ? (
+                                                // Show skeleton loading when data is being fetched
+                                                <div className="col-12 loading_data">
+                                                    <Swiper
+                                                        dir={language.rtl === "1" ? "rtl" : "ltr"}
+                                                        spaceBetween={30}
+                                                        freeMode={true}
+                                                        pagination={{
+                                                            clickable: true,
+
+                                                        }}
+                                                        modules={[FreeMode, Pagination]}
+                                                        className='aprtment-swiper'
+                                                        breakpoints={breakpoints}
+                                                        style={{
+                                                            // width: "1200px"
+                                                        }}
+
+
+                                                    >
+                                                        {Array.from({ length: 6 }).map((_, index) => (
+                                                            <SwiperSlide>
+                                                                <CustomCategorySkeleton />
+                                                            </SwiperSlide>
+                                                        ))}
+                                                    </Swiper>
+                                                </div>
+
+                                            ) :
+                                                getCategories && getCategories?.map((ele, index) => (
+                                                    (ele.properties_count !== 0 && ele.properties_count !== "") ? (
+                                                        <SwiperSlide id="aprt-swiper-slider" key={index}>
+                                                            <Link href={`/properties/categories/${ele.id}`}>
+                                                                <CategoryCard ele={ele} />
+                                                            </Link>
+                                                        </SwiperSlide>
+                                                    ) : null
+                                                ))}
+
+                                        </Swiper>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                ) : null}
+                {/* ===== PROPERTIE SECTION ====== */}
+
+                {getMostViewedProp && getMostViewedProp.length > 0 ? (
+                    <section id='main_properties'>
+                        <div className='properties_section'>
+                            <div className='container'>
+                                <div id='prop'>
+                                    <div className='prop_header' data-aos="fade-right" data-aos-duration="2000">
+                                        <div >
+                                            <h3>
+                                                {translate("most")} <span
+                                                // className="hovertext2"
+                                                >
+                                                    <span
+                                                        className='highlight'
+                                                    > {translate("viewed")}</span>
+                                                </span> {translate("properties")}
+                                            </h3>
+                                        </div>
+                                        <div className='rightside_prop_header'>
+                                            <Link href="/most-viewed-properties">
+                                                <button className="learn-more" id="viewall">
+                                                    <span aria-hidden="true" className="circle">
+                                                        <span className="icon arrow"></span>
+                                                    </span>
+                                                    <span className="button-text">{translate("seeAllProp")}</span>
+                                                </button>
+                                            </Link>
+
+                                        </div>
+
+                                    </div>
+                                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
+                                        <MobileHeadline data={{
+                                            start: translate("most"),
+                                            center: translate("viewed"),
+                                            end: translate("properties"),
+                                            link: "/most-viewed-properties"
+
+                                        }
+                                        } />
+                                    </div>
+                                </div>
+                                <div id='prop_cards' data-aos="fade-left" data-aos-duration="2000">
+                                    <div className='cards_sec'>
+                                        <div className='row' >
+                                            {isLoading ? (
+                                                // Show skeleton loading when data is being fetched
+                                                Array.from({ length: 8 }).map((_, index) => (
+                                                    <div className="col-sm-12 col-md-6 col-lg-6 loading_data">
+                                                        <CustomHorizontalSkeleton />
+                                                    </div>
+                                                ))
+                                                // <Loader />
+                                            ) :
+                                                getMostViewedProp?.slice(0, 6).map((ele, index) => (
+                                                    <div className="col-sm-12 col-md-6 col-lg-6" key={index}>
+                                                        <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                                                            <HorizontalCard ele={ele} />
+                                                        </Link>
+
+                                                    </div>
+                                                ))}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                ) : null}
+                {/* ===== PROPERTIES NEARBY CITY  SECTION ====== */}
+
+                {getNearByCitysData && getNearByCitysData.length > 0 ? (
+                    <section id='main_citySection'>
+                        <div className='container'>
+                            <div className='prop_city_header' data-aos="fade-right" data-aos-duration="2000">
+                                <div >
+                                    <h3>
+                                        {translate("properties")} <span>
+                                            <span
+                                                // className="text" data-text="Nearby"
+                                                className='highlight'
+
+                                            > {translate("nearby")}</span>
+                                        </span>  {translate("cities")}
+                                    </h3>
+                                </div>
+                                <div className='rightside_prop_city_header'>
+                                    <Link href="/properties-nearby-city">
+                                        <button className="learn-more" id="viewall">
+                                            <span aria-hidden="true" className="circle">
+                                                <span className="icon arrow"></span>
+                                            </span>
+                                            <span className="button-text"> {translate("seeAllProp")}</span>
                                         </button>
                                     </Link>
                                 </div>
                             </div>
                             <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
                                 <MobileHeadline data={{
-                                    start: translate("explore"),
-                                    center: translate("apart"),
-                                    end: translate("types"),
-                                    link: "/all-categories"
+                                    start: translate("properties"),
+                                    center: translate("nearby"),
+                                    end: translate("cities"),
+                                    link: "/properties-nearby-city"
 
                                 }
                                 } />
                             </div>
-                            <div className="col-sm-12 col-md-8 col-lg-9" id='all-apart-cards'>
+                            <div data-aos="fade-left" data-aos-duration="2000">
 
-                                <div className='aprt_cards'>
-                                    <Swiper
-                                        dir={language.rtl === "1" ? "rtl" : "ltr"}
-                                        spaceBetween={30}
-                                        freeMode={true}
-                                        pagination={{
-                                            clickable: true,
-                                        }}
-                                        modules={[FreeMode, Pagination]}
-                                        className='aprtment-swiper'
-                                        breakpoints={breakpoints}
-                                        style={{
-                                            // width: "1200px"
-                                        }}
-
-
-                                    >
-                                        {isLoading ? (
-                                            // Show skeleton loading when data is being fetched
-                                            <div className="col-12 loading_data">
-                                                <Swiper
-                                                    dir={language.rtl === "1" ? "rtl" : "ltr"}
-                                                    spaceBetween={30}
-                                                    freeMode={true}
-                                                    pagination={{
-                                                        clickable: true,
-
-                                                    }}
-                                                    modules={[FreeMode, Pagination]}
-                                                    className='aprtment-swiper'
-                                                    breakpoints={breakpoints}
-                                                    style={{
-                                                        // width: "1200px"
-                                                    }}
-
-
-                                                >
-                                                    {Array.from({ length: 6 }).map((_, index) => (
-                                                        <SwiperSlide>
-                                                            <CustomCategorySkeleton />
-                                                        </SwiperSlide>
-                                                    ))}
-                                                </Swiper>
-                                            </div>
-
-                                        ) :
-                                            getCategories && getCategories?.map((ele, index) => (
-                                                (ele.properties_count !== 0 && ele.properties_count !== "") ? (
-                                                    <SwiperSlide id="aprt-swiper-slider" key={index}>
-                                                        <Link href={`/properties/categories/${ele.id}`}>
-                                                            <CategoryCard ele={ele} />
-                                                        </Link>
-                                                    </SwiperSlide>
-                                                ) : null
-                                            ))}
-
-                                    </Swiper>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* ===== PROPERTIE SECTION ====== */}
-                <section id='main_properties'>
-                    <div className='properties_section'>
-                        <div className='container'>
-                            <div id='prop'>
-                                <div className='prop_header' data-aos="fade-right" data-aos-duration="2000">
-                                    <div >
-                                        <h3>
-                                            {translate("most")} <span
-                                            // className="hovertext2"
-                                            >
-                                                <span
-                                                    className='highlight'
-                                                > {translate("viewed")}</span>
-                                            </span> {translate("properties")}
-                                        </h3>
+                                {isLoading ? (
+                                    // Show skeleton UI
+                                    <div className="skeleton-container">
+                                        <NearByCitysSkeleton />
                                     </div>
-                                    <div className='rightside_prop_header'>
-                                        <Link href="/most-viewed-properties">
-                                            <button className="learn-more" id="viewall">
-                                                <span aria-hidden="true" className="circle">
-                                                    <span className="icon arrow"></span>
-                                                </span>
-                                                <span className="button-text">{translate("seeAllProp")}</span>
-                                            </button>
-                                        </Link>
+                                ) : (
 
-                                    </div>
+                                    // Show actual data when loading is complete
 
-                                </div>
-                                <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
-                                    <MobileHeadline data={{
-                                        start: translate("most"),
-                                        center: translate("viewed"),
-                                        end: translate("properties"),
-                                        link: "/most-viewed-properties"
+                                    getNearByCitysData ?
+                                        (
+                                            <div className='row' id='nearBy-Citys'>
 
-                                    }
-                                    } />
-                                </div>
-                            </div>
-                            <div id='prop_cards' data-aos="fade-left" data-aos-duration="2000">
-                                <div className='cards_sec'>
-                                    <div className='row' >
-                                        {isLoading ? (
-                                            // Show skeleton loading when data is being fetched
-                                            Array.from({ length: 8 }).map((_, index) => (
-                                                <div className="col-sm-12 col-md-6 col-lg-6 loading_data">
-                                                    <CustomHorizontalSkeleton />
-                                                </div>
-                                            ))
-                                            // <Loader />
-                                        ) :
-                                            getMostViewedProp?.slice(0, 6).map((ele, index) => (
-                                                <div className="col-sm-12 col-md-6 col-lg-6" key={index}>
-                                                    <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
-                                                        <HorizontalCard ele={ele} />
+                                                <div className='col-12 col-md-6 col-lg-3' id='city_img_div'>
+                                                    <Link href={`/properties/city/${getNearByCitysData[1].City}`}>
+                                                        <div className="card bg-dark text-white mb-3" id='group_card'>
+                                                            <img src={getNearByCitysData && getNearByCitysData[1].image} className="card-img" alt="..." id='TopImg' />
+                                                            <div className="card-img-overlay">
+                                                                <div id='city_img_headlines'>
+                                                                    <h4 className="card-title">{getNearByCitysData && getNearByCitysData[1].City}</h4>
+                                                                    <p className="card-text">{getNearByCitysData && getNearByCitysData[1].Count} {translate("properties")}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </Link>
-
                                                 </div>
-                                            ))}
-                                    </div>
+                                                <div className='col-12 col-md-6 col-lg-3' id='city_img_div'>
+                                                    <Link href={`/properties/city/${getNearByCitysData[2].City}`}>
+                                                        <div className="card bg-dark text-white mb-3" id='group_card'>
+                                                            <img src={getNearByCitysData && getNearByCitysData[2].image} className="card-img" alt="..." id='TopImg' />
+                                                            <div className="card-img-overlay">
+                                                                <div id='city_img_headlines'>
+                                                                    <h4 className="card-title">{getNearByCitysData && getNearByCitysData[2].City}</h4>
+                                                                    <p className="card-text">{getNearByCitysData && getNearByCitysData[2].Count} {translate("properties")}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                                <div className='col-lg-6' id='city_image_main_div'>
+                                                    <Link href={`/properties/city/${getNearByCitysData[0].City}`}>
+                                                        <div className="card bg-dark text-white mb-3" id='cityImgTop'>
+                                                            <img src={getNearByCitysData && getNearByCitysData[0].image} className="card-img" alt="..." id='TopImg' />
+                                                            <div className="card-img-overlay">
+                                                                <div id='city_img_headlines'>
+                                                                    <h4 className="card-title">{getNearByCitysData && getNearByCitysData[0].City} </h4>
+                                                                    <p className="card-text">{getNearByCitysData && getNearByCitysData[0].Count} {translate("properties")} </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                                <div className='col-lg-6' id='city_image_main_div'>
+                                                    <Link href={`/properties/city/${getNearByCitysData[5].City}`}>
 
-                                </div>
+                                                        <div className="card bg-dark text-white" id='cityImgTop'
+                                                        >
+                                                            <img src={getNearByCitysData && getNearByCitysData[5].image} className="card-img" alt="..." id='TopImg'
+                                                            //  id='bottom_city_card_img' 
+                                                            />
+                                                            <div className="card-img-overlay">
+                                                                <div id='city_img_headlines'>
+                                                                    <h4 className="card-title">{getNearByCitysData && getNearByCitysData[5].City} </h4>
+                                                                    <p className="card-text">{getNearByCitysData && getNearByCitysData[5].Count} {translate("properties")}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                                <div className='col-12 col-md-6 col-lg-3' id='city_img_div01'>
+                                                    <Link href={`/properties/city/${getNearByCitysData[3].City}`}>
+                                                        <div className="card bg-dark text-white" id='group_card'>
+                                                            <img src={getNearByCitysData && getNearByCitysData[3].image} className="card-img" alt="..." id='TopImg' />
+                                                            <div className="card-img-overlay">
+                                                                <div id='city_img_headlines'>
+                                                                    <h4 className="card-title">{getNearByCitysData && getNearByCitysData[3].City}</h4>
+                                                                    <p className="card-text">{getNearByCitysData && getNearByCitysData[3].Count} {translate("properties")}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                                <div className='col-12 col-md-6 col-lg-3' id='city_img_div01'>
+                                                    <Link href={`/properties/city/${getNearByCitysData[4].City}`}>
+                                                        <div className="card bg-dark text-white " id='group_card'>
+                                                            <img src={getNearByCitysData && getNearByCitysData[4].image} className="card-img" alt="..." id='TopImg' />
+                                                            <div className="card-img-overlay">
+                                                                <div id='city_img_headlines'>
+                                                                    <h4 className="card-title">{getNearByCitysData && getNearByCitysData[4].City}</h4>
+                                                                    <p className="card-text">{getNearByCitysData && getNearByCitysData[4].Count} {translate("properties")}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+
+                                            </div>
+                                        ) : null
+                                )
+                                }
+
                             </div>
-
                         </div>
-                    </div>
-                </section>
-
-                {/* ===== PROPERTIES NEARBY CITY  SECTION ====== */}
-
-
-                <section id='main_citySection'>
-                    <div className='container'>
-                        <div className='prop_city_header' data-aos="fade-right" data-aos-duration="2000">
-                            <div >
-                                <h3>
-                                    {translate("properties")} <span>
-                                        <span
-                                            // className="text" data-text="Nearby"
-                                            className='highlight'
-
-                                        > {translate("nearby")}</span>
-                                    </span>  {translate("cities")}
-                                </h3>
-                            </div>
-                            <div className='rightside_prop_city_header'>
-                                <Link href="/properties-nearby-city">
-                                    <button className="learn-more" id="viewall">
-                                        <span aria-hidden="true" className="circle">
-                                            <span className="icon arrow"></span>
-                                        </span>
-                                        <span className="button-text"> {translate("seeAllProp")}</span>
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
-                            <MobileHeadline data={{
-                                start: translate("properties"),
-                                center: translate("nearby"),
-                                end: translate("cities"),
-                                link: "/properties-nearby-city"
-
-                            }
-                            } />
-                        </div>
-                        <div data-aos="fade-left" data-aos-duration="2000">
-
-                            {isLoading ? (
-                                // Show skeleton UI
-                                <div className="skeleton-container">
-                                    <NearByCitysSkeleton />
-                                </div>
-                            ) : (
-
-                                // Show actual data when loading is complete
-
-                                getNearByCitysData ?
-                                    (
-                                        <div className='row' id='nearBy-Citys'>
-
-                                            <div className='col-12 col-md-6 col-lg-3' id='city_img_div'>
-                                                <Link href={`/properties/city/${getNearByCitysData[1].City}`}>
-                                                    <div className="card bg-dark text-white mb-3" id='group_card'>
-                                                        <img src={getNearByCitysData && getNearByCitysData[1].image} className="card-img" alt="..." id='TopImg' />
-                                                        <div className="card-img-overlay">
-                                                            <div id='city_img_headlines'>
-                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[1].City}</h4>
-                                                                <p className="card-text">{getNearByCitysData && getNearByCitysData[1].Count} {translate("properties")}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            </div>
-                                            <div className='col-12 col-md-6 col-lg-3' id='city_img_div'>
-                                                <Link href={`/properties/city/${getNearByCitysData[2].City}`}>
-                                                    <div className="card bg-dark text-white mb-3" id='group_card'>
-                                                        <img src={getNearByCitysData && getNearByCitysData[2].image} className="card-img" alt="..." id='TopImg' />
-                                                        <div className="card-img-overlay">
-                                                            <div id='city_img_headlines'>
-                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[2].City}</h4>
-                                                                <p className="card-text">{getNearByCitysData && getNearByCitysData[2].Count} {translate("properties")}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            </div>
-                                            <div className='col-lg-6' id='city_image_main_div'>
-                                                <Link href={`/properties/city/${getNearByCitysData[0].City}`}>
-                                                    <div className="card bg-dark text-white mb-3" id='cityImgTop'>
-                                                        <img src={getNearByCitysData && getNearByCitysData[0].image} className="card-img" alt="..." id='TopImg' />
-                                                        <div className="card-img-overlay">
-                                                            <div id='city_img_headlines'>
-                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[0].City} </h4>
-                                                                <p className="card-text">{getNearByCitysData && getNearByCitysData[0].Count} {translate("properties")} </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            </div>
-                                            <div className='col-lg-6' id='city_image_main_div'>
-                                                <Link href={`/properties/city/${getNearByCitysData[5].City}`}>
-
-                                                    <div className="card bg-dark text-white" id='cityImgTop'
-                                                    >
-                                                        <img src={getNearByCitysData && getNearByCitysData[5].image} className="card-img" alt="..." id='TopImg'
-                                                        //  id='bottom_city_card_img' 
-                                                        />
-                                                        <div className="card-img-overlay">
-                                                            <div id='city_img_headlines'>
-                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[5].City} </h4>
-                                                                <p className="card-text">{getNearByCitysData && getNearByCitysData[5].Count} {translate("properties")}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            </div>
-                                            <div className='col-12 col-md-6 col-lg-3' id='city_img_div01'>
-                                                <Link href={`/properties/city/${getNearByCitysData[3].City}`}>
-                                                    <div className="card bg-dark text-white" id='group_card'>
-                                                        <img src={getNearByCitysData && getNearByCitysData[3].image} className="card-img" alt="..." id='TopImg' />
-                                                        <div className="card-img-overlay">
-                                                            <div id='city_img_headlines'>
-                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[3].City}</h4>
-                                                                <p className="card-text">{getNearByCitysData && getNearByCitysData[3].Count} {translate("properties")}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            </div>
-                                            <div className='col-12 col-md-6 col-lg-3' id='city_img_div01'>
-                                                <Link href={`/properties/city/${getNearByCitysData[4].City}`}>
-                                                    <div className="card bg-dark text-white " id='group_card'>
-                                                        <img src={getNearByCitysData && getNearByCitysData[4].image} className="card-img" alt="..." id='TopImg' />
-                                                        <div className="card-img-overlay">
-                                                            <div id='city_img_headlines'>
-                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[4].City}</h4>
-                                                                <p className="card-text">{getNearByCitysData && getNearByCitysData[4].Count} {translate("properties")}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            </div>
-
-                                        </div>
-                                    ) : null
-                            )
-                            }
-
-                        </div>
-                    </div>
-                </section>
-
+                    </section>
+                ) : null}
 
 
                 {/* ===== MOST FAV SECTION =======  */}
-                <section id='most_fav'>
-                    <div className='container'>
-                        <div className='most_fav_header' data-aos="fade-right" data-aos-duration="2000">
-                            <div>
-                                <h3>
-                                    {translate("most")} <span
-                                    // className="hovertext3"
-                                    >
-                                        <span className='highlight'>{translate("fav")}</span>
-                                    </span> {translate("properties")}
-                                </h3>
+                {getMostFavProperties && getMostFavProperties.length > 0 ? (
+                    <section id='most_fav'>
+                        <div className='container'>
+                            <div className='most_fav_header' data-aos="fade-right" data-aos-duration="2000">
+                                <div>
+                                    <h3>
+                                        {translate("most")} <span
+                                        // className="hovertext3"
+                                        >
+                                            <span className='highlight'>{translate("fav")}</span>
+                                        </span> {translate("properties")}
+                                    </h3>
+                                </div>
+                                <div className='rightside_most_fav_header'>
+                                    <Link href="/mostfav-properties">
+                                        <button className="learn-more" id="viewall">
+                                            <span aria-hidden="true" className="circle">
+                                                <span className="icon arrow"></span>
+                                            </span>
+                                            <span className="button-text">{translate("seeAllProp")}</span>
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
-                            <div className='rightside_most_fav_header'>
-                                <Link href="/mostfav-properties">
-                                    <button className="learn-more" id="viewall">
-                                        <span aria-hidden="true" className="circle">
-                                            <span className="icon arrow"></span>
-                                        </span>
-                                        <span className="button-text">{translate("seeAllProp")}</span>
-                                    </button>
-                                </Link>
+                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
+                                <MobileHeadline data={{
+                                    start: translate("most"),
+                                    center: translate("fav"),
+                                    end: translate("properties"),
+                                    link: "/mostfav-properties"
+                                }
+                                } />
                             </div>
-                        </div>
-                        <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
-                            <MobileHeadline data={{
-                                start: translate("most"),
-                                center: translate("fav"),
-                                end: translate("properties"),
-                                link: "/mostfav-properties"
-                            }
-                            } />
-                        </div>
-                        <div id="most-view-properties" data-aos="fade-left" data-aos-duration="2000" dir={language.rtl === "1" ? "rtl" : "ltr"}>
-                            <Swiper
-                                //    dir= {language.rtl === "1" ? "rtl" : "ltr"}
-                                slidesPerView={4}
-                                // loop={true}
-                                spaceBetween={30}
-                                freeMode={true}
-                                pagination={{
-                                    clickable: true,
+                            <div id="most-view-properties" data-aos="fade-left" data-aos-duration="2000" dir={language.rtl === "1" ? "rtl" : "ltr"}>
+                                <Swiper
+                                    //    dir= {language.rtl === "1" ? "rtl" : "ltr"}
+                                    slidesPerView={4}
+                                    // loop={true}
+                                    spaceBetween={30}
+                                    freeMode={true}
+                                    pagination={{
+                                        clickable: true,
 
-                                }}
-                                modules={[FreeMode, Pagination]}
-                                className='most-view-swiper'
-                                breakpoints={breakpointsMostFav}
-                                style={{
-                                    // width: "auto"
-                                }}
+                                    }}
+                                    modules={[FreeMode, Pagination]}
+                                    className='most-view-swiper'
+                                    breakpoints={breakpointsMostFav}
+                                    style={{
+                                        // width: "auto"
+                                    }}
 
 
-                            >
-                                {isLoading ? (
-                                    // Show skeleton loading when data is being fetched
-                                    <Swiper
-                                        dir={language.rtl === "1" ? "rtl" : "ltr"}
-                                        slidesPerView={4}
-                                        // loop={true}
-                                        spaceBetween={30}
-                                        freeMode={true}
-                                        pagination={{
-                                            clickable: true,
+                                >
+                                    {isLoading ? (
+                                        // Show skeleton loading when data is being fetched
+                                        <Swiper
+                                            dir={language.rtl === "1" ? "rtl" : "ltr"}
+                                            slidesPerView={4}
+                                            // loop={true}
+                                            spaceBetween={30}
+                                            freeMode={true}
+                                            pagination={{
+                                                clickable: true,
 
-                                        }}
-                                        modules={[FreeMode, Pagination]}
-                                        className='most-view-swiper'
-                                        breakpoints={breakpointsMostFav}
-                                        style={{
-                                            // width: "auto"
-                                        }}
+                                            }}
+                                            modules={[FreeMode, Pagination]}
+                                            className='most-view-swiper'
+                                            breakpoints={breakpointsMostFav}
+                                            style={{
+                                                // width: "auto"
+                                            }}
 
 
-                                    >
-                                        {Array.from({ length: 6 }).map((_, index) => (
-                                            <SwiperSlide>
-                                                <div className="loading_data">
-                                                    <VerticalCardSkeleton />
-                                                </div>
+                                        >
+                                            {Array.from({ length: 6 }).map((_, index) => (
+                                                <SwiperSlide>
+                                                    <div className="loading_data">
+                                                        <VerticalCardSkeleton />
+                                                    </div>
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
+
+                                        // <Loader />
+                                    ) :
+                                        getMostFavProperties?.map((ele, index) => (
+                                            <SwiperSlide id="most-view-swiper-slider" key={index}>
+                                                <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                                                    <VerticalCard ele={ele} />
+                                                </Link>
                                             </SwiperSlide>
                                         ))}
-                                    </Swiper>
-
-                                    // <Loader />
-                                ) :
-                                    getMostFavProperties?.map((ele, index) => (
-                                        <SwiperSlide id="most-view-swiper-slider" key={index}>
-                                            <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
-                                                <VerticalCard ele={ele} />
-                                            </Link>
-                                        </SwiperSlide>
-                                    ))}
-                            </Swiper>
+                                </Swiper>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                ) : null}
                 {/* ===== AGENT SECTION =======  */}
                 {/* <section id='agent_section' data-aos="fade-up" data-aos-duration="7000">
                     <div className="container">
@@ -1074,61 +1085,63 @@ const HomePage = () => {
                     </div>
                 </section> */}
                 {/* ========== ARTICLE SECTION ========== */}
-                <section id='articles'>
-                    <div className='container'>
-                        <div className='article_headline' data-aos="fade-right" data-aos-duration="2000">
-                            <div>
-                                <h3>
-                                    {translate("our")} <span
-                                    // className="hovertext3"
-                                    >
-                                        <span className='highlight'
 
-                                        // className="text" data-text="Articles"
-                                        >{translate("articles")}</span>
-                                    </span>
-                                </h3>
-                            </div>
-                            <div className='rightside_article_headlin'>
-                                <Link href="/articles">
-                                    <button className="learn-more" id="viewall">
-                                        <span aria-hidden="true" className="circle">
-                                            <span className="icon arrow"></span>
+                {getArticles && getArticles.length > 0 ? (
+                    <section id='articles'>
+                        <div className='container'>
+                            <div className='article_headline' data-aos="fade-right" data-aos-duration="2000">
+                                <div>
+                                    <h3>
+                                        {translate("our")} <span
+                                        // className="hovertext3"
+                                        >
+                                            <span className='highlight'
+
+                                            // className="text" data-text="Articles"
+                                            >{translate("articles")}</span>
                                         </span>
-                                        <span className="button-text">{translate("seeAllProp")}</span>
-                                    </button>
-                                </Link>
+                                    </h3>
+                                </div>
+                                <div className='rightside_article_headlin'>
+                                    <Link href="/articles">
+                                        <button className="learn-more" id="viewall">
+                                            <span aria-hidden="true" className="circle">
+                                                <span className="icon arrow"></span>
+                                            </span>
+                                            <span className="button-text">{translate("seeAllProp")}</span>
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
+                                <MobileHeadline data={{
+                                    start: translate("our"),
+                                    center: translate("articles"),
+                                    link: "/articles"
+                                }
+                                } />
+                            </div>
+                            <div className='row' id='article_cards' data-aos="fade-left" data-aos-duration="2000">
+                                {isLoading ? (
+                                    // Show skeleton loading when data is being fetched
+                                    Array.from({ length: 4 }).map((_, index) => (
+                                        <div className="col-sm-12 col-md-6 col-lg-3 loading_data">
+                                            <ArticleCardSkeleton />
+                                        </div>
+                                    ))
+                                ) :
+                                    getArticles?.slice(0, 3).map((ele, index) => (
+
+                                        <div className='col-12 col-md-6 col-lg-3' key={index}>
+                                            <ArticleCard ele={ele} index={index} expandedStates={expandedStates} />
+                                        </div>
+                                    ))}
+
                             </div>
                         </div>
-                        <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
-                            <MobileHeadline data={{
-                                start: translate("our"),
-                                center: translate("articles"),
-                                link: "/articles"
-                            }
-                            } />
-                        </div>
-                        <div className='row' id='article_cards' data-aos="fade-left" data-aos-duration="2000">
-                            {isLoading ? (
-                                // Show skeleton loading when data is being fetched
-                                Array.from({ length: 4 }).map((_, index) => (
-                                    <div className="col-sm-12 col-md-6 col-lg-3 loading_data">
-                                        <ArticleCardSkeleton />
-                                    </div>
-                                ))
-                            ) :
-                                getArticles?.slice(0, 3).map((ele, index) => (
 
-                                    <div className='col-12 col-md-6 col-lg-3' key={index}>
-                                        <ArticleCard ele={ele} index={index} expandedStates={expandedStates} />
-                                    </div>
-                                ))}
-
-                        </div>
-                    </div>
-
-                </section>
-
+                    </section>
+                ) : null}
 
             </Layout>
         </>

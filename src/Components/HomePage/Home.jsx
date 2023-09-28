@@ -384,7 +384,17 @@ const HomePage = () => {
 
     const language = store.getState().Language.languages
     // console.log(language.rtl)
-
+    const CustomLeftArrow = () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+          <path id="ic_left_arrow" d="M12,2A10,10,0,1,1,2,12,10,10,0,0,1,12,2Zm0,18a8,8,0,1,0-8-8A8,8,0,0,0,12,20Zm0-9h4v2H12v3L8,12l4-4Z" transform="translate(-2 -2)" fill="#fff" />
+        </svg>
+      );
+      
+      const CustomRightArrow = () => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+          <path id="ic_right_arow" d="M12,11V8l4,4-4,4V13H8V11Zm0-9A10,10,0,1,1,2,12,10,10,0,0,1,12,2Zm0,18a8,8,0,1,0-8-8A8,8,0,0,0,12,20Z" transform="translate(-2 -2)" fill="#fff" />
+        </svg>
+      );
     return (
         <>
             <Layout>
@@ -398,6 +408,8 @@ const HomePage = () => {
                             onBeforeChange={(previousSlide, nextSlide) =>
                                 console.log("onBeforeChange", previousSlide, nextSlide)
                             }
+                            prevButton={<CustomLeftArrow />} // Custom left arrow SVG
+                            nextButton={<CustomRightArrow />} // Custom right arrow SVG
                             onChange={(nextSlide) => console.log("onChange", nextSlide)}
                             onAfterChange={(nextSlide) => console.log("onAfterChange", nextSlide)}
                             settings={{

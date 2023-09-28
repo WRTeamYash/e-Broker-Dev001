@@ -23,7 +23,7 @@ const index = () => {
 
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    const userData = isLoggedIn && isLoggedIn.data.data.name
+    const userData = isLoggedIn && isLoggedIn?.data?.data?.name
     // console.log(userData)
 
     // const pageCount = Math.ceil(total / limit); // Calculate the page count
@@ -56,7 +56,7 @@ const index = () => {
                 console.log(FeaturedListingData)
                 setIsLoading(false);
                 setGetFeaturedListing(FeaturedListingData);
-            },
+            },          
             (error) => {
                 setIsLoading(false);
                 console.log(error);

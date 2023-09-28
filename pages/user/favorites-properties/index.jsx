@@ -15,7 +15,7 @@ const index = () => {
   useEffect(() => {
     // console.log("render")
   }, [lang]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [total, setTotal] = useState(0);
   const [getFavProp, setGetFavProp] = useState([])
   const [offsetdata, setOffsetdata] = useState(0);
@@ -26,7 +26,7 @@ const index = () => {
   const isLoggedIn = useSelector((state) => state.User_signup);
   const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
 
-  
+
 
   useEffect(() => {
     GetFavPropertyApi(
@@ -42,6 +42,12 @@ const index = () => {
         console.log(error)
       })
   }, [offsetdata])
+
+  const removeCard = (cardId) => {
+    // Filter out the card with the given ID from getFavProp
+    const updatedFavProp = getFavProp.filter((ele) => ele.id !== cardId);
+    setGetFavProp(updatedFavProp);
+  };
   const handlePageChange = (selectedPage) => {
 
     const newOffset = selectedPage.selected * limit;
@@ -66,21 +72,21 @@ const index = () => {
               ))
             ) : (
               <>
-
                 {getFavProp?.map((ele, index) => (
                   <div className='col-sm-12 col-md-6 col-lg-3' key={index}>
                     <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
-                    <VerticalCard ele={ele}/>
+                      <VerticalCard ele={ele} onRemoveCard={removeCard} />
                     </Link>
                   </div>
                 ))}
+                <div className="col-12">
+                  <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                </div>
               </>
             )}
           </div>
         </div>
-        <div className="col-12">
-          <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
-        </div>
+
       </div>
     </VerticleLayout>
   )

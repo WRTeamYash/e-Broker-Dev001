@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 
-function VerticalCard({ ele, removeCard }) {
+function VerticalCard({ ele, onRemoveCard }) {
     // console.log(ele)
     // console.log("first time ",ele.is_favourite)
     // console.log(ele)
@@ -32,6 +32,7 @@ function VerticalCard({ ele, removeCard }) {
                 setIsLiked(true);
                 setIsDisliked(false);
                 toast.success(response.message);
+
             }, (error) => {
                 console.log(error);
             });
@@ -48,8 +49,7 @@ function VerticalCard({ ele, removeCard }) {
             setIsLiked(false);
             setIsDisliked(true);
             toast.success(response.message);
-            // console.log("when i disliked ", ele.is_favourite)
-            // console.log("when i disliked then data  ", ele)
+            onRemoveCard(ele.id);
         }, (error) => {
             console.log(error);
         });

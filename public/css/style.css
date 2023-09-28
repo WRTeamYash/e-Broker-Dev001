@@ -461,7 +461,7 @@ body {
 .select__profile {
   display: block;
 }
-[type="file"] {
+.select__profile [type="file"] {
   float: left;
   height: 0;
   width: 0;
@@ -828,7 +828,7 @@ body {
   z-index: 99 !important;
   background-color: var(--primary-text-color01);
   width: 100%;
-  height: 12vh;
+  height: 70px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   -webkit-animation: headerSlideDown 0.95s ease forwards;
@@ -4999,6 +4999,7 @@ a {
   object-fit: contain;
   height: 80px;
   aspect-ratio: 1/1;
+  cursor: pointer;
 }
 
 .admindash_footer {
@@ -5156,19 +5157,17 @@ a {
   align-items: center;
   justify-content: center;
 }
-@media only screen and (max-width:991px) {
+@media only screen and (max-width: 991px) {
   #listing_card {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.listing_card_body{
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-}
-      
+  }
+  .listing_card_body {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 }
 .listing_card_img {
   padding: 10px;
@@ -5212,6 +5211,124 @@ a {
   color: var(--primary-color);
   font-size: medium;
   font-weight: bold;
+}
+#add_prop_form_row {
+  gap: 20px 0;
+}
+#add_prop_form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px 0;
+}
+.css-jpln7h-MuiTabs-scroller {
+  overflow-x: auto !important;
+}
+#add_prop_tab {
+  border: none;
+}
+
+#add_prop_tab .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: var(--primary-color);
+}
+#add_prop_tab .css-1aquho2-MuiTabs-indicator {
+  background: var(--primary-color) !important;
+}
+
+.add_prop_fields {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.add_prop_fields span {
+  color: #282F39;
+  font-weight: 600;
+  font-size: small;
+}
+.add_prop_fields .add_prop_types {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.add_prop_fields .form-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: flex-start;
+  background: var(--primary-background);
+  padding: 10px;
+  border-radius: 8px;
+}
+.add_prop_fields .form-check .form-check-input {
+  margin: 0;
+  background-color: var(--primary-text-color01);
+  font-size: 20px;
+  padding: 8px;
+  border: 1px solid var(--primary-text-color02);
+}
+
+.add_prop_fields .form-check input:focus {
+  background: #087c7c !important;
+  border: 1px solid var(--primary-text-color01) !important;
+  outline: 1px solid !important;
+  box-shadow: none;
+}
+
+.add_prop_fields #prop_title_input {
+  border: none;
+  background-color: var(--primary-background);
+  height: 4vh;
+  border-radius: 8px;
+  padding: 0 10px;
+}
+.add_prop_fields #prop_title_input:focus-visible {
+  border: none;
+  outline: none;
+}
+.add_prop_fields #prop_add_input {
+  border: none;
+  background-color: var(--primary-background);
+  height: 10vh;
+  border-radius: 8px;
+  /* padding: 0 10px; */
+}
+.add_prop_fields #prop_file_input {
+  border: none;
+  background-color: var(--primary-background);
+  /* height: 10vh; */
+  border-radius: 8px;
+  /* padding: 0 10px; */
+}
+.add_prop_fields #prop_add_input:focus-visible {
+  border: none;
+  outline: none;
+}
+.add_prop_fields #about_prop {
+  border: none;
+  background-color: var(--primary-background);
+  border-radius: 8px;
+  padding: 10px;
+}
+.add_prop_fields #about_prop:focus-visible {
+  border: none;
+  outline: none;
+}
+.nextButton {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  /* margin: 10px; */
+  padding: 20px;
+}
+.nextButton button {
+  border: none;
+  padding: 10px 40px;
+  text-align: center;
+  background: #282f39;
+  color: var(--primary-text-color01);
+  border-radius: 8px;
 }
 /* .css-1r9jet7 {
   display: flex  !important;

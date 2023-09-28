@@ -128,7 +128,7 @@ export default function VerticleLayout(props) {
         }).then((result) => {
             if (result.isConfirmed) {
                 logoutSuccess();
-                toast.success(translate("logoutsucces"));
+                toast.success(translate("logoutSuccess"));
                 router.push('/')
 
             } else {

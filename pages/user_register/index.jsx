@@ -67,14 +67,15 @@ const index = () => {
     const handleSubmitInfo = (e) => {
         e.preventDefault();
         UpdateProfileApi(signupData.data.data.id, username, email, signupData.data.data.mobile, "3", address, signupData.data.data.firebase_id, "mobile", image, (res) => {
-            // console.log(res)
+            console.log(res)
             // console.log(res.message)
             toast.success(res.message)
             loadUpdateData(res.data)
             navigate.push("/")
         },
             (err) => {
-                console.log(err)
+                toast.error(err.message)
+                // console.log(err)
             })
     };
     const getImgData = () => {

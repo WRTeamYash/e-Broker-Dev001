@@ -2504,8 +2504,6 @@ div#article_card_footer .article_footer_text p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin-top: 12%; */
-  padding-top: 15%;
   text-align: center;
 }
 hr {
@@ -4236,15 +4234,40 @@ a {
 
 /* ==================== ======== SUBSRIPTION PLAN ========================== */
 
-#subscription .subsCards {
-  margin-top: 30px;
-}
 #subscription #current_package_card {
-  width: 100%;
-  /* height: 497px; */
   background-color: var(--primary-color);
   border-radius: 12px;
+  width: 100%;
 }
+
+#subscription #current_package_card .other_card_title {
+  background-color: #087c7c !important;
+  border-radius: 8px !important;
+  box-shadow: 1px 1px 5px 5px #026767;
+  opacity: 1;
+}
+
+.stripemodal .stripebtn{
+  background-color: var(--primary-color);
+  text-transform: uppercase;
+  font-weight: 600;
+    letter-spacing: 1px;
+    padding: 20px 15px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stripemodal .ant-row {
+  display: block;
+}
+
+.stripemodal .ant-row label {
+  display: block;
+  text-align: start;
+}
+
 #subscription #package_headlines {
   margin: 30px 20px 0 20px;
 }
@@ -4262,7 +4285,7 @@ a {
   border-radius: 12px;
 }
 #subscription .subs_content {
-  margin: 60px 20px 122px 20px;
+  margin: 68px 20px;
 }
 #subscription .subs_other_content {
   margin: 60px 20px;
@@ -5240,7 +5263,7 @@ a {
   gap: 5px;
 }
 .add_prop_fields span {
-  color: #282F39;
+  color: #282f39;
   font-weight: 600;
   font-size: small;
 }
@@ -5344,3 +5367,118 @@ a {
  .css-p55zm9-MuiButtonBase-root-MuiIconButton-root{
   color: var(--primary-text-color02) !important;
  } */
+
+.warning_modal p {
+  color: #000;
+  font-weight: 600;
+}
+
+.loader-full-screen {
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  z-index: 999;
+  /* filter: brightness(50%); */
+  width: 100%;
+  height: 100%;
+}
+.loader-box {
+  padding: 20px;
+  width: 100px;
+  height: 100px;
+  background: #3b2f2f8f;
+  /* filter: brightness(100%); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  opacity: 1;
+}
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.loader {
+  opacity: 1;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 4px solid #fff;
+  border-right: 4px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  /* border-left: 4px solid #FF3D00; */
+  border-left: 4px solid var(--secondary-color);
+  border-bottom: 4px solid transparent;
+  animation: rotation 0.5s linear infinite reverse;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 30rem) {
+  .loader {
+    width: 35px;
+    height: 35px;
+  }
+  .loader::after {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.spacer {
+  margin-bottom: 65px;
+}
+
+.stripe-container {
+  background: #fff;
+}
+
+.stripe-container .heading {
+  color: #8b8b8b;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.stripe-container button.close-stripe {
+  background: none;
+  font-size: 2.455rem;
+}
+
+.stripe-container .pay-stripe {
+  background: var(--primary-color);
+  color: #f8f8f8;
+  width: 100%;
+  font-size: 24px;
+  margin-top: 30px;
+  border-radius: 8px;
+  padding: 12px 15px;
+  border: none;
+}

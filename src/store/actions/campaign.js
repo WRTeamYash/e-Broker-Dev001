@@ -1,4 +1,4 @@
-import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav } from "@/utils/api";
+import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav,getPackages,getPaymentSettings,createPaymentIntent,confirmPayment } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
@@ -87,6 +87,7 @@ export const ContactUsApi = (first_name, last_name, email, subject, message, onS
         onError,
     }))
 };
+
 // // GET_FAV_PROPERTY
 export const GetFavPropertyApi = (offset, limit, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
@@ -96,5 +97,50 @@ export const GetFavPropertyApi = (offset, limit, onSuccess, onError, onStart) =>
         onSuccess,
         onError,
 
+    }))
+}
+
+// get packages
+export const getPackagesApi = (onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...getPackages(),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+
+// get payement settings
+
+export const getPaymentSettingsApi = (onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...getPaymentSettings(),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+
+// createPaymentIntent
+export const createPaymentIntentApi = (description,name,address1,postalcode,city,state,country,amount,currency,card,packageID,onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...createPaymentIntent(description,name,address1,postalcode,city,state,country,amount,currency,card,packageID),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+
+//confirmPayment
+export const confirmPaymentApi = (paymentIntentId,onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...confirmPayment(paymentIntentId),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
     }))
 }

@@ -18,3 +18,20 @@ export const translate = (label) => {
     return enTranslation[label];
   }
 };
+
+// is login user check
+export const isLogin = () => {
+  let user = store.getState()?.User_signup
+  if (user) {
+      try {
+          // user = JSON.parse(user);
+          if (user?.data?.token) {
+              return true;
+          }
+          return false;
+      } catch (error) {
+          return false;
+      }
+  }
+  return false;
+}

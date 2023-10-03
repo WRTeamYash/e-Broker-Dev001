@@ -90,50 +90,6 @@ const HomePage = () => {
         setShowVideoModal(false);
     };
 
-    let agentsData = [
-        {
-            id: 1,
-            agentimg: agentimg.src,
-            agentName: "Divy Jani",
-            agentEmail: " DivyJani95@hotmail.com",
-            agentProp: "16 Properties"
-        },
-        {
-            id: 2,
-            agentimg: agentimg.src,
-            agentName: "Divy Jani",
-            agentEmail: " DivyJani95@hotmail.com",
-            agentProp: "16 Properties"
-        },
-        {
-            id: 3,
-            agentimg: agentimg.src,
-            agentName: "Divy Jani",
-            agentEmail: " DivyJani95@hotmail.com",
-            agentProp: "16 Properties"
-        },
-        {
-            id: 4,
-            agentimg: agentimg.src,
-            agentName: "Divy Jani",
-            agentEmail: " DivyJani95@hotmail.com",
-            agentProp: "16 Properties"
-        },
-        {
-            id: 5,
-            agentimg: agentimg.src,
-            agentName: "Divy Jani",
-            agentEmail: " DivyJani95@hotmail.com",
-            agentProp: "16 Properties"
-        },
-        {
-            id: 6,
-            agentimg: agentimg.src,
-            agentName: "Divy Jani",
-            agentEmail: " DivyJani95@hotmail.com",
-            agentProp: "16 Properties"
-        }
-    ]
     const breakpoints = {
         375: {
             slidesPerView: 1.5,
@@ -170,35 +126,6 @@ const HomePage = () => {
         },
         576: {
             slidesPerView: 1,
-            // spaceBetween: 40
-        },
-        768: {
-            slidesPerView: 2,
-
-        },
-        992: {
-            slidesPerView: 3,
-
-        },
-        1200: {
-            slidesPerView: 3,
-        },
-        1400: {
-            slidesPerView: 4,
-
-        }
-    };
-    const breakpointAgents = {
-        320: {
-            slidesPerView: 1,
-            // spaceBetween: 40
-        },
-        375: {
-            slidesPerView: 1.5,
-            // spaceBetween: 40
-        },
-        576: {
-            slidesPerView: 1.5,
             // spaceBetween: 40
         },
         768: {

@@ -1,3 +1,5 @@
+import { store } from "@/store/store"
+
 const GET_SETTINGS = "get_system_settings"
 const USER_SIGNUP = "user_signup"
 const UPDATE_PROFILE = "update_profile"
@@ -10,12 +12,29 @@ const ADD_FAVOURITE = "add_favourite"
 const GET_LANGUAGES = "get_languages"
 const CONTACT_US = "contct_us"
 const GET_FAV = "get_favourite_property"
+const GET_PACKAGES = "get_package";
+const GET_PAYMENT_SETTINGS = "get_payment_settings";
+const CREATEPAYMENT = "createPaymentIntent";
+const CONFIRMPAYMENT = "confirmPayment"
 
 
+// is login user check
+export const getUserID = () => {
+    let user = store.getState()?.User_signup
+    if (user) {
+        try {
+           return user?.data?.data?.id
+        } catch (error) {
+            return null;
+        }
+    }else{
+        return null
+    }
+    
+  }
 
 // GET SETTINGS
 export const getSettingApi = (type, user_id) => {
-
     return {
         url: `${GET_SETTINGS}`,
         method: "POST",
@@ -218,3 +237,61 @@ export const getFav = (offset, limit) => {
     }
 }
 
+// GET_PACKAGES
+
+export const getPackages = () => {
+    let getuserid = getUserID();
+    return {
+        url: `${GET_PACKAGES}`,
+        method: "GET",
+        params: {
+            current_user:getuserid
+        },
+        authorizationHeader: false,
+    }
+}
+
+// GET_PAYMENT_SETTINGS
+export const getPaymentSettings = () => {
+    return {
+        url: `${GET_PAYMENT_SETTINGS}`,
+        method: "GET",
+        params: {},
+        authorizationHeader: true,
+    }
+}
+
+// CREATEPAYMENT
+export const createPaymentIntent = (description,name,address1,postalcode,city,state,country,amount,currency,card,packageID) => {
+    let data = new FormData();
+    data.append("description", description);
+    data.append("shipping[name]", name);
+    data.append("shipping[address][line1]", address1);
+    data.append("shipping[address][postal_code]", postalcode);
+    data.append("shipping[address][city]", city);
+    data.append("shipping[address][state]", state);
+    data.append("shipping[address][country]", country);
+    data.append("amount", amount);
+    data.append("currency", currency);
+    data.append("payment_method_types[]", card);
+    data.append("package_id", packageID);
+    return {
+        url: `${CREATEPAYMENT}`,
+        method: "POST",
+        data,
+        authorizationHeader: true,
+    }
+}
+
+// CONFIRMPAYMENT
+export const confirmPayment= (paymentIntentId) => {
+    let data = new FormData();
+    data.append("paymentIntentId", paymentIntentId);
+   
+    return {
+        url: `${CONFIRMPAYMENT}`,
+        method: "POST",
+        data,
+        authorizationHeader: true,
+    }
+}

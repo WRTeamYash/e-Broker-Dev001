@@ -55,7 +55,7 @@ const api = ({ dispatch, getState }) => next => async action => {
         });
         // console.log(response)
         if (response.data.error) {
-            // console.log("reserr",response)
+            console.log("reserr",response)
             // Dispatch Default onError Event
             dispatch(actions.apiCallFailed((response.data.message)));
 
@@ -97,18 +97,19 @@ const api = ({ dispatch, getState }) => next => async action => {
     } catch (error) {
 
         // Dispatch Default onError Event
+        console.log("errr",error)
 
         // if (error.response.status === 401) {
         //     error.message = "Please Login";
         // }
-        dispatch(actions.apiCallFailed((error.message)));
+        dispatch(actions.apiCallFailed((error.response?.data)));
 
         // Dispatch custom onError Event
-        if (onError) onError(error.message);
-        if (onErrorDispatch) dispatch({ type: onErrorDispatch, payload: error.message });
+        if (onError) onError(error.response?.data);
+        if (onErrorDispatch) dispatch({ type: onErrorDispatch, payload: error.response?.data });
 
         if (displayToast) {
-            toast.error(error.message);
+            toast.error(error.response?.data);
         }
     }
 }

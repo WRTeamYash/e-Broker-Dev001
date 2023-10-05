@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import { userSignUpData } from '@/store/reducer/authSlice';
+import { useRouter } from 'next/router';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -48,6 +49,10 @@ function a11yProps(index) {
 }
 
 export default function AddPropertyTabs() {
+
+    const router = useRouter();
+
+
     const [value, setValue] = useState(0);
     const [getCategories, setGetCategories] = useState([]);
     const [getFacilities, setGetFacilities] = useState([]);
@@ -510,10 +515,12 @@ export default function AddPropertyTabs() {
                 (response) => {
                     console.log(response)
                     toast.success(response.message)
+                    router.push('/user/dashboard')
 
                 },
                 (error) => {
                     console.log(error)
+                    toast.error(error)
                 }
 
             )

@@ -12,6 +12,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useSelector } from 'react-redux';
 import { settingsData } from '@/store/reducer/settingsSlice';
+import { useRouter } from 'next/router';
 
 
 
@@ -19,7 +20,18 @@ import { settingsData } from '@/store/reducer/settingsSlice';
 
 export default function PropertyListingTable({ data }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  console.log(data)
+  const priceSymbol = useSelector(settingsData);
+  const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;
+  const router = useRouter();
+
+  const handleEdit = (propertyId) => {
+    // e.preventDefault()
+    // handleClose();
+    console.log('property id when i click on edit:', propertyId);
+    // router.push(`/user/edit-property?id=${propertyId}`);
+  };
+
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -27,9 +39,6 @@ export default function PropertyListingTable({ data }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const priceSymbol = useSelector(settingsData)
-  const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
-  // const classes = useStyles();
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="caption table">
@@ -48,34 +57,35 @@ export default function PropertyListingTable({ data }) {
         <TableBody>
 
           {data.length > 0 ? (
-            data.map((e, index) => (
+            data.map((elem, index) => (
               <TableRow key={index}>
-                <TableCell component="th" scope="row" sx={{ width: "40%" }}>
 
+                <TableCell component="th" scope="row" sx={{ width: "40%" }}>
+                  {/* {console.log(elem.id)} */}
                   <div className="card" id='listing_card'>
                     <div className="listing_card_img">
-                      <img src={e.title_image} alt="" id='main_listing_img' />
+                      <img src={elem.title_image} alt="" id='main_listing_img' />
                       <span className='listing_type_tag'>
-                        {e.propery_type}
+                        {elem.propery_type}
                       </span>
                     </div>
                     <div className="listing_card_body">
-                      <span className='listing_prop_title'>{e.title}
+                      <span className='listing_prop_title'>{elem.title}
                       </span>
                       <span className='listing_prop_loc'>
-                        {e.city} {e.state} {e.country}
+                        {elem.city} {elem.state} {elem.country}
                       </span>
                       <span className='listing_prop_pirce'>
-                        {CurrencySymbol} {e.price}
+                        {CurrencySymbol} {elem.price}
                       </span>
                     </div>
                   </div>
                 </TableCell>
-                <TableCell align="center">{e.category.category}</TableCell>
-                <TableCell align="center">{e.total_view}</TableCell>
-                <TableCell align="center">{e.post_created}</TableCell>
+                <TableCell align="center">{elem.category.category}</TableCell>
+                <TableCell align="center">{elem.total_view}</TableCell>
+                <TableCell align="center">{elem.post_created}</TableCell>
                 <TableCell align="center">
-                  {e.status === 1 ? (
+                  {elem.status === 1 ? (
                     <span className='active_status'>Active</span>
                   ) : (
                     <span className='inactive_status'>Inactive</span>
@@ -86,7 +96,8 @@ export default function PropertyListingTable({ data }) {
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                     onClick={handleClick}
-                  >
+                    sx={{ borderRadius: "8px", background: "#f5f5f5", color: "#000" }}
+                    >
                     <MoreVertIcon />
                   </IconButton>
                   <Menu
@@ -95,17 +106,19 @@ export default function PropertyListingTable({ data }) {
                     keepMounted
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
-                  >
-                    <MenuItem onClick={handleClose}>
-                      <IconButton size='medium'>
-                        <EditIcon />
+                    
+                    >
+                    <MenuItem >
+                      <IconButton size='medium' id='tool-menu-icon' >
+                        <EditIcon onClick={() => handleEdit(elem.id)} />
                       </IconButton>
                       Edit
                     </MenuItem>
                     <MenuItem onClick={handleClose}>
-                      <IconButton>
+                      <IconButton size='medium' id='tool-menu-icon'>
                         <DeleteIcon />
-                      </IconButton>Delete</MenuItem>
+                      </IconButton>Delete
+                    </MenuItem>
                   </Menu>
                 </TableCell>
               </TableRow>

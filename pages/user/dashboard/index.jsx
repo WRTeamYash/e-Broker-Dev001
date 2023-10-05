@@ -79,7 +79,7 @@ const index = () => {
 
                                     <div id='dashboard_user'>
                                         <div>
-                                            <h1 className="card-title">hy, {userData}</h1>
+                                            <span className="dashboard_user_title">hy, {userData}</span>
                                             <p className="card-text">Manage your profile and view property</p>
                                         </div>
                                     </div>

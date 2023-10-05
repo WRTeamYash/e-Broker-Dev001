@@ -5399,6 +5399,13 @@ font-size: 15px;
   border-radius: 8px;
   padding: 0 10px;
 }
+.add_prop_fields .prop_textbox_input {
+  border: none;
+  background-color: var(--primary-background);
+  height: 4vh;
+  border-radius: 8px;
+  padding: 0 10px;
+}
 .add_prop_fields .prop_textarea_input {
   border: none;
   background-color: var(--primary-background);
@@ -5414,6 +5421,10 @@ font-size: 15px;
   outline: none;
 }
 .add_prop_fields .prop_textarea_input:focus-visible {
+  border: none;
+  outline: none;
+}
+.add_prop_fields .prop_textbox_input:focus-visible {
   border: none;
   outline: none;
 }

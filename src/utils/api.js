@@ -24,15 +24,15 @@ export const getUserID = () => {
     let user = store.getState()?.User_signup
     if (user) {
         try {
-           return user?.data?.data?.id
+            return user?.data?.data?.id
         } catch (error) {
             return null;
         }
-    }else{
+    } else {
         return null
     }
-    
-  }
+
+}
 
 
 
@@ -257,7 +257,7 @@ export const getPackages = () => {
         url: `${GET_PACKAGES}`,
         method: "GET",
         params: {
-            current_user:getuserid
+            current_user: getuserid
         },
         authorizationHeader: false,
     }
@@ -274,7 +274,7 @@ export const getPaymentSettings = () => {
 }
 
 // CREATEPAYMENT
-export const createPaymentIntent = (description,name,address1,postalcode,city,state,country,amount,currency,card,packageID) => {
+export const createPaymentIntent = (description, name, address1, postalcode, city, state, country, amount, currency, card, packageID) => {
     let data = new FormData();
     data.append("description", description);
     data.append("shipping[name]", name);
@@ -296,10 +296,10 @@ export const createPaymentIntent = (description,name,address1,postalcode,city,st
 }
 
 // CONFIRMPAYMENT
-export const confirmPayment= (paymentIntentId) => {
+export const confirmPayment = (paymentIntentId) => {
     let data = new FormData();
     data.append("paymentIntentId", paymentIntentId);
-   
+
     return {
         url: `${CONFIRMPAYMENT}`,
         method: "POST",
@@ -308,8 +308,7 @@ export const confirmPayment= (paymentIntentId) => {
     }
 }
 // POST PROPERTY
-
-export const postProperty = (userid,package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters,title_image,threeD_image,gallery_images) => {
+export const postProperty = (userid, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images) => {
     let data = new FormData();
 
     // Append the property data to the FormData object
@@ -328,21 +327,30 @@ export const postProperty = (userid,package_id, title, description, city, state,
     data.append('property_type', property_type);
     data.append('video_link', video_link);
 
-  // Append the parameters array if it is an array
-if (Array.isArray(parameters)) {
-    parameters.forEach((parameter, index) => {
-        data.append(`parameters[${index}][parameter_id]`, parameter.parameter_id);
-        data.append(`parameters[${index}][value]`, parameter.value);
-        data.append(`parameters[${index}][facility_id]`, parameter.facility_id);
-        data.append(`parameters[${index}][distance]`, parameter.distance);
-    });
-}
-
-    data.append('title_image', title_image);  
+    // Append the parameters array if it is an array
+    if (Array.isArray(parameters)) {
+        parameters.forEach((parameter, index) => {
+            data.append(`parameters[${index}][parameter_id]`, parameter.parameter_id);
+            data.append(`parameters[${index}][value]`, parameter.value);
+        });
+    }
+    // Append the facilities array if it is an array
+    if (Array.isArray(facilities)) {
+        facilities.forEach((facility, index) => {
+            data.append(`facilities[${index}][facility_id]`, facility.facility_id);
+            data.append(`facilities[${index}][distance]`, facility.distance);
+        });
+    }
+    data.append('title_image', title_image);
     data.append('threeD_image', threeD_image);
-    gallery_images.forEach((image, index) => {
-        data.append(`gallery_images[${index}]`, image);
-    });
+
+    // Check if gallery_images is defined and an array before using forEach
+    if (Array.isArray(gallery_images)) {
+        gallery_images.forEach((image, index) => {
+            data.append(`gallery_images[${index}]`, image);
+        });
+    }
+
 
     return {
         url: `${POST_PROPERTY}`,
@@ -351,6 +359,7 @@ if (Array.isArray(parameters)) {
         authorizationHeader: true,
     };
 };
+
 
 // GET_COUNT_BY_CITIES_CATEGORIS
 export const getFacilities = () => {

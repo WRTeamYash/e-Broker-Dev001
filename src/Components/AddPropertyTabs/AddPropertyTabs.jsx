@@ -104,12 +104,7 @@ export default function AddPropertyTabs() {
     const [tab3, setTab3] = useState({
 
     })
-    // const [tab4, setTab4] = useState({
-    //     city: '',
-    //     state: '',
-    //     country: '',
-    //     address: '',
-    // })
+
     const [tab5, setTab5] = useState({
         titleImage: [],
         _3DImages: [],
@@ -489,9 +484,34 @@ export default function AddPropertyTabs() {
             // Display a toast message if Title Image is not selected
             toast.error('Please select a Title Image');
         } else {
-            // Proceed with form submission
             console.log("while I submitted all data", tab1, tab2, tab3, selectedLocationAddress, tab5);
+            const parameters = [];
+            const facilities = [];
 
+            // Assuming tab2 contains parameter data
+            for (const [key, value] of Object.entries(tab2)) {
+                parameters.push({
+                    "parameter_id": key,
+                    "value": value,
+                    // You may need to adjust these fields based on your data structure
+                });
+            }
+
+            // Assuming tab3 contains facility data
+            // Assuming tab2 contains parameter data
+            for (const [key, value] of Object.entries(tab3)) {
+                facilities.push({
+                    "facility_id": key,
+                    "distance": value,
+                    // You may need to adjust these fields based on your data structure
+                });
+                console.log("when i push to facility ", facilities)
+            }
+            // Concatenate parameters and facilities into the allParameters array
+            // const allParameters = [...parameters, ...facilities];
+
+            // console.log("allParameters", allParameters);
+            // Rest of your code remains the same
 
             PostProperty(
                 userId,
@@ -508,25 +528,23 @@ export default function AddPropertyTabs() {
                 tab1.category,
                 tab1.propertyType,
                 tab5.videoLink,
-                "",
+                parameters, // Pass the combined parameters as "allParameters"
+                facilities,
                 tab5.titleImage[0],
                 tab5._3DImages[0],
                 tab5.galleryImages,
                 (response) => {
-                    console.log(response)
-                    toast.success(response.message)
-                    router.push('/user/dashboard')
-
+                    console.log(response);
+                    toast.success(response.message);
+                    router.push('/user/dashboard');
                 },
                 (error) => {
-                    console.log(error)
-                    toast.error(error)
+                    console.log(error);
+                    toast.error(error);
                 }
-
-            )
+            );
         }
     }
-
 
 
 
@@ -680,6 +698,7 @@ export default function AddPropertyTabs() {
                                         ) : ele.type_of_parameter === 'textbox' ? (
                                             <input
                                                 type="text"
+                                                className='prop_textbox_input'
                                                 id={`textbox_${ele.id}`}
                                                 value={tab2[ele.id] || ''}
                                                 onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}

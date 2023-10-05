@@ -158,9 +158,9 @@ export const GetFacilitiesApi = (onSuccess, onError, onStart) => {
     }))
 }
 
-export const PostProperty = (userid,package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters,title_image,threeD_image,gallery_images, onSuccess, onError, onStart) => {
+export const PostProperty = (userid,package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters,facilities,title_image,threeD_image,gallery_images, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
-        ...postProperty(userid,package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters,title_image,threeD_image,gallery_images),
+        ...postProperty(userid,package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters,facilities,title_image,threeD_image,gallery_images),
         displayToast: false,
         onStart,
         onSuccess,

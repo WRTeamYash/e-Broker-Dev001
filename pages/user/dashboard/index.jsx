@@ -63,7 +63,14 @@ const index = () => {
             }
         );
     }, [offsetdata, isLoggedIn]);
+    const handlePageChange = (selectedPage) => {
 
+        const newOffset = selectedPage.selected * limit;
+        setOffsetdata(newOffset);
+        window.scrollTo(0, 0);
+        // console.log("new offset", newOffset)
+        // console.log("limit", limit)
+    };
 
     return (
 
@@ -120,7 +127,10 @@ const index = () => {
                     </div>
                     <div className="col-12">
 
-                        <PropertyListingTable data={getFeaturedListing} />
+                        <PropertyListingTable data={getFeaturedListing} 
+                        handlePageChange={handlePageChange} 
+                        total={total} 
+                        limit={limit}/>
 
                     </div>
                 </div>

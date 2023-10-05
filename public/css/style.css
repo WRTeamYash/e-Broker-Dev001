@@ -5254,7 +5254,23 @@ a {
   align-items: flex-start;
   height: 100%;
   margin: 0 20px;
+  flex-wrap: wrap;
 }
+#dashboard_user .dashboard_user_title{
+  font-size: 30px;
+  font-weight: 600;
+}
+
+@media only screen and (max-width:767px) {
+#dashboard_user .dashboard_user_title{
+  font-size: 25px;
+  font-weight: 600;
+}
+#dashboard_user div p {
+font-size: 15px;
+}
+}
+
 #dashboard_user div p {
   color: var(--primary-text-color01);
 }
@@ -5916,4 +5932,12 @@ a {
   border-radius: 8px;
   padding: 12px 15px;
   border: none;
+}
+#simple-menu .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
+  box-shadow: none;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root{
+  color: var(--primary-color) !important;
 }

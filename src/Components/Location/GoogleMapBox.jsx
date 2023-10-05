@@ -3,7 +3,7 @@ import { GoogleMap, LoadScript, Marker, Autocomplete } from '@react-google-maps/
 
 const GoogleMapBox = ({ onSelectLocation, apiKey }) => {
     const libraries = ['places'];
-    const [initialLocation, setInitialLocation] = useState({ lat: 0, lng: 0 });
+    const [initialLocation, setInitialLocation] = useState({ lat: 23.2420, lng: 69.6969 });
     const [location, setLocation] = useState(initialLocation);
     const [mapError, setMapError] = useState(null);
     const [searchText, setSearchText] = useState('');

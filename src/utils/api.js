@@ -16,7 +16,8 @@ const GET_PACKAGES = "get_package";
 const GET_PAYMENT_SETTINGS = "get_payment_settings";
 const CREATEPAYMENT = "createPaymentIntent";
 const CONFIRMPAYMENT = "confirmPayment"
-
+const POST_PROPERTY = "post_property"
+const GET_FACILITITES = "get_facilities"
 
 // is login user check
 export const getUserID = () => {
@@ -32,8 +33,7 @@ export const getUserID = () => {
     }
     
   }
-const POST_PROPERTY = "post_property"
-const GET_FACILITITES = "get_facilities"
+
 
 
 // GET SETTINGS

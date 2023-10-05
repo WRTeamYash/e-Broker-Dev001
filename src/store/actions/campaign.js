@@ -1,5 +1,4 @@
 import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav,getPackages,getPaymentSettings,createPaymentIntent,confirmPayment, getFacilities, postProperty } from "@/utils/api";
-
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 

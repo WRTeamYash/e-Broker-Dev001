@@ -4307,9 +4307,9 @@ a {
 }
 
 #subscription #current_package_card .other_card_title {
-  background-color: #087c7c !important;
+  background-color: #FFFFFF14 !important;
   border-radius: 8px !important;
-  box-shadow: 1px 1px 5px 5px #026767;
+  /* box-shadow: 1px 1px 5px 5px #FFFFFF14; */
   opacity: 1;
 }
 
@@ -4387,7 +4387,7 @@ a {
   border-radius: 12px;
 }
 #subscription #package_headlines .other_card_title {
-  background: var(--primary-color);
+  background: #FFFFFF14;
   width: 160px;
   color: var(--primary-text-color01);
   padding: 10px 20px;

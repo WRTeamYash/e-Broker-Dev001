@@ -187,7 +187,7 @@ const page = () => {
             priceData.id,
             (res) => {
                 setclientKey(res?.data);
-                 // on confirm close modal
+                // on confirm close modal
                 setStripeFormModal(false)
                 setPaymentModal(true);
             },
@@ -196,7 +196,7 @@ const page = () => {
             }
         );
 
-       
+
     };
 
     // error
@@ -209,7 +209,7 @@ const page = () => {
 
     // Packages with is_active === 1 come first
     const sortedPackageData = packagedata.sort((a, b) => {
-      return b.is_active - a.is_active;
+        return b.is_active - a.is_active;
     });
 
     return (
@@ -218,16 +218,18 @@ const page = () => {
 
             <section id="subscription" className="mb-5">
                 <div className="container">
-                    <span className="headline" data-aos="fade-right" data-aos-duration="1000">
-                        {translate("chooseA")}{" "}
-                        <span>
-                            <span className="highlight" data-aos="fade-left" data-aos-duration="5000">
-                                {" "}
-                                {translate("plan")}
-                            </span>
-                        </span>{" "}
-                        {translate("thatsRightForYou")}
-                    </span>
+                    <div data-aos="fade-right" data-aos-duration="3000">
+                        <span className="headline" >
+                            {translate("chooseA")}{" "}
+                            <span>
+                                <span className="highlight">
+                                    {" "}
+                                    {translate("plan")}
+                                </span>
+                            </span>{" "}
+                            {translate("thatsRightForYou")}
+                        </span>
+                    </div>
 
                     <div className="subsCards-Wrapper pt-3">
                         {/* this is for packages buy */}

@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { translate } from '@/utils';
-import { GetCategorieApi, GetFacilitiesApi, PostProperty } from '@/store/actions/campaign';
+import { GetCategorieApi, GetFacilitiesApi, GetLimitsApi, PostProperty } from '@/store/actions/campaign';
 import GoogleMapBox from '../Location/GoogleMapBox';
 import Dropzone, { useDropzone } from 'react-dropzone';
 import CloseIcon from '@mui/icons-material/Close';
@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import { userSignUpData } from '@/store/reducer/authSlice';
 import { useRouter } from 'next/router';
+import Swal from 'sweetalert2';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -61,6 +62,8 @@ export default function AddPropertyTabs() {
     const [galleryImages, setGalleryImages] = useState([]); // State to store uploaded images
     const [categoryParameters, setCategoryParameters] = useState([]);
     const [selectedLocationAddress, setSelectedLocationAddress] = useState('');
+    const [getlimitsData, setGetLimitsData] = useState();
+    
     // Set your initial location here
 
     // const [formData, setFormData] = useState({
@@ -87,7 +90,7 @@ export default function AddPropertyTabs() {
     const PackageData = useSelector(settingsData)
     const userData = useSelector(userSignUpData)
     const userId = userData?.data?.data?.id
-    const packageId = PackageData?.package?.user_purchased_package[0]?.id
+    const packageId = PackageData?.package?.user_purchased_package[0]?.package_id
 
 
 
@@ -131,6 +134,22 @@ export default function AddPropertyTabs() {
                 const facilitiyData = response && response.data;
                 // console.log(facilitiyData)
                 setGetFacilities(facilitiyData);
+
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }, []);
+    useEffect(() => {
+        console.log("current package id",packageId)
+        GetLimitsApi(
+            packageId,
+            (response) => {
+                console.log(response)
+                const limitsData = response && response.data;
+                console.log(limitsData)
+                setGetLimitsData(limits);
 
             },
             (error) => {
@@ -483,7 +502,18 @@ export default function AddPropertyTabs() {
         } else if (uploadedImages.length === 0) {
             // Display a toast message if Title Image is not selected
             toast.error('Please select a Title Image');
-        } else {
+        } else if (packageId === undefined){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You have not subscribed. Please subscribe first',
+                
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    router.push('/subscription-plan'); // Redirect to the subscription page
+                }
+            });
+        }else {
             console.log("while I submitted all data", tab1, tab2, tab3, selectedLocationAddress, tab5);
             const parameters = [];
             const facilities = [];
@@ -515,7 +545,7 @@ export default function AddPropertyTabs() {
 
             PostProperty(
                 userId,
-                packageId,
+                packageId ? packageId : "",
                 tab1.title,
                 tab1.propertyDesc,
                 selectedLocationAddress.city,
@@ -535,8 +565,36 @@ export default function AddPropertyTabs() {
                 tab5.galleryImages,
                 (response) => {
                     console.log(response);
-                    toast.success(response.message);
-                    router.push('/user/dashboard');
+
+                    if(response.message === "Package not found"){
+                        toast.error(response.message);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'You have not subscribed. Please subscribe first',
+                            
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                router.push('/subscription-plan'); // Redirect to the subscription page
+                            }
+                        });
+                    }else if(response.message === "Package Limit is over") {
+                        // toast.error(response.message);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Your Package Limit is Over. Please Purchase Package.',
+                            confirmButtonColor: '#087c7c',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                router.push('/subscription-plan'); // Redirect to the subscription page
+                            }
+                        });
+                    }else{
+                        toast.success(response.message);
+                        router.push('/user/dashboard');
+                    }
+                   
                 },
                 (error) => {
                     console.log(error);

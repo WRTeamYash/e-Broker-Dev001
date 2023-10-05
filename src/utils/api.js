@@ -18,6 +18,7 @@ const CREATEPAYMENT = "createPaymentIntent";
 const CONFIRMPAYMENT = "confirmPayment"
 const POST_PROPERTY = "post_property"
 const GET_FACILITITES = "get_facilities"
+const GET_LIMITS = "get_limits"
 
 // is login user check
 export const getUserID = () => {
@@ -370,6 +371,19 @@ export const getFacilities = () => {
 
         },
         authorizationHeader: false,
+
+    }
+}
+
+// GET_COUNT_BY_CITIES_CATEGORIS
+export const getLimits = (id) => {
+    return {
+        url: `${GET_LIMITS}`,
+        method: "GET",
+        params: {
+            id:id
+        },
+        authorizationHeader: true,
 
     }
 }

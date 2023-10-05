@@ -1,4 +1,4 @@
-import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav,getPackages,getPaymentSettings,createPaymentIntent,confirmPayment, getFacilities, postProperty } from "@/utils/api";
+import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav,getPackages,getPaymentSettings,createPaymentIntent,confirmPayment, getFacilities, postProperty, getLimits } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
@@ -161,6 +161,16 @@ export const GetFacilitiesApi = (onSuccess, onError, onStart) => {
 export const PostProperty = (userid,package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters,facilities,title_image,threeD_image,gallery_images, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
         ...postProperty(userid,package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters,facilities,title_image,threeD_image,gallery_images),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+// GET LIMITS API
+export const GetLimitsApi = (id,onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...getLimits(id),
         displayToast: false,
         onStart,
         onSuccess,

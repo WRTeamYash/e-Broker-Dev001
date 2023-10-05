@@ -106,7 +106,7 @@ const PropertieDeatils = () => {
         if (imageURL && imageURL) {
             pannellum?.viewer('panorama', {
                 "type": "equirectangular",
-                "panorama": imageURL && imageURL  ,
+                "panorama": imageURL && imageURL,
                 "autoLoad": true
             });
         }
@@ -152,7 +152,7 @@ const PropertieDeatils = () => {
         id: 'google-map-script',
         googleMapsApiKey: GoogleMapApiKey,
         libraries: ['geometry', 'drawing'],
-      });
+    });
     return (
         <>
 
@@ -171,7 +171,7 @@ const PropertieDeatils = () => {
 
                 <div id='all-prop-deatil-containt'>
                     <div className='container'>
-                        {galleryPhotos && galleryPhotos.length > 0 && (
+                        {galleryPhotos && galleryPhotos.length > 0 ? (
                             <div className="row" id="prop-images">
                                 {galleryPhotos.length === 1 ? (
                                     <div className="col-12" id="prop-main-image01">
@@ -204,71 +204,85 @@ const PropertieDeatils = () => {
                                     </>
                                 )}
                             </div>
-                        )}
+                        ) : null}
                         <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={closeLightbox} />
+
+
                         <div className='row' id='prop-all-deatils-cards'>
+
+
                             <div className='col-12 col-md-12 col-lg-9' id='prop-deatls-card'>
-                                <div className="card about-propertie">
-                                    <div className="card-header">
-                                        {translate("aboutProp")}
-                                    </div>
-                                    <div className="card-body">
-                                        {getPropData && getPropData.description && (
-                                            <>
-                                                <p>
-                                                    {expanded
-                                                        ? getPropData.description
-                                                        : getPropData.description.substring(0, 100) + '...'}
-                                                </p>
-                                                {getPropData.description.length > 100 && (
-                                                    <button onClick={() => setExpanded(!expanded)}>
-                                                        {expanded ? 'Show Less' : 'Show More'}
-                                                        <AiOutlineArrowRight className="mx-2" size={18} />
-                                                    </button>
-                                                )}
-                                            </>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="card " id='features-amenities'>
-                                    <div className="card-header">
-                                        {translate("feature&Amenties")}
-                                    </div>
-                                    <div className="card-body">
-
-                                        <div className="row">
+                                {getPropData && getPropData.description ? (
 
 
-                                            {getPropData && getPropData.parameters && getPropData.parameters.map((elem, index) => (
-                                                // Check if the value is an empty string
-                                                (elem.value !== "" && elem.value !== "0") ? (
-                                                    <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
-                                                        <div id='specification'>
-                                                            <div className='spec-icon'>
-                                                                <img src={elem.image} width={20} height={16} />
-                                                            </div>
-                                                            <div id='specs-deatils'>
-                                                                <div>
-                                                                    <span>{elem.name}</span>
+                                    <div className="card about-propertie">
+                                        <div className="card-header">
+                                            {translate("aboutProp")}
+                                        </div>
+                                        <div className="card-body">
+                                            {getPropData && getPropData.description && (
+                                                <>
+                                                    <p>
+                                                        {expanded
+                                                            ? getPropData.description
+                                                            : getPropData.description.substring(0, 100) + '...'}
+                                                    </p>
+                                                    {getPropData.description.length > 100 && (
+                                                        <button onClick={() => setExpanded(!expanded)}>
+                                                            {expanded ? 'Show Less' : 'Show More'}
+                                                            <AiOutlineArrowRight className="mx-2" size={18} />
+                                                        </button>
+                                                    )}
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
+                                ) : null
+                                }
+
+                                {getPropData && getPropData.parameters ? (
+
+                                    <div className="card " id='features-amenities'>
+                                        <div className="card-header">
+                                            {translate("feature&Amenties")}
+                                        </div>
+                                        <div className="card-body">
+
+                                            <div className="row">
+
+
+                                                {getPropData && getPropData.parameters && getPropData.parameters.map((elem, index) => (
+                                                    // Check if the value is an empty string
+                                                    (elem.value !== "" && elem.value !== "0") ? (
+                                                        <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
+                                                            <div id='specification'>
+                                                                <div className='spec-icon'>
+                                                                    <img src={elem.image} width={20} height={16} />
                                                                 </div>
-                                                                <div className='valueDiv'>
-                                                                    {/* Check if the value is a link */}
-                                                                    {typeof elem.value === 'string' && elem.value.startsWith('https://') ? (
-                                                                        <a id='spacs-count' href={elem.value} target="_blank" rel="noopener noreferrer">
-                                                                            {elem.value}
-                                                                        </a>
-                                                                    ) : (
-                                                                        <span id='spacs-count'>{elem.value}</span>
-                                                                    )}
+                                                                <div id='specs-deatils'>
+                                                                    <div>
+                                                                        <span>{elem.name}</span>
+                                                                    </div>
+                                                                    <div className='valueDiv'>
+                                                                        {/* Check if the value is a link */}
+                                                                        {typeof elem.value === 'string' && elem.value.startsWith('https://') ? (
+                                                                            <a id='spacs-count' href={elem.value} target="_blank" rel="noopener noreferrer">
+                                                                                {elem.value}
+                                                                            </a>
+                                                                        ) : (
+                                                                            <span id='spacs-count'>{elem.value}</span>
+                                                                        )}
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                ) : null
-                                            ))}
+                                                    ) : null
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+
+                                ) : null}
                                 {getPropData && getPropData.latitude && getPropData.longitude ? (
                                     <div className='card' id='propertie_address'>
                                         <div className="card-header">
@@ -282,7 +296,7 @@ const PropertieDeatils = () => {
                                                     </div>
                                                     <div className=''>
                                                         <span> {translate("city")}</span>
-                                                        slug                 </div>
+                                                    </div>
                                                     <div className=''>
                                                         <span> {translate("state")}</span>
                                                     </div>

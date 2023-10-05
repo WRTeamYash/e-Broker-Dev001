@@ -1099,7 +1099,7 @@ body {
   padding: 10px 20px;
 }
 .icon {
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 .icon01 {
   margin-right: 10px;
@@ -1285,42 +1285,26 @@ button.learn-more .circle {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   box-shadow: 0 0 5px 1px white;
   position: relative;
-  display: block;
-  margin: 0;
   width: 3rem;
   text-align: center;
   height: 3rem;
   background: #fff;
   border: 7px solid #282936;
   border-radius: 1.625rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 button.learn-more .circle .icon {
   transition: background 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  background: var(--primary-text-color02) !important;
 }
 
 button.learn-more .circle .icon.arrow {
-  left: 0.625rem;
-  width: 1.125rem;
-  height: 0.125rem;
-  background: none;
+  display: flex;
 }
 
 button.learn-more .circle .icon.arrow::before {
-  position: absolute;
-  content: "";
-  top: -4px;
-  right: 0.0625rem;
-  width: 0.625rem;
-  height: 0.625rem;
-  border-top: 0.125rem solid var(--primary-text-color02);
-  border-right: 0.125rem solid var(--primary-text-color02);
-  transform: rotate(45deg);
   transition: border 0.45s cubic-bezier(0.65, 0, 0.076, 1);
 }
 
@@ -1341,29 +1325,23 @@ button.learn-more .button-text {
 }
 
 #viewall:hover .circle {
-  width: 15rem;
+  width: 100%;
   box-shadow: 0 0 10px 2px white;
   background: #282436;
 }
 
-#viewall:hover .icon {
-  background: var(--primary-text-color01) !important;
-  left: -11.400rem;
-}
-#viewall:hover .icon_div {
-  background: var(--primary-text-color02) !important;
-
-}
-
-#viewall:hover .icon.arrow::before {
-  border-top: 0.125rem solid var(--primary-text-color01);
-  border-right: 0.125rem solid var(--primary-text-color01);
-}
-
-
 #viewall:hover .circle .icon.arrow {
   background: var(--primary-text-color01);
-  transform: translate(12rem, 0);
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
 }
 
 #viewall:active .circle .icon.arrow {

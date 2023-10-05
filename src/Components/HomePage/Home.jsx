@@ -416,7 +416,7 @@ const HomePage = () => {
                                                         <button className="learn-more" id="viewall">
                                                             <span aria-hidden="true" className="circle">
                                                                 <div className='icon_div'>
-                                                                    <span className="icon arrow"></span>
+                                                                    <span className="icon arrow"><BsArrowRight/></span>
                                                                 </div>
                                                             </span>
                                                             <span className="button-text">{translate("seeAllProp")}</span>

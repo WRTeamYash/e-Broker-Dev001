@@ -9,7 +9,7 @@ const CategoryCard = ({ ele }) => {
 
 
 const DummyImgData = useSelector(settingsData)
-const PlaceHolderImg = DummyImgData.img_placeholder
+const PlaceHolderImg = DummyImgData?.img_placeholder
     return (
         <div className='Category_card'>
             <Card id='main_aprt_card'>

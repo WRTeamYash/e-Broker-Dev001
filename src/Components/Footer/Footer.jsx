@@ -24,38 +24,55 @@ const Footer = () => {
     return (
         <section id='footer'>
             <div className='container'>
-                <div className='row' id='footer_deatils'>
+                <div className='row py-5' id='footer_deatils'>
                     <div className='col-12 col-md-6 col-lg-3' >
                         <div id='footer_logo_section'>
                             <Link href="/">
-                                <img src={eBroker.src} alt="eBroker_logo"/>
+                                <img src={eBroker.src} alt="eBroker_logo" />
                             </Link>
-                            <div>
-                                <FiMail size={25} /> <span className='footer_span'>{translate("email")}</span> <br />
-                                <span className='footer_span_value'>{webdata && webdata.company_email}</span>
+                            <div className='footer_contact_us'>
+                                <div>
+                                    <FiMail size={25} />
+                                </div>
+                                <div className="footer_contactus_deatils">
+                                    <span className='footer_span'>{translate("email")}</span>
+
+                                    <span className='footer_span_value'>{webdata && webdata.company_email}</span>
+                                </div>
                             </div>
-                            <div>
-                                <FiPhone size={25} /> <span className='footer_span'>{translate("contactOne")}</span> <br />
-                                <span className='footer_span_value'>{webdata && webdata.company_tel1}</span>
+                            <div className='footer_contact_us'>
+                                <div>
+                                    <FiPhone size={25} />
+                                </div>
+                                <div className="footer_contactus_deatils">
+                                    <span className='footer_span'>{translate("contactOne")}</span>
+                                    <span className='footer_span_value'>{webdata && webdata.company_tel1}</span>
+
+                                </div>
                             </div>
-                            <div>
-                                <FiPhone size={25} /> <span className='footer_span'>{translate("contactTwo")}</span> <br />
-                                <span className='footer_span_value'>{webdata && webdata.company_tel2}</span>
+                            <div className='footer_contact_us'>
+                                <div>
+                                    <FiPhone size={25} />
+                                </div>
+                                <div className="footer_contactus_deatils">
+                                    <span className='footer_span'>{translate("contactTwo")}</span>
+                                    <span className='footer_span_value'>{webdata && webdata.company_tel2}</span>
+                                </div>
                             </div>
                             <div>
                                 <h4> {translate("followUs")}</h4>
                                 <div id='follow_us'>
-                                    <a href="https://www.facebook.com/wrteam.in/"  target="_blank">
-                                    <CiFacebook size={28} />
+                                    <a href="https://www.facebook.com/wrteam.in/" target="_blank">
+                                        <CiFacebook size={28} />
                                     </a>
-                                    <a href="https://www.instagram.com/wrteam.in"  target="_blank">
-                                    <AiOutlineInstagram size={28} />
+                                    <a href="https://www.instagram.com/wrteam.in" target="_blank">
+                                        <AiOutlineInstagram size={28} />
                                     </a>
                                     <a href="/">
-                                    <ImPinterest2 size={25} />
+                                        <ImPinterest2 size={25} />
                                     </a>
                                     <a href="https://in.linkedin.com/company/wrteam" target='_blank'>
-                                    <AiOutlineLinkedin size={28} />
+                                        <AiOutlineLinkedin size={28} />
                                     </a>
                                 </div>
                             </div>
@@ -142,14 +159,14 @@ const Footer = () => {
                             <div className='download_app_platforms'>
                                 <div id='playstore_logo'>
                                     <a href="https://play.google.com/store/apps/details?id=com.ebroker.wrteam" target='_blank'>
-                                    <img src={playstore.src} alt="" />
+                                        <img src={playstore.src} alt="" className='platforms_imgs' />
                                     </a>
                                 </div>
 
                                 <div id='appstore_logo'>
-                                <a href="https://testflight.apple.com/join/nrmIds1a" target='_blank'>
-                                    <img src={appstore.src} alt="" />
-                                </a>
+                                    <a href="https://testflight.apple.com/join/nrmIds1a" target='_blank'>
+                                        <img src={appstore.src} alt="" className='platforms_imgs' />
+                                    </a>
                                 </div>
                             </div>
                         </div>

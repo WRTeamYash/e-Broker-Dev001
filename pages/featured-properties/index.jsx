@@ -13,6 +13,7 @@ import { languageData } from '@/store/reducer/languageSlice';
 import Pagination from '@/Components/Pagination/ReactPagination'
 import Layout from '@/Components/Layout/Layout';
 
+
 const Index = () => {
 
     const lang = useSelector(languageData)
@@ -31,7 +32,6 @@ const Index = () => {
     const limit = 8;
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    // console.log(userCurrentId)
 
     // const pageCount = Math.ceil(total / limit); // Calculate the page count
 

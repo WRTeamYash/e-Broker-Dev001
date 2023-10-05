@@ -106,7 +106,7 @@ const SearchTab = ({ getCategories }) => {
         };
 
         localStorage.setItem('searchData', JSON.stringify(searchData));
-        console.log(searchData);
+        // console.log(searchData);
         setShowFilterModal(false); // Close the modal
 
         // Redirect to /search
@@ -114,11 +114,6 @@ const SearchTab = ({ getCategories }) => {
 
 
     };
-
-
-
-
-
 
 
     const handleClearFilter = () => {
@@ -213,7 +208,7 @@ const SearchTab = ({ getCategories }) => {
 
                             <div className='prop-location-modal'>
                                 <span>{translate("selectYourLocation")}</span>
-                                <LocationSearchBox onLocationSelected={handleLocationSelected} />
+                                {/* <LocationSearchBox onLocationSelected={handleLocationSelected} /> */}
                             </div>
                         </div>
                         <div className="second-grup">

@@ -63,7 +63,7 @@ function VerticalCard({ ele, onRemoveCard }) {
 
 
     const DummyImgData = useSelector(settingsData)
-    const PlaceHolderImg = DummyImgData.img_placeholder
+    const PlaceHolderImg = DummyImgData?.img_placeholder
 
 
     return (

@@ -5,13 +5,12 @@ import { RiCloseCircleLine } from 'react-icons/ri';
 //firebase
 import { authentication } from '../../utils/Firebase';
 import { toast } from 'react-hot-toast';
-
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-
 import { signupLoaded } from '../../store/reducer/authSlice'; // Update the import path as needed
-
 import { useRouter } from 'next/router';
 import { translate } from '@/utils';
+import { getMessaging, getToken } from "firebase/messaging";
+
 
 const OTPModal = ({ isOpen, onClose, phonenum }) => {
 
@@ -22,10 +21,11 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
     const [showLoader, setShowLoader] = useState(true);
     const [otpSent, setOTPSent] = useState(true); // Add a state to track OTP sent status
     const navigate = useRouter()
+    const [fcmToken, setFCMToken] = useState(null)
 
     const otpInputRef = useRef(null);
     const generateRecaptcha = () => {
-     
+
         if (!window.recaptchaVerifier) {
             window.recaptchaVerifier = new RecaptchaVerifier(authentication, 'recaptcha-container', {
                 'size': 'invisible'
@@ -57,11 +57,30 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                 window.confirmationResult = confirmationResult;
                 toast.success(translate("otpSentsuccess"))
                 setOTPSent(true); // Set OTP sent status to true
-                setShowLoader(false); 
+                setShowLoader(false);
             }).catch((error) => {
                 console.log(error)
+                let errorMessage = '';
+                switch (error.code) {
+                    case 'auth/too-many-requests':
+                        errorMessage = 'Too many requests. Please try again later.';
+                        break;
+                    case 'auth/invalid-phone-number':
+                        errorMessage = 'Invalid phone number. Please enter a valid phone number.';
+                        break;
+                    case 'auth/invalid-verification-code':
+                        errorMessage = 'Invalid OTP number. Please enter a valid OTP number.';
+                        break;
+                    default:
+                        errorMessage = 'An error occurred. Please try again.';
+                        break;
+                }
+                // display error message in a toast or alert
+                toast.error(errorMessage);
                 setShowLoader(false);
-            })
+
+
+            });
     }
     useEffect(() => {
 
@@ -78,11 +97,12 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         let confirmationResult = window.confirmationResult;
         confirmationResult.confirm(otp).then(async (result) => {
             // User verified successfully.
-
-            signupLoaded("", "", result.user.phoneNumber.replace("+", ""), "1", "", result.user.uid, "", "",
+            console.log(result)
+            signupLoaded("", "", result.user.phoneNumber.replace("+", ""), "1", "", result.user.uid, "", "", "test",
                 (res) => {
                     // console.log(res)
                     let signupData = res.data
+                    // console.log("==============", signupData)
                     // Show a success toast notification
                     setShowLoader(false);
                     // toast.success("please fill your personal deatils")
@@ -95,12 +115,10 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                             // signupData.address === "" ||
                             signupData.logintype === ""
                         ) {
-                            // If any field is empty, execute this block
-                            // console.log("open register");  // Log a message
-                            navigate.push("/user_register");  // Redirect to "/user_register"
+                     
+                            navigate.push("/user_register");  
                             onClose();  // Close the modal
                         } else {
-                            // If all fields have values, execute this block
                             toast.success(res.message);  // Show a success toast
                             onClose();  // Close the modal
                         }
@@ -108,15 +126,33 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
 
                 },
                 (err) => {
-                    setShowLoader(false);
-                    console.log(err)
-                    toast.error(err)
+                    console.log(error)
+
+                    // toast.error(err)
                 })
 
 
         }).catch((error) => {
             // Show an error toast notification
             console.log(error)
+            let errorMessage = '';
+            switch (error.code) {
+                case 'auth/too-many-requests':
+                    errorMessage = 'Too many requests. Please try again later.';
+                    break;
+                case 'auth/invalid-phone-number':
+                    errorMessage = 'Invalid phone number. Please enter a valid phone number.';
+                    break;
+                case 'auth/invalid-verification-code':
+                    errorMessage = 'Invalid OTP number. Please enter a valid OTP number.';
+                    break;
+                default:
+                    errorMessage = 'An error occurred. Please try again.';
+                    break;
+            }
+            // display error message in a toast or alert
+            toast.error(errorMessage);
+            setShowLoader(false);
         });
 
     }

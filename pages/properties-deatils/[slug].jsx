@@ -25,6 +25,7 @@ import { Modal, ModalGateway } from 'react-images'
 import Gallery from 'react-photo-gallery'
 import Lightbox from 'yet-another-react-lightbox'
 import LightBox from '@/Components/LightBox/LightBox'
+import { useJsApiLoader } from '@react-google-maps/api'
 
 
 
@@ -100,7 +101,7 @@ const PropertieDeatils = () => {
     }, [getPropData]);
 
     const DummyImgData = useSelector(settingsData)
-    const PlaceHolderImg = DummyImgData.img_placeholder
+    const PlaceHolderImg = DummyImgData?.img_placeholder
     useEffect(() => {
         if (imageURL && imageURL) {
             pannellum?.viewer('panorama', {
@@ -145,6 +146,13 @@ const PropertieDeatils = () => {
     // );
     // // console.log(photo)
     // // console.log(lightboxPhotos)
+
+
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: GoogleMapApiKey,
+        libraries: ['geometry', 'drawing'],
+      });
     return (
         <>
 
@@ -301,7 +309,7 @@ const PropertieDeatils = () => {
                                             </div>
                                             {getPropData ? (
                                                 <Card className='google_map'>
-                                                    {GoogleMapApiKey ? (
+                                                    {isLoaded ? (
                                                         <Map
                                                             latitude={getPropData.latitude}
                                                             longitude={getPropData.longitude}

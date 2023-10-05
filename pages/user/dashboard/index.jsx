@@ -53,10 +53,10 @@ const index = () => {
                 setTotal(response.total);
                 setView(response.total_clicks);
                 const FeaturedListingData = response.data;
-                console.log(FeaturedListingData)
+                // console.log(FeaturedListingData)
                 setIsLoading(false);
                 setGetFeaturedListing(FeaturedListingData);
-            },          
+            },
             (error) => {
                 setIsLoading(false);
                 console.log(error);
@@ -82,14 +82,17 @@ const index = () => {
                                             <h1 className="card-title">hy, {userData}</h1>
                                             <p className="card-text">Manage your profile and view property</p>
                                         </div>
-                                    </div>  
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-12 col-md-12 col-lg-4">
                                 <div className="card" id='dashboard_total_prop_card'>
                                     <div className="totalprop">
                                         <span>Total Properties</span>
-                                        <h4>{total}</h4>
+                                        {total > 0 ? (
+                                            <h4>{total}</h4>
+                                        ) :
+                                            <h4>0</h4>}
                                     </div>
                                     <div className="total_prop_icon">
                                         <span>
@@ -101,8 +104,10 @@ const index = () => {
                             <div className="col-12 col-md-12 col-lg-4">
                                 <div className="card" id='dashboard_total_prop_card'>
                                     <div className="totalprop">
-                                        <span>Total Reviews</span>
-                                        <h4>{view}</h4>
+                                        <span>Total Views</span>
+                                        {view > 0 ? (
+                                            <h4>{view}</h4>
+                                        ) : <h4>0</h4>}
                                     </div>
                                     <div className="total_prop_icon">
                                         <span>
@@ -114,7 +119,9 @@ const index = () => {
                         </div>
                     </div>
                     <div className="col-12">
-                        <PropertyListingTable data={getFeaturedListing}/>
+
+                        <PropertyListingTable data={getFeaturedListing} />
+
                     </div>
                 </div>
             </div>

@@ -14,7 +14,7 @@ body {
 }
 /* Swiper Slider  */
 .swiper {
-  padding-bottom: 50px !important;
+  padding-bottom: 80px !important;
 }
 /* Swiper Slider END */
 @media screen and (min-width: 1200px) {
@@ -57,6 +57,7 @@ body {
   position: relative;
   bottom: 10vh;
 }
+
 .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
 .swiper-pagination-horizontal.swiper-pagination-bullets
   .swiper-pagination-bullet {
@@ -467,7 +468,7 @@ body {
   width: 0;
   overflow: hidden;
 }
-[type="file"] + label {
+.select__profile [type="file"] + label {
   align-items: center;
   background: var(--primary-text-color02);
   border: 1px solid var(--primary-text-color01);
@@ -752,7 +753,7 @@ body {
   padding: 8px;
   border: 1px solid var(--primary-text-color02);
 }
-.posted-since .posted-duration-modal .form-check input:focus {
+.posted-since .posted-duration-modal .form-check input[type="radio"]:checked {
   background: #087c7c !important;
   border: 1px solid var(--primary-text-color01) !important;
   outline: 1px solid !important;
@@ -1006,19 +1007,38 @@ body {
   background: none !important;
 }
 /* .hero-slider-previous-button::before{
-  background-image: url(../../src/assets/ic_left_arrow.svg) !important;
+  background-image: url("../../src/assets/ic_left_arrow.svg") !important;
   background-repeat: no-repeat !important;
   position: absolute !important;
   content: "";
   background-size: cover; 
 } */
-.hero-slider-previous-button svg {
+/* .hero-slider-previous-button svg {
   width: 30px !important;
   height: 30px !important;
   color: var(--primary-text-color01) !important;
+  background-repeat: no-repeat !important;
   opacity: 1 !important;
   margin-left: 3px !important;
-  /* display: none; */
+} */
+.index-module_Wrapper__ZIVLd *:not(.index-module_Container__mtjRh), .index-module_Container__mtjRh * {
+  pointer-events: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 !important;
+  /* width: 100% !important; */
+}
+.index-module_Wrapper__ZIVLd *:not(.index-module_Container__mtjRh), .index-module_Container__mtjRh * {
+
+  pointer-events: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 !important;
+  /* width: 100% !important; */
 }
 .hero-slider-next-button {
   pointer-events: none !important;
@@ -1032,13 +1052,13 @@ body {
   width: 60px !important;
   height: 60px;
 }
-.hero-slider-next-button svg {
+/* .hero-slider-next-button svg {
   width: 30px !important;
   height: 30px !important;
   color: var(--primary-text-color01) !important;
   opacity: 1 !important;
   margin-left: 3px !important;
-}
+} */
 #priceteg {
   color: var(--primary-text-color01);
   background-color: var(--primary-color);
@@ -1242,7 +1262,6 @@ body {
 }
 
 /* animation  */
-
 #viewall {
   position: relative;
   display: inline-block;
@@ -1255,7 +1274,6 @@ body {
   padding: 0;
   font-size: inherit;
   font-family: inherit;
-  /* z-index: 99; */
 }
 
 button.learn-more {
@@ -1270,22 +1288,23 @@ button.learn-more .circle {
   display: block;
   margin: 0;
   width: 3rem;
+  text-align: center;
   height: 3rem;
-  background: #282936;
+  background: #fff;
+  border: 7px solid #282936;
   border-radius: 1.625rem;
 }
 
 button.learn-more .circle .icon {
-  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  transition: background 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
   bottom: 0;
   margin: auto;
-  background: var(--primary-text-color01);
+  background: var(--primary-text-color02) !important;
 }
 
 button.learn-more .circle .icon.arrow {
-  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   left: 0.625rem;
   width: 1.125rem;
   height: 0.125rem;
@@ -1299,9 +1318,10 @@ button.learn-more .circle .icon.arrow::before {
   right: 0.0625rem;
   width: 0.625rem;
   height: 0.625rem;
-  border-top: 0.125rem solid var(--primary-text-color01);
-  border-right: 0.125rem solid var(--primary-text-color01);
+  border-top: 0.125rem solid var(--primary-text-color02);
+  border-right: 0.125rem solid var(--primary-text-color02);
   transform: rotate(45deg);
+  transition: border 0.45s cubic-bezier(0.65, 0, 0.076, 1);
 }
 
 button.learn-more .button-text {
@@ -1323,11 +1343,23 @@ button.learn-more .button-text {
 #viewall:hover .circle {
   width: 15rem;
   box-shadow: 0 0 10px 2px white;
+  background: #282436;
 }
 
-#viewall:hover .button-text {
-  transform: translate(-1.7rem, 0);
+#viewall:hover .icon {
+  background: var(--primary-text-color01) !important;
+  left: -11.400rem;
 }
+#viewall:hover .icon_div {
+  background: var(--primary-text-color02) !important;
+
+}
+
+#viewall:hover .icon.arrow::before {
+  border-top: 0.125rem solid var(--primary-text-color01);
+  border-right: 0.125rem solid var(--primary-text-color01);
+}
+
 
 #viewall:hover .circle .icon.arrow {
   background: var(--primary-text-color01);
@@ -1353,6 +1385,54 @@ button.learn-more .button-text {
   color: rgba(255, 255, 255, 0.459);
 }
 
+#viewall_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  gap: 5px;
+  text-align: center;
+  margin: 0;
+  background: transparent;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#viewall_button .icon_div {
+  background: #fff;
+  border: 7px solid #282436;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+}
+
+#viewall_button:hover .icon_div {
+  background: #282436;
+  color: #fff;
+  transform: translateX(5px);
+}
+
+#viewall_button:hover .see_all_text {
+  color: #fff; /* Change text color on hover */
+}
+
+/* #viewall_button:hover{
+  gap: none;
+}
+#viewall_button:hover .icon_div {
+ 
+}
+#viewall_button:hover .see_all_text {
+  background: #282436;
+  padding: 7px 7px 7px 0;
+  color: #fff;
+  border-radius: 0 30px 30px 0;
+} */
 /* =========== ANIMATION ================== */
 
 .hovertext2 {
@@ -1385,6 +1465,7 @@ button.learn-more .button-text {
 .hovertext2:hover::before {
   width: 100%;
 }
+
 /* ========================================================*/
 
 .verticle_card {
@@ -2405,25 +2486,26 @@ div#article_card_footer .article_footer_text p {
   height: fit-content;
   color: white;
 }
-#main_footer {
-  margin: 0 8% 0 8%;
-}
 #footer_logo_section {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 #footer_deatils {
-  position: relative;
-  top: 4rem;
-  gap: 10px 0;
+  gap: 20px 0;
 }
 #footer a {
   font-size: 14px;
   color: #ffffffc2;
 }
-.footer_span_value {
-  margin-left: 28px;
+.footer_contact_us{
+  display: flex;
+  gap: 10px;
+}
+.footer_contactus_deatils{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 #follow_us {
   display: flex;
@@ -2467,7 +2549,7 @@ div#article_card_footer .article_footer_text p {
   gap: 30px;
 }
 .download_app_desc {
-  margin-top: 15px;
+  /* margin-top: 15px; */
   color: #ffffffc2;
 }
 .download_app_platforms {
@@ -2475,25 +2557,31 @@ div#article_card_footer .article_footer_text p {
   flex-direction: column;
   width: auto;
 }
-/* #playstore_logo {
-  margin: 10px 0 10px 15px;
-} */
+#playstore_logo {
+width: fit-content;
+}
 .playstore_desc {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   margin-left: 20px;
   display: flex;
   flex-direction: column;
 }
+.platforms_imgs{
+  width: 100%;
+}
 #span_headline {
   font-size: 14px;
+}
+.footer_span{
+  color: #FFFFFFC2;
 }
 .span_title {
   font-size: 26px;
   font-weight: 600;
 }
-/* #appstore_logo {
-  margin: 10px 0 10px 15px;
-} */
+#appstore_logo {
+ width: fit-content;
+}
 .appstore_desc {
   margin-top: 10px;
   margin-left: 20px;
@@ -2694,7 +2782,7 @@ option {
   padding: 8px;
   border: 1px solid var(--primary-text-color02);
 }
-.posted-since .posted-duration .form-check input:focus {
+.posted-since .posted-duration .form-check input[type="radio"]:checked{
   background: #087c7c !important;
   border: 1px solid var(--primary-text-color01) !important;
   outline: 1px solid !important;
@@ -5128,6 +5216,9 @@ a {
   align-items: center;
   padding: 0 20px;
 }
+.dashboard_titles {
+  padding: 20px 0;
+}
 #dashboard_top_card {
   gap: 20px 0;
 }
@@ -5171,6 +5262,9 @@ a {
 .fav_card .row {
   gap: 20px 0;
 }
+.profile_card .row {
+  gap: 20px 0;
+}
 
 #listing_card {
   display: flex;
@@ -5196,13 +5290,11 @@ a {
   padding: 10px;
 }
 #main_listing_img {
-  object-fit: cover;
   width: 150px;
-  height: auto;
   border-radius: 8px;
   position: relative;
+  aspect-ratio: 1/0.5;
 }
-
 .listing_type_tag {
   position: absolute;
   background-color: var(--primary-sell);
@@ -5289,9 +5381,10 @@ a {
   font-size: 20px;
   padding: 8px;
   border: 1px solid var(--primary-text-color02);
+  cursor: pointer;
 }
 
-.add_prop_fields .form-check input:focus {
+.add_prop_fields .form-check input[type="radio"]:checked{
   background: #087c7c !important;
   border: 1px solid var(--primary-text-color01) !important;
   outline: 1px solid !important;
@@ -5305,7 +5398,28 @@ a {
   border-radius: 8px;
   padding: 0 10px;
 }
+.add_prop_fields .prop_number_input {
+  border: none;
+  background-color: var(--primary-background);
+  height: 4vh;
+  border-radius: 8px;
+  padding: 0 10px;
+}
+.add_prop_fields .prop_textarea_input {
+  border: none;
+  background-color: var(--primary-background);
+  border-radius: 8px;
+  padding: 5px 10px;
+}
 .add_prop_fields #prop_title_input:focus-visible {
+  border: none;
+  outline: none;
+}
+.add_prop_fields .prop_number_input:focus-visible {
+  border: none;
+  outline: none;
+}
+.add_prop_fields .prop_textarea_input:focus-visible {
   border: none;
   outline: none;
 }
@@ -5353,6 +5467,327 @@ a {
   color: var(--primary-text-color01);
   border-radius: 8px;
 }
+.dropbox {
+  width: 100%;
+  background: var(--primary-background);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+.dropbox span {
+  font-weight: 100;
+  font-size: medium;
+  cursor: pointer;
+}
+.dropbox_img_div {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: rgb(0 0 0 / 10%);
+  border-radius: 12px;
+}
+.dropbox_gallary_img_div {
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+  position: relative;
+  background: rgb(0 0 0 / 10%);
+  border-radius: 12px;
+}
+.dropbox_img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+.dropbox_d {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3px;
+}
+.dropbox_remove_img {
+  background: var(--primary-text-color02);
+  color: var(--primary-text-color01);
+  border-radius: 50%;
+  border: none;
+  transition: border 0.3s, transform 0.3s;
+}
+
+.dropbox_remove_img:hover {
+  border: 2px solid black; /* Add a black border on hover */
+  /* border-radius: 50%; */
+  transform: scale(1.1); /* Zoom in on hover */
+}
+.dropbox_img_div .dropbox_d .dropbox_img_deatils {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.dropbox_gallary_img_div .dropbox_d .dropbox_img_deatils {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.dropbox_img_div .dropbox_d .dropbox_img_deatils span {
+  font-size: 10px;
+  color: var(--primary-text-color01);
+}
+.dropbox_gallary_img_div .dropbox_d .dropbox_img_deatils span {
+  font-size: 10px;
+  color: var(--primary-text-color01);
+}
+
+#personal_info_card .card-header,
+#about_me_card .card-header,
+#social_media_card .card-header {
+  background-color: transparent;
+  padding: 20px;
+}
+#personal_info_card .card-body,
+#about_me_card .card-body {
+  background-color: transparent;
+  padding: 20px;
+  min-height: 525px;
+}
+
+.add_profile_div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.add_profile_div .image_div {
+  width: 120px;
+  height: 120px;
+}
+.add_profile_div .image_div img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.add_profile input[type="file"] {
+  display: none;
+}
+.add_profile_div .add_profile button {
+  border: none;
+  background: #282f39;
+  padding: 5px 20px;
+  color: var(--primary-text-color01);
+  border-radius: 8px;
+  text-align: center;
+}
+.add_profile_div .add_profile p {
+  margin-top: 10px;
+  color: red;
+  font-size: smaller;
+}
+
+.add_user_fields_div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add_user_fields_div span {
+  font-size: small;
+  font-weight: bold;
+}
+.add_user_fields_div input {
+  background-color: var(--primary-background);
+  color: var(--primary-text-color02);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+}
+.add_user_fields_div input:focus-visible {
+  outline: none;
+}
+#search_location input {
+  background-color: var(--primary-background);
+  color: var(--primary-text-color02);
+  padding: 10px 20px;
+  border: none;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+#search_location input:focus-visible {
+  outline: 1px solid var(--primary-color);
+}
+.add_user_fields_div textarea {
+  background-color: var(--primary-background);
+  color: var(--primary-text-color02);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+}
+.add_user_fields_div textarea:focus-visible {
+  outline: none;
+}
+.submit_div {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+.submit_div button {
+  border: none;
+  border-radius: 8px;
+  padding: 15px 30px;
+  color: var(--primary-text-color01);
+  background: #282f39;
+}
+
+/* CSS */
+.paramters_row{
+  gap: 15px 0;
+}
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.custom-checkbox-input {
+  display: none; /* Hide the actual checkbox */
+}
+
+.custom-checkbox-label {
+  margin-left: 8px; /* Add some spacing between the custom checkbox and label */
+  cursor: pointer;
+  padding: 5px 20px;
+  border: 1px solid #ccc; /* Border color for the custom checkbox */
+  background-color: #fff; /* Background color for the custom checkbox */
+  border-radius: 4px; /* Rounded corners for the custom checkbox */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
+}
+
+.custom-checkbox-input:checked + .custom-checkbox-label {
+  background-color: var(--primary-color); /* Change background color when checked */
+  color: #fff; /* Change text color when checked */
+}
+
+
+
+
+
+/* Custom radio button styles */
+.custom-radio {
+  display: flex;
+  align-items: center;
+}
+
+.custom-radio-input {
+  display: none;
+}
+
+.custom-radio-label {
+  position: relative;
+  padding-left: 30px; /* Adjust as needed for your design */
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-radio-label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px; /* Adjust the size of the radio button */
+  height: 20px; /* Adjust the size of the radio button */
+  border: 2px solid #333; /* Border color */
+  border-radius: 50%; /* Makes it a circle */
+}
+
+.custom-radio-input:checked + .custom-radio-label::before {
+  background-color: var(--primary-color); /* Checked background color */
+  border-color: var(--primary-color); /* Checked border color */
+}
+
+/* Add styles to change the color of the label text when checked */
+.custom-radio-input:checked + .custom-radio-label {
+  color: #fff; /* Text color when checked */
+}
+
+
+
+
+
+/* Custom Dropdown Styles */
+.custom-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.custom-dropdown select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  appearance: none; /* Remove default select arrow */
+}
+
+.custom-dropdown select:focus {
+  outline: none;
+  border-color: var(--primary-color); /* Add focus border color */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add focus box shadow */
+}
+
+/* Style the dropdown arrow */
+.custom-dropdown::after {
+  content: '\25BC'; /* Unicode for down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Style dropdown options */
+.custom-dropdown select option {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Hover effect for options */
+.custom-dropdown select option:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+
+
+
+/* Custom File Input Styles */
+.custom-file-input {
+  display: none; /* Hide the actual file input */
+}
+
+.custom-file01-label {
+  background-color: var(--primary-color) !important; /* Set the background color */
+  color: #fff !important; /* Set the text color */
+  padding: 10px 15px !important; /* Add padding for spacing */
+  border-radius: 4px !important; /* Add border radius for rounded corners */
+  cursor: pointer !important; /* Add pointer cursor */
+  transition: background-color 0.3s !important; /* Add a transition for hover effect */
+
+  /* Center the label text vertically and horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-file-label:hover {
+  background-color: var(--secondary-color); /* Change the background color on hover */
+}
+
 /* .css-1r9jet7 {
   display: flex  !important;
   justify-content: space-between  !important;

@@ -8,21 +8,18 @@ import { useRouter } from 'next/router';
 import { loadUpdateData, signupLoaded, userSignUpData } from '../../src/store/reducer/authSlice'; // Update the import path as needed
 import { toast } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
-// import { update_profile } from '@/utils/api';
 import { UpdateProfileApi } from '@/store/actions/campaign';
-import { MdAddPhotoAlternate } from 'react-icons/md';
 import { AiOutlineCamera } from 'react-icons/ai';
 import dummyimg from "../../src/assets/Images/user_profile.png"
 import { languageData } from '@/store/reducer/languageSlice';
 import { translate } from '@/utils';
 import Layout from '@/Components/Layout/Layout';
 
-
 const index = () => {
     const navigate = useRouter()
     const signupData = useSelector(userSignUpData)
     // console.log("signup data", signupData)
-   
+
     const navigateToHome = () => {
         navigate.push("/");
     };
@@ -42,10 +39,10 @@ const index = () => {
 
     const lang = useSelector(languageData)
     // console.log("languageData",lang)
-      // useSelector(languageData)  
-      useEffect(()=>{
+    // useSelector(languageData)  
+    useEffect(() => {
         // console.log("render")
-      },[lang]);
+    }, [lang]);
     const handleOpenLocModal = () => {
         // onClose()
         setShowCurrentLoc(true)
@@ -66,8 +63,25 @@ const index = () => {
     // console.log("profile", image)
     const handleSubmitInfo = (e) => {
         e.preventDefault();
-        UpdateProfileApi(signupData.data.data.id, username, email, signupData.data.data.mobile, "3", address, signupData.data.data.firebase_id, "mobile", image, (res) => {
-            console.log(res)
+        UpdateProfileApi(
+            signupData.data.data.id, 
+            username, 
+            email,
+            signupData.data.data.mobile, 
+            "3",
+            address, 
+            signupData.data.data.firebase_id, 
+            "mobile", 
+            image,
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "", 
+         (res) => {
+            // console.log(res)
             // console.log(res.message)
             toast.success(res.message)
             loadUpdateData(res.data)
@@ -111,7 +125,7 @@ const index = () => {
                             <div className="card">
                                 <div className="card-header">
                                     <div className="card-title">
-                                    {translate("basicInfo")}
+                                        {translate("basicInfo")}
                                     </div>
                                 </div>
                                 <div className="card-body">
@@ -193,7 +207,7 @@ const index = () => {
                                 <div className="card-footer">
                                     <div className='basic_submit'>
                                         <button onClick={handleSubmitInfo}>
-                                        {translate("submit")}
+                                            {translate("submit")}
                                         </button>
                                     </div>
                                 </div>
@@ -204,8 +218,9 @@ const index = () => {
                     </div>
                 </div>
             </section>
-            {showCurrentLoc && <Location isOpen={true} onClose={handleCloseLocModal} onSelectLocation={handleSelectLocation}
-            />}
+            {/* {showCurrentLoc &&
+             <Location isOpen={true} onClose={handleCloseLocModal} onSelectLocation={handleSelectLocation}/>
+            } */}
         </Layout>
     )
 }

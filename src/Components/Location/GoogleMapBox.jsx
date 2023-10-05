@@ -1,43 +1,182 @@
-import React, { useState } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { settingsData } from '@/store/reducer/settingsSlice';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect, useRef } from 'react';
+import { GoogleMap, LoadScript, Marker, Autocomplete } from '@react-google-maps/api';
 
-const GoogleMapBox = ({ initialLocation, onSelectLocation }) => {
-
-    const GoogleMapData = useSelector(settingsData);
-  const GoogleMapApi = GoogleMapData.place_api_key;
-  const libraries = ['places'];
-
+const GoogleMapBox = ({ onSelectLocation, apiKey }) => {
+    const libraries = ['places'];
+    const [initialLocation, setInitialLocation] = useState({ lat: 0, lng: 0 });
     const [location, setLocation] = useState(initialLocation);
+    const [mapError, setMapError] = useState(null);
+    const [searchText, setSearchText] = useState('');
+    
+    // Declare autocomplete as a ref
+    const autocompleteRef = useRef(null);
+    
+    useEffect(() => {
+        setLocation(initialLocation);
+    }, [initialLocation]);
 
     const onMarkerDragStart = () => {
-        console.log("Marker drag started"); // Log when marker drag starts
+        // console.log("Marker drag started");
     };
 
     const onMarkerDragEnd = async (e) => {
-        console.log("Marker drag end"); // Log when marker drag ends
+        try {
+            // Perform reverse geocoding to get the address based on new coordinates
+            const reverseGeocodedData = await performReverseGeocoding(e.latLng.lat(), e.latLng.lng());
 
-        // Perform reverse geocoding and update the location state
-        // You can use the same logic from your original component
-        // ...
+            if (reverseGeocodedData) {
+                // Extract relevant information from reverse geocoding result
+                const { formatted_address, city, country, state } = reverseGeocodedData;
 
-        // After reverse geocoding, update the location state
-        setLocation({
-            lat: e.latLng.lat(),
-            lng: e.latLng.lng(),
-            formatted_address: formattedAddress, // Your formatted address logic
-            city: city, // Your city logic
-        });
-        onSelectLocation(location); // Notify the parent component
+                // Create a new location object with the updated values
+                const updatedLocation = {
+                    lat: e.latLng.lat(),
+                    lng: e.latLng.lng(),
+                    formatted_address: formatted_address,
+                    city: city,
+                    country: country,
+                    state: state,
+                };
+                // Update the initialLocation state with the new location
+                setInitialLocation(updatedLocation);
+
+                // Update the location state after the reverse geocoding is successful
+                setLocation(updatedLocation);
+
+                // Update the initialLocation prop with the new location
+                onSelectLocation(updatedLocation);
+            } else {
+                console.error("No reverse geocoding data available");
+            }
+        } catch (error) {
+            console.error("Error performing reverse geocoding:", error);
+        }
     };
+    const performReverseGeocoding = async (lat, lng) => {
+        try {
+            const response = await fetch(
+                `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
+            );
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch data. Status: ' + response.status);
+            }
+
+            const data = await response.json();
+
+            if (data.status === 'OK' && data.results && data.results.length > 0) {
+                const result = data.results[0];
+                const formatted_address = result.formatted_address;
+                const { city, country, state } = extractCityFromGeocodeResult(result);
+
+                return {
+                    formatted_address,
+                    city,
+                    country,
+                    state,
+                };
+            } else {
+                throw new Error('No results found');
+            }
+        } catch (error) {
+            console.error('Error performing reverse geocoding:', error);
+            return null;
+        }
+    };
+    const extractCityFromGeocodeResult = (geocodeResult) => {
+        let city = null;
+        let country = null;
+        let state = null;
+    
+        // Iterate through address components to find relevant information
+        for (const component of geocodeResult.address_components) {
+            if (component.types.includes("locality")) {
+                city = component.long_name;
+            } else if (component.types.includes("country")) {
+                country = component.long_name;
+            } else if (component.types.includes("administrative_area_level_1")) {
+                state = component.long_name;
+            }
+        }
+    
+        return { city, country, state };
+    };
+    
+
+    const handleMapLoadError = () => {
+        setMapError("Failed to load the map. Please check your API key and network connection.");
+    };
+   
+
+    const handleSearchTextChange = (e) => {
+        setSearchText(e.target.value);
+    };
+    const handlePlaceSelect = () => {
+        if (autocompleteRef.current && searchText.trim() !== '') {
+            const place = autocompleteRef.current.getPlace();
+            if (place.geometry) {
+                // Extract the formatted address or provide a fallback value
+                const formatted_address = place.formatted_address || "Address not available";
+    
+                const { city, country, state } = extractCityFromGeocodeResult(place);
+                const updatedLocation = {
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng(),
+                    formatted_address: formatted_address,
+                    city: city,
+                    country: country,
+                    state: state,
+                };
+                setSearchText(formatted_address);
+                // console.log("while searching that location", updatedLocation);
+                setLocation(updatedLocation);
+                onSelectLocation(updatedLocation);
+            } else {
+                console.error("No geometry available for selected place.");
+            }
+        }
+    };
+    
+
 
     return (
-        <LoadScript googleMapsApiKey="AIzaSyCwIJO3sTsgLVEE4bpHJty0osx_PT9cVS8" libraries={libraries}>
-            <GoogleMap zoom={11} center={location} mapContainerStyle={{ height: "400px" }}>
-                <Marker position={location} draggable={true} onDragStart={onMarkerDragStart} onDragEnd={onMarkerDragEnd} />
-            </GoogleMap>
-        </LoadScript>
+        <div>
+        {mapError ? (
+            <div>{mapError}</div>
+        ) : (
+            <LoadScript
+                googleMapsApiKey={apiKey}
+                libraries={libraries}
+                onError={handleMapLoadError}
+            >
+                <Autocomplete
+                    onLoad={(autocomplete) => {
+                        // Store the Autocomplete instance in the ref
+                        autocompleteRef.current = autocomplete;
+                    }}
+                    onPlaceChanged={handlePlaceSelect} // Handle place selection
+                >
+                    <div id='search_location'>
+                        <input
+                            type="text"
+                            placeholder="Search for a location"
+                            value={searchText}
+                            onChange={handleSearchTextChange}
+                           
+                        />
+                    </div>
+                </Autocomplete>
+                <GoogleMap zoom={11} center={location} mapContainerStyle={{ height: "350px" }}>
+                    <Marker
+                        position={location}
+                        draggable={true}
+                        onDragStart={onMarkerDragStart}
+                        onDragEnd={onMarkerDragEnd}
+                    />
+                </GoogleMap>
+            </LoadScript>
+        )}
+    </div>
     );
 };
 

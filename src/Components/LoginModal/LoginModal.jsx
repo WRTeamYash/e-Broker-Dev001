@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import 'react-phone-number-input/style.css'
@@ -8,6 +8,8 @@ import OTPModal from '../OTPModal/OTPModal';
 import validator from 'validator'
 import { toast } from 'react-hot-toast';
 import { translate } from '@/utils';
+import { getToken } from "firebase/messaging";
+import { messaging } from '@/utils/Firebase';
 
 const LoginModal = ({ isOpen, onClose }) => {
     const [showOtpModal, setShowOtpModal] = useState(false);
@@ -21,13 +23,14 @@ const LoginModal = ({ isOpen, onClose }) => {
                 setPhonenum(value);
                 onClose();
                 setShowOtpModal(true);
-                e.target.form.reset();
+                
             }
 
         }
     const handlOTPModalClose = () => {
         setShowOtpModal(false);
     };
+
     return (
         <>
 

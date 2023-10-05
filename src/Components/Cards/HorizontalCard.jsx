@@ -13,7 +13,7 @@ const HorizontalCard = ({ ele }) => {
     const isLoggedIn = useSelector((state) => state.User_signup);
 
     const DummyImgData = useSelector(settingsData)
-    const PlaceHolderImg = DummyImgData.img_placeholder
+    const PlaceHolderImg = DummyImgData?.img_placeholder
     const [isLiked, setIsLiked] = useState(ele.is_favourite === 1);
 
     // Initialize isDisliked as false

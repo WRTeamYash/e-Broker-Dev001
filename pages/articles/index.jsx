@@ -59,7 +59,7 @@ const Articles = () => {
         return tempDiv.textContent || tempDiv.innerText || '';
     };
     const DummyImgData = useSelector(settingsData)
-    const PlaceHolderImg = DummyImgData.img_placeholder
+    const PlaceHolderImg = DummyImgData?.img_placeholder
     // console.log(PlaceHolderImg)
     return (
         <Layout>

@@ -13,7 +13,8 @@ const Map = (props) => {
   };
 
   return (
-    <LoadScript googleMapsApiKey={props.google}>
+
+    // <LoadScript googleMapsApiKey={props.google}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -21,7 +22,8 @@ const Map = (props) => {
       >
         <Marker position={center} />
       </GoogleMap>
-    </LoadScript>
+    // </LoadScript>
+   
   );
 };
 

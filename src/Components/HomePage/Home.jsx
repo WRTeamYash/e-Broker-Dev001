@@ -52,24 +52,17 @@ import { translate } from '@/utils';
 import Layout from '../Layout/Layout';
 import SearchTab from "../SearchTab/SearchTab.jsx"
 import { store } from '@/store/store';
-
-
+import CustomLeftArrow from '../CustomArrow/CustomLeftArrow';
+import CustomRightArrow from '../CustomArrow/CustomRightArrow';
 
 
 
 
 const HomePage = () => {
-    const renderBullet = (index, className) => {
-        return `<span class="${className}" style="background-color: #087c7c;
-    outline: 1px solid #000;
-    font-size: 20px;
-    padding: 8px;
-    border: 2px solid #fff;"></span>`;
-    };
+
 
     const priceSymbol = useSelector(settingsData)
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
-
 
 
     const [isLoading, setIsLoading] = useState(true)
@@ -91,6 +84,10 @@ const HomePage = () => {
     };
 
     const breakpoints = {
+        0: {
+            slidesPerView: 1,
+            // spaceBetween: 40
+        },
         375: {
             slidesPerView: 1.5,
             // spaceBetween: 40
@@ -116,25 +113,14 @@ const HomePage = () => {
         }
     };
     const breakpointsMostFav = {
-        320: {
+        0: {
             slidesPerView: 1,
-            // spaceBetween: 40
         },
         375: {
-            slidesPerView: 1,
-            // spaceBetween: 40
+            slidesPerView: 1.5,
         },
         576: {
-            slidesPerView: 1,
-            // spaceBetween: 40
-        },
-        768: {
             slidesPerView: 2,
-
-        },
-        992: {
-            slidesPerView: 3,
-
         },
         1200: {
             slidesPerView: 3,
@@ -311,17 +297,8 @@ const HomePage = () => {
 
     const language = store.getState().Language.languages
     // console.log(language.rtl)
-    const CustomLeftArrow = () => (
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-          <path id="ic_left_arrow" d="M12,2A10,10,0,1,1,2,12,10,10,0,0,1,12,2Zm0,18a8,8,0,1,0-8-8A8,8,0,0,0,12,20Zm0-9h4v2H12v3L8,12l4-4Z" transform="translate(-2 -2)" fill="#fff" />
-        </svg>
-      );
-      
-      const CustomRightArrow = () => (
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-          <path id="ic_right_arow" d="M12,11V8l4,4-4,4V13H8V11Zm0-9A10,10,0,1,1,2,12,10,10,0,0,1,12,2Zm0,18a8,8,0,1,0-8-8A8,8,0,0,0,12,20Z" transform="translate(-2 -2)" fill="#fff" />
-        </svg>
-      );
+    const customLeftArrowPath = "M12,2A10,10,0,1,1,2,12,10,10,0,0,1,12,2Zm0,18a8,8,0,1,0-8-8A8,8,0,0,0,12,20Zm0-9h4v2H12v3L8,12l4-4Z";
+    const customRightArrowPath = "M12,11V8l4,4-4,4V13H8V11Zm0-9A10,10,0,1,1,2,12,10,10,0,0,1,12,2Zm0,18a8,8,0,1,0-8-8A8,8,0,0,0,12,20Z";
     return (
         <>
             <Layout>
@@ -335,8 +312,6 @@ const HomePage = () => {
                             onBeforeChange={(previousSlide, nextSlide) =>
                                 console.log("onBeforeChange", previousSlide, nextSlide)
                             }
-                            prevButton={<CustomLeftArrow />} // Custom left arrow SVG
-                            nextButton={<CustomRightArrow />} // Custom right arrow SVG
                             onChange={(nextSlide) => console.log("onChange", nextSlide)}
                             onAfterChange={(nextSlide) => console.log("onAfterChange", nextSlide)}
                             settings={{
@@ -345,9 +320,10 @@ const HomePage = () => {
                                 shouldAutoplay: true,
                                 shouldDisplayButtons: true,
                                 autoplayDuration: 3000,
-                                height: "100vh"
+                                height: "100vh",
                             }}
-
+                            prevButton={<CustomLeftArrow pathData={customLeftArrowPath} />}
+                            nextButton={<CustomRightArrow pathData={customRightArrowPath} />}
                         >
 
                             {
@@ -415,41 +391,7 @@ const HomePage = () => {
                         </HeroSlider>
 
                         {/* Sell Rent  */}
-                        {/* <div id='searchbox' className='container'>
-                        <ButtonGroup >
-                            <ul className="nav nav-tabs" id="tabs">
-                                <li className="">
-                                    <a className="nav-link tab-active" aria-current="page" id="sellbutton" onClick={(e) => {
-                                        e.target.classList.add('tab-active')
-                                        document.getElementById('rentbutton').classList.remove('tab-active')
-                                    }}>{translate("sell")}</a>
-                                </li>
-                                <li className="">
-                                    <a className="nav-link" onClick={(e) => {
-                                        e.target.classList.add('tab-active')
-                                        document.getElementById('sellbutton').classList.remove('tab-active')
 
-                                    }} aria-current="page" id="rentbutton">{translate("rent")}</a>
-                                </li>
-                            </ul>
-                        </ButtonGroup>
-                        <div id='searchcard'>
-                            <div id='searchbuttoon'>
-                                <FiSearch size={20} />
-                                <input className='searchinput' placeholder='Search your propery' />
-                            </div>
-                            <div id='leftside-buttons'>
-                                <button className='filter' onClick={() => {
-                                    console.log("showFilterModal")
-                                    setShowFilterModal(true)
-
-                                }}> <BiFilter size={25} />{translate("filter")}</button>
-                                <button className='find'>{translate("search")}</button>
-
-                            </div>
-                        </div>
-                    </div>
-                    <FilterModal isOpen={showFilterModal} onClose={handleCloseModal} /> */}
                         <SearchTab getCategories={getCategories} />
                     </section>
                 ) : null}
@@ -473,7 +415,9 @@ const HomePage = () => {
                                                     <Link href="/featured-properties">
                                                         <button className="learn-more" id="viewall">
                                                             <span aria-hidden="true" className="circle">
-                                                                <span className="icon arrow"></span>
+                                                                <div className='icon_div'>
+                                                                    <span className="icon arrow"></span>
+                                                                </div>
                                                             </span>
                                                             <span className="button-text">{translate("seeAllProp")}</span>
                                                         </button>
@@ -883,9 +827,6 @@ const HomePage = () => {
                                     modules={[FreeMode, Pagination]}
                                     className='most-view-swiper'
                                     breakpoints={breakpointsMostFav}
-                                    style={{
-                                        // width: "auto"
-                                    }}
 
 
                                 >
@@ -904,9 +845,6 @@ const HomePage = () => {
                                             modules={[FreeMode, Pagination]}
                                             className='most-view-swiper'
                                             breakpoints={breakpointsMostFav}
-                                            style={{
-                                                // width: "auto"
-                                            }}
 
 
                                         >

@@ -26,7 +26,7 @@ import AdminHeader from './AdminHeader.jsx'
 import AdminFooter from './AdminFooter.jsx'
 import ebroker from '../../assets/eBrokerLogo.svg'
 import Link from 'next/link';
-import { confirmAlert } from 'react-confirm-alert';
+import TagFacesOutlinedIcon from '@mui/icons-material/TagFacesOutlined';
 import { translate } from '@/utils/index.js';
 import { logoutSuccess } from '@/store/reducer/authSlice.js';
 import toast from 'react-hot-toast';
@@ -270,6 +270,30 @@ export default function VerticleLayout(props) {
 
                                 </ListItemIcon>
                                 <ListItemText primary="Favorites" sx={{ opacity: open ? 1 : 0 }} />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                    <Link href="/user/profile">
+                        <ListItem disablePadding sx={{ display: 'block' }} className='drawer_list_item'>
+                            <ListItemButton
+                                sx={{
+                                    minHeight: 30,
+                                    justifyContent: open ? 'initial' : 'center',
+                                    px: 2.5,
+                                }}
+                            >
+                                <ListItemIcon
+                                    className='drawer_list_icon'
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : 'auto',
+                                        justifyContent: 'center',
+                                    }}
+                                >
+                                    <TagFacesOutlinedIcon />
+
+                                </ListItemIcon>
+                                <ListItemText primary="My Profile" sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     </Link>

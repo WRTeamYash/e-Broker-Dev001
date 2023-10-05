@@ -6,10 +6,10 @@ const index = () => {
   return (
     <VerticleLayout>
       <div className="container">
-        <div className="title">
+        <div className="dashboard_titles">
           <h3>Add Property</h3>
         </div>
-        <div className="card mt-5" id='add_prop_tab'>
+        <div className="card" id='add_prop_tab'>
           <AddPropertyTabs />
         </div>
       </div>

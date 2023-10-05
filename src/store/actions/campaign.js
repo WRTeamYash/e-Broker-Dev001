@@ -1,11 +1,12 @@
-import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav,getPackages,getPaymentSettings,createPaymentIntent,confirmPayment } from "@/utils/api";
+import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav,getPackages,getPaymentSettings,createPaymentIntent,confirmPayment, getFacilities, postProperty } from "@/utils/api";
+
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
 // update profile
-export const UpdateProfileApi = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, onSuccess, onError, onStart) => {
+export const UpdateProfileApi = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facbook_id, twiiter_id, instagram_id, pintrest_id, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
-        ...update_profile(userid, name, email, mobile, type, address, firebase_id, logintype, profile),
+        ...update_profile(userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facbook_id, twiiter_id, instagram_id, pintrest_id),
         displayToast: false,
         onStart,
         onSuccess,
@@ -138,6 +139,29 @@ export const createPaymentIntentApi = (description,name,address1,postalcode,city
 export const confirmPaymentApi = (paymentIntentId,onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
         ...confirmPayment(paymentIntentId),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+
+
+
+// GET FACILITIES API
+export const GetFacilitiesApi = (onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...getFacilities(),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+
+export const PostProperty = (userid,package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters,title_image,threeD_image,gallery_images, onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...postProperty(userid,package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters,title_image,threeD_image,gallery_images),
         displayToast: false,
         onStart,
         onSuccess,

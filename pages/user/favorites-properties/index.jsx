@@ -59,7 +59,7 @@ const index = () => {
   return (
     <VerticleLayout>
       <div className="container">
-        <div className="title">
+        <div className="dashboard_titles">
           <h3>Favorites</h3>
         </div>
         <div className="fav_card">

@@ -11,8 +11,6 @@ import { translate } from '@/utils';
 const Location = ({ isOpen, onClose, onSelectLocation }) => {
 
 
-  const GoogleMapData = useSelector(settingsData);
-  const GoogleMapApi = GoogleMapData.place_api_key;
   // console.log("================================================",GoogleMapApi)
   const libraries = ['places'];
   const [isAddressLoading, setisAddressLoading] = useState(false);
@@ -82,7 +80,7 @@ const Location = ({ isOpen, onClose, onSelectLocation }) => {
     if (isOpen) {
       // Create a script element to load the Google Maps API
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE&libraries=${libraries.join(',')}`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API}&libraries=${libraries.join(',')}`;
       script.async = true;
       script.onload = () => {
         // The script has loaded, you can now safely access window.google
@@ -157,7 +155,7 @@ const Location = ({ isOpen, onClose, onSelectLocation }) => {
         <Loader />
       )
         : (
-          <LoadScript googleMapsApiKey={GoogleMapApi} libraries={libraries}>
+          // <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API} libraries={libraries}>
             <Modal show={isOpen} onHide={onClose} size="md" centered className='current_loction_modal' backdrop="static" keyboard={false}>
               <Modal.Header>
                 <Modal.Title>{translate("selectYourCurrentLocation")}</Modal.Title>
@@ -178,7 +176,7 @@ const Location = ({ isOpen, onClose, onSelectLocation }) => {
                 </div>
               </Modal.Footer>
             </Modal>
-          </LoadScript >
+          // </LoadScript >
         )}
     </>
   );

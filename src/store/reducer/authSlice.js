@@ -37,20 +37,24 @@ export const authSlice = createSlice({
             // console.log("updateData", action)
 
         },
+        userUpdateData: (user_signup, action) => {
+            user_signup.data.data.name = action.payload.data
+            console.log(action)
+        },
         userLogout: (user_signup) => {
             user_signup = initialState
             return user_signup
-        }
+        },
 
     }
 });
-export const { signupRequested, signupSucess, signupFailure, updateDataSuccess, userLogout } = authSlice.actions;
+export const { signupRequested, signupSucess, signupFailure, updateDataSuccess, userUpdateData, userLogout } = authSlice.actions;
 export default authSlice.reducer;
 
 //  API CALLS
-export const signupLoaded = (name, email, mobile, type, address, firebase_id, logintype, profile, onSuccess, onError, onStart) => {
+export const signupLoaded = (name, email, mobile, type, address, firebase_id, logintype, profile, fcm_id, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
-        ...user_signupApi(name, email, mobile, type, address, firebase_id, logintype, profile),
+        ...user_signupApi(name, email, mobile, type, address, firebase_id, logintype, profile, fcm_id),
         displayToast: false,
         onStartDispatch: signupRequested.type,
         onSuccessDispatch: signupSucess.type,
@@ -64,8 +68,12 @@ export const signupLoaded = (name, email, mobile, type, address, firebase_id, lo
 export const loadUpdateData = (data) => {
     store.dispatch(updateDataSuccess({ data }))
 }
-export const logoutSuccess = (logout)=>{
-    store.dispatch(userLogout({logout}))
+export const loadUpdateUserData = (data) => {
+    // console.log("==========", data)
+    store.dispatch(userUpdateData({ data }))
+}
+export const logoutSuccess = (logout) => {
+    store.dispatch(userLogout({ logout }))
 }
 
 // Slecttors

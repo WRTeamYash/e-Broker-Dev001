@@ -32,6 +32,9 @@ export const getUserID = () => {
     }
     
   }
+const POST_PROPERTY = "post_property"
+const GET_FACILITITES = "get_facilities"
+
 
 // GET SETTINGS
 export const getSettingApi = (type, user_id) => {
@@ -48,7 +51,7 @@ export const getSettingApi = (type, user_id) => {
 }
 
 // USER SIGNUP
-export const user_signupApi = (name, email, mobile, type, address, firebase_id, logintype, profile) => {
+export const user_signupApi = (name, email, mobile, type, address, firebase_id, logintype, profile, fcm_id) => {
     let data = new FormData();
     data.append("name", name);
     data.append("email", email);
@@ -58,6 +61,7 @@ export const user_signupApi = (name, email, mobile, type, address, firebase_id, 
     data.append("logintype", logintype);
     data.append("type", type);
     data.append("profile", profile);
+    data.append("fcm_id", fcm_id);
     return {
         url: `${USER_SIGNUP}`,
         method: 'POST',
@@ -67,7 +71,7 @@ export const user_signupApi = (name, email, mobile, type, address, firebase_id, 
     }
 }
 // UPDATE PROFILE
-export const update_profile = (userid, name, email, mobile, type, address, firebase_id, logintype, profile) => {
+export const update_profile = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facbook_id, twiiter_id, instagram_id, pintrest_id) => {
     let data = new FormData();
     data.append("userid", userid);
     data.append("name", name);
@@ -78,6 +82,14 @@ export const update_profile = (userid, name, email, mobile, type, address, fireb
     data.append("logintype", logintype);
     data.append("type", type);
     data.append("profile", profile);
+    data.append("latitude", latitude);
+    data.append("longitude", longitude);
+    data.append("about_me", about_me);
+    data.append("facbook_id", facbook_id);
+    data.append("twiiter_id", twiiter_id);
+    data.append("instagram_id", instagram_id);
+    data.append("pintrest_id", pintrest_id);
+    // data.append("fcm_id", fcm_id);
     return {
         url: `${UPDATE_PROFILE}`,
         method: 'POST',
@@ -141,7 +153,7 @@ export const getAllProperties = (promoted, top_rated, id, category_id, most_like
             state: state,
             country: country,
             search: search,
-            userid:userid
+            userid: userid
         },
         authorizationHeader: false,
 
@@ -295,3 +307,61 @@ export const confirmPayment= (paymentIntentId) => {
         authorizationHeader: true,
     }
 }
+// POST PROPERTY
+
+export const postProperty = (userid,package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters,title_image,threeD_image,gallery_images) => {
+    let data = new FormData();
+
+    // Append the property data to the FormData object
+    data.append('userid', userid);
+    data.append('package_id', package_id);
+    data.append('title', title);
+    data.append('description', description);
+    data.append('city', city);
+    data.append('state', state);
+    data.append('country', country);
+    data.append('latitude', latitude);
+    data.append('longitude', longitude);
+    data.append('address', address);
+    data.append('price', price);
+    data.append('category_id', category_id);
+    data.append('property_type', property_type);
+    data.append('video_link', video_link);
+
+  // Append the parameters array if it is an array
+if (Array.isArray(parameters)) {
+    parameters.forEach((parameter, index) => {
+        data.append(`parameters[${index}][parameter_id]`, parameter.parameter_id);
+        data.append(`parameters[${index}][value]`, parameter.value);
+        data.append(`parameters[${index}][facility_id]`, parameter.facility_id);
+        data.append(`parameters[${index}][distance]`, parameter.distance);
+    });
+}
+
+    data.append('title_image', title_image);  
+    data.append('threeD_image', threeD_image);
+    gallery_images.forEach((image, index) => {
+        data.append(`gallery_images[${index}]`, image);
+    });
+
+    return {
+        url: `${POST_PROPERTY}`,
+        method: 'POST',
+        data,
+        authorizationHeader: true,
+    };
+};
+
+// GET_COUNT_BY_CITIES_CATEGORIS
+export const getFacilities = () => {
+    return {
+        url: `${GET_FACILITITES}`,
+        method: "GET",
+        params: {
+
+        },
+        authorizationHeader: false,
+
+    }
+}
+

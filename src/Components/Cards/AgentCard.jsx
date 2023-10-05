@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { settingsData } from '@/store/reducer/settingsSlice'
 
 // const DummyImgData = useSelector(settingsData)
-// const PlaceHolderImg = DummyImgData.img_placeholder
+// const PlaceHolderImg = DummyImgData?.img_placeholder
 
 
 const AgentCard = ({ ele }) => {

@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleMap, LoadScript, Marker, Autocomplete } from '@react-google-maps/api';
 
-const GoogleMapBox = ({ onSelectLocation, apiKey }) => {
+const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
+
+    console.log(latitude)
     const libraries = ['places'];
-    const [initialLocation, setInitialLocation] = useState({ lat: 23.2420, lng: 69.6969 });
+    const [initialLocation, setInitialLocation] = useState({
+        lat: parseFloat(latitude),
+        lng: parseFloat(longitude),
+    });
     const [location, setLocation] = useState(initialLocation);
     const [mapError, setMapError] = useState(null);
     const [searchText, setSearchText] = useState('');
@@ -18,6 +23,8 @@ const GoogleMapBox = ({ onSelectLocation, apiKey }) => {
     const onMarkerDragStart = () => {
         // console.log("Marker drag started");
     };
+
+    
 
     const onMarkerDragEnd = async (e) => {
         try {

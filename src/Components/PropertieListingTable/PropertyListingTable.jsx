@@ -23,10 +23,9 @@ export default function PropertyListingTable({ data, handlePageChange, total, li
   const router = useRouter();
 
   const handleClickEdit = (propertyId) => {
-    // e.preventDefault()
-    // handleClose();
+
     console.log("property id when i click on edit:", propertyId);
-    // router.push(`/user/edit-property?id=${propertyId}`);
+    router.push(`/user/edit-property?id=${propertyId}`);
   };
 
   const handleClick = (event) => {
@@ -125,11 +124,11 @@ export default function PropertyListingTable({ data, handlePageChange, total, li
                       }}
                       overlay={(
                         <Menu>
-                          <Menu.Item key="edit">
+                          <Menu.Item key="edit"  onClick={() => handleClickEdit(elem.id)}>
                             <Button
                               type="text"
                               icon={<EditOutlined />}
-                              onClick={() => handleClickEdit(elem.id)}
+                             
                             >
                               Edit
                             </Button>

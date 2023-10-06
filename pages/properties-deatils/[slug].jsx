@@ -21,9 +21,6 @@ import { useRouter } from 'next/router'
 import { GetFeturedListingsApi } from '@/store/actions/campaign'
 import Header from '@/Components/Header/Header'
 import Footer from '@/Components/Footer/Footer'
-import { Modal, ModalGateway } from 'react-images'
-import Gallery from 'react-photo-gallery'
-import Lightbox from 'yet-another-react-lightbox'
 import LightBox from '@/Components/LightBox/LightBox'
 import { useJsApiLoader } from '@react-google-maps/api'
 
@@ -80,7 +77,7 @@ const PropertieDeatils = () => {
                 // console.log(" data", propertyData[0].id)
                 setIsLoading(false);
                 setPropData(propertyData[0]);
-                console.log(getPropData)
+                // console.log(getPropData)
             },
             (error) => {
                 setIsLoading(false);
@@ -240,7 +237,7 @@ const PropertieDeatils = () => {
                                 ) : null
                                 }
 
-                                {getPropData && getPropData.parameters ? (
+                                {getPropData && getPropData.parameters > 0 ? (
 
                                     <div className="card " id='features-amenities'>
                                         <div className="card-header">
@@ -251,7 +248,7 @@ const PropertieDeatils = () => {
                                             <div className="row">
 
 
-                                                {getPropData && getPropData.parameters && getPropData.parameters.map((elem, index) => (
+                                                {getPropData && getPropData.parameters.map((elem, index) => (
                                                     // Check if the value is an empty string
                                                     (elem.value !== "" && elem.value !== "0") ? (
                                                         <div className="col-sm-12 col-md-6 col-lg-4" key={index}>

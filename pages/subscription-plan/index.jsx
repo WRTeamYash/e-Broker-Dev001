@@ -6,7 +6,7 @@ import { Button, Form, Input, Select } from "antd";
 import { BiSolidCheckCircle } from "react-icons/bi";
 import { languageData } from "@/store/reducer/languageSlice";
 import { useSelector } from "react-redux";
-import { isLogin, translate } from "@/utils";
+import {  isLogin, translate } from "@/utils";
 import Layout from "@/Components/Layout/Layout";
 import { store } from "@/store/store";
 import { createPaymentIntentApi, getPackagesApi, getPaymentSettingsApi } from "@/store/actions/campaign";
@@ -98,6 +98,7 @@ const page = () => {
             slidesPerView: 4,
         },
     };
+    const isUserLogin = isLogin()
 
     // get packages api
     useEffect(() => {
@@ -112,7 +113,7 @@ const page = () => {
                 console.log(err);
             }
         );
-    }, []);
+    }, [isUserLogin]);
 
     // payment settings api
     useEffect(() => {
@@ -128,16 +129,17 @@ const page = () => {
             );
         }
     }, []);
-
     // subscribe payment
     const subscribePayment = (e, data) => {
         e.preventDefault();
-        if (!isLogin) {
+        // console.log("user login or not", isUserLogin)
+        if (!isUserLogin) {
+            // console.log("no login")
             toast.error("Please Login first");
             return false;
         }
         // here condition based on if before subscription is active
-        if (isLogin && systemsettings.subscription) {
+        if (isUserLogin && systemsettings.subscription) {
             setPreviusSubsscriptionModal(true);
         }
 

@@ -7,12 +7,12 @@ import LocationSearchBox from '@/Components/Location/LocationSearchBox';
 import { UpdateProfileApi } from '@/store/actions/campaign';
 import { loadUpdateData, loadUpdateUserData } from '@/store/reducer/authSlice';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 
 const Index = () => {
     const [uploadedImage, setUploadedImage] = useState(null);
 
-    const [updateUserProfileData, setUpdateUserProfileData] = useState (null)
     const userData =  useSelector((state) => state.User_signup);
     const userProfileData = userData.data.data
     const navigate = useRouter()
@@ -35,19 +35,23 @@ const Index = () => {
     const PlaceHolderImg = DummyImgData?.img_placeholder
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
+        
+        console.log(file)
         if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setUploadedImage(e.target.result);
-                const imageBlob = new Blob([e.target.result], { type: file.type });
-                setFormData({
-                    ...formData,
-                    profileImage: imageBlob  // Set profileImage property
-                });
-            };
-            reader.readAsDataURL(file);
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            // const imageBlob = new Blob([e.target.result], { type: file.type });
+            // console.log(imageBlob);
+            setFormData({
+              ...formData,
+              profileImage: file,
+            });
+            setUploadedImage(e.target.result);
+          };
+          reader.readAsDataURL(file);
         }
-    };
+      };
+      
     
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -92,13 +96,13 @@ const Index = () => {
             formData.profileImage,
             formData.selectedLocation?.lat,
             formData.selectedLocation?.lng,
-            formData.aboutMe,
-            formData.facebook,
-            formData.twiiter,
-            formData.instagram,
-            formData.pintrest,
+            formData.aboutMe ? formData.aboutMe : "",
+            formData.facebook ? formData.facebook : "",
+            formData.twiiter ? formData.twiiter :"",
+            formData.instagram ? formData.instagram : "",
+            formData.pintrest ? formData.pintrest : "",
             (response) => {
-                console.log(response)
+                toast.success(response.message)
                 loadUpdateData(response.data)
                 navigate.push("/")
                 setFormData({
@@ -114,7 +118,8 @@ const Index = () => {
                 })
             },
             (error) => {
-                console.log(error)
+               toast.error(error.message)
+               console.log(error.message)
             })
     }
     return (

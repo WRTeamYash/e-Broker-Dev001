@@ -93,6 +93,12 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
 
     const handleConfirm = (e) => {
         e.preventDefault()
+
+        if (otp === '') {
+            toast.error('Please enter OTP first.');
+            return;
+        }
+    
         setShowLoader(true)
         let confirmationResult = window.confirmationResult;
         confirmationResult.confirm(otp).then(async (result) => {

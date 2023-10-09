@@ -1,4 +1,4 @@
-import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav,getPackages,getPaymentSettings,createPaymentIntent,confirmPayment, getFacilities, postProperty, getLimits } from "@/utils/api";
+import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav,getPackages,getPaymentSettings,createPaymentIntent,confirmPayment, getFacilities, postProperty, getLimits,getPaymentDetials } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
@@ -171,6 +171,17 @@ export const PostProperty = (userid,package_id, title, description, city, state,
 export const GetLimitsApi = (id,onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
         ...getLimits(id),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+
+// get payment detials
+export const getPaymentDetialsApi = (onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...getPaymentDetials(),
         displayToast: false,
         onStart,
         onSuccess,

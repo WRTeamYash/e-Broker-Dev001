@@ -5890,3 +5890,26 @@ a {
 .css-78trlr-MuiButtonBase-root-MuiIconButton-root {
   color: var(--primary-color) !important;
 }
+
+.table_content .success {
+  background-color: #087c7c1a;
+  color: #087c7c;
+  border: 0.5px solid #087c7c;
+  border-radius: 5px;
+  padding: 10px;
+  letter-spacing: 1px;
+}
+
+.table_content .fail {
+  background-color: #e4241614;
+  color: #e42416;
+  border: 0.5px solid #e42416;
+  border-radius: 5px;
+  padding: 10px;
+  letter-spacing: 1px;
+}
+
+.tranction_title h1 {
+  font-size: 24px;
+  padding: 20px 0;
+}

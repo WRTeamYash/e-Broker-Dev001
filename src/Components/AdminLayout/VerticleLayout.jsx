@@ -32,6 +32,7 @@ import { logoutSuccess } from '@/store/reducer/authSlice.js';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router.js';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -220,7 +221,7 @@ export default function VerticleLayout(props) {
                                     <DashboardOutlinedIcon />
 
                                 </ListItemIcon>
-                                <ListItemText primary="My Advertisement" sx={{ opacity: open ? 1 : 0 }} />
+                                <ListItemText primary="My Dashboard" sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </Link>
                     </ListItem>
@@ -294,6 +295,30 @@ export default function VerticleLayout(props) {
 
                                 </ListItemIcon>
                                 <ListItemText primary="My Profile" sx={{ opacity: open ? 1 : 0 }} />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                    <Link href="/user/transaction-history">
+                        <ListItem disablePadding sx={{ display: 'block' }} className='drawer_list_item'>
+                            <ListItemButton
+                                sx={{
+                                    minHeight: 30,
+                                    justifyContent: open ? 'initial' : 'center',
+                                    px: 2.5,
+                                }}
+                            >
+                                <ListItemIcon
+                                    className='drawer_list_icon'
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : 'auto',
+                                        justifyContent: 'center',
+                                    }}
+                                >
+                                    <ReceiptIcon />
+
+                                </ListItemIcon>
+                                <ListItemText primary="Transaction History" sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     </Link>

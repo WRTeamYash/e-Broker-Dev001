@@ -19,6 +19,7 @@ const CONFIRMPAYMENT = "confirmPayment"
 const POST_PROPERTY = "post_property"
 const GET_FACILITITES = "get_facilities"
 const GET_LIMITS = "get_limits"
+const GET_PAYMENT_DETAILS = "get_payment_details";
 
 // is login user check
 export const getUserID = () => {
@@ -388,3 +389,12 @@ export const getLimits = (id) => {
     }
 }
 
+// get payment detaisl
+export const getPaymentDetials = () => {
+    return {
+        url: `${GET_PAYMENT_DETAILS}`,
+        method: "GET",
+        params: {},
+        authorizationHeader: true,
+    }
+}

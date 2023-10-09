@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { translate } from '@/utils';
-import { GetCategorieApi, GetFacilitiesApi, GetFeturedListingsApi, GetLimitsApi, PostProperty } from '@/store/actions/campaign';
+import { GetCategorieApi, GetFacilitiesApi, GetFeturedListingsApi, GetLimitsApi, PostProperty, UpdatePostProperty } from '@/store/actions/campaign';
 import GoogleMapBox from '../Location/GoogleMapBox';
 import Dropzone, { useDropzone } from 'react-dropzone';
 import CloseIcon from '@mui/icons-material/Close';
@@ -52,10 +52,6 @@ function a11yProps(index) {
 export default function EditPropertyTabs() {
 
     const router = useRouter();
-
-
-
-
     const [isLoading, setIsLoading] = useState(true)
     const [defaultData, setDeafultData] = useState([])
 
@@ -73,11 +69,11 @@ export default function EditPropertyTabs() {
     const [uploadedImages, setUploadedImages] = useState([]);
     const [uploaded3DImages, setUploaded3DImages] = useState([]); // State to store uploaded images
     const [galleryImages, setGalleryImages] = useState([]); // State to store uploaded images
+    const [defaultGallryImages, setDefaultGallryImages] = useState([])
     const [categoryParameters, setCategoryParameters] = useState([]);
     const [selectedLocationAddress, setSelectedLocationAddress] = useState('');
     const [lat, setLat] = useState();
     const [lng, setLng] = useState();
-
 
 
 
@@ -153,8 +149,8 @@ export default function EditPropertyTabs() {
             (response) => {
                 const propertyData = response?.data[0]; // Assuming data is an array and you want the first item
                 console.log(propertyData)
-                console.log(propertyData.latitude)
-                console.log(propertyData.longitude)
+                // console.log(propertyData.latitude)
+                // console.log(propertyData.longitude)
                 setLat(propertyData?.latitude)
                 setLng(propertyData?.longitude)
                 setIsLoading(false);
@@ -173,11 +169,11 @@ export default function EditPropertyTabs() {
                 }
                 if (propertyData.parameters) {
                     const defaultTab2Values = {};
-                
+
                     propertyData.parameters.forEach((param) => {
                         defaultTab2Values[param.id] = param.value;
                     });
-                
+
                     // Set tab2 directly with the default values
                     setTab2(defaultTab2Values);
                     // console.log(tab2)
@@ -185,17 +181,101 @@ export default function EditPropertyTabs() {
                 if (propertyData.assign_facilities) {
                     // Initialize tab3 with default values based on propertyData.assign_facilities
                     const defaultTab3Values = {};
-                  
+
                     propertyData.assign_facilities.forEach((facility) => {
-                      // Use facility.facility_id as the key to set the value
-                      defaultTab3Values[facility.facility_id] = facility.distance.toString();
+                        // Use facility.facility_id as the key to set the value
+                        defaultTab3Values[facility.facility_id] = facility.distance.toString();
                     });
-                  
+
                     // Set tab3 with the default values
                     setTab3(defaultTab3Values);
                     // console.log(tab3)
-                  }
-                  
+                }
+                // console.log(propertyData.title_image)
+                // Check if propertyData.title_image exists and set it as the default title image
+                if (propertyData.title_image) {
+                    // Assuming propertyData.title_image contains the image URL
+                    const titleImageURL = propertyData.title_image;
+
+                    // Fetch the image data and convert it to a Blob
+                    fetch(titleImageURL)
+                        .then((response) => response.blob())
+                        .then((blob) => {
+                            // Check if the fetched blob is of image type (e.g., image/jpeg, image/png, etc.)
+                            if (blob.type.startsWith("image/")) {
+                                // Create a File object from the Blob
+                                const file = new File([blob], "title_image.jpg", { type: "image/jpeg" });
+
+                                // Set the default title image
+                                setUploadedImages([file]);
+                                setTab5((prevState) => ({
+                                    ...prevState,
+                                    titleImage: [file],
+                                }));
+                            } else {
+                                console.error("Fetched file is not an image.");
+                                // Handle the case where the fetched file is not an image
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error fetching image data:", error);
+                        });
+                }
+                // Check if propertyData.threeD_image exists and set it as the default 3D image
+
+                if (propertyData.threeD_image) {
+                    // Assuming propertyData.threeD_image contains the 3D image URL
+                    const threeDImageURL = propertyData.threeD_image;
+
+                    // Fetch the 3D image data and convert it to a Blob
+                    fetch(threeDImageURL)
+                        .then((response) => response.blob())
+                        .then((blob) => {
+                            // Check if the fetched blob is of the correct 3D image MIME type
+                            if (blob.type === 'image/jpeg' || blob.type === 'image/png') {
+                                // Create a File object from the Blob
+                                const file = new File([blob], "3D_image.jpg", { type: blob.type });
+
+                                // Set the default 3D image
+                                setUploaded3DImages([file]);
+                                setTab5((prevState) => ({
+                                    ...prevState,
+                                    _3DImages: [file],
+                                }));
+                            } else {
+                                console.error("Fetched file is not a 3D image.");
+                                // Handle the case where the fetched file is not a 3D image
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error fetching 3D image data:", error);
+                        });
+                }
+
+
+                // Check if propertyData.gallery exists and set it as the default gallery images
+                if (propertyData.gallery && propertyData.gallery.length > 0) {
+                    const defaultGalleryImages = propertyData.gallery.map((galleryItem) => {
+                        // Assuming galleryItem.image_url contains the image URL
+                        const imageUrl = galleryItem.image_url;
+                        // Create an object with a URL property for each image
+                        return { imageUrl, name: galleryItem.image };
+                    });
+
+                    // Set the default gallery images
+                    setDefaultGallryImages(defaultGalleryImages)
+                    setGalleryImages(defaultGalleryImages);
+                    setTab5((prevState) => ({
+                        ...prevState,
+                        galleryImages: defaultGalleryImages,
+                    }));
+                }
+                if (propertyData.video_link) {
+                    setTab5((prevState) => ({
+                        ...prevState,
+                        videoLink: propertyData.video_link,
+                    }));
+                }
             },
             (error) => {
                 setIsLoading(false);
@@ -431,11 +511,7 @@ export default function EditPropertyTabs() {
             )),
         [uploaded3DImages]
     );
-
     const onDropGallery = useCallback((acceptedFiles) => {
-        // Log the acceptedFiles to check if they are being received correctly
-        // console.log('Accepted Gallery Files:', acceptedFiles);
-
         // Append the uploaded gallery files to the galleryImages state
         setGalleryImages((prevImages) => [...prevImages, ...acceptedFiles]);
         setTab5((prevState) => ({
@@ -443,7 +519,6 @@ export default function EditPropertyTabs() {
             galleryImages: [...prevState.galleryImages, ...acceptedFiles],
         }));
     }, []);
-
     const removeGalleryImage = (index) => {
         // Remove a gallery image from the galleryImages state by index
         setGalleryImages((prevImages) => prevImages.filter((_, i) => i !== index));
@@ -457,22 +532,25 @@ export default function EditPropertyTabs() {
 
     const galleryFiles = useMemo(
         () =>
-            galleryImages.map((file, index) => (
+            galleryImages.map((imageData, index) => (
                 <div key={index} className="dropbox_gallary_img_div">
-                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                    {console.log(imageData)}
+                    <img className="dropbox_img" src={imageData.imageUrl} alt={imageData.name} />
                     <div className="dropbox_d">
-                        <button className="dropbox_remove_img" onClick={() => removeGalleryImage(index)}>
+                        <button className="dropbox_remove_img" onClick={() => removeGalleryImage(index)} type="button">
                             <CloseIcon fontSize='25px' />
                         </button>
                         <div className="dropbox_img_deatils">
-                            <span>{file.name}</span>
-                            <span>{Math.round(file.size / 1024)} KB</span>
+                            <span>{imageData.name}</span>
+                            {/* <span>{Math.round(imageData.size / 1024)} KB</span> */}
+                            {/* You can add more details here if needed */}
                         </div>
                     </div>
                 </div>
             )),
         [galleryImages]
     );
+    // console.log("gallary files ",galleryFiles)
     const handleVideoInputChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -532,7 +610,7 @@ export default function EditPropertyTabs() {
         }
     };
 
-    const handlePostproperty = (e) => {
+    const handleUpdatePostproperty = (e) => {
         e.preventDefault();
         // console.log(Object.fromEntries(new FormData(e.target)));
         if (!areFieldsFilled(tab1)) {
@@ -590,8 +668,9 @@ export default function EditPropertyTabs() {
             // console.log("allParameters", allParameters);
             // Rest of your code remains the same
 
-            PostProperty(
-                userId,
+            UpdatePostProperty(
+                "0",
+                propertyId,
                 packageId ? packageId : "",
                 tab1.title,
                 tab1.propertyDesc,
@@ -1030,8 +1109,8 @@ export default function EditPropertyTabs() {
                         </div>
                     </div>
 
-                    <div className="nextButton">
-                        {/* <button type='submit' onClick={handlePostproperty}>Submit</button> */}
+                    <div className="updateButton">
+                        <button type='submit' onClick={handleUpdatePostproperty}>Submit Property</button>
                     </div>
                 </form>
             </CustomTabPanel>

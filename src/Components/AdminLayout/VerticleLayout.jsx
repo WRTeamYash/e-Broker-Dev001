@@ -33,6 +33,9 @@ import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router.js';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -295,6 +298,30 @@ export default function VerticleLayout(props) {
 
                                 </ListItemIcon>
                                 <ListItemText primary="My Profile" sx={{ opacity: open ? 1 : 0 }} />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                    <Link href="/user/subscription">
+                        <ListItem disablePadding sx={{ display: 'block' }} className='drawer_list_item'>
+                            <ListItemButton
+                                sx={{
+                                    minHeight: 30,
+                                    justifyContent: open ? 'initial' : 'center',
+                                    px: 2.5,
+                                }}
+                            >
+                                <ListItemIcon
+                                    className='drawer_list_icon'
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : 'auto',
+                                        justifyContent: 'center',
+                                    }}
+                                >
+                                    <PaidOutlinedIcon />
+
+                                </ListItemIcon>
+                                <ListItemText primary="Subscription" sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     </Link>

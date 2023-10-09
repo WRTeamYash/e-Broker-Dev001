@@ -2,25 +2,104 @@ import React, { useEffect, useState } from 'react'
 import VerticleLayout from '@/Components/AdminLayout/VerticleLayout'
 import HomeIcon from '@mui/icons-material/Home';
 import StarIcon from '@mui/icons-material/Star';
-import { Table } from 'antd';
-import { AppBar, Paper, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar } from '@mui/material';
-import PropertyListingTable from '@/Components/PropertieListingTable/PropertyListingTable';
-import AdminFooter from '@/Components/AdminLayout/AdminFooter';
+// import { Table } from 'antd';
+import { Toolbar } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { GetFeturedListingsApi } from '@/store/actions/campaign';
-
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { Menu, Dropdown, Button, Space } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { settingsData } from "@/store/reducer/settingsSlice";
+import { useRouter } from "next/router";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import ReactPagination from "../../../src/Components/Pagination/ReactPagination.jsx";
+import { deletePropertyApi } from "@/store/actions/campaign";
+import Loader from "../../../src/Components/Loader/Loader.jsx";
+import toast from "react-hot-toast";
 
 const index = () => {
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [getFeaturedListing, setGetFeaturedListing] = useState([]);
     const [total, setTotal] = useState(0);
     const [view, setView] = useState(0);
     const [offsetdata, setOffsetdata] = useState(0);
     const [scroll, setScroll] = useState(0);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [propertyIdToDelete, setPropertyIdToDelete] = useState(null);
+    const handleClickEdit = (propertyId) => {
+        router.push(`/user/edit-property?id=${propertyId}`);
+    };
+    const handleClickDelete = (propertyId) => {
 
+        setPropertyIdToDelete(propertyId)
+        setIsLoading(true)
+        deletePropertyApi(
+            propertyId,
+            (response) => {
+                // console.log(response)
+                setIsLoading(true)
+                toast.success(response.message)
+
+                GetFeturedListingsApi(
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    offsetdata.toString(),
+                    limit.toString(),
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    isLoggedIn ? userCurrentId : "",
+                    (response) => {
+                        setTotal(response.total);
+                        setView(response.total_clicks);
+                        const FeaturedListingData = response.data;
+                        // console.log(FeaturedListingData)
+                        setIsLoading(false);
+                        setGetFeaturedListing(FeaturedListingData);
+                    },
+                    (error) => {
+                        setIsLoading(false);
+                        console.log(error);
+                    }
+                );
+
+            },
+            (error) => {
+                setIsLoading(false)
+                toast.error(error)
+            })
+        // router.push(`/user/edit-property?id=${propertyId}`);
+    };
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     // console.log("offset data", offsetdata)
     const limit = 8;
 
+    const priceSymbol = useSelector(settingsData);
+    const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const userData = isLoggedIn && isLoggedIn?.data?.data?.name
@@ -62,7 +141,11 @@ const index = () => {
                 console.log(error);
             }
         );
-    }, [offsetdata, isLoggedIn]);
+    }, [offsetdata, isLoggedIn, propertyIdToDelete]);
+
+
+
+
     const handlePageChange = (selectedPage) => {
 
         const newOffset = selectedPage.selected * limit;
@@ -127,11 +210,143 @@ const index = () => {
                     </div>
                     <div className="col-12">
 
-                        <PropertyListingTable data={getFeaturedListing} 
-                        handlePageChange={handlePageChange} 
-                        total={total} 
-                        limit={limit}/>
+                        <div className="table_content card bg-white">
+                            <TableContainer
+                                component={Paper}
+                                sx={{
+                                    background: "#fff",
+                                    padding: "10px",
+                                }}
+                            >
+                                    <Table sx={{ minWidth: 650 }} aria-label="caption table">
+                                        <TableHead
+                                            sx={{
+                                                background: "#f5f5f5",
+                                            }}
+                                        >
+                                            <TableRow>
+                                                <TableCell sx={{ fontWeight: "600" }}>Listing title</TableCell>
+                                                <TableCell sx={{ fontWeight: "600" }} align="center">
+                                                    Category
+                                                </TableCell>
+                                                <TableCell sx={{ fontWeight: "600" }} align="center">
+                                                    Views
+                                                </TableCell>
+                                                <TableCell sx={{ fontWeight: "600" }} align="center">
+                                                    Posted On
+                                                </TableCell>
+                                                <TableCell sx={{ fontWeight: "600" }} align="center">
+                                                    Status
+                                                </TableCell>
+                                                <TableCell sx={{ fontWeight: "600" }} align="center">
+                                                    Action
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {isLoading ? (
+                                                <TableRow>
+                                                    <TableCell colSpan={6} align="center">
+                                                        {/* Centered loader */}
+                                                        <div>
+                                                            <Loader />
+                                                        </div>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ) : (
+                                                getFeaturedListing.length > 0 ? (
+                                                    getFeaturedListing.map((elem, index) => (
+                                                        <TableRow key={index}>
+                                                            <TableCell component="th" scope="row" sx={{ width: "40%" }}>
+                                                                {/* {console.log(elem.id)} */}
+                                                                <div className="card" id="listing_card">
+                                                                    <div className="listing_card_img">
+                                                                        <img
+                                                                            src={elem.title_image}
+                                                                            alt=""
+                                                                            id="main_listing_img"
+                                                                        />
+                                                                        <span className="listing_type_tag">
+                                                                            {elem.propery_type}
+                                                                        </span>
+                                                                    </div>
+                                                                    <div className="listing_card_body">
+                                                                        <span className="listing_prop_title">{elem.title}</span>
+                                                                        <span className="listing_prop_loc">
+                                                                            {elem.city} {elem.state} {elem.country}
+                                                                        </span>
+                                                                        <span className="listing_prop_pirce">
+                                                                            {CurrencySymbol} {elem.price}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </TableCell>
+                                                            <TableCell align="center">{elem.category.category}</TableCell>
+                                                            <TableCell align="center">{elem.total_view}</TableCell>
+                                                            <TableCell align="center">{elem.post_created}</TableCell>
+                                                            <TableCell align="center">
+                                                                {elem.status === 1 ? (
+                                                                    <span className="active_status">Active</span>
+                                                                ) : (
+                                                                    <span className="inactive_status">Inactive</span>
+                                                                )}
+                                                            </TableCell>
+                                                            <TableCell align="center">
 
+                                                                <Dropdown
+                                                                    visible={anchorEl === index}
+                                                                    onVisibleChange={(visible) => {
+                                                                        if (visible) {
+                                                                            setAnchorEl(index);
+                                                                        } else {
+                                                                            setAnchorEl(null);
+                                                                        }
+                                                                    }}
+                                                                    overlay={(
+                                                                        <Menu>
+                                                                            <Menu.Item key="edit" onClick={() => handleClickEdit(elem.id)}>
+                                                                                <Button
+                                                                                    type="text"
+                                                                                    icon={<EditOutlined />}
+                                                                                >
+                                                                                    Edit
+                                                                                </Button>
+                                                                            </Menu.Item>
+                                                                            <Menu.Item key="delete">
+                                                                                <Button
+                                                                                    type="text"
+                                                                                    icon={<DeleteOutlined />}
+                                                                                    onClick={() => handleClickDelete(elem.id)}>
+                                                                                    Delete
+                                                                                </Button>
+                                                                            </Menu.Item>
+                                                                        </Menu>
+                                                                    )}
+                                                                >
+                                                                    <Button id="simple-menu"><BsThreeDotsVertical /></Button>
+                                                                </Dropdown>
+
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    ))
+                                                ) : (
+                                                    <TableRow>
+                                                        <TableCell colSpan={6} align="center">
+                                                            <p>No Data Available</p>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                )
+                                            )}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                        {getFeaturedListing.length > 0 ? (
+                            <div className="col-12">
+                                <ReactPagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                            </div>
+                        ) : null}
+
+                        </div>
                     </div>
                 </div>
             </div>

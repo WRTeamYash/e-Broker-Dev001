@@ -1,4 +1,4 @@
-import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav,getPackages,getPaymentSettings,createPaymentIntent,confirmPayment, getFacilities, postProperty, getLimits,getPaymentDetials } from "@/utils/api";
+import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav, getPackages, getPaymentSettings, createPaymentIntent, confirmPayment, getFacilities, postProperty, getLimits, getPaymentDetials, updatePostProperty, deleteProperty } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
@@ -124,9 +124,9 @@ export const getPaymentSettingsApi = (onSuccess, onError, onStart) => {
 }
 
 // createPaymentIntent
-export const createPaymentIntentApi = (description,name,address1,postalcode,city,state,country,amount,currency,card,packageID,onSuccess, onError, onStart) => {
+export const createPaymentIntentApi = (description, name, address1, postalcode, city, state, country, amount, currency, card, packageID, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
-        ...createPaymentIntent(description,name,address1,postalcode,city,state,country,amount,currency,card,packageID),
+        ...createPaymentIntent(description, name, address1, postalcode, city, state, country, amount, currency, card, packageID),
         displayToast: false,
         onStart,
         onSuccess,
@@ -135,7 +135,7 @@ export const createPaymentIntentApi = (description,name,address1,postalcode,city
 }
 
 //confirmPayment
-export const confirmPaymentApi = (paymentIntentId,onSuccess, onError, onStart) => {
+export const confirmPaymentApi = (paymentIntentId, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
         ...confirmPayment(paymentIntentId),
         displayToast: false,
@@ -158,9 +158,9 @@ export const GetFacilitiesApi = (onSuccess, onError, onStart) => {
     }))
 }
 
-export const PostProperty = (userid,package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters,facilities,title_image,threeD_image,gallery_images, onSuccess, onError, onStart) => {
+export const PostProperty = (userid, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
-        ...postProperty(userid,package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters,facilities,title_image,threeD_image,gallery_images),
+        ...postProperty(userid, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images),
         displayToast: false,
         onStart,
         onSuccess,
@@ -168,7 +168,7 @@ export const PostProperty = (userid,package_id, title, description, city, state,
     }))
 }
 // GET LIMITS API
-export const GetLimitsApi = (id,onSuccess, onError, onStart) => {
+export const GetLimitsApi = (id, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
         ...getLimits(id),
         displayToast: false,
@@ -188,3 +188,29 @@ export const getPaymentDetialsApi = (onSuccess, onError, onStart) => {
         onError,
     }))
 }
+
+
+
+export const UpdatePostProperty = (action_type, id, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...updatePostProperty(action_type, id, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+
+// Delete Property
+
+//confirmPayment
+export const deletePropertyApi = (id, onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...deleteProperty(id),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+

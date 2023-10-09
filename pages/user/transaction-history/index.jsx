@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
+import TablePagination from '../../../src/Components/Pagination/TablePagination.jsx'
 
 const index = () => {
     const [Data, setData] = useState([]);
@@ -69,9 +70,14 @@ const index = () => {
                             <TableHead
                                 sx={{
                                     background: "#f5f5f4",
+                                    borderRadius: "12px"
                                 }}
                             >
-                                <TableRow>
+                                <TableRow sx={{
+                                    // padding:"20px",
+                                    background: "#f5f5f5",
+
+                                }}>
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
                                         ID
                                     </TableCell>
@@ -120,6 +126,10 @@ const index = () => {
                                 )}
                             </TableBody>
                         </Table>
+
+                        {/* <div className="col-12">
+                            <TablePagination pageCount={Math.ceil(Data.length / dataPerPage)} onPageChange={handlePageChange} />
+                        </div> */}
                         <ReactPaginate
                             previousLabel={"previous"}
                             nextLabel={"next"}

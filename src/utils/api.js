@@ -20,6 +20,8 @@ const POST_PROPERTY = "post_property"
 const GET_FACILITITES = "get_facilities"
 const GET_LIMITS = "get_limits"
 const GET_PAYMENT_DETAILS = "get_payment_details";
+const UPDATE_POST_PROPERTY = "update_post_property";
+const DELETE_PROPERTY = "delete_property"
 
 // is login user check
 export const getUserID = () => {
@@ -382,7 +384,7 @@ export const getLimits = (id) => {
         url: `${GET_LIMITS}`,
         method: "GET",
         params: {
-            id:id
+            id: id
         },
         authorizationHeader: true,
 
@@ -398,3 +400,73 @@ export const getPaymentDetials = () => {
         authorizationHeader: true,
     }
 }
+
+
+// UPDATE POST PROPERTY
+export const updatePostProperty = (action_type, id, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images) => {
+    let data = new FormData();
+
+    // Append the property data to the FormData object
+    data.append('action_type', action_type);
+    data.append('id', id);
+    data.append('package_id', package_id);
+    data.append('title', title);
+    data.append('description', description);
+    data.append('city', city);
+    data.append('state', state);
+    data.append('country', country);
+    data.append('latitude', latitude);
+    data.append('longitude', longitude);
+    data.append('address', address);
+    data.append('price', price);
+    data.append('category_id', category_id);
+    data.append('property_type', property_type);
+    data.append('video_link', video_link);
+
+    // Append the parameters array if it is an array
+    if (Array.isArray(parameters)) {
+        parameters.forEach((parameter, index) => {
+            data.append(`parameters[${index}][parameter_id]`, parameter.parameter_id);
+            data.append(`parameters[${index}][value]`, parameter.value);
+        });
+    }
+    // Append the facilities array if it is an array
+    if (Array.isArray(facilities)) {
+        facilities.forEach((facility, index) => {
+            data.append(`facilities[${index}][facility_id]`, facility.facility_id);
+            data.append(`facilities[${index}][distance]`, facility.distance);
+        });
+    }
+    data.append('title_image', title_image);
+    data.append('threeD_image', threeD_image);
+
+    // Check if gallery_images is defined and an array before using forEach
+    if (Array.isArray(gallery_images)) {
+        gallery_images.forEach((image, index) => {
+            data.append(`gallery_images[${index}]`, image);
+        });
+    }
+
+
+    return {
+        url: `${UPDATE_POST_PROPERTY}`,
+        method: 'POST',
+        data,
+        authorizationHeader: true,
+    };
+};
+
+
+// DELETE_PROPERTY
+export const deleteProperty = (id) => {
+    let data = new FormData();
+    data.append("id", id);
+
+    return {
+        url: `${DELETE_PROPERTY}`,
+        method: "POST",
+        data,
+        authorizationHeader: true,
+    }
+}
+

@@ -46,14 +46,14 @@ function VerticalCard({ ele, onRemoveCard }) {
         e.preventDefault();
         e.stopPropagation();
         AddFavourite(ele.id, "0", (response) => {
-            setIsLiked(false);
-            setIsDisliked(true);
-            toast.success(response.message);
-            onRemoveCard(ele.id);
+          setIsLiked(false);
+          setIsDisliked(true);
+          toast.success(response.message);
+          onRemoveCard(ele.id);
         }, (error) => {
-            console.log(error);
+          console.log(error);
         });
-    };
+      };
 
     useEffect(() => {
         // Update the state based on ele.is_favourite when the component mounts

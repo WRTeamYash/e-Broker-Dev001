@@ -34,6 +34,7 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'next/router.js';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import { RiAdvertisementLine } from 'react-icons/ri';
 
 
 const drawerWidth = 240;
@@ -225,6 +226,31 @@ export default function VerticleLayout(props) {
 
                                 </ListItemIcon>
                                 <ListItemText primary="My Dashboard" sx={{ opacity: open ? 1 : 0 }} />
+                            </ListItemButton>
+                        </Link>
+                    </ListItem>
+                    <ListItem disablePadding sx={{ display: 'block' }} className='drawer_list_item'>
+                        <Link href="/user/dashboard">
+                            <ListItemButton
+                                sx={{
+                                    minHeight: 30,
+                                    justifyContent: open ? 'initial' : 'center',
+                                    px: 2.5,
+                                }}
+                            >
+                                <ListItemIcon
+                                    className='drawer_list_icon'
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : 'auto',
+                                        justifyContent: 'center',
+
+                                    }}
+                                >
+                                    <RiAdvertisementLine size={23}/>
+
+                                </ListItemIcon>
+                                <ListItemText primary="My Advertisement" sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </Link>
                     </ListItem>

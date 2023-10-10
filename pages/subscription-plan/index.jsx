@@ -207,7 +207,8 @@ const page = () => {
     };
 
     // Example usage of the filter function
-    const stripe_currency = systemsettings?.currency_symbol;
+    // const stripe_currency = systemsettings?.currency_symbol;
+    const stripe_currency = "$";
 
     // Packages with is_active === 1 come first
     const sortedPackageData = packagedata.sort((a, b) => {

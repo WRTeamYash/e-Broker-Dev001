@@ -63,29 +63,7 @@ export default function AddPropertyTabs() {
     const [categoryParameters, setCategoryParameters] = useState([]);
     const [selectedLocationAddress, setSelectedLocationAddress] = useState('');
     const [getlimitsData, setGetLimitsData] = useState();
-    
-    // Set your initial location here
 
-    // const [formData, setFormData] = useState({
-    //     propertyType: '',
-    //     category: '',
-    //     title: '',
-    //     price: 0,
-    //     bedrooms: 0,
-    //     bathrooms: 0,
-    //     kitchen: 0,
-    //     garage: 0,
-    //     parking: 0,
-    //     cctv: 0,
-    //     fitness: 0,
-    //     wifi: 0,
-    //     city: '',
-    //     state: '',
-    //     country: '',
-    //     clientAddress: '',
-    //     fullAddress: '',
-    //     videoLink: '',
-    // });
 
     const PackageData = useSelector(settingsData)
     const userData = useSelector(userSignUpData)
@@ -141,22 +119,22 @@ export default function AddPropertyTabs() {
             }
         );
     }, []);
-    useEffect(() => {
-        console.log("current package id",packageId)
-        GetLimitsApi(
-            packageId,
-            (response) => {
-                console.log(response)
-                const limitsData = response && response.data;
-                console.log(limitsData)
-                setGetLimitsData(limits);
+    // useEffect(() => {
+    //     // console.log("current package id",packageId)
+    //     GetLimitsApi(
+    //         packageId,
+    //         (response) => {
+    //             console.log(response)
+    //             const limitsData = response && response.data;
+    //             console.log(limitsData)
+    //             setGetLimitsData(limits);
 
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-    }, []);
+    //         },
+    //         (error) => {
+    //             console.log(error);
+    //         }
+    //     );
+    // }, []);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

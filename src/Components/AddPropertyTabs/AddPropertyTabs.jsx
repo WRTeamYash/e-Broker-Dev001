@@ -589,7 +589,7 @@ export default function AddPropertyTabs() {
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Property Details" {...a11yProps(0)} />
+                    <Tab label="Property Details" {...a11yProps(0)}/>
                     <Tab label="Facilities" {...a11yProps(1)} />
                     <Tab label="Outdoor Facilities" {...a11yProps(2)} />
                     <Tab label="Location" {...a11yProps(3)} />

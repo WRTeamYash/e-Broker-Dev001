@@ -5369,11 +5369,14 @@ a {
 .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
   color: var(--primary-color) !important;
 }
-.css-1q2h7u5.Mui-selected {
+/* .css-1q2h7u5.Mui-selected {
   color: var(--primary-color) !important;
+} */
+.css-ttwr4n {
+  background-color: var(--primary-color) !important;
 }
-.css-1aquho2-MuiTabs-indicator {
-  background: var(--primary-color) !important;
+.css-1aquho2-MuiTabs-indicator{
+  background-color: var(--primary-color) !important;
 }
 
 .add_prop_fields {

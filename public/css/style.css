@@ -6290,3 +6290,22 @@ a {
 .slider_img {
   margin-top: 10px;
 }
+
+
+
+.css-hd7g24-MuiPaper-root-MuiAppBar-root{
+  z-index: 1 !important;
+}
+.drawer_button {
+  position: absolute !important;
+  background: #282F39 !important;
+  color: var(--primary-text-color01) !important;
+  border: 5px solid var(--primary-text-color01) !important;
+  right: -15%;
+}
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper{
+  overflow-y: visible !important;
+}
+.css-1hsz34s-MuiDrawer-docked .MuiDrawer-paper{
+  overflow-y: visible !important;
+}

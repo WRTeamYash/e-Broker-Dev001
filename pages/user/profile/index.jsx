@@ -11,10 +11,9 @@ import toast from 'react-hot-toast';
 
 
 const Index = () => {
-    const [uploadedImage, setUploadedImage] = useState(null);
-
-    const userData =  useSelector((state) => state.User_signup);
-    const userProfileData = userData.data.data
+    
+    const userData = useSelector((state) => state.User_signup);
+    const userProfileData = userData?.data?.data
     const navigate = useRouter()
     const [formData, setFormData] = useState({
         fullName: userProfileData.name,
@@ -30,38 +29,40 @@ const Index = () => {
     });
     const fileInputRef = useRef(null);
     
-    
+    const [uploadedImage, setUploadedImage] = useState(userProfileData.profile || null);
+
+
     const DummyImgData = useSelector(settingsData)
     const PlaceHolderImg = DummyImgData?.img_placeholder
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
-        
+
         console.log(file)
         if (file) {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            // const imageBlob = new Blob([e.target.result], { type: file.type });
-            // console.log(imageBlob);
-            setFormData({
-              ...formData,
-              profileImage: file,
-            });
-            setUploadedImage(e.target.result);
-          };
-          reader.readAsDataURL(file);
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                // const imageBlob = new Blob([e.target.result], { type: file.type });
+                // console.log(imageBlob);
+                setFormData({
+                    ...formData,
+                    profileImage: file,
+                });
+                setUploadedImage(e.target.result);
+            };
+            reader.readAsDataURL(file);
         }
-      };
-      
-    
+    };
+
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
-    
+
     const handleUploadButtonClick = () => {
         fileInputRef.current.click(); // Trigger the file input click event
     };
-    
+
     const handleLocationSelected = (locationData) => {
         setFormData({
             ...formData,
@@ -69,14 +70,14 @@ const Index = () => {
         });
         console.log(locationData)
     };
-    
+
     const handlePhoneNumberChange = (e) => {
         const value = e.target.value;
         if (/^\d*$/.test(value)) {
             setFormData({ ...formData, phoneNumber: value });
         }
     };
-    
+
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     // console.log(formData.selectedLocation.lat)
@@ -98,7 +99,7 @@ const Index = () => {
             formData.selectedLocation?.lng,
             formData.aboutMe ? formData.aboutMe : "",
             formData.facebook ? formData.facebook : "",
-            formData.twiiter ? formData.twiiter :"",
+            formData.twiiter ? formData.twiiter : "",
             formData.instagram ? formData.instagram : "",
             formData.pintrest ? formData.pintrest : "",
             (response) => {
@@ -118,10 +119,12 @@ const Index = () => {
                 })
             },
             (error) => {
-               toast.error(error.message)
-               console.log(error.message)
+                toast.error(error.message)
+                console.log(error.message)
             })
     }
+
+    
     return (
         <VerticleLayout>
             <div className="container">
@@ -188,7 +191,7 @@ const Index = () => {
                                                 <div className="add_user_fields_div">
                                                     <span>Phone Number</span>
                                                     <input
-                                                    readOnly
+                                                        readOnly
                                                         type="text"
                                                         className='add_user_fields'
                                                         name="phoneNumber"
@@ -209,7 +212,7 @@ const Index = () => {
                                                         value={formData.location}
                                                         onChange={handleInputChange}
                                                     /> */}
-                                                    {/* <LocationSearchBox onLocationSelected={handleLocationSelected} /> */}
+                                                    <LocationSearchBox onLocationSelected={handleLocationSelected} />
                                                 </div>
                                             </div>
                                             <div className="col-sm-12">
@@ -314,7 +317,7 @@ const Index = () => {
                                 </div>
                                 <div className="col-12">
                                     <div className="submit_div">
-                                        <button onClick={handleUpdateProfile}>Update Profile</button>
+                                        <button type="submit" onClick={handleUpdateProfile}>Update Profile</button>
                                     </div>
                                 </div>
                             </div>

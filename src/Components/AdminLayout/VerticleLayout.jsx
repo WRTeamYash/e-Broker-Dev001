@@ -176,7 +176,7 @@ export default function VerticleLayout(props) {
                     </div>
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent" open={open}>
+            <Drawer variant="permanent" open={open}  >
                 <DrawerHeader sx={{
                     height: "10vh"
                 }}>
@@ -192,11 +192,7 @@ export default function VerticleLayout(props) {
                         <Link href="/">
                         <img src={ebroker.src} alt="" className='dashboard_logo' />
                         </Link>
-                        <IconButton onClick={handleDrawerClose} sx={{
-                            position: 'absolute',
-                            color: "#fff",
-                            // background:"#fff",
-                            right: "0",
+                        <IconButton onClick={handleDrawerClose} className='drawer_button' sx={{
                             fontSize: "30",
                             // width:"50px",
                         }}>

@@ -480,18 +480,18 @@ export default function AddPropertyTabs() {
         } else if (uploadedImages.length === 0) {
             // Display a toast message if Title Image is not selected
             toast.error('Please select a Title Image');
-        } else if (packageId === undefined){
+        } else if (packageId === undefined) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'You have not subscribed. Please subscribe first',
-                
+
             }).then((result) => {
                 if (result.isConfirmed) {
                     router.push('/subscription-plan'); // Redirect to the subscription page
                 }
             });
-        }else {
+        } else {
             console.log("while I submitted all data", tab1, tab2, tab3, selectedLocationAddress, tab5);
             const parameters = [];
             const facilities = [];
@@ -544,19 +544,19 @@ export default function AddPropertyTabs() {
                 (response) => {
                     console.log(response);
 
-                    if(response.message === "Package not found"){
+                    if (response.message === "Package not found") {
                         toast.error(response.message);
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'You have not subscribed. Please subscribe first',
-                            
+
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 router.push('/subscription-plan'); // Redirect to the subscription page
                             }
                         });
-                    }else if(response.message === "Package Limit is over") {
+                    } else if (response.message === "Package Limit is over") {
                         // toast.error(response.message);
                         Swal.fire({
                             icon: 'error',
@@ -568,11 +568,11 @@ export default function AddPropertyTabs() {
                                 router.push('/subscription-plan'); // Redirect to the subscription page
                             }
                         });
-                    }else{
+                    } else {
                         toast.success(response.message);
                         router.push('/user/dashboard');
                     }
-                   
+
                 },
                 (error) => {
                     console.log(error);
@@ -589,7 +589,7 @@ export default function AddPropertyTabs() {
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Property Details" {...a11yProps(0)}/>
+                    <Tab label="Property Details" {...a11yProps(0)} />
                     <Tab label="Facilities" {...a11yProps(1)} />
                     <Tab label="Outdoor Facilities" {...a11yProps(2)} />
                     <Tab label="Location" {...a11yProps(3)} />
@@ -696,11 +696,21 @@ export default function AddPropertyTabs() {
                                                 <input
                                                     value={tab2[ele.id] || ''}
                                                     type='number'
-                                                    // name={`parameters[${index}][value]`}
                                                     className='prop_number_input'
                                                     id={`prop_title_input_${ele.id}`}
-                                                    onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}
+                                                    onChange={(e) => {
+                                                        const inputValue = e.target.value;
+                                                        // Check if the input is a positive number (greater than or equal to 0)
+                                                        if (!isNaN(inputValue) && inputValue >= 0) {
+                                                            // If it's a valid positive number, update the state
+                                                            handleTab2InputChange(ele.id, inputValue);
+                                                        } else {
+                                                            // If it's not a valid positive number, reset the input value
+                                                            e.target.value = tab2[ele.id] || '';
+                                                        }
+                                                    }}
                                                 />
+
                                             </>
                                         ) : ele.type_of_parameter === 'checkbox' ? (
                                             <>
@@ -836,8 +846,19 @@ export default function AddPropertyTabs() {
                                             placeholder='00 KM'
                                             className='prop_number_input'
                                             id={`prop_title_input_${ele.id}`}
-                                            onChange={(e) => handleTab3InputChange(ele.id, e.target.value)}
+                                            onChange={(e) => {
+                                                const inputValue = e.target.value;
+                                                // Check if the input is a positive number (greater than or equal to 0)
+                                                if (!isNaN(inputValue) && inputValue >= 0) {
+                                                    // If it's a valid positive number, update the state
+                                                    handleTab3InputChange(ele.id, inputValue);
+                                                } else {
+                                                    // If it's not a valid positive number, reset the input value
+                                                    e.target.value = tab3[ele.id] || '';
+                                                }
+                                            }}
                                         />
+
                                     </div>
 
                                 </div>
@@ -954,7 +975,7 @@ export default function AddPropertyTabs() {
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
                                 <span>Video Link</span>
-                                <input type="input" id='prop_title_input' name='videoLink' placeholder='Eneter Video' value={tab5.videoLink} onChange={handleVideoInputChange} />
+                                <input type="input" id='prop_title_input' name='videoLink' placeholder='Enter Video Link' value={tab5.videoLink} onChange={handleVideoInputChange} />
                             </div>
                         </div>
                     </div>

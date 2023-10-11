@@ -3,9 +3,9 @@ import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
 // update profile
-export const UpdateProfileApi = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facbook_id, twiiter_id, instagram_id, pintrest_id, onSuccess, onError, onStart) => {
+export const UpdateProfileApi = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
-        ...update_profile(userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facbook_id, twiiter_id, instagram_id, pintrest_id),
+        ...update_profile(userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id),
         displayToast: false,
         onStart,
         onSuccess,

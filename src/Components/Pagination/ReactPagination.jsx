@@ -5,8 +5,8 @@ const ReactPagination = ({ pageCount, onPageChange }) => {
   return (
     <div>
       <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
             breakLabel="..."
             breakClassName="break-me"
             pageCount={pageCount}

@@ -218,9 +218,9 @@ const index = () => {
                     </div>
                 </div>
             </section>
-            {/* {showCurrentLoc &&
+            {showCurrentLoc &&
              <Location isOpen={true} onClose={handleCloseLocModal} onSelectLocation={handleSelectLocation}/>
-            } */}
+            }
         </Layout>
     )
 }

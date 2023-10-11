@@ -42,7 +42,11 @@ const LocationSearchBox = ({ onLocationSelected }) => {
       onLocationSelected(locationData); // Pass the data to the parent component
     }
   };
-  
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent form submission on Enter key press
+    }
+  };
 
   return (
     isLoaded
@@ -51,10 +55,11 @@ const LocationSearchBox = ({ onLocationSelected }) => {
       onLoad={ref => inputRef.current = ref}
       onPlacesChanged={handlePlaceChanged}
     >
-      <input
+     <input
         type="text"
         className="searchLocationInput"
         placeholder="Enter Location"
+        onKeyPress={handleKeyPress} // Prevent form submission on Enter key press
       />
     </StandaloneSearchBox>
   );

@@ -76,7 +76,7 @@ export const user_signupApi = (name, email, mobile, type, address, firebase_id, 
     }
 }
 // UPDATE PROFILE
-export const update_profile = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facbook_id, twiiter_id, instagram_id, pintrest_id) => {
+export const update_profile = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id) => {
     let data = new FormData();
     data.append("userid", userid);
     data.append("name", name);
@@ -90,7 +90,7 @@ export const update_profile = (userid, name, email, mobile, type, address, fireb
     data.append("latitude", latitude);
     data.append("longitude", longitude);
     data.append("about_me", about_me);
-    data.append("facbook_id", facbook_id);
+    data.append("facebook_id", facebook_id);
     data.append("twiiter_id", twiiter_id);
     data.append("instagram_id", instagram_id);
     data.append("pintrest_id", pintrest_id);

@@ -16,6 +16,7 @@ import { FiPlusCircle } from 'react-icons/fi';
 import { userSignUpData } from '@/store/reducer/authSlice';
 import { languageLoaded } from '@/store/reducer/languageSlice';
 import { translate } from '@/utils';
+import Link from 'next/link';
 
 
 
@@ -144,7 +145,7 @@ const AdminHeader = () => {
 
                 <Toolbar>
                     <Box sx={{ flexGrow: 1, color: "#000" }} />
-                    <Box sx={{ display: {xs:'none',sm: 'none', md: 'none', lg: 'flex' }, alignItems: "center" }}>
+                    <Box sx={{ display: { xs: 'none', sm: 'none', md: 'none', lg: 'flex' }, alignItems: "center" }}>
 
                         <Dropdown id='dropdown'>
                             <Dropdown.Toggle id="dropdown-basic-dashboard">
@@ -158,7 +159,7 @@ const AdminHeader = () => {
                             </Dropdown.Menu>
                         </Dropdown>
 
-                        <Box>
+                        {/* <Box>
                             <IconButton
                                 size="large"
                                 aria-label="show 17 new notifications"
@@ -176,13 +177,14 @@ const AdminHeader = () => {
                                     <NotificationsNoneOutlinedIcon />
                                 </Badge>
                             </IconButton>
-                        </Box>
+                        </Box> */}
                         <Box>
-                            <button className="btn" id="dashboard_add">
-                                <FiPlusCircle size={20} className='mx-2 add-nav-button' />
-                                {translate("addProp")}
-                            </button>
-
+                            <Link href="/user/properties">
+                                <button className="btn" id="dashboard_add">
+                                    <FiPlusCircle size={20} className='mx-2 add-nav-button' />
+                                    {translate("addProp")}
+                                </button>
+                            </Link>
                         </Box>
 
 

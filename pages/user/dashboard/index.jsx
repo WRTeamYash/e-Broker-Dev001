@@ -22,9 +22,6 @@ import { deletePropertyApi } from "@/store/actions/campaign";
 import Loader from "../../../src/Components/Loader/Loader.jsx";
 import toast from "react-hot-toast";
 import { FaCrown } from 'react-icons/fa';
-import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
-import { RiCloseCircleLine } from 'react-icons/ri';
 import FeatureModal from '@/Components/FeatureModal/FeatureModal.jsx';
 
 
@@ -41,7 +38,12 @@ const index = () => {
     const [propertyIdToDelete, setPropertyIdToDelete] = useState(null);
     const [propertyId, setPropertyId] = useState(null);
     const [isFeatureModalVisible, setIsFeatureModalVisible] = useState(false);
-    const [selectedOption, setSelectedOption] = useState('');
+
+
+
+
+
+
 
     const handleClickEdit = (propertyId) => {
         router.push(`/user/edit-property?id=${propertyId}`);
@@ -76,6 +78,7 @@ const index = () => {
                     "",
                     "",
                     isLoggedIn ? userCurrentId : "",
+                    "",
                     (response) => {
                         setTotal(response.total);
                         setView(response.total_clicks);
@@ -135,6 +138,7 @@ const index = () => {
             "",
             "",
             isLoggedIn ? userCurrentId : "",
+            "",
             (response) => {
                 setTotal(response.total);
                 setView(response.total_clicks);
@@ -166,42 +170,7 @@ const index = () => {
 
 
 
-    const handleOptionChange = (option) => {
-        setSelectedOption(option);
-        console.log('Selected Option:', option); // Add this line
-    };
-    const handleFeature = () => {
-        // Pass the selectedOption to your API or handle it as needed
-        // For demonstration, we'll just log the selected option
-        console.log('Selected Option:', selectedOption);
 
-        // Close the modal
-        onHide();
-    };
-
-    const optionStyles = {
-        background: '#f5f5f5f',
-        borderRadius: '8px',
-        opacity: 1,
-        cursor: 'pointer',
-        transition: 'background 0.3s',
-        padding: '10px',
-        margin: '5px',
-        textAlign: 'left',
-        border: '1px solid #E1E1E1',
-    };
-
-    const selectedOptionStyles = {
-        background: '#087c7c',
-        color: '#FFFFFF',
-        borderRadius: '8px',
-        opacity: 1,
-        cursor: 'pointer',
-        transition: 'background 0.3s',
-        padding: '10px',
-        margin: '5px',
-        textAlign: 'left',
-    };
 
     return (
 
@@ -406,85 +375,7 @@ const index = () => {
                                 propertyId={propertyId}
                             />
 
-                            {/* <Modal
-                                show={isFeatureModalVisible}
-                                onHide={() => setIsFeatureModalVisible(false)}
-                                centered
-                                className="feature-modal"
-                                backdrop="static"
-                            >
-                                <Modal.Header>
-                                    <Modal.Title>Feature Property</Modal.Title>
-                                    <RiCloseCircleLine
-                                        className="close-icon"
-                                        size={40}
-                                        onClick={() => setIsFeatureModalVisible(false)}
-                                    />
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <Form>
-                                        <div className="row">
-                                            <div className="col-sm-12 col-md-6 col-lg-4">
-                                                <div
-                                                    style={
-                                                        selectedOption === 'HomeScreen'
-                                                            ? selectedOptionStyles
-                                                            : optionStyles
-                                                    }
-                                                    onClick={() => handleOptionChange('HomeScreen')}
-                                                >
-                                                    Home
-                                                </div>
-
-                                            </div>
-                                            <div className="col-sm-12 col-md-6 col-lg-4">
-                                                <div
-                                                    style={
-                                                        selectedOption === 'Slider'
-                                                            ? selectedOptionStyles
-                                                            : optionStyles
-                                                    }
-                                                    onClick={() => handleOptionChange('Slider')}
-                                                >
-                                                    Slider
-                                                </div>
-
-                                            </div>
-                                            <div className="col-sm-12 col-md-6 col-lg-4">
-                                                <div
-                                                    style={
-                                                        selectedOption === 'ProductListing'
-                                                            ? selectedOptionStyles
-                                                            : optionStyles
-                                                    }
-                                                    onClick={() => handleOptionChange('ProductListing')}
-                                                >
-                                                    List
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        {selectedOption === 'Slider' && (
-                                            <div>
-                                                
-                                                <Form.File
-                                                    id="custom-file"
-                                                    label="Upload Slider Image"
-                                                    custom
-                                                />
-                                            </div>
-                                        )}
-                                    </Form>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                   <Button variant="secondary" onClick={onHide}>
-                                        Cancel
-                                    </Button>
-                                    <Button variant="primary" onClick={handleFeature}>
-                                        Feature
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal> */}
+                         
                             {getFeaturedListing.length > 0 ? (
                                 <div className="col-12">
                                     <ReactPagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />

@@ -56,6 +56,7 @@ const Index = () => {
             "",
             "",
             "",
+            "",
             (response) => {
                 setTotal(response.total);
                 const FeaturedListingData = response.data;

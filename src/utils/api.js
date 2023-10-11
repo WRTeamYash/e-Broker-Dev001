@@ -22,6 +22,7 @@ const GET_LIMITS = "get_limits"
 const GET_PAYMENT_DETAILS = "get_payment_details";
 const UPDATE_POST_PROPERTY = "update_post_property";
 const DELETE_PROPERTY = "delete_property"
+const STORE_ADVERTISEMENT = "store_advertisement"
 
 // is login user check
 export const getUserID = () => {
@@ -134,7 +135,7 @@ export const getCategorieApi = () => {
 }
 
 // get Propertyes 
-export const getAllProperties = (promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid) => {
+export const getAllProperties = (promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid, users_promoted) => {
 
     return {
         url: `${GET_PROPETRES}`,
@@ -157,7 +158,8 @@ export const getAllProperties = (promoted, top_rated, id, category_id, most_like
             state: state,
             country: country,
             search: search,
-            userid: userid
+            userid: userid,
+            users_promoted: users_promoted,
         },
         authorizationHeader: false,
 
@@ -464,6 +466,21 @@ export const deleteProperty = (id) => {
 
     return {
         url: `${DELETE_PROPERTY}`,
+        method: "POST",
+        data,
+        authorizationHeader: true,
+    }
+}
+// FEATURE PROPERTY
+export const featureProperty = (package_id, property_id, type, image) => {
+    let data = new FormData();
+    data.append("package_id", package_id);
+    data.append("property_id", property_id);
+    data.append("type", type);
+    data.append("image", image);
+
+    return {
+        url: `${STORE_ADVERTISEMENT}`,
         method: "POST",
         data,
         authorizationHeader: true,

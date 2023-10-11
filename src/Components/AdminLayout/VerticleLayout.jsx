@@ -189,7 +189,9 @@ export default function VerticleLayout(props) {
                         justifyContent: "space-between",
 
                     }}>
+                        <Link href="/">
                         <img src={ebroker.src} alt="" className='dashboard_logo' />
+                        </Link>
                         <IconButton onClick={handleDrawerClose} sx={{
                             position: 'absolute',
                             color: "#fff",
@@ -230,7 +232,7 @@ export default function VerticleLayout(props) {
                         </Link>
                     </ListItem>
                     <ListItem disablePadding sx={{ display: 'block' }} className='drawer_list_item'>
-                        <Link href="/user/dashboard">
+                        <Link href="/user/advertisement">
                             <ListItemButton
                                 sx={{
                                     minHeight: 30,

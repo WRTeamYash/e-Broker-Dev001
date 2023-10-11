@@ -6,7 +6,7 @@ import { Button, Form, Input, Select } from "antd";
 import { BiSolidCheckCircle } from "react-icons/bi";
 import { languageData } from "@/store/reducer/languageSlice";
 import { useSelector } from "react-redux";
-import {  isLogin, translate } from "@/utils";
+import { isLogin, translate } from "@/utils";
 import Layout from "@/Components/Layout/Layout";
 import { store } from "@/store/store";
 import { createPaymentIntentApi, getPackagesApi, getPaymentSettingsApi } from "@/store/actions/campaign";
@@ -139,10 +139,13 @@ const page = () => {
             return false;
         }
         // here condition based on if before subscription is active
-        if (isUserLogin && systemsettings.subscription) {
+        if (isUserLogin) {
             setPreviusSubsscriptionModal(true);
         }
-
+        // if (isUserLogin && systemsettings.subscription) {
+        //     setPreviusSubsscriptionModal(true);
+        // }
+        console.log("price data", data)
         setPriceData(data);
     };
 

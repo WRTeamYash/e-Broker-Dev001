@@ -54,6 +54,7 @@ const Index = () => {
             "",
             "",
             "",
+            "",
             (response) => {
                 setTotal(response.total);
                 const MostViewedData = response.data;

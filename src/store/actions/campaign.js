@@ -1,4 +1,4 @@
-import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav, getPackages, getPaymentSettings, createPaymentIntent, confirmPayment, getFacilities, postProperty, getLimits, getPaymentDetials, updatePostProperty, deleteProperty } from "@/utils/api";
+import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav, getPackages, getPaymentSettings, createPaymentIntent, confirmPayment, getFacilities, postProperty, getLimits, getPaymentDetials, updatePostProperty, deleteProperty, featureProperty } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
@@ -35,9 +35,9 @@ export const GetCategorieApi = (onSuccess, onError, onStart) => {
     }))
 };
 // GET PROPERTIES
-export const GetFeturedListingsApi = (promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid, onSuccess, onError, onStart) => {
+export const GetFeturedListingsApi = (promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid,users_promoted, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
-        ...getAllProperties(promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid),
+        ...getAllProperties(promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid, users_promoted),
         displayToast: false,
         onStart,
         onSuccess,
@@ -202,11 +202,21 @@ export const UpdatePostProperty = (action_type, id, package_id, title, descripti
 }
 
 // Delete Property
-
-//confirmPayment
 export const deletePropertyApi = (id, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
         ...deleteProperty(id),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+
+
+// Delete Property
+export const featurePropertyApi = (package_id, property_id, type, image, onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...featureProperty(package_id, property_id, type, image),
         displayToast: false,
         onStart,
         onSuccess,

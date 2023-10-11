@@ -5182,6 +5182,13 @@ a {
   border: 1px solid #e88d14;
   border-radius: 8px;
 }
+.panding_status {
+  color: #e42416;
+  background-color: #e4241614;
+  padding: 5px 20px;
+  border: 1px solid #e42416;
+  border-radius: 8px;
+}
 #dashboard_card {
   background: rgb(8, 124, 124) url("../../src/assets/Dashboard Image.jpg")
     no-repeat padding-box;
@@ -5312,6 +5319,17 @@ a {
   margin-top: 12px;
   margin-left: -140px;
 }
+.listing_type_feature_tag {
+  position: absolute;
+  background-color: var(--primary-color);
+  color: var(--primary-text-color01);
+  padding: 0 10px;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  margin-top: 12px;
+  margin-left: -140px;
+}
 .listing_card_body {
   display: flex;
   padding: 10px;
@@ -5349,6 +5367,9 @@ a {
 }
 
 .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: var(--primary-color) !important;
+}
+.css-1q2h7u5.Mui-selected {
   color: var(--primary-color) !important;
 }
 .css-1aquho2-MuiTabs-indicator {
@@ -5964,6 +5985,22 @@ a {
   font-size: 24px;
   padding: 20px 0;
 }
+
+#subscription_card_row {
+  gap: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+#subscription_progress_cards {
+  /* gap: 20px 0; */
+  display: flex;
+  justify-content: center;
+}
+@media only screen and (max-width: 1599px) {
+  #subscription_card_col {
+    width: 100%;
+  }
+}
 #subscription_card {
   border: none;
   border-radius: 8px;
@@ -6028,11 +6065,56 @@ a {
   font-weight: 600;
   color: var(--primary-color);
 }
+@media only screen and (max-width: 767px) {
+  #subscription_validity .package_validity .package_details_value,
+  #subscription_validity .package_price .package_details_value {
+    font-size: 26px;
+  }
 
+  #subscription_card_header .subscription_current_package {
+    font-size: 18px;
+  }
+  #subscription_card_header .subscription_current_package_type {
+    font-size: small;
+  }
+  #subscription_duration {
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: inherit !important;
+  }
+  #subscription_duration .started_on {
+    justify-content: flex-start !important;
+  }
+  #subscription_duration .ends_on {
+    justify-content: flex-end !important;
+  }
+}
+@media only screen and (max-width: 399px) {
+  #subscription_validity .package_validity .package_details_value,
+  #subscription_validity .package_price .package_details_value {
+    font-size: 20px;
+  }
+
+  #subscription_card_header .subscription_current_package {
+    font-size: 16px;
+  }
+  #subscription_card_header .subscription_current_package_type {
+    font-size: smaller;
+  }
+  #subscription_duration .started_on .icon_div,
+  #subscription_duration .ends_on .icon_div {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  #subscription_duration .started_on .dates .dates_title, #subscription_duration .ends_on .dates .dates_title{
+    font-size: small !important;
+
+  }
+  #subscription_duration .started_on .dates .dates_value, #subscription_duration .ends_on .dates .dates_value {
+    font-size: small !important;
+}
+}
 #subscription_details {
-  /* display: flex;
-  align-items: center;
-  justify-content: space-between; */
   padding: 20px;
 }
 
@@ -6158,7 +6240,6 @@ a {
   color: #fff;
 }
 
-
 .optionStyles {
   background: var(--primary-background);
   border-radius: 8px;
@@ -6168,7 +6249,7 @@ a {
   padding: 10px;
   margin: 5px; /* Remove the quotes */
   text-align: center; /* Remove the quotes */
-  border: 1px solid #E1E1E1;
+  border: 1px solid #e1e1e1;
   color: #000;
 }
 
@@ -6181,6 +6262,28 @@ a {
   padding: 10px;
   margin: 5px; /* Remove the quotes */
   text-align: center; /* Remove the quotes */
-  border: 1px solid #E1E1E1;
+  border: 1px solid #e1e1e1;
   color: #fff;
+  box-shadow: 0px 8px 16px #087c7c29;
+}
+
+#promote_button {
+  width: 100%;
+  color: var(--primary-text-color01);
+  background-color: var(--primary-color);
+  padding: 10px;
+}
+
+.feature_form_titles {
+  font-size: small;
+  font-weight: bold;
+  /* margin: 5px 0; */
+}
+
+.feature-modal .modal-footer {
+  border-top: none;
+}
+
+.slider_img {
+  margin-top: 10px;
 }

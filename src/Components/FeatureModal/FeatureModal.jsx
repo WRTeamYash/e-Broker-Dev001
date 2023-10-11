@@ -1,48 +1,91 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-// import { RiCloseCircleLine } from 'react-icons/ri';
+import { RiCloseCircleLine } from 'react-icons/ri';
+import { useDropzone } from 'react-dropzone';
+import { featurePropertyApi } from '@/store/actions/campaign';
+import { settingsData } from '@/store/reducer/settingsSlice';
+import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/router';
 
 const FeatureModal = ({ show, onHide, propertyId }) => {
-    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOption, setSelectedOption] = useState('HomeScreen');
+    const [uploadedImages, setUploadedImages] = useState([]);
+
+
+    const packageDetails = useSelector(settingsData);
+    const currentUserPackage = packageDetails?.package?.user_purchased_package;
+    const packageId = currentUserPackage[0]?.package.id;
+    // console.log(packageId)
+
+
+    const router = useRouter()
 
     const handleOptionChange = (option) => {
         setSelectedOption(option);
-        console.log('Selected Option:', option); // Add this line
     };
+
+    const handleImageUpload = (acceptedFiles) => {
+        // Append the uploaded files to the uploadedImages state
+        setUploadedImages((prevImages) => [...prevImages, ...acceptedFiles]);
+        console.log(uploadedImages)
+    };
+    useEffect(() => {
+
+    }, [uploadedImages])
     const handleFeature = () => {
-        // Pass the selectedOption to your API or handle it as needed
-        // For demonstration, we'll just log the selected option
-        console.log('Selected Option:', selectedOption);
 
+        // console.log('Selected Option:', selectedOption);
+        // console.log('Uploaded Images:', uploadedImages);
+        featurePropertyApi(
+            packageId,
+            propertyId,
+            selectedOption,
+            uploadedImages[0] ? uploadedImages[0] : "",
+            (response) => {
+                // console.log(response)
+                toast.success(response.message)
+                onHide();
+                router.push('/advertisement')
+            },
+            (error) => {
+                console.log(error)
+                toast.success(error)
+
+            }
+        )
         // Close the modal
-        onHide();
     };
 
-    const optionStyles = {
-        background: '',
-        borderRadius: '8px',
-        opacity: 1,
-        cursor: 'pointer',
-        transition: 'background 0.3s',
-        padding: '10px',
-        margin: '5px',
-        textAlign: 'left',
-        border: '1px solid #E1E1E1',
+    const removeImage = (index) => {
+        // Remove an image from the uploadedImages state by index
+        setUploadedImages((prevImages) => prevImages.filter((_, i) => i !== index));
     };
 
-    const selectedOptionStyles = {
-        background: '#087c7c',
-        color: '#FFFFFF',
-        borderRadius: '8px',
-        opacity: 1,
-        cursor: 'pointer',
-        transition: 'background 0.3s',
-        padding: '10px',
-        margin: '5px',
-        textAlign: 'left',
-    };
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop: handleImageUpload,
+        accept: 'image/*', // Accept only image files
+    });
+
+    const files = useMemo(
+        () =>
+            uploadedImages.map((file, index) => (
+                <div key={index} className="dropbox_img_div">
+                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                    <div className="dropbox_d">
+                        <button className="dropbox_remove_img" onClick={() => removeImage(index)}>
+                            <RiCloseCircleLine size="25px" />
+                        </button>
+                        <div className="dropbox_img_deatils">
+                            <span>{file.name}</span>
+                            <span>{Math.round(file.size / 1024)} KB</span>
+                        </div>
+                    </div>
+                </div>
+            )),
+        [uploadedImages]
+    );
 
     return (
         <Modal
@@ -54,71 +97,67 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
         >
             <Modal.Header>
                 <Modal.Title>Feature Property</Modal.Title>
-                {/* <RiCloseCircleLine
+                <RiCloseCircleLine
                     className="close-icon"
                     size={40}
                     onClick={onHide}
-                /> */}
+                />
             </Modal.Header>
             <Modal.Body>
-                <Form>
+                <div className="feature_div">
+                    <span className='feature_form_titles'>Select Type</span>
                     <div className="row">
                         <div className="col-sm-12 col-md-6 col-lg-4">
                             <div
-                                // style={
-                                //     selectedOption === 'HomeScreen'
-                                //         ? selectedOptionStyles
-                                //         : optionStyles
-                                // }
-                                className={selectedOption === 'HomeScreen' ? "selectedOptionStyles" : "optionStyles"}
-
+                                className={selectedOption === 'HomeScreen' ? 'selectedOptionStyles' : 'optionStyles'}
                                 onClick={() => handleOptionChange('HomeScreen')}
                             >
                                 Home
                             </div>
-
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-4">
                             <div
-                                className={selectedOption === 'Slider' ? "selectedOptionStyles" : "optionStyles"}
-
+                                className={selectedOption === 'Slider' ? 'selectedOptionStyles' : 'optionStyles'}
                                 onClick={() => handleOptionChange('Slider')}
                             >
                                 Slider
                             </div>
-
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-4">
                             <div
-                                className={selectedOption === 'ProductListing' ? "selectedOptionStyles" : "optionStyles"}
-
+                                className={selectedOption === 'ProductListing' ? 'selectedOptionStyles' : 'optionStyles'}
                                 onClick={() => handleOptionChange('ProductListing')}
                             >
                                 List
                             </div>
-
                         </div>
                     </div>
-                    {/* {selectedOption === 'Slider' && (
-                        <div>
-                                                      <Form.File
-                                id="custom-file"
-                                label="Upload Slider Image"
-                                custom
-                            />
+                </div>
+                {selectedOption === 'Slider' && (
+                    <div className="slider_img">
+                        <span className='feature_form_titles'>Pick Slider Image</span>
+                        <div className="dropbox">
+                            <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`}>
+                                <input {...getInputProps()} />
+                                {uploadedImages.length === 0 ?
+                                    (isDragActive ?
+                                        <span>Drop the files here...</span> :
+                                        <span>Drag & Drop your files or <span style={{ textDecoration: "underline" }}> Browse</span></span>
+                                    )
+                                    : null}
+                            </div>
+                            <div>{files}</div>
                         </div>
-                    )} */}
-                </Form>
+                    </div>
+                )}
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>
-                    Cancel
-                </Button>
-                <Button variant="primary" onClick={handleFeature}>
-                    Feature
+                <Button variant="" id='promote_button' onClick={handleFeature}>
+                    Promote
                 </Button>
             </Modal.Footer>
         </Modal>
     );
 };
-export default FeatureModal; // Make sure to use 'export default'
+
+export default FeatureModal;

@@ -91,8 +91,8 @@ const Index = () => {
                 <div className="dashboard_titles">
                     <h3>My Subscription</h3>
                 </div>
-                <div className="row">
-                    <div className="col-sm-12 col-md-6">
+                <div className="row" >
+                    <div className="col-sm-12 col-md-6" id='subscription_card_col'>
                         <div className="card" id='subscription_card'>
                             <div className="card-header" id='subscription_card_header'>
                                 <span className='subscription_current_package'>Current Package</span>
@@ -118,8 +118,8 @@ const Index = () => {
                                 </div>
                                 <hr />
                                 <div id="subscription_details">
-                                    <div className="row">
-                                        <div className="col-sm-12 col-md-6 col-lg-4">
+                                    <div className="row" id='subscription_card_row'>
+                                        <div className="col-sm-12 col-md-6 col-lg-4" id='subscription_progress_cards'>
                                             <div className="property_count_card">
                                                 <span>Property</span>
                                                 <div className="progress_bar_div">
@@ -127,7 +127,7 @@ const Index = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-sm-12 col-md-6 col-lg-4">
+                                        <div className="col-sm-12 col-md-6 col-lg-4" id='subscription_progress_cards'>
                                             <div className="advertisement_count_card">
                                                 <span>Advertisement</span>
                                                 <div className="progress_bar_div">
@@ -135,7 +135,7 @@ const Index = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-sm-12 col-md-6 col-lg-4">
+                                        <div className="col-sm-12 col-md-6 col-lg-4" id='subscription_progress_cards'>
                                             <div className="remaining_count_card">
                                                 <span>Remaining</span>
                                                 <div className="progress_bar_div">

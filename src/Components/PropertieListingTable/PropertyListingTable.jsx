@@ -17,6 +17,7 @@ import ReactPagination from "../Pagination/ReactPagination";
 import { deletePropertyApi } from "@/store/actions/campaign";
 import Loader from "../Loader/Loader";
 import toast from "react-hot-toast";
+import { translate } from "@/utils";
 
 
 export default function PropertyListingTable({ data, handlePageChange, total, limit, isLoading, setIsLoading }) {
@@ -174,7 +175,7 @@ export default function PropertyListingTable({ data, handlePageChange, total, li
               ) : (
                 <TableRow>
                   <TableCell colSpan={6} align="center">
-                    <p>No Data Available</p>
+                    <p>{translate("noDataAvailabe")}</p>
                   </TableCell>
                 </TableRow>
               )

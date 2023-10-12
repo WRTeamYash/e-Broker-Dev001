@@ -5003,10 +5003,10 @@ a {
 
 /* RTL  */
 
-  .verticle_card,
+  /* .verticle_card,
 .Category_card {
   direction: rtl;
-}
+} */
 [dir="rtl"] .verticle_card .verticle_main_card .price_teg {
   left: 10px !important;
   right: unset !important;
@@ -6307,5 +6307,5 @@ a {
   overflow-y: visible !important;
 }
 .css-1hsz34s-MuiDrawer-docked .MuiDrawer-paper{
-  overflow-y: visible !important;
+  overflow-x: visible !important;
 }

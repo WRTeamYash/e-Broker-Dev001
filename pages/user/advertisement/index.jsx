@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import ReactPagination from "@/Components/Pagination/ReactPagination.jsx";
 import Loader from "@/Components/Loader/Loader";
 import { FaCrown } from 'react-icons/fa';
+import { translate } from "@/utils";
 const index = () => {
   const limit = 8;
 
@@ -83,7 +84,7 @@ const index = () => {
     <VerticleLayout>
       <div className="container">
         <div className="tranction_title">
-          <h1>My Advertisement</h1>
+          <h1>{translate("myAdvertisement")}</h1>
         </div>
 
 
@@ -102,12 +103,12 @@ const index = () => {
                 }}
               >
                 <TableRow>
-                  <TableCell sx={{ fontWeight: "600" }}>Listing title</TableCell>
+                  <TableCell sx={{ fontWeight: "600" }}>{translate("listingTitle")}</TableCell>
                   <TableCell sx={{ fontWeight: "600" }} align="center">
-                    Status
+                  {translate("status")}
                   </TableCell>
                   <TableCell sx={{ fontWeight: "600" }} align="center">
-                    Action
+                  {translate("action")}
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -152,11 +153,11 @@ const index = () => {
 
                         <TableCell align="center">
                           {elem.advertisement[0].status === 0 ? (
-                            <span className="active_status">Approved</span>
+                            <span className="active_status">{translate("approved")}</span>
                           ) : elem.advertisement[0].status === 1 ? (
-                            <span className="panding_status">Pending</span>
+                            <span className="panding_status">{translate("pending")}</span>
                           ) : (
-                            <span className="inactive_status">Rejected</span>
+                            <span className="inactive_status">{translate("rejected")}</span>
                           )}
 
                         </TableCell>
@@ -167,7 +168,7 @@ const index = () => {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={6} align="center">
-                        <p>No Data Available</p>
+                        <p>{translate("noDataAvailabe")}</p>
                       </TableCell>
                     </TableRow>
                   )

@@ -23,6 +23,7 @@ import Loader from "../../../src/Components/Loader/Loader.jsx";
 import toast from "react-hot-toast";
 import { FaCrown } from 'react-icons/fa';
 import FeatureModal from '@/Components/FeatureModal/FeatureModal.jsx';
+import { translate } from '@/utils/index.js';
 
 
 
@@ -186,8 +187,8 @@ const index = () => {
 
                                     <div id='dashboard_user'>
                                         <div>
-                                            <span className="dashboard_user_title">hy, {userData}</span>
-                                            <p className="card-text">Manage your profile and view property</p>
+                                            <span className="dashboard_user_title">{translate("hy")} {""} {userData}</span>
+                                            <p className="card-text">{translate("manageYourProfile")}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -195,7 +196,7 @@ const index = () => {
                             <div className="col-12 col-md-12 col-lg-4">
                                 <div className="card" id='dashboard_total_prop_card'>
                                     <div className="totalprop">
-                                        <span>Total Properties</span>
+                                        <span>{translate("totalProperty")}</span>
                                         {total > 0 ? (
                                             <h4>{total}</h4>
                                         ) :
@@ -211,7 +212,7 @@ const index = () => {
                             <div className="col-12 col-md-12 col-lg-4">
                                 <div className="card" id='dashboard_total_prop_card'>
                                     <div className="totalprop">
-                                        <span>Total Views</span>
+                                        <span>{translate("totalViews")}</span>
                                         {view > 0 ? (
                                             <h4>{view}</h4>
                                         ) : <h4>0</h4>}
@@ -242,21 +243,21 @@ const index = () => {
                                         }}
                                     >
                                         <TableRow>
-                                            <TableCell sx={{ fontWeight: "600" }}>Listing title</TableCell>
+                                            <TableCell sx={{ fontWeight: "600" }}>{translate("listingTitle")}</TableCell>
                                             <TableCell sx={{ fontWeight: "600" }} align="center">
-                                                Category
+                                            {translate("category")}
                                             </TableCell>
                                             <TableCell sx={{ fontWeight: "600" }} align="center">
-                                                Views
+                                            {translate("views")}
                                             </TableCell>
                                             <TableCell sx={{ fontWeight: "600" }} align="center">
-                                                Posted On
+                                            {translate("postedOn")}
                                             </TableCell>
                                             <TableCell sx={{ fontWeight: "600" }} align="center">
-                                                Status
+                                            {translate("status")}
                                             </TableCell>
                                             <TableCell sx={{ fontWeight: "600" }} align="center">
-                                                Action
+                                            {translate("action")}
                                             </TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -303,9 +304,9 @@ const index = () => {
                                                         <TableCell align="center">{elem.post_created}</TableCell>
                                                         <TableCell align="center">
                                                             {elem.status === 1 ? (
-                                                                <span className="active_status">Active</span>
+                                                                <span className="active_status">{translate("active")}</span>
                                                             ) : (
-                                                                <span className="inactive_status">Inactive</span>
+                                                                <span className="inactive_status">{translate("inactive")}</span>
                                                             )}
                                                         </TableCell>
                                                         <TableCell align="center">
@@ -326,7 +327,7 @@ const index = () => {
                                                                                 type="text"
                                                                                 icon={<EditOutlined />}
                                                                             >
-                                                                                Edit
+                                                                               {translate("edit")}
                                                                             </Button>
                                                                         </Menu.Item>
                                                                         {elem.status === 1 ? (
@@ -336,7 +337,7 @@ const index = () => {
                                                                                     icon={<FaCrown />}
                                                                                     onClick={() => handleFeatureClick(elem.id)}
                                                                                 >
-                                                                                    Feature
+                                                                               {translate("feature")}
                                                                                 </Button>
 
                                                                             </Menu.Item>
@@ -346,7 +347,7 @@ const index = () => {
                                                                                 type="text"
                                                                                 icon={<DeleteOutlined />}
                                                                                 onClick={() => handleClickDelete(elem.id)}>
-                                                                                Delete
+                                                                               {translate("delete")}
                                                                             </Button>
                                                                         </Menu.Item>
                                                                     </Menu>
@@ -361,7 +362,7 @@ const index = () => {
                                             ) : (
                                                 <TableRow>
                                                     <TableCell colSpan={6} align="center">
-                                                        <p>No Data Available</p>
+                                                        <p>{translate("noDataAvailabe")}</p>
                                                     </TableCell>
                                                 </TableRow>
                                             )

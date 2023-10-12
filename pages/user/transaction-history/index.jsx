@@ -13,6 +13,7 @@ import { settingsData } from "@/store/reducer/settingsSlice";
 import { useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import TablePagination from '../../../src/Components/Pagination/TablePagination.jsx'
+import { translate } from "@/utils/index.js";
 
 const index = () => {
     const [Data, setData] = useState([]);
@@ -120,7 +121,7 @@ const index = () => {
                                 ) : (
                                     <TableRow>
                                         <TableCell colSpan={6} align="center">
-                                            <p>No Data Available</p>
+                                            <p>{translate("noDataAvailabe")}</p>
                                         </TableCell>
                                     </TableRow>
                                 )}

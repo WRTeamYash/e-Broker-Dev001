@@ -136,7 +136,7 @@ export default function VerticleLayout(props) {
             showCancelButton: true,
             confirmButtonColor: '#087c7c',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'yes! Logout'
+            confirmButtonText: "Yes"
         }).then((result) => {
             if (result.isConfirmed) {
                 logoutSuccess();

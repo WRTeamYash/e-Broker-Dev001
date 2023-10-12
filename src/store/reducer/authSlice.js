@@ -38,8 +38,8 @@ export const authSlice = createSlice({
 
         },
         userUpdateData: (user_signup, action) => {
-            user_signup.data.data.name = action.payload.data
-            console.log(action)
+            console.log("updated action", action)
+            user_signup.data.data = action.payload.data
         },
         userLogout: (user_signup) => {
             user_signup = initialState

@@ -52,7 +52,7 @@ const StripeModal = (props) => {
             setloadingPay(false);
             return;
         }
-
+        console.log("stripe client secret key", props?.client_key?.client_secret)
         // Confirm the PaymentIntent with the Payment Element
         const { paymentIntent, error } = await stripe.confirmCardPayment(props?.client_key?.client_secret, {
             payment_method: {
@@ -75,12 +75,12 @@ const StripeModal = (props) => {
             //   closeModal.current.click();
             toast.error(error.message);
         } else if (paymentIntent.status === "succeeded") {
-            confirmPaymentApi(props?.client_key?.id,(res)=>{
+            confirmPaymentApi(props?.client_key?.id, (res) => {
                 toast.success(res.message)
                 navigate.push("/")
                 setloadingPay(false);
                 // setIsOrderPlaced(true)
-            },(err)=>{
+            }, (err) => {
                 toast.error(err.message)
             })
             // Redirect the customer to a success page
@@ -93,7 +93,7 @@ const StripeModal = (props) => {
     };
 
     return (
-        <>   
+        <>
             <div className="modal-body">
                 <div className="stripe-container d-flex flex-column p-0">
                     <div className="d-flex flex-row justify-content-between header">

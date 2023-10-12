@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { settingsData } from '@/store/reducer/settingsSlice'
 import LocationSearchBox from '@/Components/Location/LocationSearchBox';
 import { UpdateProfileApi } from '@/store/actions/campaign';
-import { loadUpdateData, loadUpdateUserData } from '@/store/reducer/authSlice';
+import { loadUpdateData, loadUpdateUserData, userUpdateData } from '@/store/reducer/authSlice';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { translate } from '@/utils';
@@ -17,20 +17,20 @@ const Index = () => {
     const userProfileData = userData?.data?.data
     const navigate = useRouter()
     const [formData, setFormData] = useState({
-        fullName: userProfileData.name,
-        email: userProfileData.email,
-        phoneNumber: userProfileData.mobile,
-        address: userProfileData.address,
-        aboutMe: userProfileData.about_me,
-        facebook: userProfileData.facebook_id,
-        instagram: userProfileData.instagram_id,
-        pintrest: userProfileData.pintrest_id,
-        twiiter: userProfileData.twiiter_id,
-        profileImage: userProfileData.profile,
+        fullName: userProfileData?.name,
+        email: userProfileData?.email,
+        phoneNumber: userProfileData?.mobile,
+        address: userProfileData?.address,
+        aboutMe: userProfileData?.about_me,
+        facebook: userProfileData?.facebook_id,
+        instagram: userProfileData?.instagram_id,
+        pintrest: userProfileData?.pintrest_id,
+        twiiter: userProfileData?.twiiter_id,
+        profileImage: userProfileData?.profile,
     });
     const fileInputRef = useRef(null);
 
-    const [uploadedImage, setUploadedImage] = useState(userProfileData.profile || null);
+    const [uploadedImage, setUploadedImage] = useState(userProfileData?.profile || null);
 
 
     const DummyImgData = useSelector(settingsData)
@@ -104,8 +104,9 @@ const Index = () => {
             formData.instagram ? formData.instagram : "",
             formData.pintrest ? formData.pintrest : "",
             (response) => {
-                toast.success(response.message)
-                loadUpdateData(response.data)
+                console.log("response",response)
+                toast.success("Profile Updated Successfully")
+                loadUpdateUserData(response.data)
                 navigate.push("/")
                 setFormData({
                     fullName: '',
@@ -164,7 +165,7 @@ const Index = () => {
                                             </div>
                                             <div className="col-sm-12 col-md-6">
                                                 <div className="add_user_fields_div">
-                                                    <span>{translate("Full Name")}</span>
+                                                    <span>{translate("fullName")}</span>
                                                     <input
                                                         type="text"
                                                         className='add_user_fields'

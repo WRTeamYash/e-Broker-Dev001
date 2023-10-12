@@ -27,6 +27,7 @@ const Nav = () => {
 
     const router = useRouter()
     const signupData = useSelector(userSignUpData);
+    // console.log(signupData)
     const settingData = useSelector(settingsData)
     // console.log(settingData)
     const isSubscription = settingData?.subscription
@@ -141,7 +142,7 @@ const Nav = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 logoutSuccess();
-                toast.error(translate("logoutsuccess"));
+                toast.error(translate("logoutSuccess"));
 
             } else {
                 toast.error(translate("logoutcancel"));

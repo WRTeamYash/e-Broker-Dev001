@@ -141,7 +141,7 @@ const Nav = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 logoutSuccess();
-                toast.error(translate("logoutsucces"));
+                toast.error(translate("logoutsuccess"));
 
             } else {
                 toast.error(translate("logoutcancel"));

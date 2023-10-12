@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
 import Layout from '@/Components/Layout/Layout'
-import SearchTab from '../../src/Components/SearchTab/SearchTab.jsx'
 import { useSelector } from 'react-redux';
 import { GetCategorieApi, GetFeturedListingsApi } from '@/store/actions/campaign.js';
 import { RiCloseCircleLine, RiSendPlane2Line } from 'react-icons/ri';
@@ -322,7 +321,7 @@ const SearchPage = () => {
                                     <div className='budget-inputs'>
                                         <input className='price-input' type='number' placeholder='Min Price' name="minPrice" value={formData.minPrice} onChange={handleInputChange} />
                                         <input className='price-input' type='number' placeholder='Max Price' name="maxPrice" value={formData.maxPrice} onChange={handleInputChange} />
-                                    </div>NoDataFound
+                                    </div>
                                 </div>
                             </div>
                             <div className="third-grup">

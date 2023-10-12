@@ -1,14 +1,77 @@
+import React, { useEffect, useState } from 'react'
 import { translate } from '@/utils'
-import React from 'react'
 import { ButtonGroup } from 'react-bootstrap'
 import { RiSendPlane2Line } from 'react-icons/ri'
+import { GetCategorieApi } from '@/store/actions/campaign'
 
 const FiletrForm = () => {
+
+  const [filterData, setFilterData] = useState({
+    propType: '',
+    minPrice: '',
+    maxPrice: '',
+    postedSince: 'anytime', // Default value
+    selectedLocation: null,
+  });
+  const [getCategories, setGetCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+
+  useEffect(() => {
+    GetCategorieApi(
+      (response) => {
+        const categoryData = response && response.data;
+        setIsLoading(false);
+        setGetCategories(categoryData);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, []);
+
+  const handlePropTypeChange = (e) => {
+    setFilterData({
+      ...filterData,
+      propType: e.target.value,
+    });
+  };
+
+  const handleMinPriceChange = (e) => {
+    setFilterData({
+      ...filterData,
+      minPrice: e.target.value,
+    });
+  };
+
+  const handleMaxPriceChange = (e) => {
+    setFilterData({
+      ...filterData,
+      maxPrice: e.target.value,
+    });
+  };
+
+  const handlePostedSinceChange = (value) => {
+    setFilterData({
+      ...filterData,
+      postedSince: value,
+    });
+  };
+
+  const handleLocationSelected = (locationData) => {
+    setFilterData({
+      ...filterData,
+      selectedLocation: locationData,
+    });
+  };
+
+
+
   return (
     <div className="card" id='filter-card'>
       <div className="card title" id='filter-title'>
         <span>
-         {translate("filterProp")}
+          {translate("filterProp")}
         </span>
         <button>
           {translate("clearFilter")}
@@ -36,11 +99,12 @@ const FiletrForm = () => {
         </div>
         <div className='prop-type'>
           <span>{translate("propTypes")}</span>
-          <select className="form-select" aria-label="Default select">
-            <option value="" defaultValue>Select Type</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+          <select className="form-select" aria-label="Default select" name="propType" value={filterData.propType} onChange={handlePropTypeChange}>
+            <option value="">{translate("selectPropType")}</option>
+            {/* Add more options as needed */}
+            {getCategories && getCategories?.map((ele, index) => (
+              <option key={index} value={ele.id}>{ele.category}</option>
+            ))}
           </select>
         </div>
         <div className='prop-location'>
@@ -55,8 +119,8 @@ const FiletrForm = () => {
         <div className='budget-price'>
           <span>{translate("budget")}</span>
           <div className='budget-inputs'>
-            <input className='price-input' placeholder='Min Price' />
-            <input className='price-input' placeholder='Max Price' />
+            <input className='price-input' type='number' placeholder='Min Price' />
+            <input className='price-input' type='number' placeholder='Max Price' />
           </div>
         </div>
         <div className='posted-since'>

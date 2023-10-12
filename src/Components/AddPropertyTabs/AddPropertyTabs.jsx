@@ -589,11 +589,11 @@ export default function AddPropertyTabs() {
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Property Details" {...a11yProps(0)} />
-                    <Tab label="Facilities" {...a11yProps(1)} />
-                    <Tab label="Outdoor Facilities" {...a11yProps(2)} />
-                    <Tab label="Location" {...a11yProps(3)} />
-                    <Tab label="Images & Video" {...a11yProps(4)} />
+                    <Tab label={translate("propDeatils")} {...a11yProps(0)} />
+                    <Tab label={translate("facilities")} {...a11yProps(1)} />
+                    <Tab label={translate("OTF")} {...a11yProps(2)} />
+                    <Tab label={translate("location")} {...a11yProps(3)} />
+                    <Tab label={translate("I&V")} {...a11yProps(4)} />
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -602,7 +602,7 @@ export default function AddPropertyTabs() {
                         <div className="col-sm-12 col-md-6">
                             <div id='add_prop_form'>
                                 <div className="add_prop_fields">
-                                    <span>Property Type</span>
+                                    <span>{translate("propTypes")}</span>
                                     <div className="add_prop_types">
                                         <div className="form-check">
                                             <input
@@ -618,7 +618,7 @@ export default function AddPropertyTabs() {
 
                                             />
                                             <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                                Sell
+                                                {translate("sell")}
                                             </label>
                                         </div>
                                         <div className="form-check">
@@ -633,13 +633,13 @@ export default function AddPropertyTabs() {
                                             //   disabled={formData.propertyType === 'rent'} 
                                             />
                                             <label className="form-check-label" htmlFor="flexRadioDefault2">
-                                                Rent
+                                                {translate("rent")}
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="add_prop_fields">
-                                    <span>Category</span>
+                                    <span>{translate("category")}</span>
                                     <select
                                         className="form-select"
                                         aria-label="Default select"
@@ -659,25 +659,25 @@ export default function AddPropertyTabs() {
 
                                 </div>
                                 <div className="add_prop_fields">
-                                    <span>Title</span>
+                                    <span>{translate("title")}</span>
                                     <input type="text" id='prop_title_input' placeholder='Enter Property Title' name='title' onChange={handleInputChange} value={tab1.title} />
                                 </div>
                                 <div className="add_prop_fields">
-                                    <span>Price</span>
+                                    <span>{translate("price")}</span>
                                     <input type="number" id='prop_title_input' placeholder='Enter Property Price ($)' name='price' onChange={handleInputChange} value={tab1.price} />
                                 </div>
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6">
                             <div className="add_prop_fields">
-                                <span>Property Description</span>
+                                <span>{translate("propDesc")}</span>
                                 <textarea rows={13} id="about_prop" placeholder='Enter About Property' name='propertyDesc' onChange={handleInputChange} value={tab1.propertyDesc} />
                             </div>
                         </div>
                     </div>
 
                     <div className="nextButton">
-                        <button type='button' onClick={handleNextTab}>Next</button>
+                        <button type='button' onClick={handleNextTab}>{translate("next")}</button>
                     </div>
                 </form>
             </CustomTabPanel>
@@ -696,21 +696,11 @@ export default function AddPropertyTabs() {
                                                 <input
                                                     value={tab2[ele.id] || ''}
                                                     type='number'
+                                                    // name={`parameters[${index}][value]`}
                                                     className='prop_number_input'
                                                     id={`prop_title_input_${ele.id}`}
-                                                    onChange={(e) => {
-                                                        const inputValue = e.target.value;
-                                                        // Check if the input is a positive number (greater than or equal to 0)
-                                                        if (!isNaN(inputValue) && inputValue >= 0) {
-                                                            // If it's a valid positive number, update the state
-                                                            handleTab2InputChange(ele.id, inputValue);
-                                                        } else {
-                                                            // If it's not a valid positive number, reset the input value
-                                                            e.target.value = tab2[ele.id] || '';
-                                                        }
-                                                    }}
+                                                    onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}
                                                 />
-
                                             </>
                                         ) : ele.type_of_parameter === 'checkbox' ? (
                                             <>
@@ -846,19 +836,8 @@ export default function AddPropertyTabs() {
                                             placeholder='00 KM'
                                             className='prop_number_input'
                                             id={`prop_title_input_${ele.id}`}
-                                            onChange={(e) => {
-                                                const inputValue = e.target.value;
-                                                // Check if the input is a positive number (greater than or equal to 0)
-                                                if (!isNaN(inputValue) && inputValue >= 0) {
-                                                    // If it's a valid positive number, update the state
-                                                    handleTab3InputChange(ele.id, inputValue);
-                                                } else {
-                                                    // If it's not a valid positive number, reset the input value
-                                                    e.target.value = tab3[ele.id] || '';
-                                                }
-                                            }}
+                                            onChange={(e) => handleTab3InputChange(ele.id, e.target.value)}
                                         />
-
                                     </div>
 
                                 </div>
@@ -879,25 +858,25 @@ export default function AddPropertyTabs() {
                             <div className='row' id='add_prop_form_row'>
                                 <div className="col-sm-12 col-md-6">
                                     <div className="add_prop_fields">
-                                        <span>City</span>
+                                        <span>{translate("city")}</span>
                                         <input type="text" id='prop_title_input' placeholder='Enter City' name='city' value={selectedLocationAddress.city} onChange={handleTab4InputChange} />
                                     </div>
                                 </div>
                                 <div className="col-sm-12 col-md-6">
                                     <div className="add_prop_fields">
-                                        <span>State</span>
+                                        <span>{translate("state")}</span>
                                         <input type="text" id='prop_title_input' placeholder='Enter State' name='state' value={selectedLocationAddress.state} onChange={handleTab4InputChange} />
                                     </div>
                                 </div>
                                 <div className="col-sm-12">
                                     <div className="add_prop_fields">
-                                        <span>Country</span>
+                                        <span>{translate("country")}</span>
                                         <input type="text" id='prop_title_input' placeholder='Enter Country' name='country' value={selectedLocationAddress.country} onChange={handleTab4InputChange} />
                                     </div>
                                 </div>
                                 <div className="col-sm-12">
                                     <div className="add_prop_fields">
-                                        <span>Address</span>
+                                        <span>{translate("address")}</span>
                                         <textarea rows={4} id="about_prop" placeholder='Enter Full Address' name='formatted_address' value={selectedLocationAddress.formatted_address} onChange={handleTab4InputChange} />
                                     </div>
                                 </div>
@@ -907,13 +886,13 @@ export default function AddPropertyTabs() {
                             <div className="map">
                                 <GoogleMapBox
                                     apiKey="AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE"
-                                    onSelectLocation={handleLocationSelect} />
+                                    onSelectLocation={handleLocationSelect}/>
                             </div>
                         </div>
                     </div>
 
                     <div className="nextButton">
-                        <button type='button' onClick={handleNextTab4}>Next</button>
+                        <button type='button' onClick={handleNextTab4}>{translate("next")}</button>
                     </div>
                 </form>
             </CustomTabPanel>
@@ -922,14 +901,14 @@ export default function AddPropertyTabs() {
                     <div className="row" id='add_prop_form_row'>
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
-                                <span>Title Image</span>
+                                <span>{translate("titleImg")}</span>
                                 <div className="dropbox">
                                     <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`}>
                                         <input {...getInputProps()} />
                                         {uploadedImages.length === 0 ?
                                             (isDragActive ?
-                                                <span>Drop the files here...</span> :
-                                                <span>Drag & Drop your files or <span style={{ textDecoration: "underline" }}> Browse</span></span>
+                                                <span>{translate("dropFiles")}</span> :
+                                                <span>{translate("dragFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span></span>
                                             )
                                             : null}
                                     </div>
@@ -939,14 +918,14 @@ export default function AddPropertyTabs() {
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
-                                <span>3D Image</span>
+                                <span>{translate("3dImg")}</span>
                                 <div className="dropbox">
                                     <div {...getRootProps3D()} className={`dropzone ${isDragActive3D ? 'active' : ''}`}>
                                         <input {...getInputProps3D()} />
                                         {uploaded3DImages.length === 0 ?
                                             (isDragActive3D ?
-                                                <span>Drop the 3D files here...</span> :
-                                                <span>Drag & Drop your 3D files or <span style={{ textDecoration: "underline" }}> Browse</span></span>
+                                                <span>{translate("drop3dFiles")}</span> :
+                                                <span>{translate("drag3dFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span></span>
                                             )
                                             : null}
                                     </div>
@@ -956,14 +935,14 @@ export default function AddPropertyTabs() {
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
-                                <span>Gallary Images</span>
+                                <span>{translate("GallryImg")}</span>
                                 <div className="dropbox">
                                     <div {...getRootPropsGallery()} className={`dropzone ${isDragActiveGallery ? 'active' : ''}`}>
                                         <input {...getInputPropsGallery()} />
 
                                         {isDragActiveGallery ?
-                                            <span>Drop the gallery files here...</span> :
-                                            <span>Drag & Drop your gallery files or <span style={{ textDecoration: "underline" }}> Browse</span></span>
+                                            <span>{translate("dropgallaryFiles")}</span> :
+                                            <span>{translate("draggallaryFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span></span>
                                         }
 
                                     </div>
@@ -974,14 +953,14 @@ export default function AddPropertyTabs() {
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
-                                <span>Video Link</span>
-                                <input type="input" id='prop_title_input' name='videoLink' placeholder='Enter Video Link' value={tab5.videoLink} onChange={handleVideoInputChange} />
+                                <span>{translate("videoLink")}</span>
+                                <input type="input" id='prop_title_input' name='videoLink' placeholder='Eneter Video' value={tab5.videoLink} onChange={handleVideoInputChange} />
                             </div>
                         </div>
                     </div>
 
-                    <div className="nextButton">
-                        <button type='submit' onClick={handlePostproperty}>Submit</button>
+                    <div className="updateButton">
+                        <button type='submit' onClick={handlePostproperty}>{translate("submitProp")}</button>
                     </div>
                 </form>
             </CustomTabPanel>

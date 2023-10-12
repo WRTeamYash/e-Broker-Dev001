@@ -8,6 +8,7 @@ import VerticalCard from '@/Components/Cards/VerticleCard';
 import Link from 'next/link';
 import { languageData } from '@/store/reducer/languageSlice';
 import Pagination from '@/Components/Pagination/ReactPagination';
+import { translate } from '@/utils';
 
 const Index = () => {
   const lang = useSelector(languageData);
@@ -51,7 +52,7 @@ const Index = () => {
     <VerticleLayout>
       <div className="container">
         <div className="dashboard_titles">
-          <h3>Favorites</h3>
+          <h3>{translate("fav")}</h3>
         </div>
         <div className="fav_card">
           <div className="row">

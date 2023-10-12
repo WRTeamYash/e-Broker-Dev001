@@ -8,10 +8,11 @@ import { UpdateProfileApi } from '@/store/actions/campaign';
 import { loadUpdateData, loadUpdateUserData } from '@/store/reducer/authSlice';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
+import { translate } from '@/utils';
 
 
 const Index = () => {
-    
+
     const userData = useSelector((state) => state.User_signup);
     const userProfileData = userData?.data?.data
     const navigate = useRouter()
@@ -28,7 +29,7 @@ const Index = () => {
         profileImage: userProfileData.profile,
     });
     const fileInputRef = useRef(null);
-    
+
     const [uploadedImage, setUploadedImage] = useState(userProfileData.profile || null);
 
 
@@ -124,12 +125,12 @@ const Index = () => {
             })
     }
 
-    
+
     return (
         <VerticleLayout>
             <div className="container">
                 <div className="dashboard_titles">
-                    <h3>My Profile</h3>
+                    <h3>{translate("myProfile")}</h3>
                 </div>
                 <div className="profile_card">
                     <form>
@@ -137,7 +138,7 @@ const Index = () => {
                             <div className="col-sm-12 col-md-6">
                                 <div className="card" id='personal_info_card'>
                                     <div className="card-header">
-                                        <h4>Personal Info</h4>
+                                        <h4>{translate("personalInfo")}</h4>
                                     </div>
                                     <div className="card-body">
                                         <div className="row">
@@ -155,15 +156,15 @@ const Index = () => {
                                                             style={{ display: 'none' }}
                                                             onChange={handleImageUpload}
                                                         />
-                                                        <button type="button" onClick={handleUploadButtonClick}>Upload Image</button>
+                                                        <button type="button" onClick={handleUploadButtonClick}>{translate("uploadImg")}</button>
 
-                                                        <p>Note: Photos must be JPEG or PNG format and at least 120x120</p>
+                                                        <p>{translate("Note:")}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="col-sm-12 col-md-6">
                                                 <div className="add_user_fields_div">
-                                                    <span>Full Name</span>
+                                                    <span>{translate("Full Name")}</span>
                                                     <input
                                                         type="text"
                                                         className='add_user_fields'
@@ -176,7 +177,7 @@ const Index = () => {
                                             </div>
                                             <div className="col-sm-12 col-md-6">
                                                 <div className="add_user_fields_div">
-                                                    <span>Email</span>
+                                                    <span>{translate("email")}</span>
                                                     <input
                                                         type="text"
                                                         className='add_user_fields'
@@ -189,7 +190,7 @@ const Index = () => {
                                             </div>
                                             <div className="col-sm-12 col-md-6">
                                                 <div className="add_user_fields_div">
-                                                    <span>Phone Number</span>
+                                                    <span>{translate("phoneNumber")}</span>
                                                     <input
                                                         readOnly
                                                         type="text"
@@ -203,7 +204,7 @@ const Index = () => {
                                             </div>
                                             <div className="col-sm-12 col-md-6">
                                                 <div className="add_user_fields_div">
-                                                    <span>Location</span>
+                                                    <span>{translate("location")}</span>
                                                     {/* <input
                                                         type="text"
                                                         className='add_user_fields'
@@ -217,7 +218,7 @@ const Index = () => {
                                             </div>
                                             <div className="col-sm-12">
                                                 <div className="add_user_fields_div">
-                                                    <span>Address</span>
+                                                    <span>{translate("address")}</span>
                                                     <textarea
                                                         rows={4}
                                                         className='add_user_fields'
@@ -235,11 +236,11 @@ const Index = () => {
                             <div className="col-sm-12 col-md-6">
                                 <div className="card" id='about_me_card'>
                                     <div className="card-header">
-                                        <h4>About Me</h4>
+                                        <h4>{translate("aboutMe")}</h4>
                                     </div>
                                     <div className="card-body">
                                         <div className="add_user_fields_div">
-                                            <span>About Me</span>
+                                            <span>{translate("aboutMe")}</span>
                                             <textarea
                                                 rows={17}
                                                 className='add_user_fields'
@@ -255,13 +256,13 @@ const Index = () => {
                             <div className="col-12">
                                 <div className="card" id='social_media_card'>
                                     <div className="card-header">
-                                        <h4>Social Media</h4>
+                                        <h4>{translate("socialMedia")}</h4>
                                     </div>
                                     <div className="card-body">
                                         <div className="row">
                                             <div className="col-sm-12 col-md-6">
                                                 <div className="add_user_fields_div">
-                                                    <span>Facebook</span>
+                                                    <span>{translate("facebook")}</span>
                                                     <input
                                                         type="text"
                                                         className='add_user_fields'
@@ -274,7 +275,7 @@ const Index = () => {
                                             </div>
                                             <div className="col-sm-12 col-md-6">
                                                 <div className="add_user_fields_div">
-                                                    <span>Instagram</span>
+                                                    <span>{translate("insta")}</span>
                                                     <input
                                                         type="text"
                                                         className='add_user_fields'
@@ -287,7 +288,7 @@ const Index = () => {
                                             </div>
                                             <div className="col-sm-12 col-md-6">
                                                 <div className="add_user_fields_div">
-                                                    <span>Pinterest</span>
+                                                    <span>{translate("pinterest")}</span>
                                                     <input
                                                         type="text"
                                                         className='add_user_fields'
@@ -300,7 +301,7 @@ const Index = () => {
                                             </div>
                                             <div className="col-sm-12 col-md-6">
                                                 <div className="add_user_fields_div">
-                                                    <span>Twitter</span>
+                                                    <span>{translate("twitter")}</span>
                                                     <input
                                                         type="text"
                                                         className='add_user_fields'
@@ -317,7 +318,7 @@ const Index = () => {
                                 </div>
                                 <div className="col-12">
                                     <div className="submit_div">
-                                        <button type="submit" onClick={handleUpdateProfile}>Update Profile</button>
+                                        <button type="submit" onClick={handleUpdateProfile}>{translate("updateProfile")}</button>
                                     </div>
                                 </div>
                             </div>

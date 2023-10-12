@@ -106,8 +106,8 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 </Modal.Footer>
 
             </Modal >
-            {/* {showCurrentLoc && <Location isOpen={true} onClose={handleCloseLocModal} onSelectLocation={handleSelectLocation}
-            />} */}
+            {showCurrentLoc && <Location isOpen={true} onClose={handleCloseLocModal} onSelectLocation={handleSelectLocation}
+            />}
         </>
     )
 }

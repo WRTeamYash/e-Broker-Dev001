@@ -7,6 +7,7 @@ import { settingsData } from '@/store/reducer/settingsSlice';
 import { GetLimitsApi } from '@/store/actions/campaign';
 import { Box, CircularProgress } from '@mui/material';
 import { Progress } from 'antd';
+import { translate } from '@/utils/index.js';
 
 
 const Index = () => {
@@ -89,28 +90,28 @@ const Index = () => {
         <VerticleLayout>
             <div className="container">
                 <div className="dashboard_titles">
-                    <h3>My Subscription</h3>
+                    <h3>{translate("mySub")}</h3>
                 </div>
                 <div className="row" >
                     <div className="col-sm-12 col-md-6" id='subscription_card_col'>
                         <div className="card" id='subscription_card'>
                             <div className="card-header" id='subscription_card_header'>
-                                <span className='subscription_current_package'>Current Package</span>
+                                <span className='subscription_current_package'>{translate("currentPack")}</span>
                                 <span className='subscription_current_package_type'>{currentUserPackage[0].package
                                     .name}</span>
                             </div>
                             <div className="card-body">
                                 <div id="subscription_validity">
                                     <div className="package_validity">
-                                        <span className='package_details_title'>Package Validity</span>
+                                        <span className='package_details_title'>{translate("packVali")}</span>
                                         {currentUserPackage[0]?.end_date !== null ? (
-                                            <span className='package_details_value'>{currentUserPackage[0].package.duration} Days</span>
+                                            <span className='package_details_value'>{currentUserPackage[0].package.duration}{""} {translate("days")}</span>
                                         ) : (
                                             <span className='package_details_value'>{formattedEndDate} </span>
                                         )}
                                     </div>
                                     <div className="package_price">
-                                        <span className='package_details_title'>Price</span>
+                                        <span className='package_details_title'>{translate("price")}</span>
                                         <span className='package_details_value'>
                                             {currentUserPackage[0].package.price} {CurrencySymbol}
                                         </span>
@@ -121,7 +122,7 @@ const Index = () => {
                                     <div className="row" id='subscription_card_row'>
                                         <div className="col-sm-12 col-md-6 col-lg-4" id='subscription_progress_cards'>
                                             <div className="property_count_card">
-                                                <span>Property</span>
+                                                <span>{translate("property")}</span>
                                                 <div className="progress_bar_div">
                                                     <ProgressBar usedLimit={usedPropertyLimit} totalLimit={PropertyLimit} />
                                                 </div>
@@ -129,7 +130,7 @@ const Index = () => {
                                         </div>
                                         <div className="col-sm-12 col-md-6 col-lg-4" id='subscription_progress_cards'>
                                             <div className="advertisement_count_card">
-                                                <span>Advertisement</span>
+                                                <span>{translate("advertisement")}</span>
                                                 <div className="progress_bar_div">
                                                     <ProgressBar usedLimit={usedAdLimit} totalLimit={AdLimit} />
                                                 </div>
@@ -137,7 +138,7 @@ const Index = () => {
                                         </div>
                                         <div className="col-sm-12 col-md-6 col-lg-4" id='subscription_progress_cards'>
                                             <div className="remaining_count_card">
-                                                <span>Remaining</span>
+                                                <span>{translate("remaining")}</span>
                                                 <div className="progress_bar_div">
                                                     <div style={{ position: 'relative', display: 'inline-flex' }}>
                                                         <Progress
@@ -170,7 +171,7 @@ const Index = () => {
                                                                 </span>
                                                             ) : (
                                                                 <span className='progress_bar_count'>
-                                                                    ∞
+                                                                  {translate("infinity")}
                                                                 </span>
                                                             )}
                                                         </div>
@@ -186,14 +187,14 @@ const Index = () => {
                                             <CalendarMonthOutlinedIcon className='cal_icon' />
                                         </div>
                                         <div className="dates">
-                                            <span className='dates_title'>Started On</span>
+                                            <span className='dates_title'>{translate("startOn")}</span>
                                             <span className='dates_value'>{formattedStartDate}</span>
                                         </div>
                                     </div>
                                     {currentUserPackage[0]?.end_date !== null ? (
                                         <div className="ends_on">
                                             <div className="dates">
-                                                <span className='dates_title'>Ends On</span>
+                                                <span className='dates_title'>{translate("endsOn")}</span>
                                                 <span className='dates_value'>{formattedEndDate}</span>
                                             </div>
                                             <div className="icon_div">

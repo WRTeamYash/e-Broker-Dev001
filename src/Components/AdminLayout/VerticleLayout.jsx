@@ -35,6 +35,8 @@ import { useRouter } from 'next/router.js';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import { RiAdvertisementLine } from 'react-icons/ri';
+import { useSelector } from 'react-redux';
+import { languageData } from '@/store/reducer/languageSlice.js';
 
 
 const drawerWidth = 240;
@@ -112,7 +114,12 @@ export default function VerticleLayout(props) {
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+    // useSelector(languageData)  
+    React.useEffect(() => {
+      // console.log("render")
+    }, [lang]);
     const handleDrawerOpen = () => {
         setOpen(true);
     };

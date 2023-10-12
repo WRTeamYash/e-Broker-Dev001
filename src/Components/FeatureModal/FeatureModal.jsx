@@ -8,6 +8,7 @@ import { settingsData } from '@/store/reducer/settingsSlice';
 import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
+import { translate } from '@/utils';
 
 const FeatureModal = ({ show, onHide, propertyId }) => {
     const [selectedOption, setSelectedOption] = useState('HomeScreen');
@@ -96,7 +97,7 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
             backdrop="static"
         >
             <Modal.Header>
-                <Modal.Title>Feature Property</Modal.Title>
+                <Modal.Title>{translate("featureProp")}</Modal.Title>
                 <RiCloseCircleLine
                     className="close-icon"
                     size={40}
@@ -105,14 +106,14 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
             </Modal.Header>
             <Modal.Body>
                 <div className="feature_div">
-                    <span className='feature_form_titles'>Select Type</span>
+                    <span className='feature_form_titles'>{translate("selectType")}</span>
                     <div className="row">
                         <div className="col-sm-12 col-md-6 col-lg-4">
                             <div
                                 className={selectedOption === 'HomeScreen' ? 'selectedOptionStyles' : 'optionStyles'}
                                 onClick={() => handleOptionChange('HomeScreen')}
                             >
-                                Home
+                               {translate("home")}
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-4">
@@ -120,7 +121,7 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
                                 className={selectedOption === 'Slider' ? 'selectedOptionStyles' : 'optionStyles'}
                                 onClick={() => handleOptionChange('Slider')}
                             >
-                                Slider
+                                {translate("slider")}
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-4">
@@ -128,21 +129,21 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
                                 className={selectedOption === 'ProductListing' ? 'selectedOptionStyles' : 'optionStyles'}
                                 onClick={() => handleOptionChange('ProductListing')}
                             >
-                                List
+                                {translate("list")}
                             </div>
                         </div>
                     </div>
                 </div>
                 {selectedOption === 'Slider' && (
                     <div className="slider_img">
-                        <span className='feature_form_titles'>Pick Slider Image</span>
+                        <span className='feature_form_titles'>{translate("pickUpSliderImg")}</span>
                         <div className="dropbox">
                             <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`}>
                                 <input {...getInputProps()} />
                                 {uploadedImages.length === 0 ?
                                     (isDragActive ?
-                                        <span>Drop the files here...</span> :
-                                        <span>Drag & Drop your files or <span style={{ textDecoration: "underline" }}> Browse</span></span>
+                                        <span>{translate("dropFiles")}</span> :
+                                        <span>{translate("dragFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span></span>
                                     )
                                     : null}
                             </div>
@@ -153,7 +154,7 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="" id='promote_button' onClick={handleFeature}>
-                    Promote
+                    {translate("Promote")}
                 </Button>
             </Modal.Footer>
         </Modal>

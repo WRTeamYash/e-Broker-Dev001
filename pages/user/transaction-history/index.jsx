@@ -57,7 +57,7 @@ const index = () => {
         <VerticleLayout>
             <div className="container">
                 <div className="tranction_title">
-                    <h1>Transaction History</h1>
+                    <h1>{translate("transactionHistory")}</h1>
                 </div>
                 <div className="table_content card bg-white">
                     <TableContainer
@@ -80,19 +80,19 @@ const index = () => {
 
                                 }}>
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
-                                        ID
+                                    {translate("ID")}
                                     </TableCell>
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
-                                        Transaction ID
+                                    {translate("transactionId")}
                                     </TableCell>
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
-                                        Date
+                                    {translate("date")}
                                     </TableCell>
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
-                                        Price
+                                    {translate("price")}
                                     </TableCell>
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
-                                        Status
+                                    {translate("status")}
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
@@ -109,11 +109,11 @@ const index = () => {
                                             </TableCell>
                                             {elem.status === "1" ? (
                                                 <TableCell sx={{ fontWeight: "600" }} align="center">
-                                                    <span className="success">Success</span>
+                                                    <span className="success"> {translate("success")}</span>
                                                 </TableCell>
                                             ) : (
                                                 <TableCell sx={{ fontWeight: "600" }} align="center">
-                                                    <span className="fail">Fail</span>
+                                                    <span className="fail"> {translate("fail")}</span>
                                                 </TableCell>
                                             )}
                                         </TableRow>

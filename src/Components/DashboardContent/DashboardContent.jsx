@@ -6,6 +6,8 @@ import MuiAppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import Layout from '../AdminLayout/Layout';
+import { useSelector } from 'react-redux';
+import { languageData } from '@/store/reducer/languageSlice';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -77,6 +79,7 @@ export default function DashboardContent({ children }) {
 
 
 
+  
     return (
         <Layout>
             <Box sx={{ display: 'flex' }}>

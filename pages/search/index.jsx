@@ -313,7 +313,7 @@ const SearchPage = () => {
 
                                 <div className='prop-location-modal'>
                                     <span>{translate("selectYourLocation")}</span>
-                                    {/* <LocationSearchBox onLocationSelected={handleLocationSelected} /> */}
+                                    <LocationSearchBox onLocationSelected={handleLocationSelected} />
                                 </div>
                             </div>
                             <div className="second-grup">

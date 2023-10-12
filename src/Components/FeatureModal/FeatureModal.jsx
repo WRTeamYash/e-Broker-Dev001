@@ -47,7 +47,7 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
                 // console.log(response)
                 toast.success(response.message)
                 onHide();
-                router.push('/advertisement')
+                router.push('/user/advertisement')
             },
             (error) => {
                 console.log(error)

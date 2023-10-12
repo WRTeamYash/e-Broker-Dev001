@@ -25,15 +25,12 @@ function MyApp({ Component, pageProps, data }) {
         <Fragment>
 
             <Head>
-                <title>eBroker- Material Design React Admin Template</title>
-                <meta
-                    name='description'
-                    content="e-Broker – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5."
-                />
-                <meta name='keywords' content='Material Design, MUI, Admin Template, React Admin Template' />
+            <title>eBroker- Material Design Next js Template</title>
+                <meta name='description' content="e-Broker – Material Design Next js Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5." />
+                <meta name='keywords' content='Material Design, MUI, Admin Template, Next js Admin Template' />
                 <meta name='viewport' content='initial-scale=1, width=device-width' />
+                <link rel='icon' href='/favicon.ico' />
             </Head>
-            {/* <PushNotificationLayout> */}
                 <Provider store={store}>
                     <PersistGate persistor={persistor}>
 
@@ -42,7 +39,6 @@ function MyApp({ Component, pageProps, data }) {
                         <Toaster />
                     </PersistGate>
                 </Provider>
-            {/* </PushNotificationLayout> */}
         </Fragment>
     );
 }

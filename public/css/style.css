@@ -2374,11 +2374,11 @@ h3 {
   border-radius: 4px;
   opacity: 1;
   border: none;
-
   color: var(--primary-text-color01);
   position: absolute;
   top: 2rem;
   left: 2rem;
+  text-transform: capitalize;
 }
 #article_card_body {
   padding-top: 25px;
@@ -5095,10 +5095,19 @@ a {
 [dir="rtl"] .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
   right: 0 !important;
 }
+[dir="rtl"] .css-1l8j5k8 {
+  right: 0 !important;
+}
 [dir="rtl"] .css-hd7g24-MuiPaper-root-MuiAppBar-root {
   margin-right: 240px !important;
 }
+[dir="rtl"] .css-2biedg {
+  margin-right: 240px !important;
+}
 [dir="rtl"] .css-ldpunm-MuiPaper-root-MuiAppBar-root {
+  margin-right: 240px !important;
+}
+[dir="rtl"] .css-1ognt5a {
   margin-right: 240px !important;
 }
 [dir="rtl"] .listing_type_tag {
@@ -6323,6 +6332,9 @@ a {
 .css-hd7g24-MuiPaper-root-MuiAppBar-root{
   z-index: 1 !important;
 }
+.css-2biedg{
+  z-index: 1 !important;
+}
 .drawer_button {
   position: absolute !important;
   background: #282F39 !important;
@@ -6333,6 +6345,12 @@ a {
 .css-12i7wg6-MuiPaper-root-MuiDrawer-paper{
   overflow-y: visible !important;
 }
+.css-1l8j5k8{
+  overflow-y: visible !important;
+}
 .css-1hsz34s-MuiDrawer-docked .MuiDrawer-paper{
+  overflow-x: visible !important;
+}
+.css-1pv7n5u{
   overflow-x: visible !important;
 }

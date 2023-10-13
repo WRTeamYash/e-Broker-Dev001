@@ -25,7 +25,7 @@ const ArticleCard = ({ ele, expandedStates, index, PlaceHolderImg }) => {
 
                     <div id='article_card_headline'>
                         <span>
-                            Property Purchase Laws in USA
+                        {stripHtmlTags(ele.title).substring(0, 30) }
                         </span>
                         {ele && ele.description && (
                             <>

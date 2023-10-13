@@ -1285,7 +1285,7 @@ button.learn-more .circle {
 }
 
 button.learn-more .circle .icon {
-  transition: background 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  /* transition: background 0.45s cubic-bezier(0.65, 0, 0.076, 1); */
 }
 
 button.learn-more .circle .icon.arrow {
@@ -1333,13 +1333,13 @@ button.learn-more .button-text {
 }
 
 #viewall:active .circle .icon.arrow {
-  transform: translate(9.5rem, 0);
-  transition: all 0.3s;
+  /* transform: translate(9.5rem, 0);
+  transition: all 0.3s; */
 }
 
 #viewall:active .circle {
-  transform: scale(0.9);
-  transition: all 0.3s;
+  /* transform: scale(0.9);
+  transition: all 0.3s; */
   box-shadow: 0 0 5px 0.5px white;
 }
 
@@ -3798,6 +3798,9 @@ div#all-articles_card_footer .allarticles_footer_text p {
 .cate-list span {
   color: #282f39;
   font-size: medium;
+}
+.cate_list_arrow{
+  cursor: pointer;
 }
 .popular-tag-card,
 .recent-article-card {

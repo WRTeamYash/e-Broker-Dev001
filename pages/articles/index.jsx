@@ -8,7 +8,7 @@ import { AiOutlineUnorderedList, AiOutlineHeart, AiOutlineArrowRight } from 'rea
 import { RiGridFill } from 'react-icons/ri'
 import { IoMdArrowDropright } from "react-icons/io"
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
-import { GetAllArticlesApi } from '@/store/actions/campaign'
+import { GetAllArticlesApi, GetCategorieApi } from '@/store/actions/campaign'
 import ArticleCard from '@/Components/Cards/ArticleCard'
 import Skeleton from 'react-loading-skeleton'
 import ArticleCardSkeleton from '@/Components/Skeleton/ArticleCardSkeleton'
@@ -28,6 +28,7 @@ const Articles = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [expandedStates, setExpandedStates] = useState([]);
     const [grid, setGrid] = useState(false);
+    const [getCategories, setGetCategories] = useState([]);
 
     // GET ARTICLES
     const [getArticles, setGetArticles] = useState()
@@ -35,10 +36,10 @@ const Articles = () => {
 
     const lang = useSelector(languageData)
     // console.log("languageData",lang)
-      // useSelector(languageData)  
-      useEffect(()=>{
+    // useSelector(languageData)  
+    useEffect(() => {
         // console.log("render")
-      },[lang]);
+    }, [lang]);
     useEffect(() => {
         setIsLoading(true)
         GetAllArticlesApi("", (response) => {
@@ -52,7 +53,18 @@ const Articles = () => {
             console.log(error)
         })
     }, [])
-
+    useEffect(() => {
+        GetCategorieApi(
+            (response) => {
+                const categoryData = response && response.data;
+                setIsLoading(false);
+                setGetCategories(categoryData);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }, []);
     const stripHtmlTags = (htmlString) => {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = htmlString;
@@ -60,7 +72,11 @@ const Articles = () => {
     };
     const DummyImgData = useSelector(settingsData)
     const PlaceHolderImg = DummyImgData?.img_placeholder
-    // console.log(PlaceHolderImg)
+
+    const getArticleByCategory = (cateId) => {
+        
+    }
+
     return (
         <Layout>
             <Breadcrumb title={translate("articles")} />
@@ -130,8 +146,8 @@ const Articles = () => {
                                                         getArticles?.map((ele, index) => (
                                                             <div className='col-12 ' id='horizonatal_articles' key={index}>
                                                                 {/* <Link href="/article-deatils"> */}
-                                                                <ArticleHorizonatalCard ele={ele} expandedStates={expandedStates} index={index} PlaceHolderImg={PlaceHolderImg}/>
-                                                                {/* </Link> */} 
+                                                                <ArticleHorizonatalCard ele={ele} expandedStates={expandedStates} index={index} PlaceHolderImg={PlaceHolderImg} />
+                                                                {/* </Link> */}
                                                             </div>
                                                         ))}
                                                 </div>
@@ -147,42 +163,15 @@ const Articles = () => {
                                                 {translate("categories")}
                                             </div>
                                             <div className="card-body">
-                                                <div className='cate-list'>
-                                                    <span>Townhouse</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Codno</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Commercial</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Plote</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Land</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>House</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Banglow</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Penthouse</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
-                                                <div className='cate-list'>
-                                                    <span>Villa</span>
-                                                    <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                </div>
+
+                                                {getCategories && getCategories.map((elem, index) => (
+                                                    <div className='cate-list' key={index}>
+
+                                                        <span>{elem.category}</span>
+                                                        <IoMdArrowDropright size={25} className='cate_list_arrow'
+                                                            onClick={() => { getArticleByCategory(elem.id) }} />
+                                                    </div>
+                                                ))}
                                             </div>
                                         </div>
                                     </div>

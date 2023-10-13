@@ -30,7 +30,7 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) 
                         <div className="article-card-content">
                             <span className="article-apartment-tag">apartment</span>
                             <div className="article-card-headline">
-                                <span>Property Purchase Laws in USA</span>
+                                <span>  {stripHtmlTags(ele.title).substring(0, 30) }</span>
                                 {ele && ele.description && (
                                     <>
                                         <p>

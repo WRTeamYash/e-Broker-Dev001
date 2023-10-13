@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import { BiCurrentLocation } from 'react-icons/bi';
 import Location from '@/Components/Location/Location';
@@ -14,6 +14,7 @@ import dummyimg from "../../src/assets/Images/user_profile.png"
 import { languageData } from '@/store/reducer/languageSlice';
 import { translate } from '@/utils';
 import Layout from '@/Components/Layout/Layout';
+import LocationSearchBox from '@/Components/Location/LocationSearchBox';
 
 const index = () => {
     const navigate = useRouter()
@@ -34,6 +35,9 @@ const index = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [address, setAddress] = useState('');
     const [image, setImage] = useState(null)
+    const fileInputRef = useRef(null);
+
+    const [uploadedImage, setUploadedImage] = useState(null);
 
 
 
@@ -51,27 +55,41 @@ const index = () => {
         setShowCurrentLoc(false)
     }
     const handleSelectLocation = (location) => {
-        // console.log('Selected Location:', location);
+        console.log('Selected Location:', location);
         setSelectedLocation(location);
     };
     const modalStyle = {
         display: showCurrentLoc ? 'none' : 'block',
     };
-    // useEffect(() => {
+    const handleUploadButtonClick = () => {
+        fileInputRef.current.click(); // Trigger the file input click event
+    };
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
 
-    // }, [])
-    // console.log("profile", image)
+        console.log(file)
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                // const imageBlob = new Blob([e.target.result], { type: file.type });
+                // console.log(imageBlob);
+                setImage(file);
+                setUploadedImage(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
     const handleSubmitInfo = (e) => {
         e.preventDefault();
         UpdateProfileApi(
-            signupData.data.data.id, 
-            username, 
+            signupData.data.data.id,
+            username,
             email,
-            signupData.data.data.mobile, 
+            signupData.data.data.mobile,
             "3",
-            address, 
-            signupData.data.data.firebase_id, 
-            "mobile", 
+            address,
+            signupData.data.data.firebase_id,
+            "mobile",
             image,
             "",
             "",
@@ -79,14 +97,14 @@ const index = () => {
             "",
             "",
             "",
-            "", 
-         (res) => {
-            // console.log(res)
-            // console.log(res.message)
-            toast.success(res.message)
-            loadUpdateData(res.data)
-            navigate.push("/")
-        },
+            "",
+            (res) => {
+                // console.log(res)
+                // console.log(res.message)
+                toast.success(res.message)
+                loadUpdateData(res.data)
+                navigate.push("/")
+            },
             (err) => {
                 toast.error(err.message)
                 // console.log(err)
@@ -125,41 +143,33 @@ const index = () => {
                             <div className="card">
                                 <div className="card-header">
                                     <div className="card-title">
-                                        {translate("basicInfo")}
+                                        {translate("addInfo")}
                                     </div>
                                 </div>
                                 <div className="card-body">
                                     <form action="">
                                         <div className='form_all_fields'>
                                             <div className="row">
-                                                <div className="col-sm-12 col-md-12">
-
-                                                    {/* <span>Profile image</span> */}
-                                                    <div className='profile_image'>
-                                                        <div id="img-preview">
-                                                            {image ? (
-                                                                <img src={image} alt="Preview" />
-                                                            ) : (
-                                                                <img src={dummyimg.src} alt="Dummy" />
-                                                            )}
-                                                        </div>
-                                                        <div className="select__profile">
-                                                            <input
-                                                                type="file"
-                                                                id="choose-file"
-                                                                name="choose-file"
-                                                                accept="image/*"
-                                                                onChange={(e) => {
-                                                                    setImage(e.target.files[0]);
-                                                                    getImgData(); // Move getImgData() here
-                                                                }}
-                                                            />
-                                                            <label htmlFor="choose-file"><AiOutlineCamera size={20} /></label>
-                                                        </div>
+                                            <div className="col-sm-12">
+                                                <div className="add_profile_div">
+                                                    <div className="image_div">
+                                                        <img src={uploadedImage || dummyimg.src} alt="" />
                                                     </div>
+                                                    <div className="add_profile">
+                                                        <input
+                                                            type="file"
+                                                            accept="image/jpeg, image/png"
+                                                            id="add_img"
+                                                            ref={fileInputRef}
+                                                            style={{ display: 'none' }}
+                                                            onChange={handleImageUpload}
+                                                        />
+                                                        <button type="button" onClick={handleUploadButtonClick}>{translate("uploadImg")}</button>
 
-
+                                                        <p>{translate("Note:")}</p>
+                                                    </div>
                                                 </div>
+                                            </div>
                                                 {/* <div className="col-sm-12 col-md-6">
                                                     <div id="img-preview"></div>
                                                 </div> */}
@@ -180,7 +190,7 @@ const index = () => {
                                                 <div className="col-sm-12 col-md-12">
                                                     <div className='user_fields'>
                                                         <span>{translate("location")}</span>
-                                                        <div className='current_loc_div' onClick={handleOpenLocModal}>
+                                                        {/* <div className='current_loc_div' onClick={handleOpenLocModal}>
                                                             <BiCurrentLocation size={30} className='current_loc' />
                                                             <span>{translate("selectYourCurrentLocation")}</span>
                                                         </div>
@@ -190,8 +200,11 @@ const index = () => {
                                                                 value={selectedLocation.formatted_address}
                                                                 readOnly
                                                             />
-                                                        )}
+                                                        )} */}
+
+                                                        <LocationSearchBox onLocationSelected={handleSelectLocation} />
                                                     </div>
+
                                                 </div>
                                                 <div className="col-sm-12 col-md-12">
                                                     <div className='user_fields'>
@@ -219,7 +232,7 @@ const index = () => {
                 </div>
             </section>
             {showCurrentLoc &&
-             <Location isOpen={true} onClose={handleCloseLocModal} onSelectLocation={handleSelectLocation}/>
+                <Location isOpen={true} onClose={handleCloseLocModal} onSelectLocation={handleSelectLocation} />
             }
         </Layout>
     )

@@ -522,17 +522,23 @@ body {
   outline: none;
 }
 #user_register .card-footer {
-  border: none;
+  /* border: none; */
   display: block;
   background-color: transparent;
 }
+#user_register .card-footer .basic_submit{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 10px;
+}
 #user_register .card-footer .basic_submit button {
   border: none;
-  width: 100%;
+  width: 30%;
   color: var(--primary-text-color01);
-  background-color: var(--primary-color);
-  padding: 15px;
-  border-radius: 12px;
+  background-color: #282F39;
+  padding: 10px;
+  border-radius: 8px;
 }
 /* =====================LOCTION MODAL ================= */
 .current_loction_modal .modal-header {

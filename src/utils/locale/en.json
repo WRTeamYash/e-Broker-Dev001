@@ -146,6 +146,7 @@
   "emailIsNotValid": "Invalid email format",
   "allFields": "Please fill all fields",
   "myAdvertisement": "My Advertisement",
+  "myDashboard": "My Dashboard",
   "listingTitle": "Listing title",
   "action": "Action",
   "status": "Status",
@@ -217,6 +218,7 @@
   "slider":"Slider",
   "list":"List",
   "pickUpSliderImg":"Pick Up Slider Image",
-  "promote":"Promote"
+  "promote":"Promote",
+  "price":"Price"
 
 }

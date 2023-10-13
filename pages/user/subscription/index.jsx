@@ -8,6 +8,7 @@ import { GetLimitsApi } from '@/store/actions/campaign';
 import { Box, CircularProgress } from '@mui/material';
 import { Progress } from 'antd';
 import { translate } from '@/utils/index.js';
+import { languageData } from '@/store/reducer/languageSlice.js';
 
 
 const Index = () => {
@@ -23,7 +24,12 @@ const Index = () => {
     const usedPropertyLimit = currentUserPackage[0]?.used_limit_for_property;
     const AdLimit = currentUserPackage[0].package.property_limit;
     const usedAdLimit = currentUserPackage[0]?.used_limit_for_advertisement;
-
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+    // useSelector(languageData)  
+    useEffect(() => {
+      // console.log("render")
+    }, [lang]);
     const getDaysRemaining = (endDate) => {
         if (endDate) {
             const currentDate = new Date();

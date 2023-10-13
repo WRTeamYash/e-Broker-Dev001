@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import VerticleLayout from '@/Components/AdminLayout/VerticleLayout';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import { loadUpdateData, loadUpdateUserData, userUpdateData } from '@/store/redu
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { translate } from '@/utils';
+import { languageData } from '@/store/reducer/languageSlice';
 
 
 const Index = () => {
@@ -32,7 +33,12 @@ const Index = () => {
 
     const [uploadedImage, setUploadedImage] = useState(userProfileData?.profile || null);
 
-
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+    // useSelector(languageData)  
+    useEffect(() => {
+      // console.log("render")
+    }, [lang]);
     const DummyImgData = useSelector(settingsData)
     const PlaceHolderImg = DummyImgData?.img_placeholder
     const handleImageUpload = (e) => {

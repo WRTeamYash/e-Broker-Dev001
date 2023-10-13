@@ -24,6 +24,7 @@ import toast from "react-hot-toast";
 import { FaCrown } from 'react-icons/fa';
 import FeatureModal from '@/Components/FeatureModal/FeatureModal.jsx';
 import { translate } from '@/utils/index.js';
+import { languageData } from '@/store/reducer/languageSlice.js';
 
 
 
@@ -44,7 +45,12 @@ const index = () => {
 
 
 
-
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+    // useSelector(languageData)  
+    useEffect(() => {
+      // console.log("render")
+    }, [lang]);
 
     const handleClickEdit = (propertyId) => {
         router.push(`/user/edit-property?id=${propertyId}`);

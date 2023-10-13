@@ -15,6 +15,7 @@ import ReactPagination from "@/Components/Pagination/ReactPagination.jsx";
 import Loader from "@/Components/Loader/Loader";
 import { FaCrown } from 'react-icons/fa';
 import { translate } from "@/utils";
+import { languageData } from "@/store/reducer/languageSlice";
 const index = () => {
   const limit = 8;
 
@@ -29,7 +30,12 @@ const index = () => {
   const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
   const priceSymbol = useSelector(settingsData);
   const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;
-
+  const lang = useSelector(languageData)
+  // console.log("languageData",lang)
+  // useSelector(languageData)  
+  useEffect(() => {
+    // console.log("render")
+  }, [lang]);
   // api call
   useEffect(() => {
     setIsLoading(true);
@@ -126,7 +132,7 @@ const index = () => {
                   Data.length > 0 ? (
                     Data.map((elem, index) => (
                       <TableRow key={index}>
-                        {console.log(elem.advertisement[0].status)}
+                        {/* {console.log(elem.advertisement[0].status)} */}
                         <TableCell component="th" scope="row" sx={{ width: "40%" }}>
                           <div className="card" id="listing_card">
                             <div className="listing_card_img">

@@ -11,7 +11,7 @@ import Pagination from '@/Components/Pagination/ReactPagination';
 import { translate } from '@/utils';
 
 const Index = () => {
-  const lang = useSelector(languageData);
+  
   const [isLoading, setIsLoading] = useState(true);
   const [total, setTotal] = useState(0);
   const [getFavProp, setGetFavProp] = useState([]);
@@ -20,7 +20,12 @@ const Index = () => {
 
   const isLoggedIn = useSelector((state) => state.User_signup);
   const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-
+  const lang = useSelector(languageData)
+  // console.log("languageData",lang)
+  // useSelector(languageData)  
+  useEffect(() => {
+    // console.log("render")
+  }, [lang]);
   useEffect(() => {
     GetFavPropertyApi(
       offsetdata.toString(),

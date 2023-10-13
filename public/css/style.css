@@ -5091,6 +5091,22 @@ a {
 [dir="rtl"] #number-input {
   border-radius: 0px 8px 8px 0px;
 }
+
+[dir="rtl"] .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+  right: 0 !important;
+}
+[dir="rtl"] .css-hd7g24-MuiPaper-root-MuiAppBar-root {
+  margin-right: 240px !important;
+}
+[dir="rtl"] .css-ldpunm-MuiPaper-root-MuiAppBar-root {
+  margin-right: 240px !important;
+}
+[dir="rtl"] .listing_type_tag {
+  margin-right: -140px !important;
+}
+[dir="rtl"] .drawer_button {
+  right: 92%;
+}
 /* [dir="rtl"] .index-module_Horizontal__8-P70.index-module_Next__sFCHR .index-module_Container__mtjRh {
 
   right: 1423% !important;

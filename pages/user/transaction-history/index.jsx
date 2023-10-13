@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import TablePagination from '../../../src/Components/Pagination/TablePagination.jsx'
 import { translate } from "@/utils/index.js";
+import { languageData } from "@/store/reducer/languageSlice.js";
 
 const index = () => {
     const [Data, setData] = useState([]);
@@ -25,7 +26,12 @@ const index = () => {
     const currency = systemsettings?.currency_symbol;
     const dataPerPage = 10; // number of posts per page
     const pagesVisited = currentPage * dataPerPage;
-
+    const lang = useSelector(languageData)
+    // console.log("languageData",lang)
+    // useSelector(languageData)  
+    useEffect(() => {
+      // console.log("render")
+    }, [lang]);
     // handle page change
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected);

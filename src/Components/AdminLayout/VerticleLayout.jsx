@@ -37,6 +37,7 @@ import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import { RiAdvertisementLine } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
 import { languageData } from '@/store/reducer/languageSlice.js';
+import { store } from '@/store/store.js';
 
 
 const drawerWidth = 240;
@@ -117,9 +118,12 @@ export default function VerticleLayout(props) {
     const lang = useSelector(languageData)
     // console.log("languageData",lang)
     // useSelector(languageData)  
-    React.useEffect(() => {
+    useEffect(() => {
       // console.log("render")
     }, [lang]);
+    const language = store.getState().Language.languages;
+
+    console.log(language.rtl)
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -127,6 +131,7 @@ export default function VerticleLayout(props) {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    
     const router = useRouter();
     const handleLogout = () => {
         Swal.fire({
@@ -203,7 +208,7 @@ export default function VerticleLayout(props) {
                             fontSize: "30",
                             // width:"50px",
                         }}>
-                            {theme.direction === 'rtl' ? <ArrowForwardIcon /> : <ArrowBackIcon />}
+                           {language.rtl === 1 ? <ArrowForwardIcon /> : <ArrowBackIcon />}
                         </IconButton>
                     </Box>
                 </DrawerHeader>
@@ -230,7 +235,7 @@ export default function VerticleLayout(props) {
                                     <DashboardOutlinedIcon />
 
                                 </ListItemIcon>
-                                <ListItemText primary="My Dashboard" sx={{ opacity: open ? 1 : 0 }} />
+                                <ListItemText primary={translate("myDashboard")} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </Link>
                     </ListItem>
@@ -255,7 +260,7 @@ export default function VerticleLayout(props) {
                                     <RiAdvertisementLine size={23}/>
 
                                 </ListItemIcon>
-                                <ListItemText primary="My Advertisement" sx={{ opacity: open ? 1 : 0 }} />
+                                <ListItemText primary={translate("myAdvertisement")} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </Link>
                     </ListItem>
@@ -280,7 +285,7 @@ export default function VerticleLayout(props) {
                                     <AddHomeOutlinedIcon />
 
                                 </ListItemIcon>
-                                <ListItemText primary="Properties" sx={{ opacity: open ? 1 : 0 }} />
+                                <ListItemText primary={translate("properties")} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     </Link>
@@ -304,7 +309,7 @@ export default function VerticleLayout(props) {
                                     <FavoriteBorderOutlinedIcon />
 
                                 </ListItemIcon>
-                                <ListItemText primary="Favorites" sx={{ opacity: open ? 1 : 0 }} />
+                                <ListItemText primary={translate("fav")} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     </Link>
@@ -328,7 +333,7 @@ export default function VerticleLayout(props) {
                                     <TagFacesOutlinedIcon />
 
                                 </ListItemIcon>
-                                <ListItemText primary="My Profile" sx={{ opacity: open ? 1 : 0 }} />
+                                <ListItemText primary={translate("myProfile")} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     </Link>
@@ -352,7 +357,7 @@ export default function VerticleLayout(props) {
                                     <PaidOutlinedIcon />
 
                                 </ListItemIcon>
-                                <ListItemText primary="Subscription" sx={{ opacity: open ? 1 : 0 }} />
+                                <ListItemText primary={translate("mySub")} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     </Link>
@@ -376,7 +381,7 @@ export default function VerticleLayout(props) {
                                     <ReceiptIcon />
 
                                 </ListItemIcon>
-                                <ListItemText primary="Transaction History" sx={{ opacity: open ? 1 : 0 }} />
+                                <ListItemText primary={translate("transactionHistory")} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     </Link>
@@ -400,7 +405,7 @@ export default function VerticleLayout(props) {
                                 <ExitToAppIcon />
 
                             </ListItemIcon>
-                            <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
+                            <ListItemText primary={translate("logout")} sx={{ opacity: open ? 1 : 0 }} />
                         </ListItemButton>
                     </ListItem>
                 </List>

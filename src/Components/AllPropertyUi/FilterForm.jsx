@@ -3,69 +3,9 @@ import { translate } from '@/utils'
 import { ButtonGroup } from 'react-bootstrap'
 import { RiSendPlane2Line } from 'react-icons/ri'
 import { GetCategorieApi } from '@/store/actions/campaign'
+import LocationSearchBox from '../Location/LocationSearchBox'
 
-const FiletrForm = () => {
-
-  const [filterData, setFilterData] = useState({
-    propType: '',
-    minPrice: '',
-    maxPrice: '',
-    postedSince: 'anytime', // Default value
-    selectedLocation: null,
-  });
-  const [getCategories, setGetCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-
-  useEffect(() => {
-    GetCategorieApi(
-      (response) => {
-        const categoryData = response && response.data;
-        setIsLoading(false);
-        setGetCategories(categoryData);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }, []);
-
-  const handlePropTypeChange = (e) => {
-    setFilterData({
-      ...filterData,
-      propType: e.target.value,
-    });
-  };
-
-  const handleMinPriceChange = (e) => {
-    setFilterData({
-      ...filterData,
-      minPrice: e.target.value,
-    });
-  };
-
-  const handleMaxPriceChange = (e) => {
-    setFilterData({
-      ...filterData,
-      maxPrice: e.target.value,
-    });
-  };
-
-  const handlePostedSinceChange = (value) => {
-    setFilterData({
-      ...filterData,
-      postedSince: value,
-    });
-  };
-
-  const handleLocationSelected = (locationData) => {
-    setFilterData({
-      ...filterData,
-      selectedLocation: locationData,
-    });
-  };
-
-
+const FiletrForm = (props) => {
 
   return (
     <div className="card" id='filter-card'>
@@ -73,7 +13,7 @@ const FiletrForm = () => {
         <span>
           {translate("filterProp")}
         </span>
-        <button>
+        <button onClick={props.handleClearFilter}>
           {translate("clearFilter")}
         </button>
       </div>
@@ -82,73 +22,102 @@ const FiletrForm = () => {
           <ButtonGroup id='propertie_button_grup'>
             <ul className="nav nav-tabs" id="props-tabs">
               <li className="">
-                <a className="nav-link active" aria-current="page" id="prop-sellbutton" onClick={(e) => {
-                  e.target.classList.add('active')
-                  document.getElementById('prop-rentbutton').classList.remove('active')
-                }}>{translate("forSell")}</a>
+                <a
+                  className={`nav-link ${props.filterData.propType === 0 ? 'active' : ''}`}
+                  aria-current="page"
+                  id="prop-sellbutton"
+                  onClick={() => props.handleTabClick('sell')}
+                >
+                  {translate("forSell")}
+                </a>
               </li>
               <li className="">
-                <a className="nav-link" onClick={(e) => {
-                  e.target.classList.add('active')
-                  document.getElementById('prop-sellbutton').classList.remove('active')
-
-                }} aria-current="page" id="prop-rentbutton">{translate("forRent")}</a>
+                <a
+                  className={`nav-link ${props.filterData.propType === 1 ? 'active' : ''}`}
+                  onClick={() => props.handleTabClick('rent')}
+                  aria-current="page"
+                  id="prop-rentbutton"
+                >
+                  {translate("forRent")}</a>
               </li>
             </ul>
           </ButtonGroup>
         </div>
-        <div className='prop-type'>
-          <span>{translate("propTypes")}</span>
-          <select className="form-select" aria-label="Default select" name="propType" value={filterData.propType} onChange={handlePropTypeChange}>
-            <option value="">{translate("selectPropType")}</option>
-            {/* Add more options as needed */}
-            {getCategories && getCategories?.map((ele, index) => (
-              <option key={index} value={ele.id}>{ele.category}</option>
-            ))}
-          </select>
-        </div>
-        <div className='prop-location'>
-          <span>{translate("selectYourLocation")}</span>
-          <select className="form-select" aria-label="Default select">
-            <option defaultValue >Select Location (Optional)</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
+
+        {!props.cateName && (
+          <div className='prop-type'>
+            <span>{translate("propTypes")}</span>
+            <select className="form-select" aria-label="Default select" name="category" value={props.filterData.category} onChange={props.handleInputChange}>
+              <option value="">{translate("selectPropType")}</option>
+              {/* Add more options as needed */}
+              {props.getCategories && props.getCategories?.map((ele, index) => (
+                <option key={index} value={ele.id}>{ele.category}</option>
+              ))}
+            </select>
+          </div>
+        )}
+        {!props.cityName && (
+          <div className='prop-location'>
+            <span>{translate("selectYourLocation")}</span>
+            <LocationSearchBox onLocationSelected={props.handleLocationSelected} />
+          </div>
+        )}
         <div className='budget-price'>
           <span>{translate("budget")}</span>
           <div className='budget-inputs'>
-            <input className='price-input' type='number' placeholder='Min Price' />
-            <input className='price-input' type='number' placeholder='Max Price' />
+            <input className='price-input' type='number' placeholder='Min Price' name="minPrice" value={props.filterData.minPrice} onChange={props.handleInputChange} />
+            <input className='price-input' type='number' placeholder='Max Price' name="maxPrice" value={props.filterData.maxPrice} onChange={props.handleInputChange} />
           </div>
         </div>
         <div className='posted-since'>
           <span>{translate("postedSince")}</span>
           <div className='posted-duration'>
             <div className="form-check">
-              <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked />
+              <input
+                className="form-check-input"
+                type="radio" name="flexRadioDefault"
+                id="flexRadioDefault1"
+                value="anytime"
+                checked={props.filterData.postedSince === 'anytime'}
+                onChange={props.handlePostedSinceChange}
+              />
               <label className="form-check-label" htmlFor="flexRadioDefault1">
                 {translate("anytime")}
               </label>
             </div>
             <div className="form-check">
-              <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+              <input
+                className="form-check-input"
+                type="radio" name="flexRadioDefault"
+                id="flexRadioDefault2"
+                value="lastWeek"
+
+                checked={props.filterData.postedSince === 'lastWeek'}
+                onChange={props.handlePostedSinceChange}
+              />
               <label className="form-check-label" htmlFor="flexRadioDefault2">
                 {translate("lastWeek")}
               </label>
             </div>
             <div className="form-check">
-              <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" />
+              <input
+                className="form-check-input"
+                type="radio" name="flexRadioDefault"
+                id="flexRadioDefault3"
+                value="yesterday"
+
+                checked={props.filterData.postedSince === 'yesterday'}
+                onChange={props.handlePostedSinceChange}
+              />
               <label className="form-check-label" htmlFor="flexRadioDefault3">
                 {translate("yesterday")}
               </label>
             </div>
           </div>
         </div>
-        <div className='apply-filter'>
+        <div className='apply-filter' onClick={props.handleApplyfilter}>
           <RiSendPlane2Line size={25} />
-          <button id='apply-filter-button'>
+          <button id='apply-filter-button' >
             {translate("applyFilter")}
           </button>
         </div>

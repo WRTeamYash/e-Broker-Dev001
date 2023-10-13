@@ -105,12 +105,21 @@ const SearchPage = () => {
     }, []);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
+        const { name, value, type } = e.target;
+        // Ensure that the input value is a positive number
+        if (type === 'number') {
+          const sanitizedValue = Math.max(0, parseInt(value));
+          setFormData({
+            ...formData,
+            [name]: sanitizedValue,
+          });
+        } else {
+          setFormData({
             ...formData,
             [name]: value,
-        });
-    };
+          });
+        }
+      };
 
     const handlePostedSinceChange = (e) => {
         setFormData({

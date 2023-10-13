@@ -11,20 +11,29 @@ import { useRouter } from 'next/router'
 import GridCard from '@/Components/AllPropertyUi/GridCard'
 import AllPropertieCard from '@/Components/AllPropertyUi/AllPropertieCard'
 import ReactPaginate from 'react-paginate'
-import { GetFeturedListingsApi } from '@/store/actions/campaign'
+import { GetCategorieApi, GetFeturedListingsApi } from '@/store/actions/campaign'
 import CustomHorizontalSkeleton from '@/Components/Skeleton/CustomHorizontalSkeleton'
 import { languageData } from '@/store/reducer/languageSlice'
 import { useSelector } from 'react-redux'
 import Pagination from '@/Components/Pagination/ReactPagination'
 import Layout from '@/Components/Layout/Layout'
 import { translate } from '@/utils'
+import NoData from '@/Components/NoDataFound/NoData'
 
 
 const AllProperties = () => {
   const [grid, setGrid] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
   const [CategoryListByPropertyData, setCategoryListByPropertyData] = useState()
-  const [cityName, setCityName] = useState("")
+  const [getCategories, setGetCategories] = useState([]);
+  const [filterData, setFilterData] = useState({
+    propType: "",
+    category: '',
+    minPrice: '',
+    maxPrice: '',
+    postedSince: '',
+    selectedLocation: null,
+  });
   const [total, setTotal] = useState();
   const [offsetdata, setOffsetdata] = useState(0);
   const limit = 8
@@ -88,6 +97,109 @@ const AllProperties = () => {
     window.scrollTo(0, 0);
   };
 
+
+  useEffect(() => {
+    GetCategorieApi(
+      (response) => {
+        const categoryData = response && response.data;
+        setIsLoading(false);
+        setGetCategories(categoryData);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, []);
+  const handleInputChange = (e) => {
+    const { name, value, type } = e.target;
+    // Ensure that the input value is a positive number
+    if (type === 'number') {
+      const sanitizedValue = Math.max(0, parseInt(value));
+      setFilterData({
+        ...filterData,
+        [name]: sanitizedValue,
+      });
+    } else {
+      setFilterData({
+        ...filterData,
+        [name]: value,
+      });
+    }
+  };
+
+
+  const handleTabClick = (tab) => {
+    const propTypeValue = tab === 'sell' ? 0 : 1;
+    setFilterData({
+      ...filterData,
+      propType: propTypeValue,
+    });
+  };
+  const handlePostedSinceChange = (e) => {
+    setFilterData({
+      ...filterData,
+      postedSince: e.target.value,
+    });
+  };
+
+
+  const handleClearFilter = () => {
+    setFilterData({
+      propType: "",
+      category: '',
+      minPrice: '',
+      maxPrice: '',
+      postedSince: '',
+      selectedLocation: null
+    })
+  }
+  const handleApplyfilter = (e) => {
+    e.preventDefault();
+
+    // Determine the value for the postedSince parameter based on filterData.postedSince
+    let postedSinceValue = '';
+    if (filterData.postedSince === 'yesterday') {
+      postedSinceValue = '0';
+    } else if (filterData.postedSince === 'lastWeek') {
+      postedSinceValue = '1';
+    }
+
+    GetFeturedListingsApi(
+      "",
+      "",
+      "",
+      filterData ? filterData?.category : "",
+      "",
+      city,
+      "",
+      offsetdata.toString(),
+      limit.toString(),
+      isLoggedIn ? userCurrentId : "",
+      filterData ? filterData?.propType : "",
+      filterData ? filterData?.maxPrice : "",
+      filterData ? filterData?.minPrice : "",
+      postedSinceValue, // Set the postedSince parameter
+      "",
+      "",
+      "",
+      "",
+      "",
+      (response) => {
+        setTotal(response.total);
+        const propertyData = response.data;
+        // console.log(propertyData);
+        setCategoryListByPropertyData(propertyData);
+        setIsLoading(false);
+        handleClearFilter()
+      },
+      (error) => {
+        setIsLoading(false);
+        console.log(error);
+      }
+    );
+  };
+
+
   return (
     <Layout>
       <Breadcrumb title={city.slug ? `Properties Listed in ${city.slug} ` : `No Properties in ${city.slug}`} />
@@ -97,48 +209,66 @@ const AllProperties = () => {
         <div className='all-properties container'>
           <div className='row ' id='main-all-prop'>
             <div className='col-12 col-md-12 col-lg-3'>
-              <FilterForm />
+              <FilterForm
+                filterData={filterData}
+                getCategories={getCategories}
+                handleInputChange={handleInputChange}
+                handleTabClick={handleTabClick}
+                handlePostedSinceChange={handlePostedSinceChange}
+                cityName={city.slug}
+                handleApplyfilter={handleApplyfilter}
+                handleClearFilter={handleClearFilter}
+              />
             </div>
             <div className='col-12 col-md-12 col-lg-9'>
               <div className='all-prop-rightside'>
-                <GridCard total={total} setGrid={setGrid} />
-
-                {
-                  !grid ?
-                    // Row cards
+                {CategoryListByPropertyData && CategoryListByPropertyData.length > 0 ? (
+                  <GridCard total={total} setGrid={setGrid} />
+                ) : null}
+                {CategoryListByPropertyData && CategoryListByPropertyData.length > 0 ? (
+                  // Row cards
+                  !grid ? (
                     <div className='all-prop-cards' id='rowCards'>
                       {isLoading ? (
+                        // Show skeleton loading when data is being fetched
                         Array.from({ length: 8 }).map((_, index) => (
                           <div className="col-sm-12  loading_data">
                             <CustomHorizontalSkeleton />
                           </div>
                         ))
-                      ) :
-                        CategoryListByPropertyData?.map((ele) => (
+                      ) : (
+                        CategoryListByPropertyData.map((ele) => (
                           <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
                             <AllPropertieCard ele={ele} />
                           </Link>
-                        ))}
+                        ))
+                      )}
                     </div>
-                    :
-                    //Column cards 
+                  ) : (
+                    // Column cards
                     <div id='columnCards'>
                       <div className='row' id='all-prop-col-cards'>
-
-                        {
-                          CategoryListByPropertyData?.map((ele, index) => (
-                            <div className='col-12 col-md-6 col-lg-4' key={index}>
-                              <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
-                                <VerticalCard ele={ele} />
-                              </Link>
-                            </div>
-                          ))}
+                        {CategoryListByPropertyData.map((ele, index) => (
+                          <div className='col-12 col-md-6 col-lg-4' key={index}>
+                            <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                              <VerticalCard ele={ele} />
+                            </Link>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                }
-              </div>
-              <div className="col-12">
-                <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                  )
+                ) : (
+                  <div className="noDataFoundDiv">
+                    <NoData />
+                  </div>
+                )}
+
+                {CategoryListByPropertyData && CategoryListByPropertyData.length > 0 ? (
+                  <div className="col-12">
+                    <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
@@ -147,32 +277,5 @@ const AllProperties = () => {
     </Layout>
   )
 }
-// export async function getServerSideProps(context) {
-//   // Get the slug parameter from the URL
-//   const { slug } = context.query;
-//   console.log("find slug", slug)
-//   console.log("query", context.query)
-//   // Fetch data from the external API using the slug parameter in the URL
-//   try {
-
-//     // this is for all Property data fetch 
-//     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}get_property?city=${slug}`);
-//     const propertySlugData = response.data;// Assuming your API response is a JSON object
-
-//     // console.log("==================================================================================== list by category property Data", propertySlugData)
-//     return {
-//       props: { propertySlugData }
-//     };
-
-
-//   } catch (error) {
-//     console.error("Error fetching property data:", error);
-//     return {
-//       props: {
-//         propertySlugData: null
-//       } // You can handle the error case appropriately in your component
-//     };
-//   }
-// }
 
 export default AllProperties

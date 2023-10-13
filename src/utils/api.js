@@ -143,7 +143,7 @@ export const getAllProperties = (promoted, top_rated, id, category_id, most_like
         params: {
             promoted: promoted,
             top_rated: top_rated,
-            id, id,
+            id: id,
             category_id: category_id,
             most_liked: most_liked,
             city: city,

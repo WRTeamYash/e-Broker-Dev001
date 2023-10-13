@@ -145,7 +145,7 @@ const page = () => {
         // if (isUserLogin && systemsettings.subscription) {
         //     setPreviusSubsscriptionModal(true);
         // }
-        console.log("price data", data)
+        // console.log("price data", data)
         setPriceData(data);
     };
 

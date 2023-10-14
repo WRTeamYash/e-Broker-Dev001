@@ -363,12 +363,18 @@ export default function EditPropertyTabs() {
 
 
 
+
     const handleTab3InputChange = (fieldId, value) => {
+        // Ensure that the input value is a positive number
+        const parsedValue = parseFloat(value);
+        const newValue = isNaN(parsedValue) || parsedValue < 0 ? 0 : parsedValue;
+      
         setTab3((prevData) => ({
-            ...prevData,
-            [fieldId]: value,
+          ...prevData,
+          [fieldId]: newValue,
         }));
-    };
+      };
+      
 
     const handleLocationSelect = (address) => {
         // console.log(address)
@@ -767,7 +773,7 @@ export default function EditPropertyTabs() {
 
                                             />
                                             <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                            {translate("sell")}
+                                                {translate("sell")}
                                             </label>
                                         </div>
                                         <div className="form-check">
@@ -782,7 +788,7 @@ export default function EditPropertyTabs() {
                                             //   disabled={formData.propertyType === 'rent'} 
                                             />
                                             <label className="form-check-label" htmlFor="flexRadioDefault2">
-                                            {translate("rent")}
+                                                {translate("rent")}
                                             </label>
                                         </div>
                                     </div>
@@ -813,7 +819,11 @@ export default function EditPropertyTabs() {
                                 </div>
                                 <div className="add_prop_fields">
                                     <span>{translate("price")}</span>
-                                    <input type="number" id='prop_title_input' placeholder='Enter Property Price ($)' name='price' onChange={handleInputChange} value={tab1.price} />
+                                    <input type="number" id='prop_title_input' placeholder='Enter Property Price ($)' name='price' onChange={handleInputChange} value={tab1.price} onInput={(e) => {
+                                        if (e.target.value < 0) {
+                                            e.target.value = 0;
+                                        }
+                                    }} />
                                 </div>
                             </div>
                         </div>
@@ -849,6 +859,11 @@ export default function EditPropertyTabs() {
                                                     className='prop_number_input'
                                                     id={`prop_title_input_${ele.id}`}
                                                     onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}
+                                                    onInput={(e) => {
+                                                        if (e.target.value < 0) {
+                                                          e.target.value = 0;
+                                                        }
+                                                      }}
                                                 />
                                             </>
                                         ) : ele.type_of_parameter === 'checkbox' ? (
@@ -986,6 +1001,7 @@ export default function EditPropertyTabs() {
                                             className='prop_number_input'
                                             id={`prop_title_input_${ele.id}`}
                                             onChange={(e) => handleTab3InputChange(ele.id, e.target.value)}
+                                            
                                         />
                                     </div>
 
@@ -1069,7 +1085,7 @@ export default function EditPropertyTabs() {
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
-                            <span>{translate("3dImg")}</span>
+                                <span>{translate("3dImg")}</span>
                                 <div className="dropbox">
                                     <div {...getRootProps3D()} className={`dropzone ${isDragActive3D ? 'active' : ''}`}>
                                         <input {...getInputProps3D()} />
@@ -1086,7 +1102,7 @@ export default function EditPropertyTabs() {
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
-                            <span>{translate("GallryImg")}</span>
+                                <span>{translate("GallryImg")}</span>
                                 <div className="dropbox">
                                     <div {...getRootPropsGallery()} className={`dropzone ${isDragActiveGallery ? 'active' : ''}`}>
                                         <input {...getInputPropsGallery()} />

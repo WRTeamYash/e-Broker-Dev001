@@ -95,6 +95,11 @@ const AreaConverter = ({ isOpen, onClose }) => {
                                     onChange={handleValueChange}
                                     placeholder="Enter the value"
                                     id='number-input'
+                                    onInput={(e) => {
+                                      if (e.target.value < 0) {
+                                        e.target.value = 0;
+                                      }
+                                    }}
                                 />
                                 <select value={fromUnit} onChange={handleFromUnitChange} id='sq-ft-slct'>
                                     {Object.keys(unitData).map((unitKey) => (

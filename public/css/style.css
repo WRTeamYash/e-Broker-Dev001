@@ -430,7 +430,8 @@ body {
   border: none;
   background: var(--primary-background);
   padding: 10px;
-  border-radius: 12px;
+  height: 5vh;
+  border-radius: 8px;
   color: var(--primary-text-color02);
 }
 #user_register .user_fields input:focus {
@@ -534,10 +535,10 @@ body {
 }
 #user_register .card-footer .basic_submit button {
   border: none;
-  width: 30%;
+  /* width: 30%; */
   color: var(--primary-text-color01);
   background-color: #282F39;
-  padding: 10px;
+  padding: 10px 30px;
   border-radius: 8px;
 }
 /* =====================LOCTION MODAL ================= */
@@ -5469,14 +5470,14 @@ a {
 .add_prop_fields #prop_title_input {
   border: none;
   background-color: var(--primary-background);
-  height: 4vh;
+  height: 54px;
   border-radius: 8px;
   padding: 0 10px;
 }
 .add_prop_fields .prop_number_input {
   border: none;
   background-color: var(--primary-background);
-  height: 4vh;
+  height: 54px;
   border-radius: 8px;
   padding: 0 10px;
 }
@@ -5572,7 +5573,7 @@ a {
 .dropbox {
   width: 100%;
   background: var(--primary-background);
-  padding: 20px;
+  padding: 15px 20px;
   border-radius: 12px;
   text-align: center;
 }
@@ -5665,6 +5666,16 @@ a {
   align-items: center;
   gap: 20px;
 }
+@media only screen and (max-width:1199px){
+  .add_profile_div {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.add_profile{
+  text-align: center;
+}
+}
 .add_profile_div .image_div {
   width: 120px;
   height: 120px;
@@ -5690,8 +5701,8 @@ a {
   margin-top: 10px;
   color: red;
   font-size: smaller;
+  margin-bottom: 0;
 }
-
 .add_user_fields_div {
   display: flex;
   flex-direction: column;

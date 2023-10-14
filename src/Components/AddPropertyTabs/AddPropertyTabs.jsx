@@ -214,11 +214,16 @@ export default function AddPropertyTabs() {
 
 
     const handleTab3InputChange = (fieldId, value) => {
+        // Ensure that the input value is a positive number
+        const parsedValue = parseFloat(value);
+        const newValue = isNaN(parsedValue) || parsedValue < 0 ? 0 : parsedValue;
+      
         setTab3((prevData) => ({
-            ...prevData,
-            [fieldId]: value,
+          ...prevData,
+          [fieldId]: newValue,
         }));
-    };
+      };
+      
 
     const handleLocationSelect = (address) => {
         // console.log(address)
@@ -664,7 +669,11 @@ export default function AddPropertyTabs() {
                                 </div>
                                 <div className="add_prop_fields">
                                     <span>{translate("price")}</span>
-                                    <input type="number" id='prop_title_input' placeholder='Enter Property Price ($)' name='price' onChange={handleInputChange} value={tab1.price} />
+                                    <input type="number" id='prop_title_input' placeholder='Enter Property Price ($)' name='price' onChange={handleInputChange} value={tab1.price} onInput={(e) => {
+                                        if (e.target.value < 0) {
+                                            e.target.value = 0;
+                                        }
+                                    }} />
                                 </div>
                             </div>
                         </div>
@@ -692,16 +701,20 @@ export default function AddPropertyTabs() {
 
                                         {ele.type_of_parameter === 'number' ? (
                                             <>
-                                                {/* <input type="hidden" name={`parameters[${index}][id]`} value={ele.id}/> */}
                                                 <input
                                                     value={tab2[ele.id] || ''}
                                                     type='number'
-                                                    // name={`parameters[${index}][value]`}
                                                     className='prop_number_input'
                                                     id={`prop_title_input_${ele.id}`}
                                                     onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}
+                                                    onInput={(e) => {
+                                                        if (e.target.value < 0) {
+                                                            e.target.value = 0;
+                                                        }
+                                                    }}
                                                 />
                                             </>
+
                                         ) : ele.type_of_parameter === 'checkbox' ? (
                                             <>
                                                 <div className="row paramters_row">
@@ -831,13 +844,14 @@ export default function AddPropertyTabs() {
                                     <div className="add_prop_fields">
                                         <span>{ele.name}</span>
                                         <input
-                                            value={tab3[ele.id] || ''}
-                                            type='number'
-                                            placeholder='00 KM'
-                                            className='prop_number_input'
-                                            id={`prop_title_input_${ele.id}`}
-                                            onChange={(e) => handleTab3InputChange(ele.id, e.target.value)}
-                                        />
+                  value={tab3[ele.id] || ''}
+                  type='number'
+                  placeholder='00 KM'
+                  className='prop_number_input'
+                  id={`prop_title_input_${ele.id}`}
+                  onChange={(e) => handleTab3InputChange(ele.id, e.target.value)}
+                />
+
                                     </div>
 
                                 </div>
@@ -886,7 +900,7 @@ export default function AddPropertyTabs() {
                             <div className="map">
                                 <GoogleMapBox
                                     apiKey="AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE"
-                                    onSelectLocation={handleLocationSelect}/>
+                                    onSelectLocation={handleLocationSelect} />
                             </div>
                         </div>
                     </div>
@@ -954,7 +968,7 @@ export default function AddPropertyTabs() {
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
                                 <span>{translate("videoLink")}</span>
-                                <input type="input" id='prop_title_input' name='videoLink' placeholder='Eneter Video' value={tab5.videoLink} onChange={handleVideoInputChange} />
+                                <input type="input" id='prop_title_input' name='videoLink' placeholder='Enter Video Link' value={tab5.videoLink} onChange={handleVideoInputChange} />
                             </div>
                         </div>
                     </div>

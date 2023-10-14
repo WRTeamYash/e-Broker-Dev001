@@ -190,7 +190,7 @@ const AllProperties = () => {
         // console.log(propertyData);
         setCategoryListByPropertyData(propertyData);
         setIsLoading(false);
-        handleClearFilter()
+        // handleClearFilter()
       },
       (error) => {
         setIsLoading(false);

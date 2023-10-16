@@ -15,17 +15,27 @@ const ArticleCard = ({ ele, expandedStates, index, PlaceHolderImg }) => {
         return tempDiv.textContent || tempDiv.innerText || '';
     };
 
-
+    // console.log("article Data", ele)
     return (
         <div>
             <Card id='article_main_card'>
                 <Card.Img variant="top" id='article_card_img' src={ele.image ? ele.image : PlaceHolderImg} />
-                <span id='apartment_tag'>aprtment</span>
+                {
+                    ele.category?.category && ele.category?.category ? (
+                        <span id='apartment_tag'>{ele.category?.category}</span>
+
+                    ):
+                    (
+                        <span id='apartment_tag'>General
+                        </span>
+                    )
+
+                }
                 <Card.Body id='article_card_body'>
 
                     <div id='article_card_headline'>
                         <span>
-                        {stripHtmlTags(ele.title).substring(0, 30) }
+                            {stripHtmlTags(ele.title).substring(0, 30)}
                         </span>
                         {ele && ele.description && (
                             <>

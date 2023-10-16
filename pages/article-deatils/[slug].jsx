@@ -23,8 +23,9 @@ import { languageData } from '@/store/reducer/languageSlice';
 import Layout from '@/Components/Layout/Layout';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { GetAllArticlesApi } from '@/store/actions/campaign';
+import { GetAllArticlesApi, GetCategorieApi } from '@/store/actions/campaign';
 import { store } from '@/store/store';
+import ArticleCard from '@/Components/Cards/ArticleCard';
 
 
 
@@ -32,24 +33,66 @@ import { store } from '@/store/store';
 const ArticleDeatils = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [articleData, setArticleData] = useState()
+    const [relatedArticleData, setRelatedArticleData] = useState()
+    const [expandedStates, setExpandedStates] = useState([]);
+    const [getCategories, setGetCategories] = useState([]);
+
     const router = useRouter();
     const articleId = router.query
+    // console.log(articleId)
 
     useEffect(() => {
         setIsLoading(true);
-        GetAllArticlesApi(articleId, (response) => {
-            const AData = response.data[0]
-            console.log(AData)
-            setIsLoading(false);
-            setArticleData(AData)
+        GetAllArticlesApi(
+            articleId.slug,
+            "",
+            "",
+            (response) => {
+                const AData = response.data[0]
+                // console.log(AData)
+                setIsLoading(false);
+                setArticleData(AData)
 
-        },
+            },
             (error) => {
                 console.log(error)
                 setIsLoading(true)
             })
     }, [])
+    useEffect(() => {
+        setIsLoading(true);
+        GetAllArticlesApi(
+            articleId.slug,
+            "",
+            "1",
+            (response) => {
+                const Articles = response.data
+                // console.log("related articles", Articles)
+                setIsLoading(false);
+                setRelatedArticleData(Articles)
+                setExpandedStates(new Array(Articles.length).fill(false));
 
+            },
+            (error) => {
+                console.log(error)
+                setIsLoading(true)
+            })
+    }, [articleId])
+    useEffect(() => {
+        GetCategorieApi(
+            (response) => {
+                const categoryData = response && response.data;
+                setIsLoading(false);
+                setGetCategories(categoryData);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }, []);
+    const getArticlesByCategory = () => {
+        router.push('/articles')
+    }
     const lang = useSelector(languageData)
 
     useEffect(() => {
@@ -57,77 +100,6 @@ const ArticleDeatils = () => {
     }, [lang]);
 
 
-    const renderBullet = (index, className) => {
-        return `<span class="${className}" style="background-color: #087c7c;
-    outline: 1px solid #000;
-    font-size: 20px;
-    padding: 8px;
-    border: 2px solid #fff;"></span>`;
-    };
-
-    let ArticleStaticData = [
-        {
-            id: 1,
-            articleImg: cardImg.src,
-            propType: "Apartment",
-            propText: " Property Purchase Laws in USA",
-            propDecs: " The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...",
-            profile: adminlogo.src,
-            by: "By Admin",
-            time: "1 day ago"
-        },
-        {
-            id: 2,
-            articleImg: cardImg.src,
-            propType: "Apartment",
-            propText: " Property Purchase Laws in USA",
-            propDecs: " The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...",
-            profile: adminlogo.src,
-            by: "By Admin",
-            time: "1 day ago"
-        },
-        {
-            id: 3,
-            articleImg: cardImg.src,
-            propType: "Apartment",
-            propText: " Property Purchase Laws in USA",
-            propDecs: " The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...",
-            profile: adminlogo.src,
-            by: "By Admin",
-            time: "1 day ago"
-        },
-        {
-            id: 4,
-            articleImg: cardImg.src,
-            propType: "Apartment",
-            propText: " Property Purchase Laws in USA",
-            propDecs: " The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...",
-            profile: adminlogo.src,
-            by: "By Admin",
-            time: "1 day ago"
-        },
-        {
-            id: 5,
-            articleImg: cardImg.src,
-            propType: "Apartment",
-            propText: " Property Purchase Laws in USA",
-            propDecs: " The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...",
-            profile: adminlogo.src,
-            by: "By Admin",
-            time: "1 day ago"
-        },
-        {
-            id: 6,
-            articleImg: cardImg.src,
-            propType: "Apartment",
-            propText: " Property Purchase Laws in USA",
-            propDecs: " The laws governing the purchase of property in the United States can vary by state, but there are some general principles that apply throughout the...",
-            profile: adminlogo.src,
-            by: "By Admin",
-            time: "1 day ago"
-        },
-
-    ]
     const breakpoints = {
         320: {
             slidesPerView: 1,
@@ -208,46 +180,19 @@ const ArticleDeatils = () => {
                                                     Categories
                                                 </div>
                                                 <div className="card-body">
-                                                    <div className='cate-list'>
-                                                        <span>Townhouse</span>
-                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                    </div>
-                                                    <div className='cate-list'>
-                                                        <span>Codno</span>
-                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                    </div>
-                                                    <div className='cate-list'>
-                                                        <span>Commercial</span>
-                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                    </div>
-                                                    <div className='cate-list'>
-                                                        <span>Plote</span>
-                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                    </div>
-                                                    <div className='cate-list'>
-                                                        <span>Land</span>
-                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                    </div>
-                                                    <div className='cate-list'>
-                                                        <span>House</span>
-                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                    </div>
-                                                    <div className='cate-list'>
-                                                        <span>Banglow</span>
-                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                    </div>
-                                                    <div className='cate-list'>
-                                                        <span>Penthouse</span>
-                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                    </div>
-                                                    <div className='cate-list'>
-                                                        <span>Villa</span>
-                                                        <IoMdArrowDropright size={25} style={{ cursor: "pointer" }} />
-                                                    </div>
+                                                    {getCategories && getCategories.map((elem, index) => (
+                                                        <div className='cate-list' key={index}>
+                                                            <span>{elem.category}</span>
+                                                            <IoMdArrowDropright
+                                                                size={25}
+                                                                className='cate_list_arrow'
+                                                                onClick={getArticlesByCategory} />
+                                                        </div>
+                                                    ))}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className='popular-tag-card'>
+                                        {/* <div className='popular-tag-card'>
                                             <div className="card">
                                                 <div className="card-header">
                                                     Popular Tags
@@ -263,8 +208,8 @@ const ArticleDeatils = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className='recent-article-card'>
+                                        </div> */}
+                                        {/* <div className='recent-article-card'>
                                             <div className="card">
                                                 <div className="card-header">
                                                     Recent Articles
@@ -304,34 +249,32 @@ const ArticleDeatils = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
                             <div id='related_articles_section'>
-                                <div className='related-headline'>
-                                    <span className='headline'
-                                        data-aos="fade-right" data-aos-duration="1000"
-                                    >
-                                        Related  <span
+                                <div className='related-headline' data-aos="fade-right" data-aos-duration="1000">
+                                    <span className='headline'>
+                                        {translate("related")}  <span
                                         >
                                             <span
                                                 className='highlight'
                                             // data-aos="fade-left" data-aos-duration="5000"
-                                            > Articles</span>
+                                            > {translate("articles")}</span>
                                         </span>
                                     </span>
                                 </div>
                                 <div className="related_articles_slider" >
                                     <Swiper
-                                    dir={language.rtl === "1" ? "rtl" : "ltr"}
+                                        dir={language.rtl === "1" ? "rtl" : "ltr"}
                                         slidesPerView={4}
                                         // loop={true}
                                         spaceBetween={30}
                                         freeMode={true}
                                         pagination={{
                                             clickable: true,
-                                            
+
                                         }}
                                         modules={[FreeMode, Pagination]}
                                         className='related-swiper'
@@ -349,9 +292,11 @@ const ArticleDeatils = () => {
                                             // </div>
                                             <Loader />
                                         ) :
-                                            ArticleStaticData?.map((ele) => (
+                                            relatedArticleData?.map((ele, index) => (
                                                 <SwiperSlide id="related-swiper-slider" key={ele.id}>
-                                                    <Card id='articles_main_card'>
+
+                                                    <ArticleCard ele={ele} expandedStates={expandedStates} index={index} />
+                                                    {/* <Card id='articles_main_card'>
                                                         <Card.Img variant="top" id='articles_card_img' src={ele.articleImg} />
                                                         <span id='apartment_tag'>{ele.propType}</span>
                                                         <Card.Body id='all-articles_card_body'>
@@ -365,7 +310,7 @@ const ArticleDeatils = () => {
                                                                 </p>
                                                             </div>
                                                             <div id='readmore_article'>
-                                                                <button className='readmore'> Read More  <FiArrowRight size={20} /></button>
+                                                                <button className='readmore'> {translate("readMore")}  <FiArrowRight size={20} /></button>
 
                                                             </div>
 
@@ -380,7 +325,7 @@ const ArticleDeatils = () => {
                                                                 <p>{ele.time}</p>
                                                             </div>
                                                         </Card.Footer>
-                                                    </Card>
+                                                    </Card> */}
                                                 </SwiperSlide>
                                             ))}
                                     </Swiper>

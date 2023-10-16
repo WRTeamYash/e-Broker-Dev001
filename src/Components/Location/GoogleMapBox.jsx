@@ -6,25 +6,59 @@ const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
     // console.log(latitude)
     const libraries = ['places'];
     const [initialLocation, setInitialLocation] = useState({
-        lat: parseFloat(latitude),
-        lng: parseFloat(longitude),
+        lat: latitude ? parseFloat(latitude) : 23.2419997,
+        lng: longitude ? parseFloat(longitude) : 69.6669324,
     });
+    
     const [location, setLocation] = useState(initialLocation);
     const [mapError, setMapError] = useState(null);
     const [searchText, setSearchText] = useState('');
-    
+
     // Declare autocomplete as a ref
     const autocompleteRef = useRef(null);
-    
+
     useEffect(() => {
         setLocation(initialLocation);
     }, [initialLocation]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const reverseGeocodedData = await performReverseGeocoding(latitude, longitude);
+
+                if (reverseGeocodedData) {
+                    // console.log("////////////////", reverseGeocodedData);
+                    // Extract relevant information from reverse geocoding result
+                    const { formatted_address, city, country, state } = reverseGeocodedData;
+
+                    // Create a new location object with the updated values
+                    const updatedLocation = {
+                        lat: latitude,
+                        lng: longitude,
+                        formatted_address: formatted_address,
+                        city: city,
+                        country: country,
+                        state: state,
+                    };
+
+                    // Update the initialLocation state with the new location
+                    // console.log("updated location", up   datedLocation);
+                    onSelectLocation(updatedLocation);
+                }
+            } catch (error) {
+                // Handle any errors that may occur during the geocoding process
+                console.error("Error performing reverse geocoding:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
 
     const onMarkerDragStart = () => {
         // console.log("Marker drag started");
     };
 
-    
+
 
     const onMarkerDragEnd = async (e) => {
         try {
@@ -94,7 +128,7 @@ const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
         let city = null;
         let country = null;
         let state = null;
-    
+
         // Iterate through address components to find relevant information
         for (const component of geocodeResult.address_components) {
             if (component.types.includes("locality")) {
@@ -105,15 +139,15 @@ const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
                 state = component.long_name;
             }
         }
-    
+
         return { city, country, state };
     };
-    
+
 
     const handleMapLoadError = () => {
         setMapError("Failed to load the map. Please check your API key and network connection.");
     };
-   
+
 
     const handleSearchTextChange = (e) => {
         setSearchText(e.target.value);
@@ -124,7 +158,7 @@ const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
             if (place.geometry) {
                 // Extract the formatted address or provide a fallback value
                 const formatted_address = place.formatted_address || "Address not available";
-    
+
                 const { city, country, state } = extractCityFromGeocodeResult(place);
                 const updatedLocation = {
                     lat: place.geometry.location.lat(),
@@ -135,7 +169,7 @@ const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
                     state: state,
                 };
                 setSearchText(formatted_address);
-                // console.log("while searching that location", updatedLocation);
+                console.log("while searching that location", updatedLocation);
                 setLocation(updatedLocation);
                 onSelectLocation(updatedLocation);
             } else {
@@ -143,47 +177,47 @@ const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
             }
         }
     };
-    
+
 
 
     return (
         <div>
-        {mapError ? (
-            <div>{mapError}</div>
-        ) : (
-            <LoadScript
-                googleMapsApiKey={apiKey}
-                libraries={libraries}
-                onError={handleMapLoadError}
-            >
-                <Autocomplete
-                    onLoad={(autocomplete) => {
-                        // Store the Autocomplete instance in the ref
-                        autocompleteRef.current = autocomplete;
-                    }}
-                    onPlaceChanged={handlePlaceSelect} // Handle place selection
+            {mapError ? (
+                <div>{mapError}</div>
+            ) : (
+                <LoadScript
+                    googleMapsApiKey={apiKey}
+                    libraries={libraries}
+                    onError={handleMapLoadError}
                 >
-                    <div id='search_location'>
-                        <input
-                            type="text"
-                            placeholder="Search for a location"
-                            value={searchText}
-                            onChange={handleSearchTextChange}
-                           
+                    <Autocomplete
+                        onLoad={(autocomplete) => {
+                            // Store the Autocomplete instance in the ref
+                            autocompleteRef.current = autocomplete;
+                        }}
+                        onPlaceChanged={handlePlaceSelect} // Handle place selection
+                    >
+                        <div id='search_location'>
+                            <input
+                                type="text"
+                                placeholder="Search for a location"
+                                value={searchText}
+                                onChange={handleSearchTextChange}
+
+                            />
+                        </div>
+                    </Autocomplete>
+                    <GoogleMap zoom={11} center={location} mapContainerStyle={{ height: "350px" }}>
+                        <Marker
+                            position={location}
+                            draggable={true}
+                            onDragStart={onMarkerDragStart}
+                            onDragEnd={onMarkerDragEnd}
                         />
-                    </div>
-                </Autocomplete>
-                <GoogleMap zoom={11} center={location} mapContainerStyle={{ height: "350px" }}>
-                    <Marker
-                        position={location}
-                        draggable={true}
-                        onDragStart={onMarkerDragStart}
-                        onDragEnd={onMarkerDragEnd}
-                    />
-                </GoogleMap>
-            </LoadScript>
-        )}
-    </div>
+                    </GoogleMap>
+                </LoadScript>
+            )}
+        </div>
     );
 };
 

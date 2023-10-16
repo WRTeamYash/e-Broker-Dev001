@@ -28,9 +28,20 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) 
                     <div className="col-sm-12 col-md-6 col-lg-9">
 
                         <div className="article-card-content">
-                            <span className="article-apartment-tag">apartment</span>
+
+                            {
+                                ele.category?.category && ele.category?.category ? (
+                                    <span className='article-apartment-tag'>{ele.category?.category}</span>
+
+                                ) :
+                                    (
+                                        <span className='article-apartment-tag'>General
+                                        </span>
+                                    )
+
+                            }
                             <div className="article-card-headline">
-                                <span>  {stripHtmlTags(ele.title).substring(0, 30) }</span>
+                                <span>  {stripHtmlTags(ele.title).substring(0, 30)}</span>
                                 {ele && ele.description && (
                                     <>
                                         <p>

@@ -260,6 +260,8 @@ const HomePage = () => {
     useEffect(() => {
         GetAllArticlesApi(
             "",
+            "",
+            "",
             (response) => {
                 const Articles = response.data;
                 // console.log("article data ============", Articles)

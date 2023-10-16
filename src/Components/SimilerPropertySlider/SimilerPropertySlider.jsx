@@ -99,7 +99,7 @@ const SimilerPropertySlider = () => {
                 <span className='headline'
                     data-aos="fade-right" data-aos-duration="1000"
                 >
-                    Similar  <span
+                    Similar <span
                     >
                         <span
                             className='highlight'

@@ -982,7 +982,7 @@ export default function EditPropertyTabs() {
                         )}
                     </div>
                     <div className="nextButton">
-                        <button type='button' onClick={handleNextTab}>Next</button>
+                        <button type='button' onClick={handleNextTab}>{translate("next")}</button>
                     </div>
                 </form>
             </CustomTabPanel>
@@ -1012,7 +1012,7 @@ export default function EditPropertyTabs() {
                         )}
                     </div>
                     <div className="nextButton">
-                        <button type='button' onClick={handleNextTab}>Next</button>
+                        <button type='button' onClick={handleNextTab}>{translate("next")}</button>
                     </div>
                 </form>
             </CustomTabPanel>

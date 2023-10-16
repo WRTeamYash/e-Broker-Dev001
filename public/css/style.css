@@ -2406,7 +2406,7 @@ h3 {
 }
 .readmore {
   color: var(--primary-text-color02);
-  background-color: var(--primary-background); /* agent section color chnage  */
+  background-color: var(--primary-background);
   border: none;
 }
 .article_all_deatil_card .card .card-title {
@@ -3719,6 +3719,9 @@ option {
 }
 .grid-buttons {
   display: flex;
+}
+.all-article-rightside{
+  height: 100%;
 }
 .all-article-rightside .card #all-article-headline-card {
   display: flex;

@@ -167,13 +167,15 @@ export const getAllProperties = (promoted, top_rated, id, category_id, most_like
 }
 
 // GET ARTICLES
-export const getArticlesApi = (id) => {
+export const getArticlesApi = (id, category_id, get_simiilar) => {
 
     return {
         url: `${GET_ARTICLES}`,
         method: "GET",
         params: {
-            id: id
+            id: id,
+            category_id: category_id,
+            get_simiilar: get_simiilar
         },
         authorizationHeader: false,
 

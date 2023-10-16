@@ -20,6 +20,7 @@ import { languageData } from '@/store/reducer/languageSlice'
 import Layout from '@/Components/Layout/Layout'
 import Link from 'next/link'
 import { settingsData } from '@/store/reducer/settingsSlice'
+import NoData from '@/Components/NoDataFound/NoData'
 
 
 
@@ -42,16 +43,20 @@ const Articles = () => {
     }, [lang]);
     useEffect(() => {
         setIsLoading(true)
-        GetAllArticlesApi("", (response) => {
-            const Articles = response.data;
-            setTotal(response.total)
-            // console.log("article data ============", Articles)
-            setIsLoading(false)
-            setGetArticles(Articles);
-            setExpandedStates(new Array(Articles.length).fill(false));
-        }, (error) => {
-            console.log(error)
-        })
+        GetAllArticlesApi(
+            "",
+            "",
+            "",
+            (response) => {
+                const Articles = response.data;
+                setTotal(response.total)
+                // console.log("article data ============", Articles)
+                setIsLoading(false)
+                setGetArticles(Articles);
+                setExpandedStates(new Array(Articles.length).fill(false));
+            }, (error) => {
+                console.log(error)
+            })
     }, [])
     useEffect(() => {
         GetCategorieApi(
@@ -74,7 +79,45 @@ const Articles = () => {
     const PlaceHolderImg = DummyImgData?.img_placeholder
 
     const getArticleByCategory = (cateId) => {
-        
+        // console.log(cateId)
+        setIsLoading(true)
+        GetAllArticlesApi(
+            "",
+            cateId,
+            "",
+            (response) => {
+                const Articles = response.data;
+                // console.log(response)
+
+                if (response.total) {
+                    setTotal(response.total);
+                } else {
+                    setTotal("0");
+                }
+
+                setIsLoading(false)
+                setGetArticles(Articles);
+                setExpandedStates(new Array(Articles.length).fill(false));
+            }, (error) => {
+                console.log(error)
+            })
+    }
+    const getGeneralArticles = () => {
+        setIsLoading(true)
+        GetAllArticlesApi(
+            "",
+            "",
+            "",
+            (response) => {
+                const Articles = response.data;
+                setTotal(response.total)
+                // console.log(total)
+                setIsLoading(false)
+                setGetArticles(Articles);
+                setExpandedStates(new Array(Articles.length).fill(false));
+            }, (error) => {
+                console.log(error)
+            })
     }
 
     return (
@@ -91,7 +134,8 @@ const Articles = () => {
                                         <div className="card">
                                             <div className="card-body" id='all-article-headline-card'>
                                                 <div>
-                                                    <span>{total} {translate("articleFound")} </span>
+                                                    <span>{total > 0 ? total : 0} {translate("articleFound")}</span>
+
                                                 </div>
                                                 <div className='grid-buttons'>
                                                     <button className='mx-3' id='layout-buttons' onClick={() => setGrid(true)}>
@@ -108,9 +152,12 @@ const Articles = () => {
                                             <Skeleton height={50} count={1} />
                                         </div>
                                     )}
-                                    {
+                                    {getArticles && getArticles.length > 0 ? (
+
+
                                         !grid ?
                                             // Row cards
+
                                             <div className='all-prop-cards' id='rowCards'>
                                                 <div className='row' id='all-articles-cards'>
                                                     {isLoading ? (
@@ -152,6 +199,11 @@ const Articles = () => {
                                                         ))}
                                                 </div>
                                             </div>
+                                    ) : (
+                                        <div className="noDataFoundDiv">
+                                            <NoData />
+                                        </div>
+                                    )
                                     }
                                 </div>
                             </div>
@@ -163,19 +215,24 @@ const Articles = () => {
                                                 {translate("categories")}
                                             </div>
                                             <div className="card-body">
-
+                                                <div className='cate-list'>
+                                                    <span>General</span>
+                                                    <IoMdArrowDropright size={25} className='cate_list_arrow'
+                                                        onClick={getGeneralArticles} />
+                                                </div>
                                                 {getCategories && getCategories.map((elem, index) => (
                                                     <div className='cate-list' key={index}>
-
                                                         <span>{elem.category}</span>
-                                                        <IoMdArrowDropright size={25} className='cate_list_arrow'
+                                                        <IoMdArrowDropright
+                                                            size={25}
+                                                            className='cate_list_arrow'
                                                             onClick={() => { getArticleByCategory(elem.id) }} />
                                                     </div>
                                                 ))}
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='popular-tag-card'>
+                                    {/* <div className='popular-tag-card'>
                                         <div className="card">
                                             <div className="card-header">
                                                 Popular Tags
@@ -191,7 +248,7 @@ const Articles = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

@@ -45,9 +45,9 @@ export const GetFeturedListingsApi = (promoted, top_rated, id, category_id, most
     }))
 };
 // GET_ARTICLES
-export const GetAllArticlesApi = (id, onSuccess, onError, onStart) => {
+export const GetAllArticlesApi = (id,category_id, get_simiilar,onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
-        ...getArticlesApi(id),
+        ...getArticlesApi(id, category_id,get_simiilar),
         displayToast: false,
         onStart,
         onSuccess,

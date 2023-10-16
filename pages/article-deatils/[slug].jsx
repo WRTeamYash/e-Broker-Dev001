@@ -58,7 +58,7 @@ const ArticleDeatils = () => {
                 console.log(error)
                 setIsLoading(true)
             })
-    }, [])
+    }, [articleId])
     useEffect(() => {
         setIsLoading(true);
         GetAllArticlesApi(

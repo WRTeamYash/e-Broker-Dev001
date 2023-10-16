@@ -47,7 +47,9 @@ body {
 .article_title_img {
   aspect-ratio: 1/0.4;
   max-width: 100%;
-  /* height: article; */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .serach_page_tab {
   position: relative;

@@ -299,6 +299,7 @@ const HomePage = () => {
                         <HeroSlider
                             height={"90vh"}
                             slidingAnimation="fade"
+                            autoplay
                             orientation="horizontal"
                             initialSlide={1}
                             onBeforeChange={(previousSlide, nextSlide) => console.log("onBeforeChange", previousSlide, nextSlide)}

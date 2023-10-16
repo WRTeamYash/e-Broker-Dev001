@@ -429,29 +429,32 @@ const PropertieDeatils = () => {
                                         </div>
                                     </div>
                                     <div className="card-body">
-                                        <div className='owner-contact'>
-                                            <div ><FiPhoneCall id='call-o' size={60} /></div>
-                                            <div className='deatilss'>
-                                                <span className='o-d'> {translate("call")}</span>
-                                                <span className='value'>{getPropData && getPropData.mobile}</span>
-                                            </div>
+                                        <a href={`tel:${getPropData && getPropData.mobile}`}>
+                                            <div className='owner-contact'>
+                                                <div ><FiPhoneCall id='call-o' size={60} /></div>
+                                                <div className='deatilss'>
+                                                    <span className='o-d'> {translate("call")}</span>
+                                                    <span className='value'>{getPropData && getPropData.mobile}</span>
+                                                </div>
 
-                                        </div>
-                                        <div className='owner-contact'>
-                                            <div ><FiMail id='mail-o' size={60} /></div>
-                                            <div className='deatilss'>
-                                                <span className='o-d'> {translate("mail")}</span>
-                                                <span className='value'>{getPropData && getPropData.email}</span>
                                             </div>
-
-                                        </div>
-                                        <div className='owner-contact'>
+                                        </a>
+                                        <a href={`mailto:${getPropData && getPropData.email}`}>
+                                            <div className='owner-contact' >
+                                                <div ><FiMail id='mail-o' size={60} /></div>
+                                                <div className='deatilss'>
+                                                    <span className='o-d'> {translate("mail")}</span>
+                                                    <span className='value'>{getPropData && getPropData.email}</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        {/* <div className='owner-contact'>
                                             <div ><FiMessageSquare id='chat-o' size={60} /></div>
                                             <div className='deatilss'>
                                                 <span className='o-d'> {translate("chat")}</span>
                                                 <span className='value'> {translate("startAChat")}</span>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className='enquiry'>
                                             <button className='enquiry-buttons'> <RiSendPlane2Line className='mx-1' size={20} />{translate("sendEnquiry")}</button>
                                             <button className='enquiry-buttons'> <RiThumbUpFill className='mx-1' size={20} />{translate("intrest")}</button>

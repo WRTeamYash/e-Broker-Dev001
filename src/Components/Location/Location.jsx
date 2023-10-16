@@ -2,10 +2,8 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Modal } from 'react-bootstrap';
 import { RiCloseCircleLine } from 'react-icons/ri';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap,  Marker } from '@react-google-maps/api';
 import Loader from '../Loader/Loader';
-import { settingsData } from '@/store/reducer/settingsSlice';
-import { useSelector } from 'react-redux';
 import { translate } from '@/utils';
 
 const Location = ({ isOpen, onClose, onSelectLocation }) => {

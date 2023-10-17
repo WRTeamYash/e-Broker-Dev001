@@ -1092,15 +1092,16 @@ body {
 .view_prop {
   justify-content: center;
   z-index: 9999;
-  position: relative;
-  cursor: pointer;
-  text-align: center;
+  position: relative; 
   color: var(--primary-text-color02);
   background-color: var(--primary-text-color01);
   border: none;
   border-radius: 5px;
   width: 100%;
   padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .icon01 {

@@ -22,6 +22,7 @@ const GET_LIMITS = "get_limits"
 const GET_PAYMENT_DETAILS = "get_payment_details";
 const UPDATE_POST_PROPERTY = "update_post_property";
 const DELETE_PROPERTY = "delete_property"
+const INTEREST_PROPERTY = "interested_users"
 const STORE_ADVERTISEMENT = "store_advertisement"
 
 // is login user check
@@ -489,3 +490,17 @@ export const featureProperty = (package_id, property_id, type, image) => {
     }
 }
 
+
+// Intrested Property
+export const intrestedProperty = (property_id, type) => {
+    let data = new FormData();
+    data.append("property_id", property_id);
+    data.append("type", type);
+
+    return {
+        url: `${INTEREST_PROPERTY}`,
+        method: "POST",
+        data,
+        authorizationHeader: true,
+    }
+}

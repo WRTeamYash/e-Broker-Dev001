@@ -899,7 +899,7 @@ export default function AddPropertyTabs() {
                         <div className="col-sm-12 col-md-6">
                             <div className="map">
                                 <GoogleMapBox
-                                    apiKey={process.env.NEXT_PUBLIC_GOOGLE_API}
+                                    apiKey="AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE"
                                     onSelectLocation={handleLocationSelect} />
                             </div>
                         </div>

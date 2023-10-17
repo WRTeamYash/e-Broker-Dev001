@@ -129,7 +129,7 @@ const Breadcrumb = (props) => {
                                             )
                                         )}
 
-                                        <button><SlDocs size={25} /></button>
+                                        {/* <button><SlDocs size={25} /></button> */}
                                     </div>
                                 </div>
                             </div>

@@ -404,7 +404,7 @@ const page = () => {
                     >
                         <Input
                             type="text"
-                            pattern="[0-9]{5}"
+                            pattern="[0-9]{6}"
                             onInput={(e) => {
                                 e.target.value = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
                                 setStripeForm({ ...stripeForm, statePostalCode: e.target.value });

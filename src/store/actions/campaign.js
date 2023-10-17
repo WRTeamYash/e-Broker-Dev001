@@ -1,4 +1,4 @@
-import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav, getPackages, getPaymentSettings, createPaymentIntent, confirmPayment, getFacilities, postProperty, getLimits, getPaymentDetials, updatePostProperty, deleteProperty, featureProperty } from "@/utils/api";
+import { getCategorieApi, getAllProperties, getSliderApi, update_profile, getArticlesApi, getCountByCitysCategories, addFavourite, ContactUs, getFav, getPackages, getPaymentSettings, createPaymentIntent, confirmPayment, getFacilities, postProperty, getLimits, getPaymentDetials, updatePostProperty, deleteProperty, featureProperty,intrestedProperty } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
@@ -213,10 +213,20 @@ export const deletePropertyApi = (id, onSuccess, onError, onStart) => {
 }
 
 
-// Delete Property
+// FETAURE PROPERY
 export const featurePropertyApi = (package_id, property_id, type, image, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
         ...featureProperty(package_id, property_id, type, image),
+        displayToast: false,
+        onStart,
+        onSuccess,
+        onError,
+    }))
+}
+// intrested propery
+export const intrestedPropertyApi  = (property_id, type, onSuccess, onError, onStart) => {
+    store.dispatch(apiCallBegan({
+        ...intrestedProperty(property_id, type),
         displayToast: false,
         onStart,
         onSuccess,

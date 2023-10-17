@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps, data }) {
                 <meta property="og:locale" content="en_GB" />
                 <meta property="og:title" content="eBroker |  Empower Your Real Estate Business" />
                 <meta property="og:description" content="Unlock your real estate potential with eBroker - the ultimate solution for your business. Streamline operations, boost efficiency, and succeed in style!" />
-                <link rel='icon' href='./favicon.ico' />
+                <link rel="shortcut icon" href="/favicon.ico" sizes="32x32" type="image/png" />
             </Head>
             <Provider store={store}>
                 <PersistGate persistor={persistor}>

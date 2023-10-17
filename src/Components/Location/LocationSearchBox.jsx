@@ -6,7 +6,7 @@ const LocationSearchBox = ({ onLocationSelected }) => {
   const inputRef = useRef();
 
   const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API,
+    googleMapsApiKey: "AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE",
     libraries
   });
   const handlePlaceChanged = () => {
@@ -22,10 +22,10 @@ const LocationSearchBox = ({ onLocationSelected }) => {
         state: '',
         country: ''
       };
-  
+
       // Split the formatted_address into components
       const addressComponents = place.address_components;
-  
+
       // Extract city, district, state, and country
       addressComponents.forEach(component => {
         if (component.types.includes('locality')) {
@@ -38,7 +38,7 @@ const LocationSearchBox = ({ onLocationSelected }) => {
           locationData.country = component.long_name;
         }
       });
-  
+
       onLocationSelected(locationData); // Pass the data to the parent component
     }
   };
@@ -55,7 +55,7 @@ const LocationSearchBox = ({ onLocationSelected }) => {
       onLoad={ref => inputRef.current = ref}
       onPlacesChanged={handlePlaceChanged}
     >
-     <input
+      <input
         type="text"
         className="searchLocationInput"
         placeholder="Enter Location"

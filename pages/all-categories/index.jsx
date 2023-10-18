@@ -6,7 +6,6 @@ import Loader from '@/Components/Loader/Loader'
 import CustomCategorySkeleton from '@/Components/Skeleton/CustomCategorySkeleton'
 import { GetCategorieApi } from '@/store/actions/campaign'
 import { languageData } from '@/store/reducer/languageSlice'
-import { translate } from '@/utils'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap'
@@ -19,7 +18,6 @@ const AllCategories = () => {
     // console.log("languageData",lang)
       // useSelector(languageData)  
       useEffect(()=>{
-        translate()
         // console.log("breadcrumb render")
       },[lang]);
 

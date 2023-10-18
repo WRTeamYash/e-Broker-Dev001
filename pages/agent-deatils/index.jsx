@@ -22,7 +22,6 @@ const page = () => {
     // console.log("languageData",lang)
       // useSelector(languageData)  
       useEffect(()=>{
-        translate()
         // console.log("breadcrumb render")
       },[lang]);
 

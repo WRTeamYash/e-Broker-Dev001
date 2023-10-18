@@ -4,9 +4,10 @@ import { StandaloneSearchBox, useJsApiLoader } from "@react-google-maps/api";
 const libraries = ['places'];
 const LocationSearchBox = ({ onLocationSelected }) => {
   const inputRef = useRef();
+  const GoogleMapApi = process.env.NEXT_PUBLIC_GOOGLE_API
 
   const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE",
+    googleMapsApiKey: GoogleMapApi,
     libraries
   });
   const handlePlaceChanged = () => {

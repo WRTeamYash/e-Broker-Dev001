@@ -103,7 +103,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         let confirmationResult = window.confirmationResult;
         confirmationResult.confirm(otp).then(async (result) => {
             // User verified successfully.
-            console.log(result)
+            // console.log(result)
             signupLoaded("", "", result.user.phoneNumber.replace("+", ""), "1", "", result.user.uid, "", "", "test",
                 (res) => {
                     // console.log(res)

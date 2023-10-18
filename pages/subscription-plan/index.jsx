@@ -23,6 +23,7 @@ import countryLookup from "country-code-lookup";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
+import Swal from "sweetalert2";
 
 const stripePromise = loadStripe("pk_test_51NGEmlSBiyKa2nec2uv9isXE4rDCEokyLmr9C4EXGN1X4W6J0quzwlr3r5SGZJPHUhnhkGC4zVNsTGn7QqtuRJZv008Ri1ccay");
 
@@ -132,7 +133,20 @@ const page = () => {
     // subscribe payment
     const subscribePayment = (e, data) => {
         e.preventDefault();
-        // console.log("user login or not", isUserLogin)
+
+        if(systemsettings.demo_mode) {
+            Swal.fire({
+                title: 'Opps !',
+                text: "This Action is Not Allowed in Demo Mode",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#087c7c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            })
+            return false
+        }
+
         if (!isUserLogin) {
             // console.log("no login")
             toast.error("Please Login first");
@@ -142,10 +156,7 @@ const page = () => {
         if (isUserLogin) {
             setPreviusSubsscriptionModal(true);
         }
-        // if (isUserLogin && systemsettings.subscription) {
-        //     setPreviusSubsscriptionModal(true);
-        // }
-        // console.log("price data", data)
+        
         setPriceData(data);
     };
 

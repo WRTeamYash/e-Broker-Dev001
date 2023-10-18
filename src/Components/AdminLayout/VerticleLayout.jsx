@@ -116,14 +116,11 @@ export default function VerticleLayout(props) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const lang = useSelector(languageData)
-    // console.log("languageData",lang)
-    // useSelector(languageData)  
+
     useEffect(() => {
-      // console.log("render")
     }, [lang]);
     const language = store.getState().Language.languages;
 
-    console.log(language.rtl)
     const handleDrawerOpen = () => {
         setOpen(true);
     };

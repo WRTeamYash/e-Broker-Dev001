@@ -75,9 +75,12 @@ const Articles = () => {
         tempDiv.innerHTML = htmlString;
         return tempDiv.textContent || tempDiv.innerText || '';
     };
-    const DummyImgData = useSelector(settingsData)
-    const PlaceHolderImg = DummyImgData?.img_placeholder
+    const SettingsData = useSelector(settingsData)
+    console.log(SettingsData)
+    const PlaceHolderImg = SettingsData?.img_placeholder
 
+
+    const adminProfile = SettingsData
     const getArticleByCategory = (cateId) => {
         // console.log(cateId)
         setIsLoading(true)

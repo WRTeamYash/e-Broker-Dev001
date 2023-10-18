@@ -93,7 +93,7 @@ const SearchTab = ({ getCategories }) => {
     };
     useEffect(() => {
         // You can access the updated filterD value here
-        console.log(filterD);
+     
     }, [filterD]);
     const handleSearch = (e) => {
 

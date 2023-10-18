@@ -1937,14 +1937,11 @@ button.learn-more .button-text {
 
 #main_properties {
   overflow-x: hidden;
-
   position: relative;
-  margin-top: -50px;
-  z-index: 10;
   height: fit-content;
 }
 .properties_section {
-  padding: 70px 0px;
+  padding: 60px 0px;
 }
 .prop_header {
   display: flex;
@@ -2093,7 +2090,7 @@ div#prop_card_footer.card-footer {
   height: -moz-fit-content;
   height: fit-content;
   z-index: 10;
-  padding: 50px 0;
+  padding: 60px 0;
   background: var(--primary-text-color01);
   overflow-x: hidden;
 }
@@ -2214,7 +2211,7 @@ h3 {
 #most_fav {
   /* background-color: var(--primary-background); */
   height: fit-content;
-  margin: 60px 0;
+  padding: 60px 0;
   overflow-x: hidden;
 }
 
@@ -2223,7 +2220,6 @@ h3 {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-top: 60px;
 }
 .rightside_most_fav_header {
   display: flex;
@@ -2343,7 +2339,7 @@ h3 {
 #articles {
   height: auto;
   overflow: hidden;
-  padding-bottom: 50px;
+  padding: 60px 0;
   background-color: var(
     --primary-text-color01
   ); /* agent section color chnage  */
@@ -2353,7 +2349,6 @@ h3 {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-top: 60px;
 }
 .rightside_article_headlin {
   display: flex;
@@ -2604,8 +2599,7 @@ hr {
   /* text-transform: uppercase; */
 }
 #all-prop-containt {
-  /* background-color: var(--primary-background); */
-  margin-top: -7vh;
+  margin-top: -4vh;
   height: fit-content;
   padding-bottom: 50px;
 }
@@ -3304,7 +3298,11 @@ option {
     border-radius: 20px;
   }
 }
-.prop-main-image {
+.properties-deatil-page{
+  position: relative;
+
+}
+#prop-main-image {
   position: relative;
 }
 .see_all button {
@@ -3314,8 +3312,8 @@ option {
   border-radius: 8px;
   text-transform: capitalize;
   position: absolute;
-  margin-top: -4%;
-  margin-left: 18%;
+  margin-top: -6%;
+  margin-left: 30%;
 }
 .see_all01 button {
   border: none;
@@ -3972,7 +3970,6 @@ p {
   border: none;
   background: white;
   padding: 20px;
-  height: 90%;
 }
 
 #contact-us .contactus-card .card-header {

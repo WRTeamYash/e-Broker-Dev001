@@ -30,7 +30,7 @@ const index = () => {
     // console.log("languageData",lang)
     // useSelector(languageData)  
     useEffect(() => {
-      // console.log("render")
+        // console.log("render")
     }, [lang]);
     // handle page change
     const handlePageChange = ({ selected }) => {
@@ -86,19 +86,19 @@ const index = () => {
 
                                 }}>
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
-                                    {translate("ID")}
+                                        {translate("ID")}
                                     </TableCell>
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
-                                    {translate("transactionId")}
+                                        {translate("transactionId")}
                                     </TableCell>
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
-                                    {translate("date")}
+                                        {translate("date")}
                                     </TableCell>
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
-                                    {translate("price")}
+                                        {translate("price")}
                                     </TableCell>
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
-                                    {translate("status")}
+                                        {translate("status")}
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
@@ -134,20 +134,21 @@ const index = () => {
                             </TableBody>
                         </Table>
 
-                        {/* <div className="col-12">
-                            <TablePagination pageCount={Math.ceil(Data.length / dataPerPage)} onPageChange={handlePageChange} />
-                        </div> */}
-                        <ReactPaginate
-                            previousLabel={"previous"}
-                            nextLabel={"next"}
-                            pageCount={Math.ceil(Data.length / dataPerPage)}
-                            onPageChange={handlePageChange}
-                            containerClassName={"pagination"}
-                            previousLinkClassName={"pagination__link"}
-                            nextLinkClassName={"pagination__link"}
-                            disabledClassName={"pagination__link--disabled"}
-                            activeClassName={"pagination__link--active"}
-                        />
+                        {currentData.length > 0 ? (
+                            <ReactPaginate
+                                previousLabel={"previous"}
+                                nextLabel={"next"}
+                                pageCount={Math.ceil(Data.length / dataPerPage)}
+                                onPageChange={handlePageChange}
+                                containerClassName={"pagination"}
+                                previousLinkClassName={"pagination__link"}
+                                nextLinkClassName={"pagination__link"}
+                                disabledClassName={"pagination__link--disabled"}
+                                activeClassName={"pagination__link--active"}
+                            />
+                        ) : (
+                            null
+                        )}
                     </TableContainer>
                 </div>
             </div>

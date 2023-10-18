@@ -84,7 +84,7 @@ const PropertieDeatils = () => {
 
                 setIsLoading(false);
                 setPropData(propertyData[0]);
-               
+
             },
             (error) => {
                 setIsLoading(false);
@@ -106,6 +106,7 @@ const PropertieDeatils = () => {
 
     const DummyImgData = useSelector(settingsData)
     const PlaceHolderImg = DummyImgData?.img_placeholder
+    console.log(PlaceHolderImg)
     useEffect(() => {
         if (imageURL && imageURL) {
             pannellum?.viewer('panorama', {
@@ -140,9 +141,11 @@ const PropertieDeatils = () => {
         setViewerIsOpen(false);
     };
 
+    const GoogleMapApi = process.env.NEXT_PUBLIC_GOOGLE_API
+
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE",
+        googleMapsApiKey: GoogleMapApi,
         libraries: ['geometry', 'drawing'],
     });
 
@@ -174,7 +177,7 @@ const PropertieDeatils = () => {
             propId.slug,
             "0",
             (response) => {
-               
+
                 setInterested(false);
                 toast.success(response.message);
             },
@@ -275,8 +278,8 @@ const PropertieDeatils = () => {
                                         ) : null
                                         }
 
-                                        {getPropData && getPropData.parameters > 0 ? (
 
+                                        {getPropData && getPropData.parameters.length > 0 && getPropData.parameters.some(elem => elem.value !== null && elem.value !== "") ? (
                                             <div className="card " id='features-amenities'>
                                                 <div className="card-header">
                                                     {translate("feature&Amenties")}
@@ -284,7 +287,6 @@ const PropertieDeatils = () => {
                                                 <div className="card-body">
 
                                                     <div className="row">
-
 
                                                         {getPropData && getPropData.parameters.map((elem, index) => (
                                                             // Check if the value is an empty string
@@ -362,7 +364,7 @@ const PropertieDeatils = () => {
                                                                 <Map
                                                                     latitude={getPropData.latitude}
                                                                     longitude={getPropData.longitude}
-                                                                    google="AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE"
+                                                                    google={GoogleMapApi}
                                                                 />
                                                             ) : (
                                                                 <div>

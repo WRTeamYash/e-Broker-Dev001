@@ -92,6 +92,11 @@ export default function AddPropertyTabs() {
         galleryImages: [],
         videoLink: "",
     })
+
+    const GoogleMapApi = process.env.NEXT_PUBLIC_GOOGLE_API
+
+
+
     useEffect(() => {
         GetCategorieApi(
             (response) => {
@@ -119,22 +124,8 @@ export default function AddPropertyTabs() {
             }
         );
     }, []);
-    // useEffect(() => {
-    //     // console.log("current package id",packageId)
-    //     GetLimitsApi(
-    //         packageId,
-    //         (response) => {
-    //             console.log(response)
-    //             const limitsData = response && response.data;
-    //             console.log(limitsData)
-    //             setGetLimitsData(limits);
 
-    //         },
-    //         (error) => {
-    //             console.log(error);
-    //         }
-    //     );
-    // }, []);
+
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -518,7 +509,7 @@ export default function AddPropertyTabs() {
                     "distance": value,
                     // You may need to adjust these fields based on your data structure
                 });
-                console.log("when i push to facility ", facilities)
+                // console.log("when i push to facility ", facilities)
             }
             // Concatenate parameters and facilities into the allParameters array
             // const allParameters = [...parameters, ...facilities];
@@ -899,7 +890,7 @@ export default function AddPropertyTabs() {
                         <div className="col-sm-12 col-md-6">
                             <div className="map">
                                 <GoogleMapBox
-                                    apiKey="AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE"
+                                    apiKey={GoogleMapApi}
                                     onSelectLocation={handleLocationSelect} />
                             </div>
                         </div>

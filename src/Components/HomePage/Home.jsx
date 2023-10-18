@@ -669,18 +669,18 @@ const HomePage = () => {
                                         <NearByCitysSkeleton />
                                     </div>
                                 ) : // Show actual data when loading is complete
-
-                                    getNearByCitysData ? (
+                                    getNearByCitysData?.length > 5 ? (
                                         <div className="row" id="nearBy-Citys">
+                                            {/* {console.log(getNearByCitysData)} */}
                                             <div className="col-12 col-md-6 col-lg-3" id="city_img_div">
-                                                <Link href={`/properties/city/${getNearByCitysData[1].City}`}>
+                                                <Link href={`/properties/city/${getNearByCitysData[1]?.City}`}>
                                                     <div className="card bg-dark text-white mb-3" id="group_card">
-                                                        <img src={getNearByCitysData && getNearByCitysData[1].image} className="card-img" alt="..." id="TopImg" />
+                                                        <img src={getNearByCitysData && getNearByCitysData[1]?.image} className="card-img" alt="..." id="TopImg" />
                                                         <div className="card-img-overlay">
                                                             <div id="city_img_headlines">
-                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[1].City}</h4>
+                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[1]?.City}</h4>
                                                                 <p className="card-text">
-                                                                    {getNearByCitysData && getNearByCitysData[1].Count} {translate("properties")}
+                                                                    {getNearByCitysData && getNearByCitysData[1]?.Count} {translate("properties")}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -688,14 +688,14 @@ const HomePage = () => {
                                                 </Link>
                                             </div>
                                             <div className="col-12 col-md-6 col-lg-3" id="city_img_div">
-                                                <Link href={`/properties/city/${getNearByCitysData[2].City}`}>
+                                                <Link href={`/properties/city/${getNearByCitysData[2]?.City}`}>
                                                     <div className="card bg-dark text-white mb-3" id="group_card">
-                                                        <img src={getNearByCitysData && getNearByCitysData[2].image} className="card-img" alt="..." id="TopImg" />
+                                                        <img src={getNearByCitysData && getNearByCitysData[2]?.image} className="card-img" alt="..." id="TopImg" />
                                                         <div className="card-img-overlay">
                                                             <div id="city_img_headlines">
-                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[2].City}</h4>
+                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[2]?.City}</h4>
                                                                 <p className="card-text">
-                                                                    {getNearByCitysData && getNearByCitysData[2].Count} {translate("properties")}
+                                                                    {getNearByCitysData && getNearByCitysData[2]?.Count} {translate("properties")}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -703,14 +703,14 @@ const HomePage = () => {
                                                 </Link>
                                             </div>
                                             <div className="col-lg-6" id="city_image_main_div">
-                                                <Link href={`/properties/city/${getNearByCitysData[0].City}`}>
+                                                <Link href={`/properties/city/${getNearByCitysData[0]?.City}`}>
                                                     <div className="card bg-dark text-white mb-3" id="cityImgTop">
-                                                        <img src={getNearByCitysData && getNearByCitysData[0].image} className="card-img" alt="..." id="TopImg" />
+                                                        <img src={getNearByCitysData && getNearByCitysData[0]?.image} className="card-img" alt="..." id="TopImg" />
                                                         <div className="card-img-overlay">
                                                             <div id="city_img_headlines">
-                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[0].City} </h4>
+                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[0]?.City} </h4>
                                                                 <p className="card-text">
-                                                                    {getNearByCitysData && getNearByCitysData[0].Count} {translate("properties")}{" "}
+                                                                    {getNearByCitysData && getNearByCitysData[0]?.Count} {translate("properties")}{" "}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -718,10 +718,10 @@ const HomePage = () => {
                                                 </Link>
                                             </div>
                                             <div className="col-lg-6" id="city_image_main_div">
-                                                <Link href={`/properties/city/${getNearByCitysData[5].City}`}>
+                                                <Link href={`/properties/city/${getNearByCitysData[5]?.City}`}>
                                                     <div className="card bg-dark text-white" id="cityImgTop">
                                                         <img
-                                                            src={getNearByCitysData && getNearByCitysData[5].image}
+                                                            src={getNearByCitysData && getNearByCitysData[5]?.image}
                                                             className="card-img"
                                                             alt="..."
                                                             id="TopImg"
@@ -729,9 +729,9 @@ const HomePage = () => {
                                                         />
                                                         <div className="card-img-overlay">
                                                             <div id="city_img_headlines">
-                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[5].City} </h4>
+                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[5]?.City} </h4>
                                                                 <p className="card-text">
-                                                                    {getNearByCitysData && getNearByCitysData[5].Count} {translate("properties")}
+                                                                    {getNearByCitysData && getNearByCitysData[5]?.Count} {translate("properties")}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -739,14 +739,14 @@ const HomePage = () => {
                                                 </Link>
                                             </div>
                                             <div className="col-12 col-md-6 col-lg-3" id="city_img_div01">
-                                                <Link href={`/properties/city/${getNearByCitysData[3].City}`}>
+                                                <Link href={`/properties/city/${getNearByCitysData[3]?.City}`}>
                                                     <div className="card bg-dark text-white" id="group_card">
-                                                        <img src={getNearByCitysData && getNearByCitysData[3].image} className="card-img" alt="..." id="TopImg" />
+                                                        <img src={getNearByCitysData && getNearByCitysData[3]?.image} className="card-img" alt="..." id="TopImg" />
                                                         <div className="card-img-overlay">
                                                             <div id="city_img_headlines">
-                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[3].City}</h4>
+                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[3]?.City}</h4>
                                                                 <p className="card-text">
-                                                                    {getNearByCitysData && getNearByCitysData[3].Count} {translate("properties")}
+                                                                    {getNearByCitysData && getNearByCitysData[3]?.Count} {translate("properties")}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -754,14 +754,14 @@ const HomePage = () => {
                                                 </Link>
                                             </div>
                                             <div className="col-12 col-md-6 col-lg-3" id="city_img_div01">
-                                                <Link href={`/properties/city/${getNearByCitysData[4].City}`}>
+                                                <Link href={`/properties/city/${getNearByCitysData[4]?.City}`}>
                                                     <div className="card bg-dark text-white " id="group_card">
-                                                        <img src={getNearByCitysData && getNearByCitysData[4].image} className="card-img" alt="..." id="TopImg" />
+                                                        <img src={getNearByCitysData && getNearByCitysData[4]?.image} className="card-img" alt="..." id="TopImg" />
                                                         <div className="card-img-overlay">
                                                             <div id="city_img_headlines">
-                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[4].City}</h4>
+                                                                <h4 className="card-title">{getNearByCitysData && getNearByCitysData[4]?.City}</h4>
                                                                 <p className="card-text">
-                                                                    {getNearByCitysData && getNearByCitysData[4].Count} {translate("properties")}
+                                                                    {getNearByCitysData && getNearByCitysData[4]?.Count} {translate("properties")}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -769,7 +769,26 @@ const HomePage = () => {
                                                 </Link>
                                             </div>
                                         </div>
-                                    ) : null}
+                                    ) :
+                                        <div className="row" id="nearBy-Citys">
+                                            {getNearByCitysData?.slice(0, 4).map((ele, index) => (
+                                                <div className="col-12 col-md-6 col-lg-3" id="city_img_div" key={index}>
+                                                    <Link href={`/properties/city/${ele?.City}`}>
+                                                        <div className="card bg-dark text-white mb-3" id="group_card">
+                                                            <img src={ele?.image} className="card-img" alt="..." id="TopImg" />
+                                                            <div className="card-img-overlay">
+                                                                <div id="city_img_headlines">
+                                                                    <h4 className="card-title">{ele?.City}</h4>
+                                                                    <p className="card-text">
+                                                                        {ele?.Count} {translate("properties")}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                            ))}
+                                        </div>}
                             </div>
                         </div>
                     </section>

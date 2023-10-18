@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react'
-import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import adminlogo from "@/assets/Images/Superman.jpeg"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Pagination } from 'swiper/modules';
@@ -129,11 +128,7 @@ const ArticleDeatils = () => {
     const language = store.getState().Language.languages
     return (
         <>
-            {/* <Head >
-                <title>
-                    {propertySlugData && propertySlugData.propertySlugData[0].title}
-                </title>
-            </Head> */}
+
             <Layout>
                 <Breadcrumb title={translate("articleDeatils")} />
                 <div className='all-articles'>

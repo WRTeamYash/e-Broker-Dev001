@@ -25,6 +25,7 @@ import { FaCrown } from 'react-icons/fa';
 import FeatureModal from '@/Components/FeatureModal/FeatureModal.jsx';
 import { translate } from '@/utils/index.js';
 import { languageData } from '@/store/reducer/languageSlice.js';
+import Swal from 'sweetalert2';
 
 
 
@@ -41,7 +42,7 @@ const index = () => {
     const [propertyId, setPropertyId] = useState(null);
     const [isFeatureModalVisible, setIsFeatureModalVisible] = useState(false);
 
-
+    const SettingsData = useSelector(settingsData)
 
 
 
@@ -56,7 +57,18 @@ const index = () => {
         router.push(`/user/edit-property?id=${propertyId}`);
     };
     const handleClickDelete = (propertyId) => {
-
+        if(SettingsData.demo_mode) {
+            Swal.fire({
+                title: 'Opps !',
+                text: "This Action is Not Allowed in Demo Mode",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#087c7c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            })
+            return false
+        }
         setPropertyIdToDelete(propertyId)
         setIsLoading(true)
         deletePropertyApi(

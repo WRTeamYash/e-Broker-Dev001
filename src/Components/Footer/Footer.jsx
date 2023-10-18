@@ -112,11 +112,11 @@ const Footer = () => {
                                 </Link>
                             </div>
 
-                            <div className='prop_links'>
+                            {/* <div className='prop_links'>
                                 <Link href="/listby-agents">
                                     List by Agents Properties
                                 </Link>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className='col-12 col-md-6 col-lg-3' >

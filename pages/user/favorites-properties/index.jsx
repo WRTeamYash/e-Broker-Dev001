@@ -9,9 +9,10 @@ import Link from 'next/link';
 import { languageData } from '@/store/reducer/languageSlice';
 import Pagination from '@/Components/Pagination/ReactPagination';
 import { translate } from '@/utils';
+import NoData from '@/Components/NoDataFound/NoData';
 
 const Index = () => {
-  
+
   const [isLoading, setIsLoading] = useState(true);
   const [total, setTotal] = useState(0);
   const [getFavProp, setGetFavProp] = useState([]);
@@ -21,10 +22,9 @@ const Index = () => {
   const isLoggedIn = useSelector((state) => state.User_signup);
   const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
   const lang = useSelector(languageData)
-  // console.log("languageData",lang)
-  // useSelector(languageData)  
+
   useEffect(() => {
-    // console.log("render")
+
   }, [lang]);
   useEffect(() => {
     GetFavPropertyApi(
@@ -69,16 +69,29 @@ const Index = () => {
               ))
             ) : (
               <>
-                {getFavProp?.map((ele, index) => (
-                  <div className='col-sm-12 col-md-6 col-lg-3' key={index}>
-                    <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
-                      <VerticalCard ele={ele} onRemoveCard={removeCard} />
-                    </Link>
-                  </div>
-                ))}
-                <div className="col-12">
-                  <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
-                </div>
+                {
+                  getFavProp?.length > 0 ? (
+                    <>
+
+                      {getFavProp?.map((ele, index) => (
+                        <div className='col-sm-12 col-md-6 col-lg-3' key={index}>
+                          <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                            <VerticalCard ele={ele} onRemoveCard={removeCard} />
+                          </Link>
+                        </div>
+                      ))}
+                      <div className="col-12">
+                        <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                      </div>
+                    </>
+                  ) : (
+                    <div className='col-sm-12'>
+                      <div className="noDataFoundDiv">
+                        <NoData />
+                      </div>
+                    </div>
+                  )
+                }
               </>
             )}
           </div>

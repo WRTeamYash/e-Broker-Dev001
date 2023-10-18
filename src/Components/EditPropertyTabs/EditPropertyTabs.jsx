@@ -50,19 +50,19 @@ function a11yProps(index) {
 }
 
 export default function EditPropertyTabs() {
+    const GoogleMapApi = process.env.NEXT_PUBLIC_GOOGLE_API
 
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true)
-    const [defaultData, setDeafultData] = useState([])
 
     const propertyId = router.query.id
     // console.log("property id ", propertyId)
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    const PackageData = useSelector(settingsData)
+    const SettingsData = useSelector(settingsData)
     const userData = useSelector(userSignUpData)
     const userId = userData?.data?.data?.id
-    const packageId = PackageData?.package?.user_purchased_package[0]?.package_id
+    const packageId = SettingsData?.package?.user_purchased_package[0]?.package_id
     const [value, setValue] = useState(0);
     const [getCategories, setGetCategories] = useState([]);
     const [getFacilities, setGetFacilities] = useState([]);
@@ -149,7 +149,7 @@ export default function EditPropertyTabs() {
             "",
             (response) => {
                 const propertyData = response?.data[0]; // Assuming data is an array and you want the first item
-                console.log(propertyData)
+                // console.log(propertyData)
                 // console.log(propertyData.latitude)
                 // console.log(propertyData.longitude)
                 setLat(propertyData?.latitude)
@@ -619,6 +619,19 @@ export default function EditPropertyTabs() {
 
     const handleUpdatePostproperty = (e) => {
         e.preventDefault();
+
+        if(SettingsData.demo_mode) {
+            Swal.fire({
+                title: 'Opps !',
+                text: "This Action is Not Allowed in Demo Mode",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#087c7c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            })
+            return false
+        }
         // console.log(Object.fromEntries(new FormData(e.target)));
         if (!areFieldsFilled(tab1)) {
             // Display a toast message to fill in all required fields for Tab 1
@@ -1050,7 +1063,7 @@ export default function EditPropertyTabs() {
                         <div className="col-sm-12 col-md-6">
                             <div className="map">
                                 <GoogleMapBox
-                                   apiKey="AIzaSyA0B2eTsnUMMG4SN6Agjz7JD3w_gCDj1lE"
+                                   apiKey={GoogleMapApi}
                                     onSelectLocation={handleLocationSelect}
                                     latitude={lat}
                                     longitude={lng} />

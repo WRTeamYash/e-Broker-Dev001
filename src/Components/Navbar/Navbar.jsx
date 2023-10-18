@@ -27,9 +27,9 @@ const Nav = () => {
 
     const router = useRouter()
     const signupData = useSelector(userSignUpData);
-    // console.log(signupData)
+   
     const settingData = useSelector(settingsData)
-    // console.log(settingData)
+
     const isSubscription = settingData?.subscription
     const LanguageList = settingData && settingData.languages;
     const [selectedLanguage, setSelectedLanguage] = useState();
@@ -41,7 +41,7 @@ const Nav = () => {
 
 
     const language = store.getState().Language.languages
-    // console.log(language.rtl)
+
     useEffect(() => {
         if (language && language.rtl === 1) {
             document.documentElement.dir = "rtl";
@@ -142,7 +142,7 @@ const Nav = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 logoutSuccess();
-                toast.error(translate("logoutSuccess"));
+                toast.success(translate("logoutSuccess"));
 
             } else {
                 toast.error(translate("logoutcancel"));
@@ -274,7 +274,7 @@ const Nav = () => {
                 }}>
                     <Offcanvas.Header >
                         <Offcanvas.Title>
-                            <span className='title-name'>eBroker</span>
+                            <span className='title-name'>{settingData?.company_name}</span>
                         </Offcanvas.Title>
                         <Offcanvas.Title>
                             <CloseButton onClick={handleClose} />
@@ -320,11 +320,7 @@ const Nav = () => {
                                 <li className="nav-item">
                                     <Link className="nav-link" href="/contact-us" onClick={handleClose}>{translate("contactUs")}</Link>
                                 </li>
-                                {/* <li className="nav-item">
-                                    <Link href="/contact-us" id='a-tags-link'>
-                                        {translate("contactUs")}
-                                    </Link>
-                                </li> */}
+                              
                                 <li className="nav-item">
                                     <Link className="nav-link" href="/about-us" onClick={handleClose}>{translate("aboutUs")}</Link>
                                 </li>
@@ -362,7 +358,7 @@ const Nav = () => {
                                                         </Dropdown.Toggle>
 
                                                         <Dropdown.Menu id='language'>
-                                                            <Dropdown.Item href="/">{translate("dashboard")}</Dropdown.Item>
+                                                        <Dropdown.Item onClick={handleShowDashboard}>{translate("dashboard")}</Dropdown.Item>
                                                             <Dropdown.Item onClick={handleLogout}>{translate("logout")}</Dropdown.Item>
                                                         </Dropdown.Menu>
                                                     </Dropdown>

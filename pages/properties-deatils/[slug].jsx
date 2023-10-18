@@ -106,7 +106,7 @@ const PropertieDeatils = () => {
 
     const DummyImgData = useSelector(settingsData)
     const PlaceHolderImg = DummyImgData?.img_placeholder
-    console.log(PlaceHolderImg)
+    // console.log(PlaceHolderImg)
     useEffect(() => {
         if (imageURL && imageURL) {
             pannellum?.viewer('panorama', {

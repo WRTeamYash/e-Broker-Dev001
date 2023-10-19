@@ -1,7 +1,5 @@
 
 import React, { useEffect, useState } from 'react'
-import ViewPageImg from "@/assets/Images/Breadcrumbs.jpg"
-
 import { CiLocationOn } from 'react-icons/ci'
 
 import { SlDocs } from 'react-icons/sl'

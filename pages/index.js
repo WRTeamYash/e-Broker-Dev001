@@ -1,6 +1,7 @@
 import HomePage from '@/Components/HomePage/Home'
 import PushNotificationLayout from '@/Components/PushNotificationLayout/PushNotificationLayout'
 import { languageData } from '@/store/reducer/languageSlice'
+import { loadSlider } from '@/store/reducer/momentSlice'
 import React from 'react'
 import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
@@ -14,6 +15,10 @@ const Home = () => {
   useEffect(() => {
     // console.log("render")
   }, [lang]);
+
+  useEffect(()=>{
+    loadSlider()
+  },[])
 
   return (
     <>

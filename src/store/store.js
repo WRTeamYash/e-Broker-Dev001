@@ -7,6 +7,7 @@ import languageSlice from './reducer/languageSlice';
 import filterDataReducer from './reducer/filterDataSlice';
 import api from './middleware/api'
 import storage from 'redux-persist/lib/storage' 
+import momentSlice from './reducer/momentSlice';
 
 
 const persistConfig = {
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   User_signup: authReducer,
   Language: languageSlice,
   filterData: filterDataReducer,
+  cachedata: momentSlice,
   // ProfileData: userProfileSlice,
  
 });

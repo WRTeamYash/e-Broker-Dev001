@@ -43,6 +43,7 @@ import { translate } from "@/utils";
 import Layout from "../Layout/Layout";
 import SearchTab from "../SearchTab/SearchTab.jsx";
 import { store } from "@/store/store";
+import { silderCacheData } from "@/store/reducer/momentSlice";
 
 const HomePage = () => {
     const priceSymbol = useSelector(settingsData);
@@ -58,10 +59,12 @@ const HomePage = () => {
     const [getMostFavProperties, setGetMostFavProperties] = useState();
     const [getArticles, setGetArticles] = useState();
     const [getNearByCitysData, setGetNearByCitysData] = useState();
-    const [slider, setSlider] = useState();
+
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const language = store.getState().Language.languages;
+    const sliderdata = useSelector(silderCacheData)
+
 
     // SLIDER API
     const handleOpenFilterModal = () => {
@@ -118,20 +121,6 @@ const HomePage = () => {
         },
     };
 
-    // API IMPLEMENT
-
-    useEffect(() => {
-        GetSliderApi(
-            (response) => {
-                const sliderData = response.data;
-                setIsLoading(false);
-                setSlider(sliderData);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-    }, []);
 
     // GET CATEGORIES
 
@@ -293,7 +282,7 @@ const HomePage = () => {
     return (
         <>
             <Layout>
-                {slider && slider.length > 0 ? (
+                {sliderdata && sliderdata.length > 0 ? (
                     <section id="mainheroImage">
                         <HeroSlider
                             height={"90vh"}
@@ -316,8 +305,8 @@ const HomePage = () => {
                             {isLoading ? (
                                 <Loader />
                             ) : (
-                                slider &&
-                                slider.map((single, index) => {
+                                sliderdata &&
+                                sliderdata.map((single, index) => {
                                     return (
                                         <Slide
                                             background={{

@@ -14,16 +14,6 @@ export const UpdateProfileApi = (userid, name, email, mobile, type, address, fir
 };
 
 
-// GET SLIDER
-export const GetSliderApi = (onSuccess, onError, onStart) => {
-    store.dispatch(apiCallBegan({
-        ...getSliderApi(),
-        displayToast: false,
-        onStart,
-        onSuccess,
-        onError,
-    }))
-};
 // GET CATEGORIES
 export const GetCategorieApi = (onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({

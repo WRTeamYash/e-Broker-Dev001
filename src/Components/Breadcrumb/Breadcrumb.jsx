@@ -1,12 +1,12 @@
 
 import React, { useEffect, useState } from 'react'
-import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
+import ViewPageImg from "@/assets/Images/Breadcrumbs.jpg"
 
 import { CiLocationOn } from 'react-icons/ci'
 
 import { SlDocs } from 'react-icons/sl'
 
-import { BiHomeSmile, BiCctv, BiTime } from 'react-icons/bi'
+import { BiTime } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { settingsData } from '@/store/reducer/settingsSlice'
 import { toast } from 'react-hot-toast'

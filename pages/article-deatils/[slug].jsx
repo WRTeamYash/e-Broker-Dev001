@@ -249,7 +249,7 @@ const ArticleDeatils = () => {
                                 </div>
                             </div>
                             <div id='related_articles_section'>
-                                <div className='related-headline' data-aos="fade-right" data-aos-duration="1000">
+                                <div className='related-headline' >
                                     <span className='headline'>
                                         {translate("related")}  <span
                                         >

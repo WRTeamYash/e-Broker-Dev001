@@ -12,7 +12,7 @@ const MobileHeadline = (props) => {
             <div className="container">
                 <div id='mobile-headlines'>
                     <div className='main-headline'>
-                        <span className='headline' data-aos="fade-right" data-aos-duration="1000">
+                        <span className='headline' >
                             {data && data.start} <span>
                                 <span
                                     // className="text" data-text="Featured"

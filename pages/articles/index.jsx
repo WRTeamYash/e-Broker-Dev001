@@ -1,7 +1,5 @@
 
 import React, { useEffect, useState } from 'react'
-import ViewPageImg from "@/assets/Images/Breadcrumbs_BG.jpg"
-import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import adminlogo from "@/assets/Images/Superman.jpeg"
 import { FiArrowRight, FiCloudDrizzle, FiEye } from 'react-icons/fi'
 import { AiOutlineUnorderedList, AiOutlineHeart, AiOutlineArrowRight } from 'react-icons/ai'

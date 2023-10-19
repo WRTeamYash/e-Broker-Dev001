@@ -10,7 +10,6 @@ import { BsFacebook, BsLinkedin, BsMap, BsPinterest } from 'react-icons/bs'
 import { TiSocialLinkedinCircular } from "react-icons/ti";
 import { ButtonGroup, Card } from 'react-bootstrap'
 import Link from 'next/link'
-import cardImg from '@/assets/Images/Featured_List_1.jpg'
 import { BiCctv, BiHomeSmile } from 'react-icons/bi'
 import { GiGamepad } from 'react-icons/gi'
 import Loader from '@/Components/Loader/Loader'

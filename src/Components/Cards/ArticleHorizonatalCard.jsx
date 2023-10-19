@@ -5,6 +5,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 import adminlogo from "@/assets/Images/Superman.jpeg"
 import { translate } from '@/utils';
 
+import Image from 'next/image'
 
 const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) => {
 
@@ -22,7 +23,7 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) 
                 <div className="row">
                     <div className="col-sm-12 col-md-6 col-lg-3">
                         <div className="article_card_image">
-                            <img variant="top" className="article_Img" src={ele.image ? ele.image : PlaceHolderImg} />
+                            <Image loading="lazy" variant="top" className="article_Img" src={ele.image ? ele.image : PlaceHolderImg}  width={200} height={200}/>
                         </div>
                     </div>
                     <div className="col-sm-12 col-md-6 col-lg-9">
@@ -63,7 +64,7 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) 
                             </div>
                             <div className="card-footer" id='article-card-footer'>
                                 <div id='admin_pic'>
-                                    <img src={adminlogo.src} alt="" className='admin' />
+                                    <Image loading="lazy" src={adminlogo.src} alt="" className='admin'  width={200} height={200} />
                                 </div>
                                 <div className='article_footer_text'>
                                     <span className='byadmin'> {translate("byAdmin")}

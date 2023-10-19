@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap'
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import adminlogo from "@/assets/Images/Superman.jpeg"
 import { translate } from '@/utils';
+import Image from 'next/image'
 
 
 const ArticleCard = ({ ele, expandedStates, index, PlaceHolderImg }) => {
@@ -63,7 +64,7 @@ const ArticleCard = ({ ele, expandedStates, index, PlaceHolderImg }) => {
                 </Card.Body>
                 <Card.Footer id='article_card_footer'>
                     <div id='admin_pic'>
-                        <img src={adminlogo.src} alt="" className='admin' />
+                        <Image loading="lazy" src={adminlogo.src} alt="" className='admin'  width={200} height={200}/>
                     </div>
                     <div className='article_footer_text'>
                         <span className='byadmin'> {translate("byAdmin")}

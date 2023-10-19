@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { translate } from '@/utils';
 import { languageData } from '@/store/reducer/languageSlice';
+import Image from 'next/image'
 
 
 const Index = () => {
@@ -152,7 +153,7 @@ const Index = () => {
                                             <div className="col-sm-12">
                                                 <div className="add_profile_div">
                                                     <div className="image_div">
-                                                        <img src={uploadedImage || PlaceHolderImg} alt="" />
+                                                        <Image loading="lazy" src={uploadedImage || PlaceHolderImg} alt=""  width={200} height={200}/>
                                                     </div>
                                                     <div className="add_profile">
                                                         <input

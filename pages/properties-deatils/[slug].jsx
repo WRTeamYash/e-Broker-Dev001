@@ -6,6 +6,7 @@ import { Card, Carousel } from 'react-bootstrap'
 import { CiLocationOn } from 'react-icons/ci'
 import { FiCloudDrizzle, FiMail, FiMessageSquare, FiPhoneCall, FiThumbsUp } from 'react-icons/fi'
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
+import Image from 'next/image'
 
 
 import { PiPlayCircleThin } from 'react-icons/pi';
@@ -209,15 +210,15 @@ const PropertieDeatils = () => {
                                     <div className="row" id="prop-images">
                                         {galleryPhotos.length === 1 ? (
                                             <div className="col-12" id="prop-main-image01">
-                                                <img src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="one-img" alt="Main Image" />
+                                                <Image loading="lazy" src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="one-img" alt="Main Image"  width={200} height={200}/>
                                             </div>
                                         ) : galleryPhotos.length === 2 ? (
                                             <>
                                                 <div className="col-sm-12 col-md-6" id="prop-main-image">
-                                                    <img src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="two-img01" alt="Main Image" />
+                                                    <Image loading="lazy" src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="two-img01" alt="Main Image"  width={200} height={200}/>
                                                 </div>
                                                 <div className="col-sm-12 col-md-6" id="prop-main-image">
-                                                    <img src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="two-img02" alt="Main Image" />
+                                                    <Image loading="lazy" src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="two-img02" alt="Main Image"  width={200} height={200}/>
                                                     <div className="see_all01">
                                                         <button onClick={(e) => openLightbox(e, { index: 0 })}>{translate("seeAllPhotos")}</button>
                                                     </div>
@@ -226,11 +227,11 @@ const PropertieDeatils = () => {
                                         ) : (
                                             <>
                                                 <div className="col-lg-4 col-sm-12" id="prop-left-images">
-                                                    <img src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="left-imgs01" alt="Image 1" />
-                                                    <img src={galleryPhotos[2]?.image_url || PlaceHolderImg} className="left-imgs02" alt="Image 2" />
+                                                    <Image loading="lazy" src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="left-imgs01" alt="Image 1"  width={200} height={200}/>
+                                                    <Image loading="lazy" src={galleryPhotos[2]?.image_url || PlaceHolderImg} className="left-imgs02" alt="Image 2"  width={200} height={200}/>
                                                 </div>
                                                 <div className="col-lg-8 col-sm-12 text-center" id="prop-main-image">
-                                                    <img src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="middle-img" alt="Main Image" />
+                                                     <Image loading="lazy" src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="middle-img" alt="Main Image"  width={200} height={200} />
                                                     <div className="see_all">
                                                         <button onClick={(e) => openLightbox(e, { index: 0 })}>{translate("seeAllPhotos")}</button>
                                                     </div>
@@ -290,7 +291,7 @@ const PropertieDeatils = () => {
                                                                 <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
                                                                     <div id='specification'>
                                                                         <div className='spec-icon'>
-                                                                            <img src={elem.image} width={20} height={16} />
+                                                                            <Image  loading="lazy" src={elem.image} width={20} height={16} />
                                                                         </div>
                                                                         <div id='specs-deatils'>
                                                                             <div>
@@ -446,7 +447,7 @@ const PropertieDeatils = () => {
                                         <div className="card" id='owner-deatils-card'>
                                             <div className="card-header" id='card-owner-header'>
                                                 <div>
-                                                    <img src={getPropData && getPropData.profile ? getPropData.profile : PlaceHolderImg} className='owner-img' alt="" />
+                                                    <Image loading="lazy"  width={200} height={200} src={getPropData && getPropData.profile ? getPropData.profile : PlaceHolderImg} className='owner-img' alt="" />
                                                 </div>
                                                 <div className='owner-deatils'>
                                                     <span className='owner-name'> {getPropData && getPropData.customer_name}</span>

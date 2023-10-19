@@ -62,7 +62,7 @@ const AllPropertieCard = ({ ele }) => {
     return (
         <Card id='all_prop_main_card' className="row" key={ele.id}>
             <div className='col-md-4 img_div' id='all_prop_main_card_rows_cols'>
-                <img className='card-img' id='all_prop_card_img' src={ele.title_image} />
+                <Image loading="lazy" className='card-img' id='all_prop_card_img' src={ele.title_image}  width={200} height={200}/>
             </div>
             <div className='col-md-8' id='all_prop_main_card_rows_cols'>
                 <Card.Body id='all_prop_card_body'>
@@ -94,7 +94,7 @@ const AllPropertieCard = ({ ele }) => {
                     <div>
                         <div id='all_prop_sub_body'>
                             <div className="cate_image">
-                                <img src={ele.category.image} alt="" />
+                                <Image loading="lazy" src={ele.category.image} alt=""  width={200} height={200}/>
                             </div>
                             <span className='sub_body_title'> {ele.category.category}</span>
                         </div>

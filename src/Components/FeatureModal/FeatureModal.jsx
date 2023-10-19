@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { translate } from '@/utils';
+import Image from 'next/image'
 
 const FeatureModal = ({ show, onHide, propertyId }) => {
     const [selectedOption, setSelectedOption] = useState('HomeScreen');
@@ -73,7 +74,7 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
         () =>
             uploadedImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name}  width={200} height={200}/>
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeImage(index)}>
                             <RiCloseCircleLine size="25px" />

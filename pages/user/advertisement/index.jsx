@@ -16,6 +16,12 @@ import Loader from "@/Components/Loader/Loader";
 import { FaCrown } from 'react-icons/fa';
 import { translate } from "@/utils";
 import { languageData } from "@/store/reducer/languageSlice";
+import Image from 'next/image'
+
+
+
+
+
 const index = () => {
   const limit = 8;
 
@@ -111,10 +117,10 @@ const index = () => {
                 <TableRow>
                   <TableCell sx={{ fontWeight: "600" }}>{translate("listingTitle")}</TableCell>
                   <TableCell sx={{ fontWeight: "600" }} align="center">
-                  {translate("status")}
+                    {translate("status")}
                   </TableCell>
                   <TableCell sx={{ fontWeight: "600" }} align="center">
-                  {translate("action")}
+                    {translate("action")}
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -136,10 +142,12 @@ const index = () => {
                         <TableCell component="th" scope="row" sx={{ width: "40%" }}>
                           <div className="card" id="listing_card">
                             <div className="listing_card_img">
-                              <img
+                              <Image loading="lazy"
                                 src={elem.title_image}
                                 alt=""
                                 id="main_listing_img"
+                                width={150} height={0}
+                                style={{ height: "auto" }}
                               />
                               <span className="listing_type_feature_tag">
                                 <FaCrown />

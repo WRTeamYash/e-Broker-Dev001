@@ -1,6 +1,7 @@
 import React from 'react'
 import NoPageFound from '../../src/assets/Images/404.png'
 import { translate } from '@/utils'
+import Image from 'next/image'
 
 
 const PageNotFound = () => {
@@ -8,7 +9,7 @@ const PageNotFound = () => {
         <div className='errorPage'>
             <div className="col-12 text-center">
                 <div>
-                    <img src={NoPageFound.src} alt="" />
+                    <Image loading="lazy" src={NoPageFound.src} alt="" width={200} height={200}/>
                 </div>
                 <div className='no_page_found_text'>
                     <h3>

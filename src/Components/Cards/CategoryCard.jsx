@@ -3,6 +3,7 @@ import { translate } from '@/utils'
 import React from 'react'
 import { Card } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
+import Image from 'next/image'
 
 const CategoryCard = ({ ele }) => {
 
@@ -16,7 +17,7 @@ const PlaceHolderImg = DummyImgData?.img_placeholder
                 <Card.Body>
                     <div className='apart_card_content'>
                         <div id='apart_icon'>
-                            <img src={ele.image ? ele.image : PlaceHolderImg} alt="" className='solo_icon' />
+                            <Image loading="lazy" src={ele.image ? ele.image : PlaceHolderImg} alt="" className='solo_icon'  width={200} height={200}/>
                         </div>
                         <div id='apart_name'>
                             {ele.category}

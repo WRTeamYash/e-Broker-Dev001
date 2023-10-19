@@ -1,13 +1,14 @@
 import React from 'react'
 import NoDataFound from '../../assets/no_data_found_illustrator.svg'
 import { translate } from '@/utils'
+import Image from 'next/image'
 
 
 const NoData = () => {
     return (
         <div className="col-12 text-center">
             <div>
-                <img src={NoDataFound.src} alt="" />
+                <Image loading="lazy" src={NoDataFound.src} alt=""  width={200} height={200}/>
             </div>
             <div className='no_data_found_text'>
                 <h3>

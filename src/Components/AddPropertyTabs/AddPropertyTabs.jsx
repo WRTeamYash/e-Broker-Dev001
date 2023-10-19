@@ -305,7 +305,7 @@ export default function AddPropertyTabs() {
         () =>
             uploadedImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name}  width={200} height={200}/>
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeImage(index)}>
                             <CloseIcon fontSize='25px' />
@@ -344,7 +344,7 @@ export default function AddPropertyTabs() {
         () =>
             uploaded3DImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name}  width={200} height={200}/>
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => remove3DImage(index)}>
                             <CloseIcon fontSize='25px' />
@@ -386,7 +386,7 @@ export default function AddPropertyTabs() {
         () =>
             galleryImages.map((file, index) => (
                 <div key={index} className="dropbox_gallary_img_div">
-                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name}  width={200} height={200} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeGalleryImage(index)}>
                             <CloseIcon fontSize='25px' />

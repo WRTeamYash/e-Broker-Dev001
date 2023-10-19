@@ -15,6 +15,7 @@ import { settingsData } from '@/store/reducer/settingsSlice';
 import { userSignUpData } from '@/store/reducer/authSlice';
 import { useRouter } from 'next/router';
 import Swal from 'sweetalert2';
+import Image from 'next/image'
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -465,7 +466,7 @@ export default function EditPropertyTabs() {
         () =>
             uploadedImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name}  width={200} height={200}/>
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeImage(index)}>
                             <CloseIcon fontSize='25px' />
@@ -504,7 +505,7 @@ export default function EditPropertyTabs() {
         () =>
             uploaded3DImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name}  width={200} height={200}/>
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => remove3DImage(index)}>
                             <CloseIcon fontSize='25px' />
@@ -542,7 +543,7 @@ export default function EditPropertyTabs() {
             galleryImages.map((imageData, index) => (
                 <div key={index} className="dropbox_gallary_img_div">
                     {console.log(imageData)}
-                    <img className="dropbox_img" src={imageData.imageUrl} alt={imageData.name} />
+                    <Image loading="lazy" className="dropbox_img" src={imageData.imageUrl} alt={imageData.name}  width={200} height={200}/>
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeGalleryImage(index)} type="button">
                             <CloseIcon fontSize='25px' />

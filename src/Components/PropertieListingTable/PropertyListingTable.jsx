@@ -18,6 +18,7 @@ import { deletePropertyApi } from "@/store/actions/campaign";
 import Loader from "../Loader/Loader";
 import toast from "react-hot-toast";
 import { translate } from "@/utils";
+import Image from 'next/image'
 
 
 export default function PropertyListingTable({ data, handlePageChange, total, limit, isLoading, setIsLoading }) {
@@ -104,7 +105,9 @@ export default function PropertyListingTable({ data, handlePageChange, total, li
                       {/* {console.log(elem.id)} */}
                       <div className="card" id="listing_card">
                         <div className="listing_card_img">
-                          <img
+                          <Image loading="lazy"
+                           width={0} height={0}
+                           style={{width:"150px", height:"auto"}}
                             src={elem.title_image}
                             alt=""
                             id="main_listing_img"

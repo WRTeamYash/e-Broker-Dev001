@@ -15,6 +15,9 @@ import { languageData } from '@/store/reducer/languageSlice';
 import { translate } from '@/utils';
 import Layout from '@/Components/Layout/Layout';
 import LocationSearchBox from '@/Components/Location/LocationSearchBox';
+import Image from 'next/image'
+
+
 
 const index = () => {
     const navigate = useRouter()
@@ -135,7 +138,7 @@ const index = () => {
                     <div className="row" id='register_main_card'>
                         {/* <div className="col-sm-12 col-md-4">
                             <div className='register_side_img_div'>
-                                <img src={registerimg.src} alt="" className='register_img' />
+                                <Image loading="lazy" src={registerimg.src} alt="" className='register_img' />
                             </div>
                         </div> */}
                         <div className="col-sm-12 col-md-6" >
@@ -153,7 +156,7 @@ const index = () => {
                                             <div className="col-sm-12">
                                                 <div className="add_profile_div">
                                                     <div className="image_div">
-                                                        <img src={uploadedImage || dummyimg.src} alt="" />
+                                                        <Image loading="lazy" src={uploadedImage || dummyimg.src} alt=""  width={200} height={200}/>
                                                     </div>
                                                     <div className="add_profile">
                                                         <input

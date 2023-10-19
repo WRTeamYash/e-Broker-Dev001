@@ -13,6 +13,7 @@ import { settingsData } from '@/store/reducer/settingsSlice';
 import { languageLoaded } from '@/store/reducer/languageSlice';
 import { translate } from '@/utils';
 
+import Image from 'next/image'
 
 
 
@@ -28,7 +29,10 @@ const Footer = () => {
                     <div className='col-12 col-md-6 col-lg-3' >
                         <div id='footer_logo_section'>
                             <Link href="/">
-                                <img src={eBroker.src} alt="eBroker_logo" />
+                                <Image loading="lazy" src={eBroker.src} alt="eBroker_logo" width={0} height={0} style={{
+                                    width: "182px",
+                                    height: "60px"
+                                }} />
                             </Link>
                             <div className='footer_contact_us'>
                                 <div>
@@ -159,13 +163,13 @@ const Footer = () => {
                             <div className='download_app_platforms'>
                                 <div id='playstore_logo'>
                                     <a href="https://play.google.com/store/apps/details?id=com.ebroker.wrteam" target='_blank'>
-                                        <img src={playstore.src} alt="" className='platforms_imgs' />
+                                        <Image loading="lazy" src={playstore.src} alt="" className='platforms_imgs' width={0} height={0} style={{ width: '100%', height: '100%' }} />
                                     </a>
                                 </div>
 
                                 <div id='appstore_logo'>
                                     <a href="https://testflight.apple.com/join/nrmIds1a" target='_blank'>
-                                        <img src={appstore.src} alt="" className='platforms_imgs' />
+                                        <Image loading="lazy" src={appstore.src} alt="" className='platforms_imgs' width={0} height={0} style={{ width: '100%', height: '100%' }} />
                                     </a>
                                 </div>
                             </div>

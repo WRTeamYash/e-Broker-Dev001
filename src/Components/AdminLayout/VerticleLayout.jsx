@@ -38,6 +38,7 @@ import { RiAdvertisementLine } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
 import { languageData } from '@/store/reducer/languageSlice.js';
 import { store } from '@/store/store.js';
+import Image from 'next/image'
 
 
 const drawerWidth = 240;
@@ -199,7 +200,7 @@ export default function VerticleLayout(props) {
 
                     }}>
                         <Link href="/">
-                        <img src={ebroker.src} alt="" className='dashboard_logo' />
+                        <Image loading="lazy" src={ebroker.src} alt="" className='dashboard_logo'  width={200} height={200}/>
                         </Link>
                         <IconButton onClick={handleDrawerClose} className='drawer_button' sx={{
                             fontSize: "30",

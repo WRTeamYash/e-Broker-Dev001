@@ -13,6 +13,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ebroker from '../../assets/eBrokerLogo.svg'
 import { styled, useTheme } from '@mui/material/styles';
 import Link from 'next/link';
+import Image from 'next/image'
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -55,7 +56,7 @@ const AdminDrawer = () => {
                     }}>
                         {/* <Box component={Link}
                         to="/"> */}
-                        <img src={ebroker.src} alt="" className='dashboard_logo' />
+                        <Image loading="lazy" src={ebroker.src} alt="" className='dashboard_logo'  width={200} height={200}/>
                         {/* </Box> */}
                         <IconButton onClick={handleDrawerClose} sx={{
                             position: 'absolute',

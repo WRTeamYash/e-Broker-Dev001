@@ -20,6 +20,7 @@ import { translate } from '@/utils';
 import { store } from '@/store/store';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
+import Image from 'next/image'
 
 
 
@@ -157,7 +158,7 @@ const Nav = () => {
                     <div className="container">
                         <div className="left-side">
                             <Link className="navbar-brand" href="/">
-                                <img src={Logo.src} alt="Logo" className="logo" />
+                                <Image loading="lazy" src={Logo.src} alt="Logo" className="logo"  width={0} height={76} style={{width:"auto"}}/>
                             </Link>
                             <span onClick={handleShow} id='hamburg'><GiHamburgerMenu size={36} /></span>
                         </div>

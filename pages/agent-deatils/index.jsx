@@ -15,13 +15,13 @@ import { GiGamepad } from 'react-icons/gi'
 import Loader from '@/Components/Loader/Loader'
 import { languageData } from '@/store/reducer/languageSlice'
 import { useSelector } from 'react-redux'
+import Image from 'next/image'
 
 const page = () => {
     const lang = useSelector(languageData)
-    // console.log("languageData",lang)
-      // useSelector(languageData)  
+  
       useEffect(()=>{
-        // console.log("breadcrumb render")
+     
       },[lang]);
 
     const [grid, setGrid] = useState(false);
@@ -186,7 +186,7 @@ const page = () => {
                                 <div className="row">
                                     <div className='owner_all_deatils'>
                                         <div className="owner_img_div">
-                                            <img src={agentimg.src} className='owner_img' alt="" />
+                                            <Image loading="lazy" src={agentimg.src} className='owner_img' alt=""  width={200} height={200} />
                                         </div>
                                         <div className='owner_deatils'>
                                             <div className='owner_title'>
@@ -423,7 +423,7 @@ const page = () => {
                                                             AllPropertieSataticCards?.map((ele) => (
                                                                 <div className='col-12 col-md-6 col-lg-4'>
                                                                     <div className='card' id='main_card'>
-                                                                        <img className='card-img' id='card_img' src={ele.image} />
+                                                                        <Image loading="lazy" className='card-img' id='card_img' src={ele.image}  width={200} height={200} />
                                                                         <div className="card-img-overlay">
                                                                             <span className='feture_tag'>
                                                                                 {ele.feature}

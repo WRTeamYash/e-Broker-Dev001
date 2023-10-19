@@ -8,6 +8,7 @@ import { translate } from '@/utils'
 import { useSelector } from 'react-redux'
 import { languageData } from '@/store/reducer/languageSlice'
 import Layout from '@/Components/Layout/Layout'
+import Image from 'next/image'
 
 const PropertiesNearbyCity = () => {
 
@@ -53,7 +54,7 @@ const PropertiesNearbyCity = () => {
                                 <div className='col-12 col-md-6 col-lg-3' key={ele.id}>
                                     <Link href={`/properties/city/${ele.City}`}>
                                         <div className="card bg-dark text-white mb-3" id='nearby-city-img'>
-                                            <img src={ele.image} className="card-img" alt="..." id='city-img' />
+                                            <Image loading="lazy" src={ele.image} className="card-img" alt="..." id='city-img'  width={200} height={200}/>
                                             <div className="card-img-overlay">
                                                 <div id='city_img_headlines'>
                                                     <h4 className="card-title">{ele.City}</h4>

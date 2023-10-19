@@ -26,6 +26,7 @@ import FeatureModal from '@/Components/FeatureModal/FeatureModal.jsx';
 import { translate } from '@/utils/index.js';
 import { languageData } from '@/store/reducer/languageSlice.js';
 import Swal from 'sweetalert2';
+import Image from 'next/image'
 
 
 
@@ -201,7 +202,7 @@ const index = () => {
                         <div className="row" id='dashboard_top_card'>
                             <div className="col-12 col-md-12 col-lg-4">
                                 <div className="card" id='dashboard_card'>
-                                    {/* <img src={DashBoardImg.src} className="card-img" alt="..." id='dashboard_img' /> */}
+                                    {/* <Image loading="lazy" src={DashBoardImg.src} className="card-img" alt="..." id='dashboard_img' /> */}
 
                                     <div id='dashboard_user'>
                                         <div>
@@ -297,10 +298,12 @@ const index = () => {
                                                             {/* {console.log(elem.id)} */}
                                                             <div className="card" id="listing_card">
                                                                 <div className="listing_card_img">
-                                                                    <img
+                                                                    <Image loading="lazy"
                                                                         src={elem.title_image}
                                                                         alt=""
                                                                         id="main_listing_img"
+                                                                        width={150} height={0}
+                                                                        style={{height:"auto"}}
                                                                     />
                                                                     <span className="listing_type_tag">
                                                                         {elem.propery_type}

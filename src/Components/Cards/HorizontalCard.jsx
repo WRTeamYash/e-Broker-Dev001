@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
+import Image from 'next/image'
 
 const HorizontalCard = ({ ele }) => {
 
@@ -63,7 +64,7 @@ const HorizontalCard = ({ ele }) => {
         <div className='horizontal_card'>
             <div className='card' id='main_prop_card' >
                 <div className='image_div col-md-4'>
-                    <img className='card-img' id='prop_card_img' src={ele.title_image ? ele.title_image : PlaceHolderImg} />
+                    <Image loading="lazy" className='card-img' id='prop_card_img' src={ele.title_image ? ele.title_image : PlaceHolderImg}  width={20} height={20}/>
                 </div>
 
 
@@ -95,7 +96,7 @@ const HorizontalCard = ({ ele }) => {
                         <div className='prop_card_mainbody'>
                             {/* <BiHomeSmile size={23} /> */}
                             <div className="cate_image">
-                                <img src={ele.category.image} alt="" />
+                                <Image loading="lazy" src={ele.category.image} alt=""  width={20} height={20}/>
                             </div>
                             <span className='body_title'> {ele.category.category} </span>
                         </div>
@@ -116,7 +117,7 @@ const HorizontalCard = ({ ele }) => {
                                 <div className="col-sm-12 col-md-6" key={index}>
                                     <div id='footer_content' key={index}>
                                         <div>
-                                            <img src={elem.image} alt="" />
+                                            <Image loading="lazy" src={elem.image} alt=""  width={20} height={20}/>
                                         </div>
                                         <p className='text_footer'> {elem.name}</p>
                                     </div>

@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap'
 import { FiArrowRightCircle } from 'react-icons/fi'
 import { useSelector } from 'react-redux'
 import { settingsData } from '@/store/reducer/settingsSlice'
+import Image from 'next/image'
 
 // const DummyImgData = useSelector(settingsData)
 // const PlaceHolderImg = DummyImgData?.img_placeholder
@@ -14,7 +15,7 @@ const AgentCard = ({ ele }) => {
             <Card.Body>
                 <div className='agent_card_content'>
                     <div>
-                        <img src={ele.agentimg } className='agent-profile' width={100} height={100} />
+                        <Image loading="lazy" src={ele.agentimg } className='agent-profile' width={100} height={100} />
                     </div>
                     <div className='mt-2'>
                         <span className='agent-name'>

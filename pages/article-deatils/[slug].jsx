@@ -7,6 +7,7 @@ import { FreeMode, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
+import Image from 'next/image'
 
 import { IoMdArrowDropright } from "react-icons/io"
 
@@ -151,7 +152,7 @@ const ArticleDeatils = () => {
                                                     <>
                                                         <div className="container">
                                                             <div className='article_img_div'>
-                                                                <img src={articleData && articleData.image} alt="" className='article_title_img' />
+                                                                <Image loading="lazy" src={articleData && articleData.image} alt="" className='article_title_img'  width={200} height={200} />
                                                             </div>
 
                                                             <div className='article_title'>
@@ -212,7 +213,7 @@ const ArticleDeatils = () => {
                                                 <div className="card-body">
                                                     <div className='resent-article-deatils'>
                                                         <div className='resent-article-image'>
-                                                            <img src={adminlogo.src} alt="" className='resent-article-image' />
+                                                            <Image loading="lazy" src={adminlogo.src} alt="" className='resent-article-image' />
                                                         </div>
                                                         <div className='resent-article-desc'>
                                                             <span>Average U.S. Rental Price Hits a Two-Year High</span>
@@ -220,7 +221,7 @@ const ArticleDeatils = () => {
                                                     </div>
                                                     <div className='resent-article-deatils'>
                                                         <div className='resent-article-image'>
-                                                            <img src={adminlogo.src} alt="" className='resent-article-image' />
+                                                            <Image loading="lazy" src={adminlogo.src} alt="" className='resent-article-image' />
                                                         </div>
                                                         <div className='resent-article-desc'>
                                                             <span>Average U.S. Rental Price Hits a Two-Year High</span>
@@ -228,7 +229,7 @@ const ArticleDeatils = () => {
                                                     </div>
                                                     <div className='resent-article-deatils'>
                                                         <div className='resent-article-image'>
-                                                            <img src={adminlogo.src} alt="" className='resent-article-image' />
+                                                            <Image loading="lazy" src={adminlogo.src} alt="" className='resent-article-image' />
                                                         </div>
                                                         <div className='resent-article-desc'>
                                                             <span>Average U.S. Rental Price Hits a Two-Year High</span>
@@ -236,7 +237,7 @@ const ArticleDeatils = () => {
                                                     </div>
                                                     <div className='resent-article-deatils'>
                                                         <div className='resent-article-image'>
-                                                            <img src={adminlogo.src} alt="" className='resent-article-image' />
+                                                            <Image loading="lazy" src={adminlogo.src} alt="" className='resent-article-image' />
                                                         </div>
                                                         <div className='resent-article-desc'>
                                                             <span>Average U.S. Rental Price Hits a Two-Year High</span>
@@ -312,7 +313,7 @@ const ArticleDeatils = () => {
                                                         </Card.Body>
                                                         <Card.Footer id='all-articles_card_footer'>
                                                             <div id='admin_pic'>
-                                                                <img src={ele.profile} alt="" className='admin' />
+                                                                <Image loading="lazy" src={ele.profile} alt="" className='admin' />
                                                             </div>
                                                             <div className='all-articles_footer_text'>
                                                                 <span className='byadmin'> {ele.by}

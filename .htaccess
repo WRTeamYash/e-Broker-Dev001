@@ -1,17 +1,4 @@
-# Enable the RewriteEngine
+Options -MultiViews
 RewriteEngine On
-# Set the base directory for the document root
-RewriteBase /
-# Redirect requests for the root directory to the /var/www/out directory
-RewriteCond %{REQUEST_URI} ^/$
-RewriteRule ^(.*)$ /var/www/out/$1 [L]
-# Serve existing files or directories, if they exist
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-# Rewrite URLs that don't match existing files or directories
-# First, handle the trailing slash: when `trailingSlash: false`
-# Redirect URLs without a trailing slash to .html files
-RewriteRule ^blog/(.+[^/])$ /blog/$1.html [L]
-# Handle 404 errors
-ErrorDocument 404 /404.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]

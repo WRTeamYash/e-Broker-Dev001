@@ -34,16 +34,12 @@ const PropertieDeatils = () => {
 
     const router = useRouter();
     const propId = router.query
-    // console.log(propId)
+
+    
     const [isLoading, setIsLoading] = useState(true)
     const [expanded, setExpanded] = useState(false);
     const [getPropData, setPropData] = useState()
     const [interested, setInterested] = useState(false);
-
-
-    // const GoogleMapData = useSelector(settingsData)
-    // const GoogleMapApiKey = GoogleMapData && GoogleMapData.place_api_key
-    // console.log(GoogleMapApiKey)
 
 
 

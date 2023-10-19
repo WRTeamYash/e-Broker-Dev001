@@ -395,7 +395,7 @@ const HomePage = () => {
                                         <Skeleton width="100%" height={20} />
                                     ) : (
                                         <>
-                                            <div className="feature_header" data-aos="fade-right" data-aos-duration="2000">
+                                            <div className="feature_header" data-aos="fade-right" data-aos-duration="1000">
                                                 <span className="headline">
                                                     {translate("discoverOur")} <span className="highlight">{translate("featured")}</span> {translate("listings")}
                                                 </span>
@@ -414,7 +414,7 @@ const HomePage = () => {
                                                     </Link>
                                                 </div>
                                             </div>
-                                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
+                                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
                                                 <MobileHeadline
                                                     data={{
                                                         start: translate("discoverOur"),
@@ -430,7 +430,7 @@ const HomePage = () => {
 
                                 {/* {console.log(getFeaturedListing)} */}
                                 <div className="feature-section-cards">
-                                    <div id="feature_cards" className="row" data-aos="fade-left" data-aos-duration="2000">
+                                    <div id="feature_cards" className="row" data-aos="fade-left" data-aos-duration="1000">
                                         {isLoading
                                             ? // Show skeleton loading when data is being fetched
 
@@ -458,7 +458,7 @@ const HomePage = () => {
                 {/* APARTMENT SECTION */}
 
                 {getCategories && getCategories.length > 0 ? (
-                    <section id="apartments" data-aos="fade-up" data-aos-duration="2000">
+                    <section id="apartments" data-aos="fade-up" data-aos-duration="1000">
                         <div className="container">
                             <div className="row">
                                 <div className="col-sm-12 col-md-4 col-lg-3" id="browse-by-agents">
@@ -473,7 +473,7 @@ const HomePage = () => {
                                         </Link>
                                     </div>
                                 </div>
-                                <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
+                                <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
                                     <MobileHeadline
                                         data={{
                                             start: translate("explore"),
@@ -553,7 +553,7 @@ const HomePage = () => {
                         <div className="properties_section">
                             <div className="container">
                                 <div id="prop">
-                                    <div className="prop_header" data-aos="fade-right" data-aos-duration="2000">
+                                    <div className="prop_header" data-aos="fade-right" data-aos-duration="1000">
                                         <div>
                                             <h3>
                                                 {translate("most")}{" "}
@@ -580,7 +580,7 @@ const HomePage = () => {
                                             </Link>
                                         </div>
                                     </div>
-                                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
+                                    <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
                                         <MobileHeadline
                                             data={{
                                                 start: translate("most"),
@@ -591,7 +591,7 @@ const HomePage = () => {
                                         />
                                     </div>
                                 </div>
-                                <div id="prop_cards" data-aos="fade-left" data-aos-duration="2000">
+                                <div id="prop_cards" data-aos="fade-left" data-aos-duration="1000">
                                     <div className="cards_sec">
                                         <div className="row">
                                             {isLoading
@@ -621,7 +621,7 @@ const HomePage = () => {
                 {getNearByCitysData && getNearByCitysData.length > 0 ? (
                     <section id="main_citySection">
                         <div className="container">
-                            <div className="prop_city_header" data-aos="fade-right" data-aos-duration="2000">
+                            <div className="prop_city_header" data-aos="fade-right" data-aos-duration="1000">
                                 <div>
                                     <h3>
                                         {translate("properties")}{" "}
@@ -652,7 +652,7 @@ const HomePage = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
+                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
                                 <MobileHeadline
                                     data={{
                                         start: translate("properties"),
@@ -662,7 +662,7 @@ const HomePage = () => {
                                     }}
                                 />
                             </div>
-                            <div data-aos="fade-left" data-aos-duration="2000">
+                            <div data-aos="fade-left" data-aos-duration="1000">
                                 {isLoading ? (
                                     // Show skeleton UI
                                     <div className="skeleton-container">
@@ -798,7 +798,7 @@ const HomePage = () => {
                 {getMostFavProperties && getMostFavProperties.length > 0 ? (
                     <section id="most_fav">
                         <div className="container">
-                            <div className="most_fav_header" data-aos="fade-right" data-aos-duration="2000">
+                            <div className="most_fav_header" data-aos="fade-right" data-aos-duration="1000">
                                 <div>
                                     <h3>
                                         {translate("most")}{" "}
@@ -825,7 +825,7 @@ const HomePage = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
+                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
                                 <MobileHeadline
                                     data={{
                                         start: translate("most"),
@@ -835,7 +835,7 @@ const HomePage = () => {
                                     }}
                                 />
                             </div>
-                            <div id="most-view-properties" data-aos="fade-left" data-aos-duration="2000" dir={language.rtl === "1" ? "rtl" : "ltr"}>
+                            <div id="most-view-properties" data-aos="fade-left" data-aos-duration="1000" dir={language.rtl === "1" ? "rtl" : "ltr"}>
                                 <Swiper
                                     //    dir= {language.rtl === "1" ? "rtl" : "ltr"}
                                     slidesPerView={4}
@@ -903,7 +903,7 @@ const HomePage = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000" >
+                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000" >
                                 <MobileHeadline data={{
                                     start: translate("browser"),
                                     center: translate("agents"),
@@ -982,7 +982,7 @@ const HomePage = () => {
                 {getArticles && getArticles.length > 0 ? (
                     <section id="articles">
                         <div className="container">
-                            <div className="article_headline" data-aos="fade-right" data-aos-duration="2000">
+                            <div className="article_headline" data-aos="fade-right" data-aos-duration="1000">
                                 <div>
                                     <h3>
                                         {translate("our")}{" "}
@@ -1014,7 +1014,7 @@ const HomePage = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="2000">
+                            <div className="mobile-headline-view" data-aos="fade-right" data-aos-duration="1000">
                                 <MobileHeadline
                                     data={{
                                         start: translate("our"),
@@ -1023,7 +1023,7 @@ const HomePage = () => {
                                     }}
                                 />
                             </div>
-                            <div className="row" id="article_cards" data-aos="fade-left" data-aos-duration="2000">
+                            <div className="row" id="article_cards" data-aos="fade-left" data-aos-duration="1000">
                                 {isLoading
                                     ? // Show skeleton loading when data is being fetched
                                     Array.from({ length: 4 }).map((_, index) => (

@@ -132,7 +132,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
 
                 },
                 (err) => {
-                    console.log(error)
+                    console.log(err)
 
                     // toast.error(err)
                 })

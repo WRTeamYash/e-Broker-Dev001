@@ -55,7 +55,7 @@ const page = () => {
                             // <Loader />
                         ) : (
                             // Render the privacy policy data when not loading
-                            <div>{stripHtmlTags(aboutData) || ''}</div>
+                            <div dangerouslySetInnerHTML={{ __html: aboutData || '' }} />
                         )}
                     </div>
                 </div>

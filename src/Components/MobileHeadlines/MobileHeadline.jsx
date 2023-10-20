@@ -17,7 +17,7 @@ const MobileHeadline = (props) => {
                                 <span
                                     // className="text" data-text="Featured"
                                     className='highlight'
-                                    data-aos="fade-left" data-aos-duration="5000"
+                                    
                                 > {data && data.center}</span>
                             </span> {data && data.end}
                         </span>

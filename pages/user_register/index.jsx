@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb'
 import { BiCurrentLocation } from 'react-icons/bi';
 import Location from '@/Components/Location/Location';
-import registerimg from '../../src/assets/Images/register.png'
 import { useRouter } from 'next/router';
 import { loadUpdateData, signupLoaded, userSignUpData } from '../../src/store/reducer/authSlice'; // Update the import path as needed
 import { toast } from 'react-hot-toast';

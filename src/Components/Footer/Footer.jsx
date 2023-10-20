@@ -40,8 +40,10 @@ const Footer = () => {
                                 </div>
                                 <div className="footer_contactus_deatils">
                                     <span className='footer_span'>{translate("email")}</span>
+                                    <a href={`mailto:${webdata && webdata.company_email}`}>
 
-                                    <span className='footer_span_value'>{webdata && webdata.company_email}</span>
+                                        <span className='footer_span_value'>{webdata && webdata.company_email}</span>
+                                    </a>
                                 </div>
                             </div>
                             <div className='footer_contact_us'>
@@ -50,7 +52,10 @@ const Footer = () => {
                                 </div>
                                 <div className="footer_contactus_deatils">
                                     <span className='footer_span'>{translate("contactOne")}</span>
-                                    <span className='footer_span_value'>{webdata && webdata.company_tel1}</span>
+                                    <a href={`tel:${webdata && webdata.company_tel1}`}>
+                                        <span className='footer_span_value'>{webdata && webdata.company_tel1}</span>
+
+                                    </a>
 
                                 </div>
                             </div>
@@ -60,24 +65,35 @@ const Footer = () => {
                                 </div>
                                 <div className="footer_contactus_deatils">
                                     <span className='footer_span'>{translate("contactTwo")}</span>
-                                    <span className='footer_span_value'>{webdata && webdata.company_tel2}</span>
+                                    <a href={`tel:${webdata && webdata.company_tel2}`}>
+
+                                        <span className='footer_span_value'>{webdata && webdata.company_tel2}</span>
+                                    </a>
                                 </div>
                             </div>
                             <div>
                                 <h4> {translate("followUs")}</h4>
                                 <div id='follow_us'>
-                                    <a href="https://www.facebook.com/wrteam.in/" target="_blank">
-                                        <CiFacebook size={28} />
-                                    </a>
-                                    <a href="https://www.instagram.com/wrteam.in" target="_blank">
-                                        <AiOutlineInstagram size={28} />
-                                    </a>
-                                    <a href="/">
-                                        <ImPinterest2 size={25} />
-                                    </a>
-                                    <a href="https://in.linkedin.com/company/wrteam" target='_blank'>
-                                        <AiOutlineLinkedin size={28} />
-                                    </a>
+                                    {process.env.NEXT_PUBLIC_FACEBOOK_LINK ? (
+                                        <a href={process.env.NEXT_PUBLIC_FACEBOOK_LINK} target="_blank">
+                                            <CiFacebook size={28} />
+                                        </a>
+                                    ) : null}
+                                    {process.env.NEXT_PUBLIC_INSTAGRAM_LINK ? (
+                                        <a href={process.env.NEXT_PUBLIC_INSTAGRAM_LINK} target="_blank">
+                                            <AiOutlineInstagram size={28} />
+                                        </a>
+                                    ) : null}
+                                    {process.env.NEXT_PUBLIC_PINTREST_LINK ? (
+                                        <a href={process.env.NEXT_PUBLIC_PINTREST_LINK}>
+                                            <ImPinterest2 size={25} />
+                                        </a>
+                                    ) : null}
+                                    {process.env.NEXT_PUBLIC_LINKEDIN_LINK ? (
+                                        <a href={process.env.NEXT_PUBLIC_LINKEDIN_LINK} target='_blank'>
+                                            <AiOutlineLinkedin size={28} />
+                                        </a>
+                                    ) : null}
                                 </div>
                             </div>
                         </div>
@@ -89,30 +105,30 @@ const Footer = () => {
                             </div>
                             <div className='prop_links'>
                                 <Link href="/properties/all-properties">
-                                    All Properties
+                                    {translate("allProperties")}
                                 </Link>
                             </div>
                             <div className='prop_links'>
                                 <Link href="/featured-properties">
-                                    Featured Properties
+                                    {translate("featuredProp")}
                                 </Link>
                             </div>
 
                             <div className='prop_links'>
                                 <Link href="/most-viewed-properties">
-                                    Most Viewed Properties
+                                    {translate("mostViewedProp")}
                                 </Link>
                             </div>
 
                             <div className='prop_links'>
                                 <Link href="/properties-nearby-city">
-                                    Nearby Cities Properties
+                                    {translate("nearbyCities")}
                                 </Link>
                             </div>
 
                             <div className='prop_links'>
                                 <Link href="/mostfav-properties">
-                                    Most Favorites Properties
+                                    {translate("mostFavProp")}
                                 </Link>
                             </div>
 
@@ -130,23 +146,23 @@ const Footer = () => {
                             </div>
                             <div className='page_links'>
                                 <Link href="/subscription-plan">
-                                    Subscription Plan
+                                    {translate("subscriptionPlan")}
                                 </Link>
                             </div>
                             <div className='page_links'>
                                 <Link href="/articles">
-                                    Articles
+                                    {translate("articles")}
                                 </Link>
                             </div>
                             <div className='page_links'>
                                 <Link href="/terms&condition">
-                                    Terms & Condition
+                                    {translate("terms&condition")}
                                 </Link>
                             </div>
 
                             <div className='page_links'>
                                 <Link href="/privacy-policy">
-                                    Privacy Policy
+                                    {translate("privacyPolicy")}
                                 </Link>
                             </div>
                         </div>
@@ -157,21 +173,27 @@ const Footer = () => {
                                 <span>{translate("downloadApps")}</span>
                             </div>
                             <div className='download_app_desc'>
-                                <span>Get the latest resources for downloading, installing, and updating eBroker app. Select your device platform and Use Our app.</span>
+                                <span>Get the latest resources for downloading, installing, and updating {webdata.company_name} app. Select your device platform and Use Our app.</span>
                             </div>
 
                             <div className='download_app_platforms'>
-                                <div id='playstore_logo'>
-                                    <a href="https://play.google.com/store/apps/details?id=com.ebroker.wrteam" target='_blank'>
-                                        <Image loading="lazy" src={playstore.src} alt="" className='platforms_imgs' width={0} height={0} style={{ width: '100%', height: '100%' }} />
-                                    </a>
-                                </div>
+                                {process.env.NEXT_PUBLIC_PLAYSTORE ? (
+                                    <div id='playstore_logo'>
+                                        <a href={process.env.NEXT_PUBLIC_PLAYSTORE} target='_blank'>
+                                            <Image loading="lazy" src={playstore.src} alt="" className='platforms_imgs' width={0} height={0} style={{ width: '100%', height: '100%' }} />
+                                        </a>
+                                    </div>
+                                ) : null}
+                                {process.env.NEXT_PUBLIC_APPSTORE ? (
 
-                                <div id='appstore_logo'>
-                                    <a href="https://testflight.apple.com/join/nrmIds1a" target='_blank'>
-                                        <Image loading="lazy" src={appstore.src} alt="" className='platforms_imgs' width={0} height={0} style={{ width: '100%', height: '100%' }} />
-                                    </a>
-                                </div>
+                                    <div id='appstore_logo'>
+                                        <a href={process.env.NEXT_PUBLIC_APPSTORE} target='_blank'>
+                                            <Image loading="lazy" src={appstore.src} alt="" className='platforms_imgs' width={0} height={0} style={{ width: '100%', height: '100%' }} />
+                                        </a>
+                                    </div>
+                                ) : (
+                                    null
+                                )}
                             </div>
                         </div>
                     </div>
@@ -179,7 +201,7 @@ const Footer = () => {
             </div>
             <div className='rights_footer'>
                 <hr />
-                <h6>Copyright @ 2023 eBroker. All Rights Reserved</h6>
+                <h6>Copyright @ 2023 {webdata.company_name}. All Rights Reserved</h6>
             </div>
         </section>
     )

@@ -105,7 +105,7 @@ const HorizontalCard = ({ ele }) => {
                                 {ele.title}
                             </span>
                             <p>
-                                {ele.city} , {ele.state},  {ele.country}
+                            {ele.city} {ele.city ? "," : null} {ele.state} {ele.state ? "," : null} {ele.country}
                             </p>
                         </div>
                     </div>

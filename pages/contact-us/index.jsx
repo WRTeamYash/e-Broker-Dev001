@@ -6,17 +6,17 @@ import { BsInstagram, BsPinterest } from 'react-icons/bs';
 import { FiMail, FiPhoneCall } from 'react-icons/fi';
 import { MdLocationPin } from 'react-icons/md';
 import { PiFacebookLogoBold } from 'react-icons/pi';
-import {  toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import { translate } from '@/utils';
 import { useSelector } from 'react-redux';
 import { languageData } from '@/store/reducer/languageSlice';
 import Layout from '@/Components/Layout/Layout';
 import { ContactUsApi } from '@/store/actions/campaign';
+import { settingsData } from '@/store/reducer/settingsSlice';
 
 const ContactUs = () => {
     const lang = useSelector(languageData)
-    // console.log("languageData",lang)
-    // useSelector(languageData)  
+
     useEffect(() => {
         // console.log("render")
     }, [lang]);
@@ -28,6 +28,10 @@ const ContactUs = () => {
         subject: '',
         message: '',
     });
+
+    const systemsettings = useSelector(settingsData);
+
+
     const formRef = useRef(null); // Create a ref for the form
     const validateForm = () => {
         if (!formData.firstName || !formData.lastName || !formData.email || !formData.subject || !formData.message) {
@@ -65,7 +69,7 @@ const ContactUs = () => {
     };
     const handleContactUsSubmit = (e) => {
         e.preventDefault();
-    
+
         // Check if all fields are filled
         if (!formData.firstName || !formData.lastName || !formData.email || !formData.subject || !formData.message) {
             toast.error(translate("allFields"));
@@ -77,7 +81,7 @@ const ContactUs = () => {
             ContactUsApi(formData.firstName, formData.lastName, formData.email, formData.subject, formData.message,
                 (response) => {
                     toast.success(response.message);
-    
+
                     setFormData({
                         firstName: '',
                         lastName: '',
@@ -91,7 +95,7 @@ const ContactUs = () => {
                 });
         }
     };
-    
+
     return (
         <Layout>
             <Breadcrumb title={translate("contactUs")} />
@@ -202,8 +206,8 @@ const ContactUs = () => {
                                                     <MdLocationPin size={30} className='contact-solo-icons' />
                                                 </div>
                                                 <div className='contact-deatils'>
-                                                    <p>Office Address</p>
-                                                    <span>127 Double Street, Dublin, United Kingdom.</span>
+                                                    <p>{translate("officeAdd")}</p>
+                                                    <span>{process.env.NEXT_PUBLIC_COMPANY_ADDRESS}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,9 +217,14 @@ const ContactUs = () => {
                                                     <FiPhoneCall size={30} className='contact-solo-icons' />
                                                 </div>
                                                 <div className='contact-deatils'>
-                                                    <p>Telephone</p>
-                                                    <span>P: (+123) 555 8888</span>
-                                                    <span>P: (+123) 555 8888</span>
+                                                    <p>{translate("tele")}</p>
+                                                    <a href={`tel:${systemsettings && systemsettings.company_tel1}`} style={{ textDecoration: "none" }}>
+                                                        <span>{systemsettings?.company_tel1}</span>
+                                                    </a>
+                                                    <a href={`tel:${systemsettings && systemsettings.company_tel2}`} style={{ textDecoration: "none" }}>
+                                                        <span>{systemsettings?.company_tel2}</span>
+                                                    </a>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -226,26 +235,45 @@ const ContactUs = () => {
                                                         className='contact-solo-icons' />
                                                 </div>
                                                 <div className='contact-deatils'>
-                                                    <p>Email Us</p>
-                                                    <span>support@eBroker.com</span>
+                                                    <p>{translate("emailUs")}</p>
+                                                    <a href={`mail to:${systemsettings && systemsettings.company_email}`} style={{ textDecoration: "none" }}>
+                                                        <span>{systemsettings?.company_email}</span>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className='col-12' id='contactus-socialPlatforms'>
-                                            <h3>Follow Us</h3>
+                                            <h3>{translate("followUs")}</h3>
                                             <div className="row">
-                                                <div className="col-sm-12 col-md-6 col-lg-3" id='social-platforms'>
-                                                    <button className="social-platforms-icons"><PiFacebookLogoBold size={30} /></button>
-                                                </div>
-                                                <div className="col-sm-12 col-md-6 col-lg-3" id='social-platforms'>
-                                                    <button className="social-platforms-icons"><BsInstagram size={30} /></button>
-                                                </div>
-                                                <div className="col-sm-12 col-md-6 col-lg-3" id='social-platforms'>
-                                                    <button className="social-platforms-icons"><BsPinterest size={30} /></button>
-                                                </div>
-                                                <div className="col-sm-12 col-md-6 col-lg-3" id='social-platforms'>
-                                                    <button className="social-platforms-icons"><AiFillLinkedin size={30} /></button>
-                                                </div>
+                                        
+                                                {process.env.NEXT_PUBLIC_FACEBOOK_LINK ? (
+                                                    <div className="col-sm-12 col-md-6 col-lg-3" id='social-platforms'>
+                                                        <a href={process.env.NEXT_PUBLIC_FACEBOOK_LINK} target='_blank'>
+                                                        <button className="social-platforms-icons"><PiFacebookLogoBold size={30} /></button>
+                                                        </a>
+                                                    </div>
+                                                ) : null}
+                                                {process.env.NEXT_PUBLIC_INSTAGRAM_LINK ? (
+                                                    <div className="col-sm-12 col-md-6 col-lg-3" id='social-platforms'>
+                                                        <a href={process.env.NEXT_PUBLIC_INSTAGRAM_LINK} target='_blank'>
+                                                        <button className="social-platforms-icons"><BsInstagram size={30} /></button>
+                                                        </a>
+                                                    </div>
+                                                ) : null}
+                                                {process.env.NEXT_PUBLIC_PINTREST_LINK ? (
+                                                    <div className="col-sm-12 col-md-6 col-lg-3" id='social-platforms'>
+                                                        <a href={process.env.NEXT_PUBLIC_PINTREST_LINK} target='_blank'>
+                                                        <button className="social-platforms-icons"><BsPinterest size={30} /></button>
+                                                        </a>
+                                                    </div>
+                                                ) : null}
+                                                {process.env.NEXT_PUBLIC_LINKEDIN_LINK ? (
+                                                    <div className="col-sm-12 col-md-6 col-lg-3" id='social-platforms'>
+                                                        <a href={process.env.NEXT_PUBLIC_LINKEDIN_LINK} target='_blank'>
+                                                            <button className="social-platforms-icons"><AiFillLinkedin size={30} /></button>
+                                                        </a>
+                                                    </div>
+                                                ) : null}
                                             </div>
                                         </div>
                                     </div>

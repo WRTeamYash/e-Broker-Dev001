@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { userSignUpData } from "@/store/reducer/authSlice";
 import { useRouter } from "next/router";
 import { confirmPaymentApi } from "@/store/actions/campaign";
+import { settingsData } from "@/store/reducer/settingsSlice";
 
 const CARD_OPTIONS = {
     iconStyle: "solid",
@@ -33,6 +34,7 @@ const StripeModal = (props) => {
     const navigate = useRouter();
 
     const user = useSelector(userSignUpData);
+    const systemsettings =  useSelector(settingsData)   
 
     const [loadingPay, setloadingPay] = useState(false);
 
@@ -97,7 +99,7 @@ const StripeModal = (props) => {
             <div className="modal-body">
                 <div className="stripe-container d-flex flex-column p-0">
                     <div className="d-flex flex-row justify-content-between header">
-                        <span className="heading">Stripe: eBroker Payment</span>
+                        <span className="heading">Stripe: {systemsettings?.company_name} Payment</span>
                         {/* <button type="button" className="close-stripe" data-bs-dismiss="modal" aria-label="Close" ref={closeModal}><AiOutlineCloseCircle /></button> */}
                     </div>
                     <form onSubmit={handleSubmit} id="stripe-form" className="mt-5 border-3">

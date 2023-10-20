@@ -62,7 +62,7 @@ const AllPropertieCard = ({ ele }) => {
     return (
         <Card id='all_prop_main_card' className="row" key={ele.id}>
             <div className='col-md-4 img_div' id='all_prop_main_card_rows_cols'>
-                <Image loading="lazy" className='card-img' id='all_prop_card_img' src={ele.title_image}  width={200} height={200}/>
+                <Image loading="lazy" className='card-img' id='all_prop_card_img' src={ele.title_image}  width={20} height={20}/>
             </div>
             <div className='col-md-8' id='all_prop_main_card_rows_cols'>
                 <Card.Body id='all_prop_card_body'>
@@ -94,7 +94,7 @@ const AllPropertieCard = ({ ele }) => {
                     <div>
                         <div id='all_prop_sub_body'>
                             <div className="cate_image">
-                                <Image loading="lazy" src={ele.category.image} alt=""  width={200} height={200}/>
+                                <Image loading="lazy" src={ele.category.image} alt=""  width={20} height={20}/>
                             </div>
                             <span className='sub_body_title'> {ele.category.category}</span>
                         </div>
@@ -103,14 +103,12 @@ const AllPropertieCard = ({ ele }) => {
                                 {ele.title}
                             </span>
                             <p>
-                                {ele.city} , {ele.state},  {ele.country}
+                                {ele.city} {ele.city ? "," : null} {ele.state} {ele.state ? "," : null} {ele.country}
                             </p>
                         </div>
                     </div>
                     <Card.Footer id='all_prop_card_footer'>
-
                         <div className="row">
-
                             {ele.parameters && ele.parameters.slice(0, 6).map((elem, index) => (
                                 <div className="col-sm-12 col-md-4" key={index}>
                                     <div id='all_footer_content' key={index}>
@@ -121,7 +119,6 @@ const AllPropertieCard = ({ ele }) => {
                                     </div>
                                 </div>
                             ))}
-
                         </div>
                     </Card.Footer>
                 </Card.Body>

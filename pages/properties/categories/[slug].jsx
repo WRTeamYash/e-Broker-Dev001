@@ -231,7 +231,7 @@ const AllProperties = () => {
                         ))
                       ) : (
                         CategoryListByPropertyData.map((ele) => (
-                          <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                          <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
                             <AllPropertieCard ele={ele} />
                           </Link>
                         ))
@@ -243,7 +243,7 @@ const AllProperties = () => {
                       <div className='row' id='all-prop-col-cards'>
                         {CategoryListByPropertyData.map((ele, index) => (
                           <div className='col-12 col-md-6 col-lg-4' key={index}>
-                            <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                            <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
                               <VerticalCard ele={ele} />
                             </Link>
                           </div>

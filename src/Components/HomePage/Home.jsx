@@ -335,7 +335,7 @@ const HomePage = () => {
                                                         </div>
 
                                                         <div id="viewall_hero_prop">
-                                                            <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${single.propertys_id}`} passHref>
+                                                            <Link href="/properties-details/[slug]" as={`/properties-details/${single.propertys_id}`} passHref>
                                                                 <button className="view_prop">
                                                                     <FaEye size={20} className="icon" />
                                                                     {translate("viewAll")}
@@ -432,7 +432,7 @@ const HomePage = () => {
 
                                             getFeaturedListing?.slice(0, 8).map((ele, index) => (
                                                 <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
-                                                    <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                                                    <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
                                                         <VerticalCard ele={ele} />
                                                     </Link>
                                                 </div>
@@ -593,7 +593,7 @@ const HomePage = () => {
                                                 : // <Loader />
                                                 getMostViewedProp?.slice(0, 6).map((ele, index) => (
                                                     <div className="col-sm-12 col-md-6 col-lg-6" key={index}>
-                                                        <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
                                                             <HorizontalCard ele={ele} />
                                                         </Link>
                                                     </div>
@@ -866,7 +866,7 @@ const HomePage = () => {
                                         // <Loader />
                                         getMostFavProperties?.map((ele, index) => (
                                             <SwiperSlide id="most-view-swiper-slider" key={index}>
-                                                <Link href="/properties-deatils/[slug]" as={`/properties-deatils/${ele.id}`} passHref>
+                                                <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
                                                     <VerticalCard ele={ele} />
                                                 </Link>
                                             </SwiperSlide>

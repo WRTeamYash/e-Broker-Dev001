@@ -52,7 +52,7 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) 
                                         </p>
                                         {ele.description.length > 100 && (
                                             <div className="article-readmore">
-                                                <Link href="/article-deatils/[slug]" as={`/article-deatils/${ele.id}`} passHref>
+                                                <Link href="/article-details/[slug]" as={`/article-details/${ele.id}`} passHref>
                                                     <button className="article-readmore-button">
                                                         {translate("showMore")} <AiOutlineArrowRight className="article-arrow-icon" size={18} />
                                                     </button>

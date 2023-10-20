@@ -155,7 +155,7 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="" id='promote_button' onClick={handleFeature}>
-                    {translate("Promote")}
+                    {translate("promote")}
                 </Button>
             </Modal.Footer>
         </Modal>

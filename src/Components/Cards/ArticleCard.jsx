@@ -48,7 +48,7 @@ const ArticleCard = ({ ele, expandedStates, index, PlaceHolderImg }) => {
                                 {ele.description.length > 100 && (
                                     <div id='readmore_article'>
 
-                                        <Link href="/article-deatils/[slug]" as={`/article-deatils/${ele.id}`} passHref>
+                                        <Link href="/article-details/[slug]" as={`/article-details/${ele.id}`} passHref>
                                             <button
                                                 className='readmore'
                                             >

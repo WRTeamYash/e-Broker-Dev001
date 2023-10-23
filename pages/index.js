@@ -2,6 +2,7 @@ import HomePage from '@/Components/HomePage/Home'
 import { languageData } from '@/store/reducer/languageSlice'
 import { loadCategories, loadSlider } from '@/store/reducer/momentSlice'
 import { settingsLoaded } from '@/store/reducer/settingsSlice'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
@@ -14,7 +15,15 @@ const Home = () => {
   useEffect(() => {
   }, [lang]);
 
-
+  const router = useRouter();
+  useEffect(() => {
+    // Check if the slug is present in the URL
+    if (router.pathname) {
+      // Redirect to /properties-details
+      console.log(router.pathname);
+      router.replace(window.location.pathname + window.location.search);
+    }
+  }, []);
   useEffect(()=>{
     loadSlider()
     loadCategories()

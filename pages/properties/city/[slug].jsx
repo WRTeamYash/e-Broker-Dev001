@@ -19,13 +19,14 @@ import Pagination from '@/Components/Pagination/ReactPagination'
 import Layout from '@/Components/Layout/Layout'
 import { translate } from '@/utils'
 import NoData from '@/Components/NoDataFound/NoData'
+import { categoriesCacheData } from '@/store/reducer/momentSlice'
 
 
 const AllProperties = () => {
   const [grid, setGrid] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
   const [CategoryListByPropertyData, setCategoryListByPropertyData] = useState()
-  const [getCategories, setGetCategories] = useState([]);
+  
   const [filterData, setFilterData] = useState({
     propType: "",
     category: '',
@@ -46,6 +47,8 @@ const AllProperties = () => {
   const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
   // console.log(city)
   const lang = useSelector(languageData)
+  const Categorydata = useSelector(categoriesCacheData)
+
   // console.log("languageData",lang)
   // useSelector(languageData)  
   useEffect(() => {
@@ -98,18 +101,18 @@ const AllProperties = () => {
   };
 
 
-  useEffect(() => {
-    GetCategorieApi(
-      (response) => {
-        const categoryData = response && response.data;
-        setIsLoading(false);
-        setGetCategories(categoryData);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   GetCategorieApi(
+  //     (response) => {
+  //       const categoryData = response && response.data;
+  //       setIsLoading(false);
+  //       setGetCategories(categoryData);
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }, []);
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
     // Ensure that the input value is a positive number
@@ -211,7 +214,7 @@ const AllProperties = () => {
             <div className='col-12 col-md-12 col-lg-3'>
               <FilterForm
                 filterData={filterData}
-                getCategories={getCategories}
+                getCategories={Categorydata}
                 handleInputChange={handleInputChange}
                 handleTabClick={handleTabClick}
                 handlePostedSinceChange={handlePostedSinceChange}

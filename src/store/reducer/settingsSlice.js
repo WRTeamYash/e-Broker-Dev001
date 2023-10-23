@@ -2,15 +2,17 @@ import { createSelector, createSlice } from "@reduxjs/toolkit"
 import { store } from "../store";
 import { apiCallBegan } from "../actions/apiActions";
 import { getSettingApi } from "@/utils/api";
+import moment from "moment";
 
 
-const initialState ={
+const initialState = {
     data: null,
+    lastFetch: null,
     loading: false
 }
 
 export const settingsSlice = createSlice({
-    name:"Settings",
+    name: "Settings",
     initialState,
     reducers: {
         settingsRequested: (settings, action) => {
@@ -19,6 +21,7 @@ export const settingsSlice = createSlice({
         settingsSucess: (settings, action) => {
             settings.data = action.payload.data;
             settings.loading = false;
+            settings.lastFetch = Date.now();
         },
         settingsFailure: (settings, action) => {
             settings.loading = false;
@@ -31,7 +34,25 @@ export default settingsSlice.reducer;
 
 // API CALLS
 
-export const settingsLoaded =(type, user_id, onSuccess, onError, onStart) =>{
+export const settingsLoaded = (type, user_id, onSuccess, onError, onStart) => {
+    const { lastFetch } = store.getState().Settings;
+    const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
+    // If API data is fetched within last 10 minutes then don't call the API again
+    if (diffInMinutes < 10) return false;
+    store.dispatch(apiCallBegan({
+        ...getSettingApi(type, user_id),
+        displayToast: false,
+        onStartDispatch: settingsRequested.type,
+        onSuccessDispatch: settingsSucess.type,
+        onErrorDispatch: settingsFailure.type,
+        onStart,
+        onSuccess,
+        onError
+
+    }))
+}
+
+export const settingsLoadedLogin = (type, user_id, onSuccess, onError, onStart) => {
     store.dispatch(apiCallBegan({
         ...getSettingApi(type, user_id),
         displayToast: false,
@@ -46,8 +67,8 @@ export const settingsLoaded =(type, user_id, onSuccess, onError, onStart) =>{
 }
 
 // Slecttors
-
-export const settingsData =createSelector(
+// Selectors
+export const settingsData = createSelector(
     state => state.Settings,
-    Settings => Settings.data
-)
+    settings => settings.data
+);

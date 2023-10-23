@@ -16,6 +16,7 @@ import { userSignUpData } from '@/store/reducer/authSlice';
 import { useRouter } from 'next/router';
 import Swal from 'sweetalert2';
 import Image from 'next/image'
+import { categoriesCacheData } from '@/store/reducer/momentSlice';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -52,6 +53,7 @@ function a11yProps(index) {
 
 export default function EditPropertyTabs() {
     const GoogleMapApi = process.env.NEXT_PUBLIC_GOOGLE_API
+    const Categorydata = useSelector(categoriesCacheData)
 
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true)
@@ -65,7 +67,6 @@ export default function EditPropertyTabs() {
     const userId = userData?.data?.data?.id
     const packageId = SettingsData?.package?.user_purchased_package[0]?.package_id
     const [value, setValue] = useState(0);
-    const [getCategories, setGetCategories] = useState([]);
     const [getFacilities, setGetFacilities] = useState([]);
     const [uploadedImages, setUploadedImages] = useState([]);
     const [uploaded3DImages, setUploaded3DImages] = useState([]); // State to store uploaded images
@@ -98,19 +99,19 @@ export default function EditPropertyTabs() {
         galleryImages: [],
         videoLink: "",
     })
-    useEffect(() => {
-        GetCategorieApi(
-            (response) => {
-                // console.log(response)
-                const categoryData = response && response.data;
-                setGetCategories(categoryData);
+    // useEffect(() => {
+    //     GetCategorieApi(
+    //         (response) => {
+    //             // console.log(response)
+    //             const categoryData = response && response.data;
+    //             setGetCategories(categoryData);
 
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-    }, []);
+    //         },
+    //         (error) => {
+    //             console.log(error);
+    //         }
+    //     );
+    // }, []);
     useEffect(() => {
         GetFacilitiesApi(
             (response) => {
@@ -300,7 +301,7 @@ export default function EditPropertyTabs() {
         const selectedCategory = e.target.value;
         const selectedCategoryId = parseInt(selectedCategory);
 
-        const selectedCategoryData = getCategories.find(
+        const selectedCategoryData = Categorydata.find(
             (category) => category.id === selectedCategoryId
         );
 
@@ -322,7 +323,7 @@ export default function EditPropertyTabs() {
         if (tab1.category !== '') {
             const selectedCategoryId = parseInt(tab1.category);
 
-            const selectedCategoryData = getCategories.find(
+            const selectedCategoryData = Categorydata.find(
                 (category) => category.id === selectedCategoryId
             );
 
@@ -330,7 +331,7 @@ export default function EditPropertyTabs() {
                 setCategoryParameters(selectedCategoryData.parameter_types.parameters);
             }
         }
-    }, [tab1.category, getCategories]);
+    }, [tab1.category, Categorydata]);
 
     const handlePropertyTypes = (event) => {
         const selectedValue = event.target.value;
@@ -817,9 +818,9 @@ export default function EditPropertyTabs() {
                                         onChange={handleCategoryChange}
                                     >
                                         <option value="">{translate("selectPropType")}</option>
-                                        {/* Map over getCategories and set the 'value' of each option to the 'id' */}
-                                        {getCategories &&
-                                            getCategories.map((ele, index) => (
+                                        {/* Map over Categories and set the 'value' of each option to the 'id' */}
+                                        {Categorydata &&
+                                            Categorydata.map((ele, index) => (
                                                 <option key={index} value={ele.id}>
                                                     {ele.category}
                                                 </option>

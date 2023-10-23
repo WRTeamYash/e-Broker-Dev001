@@ -65,5 +65,6 @@
     "swiper": "^10.0.4",
     "validator": "^13.9.0",
     "yet-another-react-lightbox": "^3.12.2"
-  }
+  },
+  "homepage":"https://ebrokerweb.wrteam.me/"
 }

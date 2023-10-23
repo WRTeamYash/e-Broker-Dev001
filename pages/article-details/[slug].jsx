@@ -26,6 +26,7 @@ import { useRouter } from 'next/router';
 import { GetAllArticlesApi, GetCategorieApi } from '@/store/actions/campaign';
 import { store } from '@/store/store';
 import ArticleCard from '@/Components/Cards/ArticleCard';
+import { categoriesCacheData } from '@/store/reducer/momentSlice';
 
 
 
@@ -35,11 +36,12 @@ const ArticleDeatils = () => {
     const [articleData, setArticleData] = useState()
     const [relatedArticleData, setRelatedArticleData] = useState()
     const [expandedStates, setExpandedStates] = useState([]);
-    const [getCategories, setGetCategories] = useState([]);
+    
 
     const router = useRouter();
     const articleId = router.query
-    // console.log(articleId)
+    const Categorydata = useSelector(categoriesCacheData)
+
 
     useEffect(() => {
         setIsLoading(true);
@@ -78,18 +80,18 @@ const ArticleDeatils = () => {
                 setIsLoading(true)
             })
     }, [articleId])
-    useEffect(() => {
-        GetCategorieApi(
-            (response) => {
-                const categoryData = response && response.data;
-                setIsLoading(false);
-                setGetCategories(categoryData);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-    }, []);
+    // useEffect(() => {
+    //     GetCategorieApi(
+    //         (response) => {
+    //             const categoryData = response && response.data;
+    //             setIsLoading(false);
+    //             setGetCategories(categoryData);
+    //         },
+    //         (error) => {
+    //             console.log(error);
+    //         }
+    //     );
+    // }, []);
     const getArticlesByCategory = () => {
         router.push('/articles')
     }
@@ -176,7 +178,7 @@ const ArticleDeatils = () => {
                                                     Categories
                                                 </div>
                                                 <div className="card-body">
-                                                    {getCategories && getCategories.map((elem, index) => (
+                                                    {Categorydata && Categorydata.map((elem, index) => (
                                                         <div className='cate-list' key={index}>
                                                             <span>{elem.category}</span>
                                                             <IoMdArrowDropright

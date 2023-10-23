@@ -15,13 +15,14 @@ import VerticalCardSkeleton from '@/Components/Skeleton/VerticalCardSkeleton.jsx
 import Link from 'next/link.js';
 import VerticalCard from '@/Components/Cards/VerticleCard.jsx';
 import NoData from '@/Components/NoDataFound/NoData.jsx';
+import { categoriesCacheData } from '@/store/reducer/momentSlice';
 
 
 
 
 const SearchPage = () => {
     const searchedData = JSON.parse(localStorage.getItem('searchData'));
-    console.log("searcheddata", searchedData)
+    // console.log("searcheddata", searchedData)
     // console.log("city", searchedData.filterData.selectedLocation?.city)
     // console.log("searcheddata", searchedData.activeTab)
     const [searchData, setSearchData] = useState()
@@ -48,8 +49,10 @@ const SearchPage = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [searchInput, setSearchInput] = useState(searchedData.searchInput);
 
-    const [getCategories, setGetCategories] = useState([]);
+    
     const [isLoading, setIsLoading] = useState(true);
+
+  const Categorydata = useSelector(categoriesCacheData)
 
 
     // const searchedData = filterData && filterData ? JSON.parse(decodeURIComponent(filterData)) : null;
@@ -91,18 +94,18 @@ const SearchPage = () => {
         setShowFilterModal(false)
     }
 
-    useEffect(() => {
-        GetCategorieApi(
-            (response) => {
-                const categoryData = response && response.data;
-                setIsLoading(false);
-                setGetCategories(categoryData);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-    }, []);
+    // useEffect(() => {
+    //     GetCategorieApi(
+    //         (response) => {
+    //             const categoryData = response && response.data;
+    //             setIsLoading(false);
+    //             setGetCategories(categoryData);
+    //         },
+    //         (error) => {
+    //             console.log(error);
+    //         }
+    //     );
+    // }, []);
 
     const handleInputChange = (e) => {
         const { name, value, type } = e.target;
@@ -312,7 +315,7 @@ const SearchPage = () => {
                                     <select className="form-select" aria-label="Default select" name="propType" value={formData.propType} onChange={handleInputChange}>
                                         <option value="">{translate("selectPropType")}</option>
                                         {/* Add more options as needed */}
-                                        {getCategories && getCategories?.map((ele, index) => (
+                                        {Categorydata && Categorydata?.map((ele, index) => (
                                             <option key={index} value={ele.id}>{ele.category}</option>
                                         ))}
                                     </select>

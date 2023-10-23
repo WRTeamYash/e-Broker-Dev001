@@ -24,7 +24,7 @@ const SearchTab = ({ getCategories }) => {
     const [activeTab, setActiveTab] = useState(0);
     const [searchInput, setSearchInput] = useState('');
 
-    // const [getCategories, setGetCategories] = useState([]);
+    
     const [isLoading, setIsLoading] = useState(true);
 
     const handleHideFilterModal = () => {

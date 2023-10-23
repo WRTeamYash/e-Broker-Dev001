@@ -15,6 +15,7 @@ import { settingsData } from '@/store/reducer/settingsSlice';
 import { userSignUpData } from '@/store/reducer/authSlice';
 import { useRouter } from 'next/router';
 import Swal from 'sweetalert2';
+import { categoriesCacheData } from '@/store/reducer/momentSlice';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -55,14 +56,12 @@ export default function AddPropertyTabs() {
 
 
     const [value, setValue] = useState(0);
-    const [getCategories, setGetCategories] = useState([]);
     const [getFacilities, setGetFacilities] = useState([]);
     const [uploadedImages, setUploadedImages] = useState([]);
     const [uploaded3DImages, setUploaded3DImages] = useState([]); // State to store uploaded images
     const [galleryImages, setGalleryImages] = useState([]); // State to store uploaded images
     const [categoryParameters, setCategoryParameters] = useState([]);
     const [selectedLocationAddress, setSelectedLocationAddress] = useState('');
-    const [getlimitsData, setGetLimitsData] = useState();
 
 
     const PackageData = useSelector(settingsData)
@@ -70,6 +69,7 @@ export default function AddPropertyTabs() {
     const userId = userData?.data?.data?.id
     const packageId = PackageData?.package?.user_purchased_package[0]?.package_id
 
+    const Categorydata = useSelector(categoriesCacheData)
 
 
     const [tab1, setTab1] = useState({
@@ -97,19 +97,19 @@ export default function AddPropertyTabs() {
 
 
 
-    useEffect(() => {
-        GetCategorieApi(
-            (response) => {
-                // console.log(response)
-                const categoryData = response && response.data;
-                setGetCategories(categoryData);
+    // useEffect(() => {
+    //     GetCategorieApi(
+    //         (response) => {
+    //             // console.log(response)
+    //             const categoryData = response && response.data;
+    //             setGetCategories(categoryData);
 
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-    }, []);
+    //         },
+    //         (error) => {
+    //             console.log(error);
+    //         }
+    //     );
+    // }, []);
     useEffect(() => {
         GetFacilitiesApi(
             (response) => {
@@ -141,11 +141,11 @@ export default function AddPropertyTabs() {
         const selectedCategory = e.target.value;
         // console.log(selectedCategory); // Debugging: Check the selected category value.
 
-        // Parse selectedCategory as a number (assuming id is a number in getCategories)
+        // Parse selectedCategory as a number (assuming id is a number in Categoriesss)
         const selectedCategoryId = parseInt(selectedCategory);
 
-        // Assuming getCategories is an array of objects with a 'category' property
-        const selectedCategoryData = getCategories.find(
+        // Assuming Categoriesss is an array of objects with a 'category' property
+        const selectedCategoryData = Categorydata.find(
             (category) => category.id === selectedCategoryId
         );
 
@@ -644,9 +644,9 @@ export default function AddPropertyTabs() {
                                         onChange={handleCategoryChange}
                                     >
                                         <option value="">{translate("selectPropType")}</option>
-                                        {/* Map over getCategories and set the 'value' of each option to the 'id' */}
-                                        {getCategories &&
-                                            getCategories.map((ele, index) => (
+                                        {/* Map over Categories and set the 'value' of each option to the 'id' */}
+                                        {Categorydata &&
+                                            Categorydata.map((ele, index) => (
                                                 <option key={index} value={ele.id}>
                                                     {ele.category}
                                                 </option>

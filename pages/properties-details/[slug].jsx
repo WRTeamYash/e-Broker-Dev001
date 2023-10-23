@@ -58,7 +58,7 @@ const PropertieDeatils = () => {
         GetFeturedListingsApi(
             "",
             "",
-            propId,
+            propId.slug,
             "",
             "",
             "",
@@ -219,7 +219,7 @@ const PropertieDeatils = () => {
                                                 </div>
                                                 <div className="col-sm-12 col-md-6" id="prop-main-image">
                                                     <Image loading="lazy" src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="two-img02" alt="Main Image"  width={200} height={200}/>
-                                                    <div className="see_all01">
+                                                    <div className="see_all02">
                                                         <button onClick={(e) => openLightbox(e, { index: 0 })}>{translate("seeAllPhotos")}</button>
                                                     </div>
                                                 </div>

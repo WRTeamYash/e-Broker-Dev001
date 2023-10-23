@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { translate } from '@/utils'
 import { ButtonGroup } from 'react-bootstrap'
 import { RiSendPlane2Line } from 'react-icons/ri'
-import { GetCategorieApi } from '@/store/actions/campaign'
 import LocationSearchBox from '../Location/LocationSearchBox'
+import { categoriesCacheData } from '@/store/reducer/momentSlice'
 
 const FiletrForm = (props) => {
 

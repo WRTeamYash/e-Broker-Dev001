@@ -19,6 +19,7 @@ import Layout from '@/Components/Layout/Layout'
 import Link from 'next/link'
 import { settingsData } from '@/store/reducer/settingsSlice'
 import NoData from '@/Components/NoDataFound/NoData'
+import { categoriesCacheData } from '@/store/reducer/momentSlice'
 
 
 
@@ -27,13 +28,14 @@ const Articles = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [expandedStates, setExpandedStates] = useState([]);
     const [grid, setGrid] = useState(false);
-    const [getCategories, setGetCategories] = useState([]);
+    
 
     // GET ARTICLES
     const [getArticles, setGetArticles] = useState()
     const [total, setTotal] = useState()
 
     const lang = useSelector(languageData)
+    const Categorydata = useSelector(categoriesCacheData)
     // console.log("languageData",lang)
     // useSelector(languageData)  
     useEffect(() => {
@@ -56,18 +58,18 @@ const Articles = () => {
                 console.log(error)
             })
     }, [])
-    useEffect(() => {
-        GetCategorieApi(
-            (response) => {
-                const categoryData = response && response.data;
-                setIsLoading(false);
-                setGetCategories(categoryData);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-    }, []);
+    // useEffect(() => {
+    //     GetCategorieApi(
+    //         (response) => {
+    //             const categoryData = response && response.data;
+    //             setIsLoading(false);
+    //             setGetCategories(categoryData);
+    //         },
+    //         (error) => {
+    //             console.log(error);
+    //         }
+    //     );
+    // }, []);
     const stripHtmlTags = (htmlString) => {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = htmlString;
@@ -221,7 +223,7 @@ const Articles = () => {
                                                     <IoMdArrowDropright size={25} className='cate_list_arrow'
                                                         onClick={getGeneralArticles} />
                                                 </div>
-                                                {getCategories && getCategories.map((elem, index) => (
+                                                {Categorydata && Categorydata.map((elem, index) => (
                                                     <div className='cate-list' key={index}>
                                                         <span>{elem.category}</span>
                                                         <IoMdArrowDropright

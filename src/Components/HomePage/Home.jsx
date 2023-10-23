@@ -19,11 +19,10 @@ import "swiper/css/pagination";
 
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
-import FilterModal from "../Filter/FilterModal";
 import MobileHeadline from "../MobileHeadlines/MobileHeadline";
 import Link from "next/link";
 import Loader from "../Loader/Loader";
-import { GetAllArticlesApi, GetCategorieApi, GetCountByCitysCategorisApi, GetFeturedListingsApi, GetSliderApi } from "@/store/actions/campaign";
+import { GetAllArticlesApi, GetCountByCitysCategorisApi, GetFeturedListingsApi, GetSliderApi } from "@/store/actions/campaign";
 import VerticalCardSkeleton from "../Skeleton/VerticalCardSkeleton";
 import VerticalCard from "../Cards/VerticleCard";
 import HorizontalCard from "../Cards/HorizontalCard";
@@ -44,7 +43,7 @@ import { translate } from "@/utils";
 import Layout from "../Layout/Layout";
 import SearchTab from "../SearchTab/SearchTab.jsx";
 import { store } from "@/store/store";
-import { silderCacheData } from "@/store/reducer/momentSlice";
+import { categoriesCacheData, silderCacheData } from "@/store/reducer/momentSlice";
 
 const HomePage = () => {
     const priceSymbol = useSelector(settingsData);
@@ -54,7 +53,7 @@ const HomePage = () => {
     const [showFilterModal, setShowFilterModal] = useState(false);
     const [showVideoModal, setShowVideoModal] = useState(false);
     const [expandedStates, setExpandedStates] = useState([]);
-    const [getCategories, setGetCategories] = useState();
+    
     const [getFeaturedListing, setGetFeaturedListing] = useState();
     const [getMostViewedProp, setGetMostViewedProp] = useState();
     const [getMostFavProperties, setGetMostFavProperties] = useState();
@@ -65,7 +64,7 @@ const HomePage = () => {
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const language = store.getState().Language.languages;
     const sliderdata = useSelector(silderCacheData)
-
+    const Categorydata = useSelector(categoriesCacheData)
 
     // SLIDER API
     const handleOpenFilterModal = () => {
@@ -123,20 +122,7 @@ const HomePage = () => {
     };
 
 
-    // GET CATEGORIES
 
-    useEffect(() => {
-        GetCategorieApi(
-            (response) => {
-                const categoryData = response.data;
-                setIsLoading(false);
-                setGetCategories(categoryData);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-    }, []);
 
     // GET FEATURED LISTINGS and
 
@@ -325,20 +311,22 @@ const HomePage = () => {
                                                                 {CurrencySymbol} {single.property_price}
                                                             </span>
                                                             <h1 id="hero_headlines">{single.property_title}</h1>
-                                                            {single.parameters &&
-                                                                single.parameters.slice(0, 4).map((elem, index) => (
-                                                                    <span id="specifiaction">
-                                                                        {" "}
-                                                                        {elem.name}: {elem.value}{" "}
-                                                                    </span>
-                                                                ))}
+                                                            <div className="hero_text_parameters">
+                                                                {single.parameters &&
+                                                                    single.parameters.slice(0, 4).map((elem, index) => (
+                                                                        <span id="specifiaction">
+                                                                            {" "}
+                                                                            {elem.name}: {elem.value}{" "}
+                                                                        </span>
+                                                                    ))}
+                                                            </div>
                                                         </div>
 
                                                         <div id="viewall_hero_prop">
                                                             <Link href="/properties-details/[slug]" as={`/properties-details/${single.propertys_id}`} passHref>
                                                                 <button className="view_prop">
                                                                     <FaEye size={20} className="icon" />
-                                                                    {translate("viewAll")}
+                                                                    {translate("viewProperty")}
                                                                 </button>
                                                             </Link>
 
@@ -370,7 +358,7 @@ const HomePage = () => {
 
                         {/* Sell Rent  */}
 
-                        <SearchTab getCategories={getCategories} />
+                        <SearchTab getCategories={Categorydata} />
                     </section>
                 ) : null}
 
@@ -446,7 +434,7 @@ const HomePage = () => {
 
                 {/* APARTMENT SECTION */}
 
-                {getCategories && getCategories.length > 0 ? (
+                {Categorydata && Categorydata.length > 0 ? (
                     <section id="apartments" >
                         <div className="container">
                             <div className="row">
@@ -457,7 +445,7 @@ const HomePage = () => {
                                             <button className="mt-3">
                                                 {" "}
                                                 <FiEye className="mx-2" size={25} />
-                                                {translate("viewAll")}
+                                                {translate("viewAllCategories")}
                                             </button>
                                         </Link>
                                     </div>
@@ -517,8 +505,8 @@ const HomePage = () => {
                                                     </Swiper>
                                                 </div>
                                             ) : (
-                                                getCategories &&
-                                                getCategories?.map((ele, index) =>
+                                                Categorydata &&
+                                                Categorydata?.map((ele, index) =>
                                                     ele.properties_count !== 0 && ele.properties_count !== "" ? (
                                                         <SwiperSlide id="aprt-swiper-slider" key={index}>
                                                             <Link href={`/properties/categories/${ele.id}`}>
@@ -664,7 +652,7 @@ const HomePage = () => {
                                             <div className="col-12 col-md-6 col-lg-3" id="city_img_div">
                                                 <Link href={`/properties/city/${getNearByCitysData[1]?.City}`}>
                                                     <div className="card bg-dark text-white mb-3" id="group_card">
-                                                        <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[1]?.image} className="card-img" alt="..." id="TopImg"  width={200} height={200} />
+                                                        <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[1]?.image} className="card-img" alt="..." id="TopImg" width={200} height={200} />
                                                         <div className="card-img-overlay">
                                                             <div id="city_img_headlines">
                                                                 <h4 className="card-title">{getNearByCitysData && getNearByCitysData[1]?.City}</h4>
@@ -679,7 +667,7 @@ const HomePage = () => {
                                             <div className="col-12 col-md-6 col-lg-3" id="city_img_div">
                                                 <Link href={`/properties/city/${getNearByCitysData[2]?.City}`}>
                                                     <div className="card bg-dark text-white mb-3" id="group_card">
-                                                        <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[2]?.image} className="card-img" alt="..." id="TopImg"  width={200} height={200}/>
+                                                        <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[2]?.image} className="card-img" alt="..." id="TopImg" width={200} height={200} />
                                                         <div className="card-img-overlay">
                                                             <div id="city_img_headlines">
                                                                 <h4 className="card-title">{getNearByCitysData && getNearByCitysData[2]?.City}</h4>
@@ -694,7 +682,7 @@ const HomePage = () => {
                                             <div className="col-lg-6" id="city_image_main_div">
                                                 <Link href={`/properties/city/${getNearByCitysData[0]?.City}`}>
                                                     <div className="card bg-dark text-white mb-3" id="cityImgTop">
-                                                        <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[0]?.image} className="card-img" alt="..." id="TopImg"  width={200} height={200}/>
+                                                        <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[0]?.image} className="card-img" alt="..." id="TopImg" width={200} height={200} />
                                                         <div className="card-img-overlay">
                                                             <div id="city_img_headlines">
                                                                 <h4 className="card-title">{getNearByCitysData && getNearByCitysData[0]?.City} </h4>
@@ -714,8 +702,8 @@ const HomePage = () => {
                                                             className="card-img"
                                                             alt="..."
                                                             id="TopImg"
-                                                        //  id='bottom_city_card_img' 
-                                                        width={200} height={200}
+                                                            //  id='bottom_city_card_img' 
+                                                            width={200} height={200}
                                                         />
                                                         <div className="card-img-overlay">
                                                             <div id="city_img_headlines">
@@ -731,7 +719,7 @@ const HomePage = () => {
                                             <div className="col-12 col-md-6 col-lg-3" id="city_img_div01">
                                                 <Link href={`/properties/city/${getNearByCitysData[3]?.City}`}>
                                                     <div className="card bg-dark text-white" id="group_card">
-                                                        <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[3]?.image} className="card-img" alt="..." id="TopImg"  width={200} height={200}/>
+                                                        <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[3]?.image} className="card-img" alt="..." id="TopImg" width={200} height={200} />
                                                         <div className="card-img-overlay">
                                                             <div id="city_img_headlines">
                                                                 <h4 className="card-title">{getNearByCitysData && getNearByCitysData[3]?.City}</h4>
@@ -746,7 +734,7 @@ const HomePage = () => {
                                             <div className="col-12 col-md-6 col-lg-3" id="city_img_div01">
                                                 <Link href={`/properties/city/${getNearByCitysData[4]?.City}`}>
                                                     <div className="card bg-dark text-white " id="group_card">
-                                                        <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[4]?.image} className="card-img" alt="..." id="TopImg"  width={200} height={200}/>
+                                                        <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[4]?.image} className="card-img" alt="..." id="TopImg" width={200} height={200} />
                                                         <div className="card-img-overlay">
                                                             <div id="city_img_headlines">
                                                                 <h4 className="card-title">{getNearByCitysData && getNearByCitysData[4]?.City}</h4>
@@ -765,7 +753,7 @@ const HomePage = () => {
                                                 <div className="col-12 col-md-6 col-lg-3" id="city_img_div" key={index}>
                                                     <Link href={`/properties/city/${ele?.City}`}>
                                                         <div className="card bg-dark text-white mb-3" id="group_card">
-                                                            <Image loading="lazy" src={ele?.image} className="card-img" alt="..." id="TopImg"  width={200} height={200}/>
+                                                            <Image loading="lazy" src={ele?.image} className="card-img" alt="..." id="TopImg" width={200} height={200} />
                                                             <div className="card-img-overlay">
                                                                 <div id="city_img_headlines">
                                                                     <h4 className="card-title">{ele?.City}</h4>
@@ -825,7 +813,7 @@ const HomePage = () => {
                                     }}
                                 />
                             </div>
-                            <div id="most-view-properties"  dir={language.rtl === "1" ? "rtl" : "ltr"}>
+                            <div id="most-view-properties" dir={language.rtl === "1" ? "rtl" : "ltr"}>
                                 <Swiper
                                     //    dir= {language.rtl === "1" ? "rtl" : "ltr"}
                                     slidesPerView={4}

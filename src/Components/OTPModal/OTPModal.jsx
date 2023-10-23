@@ -10,6 +10,7 @@ import { signupLoaded } from '../../store/reducer/authSlice'; // Update the impo
 import { useRouter } from 'next/router';
 import { translate } from '@/utils';
 import { getMessaging, getToken } from "firebase/messaging";
+import { settingsLoadedLogin } from '@/store/reducer/settingsSlice';
 
 
 const OTPModal = ({ isOpen, onClose, phonenum }) => {
@@ -103,15 +104,15 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         let confirmationResult = window.confirmationResult;
         confirmationResult.confirm(otp).then(async (result) => {
             // User verified successfully.
-            // console.log(result)
+
             signupLoaded("", "", result.user.phoneNumber.replace("+", ""), "1", "", result.user.uid, "", "", "test",
                 (res) => {
-                    // console.log(res)
+                  
                     let signupData = res.data
-                    // console.log("==============", signupData)
+                   
                     // Show a success toast notification
                     setShowLoader(false);
-                    // toast.success("please fill your personal deatils")
+                   
                     // Check if any of the required fields is empty
                     if (!res.error) {
 
@@ -128,13 +129,18 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                             toast.success(res.message);  // Show a success toast
                             onClose();  // Close the modal
                         }
+                        settingsLoadedLogin(null, signupData?.id, (res)=>{
+
+                        },
+                        (error)=>{
+                            console.log(error)
+                        })
                     }
 
                 },
                 (err) => {
                     console.log(err)
 
-                    // toast.error(err)
                 })
 
 

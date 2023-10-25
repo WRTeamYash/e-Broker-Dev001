@@ -1,33 +1,23 @@
+import React, { useEffect, useState } from "react";
+import ViewPageImg from "@/assets/Images/Breadcrumbs.jpg";
 
-import React, { useEffect, useState } from 'react'
-import ViewPageImg from "@/assets/Images/Breadcrumbs.jpg"
-
-import { CiLocationOn } from 'react-icons/ci'
-
-import { SlDocs } from 'react-icons/sl'
-
-import { BiTime } from 'react-icons/bi'
-import { useSelector } from 'react-redux'
-import { settingsData } from '@/store/reducer/settingsSlice'
-import { toast } from 'react-hot-toast'
-import { AddFavourite } from '@/store/actions/campaign'
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
-
-
-
-
+import { CiLocationOn } from "react-icons/ci";
+import { BiTime } from "react-icons/bi";
+import { useSelector } from "react-redux";
+import { settingsData } from "@/store/reducer/settingsSlice";
+import { toast } from "react-hot-toast";
+import { AddFavourite } from "@/store/actions/campaign";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const Breadcrumb = (props) => {
-
     // console.log(props)
     let { data, title } = props;
-    const priceSymbol = useSelector(settingsData)
-    const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol
-
+    const priceSymbol = useSelector(settingsData);
+    const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;
 
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    // Initialize isLiked based on props.data.is_favourite 
+    // Initialize isLiked based on props.data.is_favourite
     const [isLiked, setIsLiked] = useState(props.data && props.data.is_favourite);
 
     // Initialize isDisliked as false
@@ -36,36 +26,39 @@ const Breadcrumb = (props) => {
     const handleLike = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log("isLoggedIn:", isLoggedIn);
         if (isLoggedIn && isLoggedIn.data && isLoggedIn.data.token) {
-            AddFavourite(props.data.propId, "1", (response) => {
-                setIsLiked(true);
-                setIsDisliked(false);
-                toast.success(response.message);
-                // console.log("when i liked ", props.data.is_favourite )
-                // console.log("when i liked then data  ", props.data)
-            }, (error) => {
-                console.log(error);
-            });
+            AddFavourite(
+                props.data.propId,
+                "1",
+                (response) => {
+                    setIsLiked(true);
+                    setIsDisliked(false);
+                    toast.success(response.message);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
         } else {
-            console.log("log first")
             toast.error("Please login first to add this property to favorites.");
         }
-
     };
 
     const handleDislike = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        AddFavourite(props.data.propId, "0", (response) => {
-            setIsLiked(false);
-            setIsDisliked(true);
-            toast.success(response.message);
-            // console.log("when i disliked ", props.data.is_favourite )
-            // console.log("when i disliked then data  ", props.data)
-        }, (error) => {
-            console.log(error);
-        });
+        AddFavourite(
+            props.data.propId,
+            "0",
+            (response) => {
+                setIsLiked(false);
+                setIsDisliked(true);
+                toast.success(response.message);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
     };
 
     useEffect(() => {
@@ -74,72 +67,66 @@ const Breadcrumb = (props) => {
         setIsDisliked(false);
     }, [props.data && props.data.is_favourite]);
 
-
-
-
-
-
-
-
     return (
-        <div id='breadcrumb'
+        <div
+            id="breadcrumb"
             style={{
                 backgroundImage: `url(${ViewPageImg.src})`,
-            }}>
-            {!props.data ?
-                <div className='container'
-                    id='breadcrumb-headline'
-                >
-
+            }}
+        >
+            {!props.data ? (
+                <div className="container" id="breadcrumb-headline">
                     <h2>{props.title}</h2>
                 </div>
-                : <>
-                    <div id='breadcrumb-content' className='container'>
-                        <div className="row" id='breadcrumb_row'>
+            ) : (
+                <>
+                    <div id="breadcrumb-content" className="container">
+                        <div className="row" id="breadcrumb_row">
                             <div className="col-12 col-md-6 col-lg-6">
-                                <div className='left-side-content'>
-                                    <span className='prop-types'>{data.type}</span>
-                                    <span className='prop-name'>{data.title}</span>
-                                    <span className='prop-Location'><CiLocationOn size={25} /> {data.loc}</span>
-                                    <div className='prop-sell-time'>
-                                        <span className='propertie-sell-tag'>{data.propertyType}</span>
-                                        <span> <BiTime size={20} /> {data.time}</span>
+                                <div className="left-side-content">
+                                    <span className="prop-types">{data.type}</span>
+                                    <span className="prop-name">{data.title}</span>
+                                    <span className="prop-Location">
+                                        <CiLocationOn size={25} /> {data.loc}
+                                    </span>
+                                    <div className="prop-sell-time">
+                                        <span className="propertie-sell-tag">{data.propertyType}</span>
+                                        <span>
+                                            {" "}
+                                            <BiTime size={20} /> {data.time}
+                                        </span>
                                     </div>
-
                                 </div>
-
                             </div>
                             <div className="col-12 col-md-6 col-lg-6">
-                                <div className='right-side-content'>
-                                    <span> {CurrencySymbol} {data.price} </span>
+                                <div className="right-side-content">
+                                    <span>
+                                        {" "}
+                                        {CurrencySymbol} {data.price}{" "}
+                                    </span>
                                     <div>
                                         {isLiked ? (
-                                            <button onClick={handleDislike} >
-                                                <AiFillHeart size={25} className='liked_property' />
+                                            <button onClick={handleDislike}>
+                                                <AiFillHeart size={25} className="liked_property" />
+                                            </button>
+                                        ) : isDisliked ? (
+                                            <button onClick={handleLike}>
+                                                <AiOutlineHeart size={25} className="disliked_property" />
                                             </button>
                                         ) : (
-                                            isDisliked ? (
-                                                <button onClick={handleLike}>
-                                                    <AiOutlineHeart size={25} className='disliked_property' />
-                                                </button>
-                                            ) : (
-                                                <button onClick={handleLike} >
-                                                    <AiOutlineHeart size={25} />
-                                                </button>
-                                            )
+                                            <button onClick={handleLike}>
+                                                <AiOutlineHeart size={25} />
+                                            </button>
                                         )}
-
-                                        {/* <button><SlDocs size={25} /></button> */}
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </>
-            }
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default Breadcrumb
+export default Breadcrumb;

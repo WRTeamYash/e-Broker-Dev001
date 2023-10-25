@@ -4040,6 +4040,7 @@ p {
 }
 #contact-us .contactus-card .card-body form label {
   font-size: small;
+  font-weight: bold;
 }
 #contact-us .contactus-card .card-body form .form-inputs {
   display: flex;
@@ -4058,6 +4059,16 @@ p {
   margin-top: 10px;
   width: 100%;
   height: 3.9vh;
+  background: var(--primary-background);
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: #282f39c2;
+}
+.add_user_fields_div .searchLocationInput {
+  margin-top: 0 !important;
+  width: 100%;
+  height: inherit;
   background: var(--primary-background);
   border: none;
   border-radius: 5px;

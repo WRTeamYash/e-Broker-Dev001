@@ -1,34 +1,28 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import { translate } from '@/utils';
-import { GetCategorieApi, GetFacilitiesApi, GetFeturedListingsApi, GetLimitsApi, PostProperty, UpdatePostProperty } from '@/store/actions/campaign';
-import GoogleMapBox from '../Location/GoogleMapBox';
-import Dropzone, { useDropzone } from 'react-dropzone';
-import CloseIcon from '@mui/icons-material/Close';
-import toast from 'react-hot-toast';
-import { useSelector } from 'react-redux';
-import { settingsData } from '@/store/reducer/settingsSlice';
-import { userSignUpData } from '@/store/reducer/authSlice';
-import { useRouter } from 'next/router';
-import Swal from 'sweetalert2';
-import Image from 'next/image'
-import { categoriesCacheData } from '@/store/reducer/momentSlice';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import { translate } from "@/utils";
+import { GetFacilitiesApi, GetFeturedListingsApi, PostProperty, UpdatePostProperty } from "@/store/actions/campaign";
+import GoogleMapBox from "../Location/GoogleMapBox";
+import Dropzone, { useDropzone } from "react-dropzone";
+import CloseIcon from "@mui/icons-material/Close";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { settingsData } from "@/store/reducer/settingsSlice";
+import { userSignUpData } from "@/store/reducer/authSlice";
+import { useRouter } from "next/router";
+import Swal from "sweetalert2";
+import Image from "next/image";
+import { categoriesCacheData } from "@/store/reducer/momentSlice";
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
 
     return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
+        <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
             {value === index && (
                 <Box sx={{ p: 3 }}>
                     <Typography>{children}</Typography>
@@ -47,37 +41,36 @@ CustomTabPanel.propTypes = {
 function a11yProps(index) {
     return {
         id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
+        "aria-controls": `simple-tabpanel-${index}`,
     };
 }
 
 export default function EditPropertyTabs() {
-    const GoogleMapApi = process.env.NEXT_PUBLIC_GOOGLE_API
-    const Categorydata = useSelector(categoriesCacheData)
+    const GoogleMapApi = process.env.NEXT_PUBLIC_GOOGLE_API;
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
+    const Categorydata = useSelector(categoriesCacheData);
 
     const router = useRouter();
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
 
-    const propertyId = router.query.id
-    // console.log("property id ", propertyId)
+    const propertyId = router.query.id;
+
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    const SettingsData = useSelector(settingsData)
-    const userData = useSelector(userSignUpData)
-    const userId = userData?.data?.data?.id
-    const packageId = SettingsData?.package?.user_purchased_package[0]?.package_id
+    const SettingsData = useSelector(settingsData);
+    const userData = useSelector(userSignUpData);
+    const userId = userData?.data?.data?.id;
+    const packageId = SettingsData?.package?.user_purchased_package[0]?.package_id;
     const [value, setValue] = useState(0);
     const [getFacilities, setGetFacilities] = useState([]);
     const [uploadedImages, setUploadedImages] = useState([]);
     const [uploaded3DImages, setUploaded3DImages] = useState([]); // State to store uploaded images
     const [galleryImages, setGalleryImages] = useState([]); // State to store uploaded images
-    const [defaultGallryImages, setDefaultGallryImages] = useState([])
+    const [defaultGallryImages, setDefaultGallryImages] = useState([]);
     const [categoryParameters, setCategoryParameters] = useState([]);
-    const [selectedLocationAddress, setSelectedLocationAddress] = useState('');
+    const [selectedLocationAddress, setSelectedLocationAddress] = useState("");
     const [lat, setLat] = useState();
     const [lng, setLng] = useState();
-
-
 
     const [tab1, setTab1] = useState({
         propertyType: "",
@@ -89,29 +82,15 @@ export default function EditPropertyTabs() {
 
     const [tab2, setTab2] = useState({});
 
-    const [tab3, setTab3] = useState({
-
-    })
+    const [tab3, setTab3] = useState({});
 
     const [tab5, setTab5] = useState({
         titleImage: [],
         _3DImages: [],
         galleryImages: [],
         videoLink: "",
-    })
-    // useEffect(() => {
-    //     GetCategorieApi(
-    //         (response) => {
-    //             // console.log(response)
-    //             const categoryData = response && response.data;
-    //             setGetCategories(categoryData);
+    });
 
-    //         },
-    //         (error) => {
-    //             console.log(error);
-    //         }
-    //     );
-    // }, []);
     useEffect(() => {
         GetFacilitiesApi(
             (response) => {
@@ -119,7 +98,6 @@ export default function EditPropertyTabs() {
                 const facilitiyData = response && response.data;
                 // console.log(facilitiyData)
                 setGetFacilities(facilitiyData);
-
             },
             (error) => {
                 console.log(error);
@@ -151,11 +129,9 @@ export default function EditPropertyTabs() {
             "",
             (response) => {
                 const propertyData = response?.data[0]; // Assuming data is an array and you want the first item
-                // console.log(propertyData)
-                // console.log(propertyData.latitude)
-                // console.log(propertyData.longitude)
-                setLat(propertyData?.latitude)
-                setLng(propertyData?.longitude)
+
+                setLat(propertyData?.latitude);
+                setLng(propertyData?.longitude);
                 setIsLoading(false);
 
                 if (propertyData) {
@@ -166,9 +142,7 @@ export default function EditPropertyTabs() {
                         price: propertyData.price || "",
                         propertyDesc: propertyData.description || "",
                     });
-                    setSelectedLocationAddress({
-
-                    })
+                    setSelectedLocationAddress({});
                 }
                 if (propertyData.parameters) {
                     const defaultTab2Values = {};
@@ -179,7 +153,6 @@ export default function EditPropertyTabs() {
 
                     // Set tab2 directly with the default values
                     setTab2(defaultTab2Values);
-                    // console.log(tab2)
                 }
                 if (propertyData.assign_facilities) {
                     // Initialize tab3 with default values based on propertyData.assign_facilities
@@ -192,9 +165,8 @@ export default function EditPropertyTabs() {
 
                     // Set tab3 with the default values
                     setTab3(defaultTab3Values);
-                    // console.log(tab3)
                 }
-                // console.log(propertyData.title_image)
+
                 // Check if propertyData.title_image exists and set it as the default title image
                 if (propertyData.title_image) {
                     // Assuming propertyData.title_image contains the image URL
@@ -235,7 +207,7 @@ export default function EditPropertyTabs() {
                         .then((response) => response.blob())
                         .then((blob) => {
                             // Check if the fetched blob is of the correct 3D image MIME type
-                            if (blob.type === 'image/jpeg' || blob.type === 'image/png') {
+                            if (blob.type === "image/jpeg" || blob.type === "image/png") {
                                 // Create a File object from the Blob
                                 const file = new File([blob], "3D_image.jpg", { type: blob.type });
 
@@ -255,7 +227,6 @@ export default function EditPropertyTabs() {
                         });
                 }
 
-
                 // Check if propertyData.gallery exists and set it as the default gallery images
                 if (propertyData.gallery && propertyData.gallery.length > 0) {
                     const defaultGalleryImages = propertyData.gallery.map((galleryItem) => {
@@ -266,7 +237,7 @@ export default function EditPropertyTabs() {
                     });
 
                     // Set the default gallery images
-                    setDefaultGallryImages(defaultGalleryImages)
+                    setDefaultGallryImages(defaultGalleryImages);
                     setGalleryImages(defaultGalleryImages);
                     setTab5((prevState) => ({
                         ...prevState,
@@ -295,15 +266,13 @@ export default function EditPropertyTabs() {
         setTab1({
             ...tab1,
             [name]: value,
-        })
+        });
     };
     const handleCategoryChange = (e) => {
         const selectedCategory = e.target.value;
         const selectedCategoryId = parseInt(selectedCategory);
 
-        const selectedCategoryData = Categorydata.find(
-            (category) => category.id === selectedCategoryId
-        );
+        const selectedCategoryData = Categorydata.find((category) => category.id === selectedCategoryId);
 
         if (selectedCategoryData) {
             // Extract and set the parameters for the selected category
@@ -320,12 +289,10 @@ export default function EditPropertyTabs() {
         });
     };
     useEffect(() => {
-        if (tab1.category !== '') {
+        if (tab1.category !== "") {
             const selectedCategoryId = parseInt(tab1.category);
 
-            const selectedCategoryData = Categorydata.find(
-                (category) => category.id === selectedCategoryId
-            );
+            const selectedCategoryData = Categorydata.find((category) => category.id === selectedCategoryId);
 
             if (selectedCategoryData) {
                 setCategoryParameters(selectedCategoryData.parameter_types.parameters);
@@ -340,7 +307,6 @@ export default function EditPropertyTabs() {
             // Only update formData.propertyType if a different option is selected
             setTab1({ ...tab1, propertyType: selectedValue });
         }
-
     };
 
     const handleTab2InputChange = (fieldId, value) => {
@@ -362,29 +328,21 @@ export default function EditPropertyTabs() {
         }));
     };
 
-
-
-
-
     const handleTab3InputChange = (fieldId, value) => {
         // Ensure that the input value is a positive number
         const parsedValue = parseFloat(value);
         const newValue = isNaN(parsedValue) || parsedValue < 0 ? 0 : parsedValue;
-      
-        setTab3((prevData) => ({
-          ...prevData,
-          [fieldId]: newValue,
-        }));
-      };
-      
 
-    const handleLocationSelect = (address) => {
-        // console.log(address)
-        // Update the form field with the selected address
-        setSelectedLocationAddress(address);
-        // console.log(selectedLocationAddress)
+        setTab3((prevData) => ({
+            ...prevData,
+            [fieldId]: newValue,
+        }));
     };
 
+    const handleLocationSelect = (address) => {
+        // Update the form field with the selected address
+        setSelectedLocationAddress(address);
+    };
 
     const handleTab4InputChange = (event) => {
         const { name, value } = event.target;
@@ -393,15 +351,9 @@ export default function EditPropertyTabs() {
             ...prevData,
             [name]: value,
         }));
-        // console.log(selectedLocationAddress)
     };
 
-    useEffect(() => {
-        // console.log("set address", selectedLocationAddress)
-    }, [tab1, tab2, tab3, selectedLocationAddress, tab5, lat, lng]);
-
-
-
+    useEffect(() => {}, [tab1, tab2, tab3, selectedLocationAddress, tab5, lat, lng]);
 
     const updateFileInput = (fieldId) => (e) => {
         const fileInput = e.target;
@@ -421,8 +373,8 @@ export default function EditPropertyTabs() {
                 }));
             } else {
                 // If no file is selected, revert to the default label text
-                fileLabel.textContent = 'Choose a file';
-                selectedFileName.textContent = '';
+                fileLabel.textContent = "Choose a file";
+                selectedFileName.textContent = "";
 
                 // Remove the file from tab2 state (if it exists)
                 setTab2((prevTab2Data) => {
@@ -437,40 +389,32 @@ export default function EditPropertyTabs() {
     };
 
     const onDrop = useCallback((acceptedFiles) => {
-        // Log the acceptedFiles to check if they are being received correctly
-        // console.log('Accepted Files:', acceptedFiles);
-
-        // const imgfile = acceptedFiles[0]
-        // console.log(imgfile)
         // Append the uploaded files to the uploadedImages state
         setUploadedImages((prevImages) => [...prevImages, ...acceptedFiles]);
         setTab5((prevState) => ({
             ...prevState,
             titleImage: acceptedFiles,
         }));
-    }, [])
-
-
+    }, []);
 
     const removeImage = (index) => {
         // Remove an image from the uploadedImages state by index
         setUploadedImages((prevImages) => prevImages.filter((_, i) => i !== index));
     };
 
-
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
-        accept: 'image/*', // Accept only image files
+        accept: "image/*", // Accept only image files
     });
 
     const files = useMemo(
         () =>
             uploadedImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name}  width={200} height={200}/>
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeImage(index)}>
-                            <CloseIcon fontSize='25px' />
+                            <CloseIcon fontSize="25px" />
                         </button>
                         <div className="dropbox_img_deatils">
                             <span>{file.name}</span>
@@ -483,7 +427,7 @@ export default function EditPropertyTabs() {
     );
     const onDrop3D = useCallback((acceptedFiles) => {
         // Log the acceptedFiles to check if they are being received correctly
-        console.log('Accepted 3D Files:', acceptedFiles[0]);
+        console.log("Accepted 3D Files:", acceptedFiles[0]);
 
         // Append the uploaded 3D files to the uploaded3DImages state
         setUploaded3DImages((prevImages) => [...prevImages, ...acceptedFiles]);
@@ -500,16 +444,16 @@ export default function EditPropertyTabs() {
 
     const { getRootProps: getRootProps3D, getInputProps: getInputProps3D, isDragActive: isDragActive3D } = useDropzone({
         onDrop: onDrop3D,
-        accept: 'model/*', // Accept only 3D model files (update the accept type as needed)
+        accept: "model/*", // Accept only 3D model files (update the accept type as needed)
     });
     const files3D = useMemo(
         () =>
             uploaded3DImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name}  width={200} height={200}/>
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => remove3DImage(index)}>
-                            <CloseIcon fontSize='25px' />
+                            <CloseIcon fontSize="25px" />
                         </button>
                         <div className="dropbox_img_deatils">
                             <span>{file.name}</span>
@@ -535,7 +479,7 @@ export default function EditPropertyTabs() {
 
     const { getRootProps: getRootPropsGallery, getInputProps: getInputPropsGallery, isDragActive: isDragActiveGallery } = useDropzone({
         onDrop: onDropGallery,
-        accept: 'image/*', // Accept only image files for the gallery
+        accept: "image/*", // Accept only image files for the gallery
         multiple: true, // Allow multiple file selection
     });
 
@@ -544,22 +488,20 @@ export default function EditPropertyTabs() {
             galleryImages.map((imageData, index) => (
                 <div key={index} className="dropbox_gallary_img_div">
                     {console.log(imageData)}
-                    <Image loading="lazy" className="dropbox_img" src={imageData.imageUrl} alt={imageData.name}  width={200} height={200}/>
+                    <Image loading="lazy" className="dropbox_img" src={imageData.imageUrl} alt={imageData.name} width={200} height={200} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeGalleryImage(index)} type="button">
-                            <CloseIcon fontSize='25px' />
+                            <CloseIcon fontSize="25px" />
                         </button>
                         <div className="dropbox_img_deatils">
                             <span>{imageData.name}</span>
-                            {/* <span>{Math.round(imageData.size / 1024)} KB</span> */}
-                            {/* You can add more details here if needed */}
                         </div>
                     </div>
                 </div>
             )),
         [galleryImages]
     );
-    // console.log("gallary files ",galleryFiles)
+
     const handleVideoInputChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -570,7 +512,6 @@ export default function EditPropertyTabs() {
             [name]: value,
         }));
     };
-
 
     const areFieldsFilled = (tab) => {
         // Check if any of the required fields are empty or undefined
@@ -595,69 +536,65 @@ export default function EditPropertyTabs() {
     };
 
     const handleNextTab = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (!areFieldsFilled(tab1)) {
             // Display a toast message to fill in all required fields
-            toast.error('Please fill in all required fields ');
+            toast.error("Please fill in all required fields ");
         } else {
             // Proceed to the next tab
             setValue(value + 1);
-            // console.log("alll tabs data", tab1, tab2, tab3, selectedLocationAddress)
-
         }
-    }
+    };
     const handleNextTab4 = () => {
         // console.log(selectedLocationAddress)
         // Check if the location fields in tab 4 are empty
         if (!areLocationFieldsFilled(selectedLocationAddress)) {
             // Display a toast message to fill in all property address details in tab 4
-            toast.error('Please fill in all property address details.');
+            toast.error("Please fill in all property address details.");
         } else {
             // Proceed to the next tab
             setValue(value + 1);
-            // console.log("Tab 4 data", selectedLocationAddress);
         }
     };
 
     const handleUpdatePostproperty = (e) => {
         e.preventDefault();
 
-        if(SettingsData.demo_mode) {
+        if (SettingsData.demo_mode) {
             Swal.fire({
-                title: 'Opps !',
+                title: "Opps !",
                 text: "This Action is Not Allowed in Demo Mode",
-                icon: 'warning',
+                icon: "warning",
                 showCancelButton: false,
-                confirmButtonColor: '#087c7c',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'OK'
-            })
-            return false
+                confirmButtonColor: primaryColor,
+                cancelButtonColor: "#d33",
+                confirmButtonText: "OK",
+            });
+            return false;
         }
         // console.log(Object.fromEntries(new FormData(e.target)));
         if (!areFieldsFilled(tab1)) {
             // Display a toast message to fill in all required fields for Tab 1
-            toast.error('Please fill in all required fields in Property Details');
+            toast.error("Please fill in all required fields in Property Details");
 
             // Switch to Tab 1
             setValue(0);
         } else if (!areLocationFieldsFilled(selectedLocationAddress)) {
             // Display a toast message to fill in all required location fields
-            toast.error('Please select a location with all required fields (city, state, country, and formatted_address)');
+            toast.error("Please select a location with all required fields (city, state, country, and formatted_address)");
             // Switch to Tab 4
             setValue(3);
         } else if (uploadedImages.length === 0) {
             // Display a toast message if Title Image is not selected
-            toast.error('Please select a Title Image');
+            toast.error("Please select a Title Image");
         } else if (packageId === undefined) {
             Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'You have not subscribed. Please subscribe first',
-
+                icon: "error",
+                title: "Oops...",
+                text: "You have not subscribed. Please subscribe first",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    router.push('/subscription-plan'); // Redirect to the subscription page
+                    router.push("/subscription-plan"); // Redirect to the subscription page
                 }
             });
         } else {
@@ -668,8 +605,8 @@ export default function EditPropertyTabs() {
             // Assuming tab2 contains parameter data
             for (const [key, value] of Object.entries(tab2)) {
                 parameters.push({
-                    "parameter_id": key,
-                    "value": value,
+                    parameter_id: key,
+                    value: value,
                     // You may need to adjust these fields based on your data structure
                 });
             }
@@ -678,16 +615,13 @@ export default function EditPropertyTabs() {
             // Assuming tab2 contains parameter data
             for (const [key, value] of Object.entries(tab3)) {
                 facilities.push({
-                    "facility_id": key,
-                    "distance": value,
+                    facility_id: key,
+                    distance: value,
                     // You may need to adjust these fields based on your data structure
                 });
-                console.log("when i push to facility ", facilities)
+                console.log("when i push to facility ", facilities);
             }
             // Concatenate parameters and facilities into the allParameters array
-            // const allParameters = [...parameters, ...facilities];
-
-            // console.log("allParameters", allParameters);
             // Rest of your code remains the same
 
             UpdatePostProperty(
@@ -717,32 +651,30 @@ export default function EditPropertyTabs() {
                     if (response.message === "Package not found") {
                         toast.error(response.message);
                         Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'You have not subscribed. Please subscribe first',
-
+                            icon: "error",
+                            title: "Oops...",
+                            text: "You have not subscribed. Please subscribe first",
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                router.push('/subscription-plan'); // Redirect to the subscription page
+                                router.push("/subscription-plan"); // Redirect to the subscription page
                             }
                         });
                     } else if (response.message === "Package Limit is over") {
                         // toast.error(response.message);
                         Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Your Package Limit is Over. Please Purchase Package.',
-                            confirmButtonColor: '#087c7c',
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Your Package Limit is Over. Please Purchase Package.",
+                            confirmButtonColor: primaryColor,
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                router.push('/subscription-plan'); // Redirect to the subscription page
+                                router.push("/subscription-plan"); // Redirect to the subscription page
                             }
                         });
                     } else {
                         toast.success(response.message);
-                        router.push('/user/dashboard');
+                        router.push("/user/dashboard");
                     }
-
                 },
                 (error) => {
                     console.log(error);
@@ -750,14 +682,11 @@ export default function EditPropertyTabs() {
                 }
             );
         }
-    }
-
-
-
+    };
 
     return (
-        <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box sx={{ width: "100%" }}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label={translate("propDeatils")} {...a11yProps(0)} />
                     <Tab label={translate("facilities")} {...a11yProps(1)} />
@@ -768,40 +697,20 @@ export default function EditPropertyTabs() {
             </Box>
             <CustomTabPanel value={value} index={0}>
                 <form>
-                    <div className="row" id='add_prop_form_row'>
+                    <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
-                            <div id='add_prop_form'>
+                            <div id="add_prop_form">
                                 <div className="add_prop_fields">
                                     <span>{translate("propTypes")}</span>
                                     <div className="add_prop_types">
                                         <div className="form-check">
-                                            <input
-
-                                                className="form-check-input"
-                                                type="radio"
-                                                name="flexRadioDefault"
-                                                id="flexRadioDefault1"
-                                                value="0"
-                                                onChange={handlePropertyTypes}
-                                                checked={tab1.propertyType === '0'}
-                                            //    disabled={formData.propertyType === 'sell'} 
-
-                                            />
+                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="0" onChange={handlePropertyTypes} checked={tab1.propertyType === "0"} />
                                             <label className="form-check-label" htmlFor="flexRadioDefault1">
                                                 {translate("sell")}
                                             </label>
                                         </div>
                                         <div className="form-check">
-                                            <input
-                                                className="form-check-input"
-                                                type="radio"
-                                                name="flexRadioDefault"
-                                                id="flexRadioDefault1"
-                                                value="1"
-                                                onChange={handlePropertyTypes}
-                                                checked={tab1.propertyType === '1'}
-                                            //   disabled={formData.propertyType === 'rent'} 
-                                            />
+                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1" onChange={handlePropertyTypes} checked={tab1.propertyType === "1"} />
                                             <label className="form-check-label" htmlFor="flexRadioDefault2">
                                                 {translate("rent")}
                                             </label>
@@ -810,13 +719,7 @@ export default function EditPropertyTabs() {
                                 </div>
                                 <div className="add_prop_fields">
                                     <span>{translate("category")}</span>
-                                    <select
-                                        className="form-select"
-                                        aria-label="Default select"
-                                        name="category"
-                                        value={tab1.category}
-                                        onChange={handleCategoryChange}
-                                    >
+                                    <select className="form-select" aria-label="Default select" name="category" value={tab1.category} onChange={handleCategoryChange}>
                                         <option value="">{translate("selectPropType")}</option>
                                         {/* Map over Categories and set the 'value' of each option to the 'id' */}
                                         {Categorydata &&
@@ -826,62 +729,69 @@ export default function EditPropertyTabs() {
                                                 </option>
                                             ))}
                                     </select>
-
                                 </div>
                                 <div className="add_prop_fields">
                                     <span>{translate("title")}</span>
-                                    <input type="text" id='prop_title_input' placeholder='Enter Property Title' name='title' onChange={handleInputChange} value={tab1.title} />
+                                    <input type="text" id="prop_title_input" placeholder="Enter Property Title" name="title" onChange={handleInputChange} value={tab1.title} />
                                 </div>
                                 <div className="add_prop_fields">
                                     <span>{translate("price")}</span>
-                                    <input type="number" id='prop_title_input' placeholder='Enter Property Price ($)' name='price' onChange={handleInputChange} value={tab1.price} onInput={(e) => {
-                                        if (e.target.value < 0) {
-                                            e.target.value = 0;
-                                        }
-                                    }} />
+                                    <input
+                                        type="number"
+                                        id="prop_title_input"
+                                        placeholder="Enter Property Price ($)"
+                                        name="price"
+                                        onChange={handleInputChange}
+                                        value={tab1.price}
+                                        onInput={(e) => {
+                                            if (e.target.value < 0) {
+                                                e.target.value = 0;
+                                            }
+                                        }}
+                                    />
                                 </div>
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6">
                             <div className="add_prop_fields">
                                 <span>{translate("propDesc")}</span>
-                                <textarea rows={13} id="about_prop" placeholder='Enter About Property' name='propertyDesc' onChange={handleInputChange} value={tab1.propertyDesc} />
+                                <textarea rows={13} id="about_prop" placeholder="Enter About Property" name="propertyDesc" onChange={handleInputChange} value={tab1.propertyDesc} />
                             </div>
                         </div>
                     </div>
 
                     <div className="nextButton">
-                        <button type='button' onClick={handleNextTab}>{translate("next")}</button>
+                        <button type="button" onClick={handleNextTab}>
+                            {translate("next")}
+                        </button>
                     </div>
                 </form>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
                 <form>
-                    <div className="row" id='add_prop_form_row'>
+                    <div className="row" id="add_prop_form_row">
                         {categoryParameters.length > 0 ? (
                             categoryParameters.map((ele, index) => (
                                 <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
                                     <div className="add_prop_fields">
                                         <span>{ele.name}</span>
 
-                                        {ele.type_of_parameter === 'number' ? (
+                                        {ele.type_of_parameter === "number" ? (
                                             <>
-                                                {/* <input type="hidden" name={`parameters[${index}][id]`} value={ele.id}/> */}
                                                 <input
-                                                    value={tab2[ele.id] || ''}
-                                                    type='number'
-                                                    // name={`parameters[${index}][value]`}
-                                                    className='prop_number_input'
+                                                    value={tab2[ele.id] || ""}
+                                                    type="number"
+                                                    className="prop_number_input"
                                                     id={`prop_title_input_${ele.id}`}
                                                     onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}
                                                     onInput={(e) => {
                                                         if (e.target.value < 0) {
-                                                          e.target.value = 0;
+                                                            e.target.value = 0;
                                                         }
-                                                      }}
+                                                    }}
                                                 />
                                             </>
-                                        ) : ele.type_of_parameter === 'checkbox' ? (
+                                        ) : ele.type_of_parameter === "checkbox" ? (
                                             <>
                                                 <div className="row paramters_row">
                                                     {ele.type_values.map((option, optionIndex) => (
@@ -892,17 +802,9 @@ export default function EditPropertyTabs() {
                                                                     id={`checkbox_${ele.id}_${optionIndex}`}
                                                                     className="custom-checkbox-input"
                                                                     checked={tab2[`${ele.id}_${optionIndex}`] || false}
-                                                                    onChange={(e) =>
-                                                                        handleCheckboxChange(
-                                                                            `${ele.id}_${optionIndex}`,
-                                                                            e.target.checked
-                                                                        )
-                                                                    }
+                                                                    onChange={(e) => handleCheckboxChange(`${ele.id}_${optionIndex}`, e.target.checked)}
                                                                 />
-                                                                <label
-                                                                    htmlFor={`checkbox_${ele.id}_${optionIndex}`}
-                                                                    className="custom-checkbox-label"
-                                                                >
+                                                                <label htmlFor={`checkbox_${ele.id}_${optionIndex}`} className="custom-checkbox-label">
                                                                     {option}
                                                                 </label>
                                                             </div>
@@ -910,23 +812,11 @@ export default function EditPropertyTabs() {
                                                     ))}
                                                 </div>
                                             </>
-                                        ) : ele.type_of_parameter === 'textbox' ? (
-                                            <input
-                                                type="text"
-                                                className='prop_textbox_input'
-                                                id={`textbox_${ele.id}`}
-                                                value={tab2[ele.id] || ''}
-                                                onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}
-                                            />
-                                        ) : ele.type_of_parameter === 'textarea' ? (
-                                            <textarea
-                                                className='prop_textarea_input'
-                                                rows={4}
-                                                id={`textarea_${ele.id}`}
-                                                value={tab2[ele.id] || ''}
-                                                onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}
-                                            />
-                                        ) : ele.type_of_parameter === 'radiobutton' ? (
+                                        ) : ele.type_of_parameter === "textbox" ? (
+                                            <input type="text" className="prop_textbox_input" id={`textbox_${ele.id}`} value={tab2[ele.id] || ""} onChange={(e) => handleTab2InputChange(ele.id, e.target.value)} />
+                                        ) : ele.type_of_parameter === "textarea" ? (
+                                            <textarea className="prop_textarea_input" rows={4} id={`textarea_${ele.id}`} value={tab2[ele.id] || ""} onChange={(e) => handleTab2InputChange(ele.id, e.target.value)} />
+                                        ) : ele.type_of_parameter === "radiobutton" ? (
                                             <>
                                                 <div className="row paramters_row">
                                                     {ele.type_values.map((option, optionIndex) => (
@@ -938,14 +828,9 @@ export default function EditPropertyTabs() {
                                                                     name={`radio_${ele.id}`}
                                                                     className="custom-checkbox-input"
                                                                     checked={tab2[ele.id] === option}
-                                                                    onChange={(e) =>
-                                                                        handleRadioChange(ele.id, option)
-                                                                    }
+                                                                    onChange={(e) => handleRadioChange(ele.id, option)}
                                                                 />
-                                                                <label
-                                                                    htmlFor={`radio_${ele.id}_${optionIndex}`}
-                                                                    className="custom-checkbox-label"
-                                                                >
+                                                                <label htmlFor={`radio_${ele.id}_${optionIndex}`} className="custom-checkbox-label">
                                                                     {option}
                                                                 </label>
                                                             </div>
@@ -953,14 +838,9 @@ export default function EditPropertyTabs() {
                                                     ))}
                                                 </div>
                                             </>
-                                        ) : ele.type_of_parameter === 'dropdown' ? (
+                                        ) : ele.type_of_parameter === "dropdown" ? (
                                             <div className="custom-dropdown">
-                                                <select
-                                                    id={`dropdown_${ele.id}`}
-                                                    name={`dropdown_${ele.id}`}
-                                                    value={tab2[ele.id] || ''}
-                                                    onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}
-                                                >
+                                                <select id={`dropdown_${ele.id}`} name={`dropdown_${ele.id}`} value={tab2[ele.id] || ""} onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}>
                                                     {ele.type_values.map((option, optionIndex) => (
                                                         <option key={optionIndex} value={option}>
                                                             {option}
@@ -968,18 +848,12 @@ export default function EditPropertyTabs() {
                                                     ))}
                                                 </select>
                                             </div>
-                                        ) : ele.type_of_parameter === 'file' ? (
+                                        ) : ele.type_of_parameter === "file" ? (
                                             <>
-                                                <input
-                                                    type="file"
-                                                    id={`file-input_${ele.id}`}
-                                                    className="custom-file-input"
-                                                    onChange={updateFileInput(ele.id)}
-                                                />
+                                                <input type="file" id={`file-input_${ele.id}`} className="custom-file-input" onChange={updateFileInput(ele.id)} />
                                                 <label htmlFor={`file-input_${ele.id}`} className="custom-file01-label" id={`file-label_${ele.id}`}>
                                                     Choose a file
                                                 </label>
-                                                {/* <p id={`selected-file-name_${ele.id}`}></p> */}
                                             </>
                                         ) : (
                                             // Handle other input types or provide a default component here
@@ -990,109 +864,101 @@ export default function EditPropertyTabs() {
                             ))
                         ) : (
                             <div className="col-sm-12">
-                                <span style={{ display: "flex", justifyContent: "center" }}>
-                                    Please select a category to view additional fields.
-                                </span>
+                                <span style={{ display: "flex", justifyContent: "center" }}>Please select a category to view additional fields.</span>
                             </div>
                         )}
                     </div>
                     <div className="nextButton">
-                        <button type='button' onClick={handleNextTab}>{translate("next")}</button>
+                        <button type="button" onClick={handleNextTab}>
+                            {translate("next")}
+                        </button>
                     </div>
                 </form>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
                 <form>
-                    <div className="row" id='add_prop_form_row'>
-                        {getFacilities.length > 0 ? (
-                            getFacilities.map((ele, index) => (
-                                <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
-                                    <div className="add_prop_fields">
-                                        <span>{ele.name}</span>
-                                        <input
-                                            value={tab3[ele.id] || ''}
-                                            type='number'
-                                            placeholder='00 KM'
-                                            className='prop_number_input'
-                                            id={`prop_title_input_${ele.id}`}
-                                            onChange={(e) => handleTab3InputChange(ele.id, e.target.value)}
-                                            
-                                        />
-                                    </div>
-
-                                </div>
-                            ))
-                        ) : (
-                            null
-                        )}
+                    <div className="row" id="add_prop_form_row">
+                        {getFacilities.length > 0
+                            ? getFacilities.map((ele, index) => (
+                                  <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
+                                      <div className="add_prop_fields">
+                                          <span>{ele.name}</span>
+                                          <input value={tab3[ele.id] || ""} type="number" placeholder="00 KM" className="prop_number_input" id={`prop_title_input_${ele.id}`} onChange={(e) => handleTab3InputChange(ele.id, e.target.value)} />
+                                      </div>
+                                  </div>
+                              ))
+                            : null}
                     </div>
                     <div className="nextButton">
-                        <button type='button' onClick={handleNextTab}>{translate("next")}</button>
+                        <button type="button" onClick={handleNextTab}>
+                            {translate("next")}
+                        </button>
                     </div>
                 </form>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={3}>
                 <form>
-                    <div className="row" id='add_prop_form_row'>
+                    <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
-                            <div className='row' id='add_prop_form_row'>
+                            <div className="row" id="add_prop_form_row">
                                 <div className="col-sm-12 col-md-6">
                                     <div className="add_prop_fields">
                                         <span>{translate("city")}</span>
-                                        <input type="text" id='prop_title_input' placeholder='Enter City' name='city' value={selectedLocationAddress.city} onChange={handleTab4InputChange} />
+                                        <input type="text" id="prop_title_input" placeholder="Enter City" name="city" value={selectedLocationAddress.city} onChange={handleTab4InputChange} />
                                     </div>
                                 </div>
                                 <div className="col-sm-12 col-md-6">
                                     <div className="add_prop_fields">
                                         <span>{translate("state")}</span>
-                                        <input type="text" id='prop_title_input' placeholder='Enter State' name='state' value={selectedLocationAddress.state} onChange={handleTab4InputChange} />
+                                        <input type="text" id="prop_title_input" placeholder="Enter State" name="state" value={selectedLocationAddress.state} onChange={handleTab4InputChange} />
                                     </div>
                                 </div>
                                 <div className="col-sm-12">
                                     <div className="add_prop_fields">
                                         <span>{translate("country")}</span>
-                                        <input type="text" id='prop_title_input' placeholder='Enter Country' name='country' value={selectedLocationAddress.country} onChange={handleTab4InputChange} />
+                                        <input type="text" id="prop_title_input" placeholder="Enter Country" name="country" value={selectedLocationAddress.country} onChange={handleTab4InputChange} />
                                     </div>
                                 </div>
                                 <div className="col-sm-12">
                                     <div className="add_prop_fields">
                                         <span>{translate("address")}</span>
-                                        <textarea rows={4} id="about_prop" placeholder='Enter Full Address' name='formatted_address' value={selectedLocationAddress.formatted_address} onChange={handleTab4InputChange} />
+                                        <textarea rows={4} id="about_prop" placeholder="Enter Full Address" name="formatted_address" value={selectedLocationAddress.formatted_address} onChange={handleTab4InputChange} />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6">
                             <div className="map">
-                                <GoogleMapBox
-                                   apiKey={GoogleMapApi}
-                                    onSelectLocation={handleLocationSelect}
-                                    latitude={lat}
-                                    longitude={lng} />
+                                <GoogleMapBox apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} latitude={lat} longitude={lng} />
                             </div>
                         </div>
                     </div>
 
                     <div className="nextButton">
-                        <button type='button' onClick={handleNextTab4}>{translate("next")}</button>
+                        <button type="button" onClick={handleNextTab4}>
+                            {translate("next")}
+                        </button>
                     </div>
                 </form>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={4}>
                 <form>
-                    <div className="row" id='add_prop_form_row'>
+                    <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
                                 <span>{translate("titleImg")}</span>
                                 <div className="dropbox">
-                                    <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`}>
+                                    <div {...getRootProps()} className={`dropzone ${isDragActive ? "active" : ""}`}>
                                         <input {...getInputProps()} />
-                                        {uploadedImages.length === 0 ?
-                                            (isDragActive ?
-                                                <span>{translate("dropFiles")}</span> :
-                                                <span>{translate("dragFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span></span>
+                                        {uploadedImages.length === 0 ? (
+                                            isDragActive ? (
+                                                <span>{translate("dropFiles")}</span>
+                                            ) : (
+                                                <span>
+                                                    {translate("dragFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span>
+                                                </span>
                                             )
-                                            : null}
+                                        ) : null}
                                     </div>
                                     <div>{files}</div>
                                 </div>
@@ -1102,14 +968,17 @@ export default function EditPropertyTabs() {
                             <div className="add_prop_fields">
                                 <span>{translate("3dImg")}</span>
                                 <div className="dropbox">
-                                    <div {...getRootProps3D()} className={`dropzone ${isDragActive3D ? 'active' : ''}`}>
+                                    <div {...getRootProps3D()} className={`dropzone ${isDragActive3D ? "active" : ""}`}>
                                         <input {...getInputProps3D()} />
-                                        {uploaded3DImages.length === 0 ?
-                                            (isDragActive3D ?
-                                                <span>{translate("drop3dFiles")}</span> :
-                                                <span>{translate("drag3dFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span></span>
+                                        {uploaded3DImages.length === 0 ? (
+                                            isDragActive3D ? (
+                                                <span>{translate("drop3dFiles")}</span>
+                                            ) : (
+                                                <span>
+                                                    {translate("drag3dFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span>
+                                                </span>
                                             )
-                                            : null}
+                                        ) : null}
                                     </div>
                                     <div>{files3D}</div>
                                 </div>
@@ -1119,30 +988,33 @@ export default function EditPropertyTabs() {
                             <div className="add_prop_fields">
                                 <span>{translate("GallryImg")}</span>
                                 <div className="dropbox">
-                                    <div {...getRootPropsGallery()} className={`dropzone ${isDragActiveGallery ? 'active' : ''}`}>
+                                    <div {...getRootPropsGallery()} className={`dropzone ${isDragActiveGallery ? "active" : ""}`}>
                                         <input {...getInputPropsGallery()} />
 
-                                        {isDragActiveGallery ?
-                                            <span>{translate("dropgallaryFiles")}</span> :
-                                            <span>{translate("draggallaryFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span></span>
-                                        }
-
+                                        {isDragActiveGallery ? (
+                                            <span>{translate("dropgallaryFiles")}</span>
+                                        ) : (
+                                            <span>
+                                                {translate("draggallaryFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span>
+                                            </span>
+                                        )}
                                     </div>
                                     <div>{galleryFiles}</div>
-
                                 </div>
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
                                 <span>{translate("videoLink")}</span>
-                                <input type="input" id='prop_title_input' name='videoLink' placeholder='Eneter Video' value={tab5.videoLink} onChange={handleVideoInputChange} />
+                                <input type="input" id="prop_title_input" name="videoLink" placeholder="Eneter Video" value={tab5.videoLink} onChange={handleVideoInputChange} />
                             </div>
                         </div>
                     </div>
 
                     <div className="updateButton">
-                        <button type='submit' onClick={handleUpdatePostproperty}>{translate("submitProp")}</button>
+                        <button type="submit" onClick={handleUpdatePostproperty}>
+                            {translate("submitProp")}
+                        </button>
                     </div>
                 </form>
             </CustomTabPanel>

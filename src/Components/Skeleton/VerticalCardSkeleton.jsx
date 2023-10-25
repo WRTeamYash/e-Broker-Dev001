@@ -7,14 +7,12 @@ function VerticalCardSkeleton() {
       <div className='card verticle_main_card'>
         <Skeleton width="100%" height="26vh" className="skeleton_img" />
         <div className="card-img-overlay">
-          {/* <Skeleton width="80px" height="20px" /> */}
           <Skeleton width="100px" height="35px" />
         </div>
         <div className='card-body'>
-          {/* <Skeleton width="65px" height="20px" /> */}
-          {/* <Skeleton width="60px" height="20px" /> */}
+
           <div id='feature_card_mainbody'>
-            <div style={{display:"flex", gap:"10px"}}>
+            <div style={{ display: "flex", gap: "10px" }}>
               <div className="cate_image">
                 <Skeleton width="20px" height="20px" />
               </div>

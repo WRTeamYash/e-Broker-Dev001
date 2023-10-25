@@ -1,7 +1,6 @@
 import { ElementsConsumer, CardElement } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
 import Loader from "./Loader";
-import { Modal } from "antd";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { userSignUpData } from "@/store/reducer/authSlice";
@@ -34,7 +33,7 @@ const StripeModal = (props) => {
     const navigate = useRouter();
 
     const user = useSelector(userSignUpData);
-    const systemsettings =  useSelector(settingsData)   
+    const systemsettings = useSelector(settingsData);
 
     const [loadingPay, setloadingPay] = useState(false);
 
@@ -54,7 +53,7 @@ const StripeModal = (props) => {
             setloadingPay(false);
             return;
         }
-        console.log("stripe client secret key", props?.client_key?.client_secret)
+        console.log("stripe client secret key", props?.client_key?.client_secret);
         // Confirm the PaymentIntent with the Payment Element
         const { paymentIntent, error } = await stripe.confirmCardPayment(props?.client_key?.client_secret, {
             payment_method: {
@@ -74,19 +73,22 @@ const StripeModal = (props) => {
         });
 
         if (error) {
-            //   closeModal.current.click();
             toast.error(error.message);
         } else if (paymentIntent.status === "succeeded") {
-            confirmPaymentApi(props?.client_key?.id, (res) => {
-                toast.success(res.message)
-                navigate.push("/")
-                setloadingPay(false);
-                // setIsOrderPlaced(true)
-            }, (err) => {
-                toast.error(err.message)
-            })
+            confirmPaymentApi(
+                props?.client_key?.id,
+                (res) => {
+                    toast.success(res.message);
+                    navigate.push("/");
+                    setloadingPay(false);
+                    // setIsOrderPlaced(true)
+                },
+                (err) => {
+                    toast.error(err.message);
+                }
+            );
             // Redirect the customer to a success page
-            // window.location.href = '/success';
+
             toast.success("Success");
         } else {
             setloadingPay(false);
@@ -115,16 +117,11 @@ const StripeModal = (props) => {
                     </form>
                 </div>
             </div>
-            {/* <Modal centered open={isOrderPlaced} footer={null}>
-              Successfully
-              <button>submit</button>
-            </Modal> */}
         </>
     );
 };
 
 export default function InjectCheckout(props) {
-    // console.log("new", props);
     return (
         <ElementsConsumer orderID={props.orderID} currency={props.currency} user_id={props.user_id} amount={props.amount} client_key={props.client_key}>
             {({ stripe, elements }) => (

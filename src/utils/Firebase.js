@@ -8,13 +8,13 @@ import firebase from 'firebase/compat/app'
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyD6djyrbNtjhf_ssrww2YkXITUgsS6sYmo",
-  authDomain: "ebroker-wrteam.firebaseapp.com",
-  projectId: "ebroker-wrteam",
-  storageBucket: "ebroker-wrteam.appspot.com",
-  messagingSenderId: "63168540332",
-  appId: "1:63168540332:web:d183e9ca13866ec5623909",
-  measurementId: "G-W05KYC2K8P"
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 };
 
 

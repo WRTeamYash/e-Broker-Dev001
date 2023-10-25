@@ -12,7 +12,6 @@ import toast from "react-hot-toast";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
-import TablePagination from '../../../src/Components/Pagination/TablePagination.jsx'
 import { translate } from "@/utils/index.js";
 import { languageData } from "@/store/reducer/languageSlice.js";
 
@@ -26,12 +25,9 @@ const index = () => {
     const currency = systemsettings?.currency_symbol;
     const dataPerPage = 10; // number of posts per page
     const pagesVisited = currentPage * dataPerPage;
-    const lang = useSelector(languageData)
-    // console.log("languageData",lang)
-    // useSelector(languageData)  
-    useEffect(() => {
-        // console.log("render")
-    }, [lang]);
+    const lang = useSelector(languageData);
+
+    useEffect(() => {}, [lang]);
     // handle page change
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected);
@@ -77,14 +73,15 @@ const index = () => {
                             <TableHead
                                 sx={{
                                     background: "#f5f5f4",
-                                    borderRadius: "12px"
+                                    borderRadius: "12px",
                                 }}
                             >
-                                <TableRow sx={{
-                                    // padding:"20px",
-                                    background: "#f5f5f5",
-
-                                }}>
+                                <TableRow
+                                    sx={{
+                                        // padding:"20px",
+                                        background: "#f5f5f5",
+                                    }}
+                                >
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
                                         {translate("ID")}
                                     </TableCell>
@@ -146,9 +143,7 @@ const index = () => {
                                 disabledClassName={"pagination__link--disabled"}
                                 activeClassName={"pagination__link--active"}
                             />
-                        ) : (
-                            null
-                        )}
+                        ) : null}
                     </TableContainer>
                 </div>
             </div>

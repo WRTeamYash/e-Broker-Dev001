@@ -8,7 +8,6 @@ const userProfileInitialState = {
   data: null,
   loading: false,
 };
-console.log("*********************",userProfileInitialState)
 // Slice
 export const userProfileSlice = createSlice({
   name: "UserProfile",
@@ -19,7 +18,6 @@ export const userProfileSlice = createSlice({
     },
     profileSuccess: (userprofile, action) => {
       userprofile.data = action.payload.data;
-      console.log("action",action)
       userprofile.loading = false;
     },
     profileFailure: (userprofile, action) => {
@@ -49,5 +47,3 @@ export const profileData = createSelector(
   state => state.UserProfile, 
   UserProfile => UserProfile
 )
-
-console.log(profileData.data)

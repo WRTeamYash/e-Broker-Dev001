@@ -1,7 +1,6 @@
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import * as actions from "../actions/apiActions";
-
 
 /**
  *
@@ -16,7 +15,7 @@ import * as actions from "../actions/apiActions";
  * displayToast : true / false, default : true
  * authorizationHeader : true / false , default : true --> if Authorisation Header should be set in request or not
  */
-const api = ({ dispatch, getState }) => next => async action => {
+const api = ({ dispatch, getState }) => (next) => async (action) => {
     // Check if Dispatched action is apiCallBegan then proceed with middleware code
     // If not then call the next and ignore this middleware
     // console.log("hello")
@@ -29,10 +28,9 @@ const api = ({ dispatch, getState }) => next => async action => {
     if (typeof authorizationHeader === "undefined" || authorizationHeader === true) {
         headers = {
             ...headers,
-            "Authorization": "Bearer " + getState().User_signup.data.token,
+            Authorization: "Bearer " + getState().User_signup.data.token,
         };
     }
-
 
     // On start is used to do actions which should happen before the API call
     // Such as set loading flag to true
@@ -55,9 +53,9 @@ const api = ({ dispatch, getState }) => next => async action => {
         });
         // console.log(response)
         if (response.data.error) {
-            console.log("reserr",response)
+            console.log("reserr", response);
             // Dispatch Default onError Event
-            dispatch(actions.apiCallFailed((response.data.message)));
+            dispatch(actions.apiCallFailed(response.data.message));
 
             // Dispatch custom onError Event
             // if (onError) dispatch({type: onError, payload: response.data.message});
@@ -65,13 +63,10 @@ const api = ({ dispatch, getState }) => next => async action => {
             if (onError) onError(response.data.message);
             if (onErrorDispatch) dispatch({ type: onErrorDispatch, payload: response.data.message });
 
-
             // Toast Message
             if (displayToast) {
                 toast.error(response.data.message);
             }
-
-
         } else {
             // / Dispatch Default onSuccess Event
             let payloadData;
@@ -93,16 +88,14 @@ const api = ({ dispatch, getState }) => next => async action => {
                 toast.success(response.data.message);
             }
         }
-
     } catch (error) {
-
         // Dispatch Default onError Event
-        console.log("errr",error)
+        console.log("errr", error);
 
         // if (error.response.status === 401) {
         //     error.message = "Please Login";
         // }
-        dispatch(actions.apiCallFailed((error.response?.data)));
+        dispatch(actions.apiCallFailed(error.response?.data));
 
         // Dispatch custom onError Event
         if (onError) onError(error.response?.data);
@@ -112,5 +105,5 @@ const api = ({ dispatch, getState }) => next => async action => {
             toast.error(error.response?.data);
         }
     }
-}
+};
 export default api;

@@ -24,12 +24,17 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import Swal from "sweetalert2";
+import NoData from "@/Components/NoDataFound/NoData";
 
 const stripePromise = loadStripe("pk_test_51NGEmlSBiyKa2nec2uv9isXE4rDCEokyLmr9C4EXGN1X4W6J0quzwlr3r5SGZJPHUhnhkGC4zVNsTGn7QqtuRJZv008Ri1ccay");
 
 const { Option } = Select;
 
 const page = () => {
+
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+
+
     const [packagedata, setPackageData] = useState([]);
 
     const [loading, setLoading] = useState(false);
@@ -69,7 +74,6 @@ const page = () => {
     const userData = useSelector(userSignUpData);
 
     const lang = useSelector(languageData);
-    // console.log("languageData",lang)
     // useSelector(languageData)
     useEffect(() => {
         // console.log("render")
@@ -99,7 +103,7 @@ const page = () => {
             slidesPerView: 4,
         },
     };
-    const isUserLogin = isLogin()
+    const isUserLogin = isLogin();
 
     // get packages api
     useEffect(() => {
@@ -121,7 +125,6 @@ const page = () => {
         if (isLogin()) {
             getPaymentSettingsApi(
                 (res) => {
-                    //   console.log("res", res.data);
                     setPaymentSettingsData(res.data);
                 },
                 (err) => {
@@ -134,21 +137,20 @@ const page = () => {
     const subscribePayment = (e, data) => {
         e.preventDefault();
 
-        if(systemsettings.demo_mode) {
+        if (systemsettings.demo_mode) {
             Swal.fire({
-                title: 'Opps !',
+                title: "Opps !",
                 text: "This Action is Not Allowed in Demo Mode",
-                icon: 'warning',
+                icon: "warning",
                 showCancelButton: false,
-                confirmButtonColor: '#087c7c',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'OK'
-            })
-            return false
+                confirmButtonColor: primaryColor,
+                cancelButtonColor: "#d33",
+                confirmButtonText: "OK",
+            });
+            return false;
         }
 
         if (!isUserLogin) {
-            // console.log("no login")
             toast.error("Please Login first");
             return false;
         }
@@ -156,7 +158,7 @@ const page = () => {
         if (isUserLogin) {
             setPreviusSubsscriptionModal(true);
         }
-        
+
         setPriceData(data);
     };
 
@@ -165,7 +167,6 @@ const page = () => {
         e.preventDefault();
 
         setStripeFormModal(true);
-        // if()
     };
 
     const filterDataByType = (typeToFilter) => {
@@ -204,15 +205,13 @@ const page = () => {
             (res) => {
                 setclientKey(res?.data);
                 // on confirm close modal
-                setStripeFormModal(false)
+                setStripeFormModal(false);
                 setPaymentModal(true);
             },
             (err) => {
                 console.log(err);
             }
         );
-
-
     };
 
     // error
@@ -221,8 +220,7 @@ const page = () => {
     };
 
     // Example usage of the filter function
-    // const stripe_currency = systemsettings?.currency_symbol;
-    const stripe_currency = "$";
+    const stripe_currency = systemsettings?.currency_symbol;
 
     // Packages with is_active === 1 come first
     const sortedPackageData = packagedata.sort((a, b) => {
@@ -236,13 +234,10 @@ const page = () => {
             <section id="subscription" className="mb-5">
                 <div className="container">
                     <div data-aos="fade-right" data-aos-duration="3000">
-                        <span className="headline" >
+                        <span className="headline">
                             {translate("chooseA")}{" "}
                             <span>
-                                <span className="highlight">
-                                    {" "}
-                                    {translate("plan")}
-                                </span>
+                                <span className="highlight"> {translate("plan")}</span>
                             </span>{" "}
                             {translate("thatsRightForYou")}
                         </span>
@@ -262,11 +257,6 @@ const page = () => {
                             modules={[FreeMode, Pagination]}
                             className="subscription-swiper"
                             breakpoints={breakpoints}
-                            style={
-                                {
-                                    // width: "auto"
-                                }
-                            }
                         >
                             {loading ? (
                                 <>
@@ -329,7 +319,9 @@ const page = () => {
                                         ))
                                     ) : (
                                         <>
-                                            <p>No Data Found</p>
+                                            <div className="noDataFoundDiv">
+                                                <NoData />
+                                            </div>
                                         </>
                                     )}
                                 </>
@@ -417,7 +409,7 @@ const page = () => {
                             type="text"
                             pattern="[0-9]{6}"
                             onInput={(e) => {
-                                e.target.value = e.target.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+                                e.target.value = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
                                 setStripeForm({ ...stripeForm, statePostalCode: e.target.value });
                             }}
                         />
@@ -481,7 +473,7 @@ const page = () => {
 
                     <Form.Item className="mb-0">
                         <Button className="w-100 stripebtn" type="primary" htmlType="submit">
-                            Submit
+                            {translate("submit")}
                         </Button>
                     </Form.Item>
                 </Form>

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import VerticleLayout from '@/Components/AdminLayout/VerticleLayout'
-import HomeIcon from '@mui/icons-material/Home';
-import StarIcon from '@mui/icons-material/Star';
-import { Toolbar } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { GetFeturedListingsApi } from '@/store/actions/campaign';
+import React, { useEffect, useState } from "react";
+import VerticleLayout from "@/Components/AdminLayout/VerticleLayout";
+import HomeIcon from "@mui/icons-material/Home";
+import StarIcon from "@mui/icons-material/Star";
+import { Toolbar } from "@mui/material";
+import { useSelector } from "react-redux";
+import { GetFeturedListingsApi } from "@/store/actions/campaign";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -21,14 +21,12 @@ import ReactPagination from "../../../src/Components/Pagination/ReactPagination.
 import { deletePropertyApi } from "@/store/actions/campaign";
 import Loader from "../../../src/Components/Loader/Loader.jsx";
 import toast from "react-hot-toast";
-import { FaCrown } from 'react-icons/fa';
-import FeatureModal from '@/Components/FeatureModal/FeatureModal.jsx';
-import { translate } from '@/utils/index.js';
-import { languageData } from '@/store/reducer/languageSlice.js';
-import Swal from 'sweetalert2';
-import Image from 'next/image'
-
-
+import { FaCrown } from "react-icons/fa";
+import FeatureModal from "@/Components/FeatureModal/FeatureModal.jsx";
+import { translate } from "@/utils/index.js";
+import { languageData } from "@/store/reducer/languageSlice.js";
+import Swal from "sweetalert2";
+import Image from "next/image";
 
 const index = () => {
     const router = useRouter();
@@ -37,47 +35,41 @@ const index = () => {
     const [total, setTotal] = useState(0);
     const [view, setView] = useState(0);
     const [offsetdata, setOffsetdata] = useState(0);
-    const [scroll, setScroll] = useState(0);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [propertyIdToDelete, setPropertyIdToDelete] = useState(null);
     const [propertyId, setPropertyId] = useState(null);
     const [isFeatureModalVisible, setIsFeatureModalVisible] = useState(false);
 
-    const SettingsData = useSelector(settingsData)
+    const SettingsData = useSelector(settingsData);
 
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
+    const lang = useSelector(languageData);
 
-
-    const lang = useSelector(languageData)
-    // console.log("languageData",lang)
-    // useSelector(languageData)  
-    useEffect(() => {
-      // console.log("render")
-    }, [lang]);
+    useEffect(() => {}, [lang]);
 
     const handleClickEdit = (propertyId) => {
         router.push(`/user/edit-property?id=${propertyId}`);
     };
     const handleClickDelete = (propertyId) => {
-        if(SettingsData.demo_mode) {
+        if (!SettingsData.demo_mode) {
             Swal.fire({
-                title: 'Opps !',
+                title: "Opps !",
                 text: "This Action is Not Allowed in Demo Mode",
-                icon: 'warning',
+                icon: "warning",
                 showCancelButton: false,
-                confirmButtonColor: '#087c7c',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'OK'
-            })
-            return false
+                confirmButtonColor: primaryColor, // Use the primary color from CSS
+                cancelButtonColor: "#d33",
+                confirmButtonText: "OK",
+            });
+            return false;
         }
-        setPropertyIdToDelete(propertyId)
-        setIsLoading(true)
+        setPropertyIdToDelete(propertyId);
+        setIsLoading(true);
         deletePropertyApi(
             propertyId,
             (response) => {
-                // console.log(response)
-                setIsLoading(true)
-                toast.success(response.message)
+                setIsLoading(true);
+                toast.success(response.message);
 
                 GetFeturedListingsApi(
                     "",
@@ -103,7 +95,6 @@ const index = () => {
                         setTotal(response.total);
                         setView(response.total_clicks);
                         const FeaturedListingData = response.data;
-                        // console.log(FeaturedListingData)
                         setIsLoading(false);
                         setGetFeaturedListing(FeaturedListingData);
                     },
@@ -112,30 +103,26 @@ const index = () => {
                         console.log(error);
                     }
                 );
-                
             },
             (error) => {
-                setIsLoading(false)
-                toast.error(error)
-            })
-        // router.push(`/user/edit-property?id=${propertyId}`);
+                setIsLoading(false);
+                toast.error(error);
+            }
+        );
     };
 
     const handleFeatureClick = (propertyId) => {
-        setPropertyId(propertyId)
+        setPropertyId(propertyId);
         setIsFeatureModalVisible(true);
     };
-    // console.log("offset data", offsetdata)
+
     const limit = 8;
 
     const priceSymbol = useSelector(settingsData);
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    const userData = isLoggedIn && isLoggedIn?.data?.data?.name
-    // console.log(userData)
-
-    // const pageCount = Math.ceil(total / limit); // Calculate the page count
+    const userData = isLoggedIn && isLoggedIn?.data?.data?.name;
 
     useEffect(() => {
         setIsLoading(true);
@@ -163,7 +150,6 @@ const index = () => {
                 setTotal(response.total);
                 setView(response.total_clicks);
                 const FeaturedListingData = response.data;
-                // console.log(FeaturedListingData)
                 setIsLoading(false);
                 setGetFeaturedListing(FeaturedListingData);
             },
@@ -174,52 +160,37 @@ const index = () => {
         );
     }, [offsetdata, isLoggedIn, propertyIdToDelete]);
 
-
-    useEffect(() => {
-
-    }, [propertyId])
+    useEffect(() => {}, [propertyId, propertyIdToDelete]);
 
     const handlePageChange = (selectedPage) => {
-
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
         window.scrollTo(0, 0);
-        // console.log("new offset", newOffset)
-        // console.log("limit", limit)
     };
 
-
-
-
-
     return (
-
-
         <VerticleLayout>
             <div className="container">
-                <div className="row" id='dashboard_top_card'>
+                <div className="row" id="dashboard_top_card">
                     <div className="col-12">
-                        <div className="row" id='dashboard_top_card'>
+                        <div className="row" id="dashboard_top_card">
                             <div className="col-12 col-md-12 col-lg-4">
-                                <div className="card" id='dashboard_card'>
-                                    {/* <Image loading="lazy" src={DashBoardImg.src} className="card-img" alt="..." id='dashboard_img' /> */}
-
-                                    <div id='dashboard_user'>
+                                <div className="card" id="dashboard_card">
+                                    <div id="dashboard_user">
                                         <div>
-                                            <span className="dashboard_user_title">{translate("hy")} {""} {userData}</span>
+                                            <span className="dashboard_user_title">
+                                                {translate("hy")} {""} {userData}
+                                            </span>
                                             <p className="card-text">{translate("manageYourProfile")}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-12 col-md-12 col-lg-4">
-                                <div className="card" id='dashboard_total_prop_card'>
+                                <div className="card" id="dashboard_total_prop_card">
                                     <div className="totalprop">
                                         <span>{translate("totalProperty")}</span>
-                                        {total > 0 ? (
-                                            <h4>{total}</h4>
-                                        ) :
-                                            <h4>0</h4>}
+                                        {total > 0 ? <h4>{total}</h4> : <h4>0</h4>}
                                     </div>
                                     <div className="total_prop_icon">
                                         <span>
@@ -229,12 +200,10 @@ const index = () => {
                                 </div>
                             </div>
                             <div className="col-12 col-md-12 col-lg-4">
-                                <div className="card" id='dashboard_total_prop_card'>
+                                <div className="card" id="dashboard_total_prop_card">
                                     <div className="totalprop">
                                         <span>{translate("totalViews")}</span>
-                                        {view > 0 ? (
-                                            <h4>{view}</h4>
-                                        ) : <h4>0</h4>}
+                                        {view > 0 ? <h4>{view}</h4> : <h4>0</h4>}
                                     </div>
                                     <div className="total_prop_icon">
                                         <span>
@@ -246,7 +215,6 @@ const index = () => {
                         </div>
                     </div>
                     <div className="col-12">
-
                         <div className="table_content card bg-white">
                             <TableContainer
                                 component={Paper}
@@ -264,19 +232,19 @@ const index = () => {
                                         <TableRow>
                                             <TableCell sx={{ fontWeight: "600" }}>{translate("listingTitle")}</TableCell>
                                             <TableCell sx={{ fontWeight: "600" }} align="center">
-                                            {translate("category")}
+                                                {translate("category")}
                                             </TableCell>
                                             <TableCell sx={{ fontWeight: "600" }} align="center">
-                                            {translate("views")}
+                                                {translate("views")}
                                             </TableCell>
                                             <TableCell sx={{ fontWeight: "600" }} align="center">
-                                            {translate("postedOn")}
+                                                {translate("postedOn")}
                                             </TableCell>
                                             <TableCell sx={{ fontWeight: "600" }} align="center">
-                                            {translate("status")}
+                                                {translate("status")}
                                             </TableCell>
                                             <TableCell sx={{ fontWeight: "600" }} align="center">
-                                            {translate("action")}
+                                                {translate("action")}
                                             </TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -290,127 +258,93 @@ const index = () => {
                                                     </div>
                                                 </TableCell>
                                             </TableRow>
-                                        ) : (
-                                            getFeaturedListing.length > 0 ? (
-                                                getFeaturedListing.map((elem, index) => (
-                                                    <TableRow key={index}>
-                                                        <TableCell component="th" scope="row" sx={{ width: "40%" }}>
-                                                            {/* {console.log(elem.id)} */}
-                                                            <div className="card" id="listing_card">
-                                                                <div className="listing_card_img">
-                                                                    <Image loading="lazy"
-                                                                        src={elem.title_image}
-                                                                        alt=""
-                                                                        id="main_listing_img"
-                                                                        width={150} height={0}
-                                                                        style={{height:"auto"}}
-                                                                    />
-                                                                    <span className="listing_type_tag">
-                                                                        {elem.propery_type}
-                                                                    </span>
-                                                                </div>
-                                                                <div className="listing_card_body">
-                                                                    <span className="listing_prop_title">{elem.title}</span>
-                                                                    <span className="listing_prop_loc">
-                                                                        {elem.city} {elem.state} {elem.country}
-                                                                    </span>
-                                                                    <span className="listing_prop_pirce">
-                                                                        {CurrencySymbol} {elem.price}
-                                                                    </span>
-                                                                </div>
+                                        ) : getFeaturedListing.length > 0 ? (
+                                            getFeaturedListing.map((elem, index) => (
+                                                <TableRow key={index}>
+                                                    <TableCell component="th" scope="row" sx={{ width: "40%" }}>
+                                                        <div className="card" id="listing_card">
+                                                            <div className="listing_card_img">
+                                                                <Image loading="lazy" src={elem.title_image} alt="" id="main_listing_img" width={150} height={0} style={{ height: "auto" }} />
+                                                                <span className="listing_type_tag">{elem.propery_type}</span>
                                                             </div>
-                                                        </TableCell>
-                                                        <TableCell align="center">{elem.category.category}</TableCell>
-                                                        <TableCell align="center">{elem.total_view}</TableCell>
-                                                        <TableCell align="center">{elem.post_created}</TableCell>
-                                                        <TableCell align="center">
-                                                            {elem.status === 1 ? (
-                                                                <span className="active_status">{translate("active")}</span>
-                                                            ) : (
-                                                                <span className="inactive_status">{translate("inactive")}</span>
-                                                            )}
-                                                        </TableCell>
-                                                        <TableCell align="center">
-
-                                                            <Dropdown
-                                                                visible={anchorEl === index}
-                                                                onVisibleChange={(visible) => {
-                                                                    if (visible) {
-                                                                        setAnchorEl(index);
-                                                                    } else {
-                                                                        setAnchorEl(null);
-                                                                    }
-                                                                }}
-                                                                overlay={(
-                                                                    <Menu>
-                                                                        <Menu.Item key="edit" onClick={() => handleClickEdit(elem.id)}>
-                                                                            <Button
-                                                                                type="text"
-                                                                                icon={<EditOutlined />}
-                                                                            >
-                                                                               {translate("edit")}
+                                                            <div className="listing_card_body">
+                                                                <span className="listing_prop_title">{elem.title}</span>
+                                                                <span className="listing_prop_loc">
+                                                                    {elem.city} {elem.state} {elem.country}
+                                                                </span>
+                                                                <span className="listing_prop_pirce">
+                                                                    {CurrencySymbol} {elem.price}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </TableCell>
+                                                    <TableCell align="center">{elem.category.category}</TableCell>
+                                                    <TableCell align="center">{elem.total_view}</TableCell>
+                                                    <TableCell align="center">{elem.post_created}</TableCell>
+                                                    <TableCell align="center">{elem.status === 1 ? <span className="active_status">{translate("active")}</span> : <span className="inactive_status">{translate("inactive")}</span>}</TableCell>
+                                                    <TableCell align="center">
+                                                        <Dropdown
+                                                            visible={anchorEl === index}
+                                                            onVisibleChange={(visible) => {
+                                                                if (visible) {
+                                                                    setAnchorEl(index);
+                                                                } else {
+                                                                    setAnchorEl(null);
+                                                                }
+                                                            }}
+                                                            overlay={
+                                                                <Menu>
+                                                                    <Menu.Item key="edit" onClick={() => handleClickEdit(elem.id)}>
+                                                                        <Button type="text" icon={<EditOutlined />}>
+                                                                            {translate("edit")}
+                                                                        </Button>
+                                                                    </Menu.Item>
+                                                                    {elem.status === 1 ? (
+                                                                        <Menu.Item key="feature">
+                                                                            <Button type="text" icon={<FaCrown />} onClick={() => handleFeatureClick(elem.id)}>
+                                                                                {translate("feature")}
                                                                             </Button>
                                                                         </Menu.Item>
-                                                                        {elem.status === 1 ? (
-                                                                            <Menu.Item key="feature">
-                                                                                <Button
-                                                                                    type="text"
-                                                                                    icon={<FaCrown />}
-                                                                                    onClick={() => handleFeatureClick(elem.id)}
-                                                                                >
-                                                                               {translate("feature")}
-                                                                                </Button>
-
-                                                                            </Menu.Item>
-                                                                        ) : null}
-                                                                        <Menu.Item key="delete">
-                                                                            <Button
-                                                                                type="text"
-                                                                                icon={<DeleteOutlined />}
-                                                                                onClick={() => handleClickDelete(elem.id)}>
-                                                                               {translate("delete")}
-                                                                            </Button>
-                                                                        </Menu.Item>
-                                                                    </Menu>
-                                                                )}
-                                                            >
-                                                                <Button id="simple-menu"><BsThreeDotsVertical /></Button>
-                                                            </Dropdown>
-
-                                                        </TableCell>
-                                                    </TableRow>
-                                                ))
-                                            ) : (
-                                                <TableRow>
-                                                    <TableCell colSpan={6} align="center">
-                                                        <p>{translate("noDataAvailabe")}</p>
+                                                                    ) : null}
+                                                                    <Menu.Item key="delete">
+                                                                        <Button type="text" icon={<DeleteOutlined />} onClick={() => handleClickDelete(elem.id)}>
+                                                                            {translate("delete")}
+                                                                        </Button>
+                                                                    </Menu.Item>
+                                                                </Menu>
+                                                            }
+                                                        >
+                                                            <Button id="simple-menu">
+                                                                <BsThreeDotsVertical />
+                                                            </Button>
+                                                        </Dropdown>
                                                     </TableCell>
                                                 </TableRow>
-                                            )
+                                            ))
+                                        ) : (
+                                            <TableRow>
+                                                <TableCell colSpan={6} align="center">
+                                                    <p>{translate("noDataAvailabe")}</p>
+                                                </TableCell>
+                                            </TableRow>
                                         )}
                                     </TableBody>
                                 </Table>
                             </TableContainer>
 
-                            <FeatureModal show={isFeatureModalVisible}
-                                onHide={() => setIsFeatureModalVisible(false)}
-                                propertyId={propertyId}
-                            />
+                            <FeatureModal show={isFeatureModalVisible} onHide={() => setIsFeatureModalVisible(false)} propertyId={propertyId} />
 
-                         
                             {getFeaturedListing.length > 0 ? (
                                 <div className="col-12">
                                     <ReactPagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
                                 </div>
                             ) : null}
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </VerticleLayout>
-    )
-}
+    );
+};
 
-export default index
+export default index;

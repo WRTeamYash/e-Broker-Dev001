@@ -9,6 +9,7 @@ import { translate } from "@/utils";
 import { languageData } from "@/store/reducer/languageSlice";
 import Pagination from "@/Components/Pagination/ReactPagination";
 import Layout from "@/Components/Layout/Layout";
+import NoData from "@/Components/NoDataFound/NoData";
 
 const Index = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -68,6 +69,8 @@ const Index = () => {
         <Layout>
             <Breadcrumb title={translate("mostFavProp")} />
             <section id="featured_prop_section">
+            {getMostViewed?.length > 0 ? (
+
                 <div className="container">
                     <div id="feature_cards" className="row">
                         {isLoading ? (
@@ -92,6 +95,11 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
+                    ):(
+                        <div className="noDataFoundDiv">
+                        <NoData />
+                    </div>
+                    )}
             </section>
         </Layout>
     );

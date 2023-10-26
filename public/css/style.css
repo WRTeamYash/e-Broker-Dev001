@@ -22,7 +22,15 @@ body {
     max-width: 1670px !important;
   }
 }
-
+.no-data-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 38vh;
+  font-size: larger;
+  text-transform: capitalize;
+  font-weight: 600;
+}
 .skeleton_img {
   border-radius: 8px 8px 0px 0px !important;
   top: -4px;

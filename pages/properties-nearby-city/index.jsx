@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { languageData } from "@/store/reducer/languageSlice";
 import Layout from "@/Components/Layout/Layout";
 import Image from "next/image";
+import NoData from "@/Components/NoDataFound/NoData";
 
 const PropertiesNearbyCity = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -35,16 +36,19 @@ const PropertiesNearbyCity = () => {
         <Layout>
             <Breadcrumb title={translate("propNearByCities")} />
             <section id="all-nearby-citys">
-                <div className="container">
+                {getNearByCitysData?.lenth  > 0 ?
+                (
+
+                    <div className="container">
                     <div className="all-city-images row">
                         {isLoading
                             ? Array.from({ length: getNearByCitysData ? getNearByCitysData.length : 12 }).map((_, index) => (
-                                  <div className="col-sm-12 col-md-6 col-lg-3 loading_data" key={index}>
+                                <div className="col-sm-12 col-md-6 col-lg-3 loading_data" key={index}>
                                       <Skeleton width="100%" height="350px" />
                                   </div>
                               ))
                             : getNearByCitysData?.map((ele) => (
-                                  <div className="col-12 col-md-6 col-lg-3" key={ele.id}>
+                                <div className="col-12 col-md-6 col-lg-3" key={ele.id}>
                                       <Link href={`/properties/city/${ele.City}`}>
                                           <div className="card bg-dark text-white mb-3" id="nearby-city-img">
                                               <Image loading="lazy" src={ele.image} className="card-img" alt="..." id="city-img" width={200} height={200} />
@@ -62,6 +66,11 @@ const PropertiesNearbyCity = () => {
                               ))}
                     </div>
                 </div>
+                    ): (
+                        <div className="noDataFoundDiv">
+                        <NoData />
+                    </div>
+                    )}
             </section>
         </Layout>
     );

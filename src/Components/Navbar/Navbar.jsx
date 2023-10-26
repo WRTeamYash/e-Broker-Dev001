@@ -20,11 +20,14 @@ import { store } from "@/store/store";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { silderCacheData } from "@/store/reducer/momentSlice";
 
 const Nav = () => {
     const router = useRouter();
-    const signupData = useSelector(userSignUpData);
 
+    const isHomePage = router.pathname === '/';
+    const signupData = useSelector(userSignUpData);
+    const sliderdata = useSelector(silderCacheData);
     const settingData = useSelector(settingsData);
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
 
@@ -154,7 +157,7 @@ const Nav = () => {
     return (
         <>
             <header>
-                <nav className={`navbar header navbar-expand-lg navbar-light ${scroll > headerTop ? "is-sticky " : ""}`}>
+                <nav className={`navbar header navbar-expand-lg navbar-light ${scroll > headerTop || (isHomePage && (!sliderdata || sliderdata.length === 0)) ? "is-sticky" : ""}`}>
                     <div className="container">
                         <div className="left-side">
                             <Link className="navbar-brand" href="/">
@@ -252,23 +255,23 @@ const Nav = () => {
                                                     {translate("login&Regiser")}
                                                 </a>
                                             ) : // Check if mobile and firebase_id are present
-                                            signupData?.data?.data.mobile && signupData?.data?.data.firebase_id && signupData?.data?.data.name === "" ? (
-                                                <span className="nav-link">{translate("welcmGuest")}</span>
-                                            ) : // If name is present, show "Welcome, {name}"
-                                            signupData?.data?.data.name ? (
-                                                <Dropdown>
-                                                    <Dropdown.Toggle id="dropdown-basic01">
-                                                        <RiUserSmileLine size={20} className="icon01" />
-                                                        {/* <Avatar size={16} src={signupData.data.data.profile}/> */}
-                                                        {signupData.data.data.name}
-                                                    </Dropdown.Toggle>
+                                                signupData?.data?.data.mobile && signupData?.data?.data.firebase_id && signupData?.data?.data.name === "" ? (
+                                                    <span className="nav-link">{translate("welcmGuest")}</span>
+                                                ) : // If name is present, show "Welcome, {name}"
+                                                    signupData?.data?.data.name ? (
+                                                        <Dropdown>
+                                                            <Dropdown.Toggle id="dropdown-basic01">
+                                                                <RiUserSmileLine size={20} className="icon01" />
+                                                                {/* <Avatar size={16} src={signupData.data.data.profile}/> */}
+                                                                {signupData.data.data.name}
+                                                            </Dropdown.Toggle>
 
-                                                    <Dropdown.Menu id="language">
-                                                        <Dropdown.Item onClick={handleShowDashboard}>{translate("dashboard")}</Dropdown.Item>
-                                                        <Dropdown.Item onClick={handleLogout}>{translate("logout")}</Dropdown.Item>
-                                                    </Dropdown.Menu>
-                                                </Dropdown>
-                                            ) : null // Handle any other cases or conditions here
+                                                            <Dropdown.Menu id="language">
+                                                                <Dropdown.Item onClick={handleShowDashboard}>{translate("dashboard")}</Dropdown.Item>
+                                                                <Dropdown.Item onClick={handleLogout}>{translate("logout")}</Dropdown.Item>
+                                                            </Dropdown.Menu>
+                                                        </Dropdown>
+                                                    ) : null // Handle any other cases or conditions here
                                         }
                                     </li>
                                     {signupData?.data?.data.name && settingData && (
@@ -406,23 +409,23 @@ const Nav = () => {
                                                 {translate("login&Regiser")}
                                             </a>
                                         ) : // Check if mobile and firebase_id are present
-                                        signupData?.data?.data.mobile && signupData?.data?.data.firebase_id && signupData?.data?.data.name === "" ? (
-                                            <span className="nav-link">{translate("welcmGuest")}</span>
-                                        ) : // If name is present, show "Welcome, {name}"
-                                        signupData?.data?.data.name ? (
-                                            <Dropdown>
-                                                <Dropdown.Toggle id="dropdown-basic01">
-                                                    <RiUserSmileLine size={20} className="icon01" />
-                                                    {/* <Avatar size={16} src={signupData.data.data.profile}/> */}
-                                                    {signupData.data.data.name}
-                                                </Dropdown.Toggle>
+                                            signupData?.data?.data.mobile && signupData?.data?.data.firebase_id && signupData?.data?.data.name === "" ? (
+                                                <span className="nav-link">{translate("welcmGuest")}</span>
+                                            ) : // If name is present, show "Welcome, {name}"
+                                                signupData?.data?.data.name ? (
+                                                    <Dropdown>
+                                                        <Dropdown.Toggle id="dropdown-basic01">
+                                                            <RiUserSmileLine size={20} className="icon01" />
+                                                            {/* <Avatar size={16} src={signupData.data.data.profile}/> */}
+                                                            {signupData.data.data.name}
+                                                        </Dropdown.Toggle>
 
-                                                <Dropdown.Menu id="language">
-                                                    <Dropdown.Item onClick={handleShowDashboard}>{translate("dashboard")}</Dropdown.Item>
-                                                    <Dropdown.Item onClick={handleLogout}>{translate("logout")}</Dropdown.Item>
-                                                </Dropdown.Menu>
-                                            </Dropdown>
-                                        ) : null // Handle any other cases or conditions here
+                                                        <Dropdown.Menu id="language">
+                                                            <Dropdown.Item onClick={handleShowDashboard}>{translate("dashboard")}</Dropdown.Item>
+                                                            <Dropdown.Item onClick={handleLogout}>{translate("logout")}</Dropdown.Item>
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
+                                                ) : null // Handle any other cases or conditions here
                                     }
                                 </li>
                                 {signupData?.data?.data.name && settingData && (

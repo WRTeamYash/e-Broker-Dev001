@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { translate } from "@/utils";
 import { languageData } from "@/store/reducer/languageSlice";
 import Layout from "@/Components/Layout/Layout";
+import NoData from "@/Components/NoDataFound/NoData";
 
 const Index = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +24,7 @@ const Index = () => {
 
     const lang = useSelector(languageData);
 
-    useEffect(() => {}, [lang]);
+    useEffect(() => { }, [lang]);
     useEffect(() => {
         setIsLoading(true);
         GetFeturedListingsApi(
@@ -68,31 +69,40 @@ const Index = () => {
     return (
         <Layout>
             <Breadcrumb title={translate("mostViewedProp")} />
+
+
             <section id="featured_prop_section">
-                <div className="container">
-                    <div id="feature_cards" className="row">
-                        {isLoading ? (
-                            Array.from({ length: 8 }).map((_, index) => (
-                                <div className="col-sm-12 col-md-6 col-lg-3 loading_data" key={index}>
-                                    <VerticalCardSkeleton />
-                                </div>
-                            ))
-                        ) : (
-                            <>
-                                {getMostViewed.map((ele, index) => (
-                                    <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
-                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
-                                            <VerticalCard ele={ele} />
-                                        </Link>
+                {getMostViewed.length > 0 ? (
+                    <div className="container">
+                        <div id="feature_cards" className="row">
+                            {isLoading ? (
+                                Array.from({ length: 8 }).map((_, index) => (
+                                    <div className="col-sm-12 col-md-6 col-lg-3 loading_data" key={index}>
+                                        <VerticalCardSkeleton />
                                     </div>
-                                ))}
-                            </>
-                        )}
-                        <div className="col-12">
-                            <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                                ))
+                            ) : (
+                                <>
+                                    {getMostViewed.map((ele, index) => (
+                                        <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
+                                            <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
+                                                <VerticalCard ele={ele} />
+                                            </Link>
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+                            <div className="col-12">
+                                <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                            </div>
                         </div>
                     </div>
-                </div>
+                )
+                    : (
+                        <div className="noDataFoundDiv">
+                            <NoData />
+                        </div>
+                    )}
             </section>
         </Layout>
     );

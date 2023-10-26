@@ -24,7 +24,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import AdminHeader from "./AdminHeader.jsx";
 import AdminFooter from "./AdminFooter.jsx";
-import ebroker from "../../assets/eBrokerLogo.svg";
+import ebroker from "@/assets/Logo_Color.png";
 import Link from "next/link";
 import TagFacesOutlinedIcon from "@mui/icons-material/TagFacesOutlined";
 import { translate } from "@/utils/index.js";

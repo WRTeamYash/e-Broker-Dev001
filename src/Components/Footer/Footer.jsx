@@ -1,5 +1,5 @@
 import React from "react";
-import eBroker from "@/assets/eBrokerLogo.svg";
+import eBroker from "@/assets/Logo_Color.png";
 import { FiMail, FiPhone } from "react-icons/fi";
 import { AiOutlineInstagram, AiOutlineLinkedin } from "react-icons/ai";
 import { CiFacebook } from "react-icons/ci";
@@ -9,7 +9,6 @@ import appstore from "../../assets/appStore.png";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { settingsData } from "@/store/reducer/settingsSlice";
-import { languageLoaded } from "@/store/reducer/languageSlice";
 import { translate } from "@/utils";
 
 import Image from "next/image";
@@ -17,6 +16,7 @@ import Image from "next/image";
 const Footer = () => {
     const systemData = useSelector(settingsData);
     const webdata = systemData && systemData;
+  
     return (
         <section id="footer">
             <div className="container">
@@ -30,10 +30,7 @@ const Footer = () => {
                                     alt="eBroker_logo"
                                     width={0}
                                     height={0}
-                                    style={{
-                                        width: "182px",
-                                        height: "60px",
-                                    }}
+                                    className="footer_logo"
                                 />
                             </Link>
                             <div className="footer_contact_us">

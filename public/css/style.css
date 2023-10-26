@@ -2477,6 +2477,11 @@ div#article_card_footer .article_footer_text p {
   flex-direction: column;
   gap: 40px;
 }
+.footer_logo{
+  width: 182px;
+  height: 60px;
+  filter: brightness(0) invert(1);
+ }
 #footer_deatils {
   gap: 20px 0;
 }
@@ -5219,6 +5224,7 @@ a {
   height: 80px;
   aspect-ratio: 1/1;
   cursor: pointer;
+  filter: brightness(0) invert(1);
 }
 
 .admindash_footer {
@@ -5308,7 +5314,7 @@ a {
   border-radius: 8px;
 }
 #dashboard_card {
-  background: rgb(8, 124, 124) url("../../src/assets/Dashboard Image.jpg")
+  background: rgb(8, 124, 124) url("/dashboard_img.jpg")
     no-repeat padding-box;
   min-width: 100%;
   object-fit: cover;

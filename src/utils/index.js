@@ -4,7 +4,7 @@ import { store } from '@/store/store';
 import localeTranslations from './locale/en.json';
 import { useJsApiLoader } from '@react-google-maps/api';
 
-
+// transalte strings 
 export const translate = (label) => {
   const langLabel = store.getState().Language.languages.file_name &&
     store.getState().Language.languages.file_name[label];

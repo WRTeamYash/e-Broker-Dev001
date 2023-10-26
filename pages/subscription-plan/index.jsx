@@ -26,7 +26,7 @@ import "swiper/css/pagination";
 import Swal from "sweetalert2";
 import NoData from "@/Components/NoDataFound/NoData";
 
-const stripePromise = loadStripe("pk_test_51NGEmlSBiyKa2nec2uv9isXE4rDCEokyLmr9C4EXGN1X4W6J0quzwlr3r5SGZJPHUhnhkGC4zVNsTGn7QqtuRJZv008Ri1ccay");
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_LOAD_KEY);
 
 const { Option } = Select;
 
@@ -76,7 +76,7 @@ const page = () => {
     const lang = useSelector(languageData);
     // useSelector(languageData)
     useEffect(() => {
-        // console.log("render")
+       
     }, [lang]);
 
     const handleCountryCodeChange = (value) => {

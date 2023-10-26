@@ -115,6 +115,8 @@ const HomePage = () => {
     // GET FEATURED LISTINGS and
 
     useEffect(() => {
+        setIsLoading(true);
+
         GetFeturedListingsApi(
             "1",
             "",
@@ -150,6 +152,8 @@ const HomePage = () => {
     // GET MOST VIEWED PROPERTIES
 
     useEffect(() => {
+        setIsLoading(true);
+
         GetFeturedListingsApi(
             "",
             "2",
@@ -185,6 +189,8 @@ const HomePage = () => {
     // GET MOST Fav PROPERTIES
 
     useEffect(() => {
+        setIsLoading(true);
+
         GetFeturedListingsApi(
             "",
             "",
@@ -220,6 +226,8 @@ const HomePage = () => {
     // GET ARTICLES
 
     useEffect(() => {
+        setIsLoading(true);
+
         GetAllArticlesApi(
             "",
             "",
@@ -238,6 +246,8 @@ const HomePage = () => {
     // GET_COUNT_BY_CITIES_CATEGORIS
 
     useEffect(() => {
+        setIsLoading(true);
+
         GetCountByCitysCategorisApi(
             (response) => {
                 const cityData = response.city_data;

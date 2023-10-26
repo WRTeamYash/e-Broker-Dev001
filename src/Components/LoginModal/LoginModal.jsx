@@ -11,16 +11,25 @@ const LoginModal = ({ isOpen, onClose }) => {
     const [showOtpModal, setShowOtpModal] = useState(false);
     const [phonenum, setPhonenum] = useState("");
     const [value, setValue] = useState();
+    
     const onSignUp = (e) => {
         e.preventDefault();
-        if (value === undefined) {
-            toast.error("Please enter phone number!");
+        if (!value) {
+            toast.error("Please enter a phone number!");
         } else {
-            setPhonenum(value);
-            onClose();
-            setShowOtpModal(true);
+            const phoneRegex = /^\+[1-9]\d{1,14}$/; // Regular expression to match valid phone numbers with country code
+
+            if (phoneRegex.test(value)) {
+                // Phone number is valid, proceed to OTP modal
+                setPhonenum(value);
+                onClose();
+                setShowOtpModal(true);
+            } else {
+                toast.error("Please enter a valid phone number");
+            }
         }
     };
+
     const handlOTPModalClose = () => {
         setShowOtpModal(false);
     };

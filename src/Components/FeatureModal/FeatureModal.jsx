@@ -28,7 +28,6 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
     const handleImageUpload = (acceptedFiles) => {
         // Append the uploaded files to the uploadedImages state
         setUploadedImages((prevImages) => [...prevImages, ...acceptedFiles]);
-        console.log(uploadedImages);
     };
     useEffect(() => {}, [uploadedImages]);
     const handleFeature = () => {

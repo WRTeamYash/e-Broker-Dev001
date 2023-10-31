@@ -6,7 +6,7 @@ import { Button, Form, Input, Select } from "antd";
 import { BiSolidCheckCircle } from "react-icons/bi";
 import { languageData } from "@/store/reducer/languageSlice";
 import { useSelector } from "react-redux";
-import { isLogin, translate } from "@/utils";
+import { isLogin, loadStripeApiKey, translate } from "@/utils";
 import Layout from "@/Components/Layout/Layout";
 import { store } from "@/store/store";
 import { createPaymentIntentApi, getPackagesApi, getPaymentSettingsApi } from "@/store/actions/campaign";
@@ -26,7 +26,9 @@ import "swiper/css/pagination";
 import Swal from "sweetalert2";
 import NoData from "@/Components/NoDataFound/NoData";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_LOAD_KEY);
+
+const stripeLoadKey = loadStripeApiKey()
+const stripePromise = loadStripe(stripeLoadKey);
 
 const { Option } = Select;
 
@@ -59,7 +61,6 @@ const page = () => {
         packageid: "",
     });
 
-    //   console.log(stripeForm)
 
     const [stripeformModal, setStripeFormModal] = useState(false);
 
@@ -76,7 +77,7 @@ const page = () => {
     const lang = useSelector(languageData);
     // useSelector(languageData)
     useEffect(() => {
-       
+
     }, [lang]);
 
     const handleCountryCodeChange = (value) => {
@@ -260,10 +261,27 @@ const page = () => {
                         >
                             {loading ? (
                                 <>
-                                    {Array.from({ length: 4 }).map((_, index) => (
-                                        <div className="col-lg-3 col-md-6 col-12 main_box" key={index}>
-                                            <PackageCard />
-                                        </div>
+                                    {Array.from({ length: 6 }).map((_, index) => (
+                                        <Swiper
+                                            dir={language.rtl === "1" ? "rtl" : "ltr"}
+                                            slidesPerView={4}
+                                            // loop={true}
+                                            spaceBetween={30}
+                                            freeMode={true}
+                                            pagination={{
+                                                clickable: true,
+                                            }}
+                                            modules={[FreeMode, Pagination]}
+                                            className="subscription-swiper"
+                                            breakpoints={breakpoints}
+                                        >
+                                            <SwiperSlide key={index}>
+
+                                                <div className="col-lg-3 col-md-6 col-12 main_box" key={index}>
+                                                    <PackageCard />
+                                                </div>
+                                            </SwiperSlide>
+                                        </Swiper>
                                     ))}
                                 </>
                             ) : (
@@ -286,13 +304,13 @@ const page = () => {
                                                                 <span>
                                                                     <BiSolidCheckCircle size={20} />{" "}
                                                                 </span>
-                                                                <span> Advertisement limit is : {elem.advertisement_limit} </span>
+                                                                <span> Advertisement limit is : {elem.advertisement_limit === 0 || elem.advertisement_limit === null ? "Unlimited" : elem.advertisement_limit} </span>
                                                             </span>
                                                             <span className="limits_content">
                                                                 <span>
                                                                     <BiSolidCheckCircle size={20} />{" "}
                                                                 </span>
-                                                                <span> Property limit is : {elem.property_limit}</span>
+                                                                <span> Property limit is : {elem.property_limit === 0 || elem.property_limit === null ? "Unlimited" : elem.property_limit}</span>
                                                             </span>
                                                             <span className="limits_content">
                                                                 <span>

@@ -31,7 +31,6 @@ export const authSlice = createSlice({
             user_signup.data = action.payload;
         },
         userUpdateData: (user_signup, action) => {
-            console.log("updated action", action);
             user_signup.data.data = action.payload.data;
         },
         userLogout: (user_signup) => {

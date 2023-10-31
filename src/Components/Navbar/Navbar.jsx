@@ -45,10 +45,10 @@ const Nav = () => {
     useEffect(() => {
         if (language && language.rtl === 1) {
             document.documentElement.dir = "rtl";
-            // console.log(document.documentElement.dir)
+            
         } else {
             document.documentElement.dir = "ltr";
-            // console.log(document.documentElement.dir)
+            
         }
     }, [language]);
 
@@ -61,15 +61,12 @@ const Nav = () => {
         };
     }, []);
     const handleLanguageChange = (languageCode) => {
-        // console.log(languageCode); // Log the updated languageCode directly
 
         languageLoaded(
             languageCode,
             "1",
             (response) => {
-                // console.log(response)
                 const currentLang = response && response.data.name;
-                // console.log(currentLang)
                 setSelectedLanguage(currentLang);
             },
             (error) => {
@@ -430,7 +427,7 @@ const Nav = () => {
                                 </li>
                                 {signupData?.data?.data.name && settingData && (
                                     <li className="nav-item">
-                                        <button className="btn" id="addbutton-mobile">
+                                        <button className="btn" id="addbutton-mobile" onClick={handleAddProperty}>
                                             <FiPlusCircle size={20} className="mx-2 add-nav-button" />
                                             {translate("addProp")}
                                         </button>

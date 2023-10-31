@@ -29,17 +29,23 @@ const PropertieDeatils = () => {
 
     const { isLoaded } = loadGoogleMaps();
 
-    
+
     const [isLoading, setIsLoading] = useState(true);
     const [expanded, setExpanded] = useState(false);
     const [getPropData, setPropData] = useState();
     const [interested, setInterested] = useState(false);
+    const [showMap, setShowMap] = useState(false);
+    const [viewerIsOpen, setViewerIsOpen] = useState(false);
+    const [currentImage, setCurrentImage] = useState(0);
+    const [play, setPlay] = useState(false);
+    const [imageURL, setImageURL] = useState("");
+
 
     const lang = useSelector(languageData);
-
-    useEffect(() => {}, [lang]);
     const isLoggedIn = useSelector((state) => state.User_signup);
-    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+    const DummyImgData = useSelector(settingsData);
+
+    useEffect(() => { }, [lang]);
 
     useEffect(() => {
         setIsLoading(true);
@@ -65,9 +71,9 @@ const PropertieDeatils = () => {
             "",
             (response) => {
                 const propertyData = response && response.data;
-
                 setIsLoading(false);
                 setPropData(propertyData[0]);
+                // console.log(getPropData)
             },
             (error) => {
                 setIsLoading(false);
@@ -76,7 +82,7 @@ const PropertieDeatils = () => {
         );
     }, [isLoggedIn, propId, interested]);
 
-    const [imageURL, setImageURL] = useState("");
+
 
     useEffect(() => {
         if (getPropData && getPropData.threeD_image) {
@@ -84,40 +90,52 @@ const PropertieDeatils = () => {
         }
     }, [getPropData]);
 
-    const DummyImgData = useSelector(settingsData);
-    const PlaceHolderImg = DummyImgData?.img_placeholder;
 
     useEffect(() => {
-        if (imageURL && imageURL) {
-            pannellum?.viewer("panorama", {
-                type: "equirectangular",
-                panorama: imageURL && imageURL,
-                autoLoad: true,
-            });
+        if (imageURL) {
+            const panoramaElement = document.getElementById("panorama");
+
+            if (panoramaElement) {
+                pannellum?.viewer("panorama", {
+                    type: "equirectangular",
+                    panorama: imageURL,
+                    autoLoad: true,
+                });
+            }
         }
     }, [imageURL]);
 
-    const [play, setPlay] = useState(false);
 
+    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+    const PlaceHolderImg = DummyImgData?.img_placeholder;
     const videoLink = getPropData && getPropData.video_link;
     const videoId = videoLink ? videoLink.split("/").pop() : null;
 
     const backgroundImageUrl = videoId ? `url(https://img.youtube.com/vi/${videoId}/maxresdefault.jpg)` : PlaceHolderImg;
 
     const galleryPhotos = getPropData && getPropData.gallery;
-    const [viewerIsOpen, setViewerIsOpen] = useState(false);
-    const [currentImage, setCurrentImage] = useState(0);
 
-    const openLightbox = (event, { index }) => {
+    const openLightbox = (index) => {
         setCurrentImage(index);
         setViewerIsOpen(true);
     };
+
+
 
     const closeLightbox = () => {
         setCurrentImage(0);
         setViewerIsOpen(false);
     };
 
+    const handleShowMap = () => {
+        setShowMap(true);
+    }
+    useEffect(() => {
+
+        return () => {
+            setShowMap(false);
+        };
+    }, [propId]);
 
     const handleInterested = (e) => {
         e.preventDefault();
@@ -181,15 +199,35 @@ const PropertieDeatils = () => {
                                     <div className="row" id="prop-images">
                                         {galleryPhotos.length === 1 ? (
                                             <div className="col-12" id="prop-main-image01">
-                                                <Image loading="lazy" src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="one-img" alt="Main Image" width={200} height={200} />
+                                                <Image
+                                                    loading="lazy"
+                                                    src={galleryPhotos[0]?.image_url || PlaceHolderImg}
+                                                    className="one-img"
+                                                    alt="Main Image"
+                                                    width={200}
+                                                    height={200}
+                                                    onClick={() => openLightbox(0)} />
                                             </div>
                                         ) : galleryPhotos.length === 2 ? (
                                             <>
                                                 <div className="col-sm-12 col-md-6" id="prop-main-image">
-                                                    <Image loading="lazy" src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="two-img01" alt="Main Image" width={200} height={200} />
+                                                    <Image
+                                                        loading="lazy"
+                                                        src={galleryPhotos[0]?.image_url || PlaceHolderImg}
+                                                        className="two-img01"
+                                                        alt="Main Image" width={200}
+                                                        height={200}
+                                                        onClick={() => openLightbox(0)} />
                                                 </div>
                                                 <div className="col-sm-12 col-md-6" id="prop-main-image">
-                                                    <Image loading="lazy" src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="two-img02" alt="Main Image" width={200} height={200} />
+                                                    <Image
+                                                        loading="lazy"
+                                                        src={galleryPhotos[1]?.image_url || PlaceHolderImg}
+                                                        className="two-img02"
+                                                        alt="Main Image"
+                                                        width={200}
+                                                        height={200}
+                                                        onClick={() => openLightbox(1)} />
                                                     <div className="see_all02">
                                                         <button onClick={(e) => openLightbox(e, { index: 0 })}>{translate("seeAllPhotos")}</button>
                                                     </div>
@@ -198,16 +236,42 @@ const PropertieDeatils = () => {
                                         ) : (
                                             <>
                                                 <div className="col-lg-4 col-sm-12" id="prop-left-images">
-                                                    <Image loading="lazy" src={galleryPhotos[1]?.image_url || PlaceHolderImg} className="left-imgs01" alt="Image 1" width={200} height={200} />
-                                                    <Image loading="lazy" src={galleryPhotos[2]?.image_url || PlaceHolderImg} className="left-imgs02" alt="Image 2" width={200} height={200} />
+                                                    <Image
+                                                        loading="lazy"
+                                                        src={galleryPhotos[1]?.image_url || PlaceHolderImg}
+                                                        className="left-imgs01"
+                                                        alt="Image 1"
+                                                        width={200}
+                                                        height={200}
+                                                        onClick={() => openLightbox(1)}
+                                                    />
+                                                    <Image
+                                                        loading="lazy"
+                                                        src={galleryPhotos[2]?.image_url || PlaceHolderImg}
+                                                        className="left-imgs02"
+                                                        alt="Image 2"
+                                                        width={200}
+                                                        height={200}
+                                                        onClick={() => openLightbox(2)}
+                                                    />
                                                 </div>
                                                 <div className="col-lg-8 col-sm-12 text-center" id="prop-main-image">
-                                                    <Image loading="lazy" src={galleryPhotos[0]?.image_url || PlaceHolderImg} className="middle-img" alt="Main Image" width={200} height={200} />
+                                                    <Image
+                                                        loading="lazy"
+                                                        src={galleryPhotos[0]?.image_url || PlaceHolderImg}
+                                                        className="middle-img"
+                                                        alt="Main Image"
+                                                        width={200}
+                                                        height={200}
+                                                        onClick={() => openLightbox(0)}
+                                                    />
                                                     <div className="see_all">
-                                                        <button onClick={(e) => openLightbox(e, { index: 0 })}>{translate("seeAllPhotos")}</button>
+                                                        <button onClick={() => openLightbox(0)}>{translate("seeAllPhotos")}</button>
+
                                                     </div>
                                                 </div>
                                             </>
+
                                         )}
                                     </div>
                                 ) : null}
@@ -271,6 +335,47 @@ const PropertieDeatils = () => {
                                                 </div>
                                             </div>
                                         ) : null}
+                                        {getPropData && getPropData.assign_facilities.length > 0 && getPropData.assign_facilities.some((elem) => elem.distance !== null && elem.distance !== "" && elem.distance !== 0) ? (
+                                            <div className="card " id="features-amenities">
+                                                <div className="card-header">{translate("OTF")}</div>
+                                                <div className="card-body">
+                                                    <div className="row">
+                                                        {getPropData &&
+                                                            getPropData.assign_facilities.map((elem, index) =>
+                                                                // Check if the value is an empty string
+                                                                elem.distance !== "" && elem.distance !== 0 ? (
+                                                                    <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
+                                                                        <div id="specification">
+                                                                            <div className="spec-icon">
+                                                                                <Image
+                                                                                    loading="lazy"
+                                                                                    src={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg}
+                                                                                    width={20}
+                                                                                    height={16}
+                                                                                    onError={(e) => {
+                                                                                        e.target.src = PlaceHolderImg; // Set the source to the placeholder image on error
+                                                                                    }}
+                                                                                />
+                                                                            </div>
+
+                                                                            <div id="specs-deatils">
+                                                                                <div>
+                                                                                    <span>{elem.name}</span>
+                                                                                </div>
+                                                                                <div className="valueDiv">
+
+                                                                                    <span id="spacs-count">{elem.distance} {""} {translate("km")}   </span>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : null
+                                                            )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ) : null}
                                         {getPropData && getPropData.latitude && getPropData.longitude ? (
                                             <div className="card" id="propertie_address">
                                                 <div className="card-header">{translate("address")}</div>
@@ -307,15 +412,22 @@ const PropertieDeatils = () => {
                                                         </div>
                                                     </div>
                                                     {getPropData ? (
-                                                        <Card className="google_map">
-                                                            {isLoaded ? (
-                                                                <Map latitude={getPropData.latitude} longitude={getPropData.longitude}  />
+                                                        <div className="card google_map">
+                                                            {showMap ? (
+                                                                <Map latitude={getPropData.latitude} longitude={getPropData.longitude} />
                                                             ) : (
-                                                                <div>
-                                                                    <Skeleton height={200} width={"100%"} />
-                                                                </div>
+                                                                <>
+                                                                    <div className="blur-background" />
+                                                                    <div className="blur-container">
+                                                                        <div className="view-map-button-div">
+                                                                            <button onClick={handleShowMap} id="view-map-button">
+                                                                                View Map
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </>
                                                             )}
-                                                        </Card>
+                                                        </div>
                                                     ) : null}
                                                 </div>
                                             </div>
@@ -338,7 +450,7 @@ const PropertieDeatils = () => {
                                                             <div id="video-play-button">
                                                                 <button
                                                                     onClick={() => setPlay(true)}
-                                                                    // href="https://youtu.be/y9j-BL5ocW8" target='_blank'
+                                                                // href="https://youtu.be/y9j-BL5ocW8" target='_blank'
                                                                 >
                                                                     <PiPlayCircleThin className="button-icon" size={80} />
                                                                 </button>

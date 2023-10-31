@@ -22,7 +22,6 @@ const page = () => {
             // Simulate fetched data (replace with actual data fetching)
             const simulatedData = AboutUsData;
             setAboutData(simulatedData);
-            // console.log(simulatedData)
             setIsLoading(false);
         }, 2000);
     }, []);

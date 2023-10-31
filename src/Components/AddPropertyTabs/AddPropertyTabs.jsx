@@ -85,9 +85,7 @@ export default function AddPropertyTabs() {
     useEffect(() => {
         GetFacilitiesApi(
             (response) => {
-                // console.log(response)
                 const facilitiyData = response && response.data;
-                // console.log(facilitiyData)
                 setGetFacilities(facilitiyData);
             },
             (error) => {
@@ -190,7 +188,7 @@ export default function AddPropertyTabs() {
         }));
     };
 
-    useEffect(() => {}, [tab1, tab2, tab3, selectedLocationAddress, tab5]);
+    useEffect(() => { }, [tab1, tab2, tab3, selectedLocationAddress, tab5]);
 
     const updateFileInput = (fieldId) => (e) => {
         const fileInput = e.target;
@@ -228,32 +226,37 @@ export default function AddPropertyTabs() {
     const onDrop = useCallback((acceptedFiles) => {
         // Log the acceptedFiles to check if they are being received correctly
 
+        // const imgfile = acceptedFiles[0]
+        
         // Append the uploaded files to the uploadedImages state
         setUploadedImages((prevImages) => [...prevImages, ...acceptedFiles]);
         setTab5((prevState) => ({
             ...prevState,
             titleImage: acceptedFiles,
         }));
-    }, []);
+    }, [])
+
+
 
     const removeImage = (index) => {
         // Remove an image from the uploadedImages state by index
         setUploadedImages((prevImages) => prevImages.filter((_, i) => i !== index));
     };
 
+
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
-        accept: "image/*", // Accept only image files
+        accept: 'image/*', // Accept only image files
     });
 
     const files = useMemo(
         () =>
             uploadedImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
+                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeImage(index)}>
-                            <CloseIcon fontSize="25px" />
+                            <CloseIcon fontSize='25px' />
                         </button>
                         <div className="dropbox_img_deatils">
                             <span>{file.name}</span>
@@ -266,7 +269,7 @@ export default function AddPropertyTabs() {
     );
     const onDrop3D = useCallback((acceptedFiles) => {
         // Log the acceptedFiles to check if they are being received correctly
-        console.log("Accepted 3D Files:", acceptedFiles[0]);
+       
 
         // Append the uploaded 3D files to the uploaded3DImages state
         setUploaded3DImages((prevImages) => [...prevImages, ...acceptedFiles]);
@@ -283,16 +286,16 @@ export default function AddPropertyTabs() {
 
     const { getRootProps: getRootProps3D, getInputProps: getInputProps3D, isDragActive: isDragActive3D } = useDropzone({
         onDrop: onDrop3D,
-        accept: "model/*", // Accept only 3D model files (update the accept type as needed)
+        accept: 'model/*', // Accept only 3D model files (update the accept type as needed)
     });
     const files3D = useMemo(
         () =>
             uploaded3DImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
+                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => remove3DImage(index)}>
-                            <CloseIcon fontSize="25px" />
+                            <CloseIcon fontSize='25px' />
                         </button>
                         <div className="dropbox_img_deatils">
                             <span>{file.name}</span>
@@ -306,6 +309,7 @@ export default function AddPropertyTabs() {
 
     const onDropGallery = useCallback((acceptedFiles) => {
         // Log the acceptedFiles to check if they are being received correctly
+       
 
         // Append the uploaded gallery files to the galleryImages state
         setGalleryImages((prevImages) => [...prevImages, ...acceptedFiles]);
@@ -322,7 +326,7 @@ export default function AddPropertyTabs() {
 
     const { getRootProps: getRootPropsGallery, getInputProps: getInputPropsGallery, isDragActive: isDragActiveGallery } = useDropzone({
         onDrop: onDropGallery,
-        accept: "image/*", // Accept only image files for the gallery
+        accept: 'image/*', // Accept only image files for the gallery
         multiple: true, // Allow multiple file selection
     });
 
@@ -330,10 +334,10 @@ export default function AddPropertyTabs() {
         () =>
             galleryImages.map((file, index) => (
                 <div key={index} className="dropbox_gallary_img_div">
-                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
+                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeGalleryImage(index)}>
-                            <CloseIcon fontSize="25px" />
+                            <CloseIcon fontSize='25px' />
                         </button>
                         <div className="dropbox_img_deatils">
                             <span>{file.name}</span>
@@ -385,7 +389,7 @@ export default function AddPropertyTabs() {
         } else {
             // Proceed to the next tab
             setValue(value + 1);
-            // console.log("alll tabs data", tab1, tab2, tab3, selectedLocationAddress)
+           
         }
     };
     const handleNextTab4 = () => {
@@ -396,7 +400,7 @@ export default function AddPropertyTabs() {
         } else {
             // Proceed to the next tab
             setValue(value + 1);
-            // console.log("Tab 4 data", selectedLocationAddress);
+           
         }
     };
 
@@ -428,7 +432,7 @@ export default function AddPropertyTabs() {
                 }
             });
         } else {
-            console.log("while I submitted all data", tab1, tab2, tab3, selectedLocationAddress, tab5);
+           
             const parameters = [];
             const facilities = [];
 
@@ -453,7 +457,7 @@ export default function AddPropertyTabs() {
             // Concatenate parameters and facilities into the allParameters array
             // const allParameters = [...parameters, ...facilities];
 
-            // console.log("allParameters", allParameters);
+           
             // Rest of your code remains the same
 
             PostProperty(
@@ -477,7 +481,6 @@ export default function AddPropertyTabs() {
                 tab5._3DImages[0],
                 tab5.galleryImages,
                 (response) => {
-                    console.log(response);
 
                     if (response.message === "Package not found") {
                         toast.error(response.message);
@@ -501,7 +504,18 @@ export default function AddPropertyTabs() {
                                 router.push("/subscription-plan"); // Redirect to the subscription page
                             }
                         });
-                    } else {
+                    }  else if (response.message === "Package not found for add property") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Package not found for add property. Please Purchase Package.",
+                            confirmButtonColor: primaryColor,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                router.push("/subscription-plan"); // Redirect to the subscription page
+                            }
+                        });
+                    }else {
                         toast.success(response.message);
                         router.push("/user/dashboard");
                     }
@@ -711,13 +725,13 @@ export default function AddPropertyTabs() {
                     <div className="row" id="add_prop_form_row">
                         {getFacilities.length > 0
                             ? getFacilities.map((ele, index) => (
-                                  <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
-                                      <div className="add_prop_fields">
-                                          <span>{ele.name}</span>
-                                          <input value={tab3[ele.id] || ""} type="number" placeholder="00 KM" className="prop_number_input" id={`prop_title_input_${ele.id}`} onChange={(e) => handleTab3InputChange(ele.id, e.target.value)} />
-                                      </div>
-                                  </div>
-                              ))
+                                <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
+                                    <div className="add_prop_fields">
+                                        <span>{ele.name}</span>
+                                        <input value={tab3[ele.id] || ""} type="number" placeholder="00 KM" className="prop_number_input" id={`prop_title_input_${ele.id}`} onChange={(e) => handleTab3InputChange(ele.id, e.target.value)} />
+                                    </div>
+                                </div>
+                            ))
                             : null}
                     </div>
                     <div className="nextButton">

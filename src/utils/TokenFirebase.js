@@ -44,13 +44,12 @@ const firebaseCloudMessaging = {
 
                 // Request the push notification permission from browser
                 const status = await Notification.requestPermission();
-                // console.log(status)
+
                 if (status && status === "granted") {
                     // Get new token from Firebase
                     const fcm_token = await messaging.getToken({
                         vapidKey: "BKuKBCfQ8UIhVTFfCDWb-qkGKOHqiABjMkqOI6rzl0Ewla58Kka2x46Sp6cQbS7ANeFzaQma0Xy2HnxA-gKAqCU",
                     });
-                    console.log("fcm token", fcm_token)
                     // Set token in our local storage
                     if (fcm_token) {
                         localforage.setItem("fcm_token", fcm_token);

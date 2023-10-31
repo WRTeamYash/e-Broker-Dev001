@@ -42,7 +42,6 @@ const ArticleDeatils = () => {
             "",
             (response) => {
                 const AData = response.data[0];
-                // console.log(AData)
                 setIsLoading(false);
                 setArticleData(AData);
             },
@@ -60,7 +59,6 @@ const ArticleDeatils = () => {
             "1",
             (response) => {
                 const Articles = response.data;
-                // console.log("related articles", Articles)
                 setIsLoading(false);
                 setRelatedArticleData(Articles);
                 setExpandedStates(new Array(Articles.length).fill(false));

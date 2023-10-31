@@ -40,7 +40,6 @@ const Index = () => {
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
 
-        console.log(file);
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -68,7 +67,6 @@ const Index = () => {
             ...formData,
             selectedLocation: locationData,
         });
-        console.log(locationData);
     };
 
     const handlePhoneNumberChange = (e) => {
@@ -80,7 +78,6 @@ const Index = () => {
 
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    // console.log(formData.selectedLocation.lat)
     const handleUpdateProfile = (e) => {
         e.preventDefault();
 
@@ -102,7 +99,6 @@ const Index = () => {
             formData.instagram ? formData.instagram : "",
             formData.pintrest ? formData.pintrest : "",
             (response) => {
-                console.log("response", response);
                 toast.success("Profile Updated Successfully");
                 loadUpdateUserData(response.data);
                 navigate.push("/");

@@ -51,7 +51,6 @@ const Index = () => {
                 const FeaturedListingData = response.data;
                 setIsLoading(false);
                 setGetFeaturedListing(FeaturedListingData);
-                console.log(getFeaturedListing);
             },
             (error) => {
                 setIsLoading(false);

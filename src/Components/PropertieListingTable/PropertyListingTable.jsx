@@ -94,7 +94,7 @@ export default function PropertyListingTable({ data, handlePageChange, total, li
                             data.map((elem, index) => (
                                 <TableRow key={index}>
                                     <TableCell component="th" scope="row" sx={{ width: "40%" }}>
-                                        {/* {console.log(elem.id)} */}
+                                  
                                         <div className="card" id="listing_card">
                                             <div className="listing_card_img">
                                                 <Image loading="lazy" width={0} height={0} style={{ width: "150px", height: "auto" }} src={elem.title_image} alt="" id="main_listing_img" />

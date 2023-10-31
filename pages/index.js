@@ -23,7 +23,8 @@ const Home = () => {
         loadSlider();
         loadCategories();
     }, []);
-
+ 
+    
     return (
         <>
             <Toaster toastOptions={{ duration: 3000 }} position="top-center" />

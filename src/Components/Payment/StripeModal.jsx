@@ -29,7 +29,6 @@ const CARD_OPTIONS = {
 };
 
 const StripeModal = (props) => {
-    // console.log("props", props);
     const navigate = useRouter();
 
     const user = useSelector(userSignUpData);
@@ -53,7 +52,6 @@ const StripeModal = (props) => {
             setloadingPay(false);
             return;
         }
-        // console.log("stripe client secret key", props?.client_key?.client_secret);
         // Confirm the PaymentIntent with the Payment Element
         const { paymentIntent, error } = await stripe.confirmCardPayment(props?.client_key?.client_secret, {
             payment_method: {

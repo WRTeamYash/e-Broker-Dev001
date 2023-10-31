@@ -94,9 +94,8 @@ export default function EditPropertyTabs() {
     useEffect(() => {
         GetFacilitiesApi(
             (response) => {
-                // console.log(response)
+                // g(response)
                 const facilitiyData = response && response.data;
-                // console.log(facilitiyData)
                 setGetFacilities(facilitiyData);
             },
             (error) => {
@@ -427,7 +426,6 @@ export default function EditPropertyTabs() {
     );
     const onDrop3D = useCallback((acceptedFiles) => {
         // Log the acceptedFiles to check if they are being received correctly
-        console.log("Accepted 3D Files:", acceptedFiles[0]);
 
         // Append the uploaded 3D files to the uploaded3DImages state
         setUploaded3DImages((prevImages) => [...prevImages, ...acceptedFiles]);
@@ -487,7 +485,7 @@ export default function EditPropertyTabs() {
         () =>
             galleryImages.map((imageData, index) => (
                 <div key={index} className="dropbox_gallary_img_div">
-                    {console.log(imageData)}
+                    {/* {g(imageData)} */}
                     <Image loading="lazy" className="dropbox_img" src={imageData.imageUrl} alt={imageData.name} width={200} height={200} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeGalleryImage(index)} type="button">
@@ -546,7 +544,6 @@ export default function EditPropertyTabs() {
         }
     };
     const handleNextTab4 = () => {
-        // console.log(selectedLocationAddress)
         // Check if the location fields in tab 4 are empty
         if (!areLocationFieldsFilled(selectedLocationAddress)) {
             // Display a toast message to fill in all property address details in tab 4
@@ -572,7 +569,7 @@ export default function EditPropertyTabs() {
             });
             return false;
         }
-        // console.log(Object.fromEntries(new FormData(e.target)));
+        // g(Object.fromEntries(new FormData(e.target)));
         if (!areFieldsFilled(tab1)) {
             // Display a toast message to fill in all required fields for Tab 1
             toast.error("Please fill in all required fields in Property Details");
@@ -598,7 +595,6 @@ export default function EditPropertyTabs() {
                 }
             });
         } else {
-            console.log("while I submitted all data", tab1, tab2, tab3, selectedLocationAddress, tab5);
             const parameters = [];
             const facilities = [];
 
@@ -619,7 +615,6 @@ export default function EditPropertyTabs() {
                     distance: value,
                     // You may need to adjust these fields based on your data structure
                 });
-                console.log("when i push to facility ", facilities);
             }
             // Concatenate parameters and facilities into the allParameters array
             // Rest of your code remains the same
@@ -646,7 +641,6 @@ export default function EditPropertyTabs() {
                 tab5._3DImages[0],
                 tab5.galleryImages,
                 (response) => {
-                    console.log(response);
 
                     if (response.message === "Package not found") {
                         toast.error(response.message);

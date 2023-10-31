@@ -10,7 +10,6 @@ import { AddFavourite } from "@/store/actions/campaign";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const Breadcrumb = (props) => {
-    // console.log(props)
     let { data, title } = props;
     const priceSymbol = useSelector(settingsData);
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;

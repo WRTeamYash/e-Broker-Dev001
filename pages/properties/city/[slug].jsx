@@ -76,7 +76,6 @@ const AllProperties = () => {
                 const propertyData = response.data;
                 setIsLoading(false);
                 setCategoryListByPropertyData(propertyData);
-                // console.log(CategoryListByPropertyData)
             },
             (error) => {
                 setIsLoading(false);
@@ -166,7 +165,6 @@ const AllProperties = () => {
             (response) => {
                 setTotal(response.total);
                 const propertyData = response.data;
-                // console.log(propertyData);
                 setCategoryListByPropertyData(propertyData);
                 setIsLoading(false);
                 // handleClearFilter()

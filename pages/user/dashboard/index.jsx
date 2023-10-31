@@ -51,9 +51,9 @@ const index = () => {
         router.push(`/user/edit-property?id=${propertyId}`);
     };
     const handleClickDelete = (propertyId) => {
-        if (!SettingsData.demo_mode) {
+        if (SettingsData.demo_mode === true) {
             Swal.fire({
-                title: "Opps !",
+                title: "Opps!",
                 text: "This Action is Not Allowed in Demo Mode",
                 icon: "warning",
                 showCancelButton: false,

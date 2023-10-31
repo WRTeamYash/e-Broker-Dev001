@@ -78,7 +78,6 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
             generateOTP(phonenum);
             // Show loader when OTP generation starts
         }
-        // console.log(phonenum)
     }, [phonenum]);
 
     const handleConfirm = (e) => {

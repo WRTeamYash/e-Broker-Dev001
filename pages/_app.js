@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps, data }) {
                 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 
                 {/* <!-- Facebook Meta Tags --> */}
-                <meta property="og:url" content="https://newsweb.wrteam.me/" />
+                <meta property="og:url" content="https://ebroker.wrteam.me/" />
                 <meta property="og:type" content="website" />
                 <meta property="og:locale" content="en_GB" />
                 <meta property="og:title" content="eBroker |  Empower Your Real Estate Business" />

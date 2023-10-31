@@ -21,7 +21,6 @@ const index = () => {
         navigate.push("/");
     };
     if (signupData === null) {
-        // console.log("test")
         navigateToHome();
     }
     const [showCurrentLoc, setShowCurrentLoc] = useState(false);
@@ -45,7 +44,7 @@ const index = () => {
         setShowCurrentLoc(false);
     };
     const handleSelectLocation = (location) => {
-        console.log("Selected Location:", location);
+        
         setSelectedLocation(location);
     };
     const modalStyle = {
@@ -57,12 +56,12 @@ const index = () => {
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
 
-        console.log(file);
+       
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
                 // const imageBlob = new Blob([e.target.result], { type: file.type });
-                // console.log(imageBlob);
+                
                 setImage(file);
                 setUploadedImage(e.target.result);
             };

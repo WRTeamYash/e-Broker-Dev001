@@ -16,7 +16,6 @@ export const languageSlice = createSlice({
             language.loading = true;
         },
         languagesSuccess: (language, action) => {
-            console.log(action);
             language.languages = action.payload.data;
 
             language.loading = false;

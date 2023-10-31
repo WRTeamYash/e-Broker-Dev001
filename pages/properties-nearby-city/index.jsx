@@ -23,6 +23,7 @@ const PropertiesNearbyCity = () => {
 
                 setIsLoading(false);
                 setGetNearByCitysData(cityData);
+                
             },
             (error) => {
                 console.log(error);
@@ -36,7 +37,7 @@ const PropertiesNearbyCity = () => {
         <Layout>
             <Breadcrumb title={translate("propNearByCities")} />
             <section id="all-nearby-citys">
-                {getNearByCitysData?.lenth  > 0 ?
+                {getNearByCitysData?.length  > 0 ?
                 (
 
                     <div className="container">

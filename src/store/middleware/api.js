@@ -18,13 +18,11 @@ import * as actions from "../actions/apiActions";
 const api = ({ dispatch, getState }) => (next) => async (action) => {
     // Check if Dispatched action is apiCallBegan then proceed with middleware code
     // If not then call the next and ignore this middleware
-    // console.log("hello")
     if (action.type !== actions.apiCallBegan.type) return next(action);
     let { url, method, data, params, onStart, onSuccess, onError, onStartDispatch, onErrorDispatch, onSuccessDispatch, headers, displayToast, authorizationHeader } = action.payload;
     if (typeof displayToast === "undefined") displayToast = true;
 
     // Set Token header if it is required
-    // console.log("for token", getState().User_signup.data.token)
     if (typeof authorizationHeader === "undefined" || authorizationHeader === true) {
         headers = {
             ...headers,
@@ -51,9 +49,7 @@ const api = ({ dispatch, getState }) => (next) => async (action) => {
             onError,
             headers,
         });
-        // console.log(response)
         if (response.data.error) {
-            console.log("reserr", response);
             // Dispatch Default onError Event
             dispatch(actions.apiCallFailed(response.data.message));
 
@@ -78,7 +74,6 @@ const api = ({ dispatch, getState }) => (next) => async (action) => {
             let reponseData = { ...response.data, requestData: payloadData };
             dispatch(actions.apiCallSuccess(reponseData));
             // Dispatch custom onSuccess Event
-            // console.log("response" ,response.data)
             if (onSuccess) onSuccess(response.data);
             if (onSuccessDispatch) {
                 dispatch({ type: onSuccessDispatch, payload: reponseData });

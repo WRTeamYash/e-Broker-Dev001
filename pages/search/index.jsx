@@ -149,7 +149,6 @@ const SearchPage = () => {
             activeTab: activeTab,
             searchInput: searchInput,
         };
-        console.log(searchData);
         localStorage.setItem("searchData", JSON.stringify(searchData));
         GetFeturedListingsApi(
             "",

@@ -87,7 +87,7 @@ const SearchTab = ({ getCategories }) => {
         };
 
         localStorage.setItem("searchData", JSON.stringify(searchData));
-        // console.log(searchData);
+
         setShowFilterModal(false); // Close the modal
 
         // Redirect to /search

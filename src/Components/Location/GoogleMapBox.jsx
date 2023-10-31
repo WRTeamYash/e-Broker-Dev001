@@ -51,7 +51,6 @@ const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
     }, []);
 
     const onMarkerDragStart = () => {
-        // console.log("Marker drag started");
     };
 
     const onMarkerDragEnd = async (e) => {
@@ -159,7 +158,6 @@ const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
                     state: state,
                 };
                 setSearchText(formatted_address);
-                console.log("while searching that location", updatedLocation);
                 setLocation(updatedLocation);
                 onSelectLocation(updatedLocation);
             } else {

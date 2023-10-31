@@ -197,23 +197,12 @@ const PropertieDeatils = () => {
                             <div className="container">
                                 {galleryPhotos && galleryPhotos.length > 0 ? (
                                     <div className="row" id="prop-images">
-                                        {galleryPhotos.length === 1 ? (
-                                            <div className="col-12" id="prop-main-image01">
-                                                <Image
-                                                    loading="lazy"
-                                                    src={galleryPhotos[0]?.image_url || PlaceHolderImg}
-                                                    className="one-img"
-                                                    alt="Main Image"
-                                                    width={200}
-                                                    height={200}
-                                                    onClick={() => openLightbox(0)} />
-                                            </div>
-                                        ) : galleryPhotos.length === 2 ? (
+                                        {galleryPhotos.length < 2 ? (
                                             <>
                                                 <div className="col-sm-12 col-md-6" id="prop-main-image">
                                                     <Image
                                                         loading="lazy"
-                                                        src={galleryPhotos[0]?.image_url || PlaceHolderImg}
+                                                        src={getPropData?.title_image || PlaceHolderImg}
                                                         className="two-img01"
                                                         alt="Main Image" width={200}
                                                         height={200}
@@ -222,7 +211,7 @@ const PropertieDeatils = () => {
                                                 <div className="col-sm-12 col-md-6" id="prop-main-image">
                                                     <Image
                                                         loading="lazy"
-                                                        src={galleryPhotos[1]?.image_url || PlaceHolderImg}
+                                                        src={galleryPhotos[0]?.image_url || PlaceHolderImg}
                                                         className="two-img02"
                                                         alt="Main Image"
                                                         width={200}
@@ -238,7 +227,7 @@ const PropertieDeatils = () => {
                                                 <div className="col-lg-4 col-sm-12" id="prop-left-images">
                                                     <Image
                                                         loading="lazy"
-                                                        src={galleryPhotos[1]?.image_url || PlaceHolderImg}
+                                                        src={galleryPhotos[0]?.image_url || PlaceHolderImg}
                                                         className="left-imgs01"
                                                         alt="Image 1"
                                                         width={200}
@@ -247,7 +236,7 @@ const PropertieDeatils = () => {
                                                     />
                                                     <Image
                                                         loading="lazy"
-                                                        src={galleryPhotos[2]?.image_url || PlaceHolderImg}
+                                                        src={galleryPhotos[1]?.image_url || PlaceHolderImg}
                                                         className="left-imgs02"
                                                         alt="Image 2"
                                                         width={200}
@@ -258,7 +247,7 @@ const PropertieDeatils = () => {
                                                 <div className="col-lg-8 col-sm-12 text-center" id="prop-main-image">
                                                     <Image
                                                         loading="lazy"
-                                                        src={galleryPhotos[0]?.image_url || PlaceHolderImg}
+                                                        src={getPropData?.title_image || PlaceHolderImg}
                                                         className="middle-img"
                                                         alt="Main Image"
                                                         width={200}
@@ -274,8 +263,21 @@ const PropertieDeatils = () => {
 
                                         )}
                                     </div>
-                                ) : null}
-                                <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={closeLightbox} />
+                                ) :
+                                    <div className="row" id="prop-images">
+                                        <div className="col-12" id="prop-main-image01">
+                                            <Image
+                                                loading="lazy"
+                                                src={getPropData?.title_image || PlaceHolderImg}
+                                                className="one-img"
+                                                alt="Main Image"
+                                                width={200}
+                                                height={200}
+                                                onClick={() => openLightbox(0)} />
+                                        </div>
+                                    </div>
+                                }
+                                <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={closeLightbox} title_image={getPropData?.title_image} />
 
                                 <div className="row" id="prop-all-deatils-cards">
                                     <div className="col-12 col-md-12 col-lg-9" id="prop-deatls-card">

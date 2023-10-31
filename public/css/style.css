@@ -1317,9 +1317,6 @@ button.learn-more .circle {
   justify-content: center;
 }
 
-button.learn-more .circle .icon {
-  /* transition: background 0.45s cubic-bezier(0.65, 0, 0.076, 1); */
-}
 
 button.learn-more .circle .icon.arrow {
   display: flex;
@@ -1365,10 +1362,6 @@ button.learn-more .button-text {
   height: 35px;
 }
 
-#viewall:active .circle .icon.arrow {
-  /* transform: translate(9.5rem, 0);
-  transition: all 0.3s; */
-}
 
 #viewall:active .circle {
   /* transform: scale(0.9);

@@ -1,11 +1,14 @@
 import React from "react";
 import Carousel, { Modal, ModalGateway } from "react-images";
 
-const LightBox = ({ photos, viewerIsOpen, currentImage, onClose }) => {
+const LightBox = ({ photos, viewerIsOpen, currentImage, onClose, title_image }) => {
     if (!photos || photos.length === 0) {
         // Handle the case when photos is undefined or empty.
         return null;
     }
+
+    // Create an array to include title_image at index 0
+    const lightboxPhotos = title_image ? [{ image_url: title_image }, ...photos] : photos;
 
     return (
         <div>
@@ -14,14 +17,14 @@ const LightBox = ({ photos, viewerIsOpen, currentImage, onClose }) => {
                     <Modal onClose={onClose}>
                         <Carousel
                             currentIndex={currentImage}
-                            views={photos.map((photo, index) => {
-                                // Check if the 'regular' property exists before accessing it
-                                const regularSrc = photo.image_url || ""; // Provide a default value if 'regular' doesn't exist
+                            views={lightboxPhotos.map((photo, index) => {
+                                // Check if the 'src' property exists before accessing it
+                                const src = photo.image_url || ""; // Provide a default value if 'src' doesn't exist
+
                                 return {
-                                    ...photo,
-                                    src: regularSrc,
-                                    srcset: `${regularSrc} ${index + 1}`,
-                                    caption: `${photo.caption || ""} ${index + 1}`, // Provide a default caption if it doesn't exist
+                                    src: src,
+                                    srcset: `${src} ${index}`,
+                                    // caption: photo.caption || `${photo.image || ""} ${index}`, // Provide a default caption if it doesn't exist
                                 };
                             })}
                         />

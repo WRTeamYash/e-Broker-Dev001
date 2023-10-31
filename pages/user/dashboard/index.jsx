@@ -299,7 +299,7 @@ const index = () => {
                                                                             {translate("edit")}
                                                                         </Button>
                                                                     </Menu.Item>
-                                                                    {elem.status === 1 ? (
+                                                                    {elem.status === 1 && elem.promoted === false ? (
                                                                         <Menu.Item key="feature">
                                                                             <Button type="text" icon={<FaCrown />} onClick={() => handleFeatureClick(elem.id)}>
                                                                                 {translate("feature")}

@@ -1805,3 +1805,10 @@
     top: 198px;
   }
 }
+
+
+@media only screen and (max-width: 574px){
+  .open_drawer{
+    display: none !important;
+  }
+}

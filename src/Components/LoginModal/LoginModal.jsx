@@ -24,6 +24,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                 setPhonenum(value);
                 onClose();
                 setShowOtpModal(true);
+                setValue("")
             } else {
                 toast.error("Please enter a valid phone number");
             }
@@ -65,7 +66,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                 </Modal.Footer>
             </Modal>
 
-            {showOtpModal && <OTPModal isOpen={true} onClose={handlOTPModalClose} phonenum={phonenum} />}
+            {showOtpModal && <OTPModal isOpen={true} onClose={handlOTPModalClose} phonenum={phonenum} setPhonenum={setPhonenum}/>}
         </>
     );
 };

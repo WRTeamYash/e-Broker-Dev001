@@ -92,11 +92,13 @@ const AdminHeader = () => {
                 </Dropdown>
             </MenuItem>
 
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
-                    <AddCircleOutlineIcon />
-                </IconButton>
-                <span style={{ color: "#000" }}>{translate("addProp")}</span>
+            <MenuItem>
+                <Link href="/user/properties" style={{textDecoration: "none", color: "#000"}}>
+                    <IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
+                        <AddCircleOutlineIcon />
+                    </IconButton>
+                    <span style={{ color: "#000" }}>{translate("addProp")}</span>
+                </Link>
             </MenuItem>
         </Menu>
     );

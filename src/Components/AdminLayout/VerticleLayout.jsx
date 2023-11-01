@@ -168,6 +168,7 @@ export default function VerticleLayout(props) {
                 >
                     <IconButton
                         color="inherit"
+                        className="open_drawer"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
                         edge="start"

@@ -140,9 +140,12 @@ const Nav = () => {
             showCancelButton: true,
             confirmButtonColor: primaryColor,
             cancelButtonColor: "#d33",
-            confirmButtonText: "yes! Logout",
+            confirmButtonText: "Yes! Logout",
         }).then((result) => {
             if (result.isConfirmed) {
+                // Clear the recaptchaVerifier by setting it to null
+                window.recaptchaVerifier = null;
+                // Perform the logout action
                 logoutSuccess();
                 toast.success(translate("logoutSuccess"));
             } else {

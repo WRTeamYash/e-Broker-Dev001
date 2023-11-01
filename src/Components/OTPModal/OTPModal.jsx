@@ -30,13 +30,20 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
     useEffect(() => {
         generateRecaptcha();
         setShowLoader(true);
+    
         return () => {
+            // Clear the recaptcha container
+            const recaptchaContainer = document.getElementById("recaptcha-container");
+            if (recaptchaContainer) {
+                recaptchaContainer.innerHTML = "";
+            }
+    
             if (window.recaptchaVerifier) {
                 window.recaptchaVerifier.clear();
             }
         };
     }, []);
-
+    
     const generateOTP = (phonenum) => {
         //OTP Generation
 
@@ -124,6 +131,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                             } else {
                                 toast.success(res.message); // Show a success toast
                                 onClose(); // Close the modal
+                                
                             }
                             settingsLoadedLogin(
                                 null,

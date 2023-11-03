@@ -45,7 +45,7 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) 
                             </div>
                             <div className="card-footer" id="article-card-footer">
                                 <div id="admin_pic">
-                                    <Image loading="lazy" src={adminlogo.src} alt="" className="admin" width={200} height={200} />
+                                    <Image loading="lazy" src={adminlogo.src} alt="no_img" className="admin" width={200} height={200} />
                                 </div>
                                 <div className="article_footer_text">
                                     <span className="byadmin"> {translate("byAdmin")}</span>

@@ -27,6 +27,7 @@ import AdminFooter from "./AdminFooter.jsx";
 import ebroker from "@/assets/Logo_Color.png";
 import Link from "next/link";
 import TagFacesOutlinedIcon from "@mui/icons-material/TagFacesOutlined";
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { translate } from "@/utils/index.js";
 import { logoutSuccess } from "@/store/reducer/authSlice.js";
 import toast from "react-hot-toast";
@@ -39,6 +40,7 @@ import { useSelector } from "react-redux";
 import { languageData } from "@/store/reducer/languageSlice.js";
 import { store } from "@/store/store.js";
 import Image from "next/image";
+import { settingsData } from "@/store/reducer/settingsSlice.js";
 
 const drawerWidth = 240;
 
@@ -113,6 +115,7 @@ export default function VerticleLayout(props) {
     const [open, setOpen] = React.useState(false);
     const lang = useSelector(languageData);
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
+    const settingData = useSelector(settingsData);
 
     useEffect(() => {}, [lang]);
     const language = store.getState().Language.languages;
@@ -204,14 +207,13 @@ export default function VerticleLayout(props) {
                         }}
                     >
                         <Link href="/">
-                            <Image loading="lazy" src={ebroker.src} alt="" className="dashboard_logo" width={200} height={200} />
+                            <Image loading="lazy" src={settingData?.company_logo} alt="no_img" className="dashboard_logo" width={200} height={200} />
                         </Link>
                         <IconButton
                             onClick={handleDrawerClose}
                             className="drawer_button"
                             sx={{
                                 fontSize: "30",
-                                // width:"50px",
                             }}
                         >
                             {language.rtl === 1 ? <ArrowForwardIcon /> : <ArrowBackIcon />}
@@ -332,6 +334,29 @@ export default function VerticleLayout(props) {
                                     <TagFacesOutlinedIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={translate("myProfile")} sx={{ opacity: open ? 1 : 0 }} />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                    <Link href="/user/notifications">
+                        <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                            <ListItemButton
+                                sx={{
+                                    minHeight: 30,
+                                    justifyContent: open ? "initial" : "center",
+                                    px: 2.5,
+                                }}
+                            >
+                                <ListItemIcon
+                                    className="drawer_list_icon"
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : "auto",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <NotificationsNoneIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={translate("notification")} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     </Link>

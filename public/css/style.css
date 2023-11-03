@@ -905,10 +905,6 @@ body {
 /* .dropdown:hover .dropdown-menu {
   display: block;
 } */
-.dropdown-menu {
-  width: 26vh !important;
-  /* width: 100%; */
-}
 .dropdown-item {
   text-transform: capitalize;
   font-family: var(--primary-font);
@@ -2182,6 +2178,7 @@ h3 {
 #city_img_headlines {
   position: absolute;
   bottom: 12px;
+  color: var(--primary-text-color01);
 }
 #city_img_headlines p {
   color: var(--primary-text-color01);
@@ -5456,7 +5453,7 @@ a {
   gap: 20px 0;
 }
 
-#listing_card {
+#listing_card, #notication_card {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -5465,7 +5462,7 @@ a {
   justify-content: center;
 }
 @media only screen and (max-width: 991px) {
-  #listing_card {
+  #listing_card, #notication_card {
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -5476,7 +5473,7 @@ a {
     text-align: center;
   }
 }
-.listing_card_img {
+.listing_card_img, .notification_card_img{
   padding: 10px;
 }
 #main_listing_img {
@@ -5507,18 +5504,21 @@ a {
   margin-top: 12px;
   margin-left: -140px;
 }
-.listing_card_body {
+.listing_card_body, .notification_card_body {
   display: flex;
   padding: 10px;
   flex-direction: column;
   gap: 5px;
   width: 100%;
 }
-.listing_prop_title {
+.notification_card_body{
+  text-align: start;
+}
+.listing_prop_title, .notification_title {
   font-weight: bold;
   font-size: medium;
 }
-.listing_prop_loc {
+.listing_prop_loc, .notification_desc {
   font-size: medium;
   font-weight: 300;
   color: #282f39c2;

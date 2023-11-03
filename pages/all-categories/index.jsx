@@ -23,7 +23,7 @@ const AllCategories = () => {
             <Breadcrumb title={translate("allCategories")} />
             <section id="view_all_cate_section">
                     <div className="cate_section">
-                {Categorydata?.length > 0 ?(
+                {Categorydata?.length > 0?(
                         <div className="container">
                             <div className="row">
                                 {isLoading

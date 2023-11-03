@@ -7,12 +7,17 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 
-function VerticalCard({ ele, onRemoveCard }) {
+function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
     const priceSymbol = useSelector(settingsData);
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;
 
     const isLoggedIn = useSelector((state) => state.User_signup);
 
+    const handleImageLoad = () => {
+        if (onImageLoad) {
+          onImageLoad();
+        }
+      };
     // Initialize isLiked based on ele.is_favourite
     const [isLiked, setIsLiked] = useState(ele.is_favourite === 1);
 
@@ -72,7 +77,7 @@ function VerticalCard({ ele, onRemoveCard }) {
         <div className="verticle_card">
             <div className="card verticle_main_card">
                 <div className="verticle_card_img_div">
-                    <Image loading="lazy" className="card-img" id="verticle_card_img" src={ele.title_image ? ele.title_image : PlaceHolderImg} alt="" width={200} height={200} />
+                    <Image loading="lazy" className="card-img" id="verticle_card_img" src={ele.title_image ? ele.title_image : PlaceHolderImg} alt="no_img" width={200} height={200} onLoad={handleImageLoad}/>
                 </div>
                 <div className="card-img-overlay">
                     {ele.promoted ? <span className="feature_tag">{translate("feature")}</span> : null}
@@ -95,7 +100,7 @@ function VerticalCard({ ele, onRemoveCard }) {
                     </span>
                     <div className="feature_card_mainbody">
                         <div className="cate_image">
-                            <Image loading="lazy" src={ele.category && ele.category.image} alt="" width={20} height={20} />
+                            <Image loading="lazy" src={ele.category && ele.category.image} alt="no_img" width={20} height={20} />
                         </div>
                         <span className="feature_body_title"> {ele.category && ele.category.category} </span>
                     </div>
@@ -114,7 +119,7 @@ function VerticalCard({ ele, onRemoveCard }) {
                                 <div className="col-sm-12 col-md-6 " key={index}>
                                     <div className="footer_content" key={index}>
                                         <div>
-                                            <Image loading="lazy" src={elem.image} alt="" width={20} height={16} />
+                                            <Image loading="lazy" src={elem.image} alt="no_img" width={20} height={16} />
                                         </div>
                                         <p className="text_footer"> {elem.name}</p>
                                     </div>

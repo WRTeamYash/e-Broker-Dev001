@@ -38,8 +38,8 @@ const AllProperties = () => {
     const limit = 8;
 
     const router = useRouter();
+    // console.log(router)
     const city = router.query;
-
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
 
@@ -57,7 +57,7 @@ const AllProperties = () => {
             "",
             "",
             "",
-            city,
+            city.slug,
             "",
             offsetdata.toString(),
             limit.toString(),
@@ -121,16 +121,6 @@ const AllProperties = () => {
         });
     };
 
-    const handleClearFilter = () => {
-        setFilterData({
-            propType: "",
-            category: "",
-            minPrice: "",
-            maxPrice: "",
-            postedSince: "",
-            selectedLocation: null,
-        });
-    };
     const handleApplyfilter = (e) => {
         e.preventDefault();
 
@@ -175,7 +165,47 @@ const AllProperties = () => {
             }
         );
     };
-
+    const handleClearFilter = () => {
+        setFilterData({
+            propType: "",
+            category: "",
+            minPrice: "",
+            maxPrice: "",
+            postedSince: "",
+            selectedLocation: null,
+        });
+        GetFeturedListingsApi(
+            "",
+            "",
+            "",
+            "",
+            "",
+            city.slug,
+            "",
+            offsetdata.toString(),
+            limit.toString(),
+            isLoggedIn ? userCurrentId : "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            (response) => {
+                setTotal(response.total);
+                const propertyData = response.data;
+                setIsLoading(false);
+                setCategoryListByPropertyData(propertyData);
+            },
+            (error) => {
+                setIsLoading(false);
+                console.log(error);
+            }
+        );
+    };
     return (
         <Layout>
             <Breadcrumb title={city.slug ? `Properties Listed in ${city.slug} ` : `No Properties in ${city.slug}`} />

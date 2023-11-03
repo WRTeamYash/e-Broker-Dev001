@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import { RiCloseCircleLine } from "react-icons/ri";
 //firebase
-import { authentication } from "../../utils/Firebase";
+import FirebaseData from "../../utils/Firebase";
 import { toast } from "react-hot-toast";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { signupLoaded } from "../../store/reducer/authSlice"; // Update the import path as needed
@@ -11,6 +11,8 @@ import { translate } from "@/utils";
 import { settingsLoadedLogin } from "@/store/reducer/settingsSlice";
 
 const OTPModal = ({ isOpen, onClose, phonenum }) => {
+
+    const { authentication,messaging } = FirebaseData();
     const [otp, setOTP] = useState("");
     const inputRefs = useRef([]);
     const [showTimer, setShowTimer] = useState(false);
@@ -18,6 +20,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
     const [showLoader, setShowLoader] = useState(true);
     const [otpSent, setOTPSent] = useState(true); // Add a state to track OTP sent status
     const navigate = useRouter();
+    let fcmtoken = localStorage.getItem("token")
 
     const otpInputRef = useRef(null);
     const generateRecaptcha = () => {
@@ -111,7 +114,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                     result.user.uid,
                     "",
                     "",
-                    "test",
+                    fcmtoken,
                     (res) => {
                         let signupData = res.data;
 

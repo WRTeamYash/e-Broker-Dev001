@@ -24,6 +24,8 @@ const UPDATE_POST_PROPERTY = "update_post_property";
 const DELETE_PROPERTY = "delete_property"
 const INTEREST_PROPERTY = "interested_users"
 const STORE_ADVERTISEMENT = "store_advertisement"
+const GET_NOTIFICATION_LIST = "get_notification_list"
+const ASSIGN_FREE_PACKAGE = "assign_free_package"
 
 // is login user check
 export const getUserID = () => {
@@ -77,7 +79,7 @@ export const user_signupApi = (name, email, mobile, type, address, firebase_id, 
     }
 }
 // UPDATE PROFILE
-export const update_profile = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id) => {
+export const update_profile = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id) => {
     let data = new FormData();
     data.append("userid", userid);
     data.append("name", name);
@@ -95,6 +97,7 @@ export const update_profile = (userid, name, email, mobile, type, address, fireb
     data.append("twiiter_id", twiiter_id);
     data.append("instagram_id", instagram_id);
     data.append("pintrest_id", pintrest_id);
+    data.append("fcm_id", fcm_id);
     // data.append("fcm_id", fcm_id);
     return {
         url: `${UPDATE_PROFILE}`,
@@ -397,11 +400,14 @@ export const getLimits = (id) => {
 }
 
 // get payment detaisl
-export const getPaymentDetials = () => {
+export const getPaymentDetials = (offset, limit) => {
     return {
         url: `${GET_PAYMENT_DETAILS}`,
         method: "GET",
-        params: {},
+        params: {
+            offset: offset,
+            limit: limit
+        },
         authorizationHeader: true,
     }
 }
@@ -499,6 +505,34 @@ export const intrestedProperty = (property_id, type) => {
 
     return {
         url: `${INTEREST_PROPERTY}`,
+        method: "POST",
+        data,
+        authorizationHeader: true,
+    }
+}
+// get notification list
+export const getNotificationList = (userid, offset, limit) => {
+
+    // data.append("userid", userid);
+
+    return {
+        url: `${GET_NOTIFICATION_LIST}`,
+        method: "GET",
+        params: {
+            userid: userid,
+            offset: offset,
+            limit: limit
+        },
+        authorizationHeader: true,
+    }
+}
+// get notification list
+export const assignFreePackage = (package_id) => {
+    let data = new FormData();
+    data.append("package_id", package_id);
+
+    return {
+        url: `${ASSIGN_FREE_PACKAGE}`,
         method: "POST",
         data,
         authorizationHeader: true,

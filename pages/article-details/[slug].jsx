@@ -122,7 +122,7 @@ const ArticleDeatils = () => {
                                                     <>
                                                         <div className="container">
                                                             <div className="article_img_div">
-                                                                <Image loading="lazy" src={articleData && articleData.image} alt="" className="article_title_img" width={200} height={200} />
+                                                                <Image loading="lazy" src={articleData && articleData.image} alt="no_img" className="article_title_img" width={200} height={200} />
                                                             </div>
 
                                                             <div className="article_title">{articleData && articleData.title}</div>
@@ -176,7 +176,7 @@ const ArticleDeatils = () => {
                                                 <div className="card-body">
                                                     <div className='resent-article-deatils'>
                                                         <div className='resent-article-image'>
-                                                            <Image loading="lazy" src={adminlogo.src} alt="" className='resent-article-image' />
+                                                            <Image loading="lazy" src={adminlogo.src} alt="no_img" className='resent-article-image' />
                                                         </div>
                                                         <div className='resent-article-desc'>
                                                             <span>Average U.S. Rental Price Hits a Two-Year High</span>
@@ -184,7 +184,7 @@ const ArticleDeatils = () => {
                                                     </div>
                                                     <div className='resent-article-deatils'>
                                                         <div className='resent-article-image'>
-                                                            <Image loading="lazy" src={adminlogo.src} alt="" className='resent-article-image' />
+                                                            <Image loading="lazy" src={adminlogo.src} alt="no_img" className='resent-article-image' />
                                                         </div>
                                                         <div className='resent-article-desc'>
                                                             <span>Average U.S. Rental Price Hits a Two-Year High</span>
@@ -192,7 +192,7 @@ const ArticleDeatils = () => {
                                                     </div>
                                                     <div className='resent-article-deatils'>
                                                         <div className='resent-article-image'>
-                                                            <Image loading="lazy" src={adminlogo.src} alt="" className='resent-article-image' />
+                                                            <Image loading="lazy" src={adminlogo.src} alt="no_img" className='resent-article-image' />
                                                         </div>
                                                         <div className='resent-article-desc'>
                                                             <span>Average U.S. Rental Price Hits a Two-Year High</span>
@@ -200,7 +200,7 @@ const ArticleDeatils = () => {
                                                     </div>
                                                     <div className='resent-article-deatils'>
                                                         <div className='resent-article-image'>
-                                                            <Image loading="lazy" src={adminlogo.src} alt="" className='resent-article-image' />
+                                                            <Image loading="lazy" src={adminlogo.src} alt="no_img" className='resent-article-image' />
                                                         </div>
                                                         <div className='resent-article-desc'>
                                                             <span>Average U.S. Rental Price Hits a Two-Year High</span>

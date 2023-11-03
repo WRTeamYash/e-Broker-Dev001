@@ -7,19 +7,18 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
-import { getPaymentDetialsApi } from "@/store/actions/campaign";
+import { getNotificationListApi } from "@/store/actions/campaign";
 import toast from "react-hot-toast";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { useSelector } from "react-redux";
-import Pagination from "@/Components/Pagination/ReactPagination";
 import { translate } from "@/utils/index.js";
 import { languageData } from "@/store/reducer/languageSlice.js";
+import Pagination from "@/Components/Pagination/ReactPagination";
+import Image from "next/image";
 import Loader from "@/Components/Loader/Loader";
 
+
 const index = () => {
-    const systemsettings = useSelector(settingsData);
-    const currency = systemsettings?.currency_symbol;
-    const lang = useSelector(languageData);
     const [Data, setData] = useState([]);
 
     const [total, setTotal] = useState(0);
@@ -28,21 +27,30 @@ const index = () => {
 
     const limit = 10;
 
+    const systemsettings = useSelector(settingsData);
+    const PlaceHolderImg = systemsettings?.img_placeholder;
+
+    const lang = useSelector(languageData);
+
     useEffect(() => { }, [lang]);
+
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     // api call
     useEffect(() => {
         setIsLoading(true)
-        getPaymentDetialsApi(
+        getNotificationListApi(
+            userCurrentId,
             offsetdata.toString(),
             limit.toString(),
             (res) => {
-                setTotal(res.total)
-                setData(res.data)
+                setTotal(res.total);
+                setData(res.data);
                 setIsLoading(false)
-
+                console.log(res.data);
             },
             (err) => {
-                toast.error(err.message);
+                toast.error(err);
             }
         );
     }, [offsetdata]);
@@ -59,12 +67,13 @@ const index = () => {
         return date.toLocaleDateString(undefined, options);
     }
 
+    // slice the array to get the current posts
 
     return (
         <VerticleLayout>
             <div className="container">
                 <div className="tranction_title">
-                    <h1>{translate("transactionHistory")}</h1>
+                    <h1>{translate("notification")}</h1>
                 </div>
                 <div className="table_content card bg-white">
                     <TableContainer
@@ -87,20 +96,12 @@ const index = () => {
                                         background: "#f5f5f5",
                                     }}
                                 >
+
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
-                                        {translate("ID")}
-                                    </TableCell>
-                                    <TableCell sx={{ fontWeight: "600" }} align="center">
-                                        {translate("transactionId")}
+                                        {translate("nF")}
                                     </TableCell>
                                     <TableCell sx={{ fontWeight: "600" }} align="center">
                                         {translate("date")}
-                                    </TableCell>
-                                    <TableCell sx={{ fontWeight: "600" }} align="center">
-                                        {translate("price")}
-                                    </TableCell>
-                                    <TableCell sx={{ fontWeight: "600" }} align="center">
-                                        {translate("status")}
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
@@ -117,22 +118,27 @@ const index = () => {
                                 ) : Data.length > 0 ? (
                                     Data.map((elem, index) => (
                                         <TableRow key={index}>
-                                            <TableCell align="center">{elem.id}</TableCell>
-                                            <TableCell align="center">{elem.transaction_id}</TableCell>
-                                            <TableCell align="center">{formatDate(elem.created_at)}</TableCell>
+
                                             <TableCell align="center">
-                                                {currency}
-                                                {elem.amount}
+                                                <div className="card" id="notication_card">
+                                                    <div className="notification_card_img">
+                                                        <Image
+                                                            loading="lazy"
+                                                            src={elem.image ? elem.image : PlaceHolderImg}
+                                                            alt="no_img"
+                                                            id="main_listing_img"
+                                                            width={150}
+                                                            height={0}
+                                                            style={{ height: "auto" }} />
+                                                        {/* <span className="listing_type_tag">{elem.propery_type}</span> */}
+                                                    </div>
+                                                    <div className="notification_card_body">
+                                                        <span className="notification_title">{elem.title}</span>
+                                                        <span className="notification_desc">{elem.message}</span>
+                                                    </div>
+                                                </div>
                                             </TableCell>
-                                            {elem.status === "1" ? (
-                                                <TableCell sx={{ fontWeight: "600" }} align="center">
-                                                    <span className="success"> {translate("success")}</span>
-                                                </TableCell>
-                                            ) : (
-                                                <TableCell sx={{ fontWeight: "600" }} align="center">
-                                                    <span className="fail"> {translate("fail")}</span>
-                                                </TableCell>
-                                            )}
+                                            <TableCell align="center">{formatDate(elem.created_at)}</TableCell>
                                         </TableRow>
                                     ))
                                 ) : (
@@ -146,7 +152,7 @@ const index = () => {
                         </Table>
 
                         {Data?.length > 0 ? (
-                            <div id="pagination_div" className="row">
+                            <div id="feature_cards" className="row">
                                 <div className="col-12">
                                     <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
                                 </div>
@@ -160,3 +166,5 @@ const index = () => {
 };
 
 export default index;
+
+

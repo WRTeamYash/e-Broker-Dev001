@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { isLogin, loadStripeApiKey, translate } from "@/utils";
 import Layout from "@/Components/Layout/Layout";
 import { store } from "@/store/store";
-import { createPaymentIntentApi, getPackagesApi, getPaymentSettingsApi } from "@/store/actions/campaign";
+import { assignFreePackageApi, createPaymentIntentApi, getPackagesApi, getPaymentSettingsApi } from "@/store/actions/campaign";
 import PackageCard from "@/Components/Skeleton/PackageCard";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { Modal } from "antd";
@@ -25,6 +25,7 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import Swal from "sweetalert2";
 import NoData from "@/Components/NoDataFound/NoData";
+import { useRouter } from "next/router";
 
 
 const stripeLoadKey = loadStripeApiKey()
@@ -33,6 +34,7 @@ const stripePromise = loadStripe(stripeLoadKey);
 const { Option } = Select;
 
 const page = () => {
+    const router = useRouter();
 
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
 
@@ -137,7 +139,6 @@ const page = () => {
     // subscribe payment
     const subscribePayment = (e, data) => {
         e.preventDefault();
-
         if (systemsettings.demo_mode) {
             Swal.fire({
                 title: "Opps !",
@@ -160,14 +161,29 @@ const page = () => {
             setPreviusSubsscriptionModal(true);
         }
 
+
         setPriceData(data);
+        // paymentModalChecker(e);
     };
 
     // paymentModalChecker
     const paymentModalChecker = (e) => {
         e.preventDefault();
-
+        if (priceData.price !== 0) {
         setStripeFormModal(true);
+        }else{
+            assignFreePackageApi(
+                priceData.id,
+                (res) => {
+                    console.log(res);
+                    router.push("/");
+                    toast.success(res.message);
+                },
+                (err) => {
+                    console.log(err);
+                }
+            );
+        }
     };
 
     const filterDataByType = (typeToFilter) => {
@@ -234,7 +250,7 @@ const page = () => {
 
             <section id="subscription" className="mb-5">
                 <div className="container">
-                    <div data-aos="fade-right" data-aos-duration="3000">
+                    <div>
                         <span className="headline">
                             {translate("chooseA")}{" "}
                             <span>

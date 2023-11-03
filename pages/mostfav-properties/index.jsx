@@ -69,18 +69,20 @@ const Index = () => {
         <Layout>
             <Breadcrumb title={translate("mostFavProp")} />
             <section id="featured_prop_section">
-            {getMostViewed?.length > 0 ? (
-
-                <div className="container">
-                    <div id="feature_cards" className="row">
-                        {isLoading ? (
-                            Array.from({ length: 8 }).map((_, index) => (
+                {isLoading ? ( // Show Skeleton when isLoading is true
+                    <div className="container">
+                        <div id="feature_cards" className="row">
+                            {Array.from({ length: 8 }).map((_, index) => (
                                 <div className="col-sm-12 col-md-6 col-lg-3 loading_data" key={index}>
                                     <VerticalCardSkeleton />
                                 </div>
-                            ))
-                        ) : (
-                            <>
+                            ))}
+                        </div>
+                    </div>
+                ) : getMostViewed && getMostViewed.length > 0 ? (
+                    <>
+                        <div className="container">
+                            <div id="feature_cards" className="row">
                                 {getMostViewed.map((ele, index) => (
                                     <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
                                         <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
@@ -88,18 +90,21 @@ const Index = () => {
                                         </Link>
                                     </div>
                                 ))}
-                            </>
-                        )}
+                            </div>
+                        </div>
+                    </>
+                ) : (
+                    <div className="noDataFoundDiv">
+                        <NoData />
+                    </div>
+                )}
+                {getMostViewed && getMostViewed.length > 0 ? (
+                    <div id="feature_cards" className="row">
                         <div className="col-12">
                             <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
                         </div>
                     </div>
-                </div>
-                    ):(
-                        <div className="noDataFoundDiv">
-                        <NoData />
-                    </div>
-                    )}
+                ) : null}
             </section>
         </Layout>
     );

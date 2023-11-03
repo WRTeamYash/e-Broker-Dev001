@@ -87,28 +87,17 @@ const SimilerPropertySlider = () => {
     const language = store.getState().Language.languages;
     return (
         <div div id="similer-properties">
-            <div className="similer-headline">
-                <span className="headline">
-                    Similar{" "}
-                    <span>
-                        <span className="highlight"> Properties</span>
-                    </span>
-                </span>
-            </div>
-            <div className="similer-prop-slider">
-                <Swiper
-                    dir={language.rtl === "1" ? "rtl" : "ltr"}
-                    slidesPerView={4}
-                    spaceBetween={30}
-                    freeMode={true}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    modules={[FreeMode, Pagination]}
-                    className="similer-swiper"
-                    breakpoints={breakpoints}
-                >
-                    {isLoading ? (
+            {getSimilerData?.length > 0 ? (
+                <>
+                    <div className="similer-headline">
+                        <span className="headline">
+                            Similar{" "}
+                            <span>
+                                <span className="highlight"> Properties</span>
+                            </span>
+                        </span>
+                    </div>
+                    <div className="similer-prop-slider">
                         <Swiper
                             dir={language.rtl === "1" ? "rtl" : "ltr"}
                             slidesPerView={4}
@@ -118,29 +107,44 @@ const SimilerPropertySlider = () => {
                                 clickable: true,
                             }}
                             modules={[FreeMode, Pagination]}
-                            className="most-view-swiper"
+                            className="similer-swiper"
                             breakpoints={breakpoints}
                         >
-                            {Array.from({ length: 6 }).map((_, index) => (
-                                <SwiperSlide>
-                                    <div className="loading_data">
-                                        <VerticalCardSkeleton />
-                                    </div>
-                                </SwiperSlide>
-                            ))}
+                            {isLoading ? (
+                                <Swiper
+                                    dir={language.rtl === "1" ? "rtl" : "ltr"}
+                                    slidesPerView={4}
+                                    spaceBetween={30}
+                                    freeMode={true}
+                                    pagination={{
+                                        clickable: true,
+                                    }}
+                                    modules={[FreeMode, Pagination]}
+                                    className="most-view-swiper"
+                                    breakpoints={breakpoints}
+                                >
+                                    {Array.from({ length: 6 }).map((_, index) => (
+                                        <SwiperSlide>
+                                            <div className="loading_data">
+                                                <VerticalCardSkeleton />
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                            ) : (
+                                getSimilerData &&
+                                getSimilerData.map((ele, index) => (
+                                    <SwiperSlide id="similer-swiper-slider" key={index}>
+                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
+                                            <VerticalCard ele={ele} />
+                                        </Link>
+                                    </SwiperSlide>
+                                ))
+                            )}
                         </Swiper>
-                    ) : (
-                        getSimilerData &&
-                        getSimilerData.map((ele, index) => (
-                            <SwiperSlide id="similer-swiper-slider" key={index}>
-                                <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
-                                    <VerticalCard ele={ele} />
-                                </Link>
-                            </SwiperSlide>
-                        ))
-                    )}
-                </Swiper>
-            </div>
+                    </div>
+                </>
+            ) : null}
         </div>
     );
 };

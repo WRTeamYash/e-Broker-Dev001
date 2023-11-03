@@ -14,7 +14,7 @@ const CategoryCard = ({ ele }) => {
                 <Card.Body>
                     <div className="apart_card_content">
                         <div id="apart_icon">
-                            <Image loading="lazy" src={ele.image ? ele.image : PlaceHolderImg} alt="" className="solo_icon" width={200} height={200} />
+                            <Image loading="lazy" src={ele.image ? ele.image : PlaceHolderImg} alt="no_img" className="solo_icon" width={200} height={200} />
                         </div>
                         <div id="apart_name">
                             {ele.category}

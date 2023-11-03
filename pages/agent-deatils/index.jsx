@@ -180,7 +180,7 @@ const page = () => {
                                 <div className="row">
                                     <div className="owner_all_deatils">
                                         <div className="owner_img_div">
-                                            <Image loading="lazy" src={agentimg.src} className="owner_img" alt="" width={200} height={200} />
+                                            <Image loading="lazy" src={agentimg.src} className="owner_img" alt="no_img" width={200} height={200} />
                                         </div>
                                         <div className="owner_deatils">
                                             <div className="owner_title">

@@ -26,7 +26,7 @@ const Footer = () => {
                             <Link href="/">
                                 <Image
                                     loading="lazy"
-                                    src={eBroker.src}
+                                    src={webdata?.company_logo}
                                     alt="eBroker_logo"
                                     width={0}
                                     height={0}
@@ -157,14 +157,14 @@ const Footer = () => {
                                 {process.env.NEXT_PUBLIC_PLAYSTORE ? (
                                     <div id="playstore_logo">
                                         <a href={process.env.NEXT_PUBLIC_PLAYSTORE} target="_blank">
-                                            <Image loading="lazy" src={playstore.src} alt="" className="platforms_imgs" width={0} height={0} style={{ width: "100%", height: "100%" }} />
+                                            <Image loading="lazy" src={playstore.src} alt="no_img" className="platforms_imgs" width={0} height={0} style={{ width: "100%", height: "100%" }} />
                                         </a>
                                     </div>
                                 ) : null}
                                 {process.env.NEXT_PUBLIC_APPSTORE ? (
                                     <div id="appstore_logo">
                                         <a href={process.env.NEXT_PUBLIC_APPSTORE} target="_blank">
-                                            <Image loading="lazy" src={appstore.src} alt="" className="platforms_imgs" width={0} height={0} style={{ width: "100%", height: "100%" }} />
+                                            <Image loading="lazy" src={appstore.src} alt="no_img" className="platforms_imgs" width={0} height={0} style={{ width: "100%", height: "100%" }} />
                                         </a>
                                     </div>
                                 ) : null}

@@ -20,15 +20,17 @@ import {
     deleteProperty,
     featureProperty,
     intrestedProperty,
+    getNotificationList,
+    assignFreePackage
 } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
 // update profile
-export const UpdateProfileApi = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, onSuccess, onError, onStart) => {
+export const UpdateProfileApi = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id, onSuccess, onError, onStart) => {
     store.dispatch(
         apiCallBegan({
-            ...update_profile(userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id),
+            ...update_profile(userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id),
             displayToast: false,
             onStart,
             onSuccess,
@@ -263,10 +265,10 @@ export const GetLimitsApi = (id, onSuccess, onError, onStart) => {
 };
 
 // get payment detials
-export const getPaymentDetialsApi = (onSuccess, onError, onStart) => {
+export const getPaymentDetialsApi = (offset, limit, onSuccess, onError, onStart) => {
     store.dispatch(
         apiCallBegan({
-            ...getPaymentDetials(),
+            ...getPaymentDetials(offset, limit),
             displayToast: false,
             onStart,
             onSuccess,
@@ -362,6 +364,30 @@ export const intrestedPropertyApi = (property_id, type, onSuccess, onError, onSt
     store.dispatch(
         apiCallBegan({
             ...intrestedProperty(property_id, type),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+// intrested propery
+export const getNotificationListApi = (userid, offset, limit, onSuccess, onError, onStart) => {
+    store.dispatch(
+        apiCallBegan({
+            ...getNotificationList(userid, offset, limit),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+// intrested propery
+export const assignFreePackageApi = (package_id, onSuccess, onError, onStart) => {
+    store.dispatch(
+        apiCallBegan({
+            ...assignFreePackage(package_id),
             displayToast: false,
             onStart,
             onSuccess,

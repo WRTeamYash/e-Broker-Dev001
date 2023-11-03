@@ -14,9 +14,9 @@ import NoData from "@/Components/NoDataFound/NoData";
 const Index = () => {
     const lang = useSelector(languageData);
 
-    useEffect(() => { }, [lang]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [getFeaturedListing, setGetFeaturedListing] = useState([]);
+    useEffect(() => {}, [lang]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [getFeaturedListing, setGetFeaturedListing] = useState(null); // Initialize as null
     const [total, setTotal] = useState(0);
     const [offsetdata, setOffsetdata] = useState(0);
     const [scroll, setScroll] = useState(0);
@@ -59,9 +59,7 @@ const Index = () => {
         );
     }, [offsetdata, isLoggedIn]);
 
-    const handleScroll = () => {
-        setScroll(window.scrollY);
-    };
+
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
@@ -74,38 +72,43 @@ const Index = () => {
                 <Breadcrumb title={translate("featurdAllProp")} />
 
                 <section id="featured_prop_section">
-                    {getFeaturedListing.length > 0 ? (
+                {isLoading ? ( // Show Skeleton when isLoading is true
+                    <div className="container">
+                        <div id="feature_cards" className="row">
+                            {Array.from({ length: 8 }).map((_, index) => (
+                                <div className="col-sm-12 col-md-6 col-lg-3 loading_data" key={index}>
+                                    <VerticalCardSkeleton />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ) : getFeaturedListing && getFeaturedListing.length > 0 ? (
+                    <>
                         <div className="container">
                             <div id="feature_cards" className="row">
-                                {isLoading ? (
-                                    Array.from({ length: 8 }).map((_, index) => (
-                                        <div className="col-sm-12 col-md-6 col-lg-3 loading_data" key={index}>
-                                            <VerticalCardSkeleton />
-                                        </div>
-                                    ))
-                                ) : (
-                                    <>
-                                        {getFeaturedListing.map((ele, index) => (
-                                            <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
-                                                <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
-                                                    <VerticalCard ele={ele} />
-                                                </Link>
-                                            </div>
-                                        ))}
-                                    </>
-                                )}
-                                <div className="col-12">
-                                    <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
-                                </div>
+                                {getFeaturedListing.map((ele, index) => (
+                                    <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
+                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
+                                            <VerticalCard ele={ele} />
+                                        </Link>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                    )
-                        : (
-                            <div className="noDataFoundDiv">
-                                <NoData />
-                            </div>
-                        )}
-                </section>
+                    </>
+                ) : (
+                    <div className="noDataFoundDiv">
+                        <NoData />
+                    </div>
+                )}
+                {getFeaturedListing && getFeaturedListing.length > 0 ? (
+                    <div id="feature_cards" className="row">
+                        <div className="col-12">
+                            <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                        </div>
+                    </div>
+                ) : null}
+            </section>
             </Layout>
         </>
     );

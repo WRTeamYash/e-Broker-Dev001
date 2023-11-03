@@ -120,7 +120,7 @@ const ArticleDeatils = () => {
                                                     <>
                                                         <div className="container">
                                                             <div className="article_img_div">
-                                                                <Image loading="lazy" src={articleData && articleData.image} alt="" className="article_title_img" width={200} height={200} />
+                                                                <Image loading="lazy" src={articleData && articleData.image} alt="no_img" className="article_title_img" width={200} height={200} />
                                                             </div>
 
                                                             <div className="article_title">{articleData && articleData.title}</div>

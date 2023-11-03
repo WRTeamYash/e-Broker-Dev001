@@ -9,7 +9,7 @@ const PageNotFound = () => {
         <div className='errorPage'>
             <div className="col-12 text-center">
                 <div>
-                    <Image loading="lazy" src={NoPageFound.src} alt="" width={200} height={200}/>
+                    <Image loading="lazy" src={NoPageFound.src} alt="404" width={200} height={200}/>
                 </div>
                 <div className='no_page_found_text'>
                     <h3>

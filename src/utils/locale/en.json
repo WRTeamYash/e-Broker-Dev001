@@ -208,7 +208,7 @@
   "remaining": "Remaining",
   "infinity": "∞",
   "startOn": "Started On",
-  "endOn": "Ends On",
+  "endsOn": "Ends On",
   "transactionHistory": "Transaction History",
   "ID": "ID",
   "transactionId": "Transaction ID",
@@ -224,5 +224,7 @@
   "price": "Price",
   "addInfo": "Add Information",
   "related": "Related",
-  "km": "Kilometre"
+  "km": "Kilometre",
+  "notification":"User Notification",
+  "nF":"Notifications"
 }

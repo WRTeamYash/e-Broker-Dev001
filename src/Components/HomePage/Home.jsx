@@ -260,6 +260,11 @@ const HomePage = () => {
         );
     }, []);
 
+
+    const handleImageLoaded = () => {
+        // Set isLoading to false when the image is loaded
+        setIsLoading(false);
+      };
     return (
         <>
             <Layout>
@@ -410,7 +415,7 @@ const HomePage = () => {
                                             : getFeaturedListing?.slice(0, 8).map((ele, index) => (
                                                 <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
                                                     <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
-                                                        <VerticalCard ele={ele} />
+                                                        <VerticalCard ele={ele}  onImageLoad={handleImageLoaded}/>
                                                     </Link>
                                                 </div>
                                             ))}

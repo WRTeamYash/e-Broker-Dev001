@@ -482,7 +482,7 @@ const PropertieDeatils = () => {
                                         <div className="card" id="owner-deatils-card">
                                             <div className="card-header" id="card-owner-header">
                                                 <div>
-                                                    <Image loading="lazy" width={200} height={200} src={getPropData && getPropData.profile ? getPropData.profile : PlaceHolderImg} className="owner-img" alt="" />
+                                                    <Image loading="lazy" width={200} height={200} src={getPropData && getPropData.profile ? getPropData.profile : PlaceHolderImg} className="owner-img" alt="no_img" />
                                                 </div>
                                                 <div className="owner-deatils">
                                                     <span className="owner-name"> {getPropData && getPropData.customer_name}</span>

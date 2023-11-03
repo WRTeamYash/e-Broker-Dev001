@@ -16,6 +16,7 @@ import Image from "next/image";
 const index = () => {
     const navigate = useRouter();
     const signupData = useSelector(userSignUpData);
+    let fcmtoken = localStorage.getItem("token")
 
     const navigateToHome = () => {
         navigate.push("/");
@@ -87,6 +88,7 @@ const index = () => {
             "",
             "",
             "",
+            fcmtoken,
             (res) => {
                 toast.success(res.message);
                 loadUpdateData(res.data);
@@ -116,7 +118,7 @@ const index = () => {
                                                 <div className="col-sm-12">
                                                     <div className="add_profile_div">
                                                         <div className="image_div">
-                                                            <Image loading="lazy" src={uploadedImage || dummyimg.src} alt="" width={200} height={200} />
+                                                            <Image loading="lazy" src={uploadedImage || dummyimg.src} alt="no_img" width={200} height={200} />
                                                         </div>
                                                         <div className="add_profile">
                                                             <input type="file" accept="image/jpeg, image/png" id="add_img" ref={fileInputRef} style={{ display: "none" }} onChange={handleImageUpload} />

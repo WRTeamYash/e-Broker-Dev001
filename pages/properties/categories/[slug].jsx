@@ -42,45 +42,8 @@ const AllProperties = () => {
 
     const lang = useSelector(languageData);
 
-    useEffect(() => {}, [lang]);
+    useEffect(() => { }, [lang]);
 
-    useEffect(() => {
-        setIsLoading(true);
-
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            cateId,
-            "",
-            "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            (response) => {
-                setTotal(response.total);
-                const propertyData = response.data;
-                setIsLoading(false);
-                setCategoryListByPropertyData(propertyData);
-
-                setCateName(propertyData && propertyData[0].category.category);
-            },
-            (error) => {
-                setIsLoading(false);
-                console.log(error);
-            }
-        );
-    }, [offsetdata, isLoggedIn]);
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
@@ -124,16 +87,51 @@ const AllProperties = () => {
         });
     };
 
-    const handleClearFilter = () => {
-        setFilterData({
-            propType: "",
-            category: "",
-            minPrice: "",
-            maxPrice: "",
-            postedSince: "",
-            selectedLocation: null,
-        });
-    };
+
+    useEffect(() => {
+          // Determine the value for the postedSince parameter based on filterData.postedSince
+          let postedSinceValue = "";
+          if (filterData.postedSince === "yesterday") {
+              postedSinceValue = "0";
+          } else if (filterData.postedSince === "lastWeek") {
+              postedSinceValue = "1";
+          }
+        setIsLoading(true);
+
+        GetFeturedListingsApi(
+            "",
+            "",
+            "",
+            cateId.slug,
+            "",
+            "",
+            "",
+            offsetdata.toString(),
+            limit.toString(),
+            isLoggedIn ? userCurrentId : "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            (response) => {
+                setTotal(response.total);
+                const propertyData = response.data;
+                setIsLoading(false);
+                setCategoryListByPropertyData(propertyData);
+
+                setCateName(propertyData && propertyData[0].category.category);
+            },
+            (error) => {
+                setIsLoading(false);
+                console.log(error);
+            }
+        );
+    }, [offsetdata, isLoggedIn]);
     const handleApplyfilter = (e) => {
         e.preventDefault();
 
@@ -144,7 +142,7 @@ const AllProperties = () => {
         } else if (filterData.postedSince === "lastWeek") {
             postedSinceValue = "1";
         }
-
+        setIsLoading(true)
         GetFeturedListingsApi(
             "",
             "",
@@ -178,7 +176,49 @@ const AllProperties = () => {
             }
         );
     };
+    const handleClearFilter = () => {
+        setFilterData({
+            propType: "",
+            category: "",
+            minPrice: "",
+            maxPrice: "",
+            postedSince: "",
+            selectedLocation: null,
+        });
+        setIsLoading(true)
+        GetFeturedListingsApi(
+            "",
+            "",
+            "",
+            cateId.slug,
+            "",
+            "",
+            "",
+            offsetdata.toString(),
+            limit.toString(),
+            isLoggedIn ? userCurrentId : "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            (response) => {
+                setTotal(response.total);
+                const propertyData = response.data;
 
+                setCategoryListByPropertyData(propertyData);
+                setIsLoading(false);
+            },
+            (error) => {
+                setIsLoading(false);
+                console.log(error);
+            }
+        )
+    };
     return (
         <Layout>
             <Breadcrumb title={`${cateName} Properties`} />
@@ -201,40 +241,54 @@ const AllProperties = () => {
                         <div className="col-12 col-md-12 col-lg-9">
                             <div className="all-prop-rightside">
                                 {CategoryListByPropertyData && CategoryListByPropertyData.length > 0 ? <GridCard total={total} setGrid={setGrid} /> : null}
-                                {CategoryListByPropertyData && CategoryListByPropertyData.length > 0 ? (
-                                    // Row cards
-                                    !grid ? (
-                                        <div className="all-prop-cards" id="rowCards">
-                                            {isLoading
-                                                ? // Show skeleton loading when data is being fetched
-                                                  Array.from({ length: 8 }).map((_, index) => (
-                                                      <div className="col-sm-12  loading_data">
-                                                          <CustomHorizontalSkeleton />
-                                                      </div>
-                                                  ))
-                                                : CategoryListByPropertyData.map((ele) => (
-                                                      <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
-                                                          <AllPropertieCard ele={ele} />
-                                                      </Link>
-                                                  ))}
-                                        </div>
-                                    ) : (
-                                        // Column cards
-                                        <div id="columnCards">
-                                            <div className="row" id="all-prop-col-cards">
-                                                {CategoryListByPropertyData.map((ele, index) => (
-                                                    <div className="col-12 col-md-6 col-lg-4" key={index}>
+
+
+                                {CategoryListByPropertyData ? (
+                                    // Data is available
+                                    CategoryListByPropertyData.length > 0 ? (
+                                        !grid ? (
+                                            <div className="all-prop-cards" id="rowCards">
+                                                {isLoading
+                                                    ? // Show skeleton loading when data is being fetched
+                                                    Array.from({ length: 8 }).map((_, index) => (
+                                                        <div className="col-sm-12 loading_data" key={index}>
+                                                            <CustomHorizontalSkeleton />
+                                                        </div>
+                                                    ))
+                                                    : CategoryListByPropertyData.map((ele) => (
                                                         <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
-                                                            <VerticalCard ele={ele} />
+                                                            <AllPropertieCard ele={ele} />
                                                         </Link>
-                                                    </div>
-                                                ))}
+                                                    ))}
                                             </div>
+                                        ) : (
+                                            <div id="columnCards">
+                                                <div className="row" id="all-prop-col-cards">
+                                                    {CategoryListByPropertyData.map((ele, index) => (
+                                                        <div className="col-12 col-md-6 col-lg-4" key={index}>
+                                                            <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
+                                                                <VerticalCard ele={ele} />
+                                                            </Link>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )
+                                    ) : (
+                                        // No data found
+                                        <div className="noDataFoundDiv">
+                                            <NoData />
                                         </div>
                                     )
                                 ) : (
-                                    <div className="noDataFoundDiv">
-                                        <NoData />
+                                    // Data is still loading
+                                    <div className="all-prop-cards" id="rowCards">
+                                        {Array.from({ length: 8 }).map((_, index) => (
+                                            <div className="col-sm-12 loading_data" key={index}>
+                                                <CustomHorizontalSkeleton />
+                                            </div>
+                                        ))
+                                        }
                                     </div>
                                 )}
 
@@ -244,6 +298,7 @@ const AllProperties = () => {
                                     </div>
                                 ) : null}
                             </div>
+
                         </div>
                     </div>
                 </div>

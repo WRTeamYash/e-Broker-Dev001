@@ -7,7 +7,7 @@ const NoData = () => {
     return (
         <div className="col-12 text-center">
             <div>
-                <Image loading="lazy" src={NoDataFound.src} alt="" width={200} height={200} />
+                <Image loading="lazy" src={NoDataFound.src} alt="no_img" width={200} height={200} />
             </div>
             <div className="no_data_found_text">
                 <h3>{translate("noData")}</h3>

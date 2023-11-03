@@ -91,7 +91,7 @@ const AllPropertieCard = ({ ele }) => {
                     <div>
                         <div id="all_prop_sub_body">
                             <div className="cate_image">
-                                <Image loading="lazy" src={ele.category.image} alt="" width={20} height={20} />
+                                <Image loading="lazy" src={ele.category.image} alt="no_img" width={20} height={20} />
                             </div>
                             <span className="sub_body_title"> {ele.category.category}</span>
                         </div>
@@ -109,7 +109,7 @@ const AllPropertieCard = ({ ele }) => {
                                     <div className="col-sm-12 col-md-4" key={index}>
                                         <div id="all_footer_content" key={index}>
                                             <div>
-                                                <Image src={elem.image} alt="" width={20} height={20} />
+                                                <Image src={elem.image} alt="no_img" width={20} height={20} />
                                             </div>
                                             <p className="text_footer"> {elem.name}</p>
                                         </div>

@@ -16,6 +16,8 @@ const Index = () => {
     const userData = useSelector((state) => state.User_signup);
     const userProfileData = userData?.data?.data;
     const navigate = useRouter();
+    let fcmtoken = localStorage.getItem("token")
+
     const [formData, setFormData] = useState({
         fullName: userProfileData?.name,
         email: userProfileData?.email,
@@ -98,6 +100,7 @@ const Index = () => {
             formData.twiiter ? formData.twiiter : "",
             formData.instagram ? formData.instagram : "",
             formData.pintrest ? formData.pintrest : "",
+            fcmtoken,
             (response) => {
                 toast.success("Profile Updated Successfully");
                 loadUpdateUserData(response.data);
@@ -140,7 +143,7 @@ const Index = () => {
                                             <div className="col-sm-12">
                                                 <div className="add_profile_div">
                                                     <div className="image_div">
-                                                        <Image loading="lazy" src={uploadedImage || PlaceHolderImg} alt="" width={200} height={200} />
+                                                        <Image loading="lazy" src={uploadedImage || PlaceHolderImg} alt="no_img" width={200} height={200} />
                                                     </div>
                                                     <div className="add_profile">
                                                         <input type="file" accept="image/jpeg, image/png" id="add_img" ref={fileInputRef} style={{ display: "none" }} onChange={handleImageUpload} />

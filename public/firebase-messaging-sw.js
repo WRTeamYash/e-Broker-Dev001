@@ -1,7 +1,8 @@
-importScripts("https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js");
-importScripts("https://www.gstatic.com/firebasejs/7.9.1/firebase-messaging.js");
+importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js')
+importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js')
+// // Initialize the Firebase app in the service worker by passing the generated config
 
-firebase.initializeApp({
+const firebaseConfig = {
     apiKey: "AIzaSyD6djyrbNtjhf_ssrww2YkXITUgsS6sYmo",
     authDomain: "ebroker-wrteam.firebaseapp.com",
     projectId: "ebroker-wrteam",
@@ -9,6 +10,19 @@ firebase.initializeApp({
     messagingSenderId: "63168540332",
     appId: "1:63168540332:web:d183e9ca13866ec5623909",
     measurementId: "G-W05KYC2K8P"
-});
+};
 
-const messaging = firebase.messaging();
+
+firebase?.initializeApp(firebaseConfig)
+
+// Retrieve firebase messaging
+const messaging = firebase?.messaging()
+
+messaging.onBackgroundMessage(function (payload) {
+  const notificationTitle = payload.notification.title
+  const notificationOptions = {
+    body: payload.notification.body
+  }
+
+  self.registration.showNotification(notificationTitle, notificationOptions)
+})

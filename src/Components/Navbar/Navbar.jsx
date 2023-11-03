@@ -161,7 +161,7 @@ const Nav = () => {
                     <div className="container">
                         <div className="left-side">
                             <Link className="navbar-brand" href="/">
-                                <Image loading="lazy" src={Logo.src} alt="Logo" className="logo" width={0} height={76} style={{ width: "auto" }} />
+                                <Image loading="lazy" src={settingData?.company_logo} alt="Logo" className="logo" width={0} height={76} style={{ width: "auto" }} />
                             </Link>
                             <span onClick={handleShow} id="hamburg">
                                 <GiHamburgerMenu size={36} />

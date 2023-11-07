@@ -101,6 +101,7 @@ const Index = () => {
             formData.instagram ? formData.instagram : "",
             formData.pintrest ? formData.pintrest : "",
             fcmtoken,
+            "1",
             (response) => {
                 toast.success("Profile Updated Successfully");
                 loadUpdateUserData(response.data);

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { FiCloudDrizzle, FiDroplet, FiMail, FiMessageSquare, FiPhoneCall } from "react-icons/fi";
 import { RiBuilding3Line, RiGridFill, RiHotelBedLine, RiParkingBoxLine, RiPlantLine, RiSendPlane2Line } from "react-icons/ri";
-import agentimg from "@/assets/Images/Superman.jpeg";
 import { AiFillCaretDown, AiFillTwitterCircle, AiOutlineHeart, AiOutlineStar, AiOutlineUnorderedList } from "react-icons/ai";
 import { BsFacebook, BsLinkedin, BsMap, BsPinterest } from "react-icons/bs";
 import { Card } from "react-bootstrap";
@@ -180,7 +179,7 @@ const page = () => {
                                 <div className="row">
                                     <div className="owner_all_deatils">
                                         <div className="owner_img_div">
-                                            <Image loading="lazy" src={agentimg.src} className="owner_img" alt="no_img" width={200} height={200} />
+                                            <Image loading="lazy" src="" className="owner_img" alt="no_img" width={200} height={200} />
                                         </div>
                                         <div className="owner_deatils">
                                             <div className="owner_title">

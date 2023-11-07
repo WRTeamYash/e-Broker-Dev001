@@ -33,7 +33,10 @@ const Nav = () => {
 
     const isSubscription = settingData?.subscription;
     const LanguageList = settingData && settingData.languages;
+    const DefaultLangCode = settingData && settingData.default_language;
+    // Initialize the selectedLanguage state with the DefaultLangCode value
     const [selectedLanguage, setSelectedLanguage] = useState();
+    const [defaultLanguage, setDefaultLanguage] = useState();
     const [show, setShow] = useState(false);
     const [headerTop, setHeaderTop] = useState(0);
     const [scroll, setScroll] = useState(0);
@@ -45,10 +48,10 @@ const Nav = () => {
     useEffect(() => {
         if (language && language.rtl === 1) {
             document.documentElement.dir = "rtl";
-            
+
         } else {
             document.documentElement.dir = "ltr";
-            
+
         }
     }, [language]);
 
@@ -60,8 +63,20 @@ const Nav = () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
+    useEffect(() => {
+        languageLoaded(
+            DefaultLangCode,
+            "1",
+            (response) => {
+                const currentLang = response && response.data.name;
+                setDefaultLanguage(currentLang);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }, []);
     const handleLanguageChange = (languageCode) => {
-
         languageLoaded(
             languageCode,
             "1",
@@ -161,7 +176,7 @@ const Nav = () => {
                     <div className="container">
                         <div className="left-side">
                             <Link className="navbar-brand" href="/">
-                                <Image loading="lazy" src={settingData?.company_logo} alt="Logo" className="logo" width={0} height={76} style={{ width: "auto" }} />
+                                <Image loading="lazy" src={settingData?.web_logo} alt="Logo" className="logo" width={0} height={76} style={{ width: "auto" }} />
                             </Link>
                             <span onClick={handleShow} id="hamburg">
                                 <GiHamburgerMenu size={36} />
@@ -236,7 +251,7 @@ const Nav = () => {
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ml-auto">
                                     <Dropdown>
-                                        <Dropdown.Toggle id="dropdown-basic">{selectedLanguage ? selectedLanguage : "Language"}</Dropdown.Toggle>
+                                        <Dropdown.Toggle id="dropdown-basic">{selectedLanguage ? selectedLanguage : defaultLanguage}</Dropdown.Toggle>
                                         <Dropdown.Menu id="language">
                                             {LanguageList &&
                                                 LanguageList.map((ele, index) => (
@@ -390,7 +405,7 @@ const Nav = () => {
                                     </Link>
                                 </li>
                                 <Dropdown>
-                                    <Dropdown.Toggle id="dropdown-basic">{selectedLanguage ? selectedLanguage : "Language"}</Dropdown.Toggle>
+                                    <Dropdown.Toggle id="dropdown-basic">{selectedLanguage ? selectedLanguage : defaultLanguage}</Dropdown.Toggle>
                                     <Dropdown.Menu id="language">
                                         {LanguageList &&
                                             LanguageList.map((ele, index) => (

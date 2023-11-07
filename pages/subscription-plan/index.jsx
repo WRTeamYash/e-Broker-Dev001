@@ -170,12 +170,12 @@ const page = () => {
     const paymentModalChecker = (e) => {
         e.preventDefault();
         if (priceData.price !== 0) {
-        setStripeFormModal(true);
-        }else{
+            setStripeFormModal(true);
+        } else {
             assignFreePackageApi(
                 priceData.id,
                 (res) => {
-                    console.log(res);
+                    // console.log(res);
                     router.push("/");
                     toast.success(res.message);
                 },
@@ -309,8 +309,12 @@ const page = () => {
                                                     <div id="package_headlines">
                                                         <span className="other_card_title">{elem.name}</span>
                                                         <h1 className="card_text">
-                                                            {systemsettings?.currency_symbol}
-                                                            {elem.price}
+                                                            {
+                                                                elem.price !== 0
+                                                                    ? systemsettings?.currency_symbol + elem.price
+                                                                    : "Free"
+                                                            }
+
                                                         </h1>
                                                     </div>
 

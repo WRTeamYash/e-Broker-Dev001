@@ -19,11 +19,27 @@ const AdminHeader = () => {
     const settingData = useSelector(settingsData);
     const signupData = useSelector(userSignUpData);
     const LanguageList = settingData && settingData.languages;
+    const DefaultLangCode = settingData && settingData.default_language;
+    // Initialize the selectedLanguage state with the DefaultLangCode value
     const [selectedLanguage, setSelectedLanguage] = useState();
-
+    const [defaultLanguage, setDefaultLanguage] = useState();
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const language = store.getState().Language.languages;
 
+
+    useEffect(() => {
+        languageLoaded(
+            DefaultLangCode,
+            "1",
+            (response) => {
+                const currentLang = response && response.data.name;
+                setDefaultLanguage(currentLang);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }, []);
     useEffect(() => {
         if (language && language.rtl === 1) {
             document.documentElement.dir = "rtl";
@@ -80,7 +96,7 @@ const AdminHeader = () => {
                     <GTranslateIcon />
                 </IconButton>
                 <Dropdown id="dropdown">
-                    <Dropdown.Toggle id="dropdown-basic-dashboard">{selectedLanguage ? selectedLanguage : "Language"}</Dropdown.Toggle>
+                    <Dropdown.Toggle id="dropdown-basic-dashboard">{selectedLanguage ? selectedLanguage : defaultLanguage}</Dropdown.Toggle>
                     <Dropdown.Menu id="language">
                         {LanguageList &&
                             LanguageList.map((ele, index) => (
@@ -110,7 +126,7 @@ const AdminHeader = () => {
                     <Box sx={{ flexGrow: 1, color: "#000" }} />
                     <Box sx={{ display: { xs: "none", sm: "none", md: "none", lg: "flex" }, alignItems: "center" }}>
                         <Dropdown id="dropdown">
-                            <Dropdown.Toggle id="dropdown-basic-dashboard">{selectedLanguage ? selectedLanguage : "Language"}</Dropdown.Toggle>
+                            <Dropdown.Toggle id="dropdown-basic-dashboard">{selectedLanguage ? selectedLanguage : defaultLanguage}</Dropdown.Toggle>
                             <Dropdown.Menu id="language">
                                 {LanguageList &&
                                     LanguageList.map((ele, index) => (

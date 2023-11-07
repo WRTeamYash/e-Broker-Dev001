@@ -1,6 +1,5 @@
 import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
 import React, { useEffect, useState } from "react";
-import agentimg from "@/assets/Images/Superman.jpeg";
 
 import AgentCard from "@/Components/Cards/AgentCard";
 import AgentCardSkeleton from "@/Components/Skeleton/AgentCardSkeleton";
@@ -17,56 +16,56 @@ const index = () => {
     let agentsData = [
         {
             id: 1,
-            agentimg: agentimg.src,
+            agentimg: "",
             agentName: "Divy Jani",
             agentEmail: " DivyJani95@hotmail.com",
             agentProp: "16 Properties",
         },
         {
             id: 2,
-            agentimg: agentimg.src,
+            agentimg: "",
             agentName: "Divy Jani",
             agentEmail: " DivyJani95@hotmail.com",
             agentProp: "16 Properties",
         },
         {
             id: 3,
-            agentimg: agentimg.src,
+            agentimg: "",
             agentName: "Divy Jani",
             agentEmail: " DivyJani95@hotmail.com",
             agentProp: "16 Properties",
         },
         {
             id: 4,
-            agentimg: agentimg.src,
+            agentimg: "",
             agentName: "Divy Jani",
             agentEmail: " DivyJani95@hotmail.com",
             agentProp: "16 Properties",
         },
         {
             id: 5,
-            agentimg: agentimg.src,
+            agentimg: "",
             agentName: "Divy Jani",
             agentEmail: " DivyJani95@hotmail.com",
             agentProp: "16 Properties",
         },
         {
             id: 6,
-            agentimg: agentimg.src,
+            agentimg: "",
             agentName: "Divy Jani",
             agentEmail: " DivyJani95@hotmail.com",
             agentProp: "16 Properties",
         },
         {
             id: 7,
-            agentimg: agentimg.src,
+            agentimg: "",
             agentName: "Divy Jani",
             agentEmail: " DivyJani95@hotmail.com",
             agentProp: "16 Properties",
         },
         {
             id: 8,
-            agentimg: agentimg.src,
+            agentimg: "",
             agentName: "Divy Jani",
             agentEmail: " DivyJani95@hotmail.com",
             agentProp: "16 Properties",

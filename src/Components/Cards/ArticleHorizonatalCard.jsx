@@ -1,11 +1,11 @@
 import Link from "next/link";
-import React from "react";
-import { Card } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import adminlogo from "@/assets/Images/Superman.jpeg";
 import { translate } from "@/utils";
 
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import { settingsData } from "@/store/reducer/settingsSlice";
 
 const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) => {
     const stripHtmlTags = (htmlString) => {
@@ -13,7 +13,29 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) 
         tempDiv.innerHTML = htmlString;
         return tempDiv.textContent || tempDiv.innerText || "";
     };
-
+    const systemsettingsData = useSelector(settingsData)
+  
+    const [timeAgo, setTimeAgo] = useState(null);
+    useEffect(() => {
+        const postDate = new Date(ele.created_at);
+        const currentDate = new Date();
+        
+        const timeDifference = currentDate - postDate;
+    
+        if (timeDifference < 30 * 24 * 60 * 60 * 1000) {
+          // Less than 30 days, show days ago
+          const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+          setTimeAgo(`${days} day${days !== 1 ? 's' : ''} ago`);
+        } else if (timeDifference < 12 * 30 * 24 * 60 * 60 * 1000) {
+          // More than 30 days but less than 12 months, show months ago
+          const months = Math.floor(timeDifference / (30 * 24 * 60 * 60 * 1000));
+          setTimeAgo(`${months} month${months !== 1 ? 's' : ''} ago`);
+        } else {
+          // More than 12 months, show years ago
+          const years = Math.floor(timeDifference / (12 * 30 * 24 * 60 * 60 * 1000));
+          setTimeAgo(`${years} year${years !== 1 ? 's' : ''} ago`);
+        }
+      }, [ele.created_at]);
     return (
         <div>
             <div className="card" id="article_horizontal_card">
@@ -45,11 +67,11 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) 
                             </div>
                             <div className="card-footer" id="article-card-footer">
                                 <div id="admin_pic">
-                                    <Image loading="lazy" src={adminlogo.src} alt="no_img" className="admin" width={200} height={200} />
+                                    <Image loading="lazy" src={systemsettingsData?.admin_image} alt="no_img" className="admin" width={200} height={200} />
                                 </div>
                                 <div className="article_footer_text">
-                                    <span className="byadmin"> {translate("byAdmin")}</span>
-                                    <p>1 day ago</p>
+                                    <span className="byadmin"> {translate("by")} {systemsettingsData?.admin_name}</span>
+                                    <p>{timeAgo}</p>
                                 </div>
                             </div>
                         </div>

@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import HeroSlider, { Slide } from "hero-slider";
-import Wrapper from "@/Components/Wrapper/Wrapper";
 import { BsArrowRight } from "react-icons/bs";
-import { FaEye } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";
-import { GoPlay } from "react-icons/go";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 // Import Swiper styles
@@ -31,13 +27,13 @@ import NearByCitysSkeleton from "../Skeleton/NearByCitysSkeleton";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
-import VideoPlayerModal from "../PlayerModal/VideoPlayerModal.jsx";
 import "aos/dist/aos.css";
 import { translate } from "@/utils";
 import Layout from "../Layout/Layout";
 import SearchTab from "../SearchTab/SearchTab.jsx";
 import { store } from "@/store/store";
 import { categoriesCacheData, silderCacheData } from "@/store/reducer/momentSlice";
+import SliderComponent from "../HomeSlider/SliderComponent";
 
 const HomePage = () => {
     const priceSymbol = useSelector(settingsData);
@@ -264,99 +260,23 @@ const HomePage = () => {
     const handleImageLoaded = () => {
         // Set isLoading to false when the image is loaded
         setIsLoading(false);
-      };
+    };
     return (
         <>
             <Layout>
                 {sliderdata && sliderdata.length > 0 ? (
-                    <section id="mainheroImage">
-                        <HeroSlider
-                            height={"90vh"}
-                            slidingAnimation="fade"
-                            autoplay
-                            orientation="horizontal"
-                            initialSlide={1}
-                            onBeforeChange={(previousSlide, nextSlide) => console.log("onBeforeChange", previousSlide, nextSlide)}
-                            onChange={(nextSlide) => console.log("onChange", nextSlide)}
-                            onAfterChange={(nextSlide) => console.log("onAfterChange", nextSlide)}
-                            settings={{
-                                slidingDuration: 400,
-                                slidingDelay: 100,
-                                shouldAutoplay: true,
-                                shouldDisplayButtons: true,
-                                autoplayDuration: 3000,
-                                height: "100vh",
-                            }}
-                        >
-                            {isLoading ? (
-                                <Loader />
-                            ) : (
-                                sliderdata &&
-                                sliderdata.map((single, index) => {
-                                    return (
-                                        <Slide
-                                            background={{
-                                                backgroundImageSrc: single.property_title_image,
-                                            }}
-                                            key={index}
-                                        >
-                                            <div className="container">
-                                                <Wrapper>
-                                                    <div id="herotexts">
-                                                        <div>
-                                                            <span id="priceteg">
-                                                                {" "}
-                                                                {CurrencySymbol} {single.property_price}
-                                                            </span>
-                                                            <h1 id="hero_headlines">{single.property_title}</h1>
-                                                            <div className="hero_text_parameters">
-                                                                {single.parameters &&
-                                                                    single.parameters.slice(0, 4).map((elem, index) => (
-                                                                        <span id="specifiaction">
-                                                                            {" "}
-                                                                            {elem.name}: {elem.value}{" "}
-                                                                        </span>
-                                                                    ))}
-                                                            </div>
-                                                        </div>
+                    isLoading ? (
+                        <Loader />
+                    ) : (
+                        <section id="mainheroImage">
+                            <div>
+                                <SliderComponent sliderData={sliderdata} />
+                            </div>
+                            {/* Sell Rent  */}
 
-                                                        <div id="viewall_hero_prop">
-                                                            <Link href="/properties-details/[slug]" as={`/properties-details/${single.propertys_id}`} passHref>
-                                                                <button className="view_prop">
-                                                                    <FaEye size={20} className="icon" />
-                                                                    {translate("viewProperty")}
-                                                                </button>
-                                                            </Link>
-
-                                                            {single && single.video_link ? (
-                                                                <>
-                                                                    <div>
-                                                                        <GoPlay
-                                                                            className="playbutton"
-                                                                            size={50}
-                                                                            onClick={() => {
-                                                                                setShowVideoModal(true);
-                                                                            }}
-                                                                        />
-                                                                    </div>
-
-                                                                    <VideoPlayerModal isOpen={showVideoModal} onClose={handleCloseModal} data={single} />
-                                                                </>
-                                                            ) : null}
-                                                        </div>
-                                                    </div>
-                                                </Wrapper>
-                                            </div>
-                                        </Slide>
-                                    );
-                                })
-                            )}
-                        </HeroSlider>
-
-                        {/* Sell Rent  */}
-
-                        <SearchTab getCategories={Categorydata} />
-                    </section>
+                            <SearchTab getCategories={Categorydata} />
+                        </section>
+                    )
                 ) : null}
 
                 {/* Feature Section  */}
@@ -415,7 +335,7 @@ const HomePage = () => {
                                             : getFeaturedListing?.slice(0, 8).map((ele, index) => (
                                                 <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
                                                     <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
-                                                        <VerticalCard ele={ele}  onImageLoad={handleImageLoaded}/>
+                                                        <VerticalCard ele={ele} onImageLoad={handleImageLoaded} />
                                                     </Link>
                                                 </div>
                                             ))}

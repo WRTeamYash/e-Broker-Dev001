@@ -49,7 +49,7 @@ const FirebaseData = () => {
       vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
     })
       .then((currentToken) => {
-        if (currentToken) {
+        if (currentToken) { 
           localStorage.setItem("token",currentToken);
           // console.log(currentToken)
           setTokenFound(true);

@@ -1,7 +1,7 @@
 import React from "react";
 import eBroker from "@/assets/Logo_Color.png";
 import { FiMail, FiPhone } from "react-icons/fi";
-import { AiOutlineInstagram, AiOutlineLinkedin } from "react-icons/ai";
+import { AiFillTwitterCircle, AiOutlineInstagram, AiOutlineLinkedin } from "react-icons/ai";
 import { CiFacebook } from "react-icons/ci";
 import { ImPinterest2 } from "react-icons/im";
 import playstore from "../../assets/playStore.png";
@@ -26,7 +26,7 @@ const Footer = () => {
                             <Link href="/">
                                 <Image
                                     loading="lazy"
-                                    src={webdata?.company_logo}
+                                    src={webdata?.web_logo}
                                     alt="eBroker_logo"
                                     width={0}
                                     height={0}
@@ -69,24 +69,24 @@ const Footer = () => {
                             <div>
                                 <h4> {translate("followUs")}</h4>
                                 <div id="follow_us">
-                                    {process.env.NEXT_PUBLIC_FACEBOOK_LINK ? (
-                                        <a href={process.env.NEXT_PUBLIC_FACEBOOK_LINK} target="_blank">
+                                    {webdata?.facebook_id ? (
+                                        <a href={webdata?.facebook_id} target="_blank">
                                             <CiFacebook size={28} />
                                         </a>
                                     ) : null}
-                                    {process.env.NEXT_PUBLIC_INSTAGRAM_LINK ? (
-                                        <a href={process.env.NEXT_PUBLIC_INSTAGRAM_LINK} target="_blank">
+                                    {webdata?.instagram_id ? (
+                                        <a href={webdata?.instagram_id} target="_blank">
                                             <AiOutlineInstagram size={28} />
                                         </a>
                                     ) : null}
-                                    {process.env.NEXT_PUBLIC_PINTREST_LINK ? (
-                                        <a href={process.env.NEXT_PUBLIC_PINTREST_LINK}>
+                                    {webdata?.pintrest_id ? (
+                                        <a href={webdata?.pintrest_id}>
                                             <ImPinterest2 size={25} />
                                         </a>
                                     ) : null}
-                                    {process.env.NEXT_PUBLIC_LINKEDIN_LINK ? (
-                                        <a href={process.env.NEXT_PUBLIC_LINKEDIN_LINK} target="_blank">
-                                            <AiOutlineLinkedin size={28} />
+                                    {webdata?.twitter_id ? (
+                                        <a href={webdata?.twitter_id} target="_blank">
+                                            <AiFillTwitterCircle size={28} />
                                         </a>
                                     ) : null}
                                 </div>

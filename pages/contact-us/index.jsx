@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
-import { AiFillLinkedin } from "react-icons/ai";
+import {  AiFillTwitterCircle } from "react-icons/ai";
 import { BsInstagram, BsPinterest } from "react-icons/bs";
 import { FiMail, FiPhoneCall } from "react-icons/fi";
 import { MdLocationPin } from "react-icons/md";
@@ -172,7 +172,7 @@ const ContactUs = () => {
                                                 </div>
                                                 <div className="contact-deatils">
                                                     <p>{translate("officeAdd")}</p>
-                                                    <span>{process.env.NEXT_PUBLIC_COMPANY_ADDRESS}</span>
+                                                    <span>{systemsettings?.company_address}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -183,10 +183,10 @@ const ContactUs = () => {
                                                 </div>
                                                 <div className="contact-deatils">
                                                     <p>{translate("tele")}</p>
-                                                    <a href={`tel:${systemsettings && systemsettings.company_tel1}`} style={{ textDecoration: "none" }}>
+                                                    <a href={`tel:${systemsettings?.company_tel1}`} style={{ textDecoration: "none" }}>
                                                         <span>{systemsettings?.company_tel1}</span>
                                                     </a>
-                                                    <a href={`tel:${systemsettings && systemsettings.company_tel2}`} style={{ textDecoration: "none" }}>
+                                                    <a href={`tel:${systemsettings?.company_tel2}`} style={{ textDecoration: "none" }}>
                                                         <span>{systemsettings?.company_tel2}</span>
                                                     </a>
                                                 </div>
@@ -199,7 +199,7 @@ const ContactUs = () => {
                                                 </div>
                                                 <div className="contact-deatils">
                                                     <p>{translate("emailUs")}</p>
-                                                    <a href={`mail to:${systemsettings && systemsettings.company_email}`} style={{ textDecoration: "none" }}>
+                                                    <a href={`mail to:${systemsettings?.company_email}`} style={{ textDecoration: "none" }}>
                                                         <span>{systemsettings?.company_email}</span>
                                                     </a>
                                                 </div>
@@ -208,38 +208,38 @@ const ContactUs = () => {
                                         <div className="col-12" id="contactus-socialPlatforms">
                                             <h3>{translate("followUs")}</h3>
                                             <div className="row">
-                                                {process.env.NEXT_PUBLIC_FACEBOOK_LINK ? (
+                                                {systemsettings?.facebook_id ? (
                                                     <div className="col-sm-12 col-md-6 col-lg-3" id="social-platforms">
-                                                        <a href={process.env.NEXT_PUBLIC_FACEBOOK_LINK} target="_blank">
+                                                        <a href={systemsettings?.facebook_id} target="_blank">
                                                             <button className="social-platforms-icons">
                                                                 <PiFacebookLogoBold size={30} />
                                                             </button>
                                                         </a>
                                                     </div>
                                                 ) : null}
-                                                {process.env.NEXT_PUBLIC_INSTAGRAM_LINK ? (
+                                                {systemsettings?.instagram_id ? (
                                                     <div className="col-sm-12 col-md-6 col-lg-3" id="social-platforms">
-                                                        <a href={process.env.NEXT_PUBLIC_INSTAGRAM_LINK} target="_blank">
+                                                        <a href={systemsettings?.instagram_id} target="_blank">
                                                             <button className="social-platforms-icons">
                                                                 <BsInstagram size={30} />
                                                             </button>
                                                         </a>
                                                     </div>
                                                 ) : null}
-                                                {process.env.NEXT_PUBLIC_PINTREST_LINK ? (
+                                                {systemsettings?.pintrest_id ? (
                                                     <div className="col-sm-12 col-md-6 col-lg-3" id="social-platforms">
-                                                        <a href={process.env.NEXT_PUBLIC_PINTREST_LINK} target="_blank">
+                                                        <a href={systemsettings?.pintrest_id} target="_blank">
                                                             <button className="social-platforms-icons">
                                                                 <BsPinterest size={30} />
                                                             </button>
                                                         </a>
                                                     </div>
                                                 ) : null}
-                                                {process.env.NEXT_PUBLIC_LINKEDIN_LINK ? (
+                                                {systemsettings?.twitter_id ? (
                                                     <div className="col-sm-12 col-md-6 col-lg-3" id="social-platforms">
-                                                        <a href={process.env.NEXT_PUBLIC_LINKEDIN_LINK} target="_blank">
+                                                        <a href={systemsettings?.twitter_id} target="_blank">
                                                             <button className="social-platforms-icons">
-                                                                <AiFillLinkedin size={30} />
+                                                                <AiFillTwitterCircle size={30} />
                                                             </button>
                                                         </a>
                                                     </div>
@@ -253,7 +253,7 @@ const ContactUs = () => {
                     </div>
                     <div className="card conatctus-location-map">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.2756631211932!2d69.64143297622796!3d23.233053779026758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3950e1e328911c2f%3A0xd3fbdee849719bee!2sShree%20Softech!5e0!3m2!1sen!2sin!4v1689831653200!5m2!1sen!2sin"
+                            src={systemsettings?.iframe_link}
                             style={{
                                 width: "100%",
                                 height: "400px",

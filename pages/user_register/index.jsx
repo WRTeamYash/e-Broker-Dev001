@@ -89,6 +89,7 @@ const index = () => {
             "",
             "",
             fcmtoken,
+            "1",
             (res) => {
                 toast.success(res.message);
                 loadUpdateData(res.data);

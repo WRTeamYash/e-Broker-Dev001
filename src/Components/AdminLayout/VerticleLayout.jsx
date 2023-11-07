@@ -207,7 +207,7 @@ export default function VerticleLayout(props) {
                         }}
                     >
                         <Link href="/">
-                            <Image loading="lazy" src={settingData?.company_logo} alt="no_img" className="dashboard_logo" width={200} height={200} />
+                            <Image loading="lazy" src={settingData?.web_logo} alt="no_img" className="dashboard_logo" width={200} height={200} />
                         </Link>
                         <IconButton
                             onClick={handleDrawerClose}

@@ -50,7 +50,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                         </div>
                         <div className="mobile-number">
                             <label htmlFor="phone">{translate("phoneNumber")}</label>
-                            <PhoneInput defaultCountry="IN" disabledCountryCode="true" value={value} onChange={setValue} className="custom-phone-input" />
+                            <PhoneInput defaultCountry={process.env.NEXT_PUBLIC_DEFAULT_COUNTRY} disabledCountryCode="true" value={value} onChange={setValue} className="custom-phone-input" />
                         </div>
                         <div className="continue">
                             <button type="submit" className="continue-button" onClick={onSignUp}>

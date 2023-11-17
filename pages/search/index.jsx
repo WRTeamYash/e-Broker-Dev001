@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
 import Layout from "@/Components/Layout/Layout";
 import { useSelector } from "react-redux";
-import {  GetFeturedListingsApi } from "@/store/actions/campaign.js";
+import { GetFeturedListingsApi } from "@/store/actions/campaign.js";
 import { RiCloseCircleLine, RiSendPlane2Line } from "react-icons/ri";
 import { GrRefresh } from "react-icons/gr";
 import { ButtonGroup, Modal, Pagination } from "react-bootstrap";
@@ -19,6 +19,7 @@ import { categoriesCacheData } from "@/store/reducer/momentSlice";
 
 const SearchPage = () => {
     const searchedData = JSON.parse(localStorage.getItem("searchData"));
+
     const [searchData, setSearchData] = useState();
     const [filterData, setFilterData] = useState("");
     const isLoggedIn = useSelector((state) => state.User_signup);
@@ -31,10 +32,10 @@ const SearchPage = () => {
     const limit = 8;
     const [showFilterModal, setShowFilterModal] = useState(false);
     const [formData, setFormData] = useState({
-        propType: "",
-        minPrice: "",
-        maxPrice: "",
-        postedSince: "",
+        propType: searchedData.filterData.propType ? searchedData.filterData.propType : "",
+        minPrice: searchedData.filterData.minPrice ? searchedData.filterData.minPrice : "",
+        maxPrice: searchedData.filterData.maxPrice ? searchedData.filterData.maxPrice : "",
+        postedSince: searchedData.filterData.postedSince ? searchedData.filterData.postedSince : "",
         selectedLocation: null,
     });
     const [activeTab, setActiveTab] = useState(0);
@@ -48,20 +49,20 @@ const SearchPage = () => {
             "",
             "",
             "",
-            searchedData.filterData?.propType ? searchedData.filterData.propType : "",
+            formData.propType || "",
             "",
-            searchedData && searchedData.filterData && searchedData.filterData.selectedLocation && searchedData.filterData.selectedLocation?.city ? searchedData.filterData.selectedLocation.city : "",
+            formData.selectedLocation?.city || "",
             "",
             "",
             "",
             isLoggedIn ? userCurrentId : "",
-            searchedData && searchedData.activeTab,
-            searchedData.filterData?.maxPrice ? searchedData.filterData.maxPrice : "",
-            searchedData.filterData?.minPrice ? searchedData.filterData.minPrice : "0",
-            searchedData.filterData?.postedSince ? searchedData.filterData.postedSince : "",
-            searchedData && searchedData.filterData && searchedData.filterData.selectedLocation && searchedData.filterData.selectedLocation?.state ? searchedData.filterData.selectedLocation.state : "",
-            searchedData && searchedData.filterData && searchedData.filterData.selectedLocation && searchedData.filterData.selectedLocation?.country ? searchedData.filterData.selectedLocation.country : "",
-            searchedData && searchedData.searchInput,
+            activeTab,
+            formData.maxPrice !== undefined ? formData.maxPrice : "",
+            formData.minPrice || "0",
+            formData.postedSince || "",
+            formData.selectedLocation?.state || "",
+            formData.selectedLocation?.country || "",
+            searchInput,
             "",
             "",
             (response) => {
@@ -81,20 +82,16 @@ const SearchPage = () => {
     };
 
     const handleInputChange = (e) => {
-        const { name, value, type } = e.target;
-        // Ensure that the input value is a positive number
-        if (type === "number") {
-            const sanitizedValue = Math.max(0, parseInt(value));
-            setFormData({
-                ...formData,
-                [name]: sanitizedValue,
-            });
-        } else {
-            setFormData({
-                ...formData,
-                [name]: value,
-            });
-        }
+        const { name, value } = e.target;
+
+        // Ensure the value is at least 0
+        const sanitizedValue = Math.max(parseFloat(value), 0);
+
+        // Update the form data
+        setFormData({
+            ...formData,
+            [name]: sanitizedValue,
+        });
     };
 
     const handlePostedSinceChange = (e) => {
@@ -114,6 +111,7 @@ const SearchPage = () => {
     const handleTabClick = (tab) => {
         setActiveTab(tab === "sell" ? 0 : 1);
     };
+
     const handleApplyFilter = () => {
         let postedSinceValue = "";
         if (formData.postedSince === "yesterday") {
@@ -133,13 +131,13 @@ const SearchPage = () => {
 
         // Set the filter data in state
         setFilterData(newFilterData);
-
         // Close the modal
         setShowFilterModal(false);
     };
 
     useEffect(() => {
         // You can access the updated filterData value here
+
     }, [filterData]);
 
     const handleSearch = () => {
@@ -154,20 +152,20 @@ const SearchPage = () => {
             "",
             "",
             "",
-            searchData.filterData?.propType ? searchData.filterData.propType : "",
+            searchData.filterData.propType || "",
             "",
-            searchData && searchData.filterData && searchData.filterData.selectedLocation && searchData.filterData.selectedLocation?.city ? searchData.filterData.selectedLocation.city : "",
+            searchData.filterData.selectedLocation?.city || "",
             "",
             "",
             "",
             isLoggedIn ? userCurrentId : "",
-            searchData && searchData.activeTab,
-            searchData.filterData?.maxPrice ? searchData.filterData.maxPrice : "",
-            searchData.filterData?.minPrice ? searchData.filterData.minPrice : "0",
-            searchData.filterData?.postedSince ? searchData.filterData.postedSince : "",
-            searchData && searchData.filterData && searchData.filterData.selectedLocation && searchData.filterData.selectedLocation?.state ? searchData.filterData.selectedLocation.state : "",
-            searchData && searchData.filterData && searchData.filterData.selectedLocation && searchData.filterData.selectedLocation?.country ? searchData.filterData.selectedLocation.country : "",
-            searchData && searchData.searchInput,
+            searchData.activeTab,
+            searchData.filterData.maxPrice !== undefined ? searchData.filterData.maxPrice : "",
+            searchData.filterData.minPrice || "0",
+            searchData.filterData.postedSince || "",
+            searchData.filterData.selectedLocation?.state || "",
+            searchData.filterData.selectedLocation?.country || "",
+            searchData.searchInput,
             "",
             "",
             (response) => {
@@ -190,14 +188,16 @@ const SearchPage = () => {
             minPrice: "",
             maxPrice: "",
             postedSince: "",
+            selectedLocation: null,
         });
-        selectedLocation: "";
     };
+
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
         window.scrollTo(0, 0);
     };
+
 
     return (
         <Layout>
@@ -321,15 +321,15 @@ const SearchPage = () => {
                         </form>
                     </Modal.Body>
                     <Modal.Footer className="filter-footer">
-                        <div className="clear-filter-modal">
+                        <div className="clear-filter-modal" onClick={handleClearFilter}>
                             <GrRefresh size={25} />
-                            <button id="clear-filter-button" type="submit" onClick={handleClearFilter}>
+                            <button id="clear-filter-button" type="submit" >
                                 {translate("clearFilter")}
                             </button>
                         </div>
-                        <div className="apply-filter-modal">
+                        <div className="apply-filter-modal" onClick={handleApplyFilter}>
                             <RiSendPlane2Line size={25} />
-                            <button id="apply-filter-button" type="submit" onClick={handleApplyFilter}>
+                            <button id="apply-filter-button" type="submit" >
                                 {translate("applyFilter")}
                             </button>
                         </div>

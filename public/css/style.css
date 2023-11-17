@@ -1095,10 +1095,9 @@ top: 0 !important;
   font-weight: 800;
   font-size: 56px;
 }
-#specifiaction {
-  font-family: var(--primary-font);
-  font-size: 24px;
-  line-height: 36px;
+#specification {
+  display: flex;
+  gap: 20px;
 }
 #viewall_hero_prop {
   padding-top: 20px;
@@ -1164,6 +1163,8 @@ top: 0 !important;
   opacity: 1;
   z-index: 1;
   cursor: pointer;
+  border-bottom: 1px solid #dddddd;
+
 }
 #searchbox #tabs #rentbutton {
   border: none;
@@ -1181,6 +1182,7 @@ top: 0 !important;
   opacity: 1;
   z-index: 1;
   cursor: pointer;
+  border-bottom: 1px solid #dddddd;
 }
 .card {
   border-radius: none;
@@ -3498,15 +3500,16 @@ option {
   align-items: center;
   gap: 10%;
 }
-#specification {
- font-size: large ;
-}
+
 .spec-icon {
   border: 1px solid var(--primary-color);
   color: var(--primary-color);
   padding: 5px;
   border-radius: 8px;
   background: #087c7c14;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #specs-deatils {
   display: flex;
@@ -3577,7 +3580,7 @@ option {
   margin: auto;
   width: 100%;
   height: 100%;
-  z-index: 99;
+  z-index: 1;
 }
 
 /* Center the button and set background and text color */
@@ -5096,6 +5099,12 @@ a {
 }
 /* ERROR PAGE */
 .errorPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.under_maintance {
   display: flex;
   align-items: center;
   justify-content: center;

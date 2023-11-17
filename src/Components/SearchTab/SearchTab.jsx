@@ -30,11 +30,18 @@ const SearchTab = ({ getCategories }) => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+
+        // Ensure the value is at least 0
+        const sanitizedValue = Math.max(parseFloat(value), 0);
+
+        // Update the form data
         setFormData({
             ...formData,
-            [name]: value,
+            [name]: sanitizedValue,
         });
     };
+
+
 
     const handlePostedSinceChange = (e) => {
         setFormData({
@@ -65,11 +72,11 @@ const SearchTab = ({ getCategories }) => {
         const filterData = {
             propType: formData.propType || "", // Set to empty string if not selected
             minPrice: formData.minPrice || "0", // Set to empty string if not selected
-            maxPrice: formData.maxPrice || "", // Set to empty string if not selected
+            maxPrice: formData.maxPrice !== undefined ? formData.maxPrice : "", // Set to empty string if not selected
             postedSince: postedSinceValue, // Include it here
             selectedLocation: formData.selectedLocation || null, // Set to null if not selected
         };
-
+        // console.log(filterData)
         // Set the filter data in state
         setFilterD(filterData);
         setShowFilterModal(false); // Close the modal
@@ -202,15 +209,15 @@ const SearchTab = ({ getCategories }) => {
                     </form>
                 </Modal.Body>
                 <Modal.Footer className="filter-footer">
-                    <div className="clear-filter-modal">
+                    <div className="clear-filter-modal" onClick={handleClearFilter}>
                         <GrRefresh size={25} />
-                        <button id="clear-filter-button" type="submit" onClick={handleClearFilter}>
+                        <button id="clear-filter-button" type="submit" >
                             {translate("clearFilter")}
                         </button>
                     </div>
-                    <div className="apply-filter-modal">
+                    <div className="apply-filter-modal" onClick={handleApplyFilter}>
                         <RiSendPlane2Line size={25} />
-                        <button id="apply-filter-button" type="submit" onClick={handleApplyFilter}>
+                        <button id="apply-filter-button" type="submit" >
                             {translate("applyFilter")}
                         </button>
                     </div>

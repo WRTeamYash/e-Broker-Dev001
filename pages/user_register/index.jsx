@@ -36,7 +36,7 @@ const index = () => {
 
     const lang = useSelector(languageData);
 
-    useEffect(() => {}, [lang]);
+    useEffect(() => { }, [lang]);
     const handleOpenLocModal = () => {
         // onClose()
         setShowCurrentLoc(true);
@@ -45,7 +45,7 @@ const index = () => {
         setShowCurrentLoc(false);
     };
     const handleSelectLocation = (location) => {
-        
+
         setSelectedLocation(location);
     };
     const modalStyle = {
@@ -57,12 +57,12 @@ const index = () => {
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
 
-       
+
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
                 // const imageBlob = new Blob([e.target.result], { type: file.type });
-                
+
                 setImage(file);
                 setUploadedImage(e.target.result);
             };
@@ -71,6 +71,11 @@ const index = () => {
     };
     const handleSubmitInfo = (e) => {
         e.preventDefault();
+        // Check if username and email are filled
+        if (!username || !email) {
+            toast.error("Please fill in your username and email");
+            return;
+        }
         UpdateProfileApi(
             signupData.data.data.id,
             username,

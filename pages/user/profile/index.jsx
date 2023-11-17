@@ -29,6 +29,7 @@ const Index = () => {
         pintrest: userProfileData?.pintrest_id,
         twiiter: userProfileData?.twiiter_id,
         profileImage: userProfileData?.profile,
+        
     });
     const fileInputRef = useRef(null);
 
@@ -36,7 +37,7 @@ const Index = () => {
 
     const lang = useSelector(languageData);
 
-    useEffect(() => {}, [lang]);
+    useEffect(() => { }, [lang]);
     const DummyImgData = useSelector(settingsData);
     const PlaceHolderImg = DummyImgData?.img_placeholder;
     const handleImageUpload = (e) => {
@@ -178,7 +179,10 @@ const Index = () => {
                                                 <div className="add_user_fields_div">
                                                     <span>{translate("location")}</span>
 
-                                                    <LocationSearchBox onLocationSelected={handleLocationSelected} />
+                                                    <LocationSearchBox onLocationSelected={handleLocationSelected} 
+                                                    initialLatitude={userProfileData?.latitude}
+                                                    initialLongitude={userProfileData?.longitude}
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-sm-12">

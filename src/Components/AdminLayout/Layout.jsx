@@ -11,9 +11,7 @@ const Layout = ({ children }) => {
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const settingData = useSelector(settingsData);
     useEffect(() => {
-        if (settingData) {
-            setIsLoading(false);
-        } else {
+
             settingsLoaded(
                 null,
                 isLoggedIn ? userCurrentId : "",
@@ -24,7 +22,6 @@ const Layout = ({ children }) => {
                     console.log(err);
                 }
             );
-        }
     }, [isLoggedIn]);
     const lang = useSelector(languageData);
     useEffect(() => {}, [lang]);

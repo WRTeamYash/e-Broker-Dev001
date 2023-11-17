@@ -3,6 +3,7 @@ import { store } from "../store";
 import { apiCallBegan } from "../actions/apiActions";
 import { getSettingApi } from "@/utils/api";
 import moment from "moment";
+import { checkDemoMode } from "@/utils";
 
 const initialState = {
     data: null,
@@ -37,7 +38,7 @@ export const settingsLoaded = (type, user_id, onSuccess, onError, onStart) => {
     const { lastFetch } = store.getState().Settings;
     const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     // If API data is fetched within last 10 minutes then don't call the API again
-    if (diffInMinutes < 10) return false;
+    // if (diffInMinutes < 10) return false;
     store.dispatch(
         apiCallBegan({
             ...getSettingApi(type, user_id),

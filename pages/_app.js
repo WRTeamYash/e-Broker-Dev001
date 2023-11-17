@@ -1,7 +1,7 @@
 import { Provider, useSelector } from "react-redux";
 import { store, persistor } from "../src/store/store";
 import { PersistGate } from "redux-persist/integration/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 
 import "../public/css/style.css";
@@ -14,6 +14,21 @@ import { Toaster } from "react-hot-toast";
 import PushNotificationLayout from "@/Components/firebaseNotification/PushNotificationLayout";
 
 function MyApp({ Component, pageProps, data }) {
+    useEffect(() => {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker
+            .register('/service-worker.js', { scope: '/' })
+            .then((registration) => {
+              // console.log(
+              //   'Service worker registered successfully. Scope:',
+              //   registration.scope
+              // );
+            })
+            .catch((error) => {
+              console.error('Service worker registration failed:', error);
+            });
+        }
+      }, []);
     return (
         <Fragment>
             <Head>

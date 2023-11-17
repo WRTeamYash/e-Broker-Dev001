@@ -47,7 +47,7 @@ const index = () => {
                 setTotal(res.total);
                 setData(res.data);
                 setIsLoading(false)
-                console.log(res.data);
+                // console.log(res.data);
             },
             (err) => {
                 toast.error(err);

@@ -371,8 +371,9 @@ export default function AddPropertyTabs() {
     };
 
     const areLocationFieldsFilled = (location) => {
+        
         // Check if any of the required fields are empty or undefined
-        if (!location.city || !location.state || !location.country || !location.formatted_address) {
+        if (!location.city || !location.state || !location.country || !location.formatted_address || !selectedLocationAddress) {
             // Some required fields are not filled
             return false;
         }
@@ -394,6 +395,7 @@ export default function AddPropertyTabs() {
     };
     const handleNextTab4 = () => {
         // Check if the location fields in tab 4 are empty
+        // console.log(selectedLocationAddress)
         if (!areLocationFieldsFilled(selectedLocationAddress)) {
             // Display a toast message to fill in all property address details in tab 4
             toast.error("Please fill in all property address details.");

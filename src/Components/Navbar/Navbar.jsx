@@ -26,6 +26,8 @@ const Nav = () => {
     const router = useRouter();
 
     const isHomePage = router.pathname === '/';
+
+    const user_register = router.pathname === '/user_register';
     const signupData = useSelector(userSignUpData);
     const sliderdata = useSelector(silderCacheData);
     const settingData = useSelector(settingsData);
@@ -54,6 +56,24 @@ const Nav = () => {
 
         }
     }, [language]);
+    useEffect(() => {
+        if ( signupData?.data?.data.name === "" && signupData?.data?.data.email === "" && !user_register) {
+            Swal.fire({
+                title: 'Complete Profile First',
+                icon: 'info',
+                confirmButtonColor: primaryColor,
+                confirmButtonText: 'OK',
+                backdrop: 'static',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If the user clicks "OK," navigate to "/user_register"
+                    router.push('/user_register');
+                }
+            });
+        }
+    }, []);
+
+
 
     useEffect(() => {
         const header = document.querySelector(".header");
@@ -271,7 +291,24 @@ const Nav = () => {
                                                 </a>
                                             ) : // Check if mobile and firebase_id are present
                                                 signupData?.data?.data.mobile && signupData?.data?.data.firebase_id && signupData?.data?.data.name === "" ? (
-                                                    <span className="nav-link">{translate("welcmGuest")}</span>
+                                                    <>
+                                                        {/* {user_register ? ( */}
+                                                            <span className="nav-link">{translate("welcmGuest")}</span>
+                                                        {/* ) :
+                                                            (
+                                                                <Dropdown>
+                                                                    <Dropdown.Toggle id="dropdown-basic01">
+                                                                        <RiUserSmileLine size={20} className="icon01" />
+                                                                        {translate("welcmGuest")}
+                                                                    </Dropdown.Toggle>
+                                                                    <Dropdown.Menu id="language">
+                                                                        <Dropdown.Item>{translate("CompleteProfile")}</Dropdown.Item>
+
+                                                                    </Dropdown.Menu>
+                                                                </Dropdown>
+
+                                                            )} */}
+                                                    </>
                                                 ) : // If name is present, show "Welcome, {name}"
                                                     signupData?.data?.data.name ? (
                                                         <Dropdown>

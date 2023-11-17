@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { settingsData } from '@/store/reducer/settingsSlice';
 
 // transalte strings 
+
 export const translate = (label) => {
   const langLabel = store.getState().Language.languages.file_name &&
     store.getState().Language.languages.file_name[label];
@@ -56,3 +57,8 @@ export const loadStripeApiKey = () => {
   return false;
 }
 
+
+export const isDemoMode = (store) => {
+  const systemSettingsData = settingsData(store);
+  return systemSettingsData?.demo_mode || false;
+};

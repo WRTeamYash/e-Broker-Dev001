@@ -3,6 +3,7 @@ import { initializeApp, getApps, getApp } from 'firebase/app'
 import { getMessaging, getToken, onMessage, isSupported } from 'firebase/messaging'
 import firebase from "firebase/compat/app"
 import { getAuth } from "firebase/auth";
+import toast from 'react-hot-toast';
 
 const FirebaseData = () => {
   let firebaseConfig = {
@@ -15,24 +16,17 @@ const FirebaseData = () => {
     measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
   }
 
-  // eslint-disable-next-line
   if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig)
-  } else {
-    firebase.app() // if already initialized, use that one
+    firebase.initializeApp(firebaseConfig);
   }
 
-  const app = initializeApp(firebaseConfig)
-
-  const authentication = getAuth(app)
-
-  // const messaging = getMessaging(app)
-
+  const app = initializeApp(firebaseConfig);
+  const authentication = getAuth(app);
   const firebaseApp = !getApps().length
-  ? initializeApp(firebaseConfig)
-  : getApp();
-  
-  const messagingIntance = (async () => {
+    ? initializeApp(firebaseConfig)
+    : getApp();
+
+  const messagingInstance = async () => {
     try {
       const isSupportedBrowser = await isSupported();
       if (isSupportedBrowser) {
@@ -42,44 +36,51 @@ const FirebaseData = () => {
     } catch (err) {
       return null;
     }
-  })();
-  
+  };
+
   const fetchToken = async (setTokenFound, setFcmToken) => {
-    return getToken(await messagingIntance, {
+    const messaging = await messagingInstance();
+    if (!messaging) {
+      console.error('Messaging not supported.');
+      return;
+    }
+
+    getToken(messaging, {
       vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
     })
       .then((currentToken) => {
-        if (currentToken) { 
-          localStorage.setItem("token",currentToken);
-          // console.log(currentToken)
+        if (currentToken) {
+          localStorage.setItem("token", currentToken);
           setTokenFound(true);
           setFcmToken(currentToken);
-  
-          // Track the token -> client mapping, by sending to backend server
-          // show on the UI that permission is secured
+          // console.log(currentToken)
         } else {
           setTokenFound(false);
-          setFcmToken();
-          // shows on the UI that permission is required
+          setFcmToken(null);
+          toast.error('Permission is required for get notification');
+          // console.log(currentToken)
         }
       })
       .catch((err) => {
         console.error(err);
-        // catch error while creating client token
+        // console.log(currentToken)
       });
   };
-  
-  const onMessageListener = async () =>
-    new Promise((resolve) =>
-      (async () => {
-        const messagingResolve = await messagingIntance;
-        onMessage(messagingResolve, (payload) => {
+
+  const onMessageListener = async () => {
+    const messaging = await messagingInstance();
+    if (messaging) {
+      return new Promise((resolve) => {
+        onMessage(messaging, (payload) => {
           resolve(payload);
         });
-      })()
-    );
+      });
+    } else {
+      return null;
+    }
+  };
 
   return { firebase, authentication, fetchToken, onMessageListener }
 }
 
-export default FirebaseData
+export default FirebaseData;

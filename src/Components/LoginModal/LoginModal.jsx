@@ -6,12 +6,17 @@ import PhoneInput from "react-phone-number-input";
 import OTPModal from "../OTPModal/OTPModal";
 import { toast } from "react-hot-toast";
 import { translate } from "@/utils";
+import { useSelector } from "react-redux";
+import { settingsData } from "@/store/reducer/settingsSlice";
 
 const LoginModal = ({ isOpen, onClose }) => {
+    const SettingsData = useSelector(settingsData);
+    const isDemo = SettingsData?.demo_mode;
+    const DemoNumber = "+919764318246"
     const [showOtpModal, setShowOtpModal] = useState(false);
-    const [phonenum, setPhonenum] = useState("");
-    const [value, setValue] = useState();
-    
+    const [phonenum, setPhonenum] = useState();
+    const [value, setValue] = useState(isDemo ? DemoNumber : "");
+
     const onSignUp = (e) => {
         e.preventDefault();
         if (!value) {
@@ -24,7 +29,11 @@ const LoginModal = ({ isOpen, onClose }) => {
                 setPhonenum(value);
                 onClose();
                 setShowOtpModal(true);
-                setValue("")
+                if (isDemo) {
+                    setValue(DemoNumber)
+                } else {
+                    setValue("");
+                }
             } else {
                 toast.error("Please enter a valid phone number");
             }
@@ -33,7 +42,9 @@ const LoginModal = ({ isOpen, onClose }) => {
 
     const handlOTPModalClose = () => {
         setShowOtpModal(false);
+        window.recaptchaVerifier = null;
     };
+    // console.log(process.env.NEXT_PUBLIC_DEFAULT_COUNTRY)
 
     return (
         <>
@@ -61,12 +72,12 @@ const LoginModal = ({ isOpen, onClose }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <span>
-                        {translate("byclick")} <a href="/terms&condition">{translate("terms&condition")}</a> <span className="mx-1"> {translate("and")} </span> <a href="/privacy-policy"> {translate("privacyPolicy")} </a>
+                        {translate("byclick")} <a href="/terms-and-condition">{translate("terms&condition")}</a> <span className="mx-1"> {translate("and")} </span> <a href="/privacy-policy"> {translate("privacyPolicy")} </a>
                     </span>
                 </Modal.Footer>
             </Modal>
 
-            {showOtpModal && <OTPModal isOpen={true} onClose={handlOTPModalClose} phonenum={phonenum} setPhonenum={setPhonenum}/>}
+            {showOtpModal && <OTPModal isOpen={true} onClose={handlOTPModalClose} phonenum={phonenum} setPhonenum={setPhonenum} />}
         </>
     );
 };

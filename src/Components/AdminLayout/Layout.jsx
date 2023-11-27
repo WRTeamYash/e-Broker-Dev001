@@ -9,9 +9,8 @@ const Layout = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    const settingData = useSelector(settingsData);
-    useEffect(() => {
 
+    useEffect(() => {
             settingsLoaded(
                 null,
                 isLoggedIn ? userCurrentId : "",

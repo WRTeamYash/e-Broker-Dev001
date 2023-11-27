@@ -341,7 +341,7 @@ const page = () => {
                                                         <Link href="/">
                                                             <Card id="all_prop_main_card" key={ele.id}>
                                                                 <div>
-                                                                    <Image loading="lazy" height={0} width={0} variant="top" id="all_prop_card_img" src={ele.image} />
+                                                                    <Image loading="lazy" height={0} width={0} variant="top" id="all_prop_card_img" src={ele.image} alt="no_img"/>
                                                                 </div>
                                                                 <div>
                                                                     <Card.Body id="all_prop_card_body">

@@ -30,9 +30,9 @@ export const { profileRequested, profileSuccess, profileFailure } = userProfileS
 export default userProfileSlice.reducer;
 
 // API call function
-export const loadUserProfile = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id, onSuccess, onError) => {
+export const loadUserProfile = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id,notification, onSuccess, onError) => {
   store.dispatch(apiCallBegan({
-    ...update_profile(userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id), // Replace with your API function
+    ...update_profile(userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id, notification), // Replace with your API function
     onStartDispatch: profileRequested.type,
     onSuccessDispatch: profileSuccess.type,
     onErrorDispatch: profileFailure.type,

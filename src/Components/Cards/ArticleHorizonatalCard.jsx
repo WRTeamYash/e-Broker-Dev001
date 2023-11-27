@@ -42,7 +42,7 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) 
                 <div className="row">
                     <div className="col-sm-12 col-md-6 col-lg-3">
                         <div className="article_card_image">
-                            <Image loading="lazy" variant="top" className="article_Img" src={ele.image ? ele.image : PlaceHolderImg} width={200} height={200} />
+                            <Image loading="lazy" variant="top" alt="no_img" className="article_Img" src={ele.image ? ele.image : PlaceHolderImg} width={200} height={200} />
                         </div>
                     </div>
                     <div className="col-sm-12 col-md-6 col-lg-9">

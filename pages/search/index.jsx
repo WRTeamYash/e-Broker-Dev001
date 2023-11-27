@@ -32,10 +32,10 @@ const SearchPage = () => {
     const limit = 8;
     const [showFilterModal, setShowFilterModal] = useState(false);
     const [formData, setFormData] = useState({
-        propType: searchedData.filterData.propType ? searchedData.filterData.propType : "",
-        minPrice: searchedData.filterData.minPrice ? searchedData.filterData.minPrice : "",
-        maxPrice: searchedData.filterData.maxPrice ? searchedData.filterData.maxPrice : "",
-        postedSince: searchedData.filterData.postedSince ? searchedData.filterData.postedSince : "",
+        propType: searchedData?.filterData?.propType ? searchedData?.filterData?.propType : "",
+        minPrice: searchedData?.filterData?.minPrice ? searchedData?.filterData?.minPrice : "",
+        maxPrice: searchedData?.filterData?.maxPrice ? searchedData?.filterData?.maxPrice : "",
+        postedSince: searchedData?.filterData?.postedSince ? searchedData?.filterData?.postedSince : "",
         selectedLocation: null,
     });
     const [activeTab, setActiveTab] = useState(0);

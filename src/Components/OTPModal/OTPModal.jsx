@@ -8,11 +8,15 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { signupLoaded } from "../../store/reducer/authSlice"; // Update the import path as needed
 import { useRouter } from "next/router";
 import { translate } from "@/utils";
-import { settingsLoadedLogin } from "@/store/reducer/settingsSlice";
+import { settingsData, settingsLoadedLogin } from "@/store/reducer/settingsSlice";
+import { useSelector } from "react-redux";
 
 const OTPModal = ({ isOpen, onClose, phonenum }) => {
+    const SettingsData = useSelector(settingsData);
+    const isDemo = SettingsData?.demo_mode;
 
-    const { authentication,messaging } = FirebaseData();
+
+    const { authentication, messaging } = FirebaseData();
     const [otp, setOTP] = useState("");
     const inputRefs = useRef([]);
     const [showTimer, setShowTimer] = useState(false);
@@ -33,20 +37,20 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
     useEffect(() => {
         generateRecaptcha();
         setShowLoader(true);
-    
+
         return () => {
             // Clear the recaptcha container
             const recaptchaContainer = document.getElementById("recaptcha-container");
             if (recaptchaContainer) {
                 recaptchaContainer.innerHTML = "";
             }
-    
+
             if (window.recaptchaVerifier) {
                 window.recaptchaVerifier.clear();
             }
         };
     }, []);
-    
+
     const generateOTP = (phonenum) => {
         //OTP Generation
 
@@ -58,6 +62,13 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult;
                 toast.success(translate("otpSentsuccess"));
+                // Set OTP based on demo mode after confirmation and OTP sent toast
+                if (isDemo && phonenum === "+919764318246") {
+                    setOTP("000000");
+                    setShowLoader(false);
+                } else {
+                    setShowLoader(false); // Remove this line if you want to continue with the loader until the user enters the OTP
+                }
                 setOTPSent(true); // Set OTP sent status to true
                 setShowLoader(false);
             })
@@ -89,6 +100,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
             // Show loader when OTP generation starts
         }
     }, [phonenum]);
+
 
     const handleConfirm = (e) => {
         e.preventDefault();
@@ -129,17 +141,17 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                                 // signupData.address === "" ||
                                 signupData.logintype === ""
                             ) {
-                                navigate.push("/user_register");
+                                navigate.push("/user-register");
                                 onClose(); // Close the modal
                             } else {
                                 toast.success(res.message); // Show a success toast
                                 onClose(); // Close the modal
-                                
+
                             }
                             settingsLoadedLogin(
                                 null,
                                 signupData?.id,
-                                (res) => {},
+                                (res) => { },
                                 (error) => {
                                     console.log(error);
                                 }

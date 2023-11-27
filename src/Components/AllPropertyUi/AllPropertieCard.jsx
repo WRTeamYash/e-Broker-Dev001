@@ -68,7 +68,7 @@ const AllPropertieCard = ({ ele }) => {
     return (
         <Card id="all_prop_main_card" className="row" key={ele.id}>
             <div className="col-md-4 img_div" id="all_prop_main_card_rows_cols">
-                <Image loading="lazy" className="card-img" id="all_prop_card_img" src={ele.title_image} width={20} height={20} />
+                <Image loading="lazy" className="card-img" id="all_prop_card_img" src={ele.title_image} alt="no_img" width={20} height={20} />
             </div>
             <div className="col-md-8" id="all_prop_main_card_rows_cols">
                 <Card.Body id="all_prop_card_body">

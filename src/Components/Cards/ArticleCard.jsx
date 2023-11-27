@@ -39,7 +39,7 @@ const ArticleCard = ({ ele, expandedStates, index, PlaceHolderImg }) => {
     return (
         <div>
             <Card id="article_main_card">
-                <Image loading="lazy" height={0} width={0} variant="top" id="article_card_img" src={ele.image ? ele.image : PlaceHolderImg} />
+                <Image loading="lazy" height={0} width={0} variant="top" id="article_card_img" src={ele.image ? ele.image : PlaceHolderImg} alt="no_img"/>
                 {ele.category?.category && ele.category?.category ? <span id="apartment_tag">{ele.category?.category}</span> : <span id="apartment_tag">General</span>}
                 <Card.Body id="article_card_body">
                     <div id="article_card_headline">

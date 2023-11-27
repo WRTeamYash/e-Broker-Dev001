@@ -227,7 +227,7 @@ export default function AddPropertyTabs() {
         // Log the acceptedFiles to check if they are being received correctly
 
         // const imgfile = acceptedFiles[0]
-        
+
         // Append the uploaded files to the uploadedImages state
         setUploadedImages((prevImages) => [...prevImages, ...acceptedFiles]);
         setTab5((prevState) => ({
@@ -269,7 +269,7 @@ export default function AddPropertyTabs() {
     );
     const onDrop3D = useCallback((acceptedFiles) => {
         // Log the acceptedFiles to check if they are being received correctly
-       
+
 
         // Append the uploaded 3D files to the uploaded3DImages state
         setUploaded3DImages((prevImages) => [...prevImages, ...acceptedFiles]);
@@ -309,7 +309,7 @@ export default function AddPropertyTabs() {
 
     const onDropGallery = useCallback((acceptedFiles) => {
         // Log the acceptedFiles to check if they are being received correctly
-       
+
 
         // Append the uploaded gallery files to the galleryImages state
         setGalleryImages((prevImages) => [...prevImages, ...acceptedFiles]);
@@ -371,7 +371,7 @@ export default function AddPropertyTabs() {
     };
 
     const areLocationFieldsFilled = (location) => {
-        
+
         // Check if any of the required fields are empty or undefined
         if (!location.city || !location.state || !location.country || !location.formatted_address || !selectedLocationAddress) {
             // Some required fields are not filled
@@ -390,7 +390,7 @@ export default function AddPropertyTabs() {
         } else {
             // Proceed to the next tab
             setValue(value + 1);
-           
+
         }
     };
     const handleNextTab4 = () => {
@@ -402,7 +402,7 @@ export default function AddPropertyTabs() {
         } else {
             // Proceed to the next tab
             setValue(value + 1);
-           
+
         }
     };
 
@@ -434,7 +434,7 @@ export default function AddPropertyTabs() {
                 }
             });
         } else {
-           
+
             const parameters = [];
             const facilities = [];
 
@@ -459,7 +459,7 @@ export default function AddPropertyTabs() {
             // Concatenate parameters and facilities into the allParameters array
             // const allParameters = [...parameters, ...facilities];
 
-           
+
             // Rest of your code remains the same
 
             PostProperty(
@@ -506,7 +506,7 @@ export default function AddPropertyTabs() {
                                 router.push("/subscription-plan"); // Redirect to the subscription page
                             }
                         });
-                    }  else if (response.message === "Package not found for add property") {
+                    } else if (response.message === "Package not found for add property") {
                         Swal.fire({
                             icon: "error",
                             title: "Oops...",
@@ -517,14 +517,15 @@ export default function AddPropertyTabs() {
                                 router.push("/subscription-plan"); // Redirect to the subscription page
                             }
                         });
-                    }else {
+                    } else {
                         toast.success(response.message);
                         router.push("/user/dashboard");
                     }
                 },
                 (error) => {
-                    console.log(error);
                     toast.error(error);
+                    
+
                 }
             );
         }

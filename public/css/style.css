@@ -1011,6 +1011,7 @@ body {
   gap: 10px;
   /* width: 50%; */
 }
+
 .main_slider_div {
   width: 100%;
   height: 100%;
@@ -4423,8 +4424,8 @@ a {
   background-color: var(--primary-color);
   border-radius: 12px;
   width: 100%;
+  height: 499px;
 }
-
 #subscription #current_package_card .other_card_title {
   background-color: #ffffff14 !important;
   border-radius: 8px !important;
@@ -4474,6 +4475,7 @@ a {
 }
 #subscription .subs_other_content {
   margin: 60px 20px;
+  height: 100%;
 }
 #subscription .subs_content .limits {
   display: flex;
@@ -4500,7 +4502,7 @@ a {
 }
 #subscription #other_package_card {
   width: 100%;
-  /* height: 497px; */
+  height: 497px;
   background-color: #282f39;
   color: var(--primary-text-color01);
   border-radius: 12px;

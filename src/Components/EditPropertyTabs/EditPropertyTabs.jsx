@@ -410,7 +410,7 @@ export default function EditPropertyTabs() {
         () =>
             uploadedImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} alt="no_img"/>
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeImage(index)}>
                             <CloseIcon fontSize="25px" />
@@ -448,7 +448,7 @@ export default function EditPropertyTabs() {
         () =>
             uploaded3DImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} alt="no_img" />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => remove3DImage(index)}>
                             <CloseIcon fontSize="25px" />
@@ -486,7 +486,7 @@ export default function EditPropertyTabs() {
             galleryImages.map((imageData, index) => (
                 <div key={index} className="dropbox_gallary_img_div">
                     {/* {g(imageData)} */}
-                    <Image loading="lazy" className="dropbox_img" src={imageData.imageUrl} alt={imageData.name} width={200} height={200} />
+                    <Image loading="lazy" className="dropbox_img" src={imageData.imageUrl} alt={imageData.name} width={200} height={200} alt="no_img"/>
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeGalleryImage(index)} type="button">
                             <CloseIcon fontSize="25px" />

@@ -9,7 +9,7 @@ const AgentCard = ({ ele }) => {
             <Card.Body>
                 <div className="agent_card_content">
                     <div>
-                        <Image loading="lazy" src={ele.agentimg} className="agent-profile" width={100} height={100} />
+                        <Image loading="lazy" src={ele.agentimg} className="agent-profile" width={100} height={100} alt="no_img"/>
                     </div>
                     <div className="mt-2">
                         <span className="agent-name">{ele.agentName}</span>

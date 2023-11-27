@@ -52,7 +52,7 @@ const PropertiesNearbyCity = () => {
                                 <div className="col-12 col-md-6 col-lg-3" key={ele.id}>
                                     <Link href={`/properties/city/${ele.City}`}>
                                         <div className="card bg-dark text white mb-3" id="nearby-city-img">
-                                            <Image loading="lazy" src={ele.image} className="card-img" alt="..." id="city-img" width={200} height={200} />
+                                            <Image loading="lazy" src={ele.image} className="card-img" alt="no_img" id="city-img" width={200} height={200} />
                                             <div className="card-img-overlay">
                                                 <div id="city_img_headlines">
                                                     <h4

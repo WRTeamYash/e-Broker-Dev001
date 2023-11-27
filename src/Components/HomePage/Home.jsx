@@ -141,6 +141,7 @@ const HomePage = () => {
             },
             (error) => {
                 console.log(error);
+                setIsLoading(true);
             }
         );
     }, [isLoggedIn]);
@@ -178,6 +179,8 @@ const HomePage = () => {
             },
             (error) => {
                 console.log(error);
+                setIsLoading(true);
+
             }
         );
     }, [isLoggedIn]);
@@ -236,6 +239,8 @@ const HomePage = () => {
             },
             (error) => {
                 console.log(error);
+                setIsLoading(true);
+
             }
         );
     }, []);
@@ -252,6 +257,8 @@ const HomePage = () => {
             },
             (error) => {
                 console.log(error);
+                setIsLoading(true);
+
             }
         );
     }, []);
@@ -547,7 +554,7 @@ const HomePage = () => {
                                                 <div className="col-12 col-md-6 col-lg-3" id="city_img_div">
                                                     <Link href={`/properties/city/${getNearByCitysData[1]?.City}`}>
                                                         <div className="card bg-dark text-white mb-3" id="group_card">
-                                                            <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[1]?.image} className="card-img" alt="..." id="TopImg" width={200} height={200} />
+                                                            <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[1]?.image} className="card-img" alt="no_img" id="TopImg" width={200} height={200} />
                                                             <div className="card-img-overlay">
                                                                 <div id="city_img_headlines">
                                                                     <h4 className="card-title">{getNearByCitysData && getNearByCitysData[1]?.City}</h4>
@@ -562,7 +569,7 @@ const HomePage = () => {
                                                 <div className="col-12 col-md-6 col-lg-3" id="city_img_div">
                                                     <Link href={`/properties/city/${getNearByCitysData[2]?.City}`}>
                                                         <div className="card bg-dark text-white mb-3" id="group_card">
-                                                            <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[2]?.image} className="card-img" alt="..." id="TopImg" width={200} height={200} />
+                                                            <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[2]?.image} className="card-img" alt="no_img" id="TopImg" width={200} height={200} />
                                                             <div className="card-img-overlay">
                                                                 <div id="city_img_headlines">
                                                                     <h4 className="card-title">{getNearByCitysData && getNearByCitysData[2]?.City}</h4>
@@ -577,7 +584,7 @@ const HomePage = () => {
                                                 <div className="col-lg-6" id="city_image_main_div">
                                                     <Link href={`/properties/city/${getNearByCitysData[0]?.City}`}>
                                                         <div className="card bg-dark text-white mb-3" id="cityImgTop">
-                                                            <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[0]?.image} className="card-img" alt="..." id="TopImg" width={200} height={200} />
+                                                            <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[0]?.image} className="card-img" alt="no_img" id="TopImg" width={200} height={200} />
                                                             <div className="card-img-overlay">
                                                                 <div id="city_img_headlines">
                                                                     <h4 className="card-title">{getNearByCitysData && getNearByCitysData[0]?.City} </h4>
@@ -596,7 +603,7 @@ const HomePage = () => {
                                                                 loading="lazy"
                                                                 src={getNearByCitysData && getNearByCitysData[5]?.image}
                                                                 className="card-img"
-                                                                alt="..."
+                                                                alt="no_img"
                                                                 id="TopImg"
                                                                 //  id='bottom_city_card_img'
                                                                 width={200}
@@ -616,7 +623,7 @@ const HomePage = () => {
                                                 <div className="col-12 col-md-6 col-lg-3" id="city_img_div01">
                                                     <Link href={`/properties/city/${getNearByCitysData[3]?.City}`}>
                                                         <div className="card bg-dark text-white" id="group_card">
-                                                            <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[3]?.image} className="card-img" alt="..." id="TopImg" width={200} height={200} />
+                                                            <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[3]?.image} className="card-img" alt="no_img" id="TopImg" width={200} height={200} />
                                                             <div className="card-img-overlay">
                                                                 <div id="city_img_headlines">
                                                                     <h4 className="card-title">{getNearByCitysData && getNearByCitysData[3]?.City}</h4>
@@ -631,7 +638,7 @@ const HomePage = () => {
                                                 <div className="col-12 col-md-6 col-lg-3" id="city_img_div01">
                                                     <Link href={`/properties/city/${getNearByCitysData[4]?.City}`}>
                                                         <div className="card bg-dark text-white " id="group_card">
-                                                            <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[4]?.image} className="card-img" alt="..." id="TopImg" width={200} height={200} />
+                                                            <Image loading="lazy" src={getNearByCitysData && getNearByCitysData[4]?.image} className="card-img" alt="no_img" id="TopImg" width={200} height={200} />
                                                             <div className="card-img-overlay">
                                                                 <div id="city_img_headlines">
                                                                     <h4 className="card-title">{getNearByCitysData && getNearByCitysData[4]?.City}</h4>
@@ -650,7 +657,7 @@ const HomePage = () => {
                                                     <div className="col-12 col-md-6 col-lg-3" id="city_img_div" key={index}>
                                                         <Link href={`/properties/city/${ele?.City}`}>
                                                             <div className="card bg-dark text-white mb-3" id="group_card">
-                                                                <Image loading="lazy" src={ele?.image} className="card-img" alt="..." id="TopImg" width={200} height={200} />
+                                                                <Image loading="lazy" src={ele?.image} className="card-img" alt="no_img" id="TopImg" width={200} height={200} />
                                                                 <div className="card-img-overlay">
                                                                     <div id="city_img_headlines">
                                                                         <h4 className="card-title">{ele?.City}</h4>

@@ -14,17 +14,16 @@ const Home = () => {
     useEffect(() => { }, [lang]);
 
     const router = useRouter();
-    useEffect(() => {
-        // Check if the slug is present in the URL
-        if (router.pathname) {
-            router.replace(window.location.pathname + window.location.search);
-        }
-    }, []);
+    // useEffect(() => {
+    //     // Check if the slug is present in the URL
+    //     if (router.pathname) {
+    //         router.replace(window.location.pathname + window.location.search);
+    //     }
+    // }, []);
     useEffect(() => {
         loadSlider();
         loadCategories();
     }, []);
-    const settingData = useSelector(settingsData);
 
 
     return (

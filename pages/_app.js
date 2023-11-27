@@ -14,21 +14,7 @@ import { Toaster } from "react-hot-toast";
 import PushNotificationLayout from "@/Components/firebaseNotification/PushNotificationLayout";
 
 function MyApp({ Component, pageProps, data }) {
-    useEffect(() => {
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker
-            .register('/service-worker.js', { scope: '/' })
-            .then((registration) => {
-              // console.log(
-              //   'Service worker registered successfully. Scope:',
-              //   registration.scope
-              // );
-            })
-            .catch((error) => {
-              console.error('Service worker registration failed:', error);
-            });
-        }
-      }, []);
+   
     return (
         <Fragment>
             <Head>

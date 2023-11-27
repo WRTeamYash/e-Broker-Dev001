@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { languageData } from "@/store/reducer/languageSlice";
 import Loader from "../Loader/Loader";
 import { settingsData, settingsLoaded } from "@/store/reducer/settingsSlice";
-import  under_maintain from '../../../public/under maintain1.svg'
+import under_maintain from '../../../public/under maintain1.svg'
 import { translate } from "@/utils";
 import Image from "next/image";
 
@@ -17,20 +17,16 @@ const Layout = ({ children }) => {
     const settingData = useSelector(settingsData);
 
     useEffect(() => {
-        const loadSettings = () => {
-            settingsLoaded(
-                null,
-                isLoggedIn ? userCurrentId : "",
-                (res) => {
-                    setIsLoading(false);
-                },
-                (err) => {
-                    console.log(err);
-                }
-            );
-        };
-
-        loadSettings();
+        settingsLoaded(
+            null,
+            isLoggedIn ? userCurrentId : "",
+            (res) => {
+                setIsLoading(false);
+            },
+            (err) => {
+                console.log(err);
+            }
+        );
     }, [isLoggedIn]);
 
     const lang = useSelector(languageData);
@@ -41,7 +37,7 @@ const Layout = ({ children }) => {
                 <Loader />
             ) : (
                 <>
-                    {settingData.maintenance_mode === '1' ? (
+                    {settingData?.maintenance_mode === '1' ? (
                         <div className='under_maintance'>
                             <div className="col-12 text-center">
                                 <div>

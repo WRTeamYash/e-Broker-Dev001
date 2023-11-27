@@ -320,18 +320,25 @@ const page = () => {
 
                                                     <div className="subs_other_content">
                                                         <div className="limits">
-                                                            <span className="limits_content">
-                                                                <span>
-                                                                    <BiSolidCheckCircle size={20} />{" "}
+                                                            {elem.advertisement_limit !== 0 ? (
+                                                                <span className="limits_content">
+                                                                    <span>
+                                                                        <BiSolidCheckCircle size={20} />{" "}
+                                                                    </span>
+                                                                    <span> Advertisement limit is : {elem.advertisement_limit === null ? "Unlimited" : elem.advertisement_limit} </span>
                                                                 </span>
-                                                                <span> Advertisement limit is : {elem.advertisement_limit === 0 || elem.advertisement_limit === null ? "Unlimited" : elem.advertisement_limit} </span>
-                                                            </span>
-                                                            <span className="limits_content">
-                                                                <span>
-                                                                    <BiSolidCheckCircle size={20} />{" "}
-                                                                </span>
-                                                                <span> Property limit is : {elem.property_limit === 0 || elem.property_limit === null ? "Unlimited" : elem.property_limit}</span>
-                                                            </span>
+                                                            ) : null}
+                                                            {elem.property_limit !== 0
+                                                                ? (
+                                                                    <span className="limits_content">
+                                                                        <span>
+                                                                            <BiSolidCheckCircle size={20} />{" "}
+                                                                        </span>
+                                                                        <span> Property limit is : {elem.property_limit === null ? "Unlimited" : elem.property_limit}</span>
+                                                                    </span>
+                                                                ) :
+                                                                null
+                                                            }
                                                             <span className="limits_content">
                                                                 <span>
                                                                     <BiSolidCheckCircle size={20} />{" "}

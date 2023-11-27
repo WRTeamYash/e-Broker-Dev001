@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
 import Location from "@/Components/Location/Location";
 import { useRouter } from "next/router";
-import { loadUpdateData, userSignUpData } from "../../src/store/reducer/authSlice";
+import { loadUpdateData, loadUpdateUserData, userSignUpData } from "../../src/store/reducer/authSlice";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { UpdateProfileApi } from "@/store/actions/campaign";
@@ -71,11 +71,6 @@ const index = () => {
     };
     const handleSubmitInfo = (e) => {
         e.preventDefault();
-        // Check if username and email are filled
-        if (!username || !email) {
-            toast.error("Please fill in your username and email");
-            return;
-        }
         UpdateProfileApi(
             signupData.data.data.id,
             username,
@@ -96,8 +91,8 @@ const index = () => {
             fcmtoken,
             "1",
             (res) => {
-                toast.success(res.message);
-                loadUpdateData(res.data);
+                toast.success("User Register Successfully.");
+                loadUpdateUserData(res.data);
                 navigate.push("/");
             },
             (err) => {
@@ -107,7 +102,8 @@ const index = () => {
     };
 
     return (
-        <Layout>
+        // <Layout>
+        <>
             <Breadcrumb title={translate("basicInfo")} />
             <section id="user_register">
                 <div className="container">
@@ -188,7 +184,9 @@ const index = () => {
                 </div>
             </section>
             {showCurrentLoc && <Location isOpen={true} onClose={handleCloseLocModal} onSelectLocation={handleSelectLocation} />}
-        </Layout>
+        </>
+
+        // </Layout>
     );
 };
 

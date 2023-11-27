@@ -312,7 +312,7 @@ const PropertieDeatils = () => {
                                                                     <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
                                                                         <div id="specification">
                                                                             <div className="spec-icon">
-                                                                                <Image loading="lazy" src={elem.image} width={20} height={16} />
+                                                                                <Image loading="lazy" src={elem.image} width={20} height={16} alt="no_img"/>
                                                                             </div>
                                                                             <div id="specs-deatils">
                                                                                 <div>
@@ -354,6 +354,7 @@ const PropertieDeatils = () => {
                                                                                     src={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg}
                                                                                     width={20}
                                                                                     height={16}
+                                                                                    alt="no_img"
                                                                                     onError={(e) => {
                                                                                         e.target.src = PlaceHolderImg; // Set the source to the placeholder image on error
                                                                                     }}

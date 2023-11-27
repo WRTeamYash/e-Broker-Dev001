@@ -16,7 +16,7 @@ import Image from "next/image";
 const Footer = () => {
     const systemData = useSelector(settingsData);
     const webdata = systemData && systemData;
-  
+
     return (
         <section id="footer">
             <div className="container">
@@ -26,7 +26,7 @@ const Footer = () => {
                             <Link href="/">
                                 <Image
                                     loading="lazy"
-                                    src={webdata?.web_logo}
+                                    src={webdata?.web_logo ? webdata.web_logo : eBroker}
                                     alt="eBroker_logo"
                                     width={0}
                                     height={0}
@@ -66,31 +66,33 @@ const Footer = () => {
                                     </a>
                                 </div>
                             </div>
-                            <div>
-                                <h4> {translate("followUs")}</h4>
-                                <div id="follow_us">
-                                    {webdata?.facebook_id ? (
-                                        <a href={webdata?.facebook_id} target="_blank">
-                                            <CiFacebook size={28} />
-                                        </a>
-                                    ) : null}
-                                    {webdata?.instagram_id ? (
-                                        <a href={webdata?.instagram_id} target="_blank">
-                                            <AiOutlineInstagram size={28} />
-                                        </a>
-                                    ) : null}
-                                    {webdata?.pintrest_id ? (
-                                        <a href={webdata?.pintrest_id}>
-                                            <ImPinterest2 size={25} />
-                                        </a>
-                                    ) : null}
-                                    {webdata?.twitter_id ? (
-                                        <a href={webdata?.twitter_id} target="_blank">
-                                            <AiFillTwitterCircle size={28} />
-                                        </a>
-                                    ) : null}
+                            {webdata?.facebook_id || webdata?.instagram_id || webdata?.pintrest_id || webdata?.twitter_id ? (
+                                <div>
+                                    <h4> {translate("followUs")}</h4>
+                                    <div id="follow_us">
+                                        {webdata?.facebook_id ? (
+                                            <a href={webdata?.facebook_id} target="_blank">
+                                                <CiFacebook size={28} />
+                                            </a>
+                                        ) : null}
+                                        {webdata?.instagram_id ? (
+                                            <a href={webdata?.instagram_id} target="_blank">
+                                                <AiOutlineInstagram size={28} />
+                                            </a>
+                                        ) : null}
+                                        {webdata?.pintrest_id ? (
+                                            <a href={webdata?.pintrest_id}>
+                                                <ImPinterest2 size={25} />
+                                            </a>
+                                        ) : null}
+                                        {webdata?.twitter_id ? (
+                                            <a href={webdata?.twitter_id} target="_blank">
+                                                <AiFillTwitterCircle size={28} />
+                                            </a>
+                                        ) : null}
+                                    </div>
                                 </div>
-                            </div>
+                            ) : (null)}
                         </div>
                     </div>
                     <div className="col-12 col-md-6 col-lg-3">
@@ -136,7 +138,7 @@ const Footer = () => {
                                 <Link href="/articles">{translate("articles")}</Link>
                             </div>
                             <div className="page_links">
-                                <Link href="/terms&condition">{translate("terms&condition")}</Link>
+                                <Link href="/terms-and-condition">{translate("terms&condition")}</Link>
                             </div>
 
                             <div className="page_links">
@@ -175,7 +177,7 @@ const Footer = () => {
             </div>
             <div className="rights_footer">
                 <hr />
-                <h6>Copyright @ 2023 {webdata.company_name}. All Rights Reserved</h6>
+                <h6>Copyright @ 2023 {webdata?.company_name}. All Rights Reserved</h6>
             </div>
         </section>
     );

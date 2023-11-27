@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Logo from "@/assets/Logo_Color.png";
+import ebroker from "@/assets/Logo_Color.png";
 import { RiUserSmileLine } from "react-icons/ri";
 import { CloseButton, Dropdown } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
@@ -27,7 +27,7 @@ const Nav = () => {
 
     const isHomePage = router.pathname === '/';
 
-    const user_register = router.pathname === '/user_register';
+    const user_register = router.pathname === '/user-register';
     const signupData = useSelector(userSignUpData);
     const sliderdata = useSelector(silderCacheData);
     const settingData = useSelector(settingsData);
@@ -66,8 +66,8 @@ const Nav = () => {
                 backdrop: 'static',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // If the user clicks "OK," navigate to "/user_register"
-                    router.push('/user_register');
+                    // If the user clicks "OK," navigate to "/user-register"
+                    router.push('/user-register');
                 }
             });
         }
@@ -141,6 +141,8 @@ const Nav = () => {
                 icon: "error",
                 title: "Oops...",
                 text: "You have not subscribed. Please subscribe first",
+                confirmButtonColor: primaryColor,
+
                 // footer: '<a href="">Why do I have this issue?</a>'
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -158,6 +160,8 @@ const Nav = () => {
                 icon: "error",
                 title: "Oops...",
                 text: "You have not subscribed. Please subscribe first",
+                confirmButtonColor: primaryColor,
+
                 // footer: '<a href="">Why do I have this issue?</a>'
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -196,7 +200,7 @@ const Nav = () => {
                     <div className="container">
                         <div className="left-side">
                             <Link className="navbar-brand" href="/">
-                                <Image loading="lazy" src={settingData?.web_logo} alt="Logo" className="logo" width={0} height={76} style={{ width: "auto" }} />
+                                <Image loading="lazy" src={settingData?.web_logo ? settingData?.web_logo : ebroker} alt="no_img" className="logo" width={0} height={76} style={{ width: "auto" }} />
                             </Link>
                             <span onClick={handleShow} id="hamburg">
                                 <GiHamburgerMenu size={36} />
@@ -248,7 +252,7 @@ const Nav = () => {
                                             </Dropdown.Item>
                                             <Dropdown.Item onClick={handleOpenAcModal}>{translate("areaConverter")}</Dropdown.Item>
                                             <Dropdown.Item>
-                                                <Link href="/terms&condition">{translate("terms&condition")}</Link>
+                                                <Link href="/terms-and-condition">{translate("terms&condition")}</Link>
                                             </Dropdown.Item>
                                             <Dropdown.Item>
                                                 {" "}
@@ -418,7 +422,7 @@ const Nav = () => {
                                         </Dropdown.Item>
                                         <Dropdown.Item onClick={handleOpenAcModal}>{translate("areaConverter")}</Dropdown.Item>
                                         <Dropdown.Item>
-                                            <Link href="/terms&condition" onClick={handleClose}>
+                                            <Link href="/terms-and-condition" onClick={handleClose}>
                                                 {translate("terms&condition")}
                                             </Link>
                                         </Dropdown.Item>

@@ -2,8 +2,6 @@ import { createSelector, createSlice, createAction } from "@reduxjs/toolkit";
 import { user_signupApi } from "@/utils/api";
 import { apiCallBegan } from "../actions/apiActions";
 import { store } from "../store";
-import { use } from "react";
-
 // initial state
 
 const initialState = {
@@ -43,7 +41,7 @@ export const { signupRequested, signupSucess, signupFailure, updateDataSuccess, 
 export default authSlice.reducer;
 
 //  API CALLS
-export const signupLoaded = (name, email, mobile, type, address, firebase_id, logintype, profile, fcm_id,  onSuccess, onError, onStart) => {
+export const signupLoaded = (name, email, mobile, type, address, firebase_id, logintype, profile, fcm_id, onSuccess, onError, onStart) => {
     store.dispatch(
         apiCallBegan({
             ...user_signupApi(name, email, mobile, type, address, firebase_id, logintype, profile, fcm_id),

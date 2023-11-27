@@ -151,64 +151,6 @@ const ArticleDeatils = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* <div className='popular-tag-card'>
-                                            <div className="card">
-                                                <div className="card-header">
-                                                    Popular Tags
-                                                </div>
-                                                <div className="card-body">
-                                                    <div className="pop-tags">
-                                                        <span>apartment</span>
-                                                        <span>modern</span>
-                                                        <span>building</span>
-                                                        <span>luxarious</span>
-                                                        <span>real estate</span>
-                                                        <span>Villa</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> */}
-                                        {/* <div className='recent-article-card'>
-                                            <div className="card">
-                                                <div className="card-header">
-                                                    Recent Articles
-                                                </div>
-                                                <div className="card-body">
-                                                    <div className='resent-article-deatils'>
-                                                        <div className='resent-article-image'>
-                                                            <Image loading="lazy" src={adminlogo.src} alt="no_img" className='resent-article-image' />
-                                                        </div>
-                                                        <div className='resent-article-desc'>
-                                                            <span>Average U.S. Rental Price Hits a Two-Year High</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className='resent-article-deatils'>
-                                                        <div className='resent-article-image'>
-                                                            <Image loading="lazy" src={adminlogo.src} alt="no_img" className='resent-article-image' />
-                                                        </div>
-                                                        <div className='resent-article-desc'>
-                                                            <span>Average U.S. Rental Price Hits a Two-Year High</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className='resent-article-deatils'>
-                                                        <div className='resent-article-image'>
-                                                            <Image loading="lazy" src={adminlogo.src} alt="no_img" className='resent-article-image' />
-                                                        </div>
-                                                        <div className='resent-article-desc'>
-                                                            <span>Average U.S. Rental Price Hits a Two-Year High</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className='resent-article-deatils'>
-                                                        <div className='resent-article-image'>
-                                                            <Image loading="lazy" src={adminlogo.src} alt="no_img" className='resent-article-image' />
-                                                        </div>
-                                                        <div className='resent-article-desc'>
-                                                            <span>Average U.S. Rental Price Hits a Two-Year High</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> */}
                                     </div>
                                 </div>
                             </div>

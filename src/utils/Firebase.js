@@ -17,6 +17,7 @@ const FirebaseData = () => {
   }
 
   if (!firebase.apps.length) {
+    // console.log("firebase Config",firebaseConfig)
     firebase.initializeApp(firebaseConfig);
   }
 

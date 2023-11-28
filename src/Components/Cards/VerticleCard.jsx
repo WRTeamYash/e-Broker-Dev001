@@ -73,6 +73,21 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
     const DummyImgData = useSelector(settingsData);
     const PlaceHolderImg = DummyImgData?.img_placeholder;
 
+    function formatPrice(price) {
+        if (price >= 10000000) {
+            const formattedPrice = (price / 10000000).toFixed(1);
+            return `${formattedPrice} Crores`;
+        } else if (price >= 100000) {
+            const formattedPrice = (price / 100000).toFixed(1);
+            return `${formattedPrice} Lakhs`;
+        } else if (price >= 1000) {
+            const formattedPrice = (price / 1000).toFixed(1);
+            return `${formattedPrice} Thousands`;
+        } else {
+            return price.toString();
+        }
+    }
+
     return (
         <div className="verticle_card">
             <div className="card verticle_main_card">
@@ -96,7 +111,7 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
                 <div className="card-body">
                     <span className="sell_teg">{ele.propery_type}</span>
                     <span className="price_teg">
-                        {CurrencySymbol} {ele.price}
+                          {CurrencySymbol} {formatPrice(ele.price)}
                     </span>
                     <div className="feature_card_mainbody">
                         <div className="cate_image">

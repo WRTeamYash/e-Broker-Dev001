@@ -3,7 +3,7 @@ import { RiThumbUpFill } from "react-icons/ri";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { Card } from "react-bootstrap";
 import { CiLocationOn } from "react-icons/ci";
-import { FiMail, FiPhoneCall, FiThumbsUp } from "react-icons/fi";
+import { FiMail, FiMessageSquare, FiPhoneCall, FiThumbsUp } from "react-icons/fi";
 import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
 import Image from "next/image";
 import { PiPlayCircleThin } from "react-icons/pi";
@@ -35,6 +35,7 @@ const PropertieDeatils = () => {
     const [getPropData, setPropData] = useState();
     const [interested, setInterested] = useState(false);
     const [showMap, setShowMap] = useState(false);
+    const [showChat, setShowChat] = useState(true);
     const [viewerIsOpen, setViewerIsOpen] = useState(false);
     const [currentImage, setCurrentImage] = useState(0);
     const [play, setPlay] = useState(false);
@@ -74,6 +75,7 @@ const PropertieDeatils = () => {
                 setIsLoading(false);
                 setPropData(propertyData[0]);
                 // console.log(getPropData)
+                // console.log(getPropData?.added_by)
             },
             (error) => {
                 setIsLoading(false);
@@ -107,6 +109,8 @@ const PropertieDeatils = () => {
 
 
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+    // console.log(userCurrentId)
+    // console.log(getPropData?.added_by)
     const PlaceHolderImg = DummyImgData?.img_placeholder;
     const videoLink = getPropData && getPropData.video_link;
     const videoId = videoLink ? videoLink.split("/").pop() : null;
@@ -135,7 +139,21 @@ const PropertieDeatils = () => {
         return () => {
             setShowMap(false);
         };
-    }, [propId]);
+
+
+    }, [userCurrentId, getPropData?.added_by, propId]);
+    useEffect(() => {
+        // console.log(userCurrentId)
+        // console.log(getPropData?.added_by)
+        if (userCurrentId !== getPropData?.added_by) {
+            // toast.success("Hello");
+            setShowChat(true);
+        } else {
+            // toast.error("You are not allowed to chat with this user");
+            setShowChat(false);
+        }
+
+    }, [propId, showChat]);
 
     const handleInterested = (e) => {
         e.preventDefault();
@@ -171,6 +189,18 @@ const PropertieDeatils = () => {
             }
         );
     };
+    const handleChat = (e) => {
+        e.preventDefault();
+
+        if (userCurrentId) {
+
+            toast.success("Hello");
+        } else {
+            toast.error("Please login first");
+            setShowChat(true);
+        }
+    };
+
 
     return (
         <>
@@ -312,7 +342,7 @@ const PropertieDeatils = () => {
                                                                     <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
                                                                         <div id="specification">
                                                                             <div className="spec-icon">
-                                                                                <Image loading="lazy" src={elem.image} width={20} height={16} alt="no_img"/>
+                                                                                <Image loading="lazy" src={elem.image} width={20} height={16} alt="no_img" />
                                                                             </div>
                                                                             <div id="specs-deatils">
                                                                                 <div>
@@ -517,13 +547,17 @@ const PropertieDeatils = () => {
                                                         </div>
                                                     </div>
                                                 </a>
-                                                {/* <div className='owner-contact'>
-                                            <div ><FiMessageSquare id='chat-o' size={60} /></div>
-                                            <div className='deatilss'>
-                                                <span className='o-d'> {translate("chat")}</span>
-                                                <span className='value'> {translate("startAChat")}</span>
-                                            </div>
-                                        </div> */}
+                                                {showChat && (
+                                                    <div className='owner-contact' onClick={handleChat}>
+                                                        <div>
+                                                            <FiMessageSquare id='chat-o' size={60} />
+                                                        </div>
+                                                        <div className='details'>
+                                                            <span className='o-d'> {translate("chat")}</span>
+                                                            <p className='value'> {translate("startAChat")}</p>
+                                                        </div>
+                                                    </div>
+                                                )}
                                                 <div className="enquiry">
                                                     {/* <button className='enquiry-buttons'> <RiSendPlane2Line className='mx-1' size={20} />{translate("sendEnquiry")}</button> */}
 

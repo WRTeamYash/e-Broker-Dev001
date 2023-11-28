@@ -1020,7 +1020,7 @@ body {
   align-items: center;
 }
 
-.custom_icons_slider{
+.custom_icons_slider {
   font-size: 35px !important;
 }
 
@@ -1031,7 +1031,7 @@ body {
   max-width: 100%;
   height: 90vh;
 }
-.awssld__content > img{
+.awssld__content > img {
   filter: brightness(0.5) !important;
 }
 .awssld__controls {
@@ -1046,39 +1046,38 @@ body {
   align-items: center;
   justify-content: center;
 }
-@media only screen and (min-width:1499px){
-  .awssld__controls{
+@media only screen and (min-width: 1499px) {
+  .awssld__controls {
     margin-right: 6%;
   }
 }
 .awssld__controls .awssld__prev {
   border-radius: 100% !important;
-top: 0 !important;
+  top: 0 !important;
   background-color: #34333333 !important;
   width: 60px !important;
   height: 60px !important;
   right: 0% !important;
   border: 1px solid #ffffff !important;
-  transition:none !important;
+  transition: none !important;
   position: relative !important;
 }
 .awssld__controls .awssld__next {
   border-radius: 100% !important;
-top: 0 !important;
-  
+  top: 0 !important;
+
   background-color: #34333333 !important;
   width: 60px !important;
   height: 60px !important;
   border: 1px solid #ffffff !important;
-  transition:none !important;
- 
-  position: relative !important;
+  transition: none !important;
 
+  position: relative !important;
 }
-.awssld__controls__arrow-left, .awssld__controls__arrow-right {
+.awssld__controls__arrow-left,
+.awssld__controls__arrow-right {
   opacity: 1 !important;
 }
-
 
 #priceteg {
   color: var(--primary-text-color01);
@@ -1165,7 +1164,6 @@ top: 0 !important;
   z-index: 1;
   cursor: pointer;
   border-bottom: 1px solid #dddddd;
-
 }
 #searchbox #tabs #rentbutton {
   border: none;
@@ -3688,6 +3686,7 @@ option {
   display: flex;
   flex-direction: row;
   gap: 9px;
+  cursor: pointer;
 }
 .deatilss {
   display: flex;
@@ -6507,4 +6506,237 @@ a {
 }
 .css-1pv7n5u .MuiDrawer-paper {
   overflow-x: visible !important;
+}
+
+.messages {
+  margin: 60px 0;
+  position: relative;
+  top: -5vh;
+}
+.messages {
+  border-right: 1px solid #9b9b9b;
+  height: 100%;
+}
+.messages .message_list_details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15vw;
+  gap: 20px;
+  height: 100%;
+}
+.messages .message_list_details .profile_img {
+  width: 50px;
+  height: 50px;
+}
+.messages .message_list_details .profile_img #profile {
+  width: 50px;
+  height: 50px;
+  border: 1px solid lightgray;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.messages .message_list_details .profile_name {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.messages .message_list_details .profile_name p {
+  margin: 0;
+}
+.messages .message_list_details .messgae_time {
+  width: 100%;
+  display: flex;
+  height: 100%;
+  color: gray;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab {
+  border-bottom: 1px solid lightgray;
+  padding: 20px !important;
+  color: var(--primary-text-color02) !important;
+}
+:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs
+  .ant-tabs-tab.ant-tabs-tab-active
+  .ant-tabs-tab-btn {
+  color: var(--primary-text-color02) !important;
+}
+:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab:hover {
+  color: var(--primary-text-color02) !important;
+}
+:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-left
+  > .ant-tabs-content-holder
+  > .ant-tabs-content
+  > .ant-tabs-tabpane,
+:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-left
+  > div
+  > .ant-tabs-content-holder
+  > .ant-tabs-content
+  > .ant-tabs-tabpane {
+  padding-left: 0 !important;
+}
+.chat_deatils {
+}
+.chat_deatils .chat_deatils_header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  gap: 20px;
+  border-bottom: 1px solid #9b9b9b;
+}
+.chat_deatils .chat_deatils_header .profile_name {
+  width: 100%;
+}
+.chat_deatils .chat_deatils_header .delete_messages {
+  color: red !important;
+  font-size: medium;
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  text-decoration: underline;
+}
+.chat_deatils .chat_deatils_header .profile_name p {
+  margin: 0;
+}
+
+.chat_deatils .chat_deatils_header .chat_profile_div {
+  width: 50px;
+  height: 50px;
+}
+.chat_deatils .chat_deatils_header .chat_profile_div #chat_profile {
+  width: 50px;
+  height: 50px;
+  border: 1px solid lightgray;
+  border-radius: 100%;
+  object-fit: cover;
+}
+.chat_display {
+  height: 60vh;
+}
+.chat_inputs {
+  background: var(--primary-background);
+  padding: 10px;
+  display: flex !important;
+  margin: 20px;
+  align-items: center;
+  border-radius: 8px;
+  gap: 20px;
+  border: 1px solid lightgray;
+}
+.chat_inputs .attechment {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  background: #282f39;
+  color: var(--primary-text-color01);
+  justify-content: center;
+  border-radius: 4px;
+  border: 1px solid #2c3746de;
+}
+.chat_inputs .type_input {
+  width: 100%;
+  height: 100%;
+}
+.chat_inputs .type_input input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 10px 0;
+  background: transparent;
+}
+.chat_inputs .type_input input:focus-visible {
+  outline: none;
+  border-bottom: 1px solid lightgray;
+}
+
+.chat_inputs .send_message,
+.chat_inputs .voice_message {
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  background: #282f39;
+  color: var(--primary-text-color01);
+  justify-content: center;
+  border-radius: 4px;
+  border: 1px solid #2c3746de;
+}
+.chat_inputs .send_message span {
+  font-size: medium;
+  margin-right: 10px;
+}
+.chat_inputs .attechment input[type="file"] {
+  display: none; /* Initially hide the file input */
+  /* Add any additional styling as needed */
+}
+
+.chat_inputs .type_input input[type="text"] {
+  /* Your existing styles for the text input */
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 10px 0;
+  background: transparent;
+}
+
+.chat_inputs .type_input input[type="text"]:focus-visible {
+  outline: none;
+  border-bottom: 1px solid lightgray;
+}
+/* Add these styles to your existing CSS */
+
+.chat_display {
+  height: 60vh;
+  overflow-y: auto;
+  padding: 20px;
+}
+.file-preview {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+.file-preview img {
+  width: 200px;
+  height: 200px;
+}
+
+.file-preview p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+audio {
+  /* width: 100%; */
+  margin-top: 10px;
+}
+
+/* Add these styles for better spacing between messages */
+.user-message,
+.other-message {
+  margin-bottom: 10px;
+}
+
+/* Add these styles for a simple scrollbar in the chat display */
+.chat_display::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat_display::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.chat_display::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
 }

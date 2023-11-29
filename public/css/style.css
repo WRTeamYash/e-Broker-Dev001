@@ -6520,7 +6520,7 @@ a {
 .messages .message_list_details {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 15vw;
   gap: 20px;
   height: 100%;
@@ -6725,6 +6725,18 @@ audio {
 .user-message,
 .other-message {
   margin-bottom: 10px;
+}
+.chat_display .sender_masg {
+}
+.user-message {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.user-message span {
+  background: var(--primary-background);
+  padding: 10px 37px;
+  border-radius: 50px;
 }
 
 /* Add these styles for a simple scrollbar in the chat display */

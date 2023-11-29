@@ -1,8 +1,8 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
-    RewriteRule ^properties-details/([^/]+)$ properties-details/[slug].html [L]
-    RewriteRule ^article-details/([^/]+)$ article-details/[slug].html [L]
+    RewriteRule ^properties-details/([^/]+)/$ properties-details/[slug]/index.html [L]
+    RewriteRule ^article-details/([^/]+)/$ article-details/[slug]/index.html [L]
     RewriteRule ^properties/categories/([^/]+)/$ properties/categories/[slug]/index.html [L]
     RewriteRule ^properties/city/([^/]+)$ properties/city/[slug].html [L]
     RewriteRule ^about-us$ /about-us.html [L]

@@ -21,7 +21,9 @@ import {
     featureProperty,
     intrestedProperty,
     getNotificationList,
-    assignFreePackage
+    assignFreePackage,
+    getChatList,
+    getChatMessages
 } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
@@ -388,6 +390,32 @@ export const assignFreePackageApi = (package_id, onSuccess, onError, onStart) =>
     store.dispatch(
         apiCallBegan({
             ...assignFreePackage(package_id),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+
+
+// GET CHATS API
+export const getChatsListApi = (onSuccess, onError, onStart) => {
+    store.dispatch(
+        apiCallBegan({
+            ...getChatList(),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+// GET FACILITIES API
+export const getChatsMessagesApi = (user_id, property_id, page, per_page, onSuccess, onError, onStart) => {
+    store.dispatch(
+        apiCallBegan({
+            ...getChatMessages(user_id, property_id, page, per_page),
             displayToast: false,
             onStart,
             onSuccess,

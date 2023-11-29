@@ -26,6 +26,8 @@ const INTEREST_PROPERTY = "interested_users"
 const STORE_ADVERTISEMENT = "store_advertisement"
 const GET_NOTIFICATION_LIST = "get_notification_list"
 const ASSIGN_FREE_PACKAGE = "assign_free_package"
+const GET_CHATS = "get_chats"
+const GET_CHATS_MESSAGES = "get_messages"
 
 // is login user check
 export const getUserID = () => {
@@ -536,5 +538,35 @@ export const assignFreePackage = (package_id) => {
         method: "POST",
         data,
         authorizationHeader: true,
+    }
+}
+
+// GET CHAT LIST
+export const getChatList = () => {
+
+    return {
+        url: `${GET_CHATS}`,
+        method: "GET",
+        params: {
+
+        },
+        authorizationHeader: true,
+
+    }
+}
+// GET CHAT messages
+export const getChatMessages = (user_id, property_id, page, per_page) => {
+
+    return {
+        url: `${GET_CHATS_MESSAGES}`,
+        method: "GET",
+        params: {
+            user_id:user_id,
+            property_id:property_id,
+            page:page,
+            per_page:per_page
+        },
+        authorizationHeader: true,
+
     }
 }

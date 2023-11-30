@@ -28,6 +28,7 @@ const GET_NOTIFICATION_LIST = "get_notification_list"
 const ASSIGN_FREE_PACKAGE = "assign_free_package"
 const GET_CHATS = "get_chats"
 const GET_CHATS_MESSAGES = "get_messages"
+const SEND_MESSAGE = "send_message"
 
 // is login user check
 export const getUserID = () => {
@@ -561,11 +562,30 @@ export const getChatMessages = (user_id, property_id, page, per_page) => {
         url: `${GET_CHATS_MESSAGES}`,
         method: "GET",
         params: {
-            user_id:user_id,
-            property_id:property_id,
-            page:page,
-            per_page:per_page
+            user_id: user_id,
+            property_id: property_id,
+            page: page,
+            per_page: per_page
         },
+        authorizationHeader: true,
+
+    }
+}
+
+// USER SIGNUP
+export const sendMessage = (sender_id, receiver_id, message, property_id, file, audio) => {
+    let data = new FormData();
+
+    data.append("sender_id", sender_id);
+    data.append("receiver_id", receiver_id);
+    data.append("message", message);
+    data.append("property_id", property_id);
+    data.append("file", file);
+    data.append("audio", audio);
+    return {
+        url: `${SEND_MESSAGE}`,
+        method: 'POST',
+        data,
         authorizationHeader: true,
 
     }

@@ -7,13 +7,13 @@ import { RiSendPlaneLine } from 'react-icons/ri';
 import { FaLessThanEqual, FaMicrophone } from 'react-icons/fa';
 import { MdOutlineAttachFile } from 'react-icons/md';
 import { settingsData } from "@/store/reducer/settingsSlice";
-import { getChatsListApi, getChatsMessagesApi } from '@/store/actions/campaign';
+import { getChatsListApi, getChatsMessagesApi, sendMessageApi } from '@/store/actions/campaign';
 import { formatDistanceToNow } from 'date-fns';
 import { toast } from 'react-toastify';  // Ensure you have this import
 
 const { TabPane } = Tabs;
 
-const ChatApp = () => {
+const ChatApp = ({ notificationData }) => {
     const DummyImgData = useSelector(settingsData);
     const PlaceHolderImg = DummyImgData?.img_placeholder;
     const isLoggedIn = useSelector((state) => state.User_signup);
@@ -58,15 +58,23 @@ const ChatApp = () => {
     // Get chat messages for the selected tab
     useEffect(() => {
         if (selectedTab) {
-            // console.log(selectedTab)
+            console.log(selectedTab)
             getChatsMessagesApi(
                 selectedTab?.user_id,
                 selectedTab?.property_id,
                 "",
                 "",
                 (res) => {
-                    setChatMessages(res.data.data);
-                    console.log(chatMessages)
+                    // Combine the messages from the API and user-input messages
+                    const apiMessages = res.data.data || [];
+                    const userMessages = tabStates[selectedTab.property_id]?.messages || [];
+                    const combinedMessages = [...apiMessages, ...userMessages];
+
+                    // Sort the messages based on the timestamp
+                    const sortedMessages = combinedMessages.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+
+                    setChatMessages(sortedMessages);
+                    // console.log(sortedMessages);
                 },
                 (err) => {
                     toast.error(err.message);
@@ -74,6 +82,7 @@ const ChatApp = () => {
             );
         }
     }, [selectedTab]);
+
 
     const handleTabChange = (tabKey) => {
         // Find the chat object in chatList based on the property_id
@@ -118,8 +127,8 @@ const ChatApp = () => {
                         setTabStates((prevState) => ({
                             ...prevState,
                             [tabKey]: {
-                                ...prevState[tabKey],
-                                audioChunks: [...prevState[tabKey]?.audioChunks, event.data],
+                                ...(prevState[tabKey] || {}), // Ensure prevState[tabKey] is initialized
+                                audioChunks: [...(prevState[tabKey]?.audioChunks || []), event.data],
                             },
                         }));
                     }
@@ -132,7 +141,7 @@ const ChatApp = () => {
                 setTabStates((prevState) => ({
                     ...prevState,
                     [tabKey]: {
-                        ...prevState[tabKey],
+                        ...(prevState[tabKey] || {}), // Ensure prevState[tabKey] is initialized
                         recording: true,
                         mediaRecorder: mediaRecorder,
                     },
@@ -167,35 +176,115 @@ const ChatApp = () => {
         }
     };
 
+    // ...
+
     const handleSendClick = (tabKey) => {
-        const tabState = tabStates[tabKey] || {}; // Ensure tabState is not undefined
+        const tabState = tabStates[tabKey] || {};
         const messageType = tabState.selectedFile
             ? 'file'
             : (tabState.audioChunks && tabState.audioChunks.length > 0)
                 ? 'audio'
                 : 'text';
 
-        const newMessage = {
-            sender: 'user',
+        let newMessage = {
+            sender_id: userCurrentId,
+            receiver_id: selectedTab.user_id,
+            property_id: selectedTab.property_id,
             type: messageType,
-            content: tabState.messageInput,
-            selectedFile: tabState.selectedFile,
-            audioChunks: tabState.audioChunks,
+            message: tabState.messageInput,
+            file: tabState.selectedFile,
+            audio: tabState.audioChunks,
+            created_at: new Date().toISOString(),
         };
 
-        // Update the messages array for the current tab
+        if (messageType === 'audio' && tabState.audioChunks.length > 0) {
+            // Convert Blob to File
+            const audioBlob = new Blob(tabState.audioChunks, { type: 'audio/webm;codecs=opus' });
+            const audioFile = new File([audioBlob], 'audio_message.webm', { type: 'audio/webm;codecs=opus' });
+
+            // Update newMessage with the File object
+            newMessage = {
+                ...newMessage,
+                audio: audioFile,
+            };
+        }
+
+        // Log only the new message data
+        console.log('New Message Data:', newMessage);
+
         setTabStates((prevState) => ({
             ...prevState,
             [tabKey]: {
                 ...prevState[tabKey],
                 messages: [...(prevState[tabKey]?.messages || []), newMessage],
-                // Clear the input fields after sending
                 messageInput: '',
                 selectedFile: null,
                 audioChunks: [],
             },
         }));
+        setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+
+        sendMessageApi(
+            newMessage.sender_id,
+            newMessage.receiver_id,
+            newMessage.message ? newMessage.message : newMessage.file ? '[File]' : newMessage.audio ? '[Audio]' : '',
+            newMessage.property_id,
+            newMessage.file ? newMessage.file : "",
+            newMessage.audio ? newMessage.audio : "",
+            (res) => {
+                console.log(res)
+            },
+            (error) => {
+                console.log(error)
+
+            }
+
+
+        )
+
+
+        requestAnimationFrame(() => {
+            const chatDisplay = chatDisplayRef.current;
+            chatDisplay.scrollTop = chatDisplay.scrollHeight;
+        });
     };
+
+    useEffect(() => {
+        console.log(notificationData);
+
+        if (notificationData) {
+            // Assuming 'notificationData' has the necessary fields
+            const newMessage = {
+                sender_id: notificationData.sender_id,
+                receiver_id: notificationData.receiver_id,
+                property_id: notificationData.property_id,
+                type: notificationData.chat_message_type,
+                message: notificationData.message,
+                file: notificationData.file,
+                audio: notificationData.audio,
+                created_at: notificationData.date,
+            };
+
+            setTabStates((prevState) => ({
+                ...prevState,
+                [notificationData.property_id]: {
+                    ...prevState[notificationData.property_id],
+                    messages: [...(prevState[notificationData.property_id]?.messages || []), newMessage],
+                },
+            }));
+
+            setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+            console.log("++++++++++++++++++++++",chatMessages)
+
+            // Scroll to the bottom after adding the new message
+            requestAnimationFrame(() => {
+                const chatDisplay = chatDisplayRef.current;
+                chatDisplay.scrollTop = chatDisplay.scrollHeight;
+            });
+        }
+    }, [notificationData]);
+
+
 
     const formatTimeElapsed = (date) => {
         const distance = formatDistanceToNow(new Date(date), { includeSeconds: FaLessThanEqual, addSuffix: true });
@@ -243,25 +332,46 @@ const ChatApp = () => {
                                             <div className='sender_masg'>
                                                 {chatMessages.map((message, index) => (
                                                     <div key={index} className={message.sender_id === userCurrentId ? 'user-message' : 'other-message'}>
-                                                        <span>{message.message}</span>
-                                                        {message.type === 'text' ? (
-                                                            <></>
+                                                        {message.type === 'text' || message.type === 'chat' && message.message !== "" ? (
+                                                            <span>{message.message}</span>
                                                         ) : message.type === 'file' ? (
                                                             <div className="file-preview">
-                                                                {message.file.includes('image') ? (
+                                                                {message.file && message.file.type && message.file.type.startsWith('image/') ? (
+                                                                    <img src={URL.createObjectURL(message.file)} alt="File Preview" />
+                                                                ) : message.file && message.file.type === 'application/pdf' ? (
+                                                                    <embed src={URL.createObjectURL(message.file)} type="application/pdf" width="100%" height="600px" />
+                                                                ) :   (
                                                                     <img src={message.file} alt="File Preview" />
-                                                                ) : message.file === 'application/pdf' ? (
-                                                                    <embed src={message.file} type="application/pdf" width="100%" height="600px" />
-                                                                ) : (
-                                                                    <p>File: {message.file}</p>
                                                                 )}
                                                             </div>
-                                                        ) : message.type === 'audio' ? (
-                                                            <audio controls>
-                                                                <source src={message.audio} type="audio/wav" />
-                                                                Your browser does not support the audio element.
-                                                            </audio>
-                                                        ) : null}
+
+                                                        ) : message.type === 'chat' && message.file && message.message === "" ? (
+                                                            <img src={message.file} alt="File Preview" />
+                                                        )
+                                                            : message.type === "audio" && message.audio && typeof message.audio === 'string' ? (
+                                                                <audio controls>
+                                                                    <source src={message.audio} type="audio/webm;codecs=opus" />
+                                                                    Your browser does not support the audio element.
+                                                                </audio>
+                                                            ) : message.type === "audio" && message.audio && message.audio[0] instanceof Blob ? (
+                                                                <audio controls>
+                                                                    <source src={URL.createObjectURL(message.audio[0])} type="audio/webm;codecs=opus" />
+                                                                    Your browser does not support the audio element.
+                                                                </audio>
+                                                            ) : message.type === 'file_and_text' ? (
+                                                                <div className='file_text'>
+                                                                    <div className="file-preview">
+                                                                        {message.file && message.file.type && message.file.type.startsWith('image/') ? (
+                                                                            <img src={URL.createObjectURL(message.file)} alt="File Preview" />
+                                                                        ) : message.file && message.file.type === 'application/pdf' ? (
+                                                                            <embed src={URL.createObjectURL(message.file)} type="application/pdf" width="100%" height="600px" />
+                                                                        ) : (
+                                                                            <img src={message.file} alt="File Preview" />
+                                                                        )}
+                                                                    </div>
+                                                                   
+                                                                </div>
+                                                            ) : null}
                                                     </div>
                                                 ))}
                                             </div>

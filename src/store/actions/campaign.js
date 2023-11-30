@@ -23,7 +23,8 @@ import {
     getNotificationList,
     assignFreePackage,
     getChatList,
-    getChatMessages
+    getChatMessages,
+    sendMessage
 } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
@@ -416,6 +417,18 @@ export const getChatsMessagesApi = (user_id, property_id, page, per_page, onSucc
     store.dispatch(
         apiCallBegan({
             ...getChatMessages(user_id, property_id, page, per_page),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+// SEND MESSAGE API
+export const sendMessageApi = (sender_id, receiver_id, message, property_id, file, audio, onSuccess, onError, onStart) => {
+    store.dispatch(
+        apiCallBegan({
+            ...sendMessage(sender_id, receiver_id, message, property_id, file, audio),
             displayToast: false,
             onStart,
             onSuccess,

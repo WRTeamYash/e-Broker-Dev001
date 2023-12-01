@@ -22,6 +22,7 @@ import Footer from "@/Components/Footer/Footer";
 import LightBox from "@/Components/LightBox/LightBox";
 import Loader from "@/Components/Loader/Loader";
 import toast from "react-hot-toast";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 const PropertieDeatils = () => {
     const router = useRouter();
@@ -36,6 +37,14 @@ const PropertieDeatils = () => {
     const [interested, setInterested] = useState(false);
     const [showMap, setShowMap] = useState(false);
     const [showChat, setShowChat] = useState(true);
+    const [chatData, setChatData] = useState({
+        property_id: "",
+        title: "",
+        title_image: "",
+        user_id: "",
+        name: "",
+        profile: "",
+    });
     const [viewerIsOpen, setViewerIsOpen] = useState(false);
     const [currentImage, setCurrentImage] = useState(0);
     const [play, setPlay] = useState(false);
@@ -191,16 +200,34 @@ const PropertieDeatils = () => {
     };
     const handleChat = (e) => {
         e.preventDefault();
-
+        // console.log(getPropData);
+    
         if (userCurrentId) {
-
-            toast.success("Hello");
+            setChatData((prevChatData) => {
+                const newChatData = {
+                    property_id: getPropData.id,
+                    title: getPropData.title,
+                    title_image: getPropData.title_image,
+                    user_id: getPropData.added_by,
+                    name: getPropData.customer_name,
+                    profile: getPropData.profile,
+                };
+    
+                // Use the updater function to ensure you're working with the latest state
+                localStorage.setItem('newUserChat', JSON.stringify(newChatData));
+    
+                return newChatData;
+            });
+    
+            router.push('/messages');
         } else {
             toast.error("Please login first");
             setShowChat(true);
         }
     };
-
+    useEffect(() => {
+        console.log("chatData", chatData)
+    }, [chatData])
 
     return (
         <>

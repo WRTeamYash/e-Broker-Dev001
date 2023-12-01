@@ -30,22 +30,23 @@ const PushNotificationLayout = ({ children, onNotificationReceived }) => {
   useEffect(() => {
     onMessageListener()
       .then(payload => {
+        // console.log(payload)
         setNotification(payload.data)
-        toast.success(payload.data.title)
+        // toast.success(payload.data.title)
         onNotificationReceived(payload.data);
       })
       .catch(err => toast(err))
     if (notification) {
 
-      toast.success(
-        `<div class="stack" style="cursor: pointer; width: 300px;">
-          <div>${notification.title}</div>
-          <div>${notification.body}</div>
-        </div>`
-      )
+      // toast.success(
+      //   `<div class="stack" style="cursor: pointer; width: 300px;">
+      //     <div>${notification.title}</div>
+      //     <div>${notification.body}</div>
+      //   </div>`
+      // )
     }
   }, [notification , onNotificationReceived])
-console.log(notification, "notification")
+console.log(  "notification", notification)
   
   // / service worker
   useEffect(() => {

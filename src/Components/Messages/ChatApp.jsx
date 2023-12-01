@@ -18,8 +18,31 @@ const ChatApp = ({ notificationData }) => {
     const PlaceHolderImg = DummyImgData?.img_placeholder;
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-
     const [chatList, setChatList] = useState([]);
+    const [newChat, setNewChat] = useState([]);
+
+    useEffect(() => {
+        // Retrieve the stored chatData from local storage
+        const storedChatData = localStorage.getItem('newUserChat');
+        // console.log(storedChatData)
+        if (storedChatData) {
+            // Parse the JSON string to get the chatData object
+            const newChatData = JSON.parse(storedChatData);
+    
+            // Check if the stored chatData's property_id is not in chatList
+            if (!chatList.some(chat => chat.property_id === newChatData.property_id)) {
+                // Add the stored chatData to chatList
+                setChatList(prevList => [...prevList, newChatData]);
+                // console.log("static chat list new user ", chatList);
+            }
+    
+            // Set newChat to the parsed chatData
+            setNewChat(newChatData);
+        }
+    }, [chatList]); // Include chatList in the dependency array
+
+
+
     const initialState = chatList.reduce((acc, chat) => {
         acc[chat.property_id] = {
             messageInput: '',
@@ -58,7 +81,7 @@ const ChatApp = ({ notificationData }) => {
     // Get chat messages for the selected tab
     useEffect(() => {
         if (selectedTab) {
-            console.log(selectedTab)
+            // console.log(selectedTab)
             getChatsMessagesApi(
                 selectedTab?.user_id,
                 selectedTab?.property_id,
@@ -134,7 +157,7 @@ const ChatApp = ({ notificationData }) => {
                     }
                 };
                 mediaRecorder.onstop = () => {
-                    console.log('Recording stopped');
+                    // console.log('Recording stopped');
                 };
 
                 mediaRecorder.start();
@@ -274,7 +297,7 @@ const ChatApp = ({ notificationData }) => {
             }));
 
             setChatMessages((prevMessages) => [...prevMessages, newMessage]);
-            console.log("++++++++++++++++++++++",chatMessages)
+            // console.log("++++++++++++++++++++++", chatMessages)
 
             // Scroll to the bottom after adding the new message
             requestAnimationFrame(() => {
@@ -309,9 +332,9 @@ const ChatApp = ({ notificationData }) => {
                                                 <span>{chat.name}</span>
                                                 <p>{chat.title}</p>
                                             </div>
-                                            <div className="messgae_time">
+                                            {/* <div className="messgae_time">
                                                 <span>{formatTimeElapsed(chat.date)}</span>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     }
                                 >
@@ -340,7 +363,7 @@ const ChatApp = ({ notificationData }) => {
                                                                     <img src={URL.createObjectURL(message.file)} alt="File Preview" />
                                                                 ) : message.file && message.file.type === 'application/pdf' ? (
                                                                     <embed src={URL.createObjectURL(message.file)} type="application/pdf" width="100%" height="600px" />
-                                                                ) :   (
+                                                                ) : (
                                                                     <img src={message.file} alt="File Preview" />
                                                                 )}
                                                             </div>
@@ -369,7 +392,7 @@ const ChatApp = ({ notificationData }) => {
                                                                             <img src={message.file} alt="File Preview" />
                                                                         )}
                                                                     </div>
-                                                                   
+
                                                                 </div>
                                                             ) : null}
                                                     </div>

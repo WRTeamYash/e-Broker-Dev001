@@ -1,29 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { RiThumbUpFill } from "react-icons/ri";
-import { AiOutlineArrowRight } from "react-icons/ai";
-import { Card } from "react-bootstrap";
-import { CiLocationOn } from "react-icons/ci";
-import { FiMail, FiMessageSquare, FiPhoneCall, FiThumbsUp } from "react-icons/fi";
-import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
-import Image from "next/image";
-import { PiPlayCircleThin } from "react-icons/pi";
-import ReactPlayer from "react-player";
-import SimilerPropertySlider from "@/Components/SimilerPropertySlider/SimilerPropertySlider";
-import { settingsData } from "@/store/reducer/settingsSlice";
-import { useSelector } from "react-redux";
-import Map from "@/Components/GoogleMap/GoogleMap";
-import Skeleton from "react-loading-skeleton";
-import { languageData } from "@/store/reducer/languageSlice";
-import { loadGoogleMaps, translate } from "@/utils";
-import { useRouter } from "next/router";
-import { GetFeturedListingsApi, intrestedPropertyApi } from "@/store/actions/campaign";
-import Header from "@/Components/Header/Header";
-import Footer from "@/Components/Footer/Footer";
-import LightBox from "@/Components/LightBox/LightBox";
-import Loader from "@/Components/Loader/Loader";
-import toast from "react-hot-toast";
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import ReactPlayer from 'react-player';
+import toast from 'react-hot-toast';
+
+import Breadcrumb from '@/Components/Breadcrumb/Breadcrumb';
+import SimilerPropertySlider from '@/Components/SimilerPropertySlider/SimilerPropertySlider';
+import Map from '@/Components/GoogleMap/GoogleMap';
+import LightBox from '@/Components/LightBox/LightBox';
+import Loader from '@/Components/Loader/Loader';
+
+import {
+    CiLocationOn,
+    FiMail,
+    FiMessageSquare,
+    FiPhoneCall,
+    FiThumbsUp,
+} from 'react-icons/fi';
+
+import { RiThumbUpFill } from 'react-icons/ri';
+import { PiPlayCircleThin } from 'react-icons/pi';
+import { AiOutlineArrowRight } from 'react-icons/ai';
+
+import { settingsData } from '@/store/reducer/settingsSlice';
+import { languageData } from '@/store/reducer/languageSlice';
+import { loadGoogleMaps, translate } from '@/utils';
+
+import {
+    GetFeturedListingsApi,
+    intrestedPropertyApi,
+} from '@/store/actions/campaign';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+
 
 const PropertieDeatils = () => {
+
     const router = useRouter();
     const propId = router.query;
 
@@ -151,7 +164,7 @@ const PropertieDeatils = () => {
 
     }, [userCurrentId, propId]);
     useEffect(() => {
-       
+
         if (userCurrentId === getPropData?.added_by) {
             // toast.success("Hello");
             setShowChat(false);
@@ -199,7 +212,7 @@ const PropertieDeatils = () => {
     const handleChat = (e) => {
         e.preventDefault();
         // console.log(getPropData);
-    
+
         if (userCurrentId) {
             setChatData((prevChatData) => {
                 const newChatData = {
@@ -210,13 +223,13 @@ const PropertieDeatils = () => {
                     name: getPropData.customer_name,
                     profile: getPropData.profile,
                 };
-    
+
                 // Use the updater function to ensure you're working with the latest state
                 localStorage.setItem('newUserChat', JSON.stringify(newChatData));
-    
+
                 return newChatData;
             });
-    
+
             router.push('/messages');
         } else {
             toast.error("Please login first");
@@ -224,8 +237,8 @@ const PropertieDeatils = () => {
         }
     };
     useEffect(() => {
-        console.log("chatData", chatData)
     }, [chatData])
+
 
     return (
         <>
@@ -609,6 +622,7 @@ const PropertieDeatils = () => {
                     </section>
                     <Footer />
                 </>
+
             )}
         </>
     );

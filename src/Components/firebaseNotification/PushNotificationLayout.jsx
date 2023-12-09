@@ -17,7 +17,7 @@ const PushNotificationLayout = ({ children, onNotificationReceived }) => {
 
   const handleFetchToken = async () => {
     await fetchToken(setTokenFound, setFcmToken)
-    
+
   }
 
   useEffect(() => {
@@ -45,9 +45,9 @@ const PushNotificationLayout = ({ children, onNotificationReceived }) => {
       //   </div>`
       // )
     }
-  }, [notification , onNotificationReceived])
-console.log(  "notification", notification)
-  
+  }, [notification, onNotificationReceived])
+  console.log("notification", notification)
+
   // / service worker
   useEffect(() => {
     if ('serviceWorker' in navigator) {

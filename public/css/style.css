@@ -5164,6 +5164,11 @@ a {
 [dir="rtl"] .horizontal_card #main_prop_card_body .prop_sell {
   margin-left: 67%;
 }
+[dir="rtl"] .awssld__controls {
+  margin-right: -16% !important;
+  left: 0;
+  right: 100%;
+}
 @media only screen and (max-width: 1200px) {
   [dir="rtl"] .horizontal_card #main_prop_card_body .prop_sell {
     margin-left: 0;
@@ -6508,6 +6513,7 @@ a {
   overflow-x: visible !important;
 }
 
+/* chat  */
 .messages {
   margin: 60px 0;
   position: relative;
@@ -6521,7 +6527,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 15vw;
+  /* width: 15vw; */
   gap: 20px;
   height: 100%;
 }
@@ -6591,6 +6597,13 @@ a {
   gap: 20px;
   border-bottom: 1px solid #9b9b9b;
 }
+.chat_deatils .chat_deatils_header .profile_img_name_div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+}
 .chat_deatils .chat_deatils_header .profile_name {
   width: 100%;
 }
@@ -6618,9 +6631,31 @@ a {
   border-radius: 100%;
   object-fit: cover;
 }
-.chat_display {
-  height: 60vh;
+.other-message .chat_user_profile {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
 }
+.other-message #sender_profile{
+  width: 50px;
+  height: 50px;
+  border: 1px solid lightgray;
+  border-radius: 100%;
+  object-fit: cover;
+}
+.user-message .chat_user_profile {
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+}
+.user-message #sender_profile{
+  width: 50px;
+  height: 50px;
+  border: 1px solid lightgray;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
 .chat_inputs {
   background: var(--primary-background);
   padding: 10px;
@@ -6694,14 +6729,63 @@ a {
 /* Add these styles to your existing CSS */
 
 .chat_display {
-  height: 60vh;
+  height: 90vh;
   overflow-y: auto;
   padding: 20px;
 }
+.other-message .file-preview, .other-message span {
+  border-radius: 0 20px 20px 25px;
+  background-color: #087c7c14;
+
+}
+/* .other-message audio{
+  border-radius: 0 20px 20px 25px;
+  background-color: #087c7c14 !important;
+
+} */
+.other-message audio::-webkit-media-controls-panel
+{
+  border-radius: 0 20px 20px 25px !important;
+  background-color: #087c7c14 !important;
+
+}
+.other-message .file-preview img {
+  border-radius: 0 20px 20px 25px;
+}
+.audio-container::-webkit-media-controls-panel {
+  border-radius: 0 20px 20px 25px !important;
+  background-color: #087c7c14 !important;
+}
+
+/* Apply styles to the audio controls */
+.audio-container::-webkit-media-controls {
+  background-color: transparent !important; /* You can set this to 'transparent' or any other color */
+  border-radius: 0 20px 20px 25px !important;
+
+}
+.user-message .file-preview, .user-message span{
+  border-radius: 20px 0 25px 20px;
+  background-color: var(--primary-background);
+
+}
+.user-audio {
+  border-radius: 20px 0 25px 20px;
+}
+
+.other-audio {
+  border-radius: 20px 0 25px 20px;
+}
+
+.user-message audio {
+  border-radius: 20px 0 25px 20px;
+  background-color: var(--primary-background);
+
+}
+.user-message .file-preview img {
+  border-radius: 20px 0 25px 20px;
+}
 .file-preview {
-  background-color: #f2f2f2;
   padding: 10px;
-  border-radius: 8px;
   margin-bottom: 10px;
   width: fit-content;
 }
@@ -6722,6 +6806,10 @@ audio {
 }
 
 /* Add these styles for better spacing between messages */
+.sender_masg {
+  position: relative;
+}
+
 .user-message,
 .other-message {
   margin-bottom: 10px;
@@ -6732,23 +6820,23 @@ audio {
 }
 .user-message {
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 .other-message {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
 }
 .user-message span {
+  border-radius: 20px 0 25px 20px;
   background: var(--primary-background);
   padding: 10px 37px;
-  border-radius: 50px;
 }
 .other-message span {
-  background: var(--primary-background);
   padding: 10px 37px;
-  border-radius: 50px;
+  border-radius: 0 20px 20px 25px;
 }
 .user-message .file_text {
   display: flex;
@@ -6767,4 +6855,106 @@ audio {
 
 .chat_display::-webkit-scrollbar-track {
   background-color: #f2f2f2;
+}
+
+@media only screen and (max-width: 1599px) {
+  .messages .message_list_details {
+    font-size: small;
+  }
+  .messages .message_list_details .profile_img {
+    width: 35px;
+    height: 35px;
+  }
+  .messages .message_list_details .profile_img #profile {
+    width: 35px;
+    height: 35px;
+  }
+  :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab {
+    padding: 10px !important;
+  }
+}
+@media only screen and (max-width: 1199px) {
+  .messages .message_list_details {
+    gap: 10px;
+  }
+  .chat_deatils .chat_deatils_header .delete_messages {
+    font-size: small;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .messages .message_list_details .profile_name p {
+    display: none;
+  }
+  .file-preview img {
+    width: 150px;
+    height: 150px;
+  }
+  :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-left
+    > .ant-tabs-nav
+    .ant-tabs-tab
+    + .ant-tabs-tab,
+  :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-right
+    > .ant-tabs-nav
+    .ant-tabs-tab
+    + .ant-tabs-tab,
+  :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-left
+    > div
+    > .ant-tabs-nav
+    .ant-tabs-tab
+    + .ant-tabs-tab,
+  :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-right
+    > div
+    > .ant-tabs-nav
+    .ant-tabs-tab
+    + .ant-tabs-tab {
+    margin: 0 !important ;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .chat_deatils .chat_deatils_header {
+    flex-direction: column;
+  }
+  .chat_deatils .chat_deatils_header .profile_img_name_div {
+    justify-content: center;
+  }
+
+  .chat_deatils .chat_deatils_header .profile_name {
+    width: auto;
+  }
+  .chat_deatils .chat_deatils_header .delete_messages {
+    justify-content: center;
+  }
+  .messages .message_list_details .profile_name {
+    display: none;
+  }
+  .messages .message_list_details .profile_img {
+    width: 40px;
+    height: 40px;
+  }
+  .messages .message_list_details .profile_img #profile {
+    width: 40px;
+    height: 40px;
+  }
+}
+@media only screen and (max-width: 574px) {
+  .send_message span {
+    display: none;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .chat_inputs {
+    padding: 5px;
+    gap: 5px;
+  }
+  .chat_inputs .attechment {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 5px;
+  }
+  .chat_inputs .send_message,
+  .chat_inputs .voice_message {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 5px;
+  }
 }

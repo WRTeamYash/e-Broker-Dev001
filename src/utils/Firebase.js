@@ -27,34 +27,39 @@ const FirebaseData = () => {
     ? initializeApp(firebaseConfig)
     : getApp();
 
-  const messagingInstance = async () => {
-    try {
-      const isSupportedBrowser = await isSupported();
-      if (isSupportedBrowser) {
-        return getMessaging(firebaseApp);
+    const messagingInstance = async () => {
+      try {
+        const isSupportedBrowser = await isSupported();
+        if (isSupportedBrowser) {
+          return getMessaging(firebaseApp);
+        } else {
+          // Display a toast message indicating that messaging is not supported
+          toast.error('Messaging is not supported on this browser.');
+          return null;
+        }
+      } catch (err) {
+        console.error('Error checking messaging support:', err);
+        return null;
       }
-      return null;
-    } catch (err) {
-      return null;
-    }
-  };
-
+    };
   const fetchToken = async (setTokenFound, setFcmToken) => {
     const messaging = await messagingInstance();
     if (!messaging) {
       console.error('Messaging not supported.');
       return;
     }
-
+    
     getToken(messaging, {
       vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
+      
     })
       .then((currentToken) => {
+        console.log(currentToken)
         if (currentToken) {
           localStorage.setItem("token", currentToken);
           setTokenFound(true);
           setFcmToken(currentToken);
-          // console.log(currentToken)
+          console.log("token", currentToken)
         } else {
           setTokenFound(false);
           setFcmToken(null);
@@ -77,6 +82,7 @@ const FirebaseData = () => {
         });
       });
     } else {
+      console.error('Messaging not supported.');
       return null;
     }
   };

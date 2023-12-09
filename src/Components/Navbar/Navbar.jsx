@@ -26,7 +26,7 @@ const Nav = () => {
     const router = useRouter();
 
     const isHomePage = router.pathname === '/';
-
+    const chats = router.pathname === '/messages';
     const user_register = router.pathname === '/user-register';
     const signupData = useSelector(userSignUpData);
     const sliderdata = useSelector(silderCacheData);
@@ -57,7 +57,7 @@ const Nav = () => {
         }
     }, [language]);
     useEffect(() => {
-        if ( signupData?.data?.data.name === "" && signupData?.data?.data.email === "" && !user_register) {
+        if (signupData?.data?.data.name === "" && signupData?.data?.data.email === "" && !user_register) {
             Swal.fire({
                 title: 'Complete Profile First',
                 icon: 'info',
@@ -196,7 +196,8 @@ const Nav = () => {
     return (
         <>
             <header>
-                <nav className={`navbar header navbar-expand-lg navbar-light ${scroll > headerTop || (isHomePage && (!sliderdata || sliderdata.length === 0)) ? "is-sticky" : ""}`}>
+            <nav className={`navbar header navbar-expand-lg navbar-light ${scroll > headerTop || (isHomePage && (!sliderdata || sliderdata.length === 0)) || chats ? "is-sticky" : ""}`}>
+
                     <div className="container">
                         <div className="left-side">
                             <Link className="navbar-brand" href="/">
@@ -296,29 +297,16 @@ const Nav = () => {
                                             ) : // Check if mobile and firebase_id are present
                                                 signupData?.data?.data.mobile && signupData?.data?.data.firebase_id && signupData?.data?.data.name === "" ? (
                                                     <>
-                                                        {/* {user_register ? ( */}
-                                                            <span className="nav-link">{translate("welcmGuest")}</span>
-                                                        {/* ) :
-                                                            (
-                                                                <Dropdown>
-                                                                    <Dropdown.Toggle id="dropdown-basic01">
-                                                                        <RiUserSmileLine size={20} className="icon01" />
-                                                                        {translate("welcmGuest")}
-                                                                    </Dropdown.Toggle>
-                                                                    <Dropdown.Menu id="language">
-                                                                        <Dropdown.Item>{translate("CompleteProfile")}</Dropdown.Item>
 
-                                                                    </Dropdown.Menu>
-                                                                </Dropdown>
+                                                        <span className="nav-link">{translate("welcmGuest")}</span>
 
-                                                            )} */}
                                                     </>
-                                                ) : // If name is present, show "Welcome, {name}"
+                                                ) : 
                                                     signupData?.data?.data.name ? (
                                                         <Dropdown>
                                                             <Dropdown.Toggle id="dropdown-basic01">
                                                                 <RiUserSmileLine size={20} className="icon01" />
-                                                                {/* <Avatar size={16} src={signupData.data.data.profile}/> */}
+                                                              
                                                                 {signupData.data.data.name}
                                                             </Dropdown.Toggle>
 
@@ -327,7 +315,7 @@ const Nav = () => {
                                                                 <Dropdown.Item onClick={handleLogout}>{translate("logout")}</Dropdown.Item>
                                                             </Dropdown.Menu>
                                                         </Dropdown>
-                                                    ) : null // Handle any other cases or conditions here
+                                                    ) : null 
                                         }
                                     </li>
                                     {signupData?.data?.data.name && settingData && (

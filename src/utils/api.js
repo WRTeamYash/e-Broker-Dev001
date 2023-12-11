@@ -142,7 +142,7 @@ export const getCategorieApi = () => {
 }
 
 // get Propertyes 
-export const getAllProperties = (promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid, users_promoted) => {
+export const getAllProperties = (promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid, users_promoted, slug_id) => {
 
     return {
         url: `${GET_PROPETRES}`,
@@ -167,6 +167,7 @@ export const getAllProperties = (promoted, top_rated, id, category_id, most_like
             search: search,
             userid: userid,
             users_promoted: users_promoted,
+            slug_id: slug_id,
         },
         authorizationHeader: false,
 
@@ -174,7 +175,7 @@ export const getAllProperties = (promoted, top_rated, id, category_id, most_like
 }
 
 // GET ARTICLES
-export const getArticlesApi = (id, category_id, get_simiilar) => {
+export const getArticlesApi = (id, category_id, get_simiilar, slug_id) => {
 
     return {
         url: `${GET_ARTICLES}`,
@@ -182,7 +183,8 @@ export const getArticlesApi = (id, category_id, get_simiilar) => {
         params: {
             id: id,
             category_id: category_id,
-            get_simiilar: get_simiilar
+            get_simiilar: get_simiilar,
+            slug_id: slug_id,
         },
         authorizationHeader: false,
 

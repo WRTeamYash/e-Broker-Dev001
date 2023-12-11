@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import VerticleLayout from "@/Components/AdminLayout/VerticleLayout";
 import { useRef } from "react";
 import { useSelector } from "react-redux";
-import { settingsData } from "@/store/reducer/settingsSlice";
+import { Fcmtoken, settingsData } from "@/store/reducer/settingsSlice";
 import LocationSearchBox from "@/Components/Location/LocationSearchBox";
 import { UpdateProfileApi } from "@/store/actions/campaign";
 import { loadUpdateUserData } from "@/store/reducer/authSlice";
@@ -16,7 +16,7 @@ const Index = () => {
     const userData = useSelector((state) => state.User_signup);
     const userProfileData = userData?.data?.data;
     const navigate = useRouter();
-    let fcmtoken = localStorage.getItem("token")
+    const FcmToken = useSelector(Fcmtoken)
 
     const [formData, setFormData] = useState({
         fullName: userProfileData?.name,
@@ -101,7 +101,7 @@ const Index = () => {
             formData.twiiter ? formData.twiiter : "",
             formData.instagram ? formData.instagram : "",
             formData.pintrest ? formData.pintrest : "",
-            fcmtoken,
+            FcmToken,
             "1",
             (response) => {
                 toast.success("Profile Updated Successfully");

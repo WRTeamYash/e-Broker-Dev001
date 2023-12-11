@@ -1,6 +1,6 @@
 import { AddFavourite } from "@/store/actions/campaign";
 import { settingsData } from "@/store/reducer/settingsSlice";
-import { translate } from "@/utils";
+import { formatPriceAbbreviated, translate } from "@/utils";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
@@ -85,7 +85,7 @@ const AllPropertieCard = ({ ele }) => {
                     </span>
                     <span className="all_prop_sell">{ele.propery_type}</span>
                     <span className="all_prop_price">
-                        {CurrencySymbol} {ele.price}
+                    {CurrencySymbol} {formatPriceAbbreviated(ele.price)}
                     </span>
 
                     <div>

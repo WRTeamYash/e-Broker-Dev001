@@ -49,7 +49,7 @@ const ArticleCard = ({ ele, expandedStates, index, PlaceHolderImg }) => {
                                 <p>{expandedStates[index] ? stripHtmlTags(ele.description) : stripHtmlTags(ele.description).substring(0, 100) + "..."}</p>
                                 {ele.description.length > 100 && (
                                     <div id="readmore_article">
-                                        <Link href="/article-details/[slug]" as={`/article-details/${ele.id}`} passHref>
+                                        <Link href="/article-details/[slug]" as={`/article-details/${ele.slug_id}`} passHref>
                                             <button className="readmore">
                                                 {translate("showMore")}
                                                 <AiOutlineArrowRight className="mx-2" size={18} />

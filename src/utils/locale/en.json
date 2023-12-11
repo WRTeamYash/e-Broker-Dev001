@@ -145,8 +145,8 @@
   "noDatatext": "We're sorry what you were looking for. please try another way",
   "404": "404",
   "PagenotFound": "This page could not be found.",
-  "underMaintance":"Sorry, we are currently undergoing maintenance. ",
-  "pleaseTryagain":"Please try again later.",
+  "underMaintance": "Sorry, we are currently undergoing maintenance. ",
+  "pleaseTryagain": "Please try again later.",
   "emailIsNotValid": "Invalid email format",
   "allFields": "Please fill all fields",
   "myAdvertisement": "My Advertisement",
@@ -227,6 +227,11 @@
   "addInfo": "Add Information",
   "related": "Related",
   "km": "Kilometre",
-  "notification":"User Notification",
-  "nF":"Notifications"
+  "notification": "User Notification",
+  "nF": "Notifications",
+  "noChat": "No Chats Available",
+  "startConversation": "Start Conversation",
+  "messages": "Messages",
+  "deleteMessages":"Delete Message?",
+  "send":"Send"
 }

@@ -56,6 +56,8 @@ const index = () => {
             "",
             "",
             "1",
+            "",
+
             (response) => {
                 setTotal(response.total);
                 setView(response.total_clicks);

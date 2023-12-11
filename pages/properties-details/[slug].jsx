@@ -26,7 +26,7 @@ import toast from "react-hot-toast";
 const PropertieDeatils = () => {
     const router = useRouter();
     const propId = router.query;
-
+// console.log("slug", propId )
     const { isLoaded } = loadGoogleMaps();
 
 
@@ -61,7 +61,7 @@ const PropertieDeatils = () => {
         GetFeturedListingsApi(
             "",
             "",
-            propId.slug,
+            "",
             "",
             "",
             "",
@@ -78,11 +78,12 @@ const PropertieDeatils = () => {
             "",
             "",
             "",
+            propId.slug,
             (response) => {
                 const propertyData = response && response.data;
                 setIsLoading(false);
                 setPropData(propertyData[0]);
-                console.log(getPropData)
+                // console.log(getPropData)
                 // console.log(getPropData?.added_by)
             },
             (error) => {
@@ -166,7 +167,7 @@ const PropertieDeatils = () => {
         e.preventDefault();
         if (userCurrentId) {
             intrestedPropertyApi(
-                propId.slug,
+                getPropData.id,
                 "1",
                 (response) => {
                     setInterested(true);
@@ -185,7 +186,7 @@ const PropertieDeatils = () => {
         e.preventDefault();
 
         intrestedPropertyApi(
-            propId.slug,
+            getPropData.id,
             "0",
             (response) => {
                 setInterested(false);
@@ -224,7 +225,7 @@ const PropertieDeatils = () => {
         }
     };
     useEffect(() => {
-        console.log("chatData", chatData)
+        // console.log("chatData", chatData)
     }, [chatData])
 
     return (

@@ -91,6 +91,7 @@ const index = () => {
                     "",
                     isLoggedIn ? userCurrentId : "",
                     "",
+                    "",
                     (response) => {
                         setTotal(response.total);
                         setView(response.total_clicks);
@@ -145,6 +146,7 @@ const index = () => {
             "",
             "",
             isLoggedIn ? userCurrentId : "",
+            "",
             "",
             (response) => {
                 setTotal(response.total);

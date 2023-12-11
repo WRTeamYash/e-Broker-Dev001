@@ -8,7 +8,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { signupLoaded } from "../../store/reducer/authSlice"; // Update the import path as needed
 import { useRouter } from "next/router";
 import { translate } from "@/utils";
-import { settingsData, settingsLoadedLogin } from "@/store/reducer/settingsSlice";
+import { Fcmtoken, settingsData, settingsLoadedLogin } from "@/store/reducer/settingsSlice";
 import { useSelector } from "react-redux";
 
 const OTPModal = ({ isOpen, onClose, phonenum }) => {
@@ -101,7 +101,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         }
     }, [phonenum]);
 
-
+    const FcmToken = useSelector(Fcmtoken)
     const handleConfirm = (e) => {
         e.preventDefault();
 
@@ -126,7 +126,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                     result.user.uid,
                     "",
                     "",
-                    fcmtoken,
+                    FcmToken,
                     (res) => {
                         let signupData = res.data;
 

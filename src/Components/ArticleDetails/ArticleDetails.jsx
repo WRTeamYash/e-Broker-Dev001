@@ -35,9 +35,10 @@ const ArticleDetails = () => {
     useEffect(() => {
         setIsLoading(true);
         GetAllArticlesApi(
+            "",
+            "",
+            "",
             articleId.slug,
-            "",
-            "",
             (response) => {
                 const AData = response.data[0];
                 setIsLoading(false);
@@ -52,9 +53,10 @@ const ArticleDetails = () => {
     useEffect(() => {
         setIsLoading(true);
         GetAllArticlesApi(
-            articleId.slug,
+            "",
             "",
             "1",
+            articleId.slug,
             (response) => {
                 const Articles = response.data;
                 setIsLoading(false);

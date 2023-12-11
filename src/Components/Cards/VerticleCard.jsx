@@ -1,6 +1,6 @@
 import { AddFavourite } from "@/store/actions/campaign";
 import { settingsData } from "@/store/reducer/settingsSlice";
-import { translate } from "@/utils";
+import { formatPriceAbbreviated, translate } from "@/utils";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 
 function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
+
+
     const priceSymbol = useSelector(settingsData);
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;
 
@@ -73,20 +75,17 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
     const DummyImgData = useSelector(settingsData);
     const PlaceHolderImg = DummyImgData?.img_placeholder;
 
-    function formatPrice(price) {
-        if (price >= 10000000) {
-            const formattedPrice = (price / 10000000).toFixed(1);
-            return `${formattedPrice} Crores`;
-        } else if (price >= 100000) {
-            const formattedPrice = (price / 100000).toFixed(1);
-            return `${formattedPrice} Lakhs`;
-        } else if (price >= 1000) {
-            const formattedPrice = (price / 1000).toFixed(1);
-            return `${formattedPrice} Thousands`;
-        } else {
-            return price.toString();
-        }
-    }
+    // function formatPriceAbbreviated(price) {
+    //     if (price >= 1000000000) {
+    //         return (price / 1000000000).toFixed(1) + 'B';
+    //     } else if (price >= 1000000) {
+    //         return (price / 1000000).toFixed(1) + 'M';
+    //     } else if (price >= 1000) {
+    //         return (price / 1000).toFixed(1) + 'K';
+    //     } else {
+    //         return price.toString();
+    //     }
+    // }
 
     return (
         <div className="verticle_card">
@@ -111,7 +110,7 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
                 <div className="card-body">
                     <span className="sell_teg">{ele.propery_type}</span>
                     <span className="price_teg">
-                          {CurrencySymbol} {formatPrice(ele.price)}
+                          {CurrencySymbol} {formatPriceAbbreviated(ele.price)}
                     </span>
                     <div className="feature_card_mainbody">
                         <div className="cate_image">

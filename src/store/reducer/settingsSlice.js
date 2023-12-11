@@ -9,6 +9,7 @@ const initialState = {
     data: null,
     lastFetch: null,
     loading: false,
+    fcmToken: null,
 };
 
 export const settingsSlice = createSlice({
@@ -26,10 +27,13 @@ export const settingsSlice = createSlice({
         settingsFailure: (settings, action) => {
             settings.loading = false;
         },
+        getToken: (settinngs, action) => {
+            settinngs.fcmToken = action.payload.data
+        }
     },
 });
 
-export const { settingsRequested, settingsSucess, settingsFailure } = settingsSlice.actions;
+export const { settingsRequested, settingsSucess, settingsFailure, getToken } = settingsSlice.actions;
 export default settingsSlice.reducer;
 
 // API CALLS
@@ -68,9 +72,18 @@ export const settingsLoadedLogin = (type, user_id, onSuccess, onError, onStart) 
     );
 };
 
-// Slecttors
+// store token 
+export const getFcmToken = (data) => {
+    store.dispatch(getToken({ data }))
+}
+
 // Selectors
 export const settingsData = createSelector(
     (state) => state.Settings,
     (settings) => settings.data
 );
+
+export const Fcmtoken =  createSelector(
+    state => state.Settings,
+    settings => settings.fcmToken
+)

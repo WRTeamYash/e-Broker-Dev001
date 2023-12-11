@@ -62,3 +62,18 @@ export const isDemoMode = (store) => {
   const systemSettingsData = settingsData(store);
   return systemSettingsData?.demo_mode || false;
 };
+
+
+
+// Function to format large numbers as strings with K, M, and B abbreviations
+export const formatPriceAbbreviated = (price) => {
+  if (price >= 1000000000) {
+      return (price / 1000000000).toFixed(1) + 'B';
+  } else if (price >= 1000000) {
+      return (price / 1000000).toFixed(1) + 'M';
+  } else if (price >= 1000) {
+      return (price / 1000).toFixed(1) + 'K';
+  } else {
+      return price.toString();
+  }
+};

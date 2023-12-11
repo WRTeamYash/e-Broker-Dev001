@@ -1,6 +1,6 @@
 import { AddFavourite } from "@/store/actions/campaign";
 import { settingsData } from "@/store/reducer/settingsSlice";
-import { translate } from "@/utils";
+import { formatPriceAbbreviated, translate } from "@/utils";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -83,7 +83,7 @@ const HorizontalCard = ({ ele }) => {
                     </span>
                     <span className="prop_sell">{ele.propery_type}</span>
                     <span className="prop_price">
-                        {CurrencySymbol} {ele.price}
+                    {CurrencySymbol} {formatPriceAbbreviated(ele.price)}
                     </span>
 
                     <div>

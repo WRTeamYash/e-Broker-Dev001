@@ -39,6 +39,7 @@ const Articles = () => {
             "",
             "",
             "",
+            "",
             (response) => {
                 const Articles = response.data;
                 setTotal(response.total);
@@ -62,6 +63,7 @@ const Articles = () => {
             "",
             cateId,
             "",
+            "",
             (response) => {
                 const Articles = response.data;
 
@@ -83,6 +85,7 @@ const Articles = () => {
     const getGeneralArticles = () => {
         setIsLoading(true);
         GetAllArticlesApi(
+            "",
             "",
             "",
             "",

@@ -35,7 +35,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
 
-const PropertieDeatils = () => {
+const DetailsPage = () => {
 
     const router = useRouter();
     const propId = router.query;
@@ -74,7 +74,7 @@ const PropertieDeatils = () => {
         GetFeturedListingsApi(
             "",
             "",
-            propId.slug,
+            "",
             "",
             "",
             "",
@@ -91,11 +91,12 @@ const PropertieDeatils = () => {
             "",
             "",
             "",
+            propId.slug,
             (response) => {
                 const propertyData = response && response.data;
                 setIsLoading(false);
                 setPropData(propertyData[0]);
-                console.log(getPropData)
+                // console.log(getPropData)
                 // console.log(getPropData?.added_by)
             },
             (error) => {
@@ -104,7 +105,6 @@ const PropertieDeatils = () => {
             }
         );
     }, [isLoggedIn, propId, interested]);
-
 
 
     useEffect(() => {
@@ -628,4 +628,4 @@ const PropertieDeatils = () => {
     );
 };
 
-export default PropertieDeatils;
+export default DetailsPage;

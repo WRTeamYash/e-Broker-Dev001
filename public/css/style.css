@@ -940,7 +940,7 @@ body {
 .header .nav-link {
   color: white !important;
   font: var(--primary-font);
-  cursor: pointer;
+  cursor: pointer !important;
 }
 .is-sticky .nav-item,
 .is-sticky .nav-link {
@@ -6729,7 +6729,7 @@ a {
 /* Add these styles to your existing CSS */
 
 .chat_display {
-  height: 90vh;
+  height: 100vh;
   overflow-y: auto;
   padding: 20px;
 }
@@ -6957,4 +6957,8 @@ audio {
     height: 30px !important;
     padding: 5px;
   }
+}
+
+#noChats{
+  padding: 60px 0;
 }

@@ -65,7 +65,7 @@ const SliderComponent = ({ sliderData }) => {
                   </div>
                 </div>
                 <div id="viewall_hero_prop">
-                  <Link href="/properties-details/[slug]" as={`/properties-details/${single.propertys_id}`} passHref>
+                  <Link href="/properties-details/[slug]" as={`/properties-details/${single.slug_id}`} passHref>
                     <button className="view_prop">
                       <FaEye size={20} className="icon" />
                       {translate("viewProperty")}

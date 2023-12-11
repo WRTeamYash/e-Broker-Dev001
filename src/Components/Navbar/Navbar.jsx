@@ -32,7 +32,7 @@ const Nav = () => {
     const sliderdata = useSelector(silderCacheData);
     const settingData = useSelector(settingsData);
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
-
+    const isLoggedIn = useSelector((state) => state.User_signup);
     const isSubscription = settingData?.subscription;
     const LanguageList = settingData && settingData.languages;
     const DefaultLangCode = settingData && settingData.default_language;
@@ -192,11 +192,31 @@ const Nav = () => {
             }
         });
     };
+    const handleChat = () => {
+        setShow(false)
+
+        if (signupData?.data?.data.id) {
+            // Corrected the condition
+            router.push("/messages"); // Use an absolute path here
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You have not login. Please Login first",
+                confirmButtonColor: primaryColor,
+                // footer: '<a href="">Why do I have this issue?</a>'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setShowModal(true);
+                }
+            });
+        }
+    };
 
     return (
         <>
             <header>
-            <nav className={`navbar header navbar-expand-lg navbar-light ${scroll > headerTop || (isHomePage && (!sliderdata || sliderdata.length === 0)) || chats ? "is-sticky" : ""}`}>
+                <nav className={`navbar header navbar-expand-lg navbar-light ${scroll > headerTop || (isHomePage && (!sliderdata || sliderdata.length === 0)) ? "is-sticky" : ""}`}>
 
                     <div className="container">
                         <div className="left-side">
@@ -264,10 +284,14 @@ const Nav = () => {
                                     <Link href="/contact-us" id="a-tags-link">
                                         <li className="nav-item nav-link">{translate("contactUs")}</li>
                                     </Link>
-                                    <li className="nav-item">
-                                        <Link className="nav-link" href="/about-us">
+
+                                    <Link className="nav-link" href="/about-us">
+                                        <li className="nav-item">
                                             {translate("aboutUs")}
-                                        </Link>
+                                        </li>
+                                    </Link>
+                                    <li className="nav-link" onClick={handleChat}>
+                                        {translate("chat")}
                                     </li>
                                 </ul>
                             </div>
@@ -301,12 +325,12 @@ const Nav = () => {
                                                         <span className="nav-link">{translate("welcmGuest")}</span>
 
                                                     </>
-                                                ) : 
+                                                ) :
                                                     signupData?.data?.data.name ? (
                                                         <Dropdown>
                                                             <Dropdown.Toggle id="dropdown-basic01">
                                                                 <RiUserSmileLine size={20} className="icon01" />
-                                                              
+
                                                                 {signupData.data.data.name}
                                                             </Dropdown.Toggle>
 
@@ -315,7 +339,7 @@ const Nav = () => {
                                                                 <Dropdown.Item onClick={handleLogout}>{translate("logout")}</Dropdown.Item>
                                                             </Dropdown.Menu>
                                                         </Dropdown>
-                                                    ) : null 
+                                                    ) : null
                                         }
                                     </li>
                                     {signupData?.data?.data.name && settingData && (
@@ -432,6 +456,13 @@ const Nav = () => {
                                     <Link className="nav-link" href="/about-us" onClick={handleClose}>
                                         {translate("aboutUs")}
                                     </Link>
+                                </li>
+                                <li className="nav-item" onClick={handleChat}>
+                                    <span className="nav-link">
+
+                                        {translate("chat")}
+                                    </span>
+                                    
                                 </li>
                                 <Dropdown>
                                     <Dropdown.Toggle id="dropdown-basic">{selectedLanguage ? selectedLanguage : defaultLanguage}</Dropdown.Toggle>

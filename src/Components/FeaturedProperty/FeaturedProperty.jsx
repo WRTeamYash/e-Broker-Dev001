@@ -47,6 +47,7 @@ const FeaturedProperty = () => {
             "",
             "",
             "",
+            "",
             (response) => {
                 setTotal(response.total);
                 const FeaturedListingData = response.data;
@@ -87,7 +88,7 @@ const FeaturedProperty = () => {
                             <div id="feature_cards" className="row">
                                 {getFeaturedListing.map((ele, index) => (
                                     <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
-                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
+                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.slug_id}`} passHref>
                                             <VerticalCard ele={ele} />
                                         </Link>
                                     </div>

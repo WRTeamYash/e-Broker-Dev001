@@ -4,6 +4,7 @@ import { getMessaging, getToken, onMessage, isSupported } from 'firebase/messagi
 import firebase from "firebase/compat/app"
 import { getAuth } from "firebase/auth";
 import toast from 'react-hot-toast';
+import { getFcmToken } from '@/store/reducer/settingsSlice';
 
 const FirebaseData = () => {
   let firebaseConfig = {
@@ -17,7 +18,7 @@ const FirebaseData = () => {
   }
 
   if (!firebase.apps.length) {
-    // console.log("firebase Config",firebaseConfig)
+
     firebase.initializeApp(firebaseConfig);
   }
 
@@ -27,39 +28,39 @@ const FirebaseData = () => {
     ? initializeApp(firebaseConfig)
     : getApp();
 
-    const messagingInstance = async () => {
-      try {
-        const isSupportedBrowser = await isSupported();
-        if (isSupportedBrowser) {
-          return getMessaging(firebaseApp);
-        } else {
-          // Display a toast message indicating that messaging is not supported
-          toast.error('Messaging is not supported on this browser.');
-          return null;
-        }
-      } catch (err) {
-        console.error('Error checking messaging support:', err);
+  const messagingInstance = async () => {
+    try {
+      const isSupportedBrowser = await isSupported();
+      if (isSupportedBrowser) {
+        return getMessaging(firebaseApp);
+      } else {
+        // Display a toast message indicating that messaging is not supported
+        toast.error('Messaging is not supported on this browser.');
         return null;
       }
-    };
+    } catch (err) {
+      console.error('Error checking messaging support:', err);
+      return null;
+    }
+  };
   const fetchToken = async (setTokenFound, setFcmToken) => {
     const messaging = await messagingInstance();
     if (!messaging) {
       console.error('Messaging not supported.');
       return;
     }
-    
+
     getToken(messaging, {
       vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
-      
+
     })
       .then((currentToken) => {
-        console.log(currentToken)
+        // console.log(currentToken)
         if (currentToken) {
-          localStorage.setItem("token", currentToken);
           setTokenFound(true);
           setFcmToken(currentToken);
-          console.log("token", currentToken)
+          getFcmToken(currentToken)
+          // console.log("token", currentToken)
         } else {
           setTokenFound(false);
           setFcmToken(null);

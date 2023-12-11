@@ -69,7 +69,7 @@ const Index = () => {
                                     <>
                                         {getFavProp?.map((ele, index) => (
                                             <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
-                                                <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
+                                                <Link href="/properties-details/[slug]" as={`/properties-details/${ele.slug_id}`} passHref>
                                                     <VerticalCard ele={ele} onRemoveCard={removeCard} />
                                                 </Link>
                                             </div>

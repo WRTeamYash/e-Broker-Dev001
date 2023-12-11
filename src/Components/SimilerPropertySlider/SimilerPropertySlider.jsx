@@ -31,7 +31,7 @@ const SimilerPropertySlider = () => {
         GetFeturedListingsApi(
             "",
             "",
-            propId.slug,
+            "",
             "",
             "",
             "",
@@ -48,6 +48,7 @@ const SimilerPropertySlider = () => {
             "",
             "",
             "",
+            propId.slug,
             (response) => {
                 const propertyData = response.data;
                 setIsLoading(false);
@@ -135,7 +136,7 @@ const SimilerPropertySlider = () => {
                                 getSimilerData &&
                                 getSimilerData.map((ele, index) => (
                                     <SwiperSlide id="similer-swiper-slider" key={index}>
-                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
+                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.slug_id}`} passHref>
                                             <VerticalCard ele={ele} />
                                         </Link>
                                     </SwiperSlide>

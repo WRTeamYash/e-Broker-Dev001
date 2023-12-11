@@ -75,13 +75,14 @@ export const GetFeturedListingsApi = (
     search,
     userid,
     users_promoted,
+    slug_id,
     onSuccess,
     onError,
     onStart
 ) => {
     store.dispatch(
         apiCallBegan({
-            ...getAllProperties(promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid, users_promoted),
+            ...getAllProperties(promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid, users_promoted, slug_id),
             displayToast: false,
             onStart,
             onSuccess,
@@ -90,10 +91,10 @@ export const GetFeturedListingsApi = (
     );
 };
 // GET_ARTICLES
-export const GetAllArticlesApi = (id, category_id, get_simiilar, onSuccess, onError, onStart) => {
+export const GetAllArticlesApi = (id, category_id, get_simiilar, slug_id, onSuccess, onError, onStart) => {
     store.dispatch(
         apiCallBegan({
-            ...getArticlesApi(id, category_id, get_simiilar),
+            ...getArticlesApi(id, category_id, get_simiilar, slug_id),
             displayToast: false,
             onStart,
             onSuccess,

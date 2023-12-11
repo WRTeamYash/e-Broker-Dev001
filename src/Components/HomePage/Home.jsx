@@ -133,6 +133,7 @@ const HomePage = () => {
             "",
             "",
             "",
+            "",
             (response) => {
                 const FeaturedListingData = response.data;
 
@@ -162,6 +163,7 @@ const HomePage = () => {
             "",
             "",
             isLoggedIn ? userCurrentId : "",
+            "",
             "",
             "",
             "",
@@ -210,6 +212,7 @@ const HomePage = () => {
             "",
             "",
             "",
+            "",
             (response) => {
                 const MostFav = response.data;
 
@@ -228,6 +231,7 @@ const HomePage = () => {
         setIsLoading(true);
 
         GetAllArticlesApi(
+            "",
             "",
             "",
             "",
@@ -342,7 +346,7 @@ const HomePage = () => {
                                                 ))
                                                 : getFeaturedListing?.slice(0, 8).map((ele, index) => (
                                                     <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
-                                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
+                                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.slug_id}`} passHref>
                                                             <VerticalCard ele={ele} onImageLoad={handleImageLoaded} />
                                                         </Link>
                                                     </div>
@@ -421,7 +425,7 @@ const HomePage = () => {
                                                     Categorydata?.map((ele, index) =>
                                                         ele.properties_count !== 0 && ele.properties_count !== "" ? (
                                                             <SwiperSlide id="aprt-swiper-slider" key={index}>
-                                                                <Link href={`/properties/categories/${ele.id}`}>
+                                                                <Link href={`/properties/categories/${ele.slug_id}`}>
                                                                     <CategoryCard ele={ele} />
                                                                 </Link>
                                                             </SwiperSlide>
@@ -490,7 +494,7 @@ const HomePage = () => {
                                                     ))
                                                     : getMostViewedProp?.slice(0, 6).map((ele, index) => (
                                                         <div className="col-sm-12 col-md-6 col-lg-6" key={index}>
-                                                            <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
+                                                            <Link href="/properties-details/[slug]" as={`/properties-details/${ele.slug_id}`} passHref>
                                                                 <HorizontalCard ele={ele} />
                                                             </Link>
                                                         </div>
@@ -753,7 +757,7 @@ const HomePage = () => {
                                         ) : (
                                             getMostFavProperties?.map((ele, index) => (
                                                 <SwiperSlide id="most-view-swiper-slider" key={index}>
-                                                    <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
+                                                    <Link href="/properties-details/[slug]" as={`/properties-details/${ele.slug_id}`} passHref>
                                                         <VerticalCard ele={ele} />
                                                     </Link>
                                                 </SwiperSlide>

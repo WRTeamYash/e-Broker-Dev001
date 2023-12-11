@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import 'firebase/messaging'
 import { toast } from 'react-hot-toast'
 import FirebaseData from '../../utils/Firebase'
+import { Fcmtoken } from '@/store/reducer/settingsSlice'
+import { useSelector } from 'react-redux'
 
 const PushNotificationLayout = ({ children, onNotificationReceived }) => {
   const [notification, setNotification] = useState(null)
@@ -11,18 +13,20 @@ const PushNotificationLayout = ({ children, onNotificationReceived }) => {
   const [fcmToken, setFcmToken] = useState('')
   const { fetchToken, onMessageListener } = FirebaseData()
 
+  const FcmToken = useSelector(Fcmtoken)
+
   useEffect(() => {
     handleFetchToken()
   }, [])
 
   const handleFetchToken = async () => {
     await fetchToken(setTokenFound, setFcmToken)
-
+    
   }
 
   useEffect(() => {
     if (typeof window !== undefined) {
-      setUserToken(localStorage.getItem('token'))
+      setUserToken(FcmToken)
       //userToken = window.localStorage.getItem('token')
     }
   }, [userToken])
@@ -30,7 +34,6 @@ const PushNotificationLayout = ({ children, onNotificationReceived }) => {
   useEffect(() => {
     onMessageListener()
       .then(payload => {
-        // console.log(payload)
         setNotification(payload.data)
         // toast.success(payload.data.title)
         onNotificationReceived(payload.data);
@@ -45,12 +48,13 @@ const PushNotificationLayout = ({ children, onNotificationReceived }) => {
       //   </div>`
       // )
     }
-  }, [notification, onNotificationReceived])
-  console.log("notification", notification)
-
+  }, [notification , onNotificationReceived])
+// console.log(notification, "notification")
+  
   // / service worker
   useEffect(() => {
     if ('serviceWorker' in navigator) {
+      console.log("hello")
       window.addEventListener('load', function () {
         navigator.serviceWorker.register('/firebase-messaging-sw.js').then(
           function (registration) {

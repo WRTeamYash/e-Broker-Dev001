@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { languageData } from "@/store/reducer/languageSlice";
 import Loader from "../Loader/Loader";
 import { settingsData, settingsLoaded } from "@/store/reducer/settingsSlice";
-import under_maintain from '../../../public/under maintain1.svg'
+import under_maintain from '../../../public/under_maintain.svg'
 import { translate } from "@/utils";
 import Image from "next/image";
 

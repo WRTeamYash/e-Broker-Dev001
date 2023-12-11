@@ -126,6 +126,7 @@ export default function EditPropertyTabs() {
             "",
             isLoggedIn ? userCurrentId : "",
             "",
+            "",
             (response) => {
                 const propertyData = response?.data[0]; // Assuming data is an array and you want the first item
 

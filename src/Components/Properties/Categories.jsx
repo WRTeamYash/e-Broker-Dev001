@@ -99,7 +99,7 @@ const Categories = () => {
             "",
             "",
             "",
-            cateId.slug,
+            "",
             "",
             "",
             "",
@@ -115,6 +115,7 @@ const Categories = () => {
             "",
             "",
             "",
+            cateId.slug,
             (response) => {
                 setTotal(response.total);
                 const propertyData = response.data;
@@ -160,6 +161,7 @@ const Categories = () => {
             "",
             "",
             "",
+            "",
             (response) => {
                 setTotal(response.total);
                 const propertyData = response.data;
@@ -194,6 +196,7 @@ const Categories = () => {
             offsetdata.toString(),
             limit.toString(),
             isLoggedIn ? userCurrentId : "",
+            "",
             "",
             "",
             "",
@@ -253,7 +256,7 @@ const Categories = () => {
                                                         </div>
                                                     ))
                                                     : CategoryListByPropertyData.map((ele) => (
-                                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
+                                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.slug_id}`} passHref>
                                                             <AllPropertieCard ele={ele} />
                                                         </Link>
                                                     ))}
@@ -263,7 +266,7 @@ const Categories = () => {
                                                 <div className="row" id="all-prop-col-cards">
                                                     {CategoryListByPropertyData.map((ele, index) => (
                                                         <div className="col-12 col-md-6 col-lg-4" key={index}>
-                                                            <Link href="/properties-details/[slug]" as={`/properties-details/${ele.id}`} passHref>
+                                                            <Link href="/properties-details/[slug]" as={`/properties-details/${ele.slug_id}`} passHref>
                                                                 <VerticalCard ele={ele} />
                                                             </Link>
                                                         </div>

@@ -28,52 +28,74 @@ const FirebaseData = () => {
     ? initializeApp(firebaseConfig)
     : getApp();
 
-  const messagingInstance = async () => {
-    try {
-      const isSupportedBrowser = await isSupported();
-      if (isSupportedBrowser) {
-        return getMessaging(firebaseApp);
-      } else {
-        // Display a toast message indicating that messaging is not supported
-        toast.error('Messaging is not supported on this browser.');
+    const messagingInstance = async () => {
+      try {
+        const isSupportedBrowser = await isSupported();
+        if (isSupportedBrowser) {
+          return getMessaging(firebaseApp);
+        } else {
+     
+           // Display a sticky note at the bottom if messaging is not supported
+        const stickyNote = document.createElement('div');
+        stickyNote.style.position = 'fixed';
+        stickyNote.style.bottom = '0';
+        stickyNote.style.width = '100%';
+        stickyNote.style.backgroundColor = '#ffffff'; // White background
+        stickyNote.style.color = '#FF0000'; // Black text
+        stickyNote.style.padding = '10px';
+        stickyNote.style.textAlign = 'center';
+        stickyNote.style.fontSize = '12px';
+        stickyNote.style.zIndex = '99999';
+        stickyNote.innerText =`Chat and notification features are not supported on this browser. For a better user experience, please use our mobile application. <a href=${process.env.NEXT_PUBLIC_APPSTORE}style="text-decoration: underline; color: #3498db;">Download Now</a>.`;
+
+        document.body.appendChild(stickyNote);I
+
+        return null;
+          return null;
+        }
+      } catch (err) {
+        console.error('Error checking messaging support:', err);
         return null;
       }
-    } catch (err) {
-      console.error('Error checking messaging support:', err);
-      return null;
-    }
-  };
-  const fetchToken = async (setTokenFound, setFcmToken) => {
-    const messaging = await messagingInstance();
-    if (!messaging) {
-      console.error('Messaging not supported.');
-      return;
-    }
-
-    getToken(messaging, {
-      vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
-
-    })
-      .then((currentToken) => {
-        // console.log(currentToken)
-        if (currentToken) {
-          setTokenFound(true);
-          setFcmToken(currentToken);
-          getFcmToken(currentToken)
-          // console.log("token", currentToken)
+    };
+  
+    const fetchToken = async (setTokenFound, setFcmToken) => {
+      const messaging = await messagingInstance();
+      if (!messaging) {
+        console.error('Messaging not supported.');
+        return;
+      }
+  
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+          getToken(messaging, {
+            vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
+          })
+            .then((currentToken) => {
+              if (currentToken) {
+                setTokenFound(true);
+                setFcmToken(currentToken);
+                getFcmToken(currentToken);
+              } else {
+                setTokenFound(false);
+                setFcmToken(null);
+                toast.error('Permission is required to receive notifications.');
+              }
+            })
+            .catch((err) => {
+              console.error('Error retrieving token:', err);
+            });
         } else {
           setTokenFound(false);
           setFcmToken(null);
-          toast.error('Permission is required for get notification');
-          // console.log(currentToken)
+          toast.error('Permission is required for notifications.');
         }
-      })
-      .catch((err) => {
-        console.error(err);
-        // console.log(currentToken)
-      });
-  };
-
+      } catch (err) {
+        console.error('Error requesting notification permission:', err);
+      }
+    };
+  
   const onMessageListener = async () => {
     const messaging = await messagingInstance();
     if (messaging) {

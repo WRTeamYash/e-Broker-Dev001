@@ -875,7 +875,8 @@
     border-radius: 10px;
     text-align: -webkit-center;
     padding: 0 20px;
-  }
+    cursor: pointer;
+}
   .mobile-nav-buttons {
     display: flex;
     flex-direction: row;

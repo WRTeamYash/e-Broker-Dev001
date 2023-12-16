@@ -14,7 +14,7 @@ import { logoutSuccess, userSignUpData } from "@/store/reducer/authSlice";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { toast } from "react-hot-toast";
 import { settingsData } from "@/store/reducer/settingsSlice";
-import { languageLoaded } from "@/store/reducer/languageSlice";
+import { languageLoaded, setLanguage } from "@/store/reducer/languageSlice";
 import { translate } from "@/utils";
 import { store } from "@/store/store";
 import Swal from "sweetalert2";
@@ -22,11 +22,13 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { silderCacheData } from "@/store/reducer/momentSlice";
 
+
+
 const Nav = () => {
     const router = useRouter();
+    const language = store.getState().Language.languages;
 
     const isHomePage = router.pathname === '/';
-    const chats = router.pathname === '/messages';
     const user_register = router.pathname === '/user-register';
     const signupData = useSelector(userSignUpData);
     const sliderdata = useSelector(silderCacheData);
@@ -35,17 +37,19 @@ const Nav = () => {
     const isLoggedIn = useSelector((state) => state.User_signup);
     const isSubscription = settingData?.subscription;
     const LanguageList = settingData && settingData.languages;
-    const DefaultLangCode = settingData && settingData.default_language;
-    // Initialize the selectedLanguage state with the DefaultLangCode value
+
+
+    const systemDefaultLanguageCode = settingData?.default_language;
+    const [showModal, setShowModal] = useState(false);
+    const [areaconverterModal, setAreaConverterModal] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState();
-    const [defaultLanguage, setDefaultLanguage] = useState();
+    const [defaultlang, setDefaultlang] = useState(language.name);
     const [show, setShow] = useState(false);
     const [headerTop, setHeaderTop] = useState(0);
     const [scroll, setScroll] = useState(0);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const language = store.getState().Language.languages;
 
     useEffect(() => {
         if (language && language.rtl === 1) {
@@ -83,18 +87,28 @@ const Nav = () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
+
     useEffect(() => {
-        languageLoaded(
-            DefaultLangCode,
-            "1",
-            (response) => {
-                const currentLang = response && response.data.name;
-                setDefaultLanguage(currentLang);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+
+        if (!language || Object.keys(language).length === 0) {
+
+            languageLoaded(
+                systemDefaultLanguageCode,
+                "1",
+                (response) => {
+                    const currentLang = response && response.data.name;
+
+                    // Dispatch the setLanguage action to update the selected language in Redux
+                    store.dispatch(setLanguage(currentLang));
+                    setSelectedLanguage(currentLang);
+                    setDefaultlang(currentLang);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+        }
+
     }, []);
     const handleLanguageChange = (languageCode) => {
         languageLoaded(
@@ -103,19 +117,24 @@ const Nav = () => {
             (response) => {
                 const currentLang = response && response.data.name;
                 setSelectedLanguage(currentLang);
+
+                // Dispatch the setLanguage action to update the selected language in Redux
+                store.dispatch(setLanguage(currentLang));
             },
             (error) => {
                 console.log(error);
             }
         );
     };
+    useEffect(() => {
+
+        // console.log("selected lang", selectedLanguage)
+    }, [selectedLanguage, language, defaultlang])
 
     const handleScroll = () => {
         setScroll(window.scrollY);
     };
 
-    const [showModal, setShowModal] = useState(false);
-    const [areaconverterModal, setAreaConverterModal] = useState(false);
     const handleOpenModal = () => {
         setShow(false);
         setShowModal(true);
@@ -300,7 +319,7 @@ const Nav = () => {
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ml-auto">
                                     <Dropdown>
-                                        <Dropdown.Toggle id="dropdown-basic">{selectedLanguage ? selectedLanguage : defaultLanguage}</Dropdown.Toggle>
+                                        <Dropdown.Toggle id="dropdown-basic">  {selectedLanguage ? selectedLanguage : defaultlang}</Dropdown.Toggle>
                                         <Dropdown.Menu id="language">
                                             {LanguageList &&
                                                 LanguageList.map((ele, index) => (
@@ -462,10 +481,11 @@ const Nav = () => {
 
                                         {translate("chat")}
                                     </span>
-                                    
+
                                 </li>
                                 <Dropdown>
-                                    <Dropdown.Toggle id="dropdown-basic">{selectedLanguage ? selectedLanguage : defaultLanguage}</Dropdown.Toggle>
+                                <Dropdown.Toggle id="dropdown-basic">  {selectedLanguage ? selectedLanguage : defaultlang}</Dropdown.Toggle>
+
                                     <Dropdown.Menu id="language">
                                         {LanguageList &&
                                             LanguageList.map((ele, index) => (

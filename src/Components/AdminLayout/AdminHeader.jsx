@@ -9,37 +9,24 @@ import { useSelector } from "react-redux";
 import { Dropdown } from "react-bootstrap";
 import { FiPlusCircle } from "react-icons/fi";
 import { userSignUpData } from "@/store/reducer/authSlice";
-import { languageLoaded } from "@/store/reducer/languageSlice";
+import { languageLoaded, setLanguage } from "@/store/reducer/languageSlice";
 import { translate } from "@/utils";
 import Link from "next/link";
 
 const AdminHeader = () => {
+    const language = store.getState().Language.languages;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const settingData = useSelector(settingsData);
     const signupData = useSelector(userSignUpData);
     const LanguageList = settingData && settingData.languages;
-    const DefaultLangCode = settingData && settingData.default_language;
-    // Initialize the selectedLanguage state with the DefaultLangCode value
-    const [selectedLanguage, setSelectedLanguage] = useState();
-    const [defaultLanguage, setDefaultLanguage] = useState();
+    const systemDefaultLanguageCode = settingData?.default_language;
+
+    const [selectedLanguage, setSelectedLanguage] = useState(language.name);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    const language = store.getState().Language.languages;
 
 
-    useEffect(() => {
-        languageLoaded(
-            DefaultLangCode,
-            "1",
-            (response) => {
-                const currentLang = response && response.data.name;
-                setDefaultLanguage(currentLang);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-    }, []);
+  
     useEffect(() => {
         if (language && language.rtl === 1) {
             document.documentElement.dir = "rtl";
@@ -47,20 +34,32 @@ const AdminHeader = () => {
             document.documentElement.dir = "ltr";
         }
     }, [language]);
+
+
+
+
+
     const handleLanguageChange = (languageCode) => {
         languageLoaded(
             languageCode,
             "1",
             (response) => {
                 const currentLang = response && response.data.name;
-
                 setSelectedLanguage(currentLang);
+
+                // Dispatch the setLanguage action to update the selected language in Redux
+                store.dispatch(setLanguage(currentLang));
             },
             (error) => {
                 console.log(error);
             }
         );
     };
+    useEffect(() => {
+
+        // console.log("selected lang", selectedLanguage)
+    }, [selectedLanguage])
+
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -96,7 +95,7 @@ const AdminHeader = () => {
                     <GTranslateIcon />
                 </IconButton>
                 <Dropdown id="dropdown">
-                    <Dropdown.Toggle id="dropdown-basic-dashboard">{selectedLanguage ? selectedLanguage : defaultLanguage}</Dropdown.Toggle>
+                    <Dropdown.Toggle id="dropdown-basic-dashboard">{selectedLanguage}</Dropdown.Toggle>
                     <Dropdown.Menu id="language">
                         {LanguageList &&
                             LanguageList.map((ele, index) => (
@@ -126,7 +125,7 @@ const AdminHeader = () => {
                     <Box sx={{ flexGrow: 1, color: "#000" }} />
                     <Box sx={{ display: { xs: "none", sm: "none", md: "none", lg: "flex" }, alignItems: "center" }}>
                         <Dropdown id="dropdown">
-                            <Dropdown.Toggle id="dropdown-basic-dashboard">{selectedLanguage ? selectedLanguage : defaultLanguage}</Dropdown.Toggle>
+                            <Dropdown.Toggle id="dropdown-basic-dashboard">{selectedLanguage}</Dropdown.Toggle>
                             <Dropdown.Menu id="language">
                                 {LanguageList &&
                                     LanguageList.map((ele, index) => (

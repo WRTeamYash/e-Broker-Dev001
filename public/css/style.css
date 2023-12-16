@@ -6568,7 +6568,20 @@ a {
   padding: 20px !important;
   color: var(--primary-text-color02) !important;
 }
+:where(.css-1vr7spz).ant-tabs-left > .ant-tabs-nav .ant-tabs-tab,
+:where(.css-1vr7spz).ant-tabs-right > .ant-tabs-nav .ant-tabs-tab,
+:where(.css-1vr7spz).ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab,
+:where(.css-1vr7spz).ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab {
+  border-bottom: 1px solid lightgray;
+  padding: 20px !important;
+  color: var(--primary-text-color02) !important;
+}
 :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs
+  .ant-tabs-tab.ant-tabs-tab-active
+  .ant-tabs-tab-btn {
+  color: var(--primary-text-color02) !important;
+}
+:where(.css-1vr7spz).ant-tabs
   .ant-tabs-tab.ant-tabs-tab-active
   .ant-tabs-tab-btn {
   color: var(--primary-text-color02) !important;
@@ -6581,6 +6594,17 @@ a {
   > .ant-tabs-content
   > .ant-tabs-tabpane,
 :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-left
+  > div
+  > .ant-tabs-content-holder
+  > .ant-tabs-content
+  > .ant-tabs-tabpane {
+  padding-left: 0 !important;
+}
+:where(.css-1vr7spz).ant-tabs-left
+  > .ant-tabs-content-holder
+  > .ant-tabs-content
+  > .ant-tabs-tabpane,
+:where(.css-1vr7spz).ant-tabs-left
   > div
   > .ant-tabs-content-holder
   > .ant-tabs-content
@@ -6615,6 +6639,7 @@ a {
   justify-content: flex-end;
   width: 100%;
   text-decoration: underline;
+  cursor: pointer;
 }
 .chat_deatils .chat_deatils_header .profile_name p {
   margin: 0;
@@ -6636,7 +6661,7 @@ a {
   height: 50px;
   margin-right: 10px;
 }
-.other-message #sender_profile{
+.other-message #sender_profile {
   width: 50px;
   height: 50px;
   border: 1px solid lightgray;
@@ -6648,7 +6673,7 @@ a {
   height: 50px;
   margin-left: 10px;
 }
-.user-message #sender_profile{
+.user-message #sender_profile {
   width: 50px;
   height: 50px;
   border: 1px solid lightgray;
@@ -6733,21 +6758,19 @@ a {
   overflow-y: auto;
   padding: 20px;
 }
-.other-message .file-preview, .other-message span {
+.other-message .file-preview,
+.other-message span {
   border-radius: 0 20px 20px 25px;
   background-color: #087c7c14;
-
 }
 /* .other-message audio{
   border-radius: 0 20px 20px 25px;
   background-color: #087c7c14 !important;
 
 } */
-.other-message audio::-webkit-media-controls-panel
-{
+.other-message audio::-webkit-media-controls-panel {
   border-radius: 0 20px 20px 25px !important;
   background-color: #087c7c14 !important;
-
 }
 .other-message .file-preview img {
   border-radius: 0 20px 20px 25px;
@@ -6761,12 +6784,11 @@ a {
 .audio-container::-webkit-media-controls {
   background-color: transparent !important; /* You can set this to 'transparent' or any other color */
   border-radius: 0 20px 20px 25px !important;
-
 }
-.user-message .file-preview, .user-message span{
+.user-message .file-preview,
+.user-message span {
   border-radius: 20px 0 25px 20px;
   background-color: var(--primary-background);
-
 }
 .user-audio {
   border-radius: 20px 0 25px 20px;
@@ -6779,7 +6801,6 @@ a {
 .user-message audio {
   border-radius: 20px 0 25px 20px;
   background-color: var(--primary-background);
-
 }
 .user-message .file-preview img {
   border-radius: 20px 0 25px 20px;
@@ -6959,6 +6980,6 @@ audio {
   }
 }
 
-#noChats{
+#noChats {
   padding: 60px 0;
 }

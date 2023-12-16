@@ -38,7 +38,7 @@ const SearchPage = () => {
         postedSince: searchedData?.filterData?.postedSince ? searchedData?.filterData?.postedSince : "",
         selectedLocation: null,
     });
-    const [activeTab, setActiveTab] = useState(0);
+    const [activeTab, setActiveTab] = useState(searchedData.activeTab);
     const [searchInput, setSearchInput] = useState(searchedData.searchInput);
 
     const [isLoading, setIsLoading] = useState(true);

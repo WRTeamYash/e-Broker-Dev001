@@ -29,6 +29,8 @@ const ASSIGN_FREE_PACKAGE = "assign_free_package"
 const GET_CHATS = "get_chats"
 const GET_CHATS_MESSAGES = "get_messages"
 const SEND_MESSAGE = "send_message"
+const DELETE_MESSAGES = "delete_chat_message"
+
 
 // is login user check
 export const getUserID = () => {
@@ -586,6 +588,21 @@ export const sendMessage = (sender_id, receiver_id, message, property_id, file, 
     data.append("audio", audio);
     return {
         url: `${SEND_MESSAGE}`,
+        method: 'POST',
+        data,
+        authorizationHeader: true,
+
+    }
+}
+// DELETE CHAT messages
+export const deleteChatMessages = (sender_id, receiver_id, property_id) => {
+    let data = new FormData();
+
+    data.append("sender_id", sender_id);
+    data.append("receiver_id", receiver_id);
+    data.append("property_id", property_id);
+    return {
+        url: `${DELETE_MESSAGES}`,
         method: 'POST',
         data,
         authorizationHeader: true,

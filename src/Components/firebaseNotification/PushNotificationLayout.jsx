@@ -33,23 +33,18 @@ const PushNotificationLayout = ({ children, onNotificationReceived }) => {
 
   useEffect(() => {
     onMessageListener()
-      .then(payload => {
-        setNotification(payload.data)
-        // toast.success(payload.data.title)
-        onNotificationReceived(payload.data);
+      .then((payload) => {
+        if (payload && payload.data) {
+          setNotification(payload.data);
+          onNotificationReceived(payload.data);
+        }
       })
-      .catch(err => toast(err))
-    if (notification) {
-
-      // toast.success(
-      //   `<div class="stack" style="cursor: pointer; width: 300px;">
-      //     <div>${notification.title}</div>
-      //     <div>${notification.body}</div>
-      //   </div>`
-      // )
-    }
-  }, [notification , onNotificationReceived])
-// console.log(notification, "notification")
+      .catch((err) => {
+        console.error('Error handling foreground notification:', err);
+        toast.error('Error handling notification.');
+      });
+  }, [notification, onNotificationReceived]);
+console.log(notification, "notification")
   
   // / service worker
   useEffect(() => {

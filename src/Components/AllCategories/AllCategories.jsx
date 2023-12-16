@@ -37,7 +37,7 @@ const AllCategories = () => {
                                     Categorydata?.map((ele, index) =>
                                         ele.properties_count !== 0 && ele.properties_count !== "" ? (
                                             <div className="col-sm-12 col-md-6 col-lg-2" key={index}>
-                                                <Link href={`/properties/categories/${ele.id}`}>
+                                                <Link href={`/properties/categories/${ele.slug_id}`}>
                                                     <CategoryCard ele={ele} />
                                                 </Link>
                                             </div>

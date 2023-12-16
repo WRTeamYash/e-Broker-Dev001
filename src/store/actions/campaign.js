@@ -24,7 +24,8 @@ import {
     assignFreePackage,
     getChatList,
     getChatMessages,
-    sendMessage
+    sendMessage,
+    deleteChatMessages
 } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
@@ -430,6 +431,18 @@ export const sendMessageApi = (sender_id, receiver_id, message, property_id, fil
     store.dispatch(
         apiCallBegan({
             ...sendMessage(sender_id, receiver_id, message, property_id, file, audio),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+// DELETE CHAT  MESSAGE API
+export const deleteChatMessagesApi = (sender_id, receiver_id, property_id, onSuccess, onError, onStart) => {
+    store.dispatch(
+        apiCallBegan({
+            ...deleteChatMessages(sender_id, receiver_id, property_id),
             displayToast: false,
             onStart,
             onSuccess,

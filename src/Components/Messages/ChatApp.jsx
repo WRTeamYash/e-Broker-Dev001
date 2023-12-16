@@ -7,11 +7,13 @@ import { RiSendPlaneLine } from 'react-icons/ri';
 import { FaLessThanEqual, FaMicrophone } from 'react-icons/fa';
 import { MdOutlineAttachFile } from 'react-icons/md';
 import { settingsData } from "@/store/reducer/settingsSlice";
-import { getChatsListApi, getChatsMessagesApi, sendMessageApi } from '@/store/actions/campaign';
+import { deleteChatMessagesApi, getChatsListApi, getChatsMessagesApi, sendMessageApi } from '@/store/actions/campaign';
 import { formatDistanceToNow } from 'date-fns';
 import { toast } from 'react-toastify';
 import No_Chat from "../../../public/no_chat_found.svg"
 import { translate } from '@/utils';
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
 const { TabPane } = Tabs;
 
@@ -24,6 +26,8 @@ const ChatApp = ({ notificationData }) => {
     const [chatList, setChatList] = useState([]);
     const [newChat, setNewChat] = useState([]);
     const storedChatData = localStorage.getItem('newUserChat');
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
+    const router = useRouter();
 
     const initialState = chatList.reduce((acc, chat) => {
         acc[chat.property_id] = {
@@ -163,24 +167,28 @@ const ChatApp = ({ notificationData }) => {
         document.getElementById(`fileInput-${tabKey}`).click();
     };
 
+    // Inside startRecording function
     const startRecording = (tabKey) => {
         navigator.mediaDevices
             .getUserMedia({ audio: true })
             .then((stream) => {
                 const mediaRecorder = new MediaRecorder(stream);
+                let audioChunks = [];
+
                 mediaRecorder.ondataavailable = (event) => {
                     if (event.data.size > 0) {
-                        setTabStates((prevState) => ({
-                            ...prevState,
-                            [tabKey]: {
-                                ...(prevState[tabKey] || {}),
-                                audioChunks: [...(prevState[tabKey]?.audioChunks || []), event.data],
-                            },
-                        }));
+                        audioChunks.push(event.data);
                     }
                 };
+
                 mediaRecorder.onstop = () => {
-                    // console.log('Recording stopped');
+                    setTabStates((prevState) => ({
+                        ...prevState,
+                        [tabKey]: {
+                            ...(prevState[tabKey] || {}),
+                            audioChunks: [...(prevState[tabKey]?.audioChunks || []), ...audioChunks],
+                        },
+                    }));
                 };
 
                 mediaRecorder.start();
@@ -198,6 +206,7 @@ const ChatApp = ({ notificationData }) => {
                 console.error('Error accessing microphone:', error);
             });
     };
+
 
     const stopRecording = (tabKey) => {
         if (tabStates[tabKey].mediaRecorder) {
@@ -226,9 +235,13 @@ const ChatApp = ({ notificationData }) => {
         const tabState = tabStates[tabKey] || {};
         const messageType = tabState.selectedFile
             ? 'file'
-            : (tabState.audioChunks && tabState.audioChunks.length > 0)
+            : tabState.audioChunks && tabState.audioChunks.length > 0
                 ? 'audio'
                 : 'text';
+
+        // console.log('Message Type:', messageType);
+        // console.log('Audio Chunks:', tabState.audioChunks);
+
 
         let newMessage = {
             sender_id: userCurrentId,
@@ -247,11 +260,10 @@ const ChatApp = ({ notificationData }) => {
 
             newMessage = {
                 ...newMessage,
-                audio: audioFile,
+                audio: [audioFile], // Ensure audio is an array of Blobs
             };
         }
 
-        console.log('New Message Data:', newMessage);
 
         setTabStates((prevState) => ({
             ...prevState,
@@ -270,8 +282,8 @@ const ChatApp = ({ notificationData }) => {
             newMessage.receiver_id,
             newMessage.message ? newMessage.message : newMessage.file ? '[File]' : newMessage.audio ? '[Audio]' : '',
             newMessage.property_id,
-            newMessage.file ? newMessage.file : "",
-            newMessage.audio ? newMessage.audio : "",
+            newMessage.file ? newMessage.file : '',
+            newMessage.audio ? newMessage.audio : '',
             (res) => {
                 console.log(res);
             },
@@ -282,7 +294,7 @@ const ChatApp = ({ notificationData }) => {
 
         requestAnimationFrame(() => {
             const chatDisplay = chatDisplayRef.current;
-            chatDisplay.scrollTop = chatDisplay.scrollHeight;
+            chatDisplay.scrollTop = chatDisplay?.scrollHeight;
         });
     };
 
@@ -378,6 +390,60 @@ const ChatApp = ({ notificationData }) => {
         };
     }, [selectedTab, currentPage, loadingMore]);
 
+    const handleDeleteChat = () => {
+        if (selectedTab) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Are you sure you want to delete the chat? All conversations will be removed.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true,
+                confirmButtonColor: primaryColor,
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    deleteChatMessagesApi(
+                        userCurrentId,
+                        selectedTab.user_id,
+                        selectedTab.property_id,
+                        (res) => {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: res.message,
+                                icon: "success",
+                                confirmButtonColor: primaryColor,
+                            });
+
+                            // Remove the deleted chat from state
+                            setChatList(prevList => prevList.filter(chat => chat.property_id !== selectedTab.property_id));
+                            setTabStates((prevStates) => {
+                                const newState = { ...prevStates };
+                                delete newState[selectedTab.property_id];
+                                return newState;
+                            });
+                            setChatMessages([]);
+                            // Clear local storage data
+                            localStorage.removeItem('newUserChat');
+                            if (chatList.length === 0) {
+                                // Navigate to home page
+                                router.push("/");
+
+                            }
+                        },
+                        (error) => {
+                            console.log(error)
+                        }
+                    )
+                }
+            });
+        }
+    };
+    useEffect(() => {
+
+        console.log(chatList.length)
+    }, [chatList])
 
     return (
         <>
@@ -415,33 +481,62 @@ const ChatApp = ({ notificationData }) => {
                                                         <p>{chat.title}</p>
                                                     </div>
                                                 </div>
-                                                <div className="delete_messages">
-                                                    <span>{translate("deleteMessages")}</span>
-                                                </div>
+
+                                                {chatMessages.length > 0 ? (
+
+                                                    <div className="delete_messages" onClick={handleDeleteChat}>
+                                                        <span>{translate("deleteMessages")}</span>
+                                                    </div>
+                                                ) : null}
                                             </div>
                                             <div className="chat_display" ref={chatDisplayRef}>
                                                 <div className='sender_masg'>
-                                                    {chatMessages.length > 0 ? chatMessages.map((message, index) => (
-                                                        <>
-
+                                                    {chatMessages.length > 0 ? (
+                                                        chatMessages.map((message, index) => (
                                                             <div key={index} className={message.sender_id === userCurrentId ? 'user-message' : 'other-message'}>
-                                                                {message.type === 'text' || message.type === 'chat' && message.message !== "" ? (
-                                                                    <>
-                                                                        <div className="chat_user_profile">
-                                                                            <Image loading="lazy" id="sender_profile" src={message.sender_id === userCurrentId ? userProfile : message.profile} alt="no_img" width={0} height={0}   onError={(e) => {
-                                                                                    e.target.src = PlaceHolderImg;
-                                                                                }}/>
-                                                                        </div>
-                                                                        <span>{message.message}</span>
-                                                                    </>
+                                                                <div className="chat_user_profile">
+                                                                    <Image
+                                                                        loading="lazy"
+                                                                        id="sender_profile"
+                                                                        src={message.sender_id === userCurrentId ? userProfile : message.profile}
+                                                                        alt="no_img"
+                                                                        width={0}
+                                                                        height={0}
+                                                                        onError={(e) => {
+                                                                            e.target.src = PlaceHolderImg;
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                                                {message.type === 'text' || (message.type === 'chat' && message.message !== "") ? (
+                                                                    <span>{message.message}</span>
                                                                 ) : message.type === 'file' ? (
-                                                                    <>
-                                                                        <div className="chat_user_profile">
-                                                                            <Image loading="lazy" id="sender_profile" src={message.sender_id === userCurrentId ? userProfile : message.profile} alt="no_img" width={0} height={0}
-                                                                                onError={(e) => {
-                                                                                    e.target.src = PlaceHolderImg;
-                                                                                }} />
-                                                                        </div>
+                                                                    <div className="file-preview">
+                                                                        {message.file && message.file.type && message.file.type.startsWith('image/') ? (
+                                                                            <img src={URL.createObjectURL(message.file)} alt="File Preview" />
+                                                                        ) : message.file && message.file.type === 'application/pdf' ? (
+                                                                            <embed src={URL.createObjectURL(message.file)} type="application/pdf" width="100%" height="600px" />
+                                                                        ) : (
+                                                                            <img src={message.file} alt="File Preview" />
+                                                                        )}
+                                                                    </div>
+                                                                ) : message.type === 'chat' && message.file && message.message === "" ? (
+                                                                    <img src={message.file} alt="File Preview" />
+                                                                ) : message.type === "audio" ? (
+                                                                    <div className={message.sender_id === userCurrentId ? 'user-audio' : 'other-audio'}>
+                                                                        {typeof message.audio === 'string' ? (
+                                                                            <audio controls>
+                                                                                <source src={message.audio} type="audio/webm;codecs=opus" />
+                                                                                Your browser does not support the audio element.
+                                                                            </audio>
+                                                                        ) : message.audio && message.audio[0] instanceof Blob ? (
+                                                                            <audio controls>
+                                                                                <source src={URL.createObjectURL(message.audio[0])} type="audio/webm;codecs=opus" />
+                                                                                Your browser does not support the audio element.
+                                                                            </audio>
+                                                                        ) : null}
+                                                                    </div>
+                                                                ) : message.type === 'file_and_text' ? (
+                                                                    <div className='file_text'>
                                                                         <div className="file-preview">
                                                                             {message.file && message.file.type && message.file.type.startsWith('image/') ? (
                                                                                 <img src={URL.createObjectURL(message.file)} alt="File Preview" />
@@ -451,81 +546,24 @@ const ChatApp = ({ notificationData }) => {
                                                                                 <img src={message.file} alt="File Preview" />
                                                                             )}
                                                                         </div>
-                                                                    </>
-
-                                                                ) : message.type === 'chat' && message.file && message.message === "" ? (
-                                                                    <>
-                                                                        <div className="chat_user_profile">
-                                                                            <Image loading="lazy" id="sender_profile" src={message.sender_id === userCurrentId ? userProfile : message.profile} alt="no_img" width={0} height={0}   onError={(e) => {
-                                                                                    e.target.src = PlaceHolderImg;
-                                                                                }}/>
-                                                                        </div>
-                                                                        <img src={message.file} alt="File Preview" />
-                                                                    </>
-                                                                )
-                                                                    : message.type === "audio" && message.audio && typeof message.audio === 'string' ? (
-                                                                        <>
-                                                                            <div className="chat_user_profile">
-                                                                                <Image loading="lazy" id="sender_profile" src={message.sender_id === userCurrentId ? userProfile : message.profile} alt="no_img" width={0} height={0}   onError={(e) => {
-                                                                                    e.target.src = PlaceHolderImg;
-                                                                                }}/>
-                                                                            </div>                                                                    
-                                                                            <audio controls className={message.sender_id === userCurrentId ? 'user-audio' : 'other-audio'}>
-                                                                                <source src={message.audio} type="audio/webm;codecs=opus" />
-                                                                                Your browser does not support the audio element.
-                                                                            </audio>
-
-                                                                        </>
-                                                                    ) : message.type === "audio" && message.audio && message.audio[0] instanceof Blob ? (
-                                                                        <>
-                                                                            <div className="chat_user_profile">
-                                                                                <Image loading="lazy" id="sender_profile" src={message.sender_id === userCurrentId ? userProfile : message.profile} alt="no_img" width={0} height={0}   onError={(e) => {
-                                                                                    e.target.src = PlaceHolderImg;
-                                                                                }}/>
-                                                                            </div>
-                                                                            <audio controls className={message.sender_id === userCurrentId ? 'user-audio' : 'other-audio'}>
-                                                                                <source src={URL.createObjectURL(message.audio[0])} type="audio/webm;codecs=opus" />
-                                                                                Your browser does not support the audio element.
-                                                                            </audio>
-                                                                        </>
-                                                                    ) : message.type === 'file_and_text' ? (
-                                                                        <>
-                                                                            <div className="chat_user_profile">
-                                                                                <Image loading="lazy" id="sender_profile" src={message.sender_id === userCurrentId ? userProfile : message.profile} alt="no_img" width={0} height={0}   onError={(e) => {
-                                                                                    e.target.src = PlaceHolderImg;
-                                                                                }}/>
-                                                                            </div>
-                                                                            <div className='file_text'>
-                                                                                <div className="file-preview">
-                                                                                    {message.file && message.file.type && message.file.type.startsWith('image/') ? (
-                                                                                        <img src={URL.createObjectURL(message.file)} alt="File Preview" />
-                                                                                    ) : message.file && message.file.type === 'application/pdf' ? (
-                                                                                        <embed src={URL.createObjectURL(message.file)} type="application/pdf" width="100%" height="600px" />
-                                                                                    ) : (
-                                                                                        <img src={message.file} alt="File Preview" />
-                                                                                    )}
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </>
-                                                                    ) : null}
+                                                                    </div>
+                                                                ) : null}
                                                             </div>
-                                                        </>
-
-                                                    )) :
-                                                        (
-                                                            <div className="col-12 text-center" id='noChats'>
-                                                                <div>
-                                                                    <Image loading="lazy" src={No_Chat.src} alt="start_chat" width={450} height={450} />
-                                                                </div>
-                                                                <div className='no_page_found_text'>
-                                                                    <h3>{translate("startConversation")}</h3>
-                                                                    {/* <span>{translate("startConversation")}</span> */}
-                                                                </div>
+                                                        ))
+                                                    ) : (
+                                                        <div className="col-12 text-center" id='noChats'>
+                                                            <div>
+                                                                <Image loading="lazy" src={No_Chat.src} alt="start_chat" width={450} height={450} />
                                                             </div>
-                                                        )}
+                                                            <div className='no_page_found_text'>
+                                                                <h3>{translate("startConversation")}</h3>
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
+
+
 
                                             <div className="chat_inputs">
                                                 <div

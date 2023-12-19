@@ -36,22 +36,41 @@ const FirebaseData = () => {
         } else {
      
            // Display a sticky note at the bottom if messaging is not supported
-        const stickyNote = document.createElement('div');
-        stickyNote.style.position = 'fixed';
-        stickyNote.style.bottom = '0';
-        stickyNote.style.width = '100%';
-        stickyNote.style.backgroundColor = '#ffffff'; // White background
-        stickyNote.style.color = '#FF0000'; // Black text
-        stickyNote.style.padding = '10px';
-        stickyNote.style.textAlign = 'center';
-        stickyNote.style.fontSize = '12px';
-        stickyNote.style.zIndex = '99999';
-        stickyNote.innerText =`Chat and notification features are not supported on this browser. For a better user experience, please use our mobile application. <a href=${process.env.NEXT_PUBLIC_APPSTORE}style="text-decoration: underline; color: #3498db;">Download Now</a>.`;
-
-        document.body.appendChild(stickyNote);I
+           const stickyNote = document.createElement('div');
+           stickyNote.style.position = 'fixed';
+           stickyNote.style.bottom = '0';
+           stickyNote.style.width = '100%';
+           stickyNote.style.backgroundColor = '#ffffff'; // White background
+           stickyNote.style.color = '#000000'; // Black text
+           stickyNote.style.padding = '10px';
+           stickyNote.style.textAlign = 'center';
+           stickyNote.style.fontSize = '14px';
+           stickyNote.style.zIndex = '99999'; // Set zIndex to 99999
+           
+           const closeButton = document.createElement('span');
+           closeButton.style.cursor = 'pointer';
+           closeButton.style.float = 'right';
+           closeButton.innerHTML = '&times;'; // Times symbol (X) for close
+           
+           closeButton.onclick = function () {
+             document.body.removeChild(stickyNote);
+           };
+           
+           const link = document.createElement('a');
+           link.href = process.env.NEXT_PUBLIC_APPSTORE;
+           link.style.textDecoration = 'underline';
+           link.style.color = '#3498db';
+           link.innerText = 'Download Now';
+           
+           stickyNote.innerHTML = 'Chat and Notification features are not supported on this browser. For a better user experience, please use our mobile application. ';
+           stickyNote.appendChild(closeButton);
+           stickyNote.appendChild(link);
+           
+           document.body.appendChild(stickyNote);
+           
 
         return null;
-          return null;
+      
         }
       } catch (err) {
         console.error('Error checking messaging support:', err);

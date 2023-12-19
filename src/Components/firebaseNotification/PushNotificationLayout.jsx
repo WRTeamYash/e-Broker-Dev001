@@ -21,7 +21,7 @@ const PushNotificationLayout = ({ children, onNotificationReceived }) => {
 
   const handleFetchToken = async () => {
     await fetchToken(setTokenFound, setFcmToken)
-    
+
   }
 
   useEffect(() => {
@@ -44,8 +44,8 @@ const PushNotificationLayout = ({ children, onNotificationReceived }) => {
         toast.error('Error handling notification.');
       });
   }, [notification, onNotificationReceived]);
-console.log(notification, "notification")
-  
+  console.log(notification, "notification")
+
   // / service worker
   useEffect(() => {
     if ('serviceWorker' in navigator) {

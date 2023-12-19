@@ -9,6 +9,7 @@ let initialState = {
     lastFetch: null,
     slider: [],
     categories: [],
+    newUserChatData: []
 };
 
 const momentSlice = createSlice({
@@ -37,10 +38,19 @@ const momentSlice = createSlice({
         categoriesFailed: (state, action) => {
             state.loading = false;
         },
+        newUserChatData: (state, action) => {
+            state.loading = false;
+            state.newUserChatData = action.payload.data;
+        },
+        newUserRemoveChat: (state) => {
+            // console.log(state, "stateeeeeee")
+            state.newUserChatData = null;
+            // return state;
+        },
     },
 });
 
-export const { sliderRequested, sliderSuccess, sliderFailed, categoriesRequested, categoriesSuccess, categoriesFailed } = momentSlice.actions;
+export const { sliderRequested, sliderSuccess, sliderFailed, categoriesRequested, categoriesSuccess, categoriesFailed, newUserChatData, newUserRemoveChat } = momentSlice.actions;
 export default momentSlice.reducer;
 
 // API Calls
@@ -81,6 +91,14 @@ export const loadCategories = (onSuccess, onError, onStart) => {
     );
 };
 
+//  store new user chat data 
+export const getChatData = (data) => {
+    store.dispatch(newUserChatData({ data }))
+}
+export const removeChat = (remove) => {
+    store.dispatch(newUserRemoveChat({ remove }));
+};
+
 // Selector Functions
 export const silderCacheData = createSelector(
     (state) => state.cachedata,
@@ -89,4 +107,8 @@ export const silderCacheData = createSelector(
 export const categoriesCacheData = createSelector(
     (state) => state.cachedata,
     (cachedata) => cachedata.categories
+);
+export const newchatData = createSelector(
+    (state) => state.cachedata,
+    (cachedata) => cachedata.newUserChatData
 );

@@ -30,6 +30,7 @@ const Nav = () => {
 
     const isHomePage = router.pathname === '/';
     const user_register = router.pathname === '/user-register';
+    const chat = router.pathname === '/messages';
     const signupData = useSelector(userSignUpData);
     const sliderdata = useSelector(silderCacheData);
     const settingData = useSelector(settingsData);
@@ -235,8 +236,7 @@ const Nav = () => {
     return (
         <>
             <header>
-                <nav className={`navbar header navbar-expand-lg navbar-light ${scroll > headerTop || (isHomePage && (!sliderdata || sliderdata.length === 0)) ? "is-sticky" : ""}`}>
-
+                <nav className={`navbar header navbar-expand-lg navbar-light ${scroll > headerTop || (isHomePage && (!sliderdata || sliderdata.length === 0)) || chat ? "is-sticky" : ""}`}>
                     <div className="container">
                         <div className="left-side">
                             <Link className="navbar-brand" href="/">
@@ -484,7 +484,7 @@ const Nav = () => {
 
                                 </li>
                                 <Dropdown>
-                                <Dropdown.Toggle id="dropdown-basic">  {selectedLanguage ? selectedLanguage : defaultlang}</Dropdown.Toggle>
+                                    <Dropdown.Toggle id="dropdown-basic">  {selectedLanguage ? selectedLanguage : defaultlang}</Dropdown.Toggle>
 
                                     <Dropdown.Menu id="language">
                                         {LanguageList &&

@@ -14,6 +14,8 @@ import No_Chat from "../../../public/no_chat_found.svg"
 import { translate } from '@/utils';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
+import { newchatData, removeChat } from '@/store/reducer/momentSlice';
+import { userSignUpData } from '@/store/reducer/authSlice';
 
 const { TabPane } = Tabs;
 
@@ -21,13 +23,23 @@ const ChatApp = ({ notificationData }) => {
     const DummyImgData = useSelector(settingsData);
     const PlaceHolderImg = DummyImgData?.img_placeholder;
     const isLoggedIn = useSelector((state) => state.User_signup);
+    // const newchatDataoggedIn = useSelector((state) => state.);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const userProfile = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.profile : PlaceHolderImg;
     const [chatList, setChatList] = useState([]);
     const [newChat, setNewChat] = useState([]);
-    const storedChatData = localStorage.getItem('newUserChat');
+    // const storedChatData = localStorage.getItem('newUserChat');
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
     const router = useRouter();
+
+    const storedChatData = useSelector(newchatData);
+
+    const signupData = useSelector(userSignUpData);
+    useEffect(() => {
+        if (signupData.data === null) {
+            router.push("/");
+        }
+    }, [signupData])
 
     const initialState = chatList.reduce((acc, chat) => {
         acc[chat.property_id] = {
@@ -38,8 +50,8 @@ const ChatApp = ({ notificationData }) => {
             mediaRecorder: null,
             audioChunks: [],
             messages: [],
-            ...((storedChatData && chat.property_id.toString() === JSON.parse(storedChatData)?.property_id.toString())
-                ? JSON.parse(storedChatData)
+            ...((storedChatData && chat.property_id)
+                ? storedChatData
                 : {}),
         };
         return acc;
@@ -51,40 +63,33 @@ const ChatApp = ({ notificationData }) => {
     const [isRecording, setIsRecording] = useState(false);
     const [selectedTab, setSelectedTab] = useState(null);
     const [chatMessages, setChatMessages] = useState([]);
-    const [activeTabKey, setActiveTabKey] = useState(chatList[0]?.property_id);
+    const [activeTabKey, setActiveTabKey] = useState();
 
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(10); // Set your initial per page count
     const [loadingMore, setLoadingMore] = useState(false);
-    const [scrollPosition, setScrollPosition] = useState(0);
 
     useEffect(() => {
-        const storedChatData = localStorage.getItem('newUserChat');
-
         if (storedChatData) {
-            const newChatData = JSON.parse(storedChatData);
+            const newChatData = storedChatData;
 
-            if (!chatList.some(chat => chat.property_id === newChatData.property_id)) {
+            if (!chatList.some(chat => chat.property_id === Number(newChatData.property_id))) {
                 setChatList(prevList => [newChatData, ...prevList]);
                 setSelectedTab(newChatData);
-                setActiveTabKey(newChatData.property_id);
             }
 
             setNewChat(newChatData);
 
-            if (activeTabKey) {
-                setActiveTabKey(newChatData.property_id);
-            }
+            setActiveTabKey(newChatData.property_id);
         }
-    }, [chatList, activeTabKey]);
-
+    }, [ storedChatData]);
     const chatDisplayRef = useRef(null);
 
     useEffect(() => {
         getChatsListApi(
             (res) => {
-                setChatList(res.data);
                 if (res.data.length > 0) {
+                    setChatList(res.data);
                     setSelectedTab(res.data[0]);
                 }
             },
@@ -207,7 +212,6 @@ const ChatApp = ({ notificationData }) => {
             });
     };
 
-
     const stopRecording = (tabKey) => {
         if (tabStates[tabKey].mediaRecorder) {
             tabStates[tabKey].mediaRecorder.stop();
@@ -235,13 +239,9 @@ const ChatApp = ({ notificationData }) => {
         const tabState = tabStates[tabKey] || {};
         const messageType = tabState.selectedFile
             ? 'file'
-            : tabState.audioChunks && tabState.audioChunks.length > 0
+            : (tabState.audioChunks && tabState.audioChunks.length > 0)
                 ? 'audio'
                 : 'text';
-
-        // console.log('Message Type:', messageType);
-        // console.log('Audio Chunks:', tabState.audioChunks);
-
 
         let newMessage = {
             sender_id: userCurrentId,
@@ -255,15 +255,19 @@ const ChatApp = ({ notificationData }) => {
         };
 
         if (messageType === 'audio' && tabState.audioChunks.length > 0) {
+            // Convert Blob to File
             const audioBlob = new Blob(tabState.audioChunks, { type: 'audio/webm;codecs=opus' });
             const audioFile = new File([audioBlob], 'audio_message.webm', { type: 'audio/webm;codecs=opus' });
 
+            // Update newMessage with the File object
             newMessage = {
                 ...newMessage,
-                audio: [audioFile], // Ensure audio is an array of Blobs
+                audio: audioFile,
             };
         }
 
+        // Log only the new message data
+        // console.log('New Message Data:', newMessage);
 
         setTabStates((prevState) => ({
             ...prevState,
@@ -282,24 +286,30 @@ const ChatApp = ({ notificationData }) => {
             newMessage.receiver_id,
             newMessage.message ? newMessage.message : newMessage.file ? '[File]' : newMessage.audio ? '[Audio]' : '',
             newMessage.property_id,
-            newMessage.file ? newMessage.file : '',
-            newMessage.audio ? newMessage.audio : '',
+            newMessage.file ? newMessage.file : "",
+            newMessage.audio ? newMessage.audio : "",
             (res) => {
-                console.log(res);
+                console.log(res)
             },
             (error) => {
-                console.log(error);
+                console.log(error)
+
             }
-        );
+
+
+        )
+
 
         requestAnimationFrame(() => {
             const chatDisplay = chatDisplayRef.current;
-            chatDisplay.scrollTop = chatDisplay?.scrollHeight;
+            chatDisplay.scrollTop = chatDisplay.scrollHeight;
         });
     };
 
+
+
     useEffect(() => {
-        console.log(notificationData);
+        // console.log(notificationData);
 
         if (notificationData) {
             const newMessage = {
@@ -424,8 +434,9 @@ const ChatApp = ({ notificationData }) => {
                                 return newState;
                             });
                             setChatMessages([]);
-                            // Clear local storage data
-                            localStorage.removeItem('newUserChat');
+                            if (selectedTab.property_id === storedChatData.property_id) {
+                                removeChat()
+                            }
                             if (chatList.length === 0) {
                                 // Navigate to home page
                                 router.push("/");
@@ -440,10 +451,13 @@ const ChatApp = ({ notificationData }) => {
             });
         }
     };
-    useEffect(() => {
-
-        console.log(chatList.length)
-    }, [chatList])
+    // useEffect(() => {
+    //     if (chatList.length === 0) {
+    //         // Navigate to home page when chatList is empty
+    //         // router.push("/");
+    //     }
+    //     console.log(chatList.length)
+    // }, [])
 
     return (
         <>
@@ -451,7 +465,7 @@ const ChatApp = ({ notificationData }) => {
                 <div className="container">
                     <div className="card">
 
-                        {chatList.length > 0 ? (
+                        {chatList?.length > 0 ? (
 
                             <Tabs defaultActiveKey={activeTabKey} tabPosition="left" onChange={handleTabChange}>
                                 {chatList.map((chat) => (
@@ -521,16 +535,16 @@ const ChatApp = ({ notificationData }) => {
                                                                     </div>
                                                                 ) : message.type === 'chat' && message.file && message.message === "" ? (
                                                                     <img src={message.file} alt="File Preview" />
-                                                                ) : message.type === "audio" ? (
+                                                                ) : message.type === 'audio' ? (
                                                                     <div className={message.sender_id === userCurrentId ? 'user-audio' : 'other-audio'}>
                                                                         {typeof message.audio === 'string' ? (
                                                                             <audio controls>
                                                                                 <source src={message.audio} type="audio/webm;codecs=opus" />
                                                                                 Your browser does not support the audio element.
                                                                             </audio>
-                                                                        ) : message.audio && message.audio[0] instanceof Blob ? (
+                                                                        ) : message.audio && message.audio instanceof File && message.audio.type.startsWith('audio/') ? (
                                                                             <audio controls>
-                                                                                <source src={URL.createObjectURL(message.audio[0])} type="audio/webm;codecs=opus" />
+                                                                                <source src={URL.createObjectURL(message.audio)} type="audio/webm;codecs=opus" />
                                                                                 Your browser does not support the audio element.
                                                                             </audio>
                                                                         ) : null}
@@ -553,7 +567,7 @@ const ChatApp = ({ notificationData }) => {
                                                     ) : (
                                                         <div className="col-12 text-center" id='noChats'>
                                                             <div>
-                                                                <Image loading="lazy" src={No_Chat.src} alt="start_chat" width={450} height={450} />
+                                                                <Image loading="lazy" src={No_Chat.src} alt="start_chat" width={250} height={250} />
                                                             </div>
                                                             <div className='no_page_found_text'>
                                                                 <h3>{translate("startConversation")}</h3>

@@ -11,19 +11,23 @@ import { languageData } from "@/store/reducer/languageSlice";
 import { translate } from "@/utils";
 import LocationSearchBox from "@/Components/Location/LocationSearchBox";
 import Image from "next/image";
+import { Fcmtoken } from '@/store/reducer/settingsSlice';
 
 const UserRegister = () => {
 
     const navigate = useRouter();
     const signupData = useSelector(userSignUpData);
-    let fcmtoken = localStorage.getItem("token")
-
+    const FcmToken = useSelector(Fcmtoken)
+    // console.log("signupdata", signupData)
     const navigateToHome = () => {
         navigate.push("/");
     };
-    if (signupData === null) {
-        navigateToHome();
-    }
+
+    useEffect(() => {
+        if (signupData.data === null) {
+            navigate.push("/");
+        }
+    }, [signupData])
     const [showCurrentLoc, setShowCurrentLoc] = useState(false);
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [username, setUsername] = useState("");
@@ -88,7 +92,7 @@ const UserRegister = () => {
             "",
             "",
             "",
-            fcmtoken,
+            FcmToken,
             "1",
             (res) => {
                 toast.success("User Register Successfully.");

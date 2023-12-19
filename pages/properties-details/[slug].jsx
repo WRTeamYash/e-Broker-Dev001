@@ -22,11 +22,12 @@ import Footer from "@/Components/Footer/Footer";
 import LightBox from "@/Components/LightBox/LightBox";
 import Loader from "@/Components/Loader/Loader";
 import toast from "react-hot-toast";
+import { getChatData } from "@/store/reducer/momentSlice";
 
 const PropertieDeatils = () => {
     const router = useRouter();
     const propId = router.query;
-// console.log("slug", propId )
+    console.log("slug", propId )
     const { isLoaded } = loadGoogleMaps();
 
 
@@ -152,7 +153,7 @@ const PropertieDeatils = () => {
 
     }, [userCurrentId, propId]);
     useEffect(() => {
-       
+
         if (userCurrentId === getPropData?.added_by) {
             // toast.success("Hello");
             setShowChat(false);
@@ -200,7 +201,7 @@ const PropertieDeatils = () => {
     const handleChat = (e) => {
         e.preventDefault();
         // console.log(getPropData);
-    
+
         if (userCurrentId) {
             setChatData((prevChatData) => {
                 const newChatData = {
@@ -211,13 +212,16 @@ const PropertieDeatils = () => {
                     name: getPropData.customer_name,
                     profile: getPropData.profile,
                 };
-    
+
                 // Use the updater function to ensure you're working with the latest state
                 localStorage.setItem('newUserChat', JSON.stringify(newChatData));
-    
+                getChatData(newChatData)
+
+
+                console.log(newChatData)
                 return newChatData;
             });
-    
+
             router.push('/messages');
         } else {
             toast.error("Please login first");

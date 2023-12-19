@@ -14,7 +14,7 @@ const Messages = () => {
     return (
         <PushNotificationLayout onNotificationReceived={handleNotificationReceived}>
             <>
-                <Breadcrumb title="Messages" />
+                {/* <Breadcrumb title="Messages" /> */}
                 <ChatApp notificationData={notificationData} />
             </>
         </PushNotificationLayout>

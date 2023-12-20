@@ -45,36 +45,27 @@ const SearchPage = () => {
     const Categorydata = useSelector(categoriesCacheData);
 
     useEffect(() => {
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            formData.propType || "",
-            "",
-            formData.selectedLocation?.city || "",
-            "",
-            "",
-            "",
-            isLoggedIn ? userCurrentId : "",
-            activeTab,
-            formData.maxPrice !== undefined ? formData.maxPrice : "",
-            formData.minPrice || "0",
-            formData.postedSince || "",
-            formData.selectedLocation?.state || "",
-            formData.selectedLocation?.country || "",
-            searchInput,
-            "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            category_id: formData.propType || "",
+            city: formData.selectedLocation?.city || "",
+            current_user: isLoggedIn ? userCurrentId : "",
+            property_type: activeTab,
+            max_price: formData.maxPrice !== undefined ? formData.maxPrice : "",
+            min_price: formData.minPrice || "0",
+            posted_since: formData.postedSince || "",
+            state: formData.selectedLocation?.state || "",
+            country: formData.selectedLocation?.country || "",
+            search: searchInput,
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const SearchD = response.data;
                 setIsLoading(false);
                 setSearchData(SearchD);
             },
-            (error) => {
+            onError: (error) => {
                 console.log(error);
             }
+        }
         );
     }, [isLoggedIn]);
 
@@ -149,37 +140,28 @@ const SearchPage = () => {
             searchInput: searchInput,
         };
         localStorage.setItem("searchData", JSON.stringify(searchData));
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            searchData.filterData.propType || "",
-            "",
-            searchData.filterData.selectedLocation?.city || "",
-            "",
-            "",
-            "",
-            isLoggedIn ? userCurrentId : "",
-            searchData.activeTab,
-            searchData.filterData.maxPrice !== undefined ? searchData.filterData.maxPrice : "",
-            searchData.filterData.minPrice || "0",
-            searchData.filterData.postedSince || "",
-            searchData.filterData.selectedLocation?.state || "",
-            searchData.filterData.selectedLocation?.country || "",
-            searchData.searchInput,
-            "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            category_id: searchData.filterData.propType || "",
+            city: searchData.filterData.selectedLocation?.city || "",
+            current_user: isLoggedIn ? userCurrentId : "",
+            property_type: searchData.activeTab,
+            max_price: searchData.filterData.maxPrice !== undefined ? searchData.filterData.maxPrice : "",
+            min_price: searchData.filterData.minPrice || "0",
+            posted_since: searchData.filterData.postedSince || "",
+            state: searchData.filterData.selectedLocation?.state || "",
+            country: searchData.filterData.selectedLocation?.country || "",
+            search: searchData.searchInput,
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const SearchD = response.data;
 
                 setIsLoading(false);
                 setSearchData(SearchD);
             },
-            (error) => {
+            onError: (error) => {
                 console.log(error);
             }
+        }
         );
         setShowFilterModal(false); // Close the modal
     };

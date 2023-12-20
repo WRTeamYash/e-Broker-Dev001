@@ -6,6 +6,8 @@ import LocationSearchBox from "../Location/LocationSearchBox";
 import { categoriesCacheData } from "@/store/reducer/momentSlice";
 
 const FiletrForm = (props) => {
+
+
     return (
         <div className="card" id="filter-card">
             <div className="card title" id="filter-title">

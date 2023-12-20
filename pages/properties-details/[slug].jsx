@@ -27,7 +27,6 @@ import { getChatData } from "@/store/reducer/momentSlice";
 const PropertieDeatils = () => {
     const router = useRouter();
     const propId = router.query;
-    console.log("slug", propId )
     const { isLoaded } = loadGoogleMaps();
 
 
@@ -59,39 +58,22 @@ const PropertieDeatils = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            propId.slug,
-            (response) => {
-                const propertyData = response && response.data;
-                setIsLoading(false);
-                setPropData(propertyData[0]);
-                // console.log(getPropData)
-                // console.log(getPropData?.added_by)
-            },
-            (error) => {
-                setIsLoading(false);
-                console.log(error);
+        if (propId.slug && propId.slug != "") {
+            GetFeturedListingsApi({
+                current_user: isLoggedIn ? userCurrentId : "",
+                slug_id: propId.slug,
+                onSuccess: (response) => {
+                    const propertyData = response && response.data;
+                    setIsLoading(false);
+                    setPropData(propertyData[0]);
+                },
+                onError: (error) => {
+                    setIsLoading(false);
+                    console.log(error);
+                }
             }
-        );
+            );
+        }
     }, [isLoggedIn, propId, interested]);
 
 

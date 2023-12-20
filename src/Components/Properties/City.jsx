@@ -46,38 +46,22 @@ const City = () => {
     useEffect(() => {
         setIsLoading(true);
 
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            "",
-            "",
-            city.slug,
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            city: city.slug,
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            current_user: isLoggedIn ? userCurrentId : "",
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const propertyData = response.data;
                 setIsLoading(false);
                 setCategoryListByPropertyData(propertyData);
             },
-            (error) => {
+            onError: (error) => {
                 setIsLoading(false);
                 console.log(error);
             }
-        );
+        });
     }, [offsetdata, isLoggedIn]);
 
     const handlePageChange = (selectedPage) => {
@@ -128,39 +112,28 @@ const City = () => {
             postedSinceValue = "1";
         }
 
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            filterData ? filterData?.category : "",
-            "",
-            city,
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            filterData ? filterData?.propType : "",
-            filterData ? filterData?.maxPrice : "",
-            filterData ? filterData?.minPrice : "",
-            postedSinceValue, // Set the postedSince parameter
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            category_id: filterData ? filterData?.category : "",
+            city: city,
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            current_user: isLoggedIn ? userCurrentId : "",
+            property_type: filterData ? filterData?.propType : "",
+            max_price: filterData ? filterData?.maxPrice : "",
+            min_price: filterData ? filterData?.minPrice : "",
+            posted_since: postedSinceValue,
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const propertyData = response.data;
                 setCategoryListByPropertyData(propertyData);
                 setIsLoading(false);
                 // handleClearFilter()
             },
-            (error) => {
+            onError: (error) => {
                 setIsLoading(false);
                 console.log(error);
             }
-        );
+        });
     };
     const handleClearFilter = () => {
         setFilterData({
@@ -171,37 +144,22 @@ const City = () => {
             postedSince: "",
             selectedLocation: null,
         });
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            "",
-            "",
-            city.slug,
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            city: city.slug,
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            current_user: isLoggedIn ? userCurrentId : "",
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const propertyData = response.data;
                 setIsLoading(false);
                 setCategoryListByPropertyData(propertyData);
             },
-            (error) => {
+            onError: (error) => {
                 setIsLoading(false);
                 console.log(error);
             }
+        }
         );
     };
 

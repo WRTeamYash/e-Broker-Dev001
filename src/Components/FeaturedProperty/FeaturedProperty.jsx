@@ -27,37 +27,22 @@ const FeaturedProperty = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        GetFeturedListingsApi(
-            "1",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            promoted: "1",
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            current_user: isLoggedIn ? userCurrentId : "",
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const FeaturedListingData = response.data;
                 setIsLoading(false);
                 setGetFeaturedListing(FeaturedListingData);
             },
-            (error) => {
-                setIsLoading(false);
+            onError: (error) => {
+                setIsLoading(true);
                 console.log(error);
             }
+        }
         );
     }, [offsetdata, isLoggedIn]);
 

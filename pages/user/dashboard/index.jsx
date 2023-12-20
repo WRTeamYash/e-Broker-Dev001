@@ -45,10 +45,10 @@ const index = () => {
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
     const lang = useSelector(languageData);
 
-    useEffect(() => {}, [lang]);
+    useEffect(() => { }, [lang]);
 
     const handleClickEdit = (propertyId) => {
-        router.push(`/user/edit-property?id=${propertyId}`);
+        router.push(`/user/edit-property/${propertyId}`);
     };
     const handleClickDelete = (propertyId) => {
         if (SettingsData.demo_mode === true) {
@@ -71,38 +71,22 @@ const index = () => {
                 setIsLoading(true);
                 toast.success(response.message);
 
-                GetFeturedListingsApi(
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    offsetdata.toString(),
-                    limit.toString(),
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    isLoggedIn ? userCurrentId : "",
-                    "",
-                    "",
-                    (response) => {
+                GetFeturedListingsApi({
+                    offset: offsetdata.toString(),
+                    limit: limit.toString(),
+                    userid: isLoggedIn ? userCurrentId : "",
+                    onSuccess: (response) => {
                         setTotal(response.total);
                         setView(response.total_clicks);
                         const FeaturedListingData = response.data;
                         setIsLoading(false);
                         setGetFeaturedListing(FeaturedListingData);
                     },
-                    (error) => {
+                    onError: (error) => {
                         setIsLoading(false);
                         console.log(error);
                     }
+                }
                 );
             },
             (error) => {
@@ -127,42 +111,26 @@ const index = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            userid: isLoggedIn ? userCurrentId : "",
+            onSuccess: (response) => {
                 setTotal(response.total);
                 setView(response.total_clicks);
                 const FeaturedListingData = response.data;
                 setIsLoading(false);
                 setGetFeaturedListing(FeaturedListingData);
             },
-            (error) => {
+            onError: (error) => {
                 setIsLoading(false);
                 console.log(error);
             }
+        }
         );
     }, [offsetdata, isLoggedIn, propertyIdToDelete]);
 
-    useEffect(() => {}, [propertyId, propertyIdToDelete]);
+    useEffect(() => { }, [propertyId, propertyIdToDelete]);
 
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;
@@ -296,7 +264,7 @@ const index = () => {
                                                             }}
                                                             overlay={
                                                                 <Menu>
-                                                                    <Menu.Item key="edit" onClick={() => handleClickEdit(elem.id)}>
+                                                                    <Menu.Item key="edit" onClick={() => handleClickEdit(elem.slug_id)}>
                                                                         <Button type="text" icon={<EditOutlined />}>
                                                                             {translate("edit")}
                                                                         </Button>

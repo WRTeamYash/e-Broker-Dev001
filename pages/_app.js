@@ -1,7 +1,7 @@
+import React  from "react";
 import { Provider, useSelector } from "react-redux";
 import { store, persistor } from "../src/store/store";
 import { PersistGate } from "redux-persist/integration/react";
-import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 
 import "../public/css/style.css";

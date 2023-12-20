@@ -53,7 +53,7 @@ export default function EditPropertyTabs() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
 
-    const propertyId = router.query.id;
+    const propertyId = router.query.slug;
 
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
@@ -106,28 +106,10 @@ export default function EditPropertyTabs() {
 
     useEffect(() => {
         setIsLoading(true);
-        GetFeturedListingsApi(
-            "",
-            "",
-            propertyId,
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            userid: isLoggedIn ? userCurrentId : "",
+            slug_id: propertyId,
+            onSuccess: (response) => {
                 const propertyData = response?.data[0]; // Assuming data is an array and you want the first item
 
                 setLat(propertyData?.latitude);
@@ -251,10 +233,11 @@ export default function EditPropertyTabs() {
                     }));
                 }
             },
-            (error) => {
+            onerror: (error) => {
                 setIsLoading(false);
                 console.log(error);
             }
+        }
         );
     }, [isLoggedIn, propertyId]);
 
@@ -353,7 +336,7 @@ export default function EditPropertyTabs() {
         }));
     };
 
-    useEffect(() => {}, [tab1, tab2, tab3, selectedLocationAddress, tab5, lat, lng]);
+    useEffect(() => { }, [tab1, tab2, tab3, selectedLocationAddress, tab5, lat, lng]);
 
     const updateFileInput = (fieldId) => (e) => {
         const fileInput = e.target;
@@ -411,7 +394,7 @@ export default function EditPropertyTabs() {
         () =>
             uploadedImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} alt="no_img"/>
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeImage(index)}>
                             <CloseIcon fontSize="25px" />
@@ -449,7 +432,7 @@ export default function EditPropertyTabs() {
         () =>
             uploaded3DImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} alt="no_img" />
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => remove3DImage(index)}>
                             <CloseIcon fontSize="25px" />
@@ -487,7 +470,7 @@ export default function EditPropertyTabs() {
             galleryImages.map((imageData, index) => (
                 <div key={index} className="dropbox_gallary_img_div">
                     {/* {g(imageData)} */}
-                    <Image loading="lazy" className="dropbox_img" src={imageData.imageUrl} alt={imageData.name} width={200} height={200} alt="no_img"/>
+                    <Image loading="lazy" className="dropbox_img" src={imageData.imageUrl} alt={imageData.name} width={200} height={200} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeGalleryImage(index)} type="button">
                             <CloseIcon fontSize="25px" />
@@ -622,7 +605,7 @@ export default function EditPropertyTabs() {
 
             UpdatePostProperty(
                 "0",
-                propertyId,
+                "",
                 packageId ? packageId : "",
                 tab1.title,
                 tab1.propertyDesc,
@@ -641,8 +624,8 @@ export default function EditPropertyTabs() {
                 tab5.titleImage[0],
                 tab5._3DImages[0],
                 tab5.galleryImages,
+                propertyId,
                 (response) => {
-
                     if (response.message === "Package not found") {
                         toast.error(response.message);
                         Swal.fire({
@@ -875,13 +858,13 @@ export default function EditPropertyTabs() {
                     <div className="row" id="add_prop_form_row">
                         {getFacilities.length > 0
                             ? getFacilities.map((ele, index) => (
-                                  <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
-                                      <div className="add_prop_fields">
-                                          <span>{ele.name}</span>
-                                          <input value={tab3[ele.id] || ""} type="number" placeholder="00 KM" className="prop_number_input" id={`prop_title_input_${ele.id}`} onChange={(e) => handleTab3InputChange(ele.id, e.target.value)} />
-                                      </div>
-                                  </div>
-                              ))
+                                <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
+                                    <div className="add_prop_fields">
+                                        <span>{ele.name}</span>
+                                        <input value={tab3[ele.id] || ""} type="number" placeholder="00 KM" className="prop_number_input" id={`prop_title_input_${ele.id}`} onChange={(e) => handleTab3InputChange(ele.id, e.target.value)} />
+                                    </div>
+                                </div>
+                            ))
                             : null}
                     </div>
                     <div className="nextButton">

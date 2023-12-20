@@ -56,31 +56,32 @@ export const GetCategorieApi = (onSuccess, onError, onStart) => {
     );
 };
 // GET PROPERTIES
-export const GetFeturedListingsApi = (
-    promoted,
-    top_rated,
-    id,
-    category_id,
-    most_liked,
-    city,
-    get_simiilar,
-    offset,
-    limit,
-    current_user,
-    property_type,
-    max_price,
-    min_price,
-    posted_since,
-    state,
-    country,
-    search,
-    userid,
-    users_promoted,
-    slug_id,
-    onSuccess,
-    onError,
-    onStart
-) => {
+export const GetFeturedListingsApi = ({
+    promoted = "",
+    top_rated = "",
+    id = "",
+    category_id = "",
+    most_liked = "",
+    city = "",
+    get_simiilar = "",
+    offset = "",
+    limit = "",
+    current_user = "",
+    property_type = "",
+    max_price = "",
+    min_price = "",
+    posted_since = "",
+    state = "",
+    country = "",
+    search = "",
+    userid = "",
+    users_promoted = "",
+    slug_id = "",
+    onSuccess = () => { },
+    onError = () => { },
+    onStart = () => { }
+
+}) => {
     store.dispatch(
         apiCallBegan({
             ...getAllProperties(promoted, top_rated, id, category_id, most_liked, city, get_simiilar, offset, limit, current_user, property_type, max_price, min_price, posted_since, state, country, search, userid, users_promoted, slug_id),
@@ -91,6 +92,8 @@ export const GetFeturedListingsApi = (
         })
     );
 };
+
+
 // GET_ARTICLES
 export const GetAllArticlesApi = (id, category_id, get_simiilar, slug_id, onSuccess, onError, onStart) => {
     store.dispatch(
@@ -303,6 +306,7 @@ export const UpdatePostProperty = (
     title_image,
     threeD_image,
     gallery_images,
+    slug_id,
     onSuccess,
     onError,
     onStart
@@ -329,7 +333,8 @@ export const UpdatePostProperty = (
                 facilities,
                 title_image,
                 threeD_image,
-                gallery_images
+                gallery_images,
+                slug_id
             ),
             displayToast: false,
             onStart,

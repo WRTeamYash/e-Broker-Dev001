@@ -95,28 +95,12 @@ const Categories = () => {
         }
         setIsLoading(true);
 
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            cateId.slug,
-            (response) => {
+        GetFeturedListingsApi({
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            current_user: isLoggedIn ? userCurrentId : "",
+            slug_id: cateId.slug,
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const propertyData = response.data;
                 setIsLoading(false);
@@ -124,10 +108,11 @@ const Categories = () => {
 
                 setCateName(propertyData && propertyData[0].category.category);
             },
-            (error) => {
+            onError: (error) => {
                 setIsLoading(false);
                 console.log(error);
             }
+        }
         );
     }, [offsetdata, isLoggedIn]);
     const handleApplyfilter = (e) => {
@@ -141,39 +126,29 @@ const Categories = () => {
             postedSinceValue = "1";
         }
         setIsLoading(true)
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            cateId,
-            "",
-            filterData ? filterData?.selectedLocation?.city : "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            filterData ? filterData?.propType : "",
-            filterData ? filterData?.maxPrice : "",
-            filterData ? filterData?.minPrice : "",
-            postedSinceValue, // Set the postedSince parameter
-            filterData ? filterData?.selectedLocation?.state : "",
-            filterData ? filterData?.selectedLocation?.country : "",
-            "",
-            "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            city: filterData ? filterData?.selectedLocation?.city : "",
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            current_user: isLoggedIn ? userCurrentId : "",
+            property_type: filterData ? filterData?.propType : "",
+            max_price: filterData ? filterData?.maxPrice : "",
+            min_price: filterData ? filterData?.minPrice : "",
+            posted_since: postedSinceValue, // Set the postedSince parameter
+            state: filterData ? filterData?.selectedLocation?.state : "",
+            country: filterData ? filterData?.selectedLocation?.country : "",
+            slug_id: cateId.slug,
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const propertyData = response.data;
-
                 setCategoryListByPropertyData(propertyData);
                 setIsLoading(false);
             },
-            (error) => {
-                setIsLoading(false);
+            onError: (error) => {
+                setIsLoading(true);
                 console.log(error);
             }
-        );
+        });
     };
     const handleClearFilter = () => {
         setFilterData({
@@ -185,38 +160,23 @@ const Categories = () => {
             selectedLocation: null,
         });
         setIsLoading(true)
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            cateId.slug,
-            "",
-            "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            current_user: isLoggedIn ? userCurrentId : "",
+            slug_id: cateId.slug,
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const propertyData = response.data;
 
                 setCategoryListByPropertyData(propertyData);
                 setIsLoading(false);
             },
-            (error) => {
-                setIsLoading(false);
+            onError: (error) => {
+                setIsLoading(true);
                 console.log(error);
             }
+        }
         )
     };
 

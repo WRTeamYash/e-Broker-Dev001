@@ -27,38 +27,20 @@ const SimilerPropertySlider = () => {
 
     useEffect(() => {
         setIsLoading(true);
-
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "1",
-            "",
-            "",
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            propId.slug,
-            (response) => {
+        GetFeturedListingsApi({
+            get_simiilar: "1",
+            current_user: isLoggedIn ? userCurrentId : "",
+            slug_id: propId.slug,
+            onSuccess: (response) => {
                 const propertyData = response.data;
                 setIsLoading(false);
                 setSimilerData(propertyData);
             },
-            (error) => {
+            onError: (error) => {
                 setIsLoading(false);
                 console.log(error);
             }
-        );
+        });
     }, [isLoggedIn, propId]);
 
     const breakpoints = {

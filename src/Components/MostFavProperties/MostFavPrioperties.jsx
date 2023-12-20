@@ -26,37 +26,22 @@ const MostFavPrioperties = () => {
     useEffect(() => { }, [lang]);
     useEffect(() => {
         setIsLoading(true);
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            "",
-            "1",
-            "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            most_liked: "1",
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            current_user: isLoggedIn ? userCurrentId : "",
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const MostViewedData = response.data;
                 setIsLoading(false);
                 setMostViewed(MostViewedData);
             },
-            (error) => {
-                setIsLoading(false);
+            onError: (error) => {
+                setIsLoading(true);
                 console.log(error);
             }
+        }
         );
     }, [offsetdata, isLoggedIn]);
 

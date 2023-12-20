@@ -3168,9 +3168,12 @@ option {
   text-transform: capitalize;
   color: white;
 }
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 1199px) {
   .prop-name {
     font-size: 25px;
+  }
+  .prop-Location {
+    font-size: 14px !important;
   }
 }
 @media only screen and (max-width: 767px) {

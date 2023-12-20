@@ -32,33 +32,16 @@ const index = () => {
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;
     const lang = useSelector(languageData);
 
-    useEffect(() => {}, [lang]);
+    useEffect(() => { }, [lang]);
     // api call
     useEffect(() => {
         setIsLoading(true);
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "1",
-            "",
-
-            (response) => {
+        GetFeturedListingsApi({
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            current_user: isLoggedIn ? userCurrentId : "",
+            users_promoted: "1",
+            onSuccess: (response) => {
                 setTotal(response.total);
                 setView(response.total_clicks);
                 const FeaturedListingData = response.data;
@@ -66,10 +49,11 @@ const index = () => {
                 setIsLoading(false);
                 setData(FeaturedListingData);
             },
-            (error) => {
+            onError: (error) => {
                 setIsLoading(false);
                 console.log(error);
             }
+        }
         );
     }, [offsetdata, isLoggedIn]);
 

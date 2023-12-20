@@ -90,37 +90,21 @@ const AllProperties = () => {
     useEffect(() => {
         setIsLoading(true);
 
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            current_user: isLoggedIn ? userCurrentId : "",
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const propertyData = response.data;
                 setIsLoading(false);
                 setCategoryListByPropertyData(propertyData);
             },
-            (error) => {
+            onError: (error) => {
                 setIsLoading(false);
                 console.log(error);
             }
+        }
         );
     }, [offsetdata, isLoggedIn]);
     const handleApplyfilter = (e) => {
@@ -134,39 +118,30 @@ const AllProperties = () => {
             postedSinceValue = "1";
         }
         setIsLoading(true)
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            filterData ? filterData?.category : "",
-            "",
-            filterData ? filterData?.selectedLocation?.city : "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            filterData ? filterData?.propType : "",
-            filterData ? filterData?.maxPrice : "",
-            filterData ? filterData?.minPrice : "",
-            postedSinceValue, // Set the postedSince parameter
-            filterData ? filterData?.selectedLocation?.state : "",
-            filterData ? filterData?.selectedLocation?.country : "",
-            "",
-            "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            category_id: filterData ? filterData?.category : "",
+            city: filterData ? filterData?.selectedLocation?.city : "",
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            current_user: isLoggedIn ? userCurrentId : "",
+            property_type: filterData ? filterData?.propType : "",
+            max_price: filterData ? filterData?.maxPrice : "",
+            min_price: filterData ? filterData?.minPrice : "",
+            posted_since: postedSinceValue, // Set the postedSince parameter
+            state: filterData ? filterData?.selectedLocation?.state : "",
+            country: filterData ? filterData?.selectedLocation?.country : "",
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const propertyData = response.data;
 
                 setCategoryListByPropertyData(propertyData);
                 setIsLoading(false);
             },
-            (error) => {
+            onError: (error) => {
                 setIsLoading(false);
                 console.log(error);
             }
-        );
+        });
     };
     const handleClearFilter = () => {
         setFilterData({
@@ -178,39 +153,22 @@ const AllProperties = () => {
             selectedLocation: null,
         });
         setIsLoading(true)
-        GetFeturedListingsApi(
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            offsetdata.toString(),
-            limit.toString(),
-            isLoggedIn ? userCurrentId : "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            (response) => {
+        GetFeturedListingsApi({
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            current_user: isLoggedIn ? userCurrentId : "",
+            onSuccess: (response) => {
                 setTotal(response.total);
                 const propertyData = response.data;
-
+                setIsLoading(false);
                 setCategoryListByPropertyData(propertyData);
-                setIsLoading(false);
             },
-            (error) => {
-                setIsLoading(false);
+            onError: (error) => {
+                setIsLoading(true);
                 console.log(error);
             }
-        )
+        }
+        );
     };
 
     return (

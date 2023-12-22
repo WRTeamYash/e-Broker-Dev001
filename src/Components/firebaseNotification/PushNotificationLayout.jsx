@@ -44,7 +44,7 @@ const PushNotificationLayout = ({ children, onNotificationReceived }) => {
         toast.error('Error handling notification.');
       });
   }, [notification, onNotificationReceived]);
-  console.log(notification, "notification")
+  // console.log(notification, "notification")
 
   // / service worker
   useEffect(() => {

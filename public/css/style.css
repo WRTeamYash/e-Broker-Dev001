@@ -6579,7 +6579,13 @@ a {
   width: 350px;
   margin: 0 !important;
 }
-:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab-btn:focus:not(:focus-visible), :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab-remove:focus:not(:focus-visible), :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab-btn:active, :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab-remove:active {
+:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs
+  .ant-tabs-tab-btn:focus:not(:focus-visible),
+:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs
+  .ant-tabs-tab-remove:focus:not(:focus-visible),
+:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab-btn:active,
+:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs
+  .ant-tabs-tab-remove:active {
   color: var(--primary-text-color02);
 }
 :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs
@@ -7022,4 +7028,37 @@ audio {
 
 #noChats {
   padding: 60px 0;
+}
+.file-preview-section {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: var(--primary-background);
+  width: fit-content;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid lightgray;
+  margin-left: 20px !important;
+  position: relative;
+}
+.file-preview-section img {
+  max-width: 100%;
+  max-height: 150px;
+  border-radius: 8px;
+}
+.file-preview-section button {
+  border: none;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: var(--primary-text-color02);
+  border-radius: 50%;
+  color: var(--primary-text-color01);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
 }

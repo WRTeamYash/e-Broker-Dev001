@@ -21,13 +21,14 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { silderCacheData } from "@/store/reducer/momentSlice";
+import { isSupported } from "firebase/messaging";
 
 
 
 const Nav = () => {
     const router = useRouter();
     const language = store.getState().Language.languages;
-
+    const isSupportedBrowser = isSupported()
     const isHomePage = router.pathname === '/';
     const user_register = router.pathname === '/user-register';
     const chat = router.pathname === '/messages';
@@ -309,9 +310,12 @@ const Nav = () => {
                                             {translate("aboutUs")}
                                         </li>
                                     </Link>
-                                    <li className="nav-link" onClick={handleChat}>
-                                        {translate("chat")}
-                                    </li>
+
+                                    {isSupportedBrowser ? (
+                                        <li className="nav-link" onClick={handleChat}>
+                                            {translate("chat")}
+                                        </li>
+                                    ) : null}
                                 </ul>
                             </div>
                         </div>
@@ -476,13 +480,15 @@ const Nav = () => {
                                         {translate("aboutUs")}
                                     </Link>
                                 </li>
-                                <li className="nav-item" onClick={handleChat}>
-                                    <span className="nav-link">
 
-                                        {translate("chat")}
-                                    </span>
+                                {isSupportedBrowser ? (
 
-                                </li>
+                                    <li className="nav-item" onClick={handleChat}>
+                                        <span className="nav-link">
+                                            {translate("chat")}
+                                        </span>
+                                    </li>
+                                ) : null}
                                 <Dropdown>
                                     <Dropdown.Toggle id="dropdown-basic">  {selectedLanguage ? selectedLanguage : defaultlang}</Dropdown.Toggle>
 

@@ -121,7 +121,7 @@ const Index = () => {
             },
             (error) => {
                 toast.error(error.message);
-                console.log(error.message);
+                // console.log(error.message);
             }
         );
     };

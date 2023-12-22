@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 import { newchatData, removeChat } from '@/store/reducer/momentSlice';
 import { userSignUpData } from '@/store/reducer/authSlice';
+import { IoMdCloseCircleOutline } from 'react-icons/io';
 
 const { TabPane } = Tabs;
 
@@ -23,7 +24,6 @@ const ChatApp = ({ notificationData }) => {
     const DummyImgData = useSelector(settingsData);
     const PlaceHolderImg = DummyImgData?.img_placeholder;
     const isLoggedIn = useSelector((state) => state.User_signup);
-    // const newchatDataoggedIn = useSelector((state) => state.);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const userProfile = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.profile : PlaceHolderImg;
     const [chatList, setChatList] = useState([]);
@@ -31,9 +31,10 @@ const ChatApp = ({ notificationData }) => {
     // const storedChatData = localStorage.getItem('newUserChat');
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
     const router = useRouter();
-
-    const storedChatData = useSelector(newchatData);
-
+    // console.log(slug_id)
+    const storedChatData = localStorage.getItem('newUserChat')
+    const newChatData = JSON.parse(storedChatData);
+    // const storedChatData = useSelector(newchatData);
     const signupData = useSelector(userSignUpData);
     useEffect(() => {
         if (signupData.data === null) {
@@ -41,6 +42,21 @@ const ChatApp = ({ notificationData }) => {
         }
     }, [signupData])
 
+    // const initialState = chatList.reduce((acc, chat) => {
+    //     acc[chat.property_id] = {
+    //         messageInput: '',
+    //         showVoiceButton: true,
+    //         selectedFile: null,
+    //         recording: false,
+    //         mediaRecorder: null,
+    //         audioChunks: [],
+    //         messages: [],
+    //         ...((storedChatData && chat.property_id)
+    //             ? storedChatData
+    //             : {}),
+    //     };
+    //     return acc;
+    // }, {});
     const initialState = chatList.reduce((acc, chat) => {
         acc[chat.property_id] = {
             messageInput: '',
@@ -50,8 +66,8 @@ const ChatApp = ({ notificationData }) => {
             mediaRecorder: null,
             audioChunks: [],
             messages: [],
-            ...((storedChatData && chat.property_id)
-                ? storedChatData
+            ...((storedChatData && chat.property_id.toString() === JSON.parse(storedChatData)?.property_id.toString())
+                ? JSON.parse(storedChatData)
                 : {}),
         };
         return acc;
@@ -63,34 +79,19 @@ const ChatApp = ({ notificationData }) => {
     const [isRecording, setIsRecording] = useState(false);
     const [selectedTab, setSelectedTab] = useState(null);
     const [chatMessages, setChatMessages] = useState([]);
-    const [activeTabKey, setActiveTabKey] = useState();
-
+    const [activeTabKey, setActiveTabKey] = useState(newChatData ? newChatData?.property_id : "");
+    const [selectedFilePreview, setSelectedFilePreview] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [perPage, setPerPage] = useState(10); // Set your initial per page count
+    const [perPage, setPerPage] = useState(10);
     const [loadingMore, setLoadingMore] = useState(false);
-
-    useEffect(() => {
-        if (storedChatData) {
-            const newChatData = storedChatData;
-
-            if (!chatList.some(chat => chat.property_id === Number(newChatData.property_id))) {
-                setChatList(prevList => [newChatData, ...prevList]);
-                setSelectedTab(newChatData);
-            }
-
-            setNewChat(newChatData);
-
-            setActiveTabKey(newChatData.property_id);
-        }
-    }, [ storedChatData]);
-    const chatDisplayRef = useRef(null);
-
     useEffect(() => {
         getChatsListApi(
             (res) => {
                 if (res.data.length > 0) {
                     setChatList(res.data);
                     setSelectedTab(res.data[0]);
+                } else {
+                    setChatList([])
                 }
             },
             (err) => {
@@ -98,6 +99,62 @@ const ChatApp = ({ notificationData }) => {
             }
         );
     }, []);
+
+    // useEffect(() => {
+    //     if (storedChatData && chatList.every(chat => chat.property_id !== Number(storedChatData.property_id))) {
+    //         setChatList(prevList => [storedChatData, ...prevList]);
+
+    //         // Check if the selected tab is already set
+    //         if (selectedTab !== storedChatData) {
+    //             // Set the selected tab only if it's not already set
+    //             setSelectedTab(storedChatData);
+    //         }
+
+    //         // Use the functional form to ensure correct state update
+    //         setActiveTabKey(prevActiveTabKey => {
+    //             // Check if the activeTabKey is already set to the desired value
+    //             if (prevActiveTabKey !== storedChatData.property_id) {
+    //                 return storedChatData.property_id;
+    //             }
+    //             return prevActiveTabKey;
+    //         });
+
+    //         // Set other relevant state
+    //         setNewChat(storedChatData);
+    //     }
+    // }, [storedChatData, chatList, selectedTab, activeTabKey]);
+
+    useEffect(() => {
+        if (storedChatData) {
+            // Parse storedChatData if needed
+            const newChatData = JSON.parse(storedChatData);
+    
+            // Check if the chat with the same property_id already exists in the chatList
+            if (!chatList.some(chat => chat.property_id === newChatData.property_id)) {
+                // Update chatList with the newChatData at the beginning
+                setChatList(prevList => [newChatData, ...prevList]);
+    
+                // Set the selected tab to the newChatData
+                setSelectedTab(newChatData);
+    
+               
+            }
+    
+            // Set the newChat state to newChatData
+            setNewChat(newChatData);
+    
+            // Update activeTabKey if the selectedTab's property_id matches the newChatData's property_id
+            if (selectedTab?.property_id === newChatData.property_id) {
+                setActiveTabKey(newChatData.property_id);
+                console.log("if id is same ", activeTabKey)
+            }
+        }
+    }, [storedChatData, chatList, selectedTab, activeTabKey]);
+
+
+
+    const chatDisplayRef = useRef(null);
+
 
     useEffect(() => {
         if (selectedTab) {
@@ -156,7 +213,6 @@ const ChatApp = ({ notificationData }) => {
             },
         }));
     };
-
     const handleFileChange = (e, tabKey) => {
         const selectedFile = e.target.files[0];
         setTabStates((prevState) => ({
@@ -166,8 +222,26 @@ const ChatApp = ({ notificationData }) => {
                 selectedFile: selectedFile,
             },
         }));
-    };
 
+        // Update the selected file preview
+        setSelectedFilePreview(URL.createObjectURL(selectedFile));
+    };
+    const handleFileCancel = (tabKey) => {
+        // Reset the value of the file input to trigger the change event again
+        const fileInput = document.getElementById(`fileInput-${tabKey}`);
+        if (fileInput) {
+            fileInput.value = '';
+        }
+
+        setTabStates((prevState) => ({
+            ...prevState,
+            [tabKey]: {
+                ...prevState[tabKey],
+                selectedFile: null,
+            },
+        }));
+        setSelectedFilePreview(null);
+    };
     const handleAttachmentClick = (tabKey) => {
         document.getElementById(`fileInput-${tabKey}`).click();
     };
@@ -228,10 +302,7 @@ const ChatApp = ({ notificationData }) => {
 
     const handleMouseMove = (tabKey) => {
         if (isRecording) {
-            // Display the recording status on chat display while dragging the mouse
-            // console.log('Recording...');
-            // // Update the recording status in the chat display
-            // chatDisplayRef.current.innerHTML = 'Recording...';
+
         }
     };
 
@@ -243,6 +314,14 @@ const ChatApp = ({ notificationData }) => {
                 ? 'audio'
                 : 'text';
 
+
+        // Check if the message input is empty for text messages
+        if (messageType === 'text' && !tabState.messageInput?.trim()) {
+            // You can choose to return or display a message to the user
+            // For example, you can show a toast message using react-toastify
+            toast.error("Please enter a message before sending.");
+            return;
+        }
         let newMessage = {
             sender_id: userCurrentId,
             receiver_id: selectedTab.user_id,
@@ -289,7 +368,8 @@ const ChatApp = ({ notificationData }) => {
             newMessage.file ? newMessage.file : "",
             newMessage.audio ? newMessage.audio : "",
             (res) => {
-                console.log(res)
+                // console.log(res)
+                setSelectedFilePreview(null);
             },
             (error) => {
                 console.log(error)
@@ -434,8 +514,10 @@ const ChatApp = ({ notificationData }) => {
                                 return newState;
                             });
                             setChatMessages([]);
-                            if (selectedTab.property_id === storedChatData.property_id) {
+                            // console.log(selectedTab.property_id, " === ", newChatData)
+                            if (selectedTab.property_id === newChatData.property_id) {
                                 removeChat()
+                                localStorage.removeItem('newUserChat');
                             }
                             if (chatList.length === 0) {
                                 // Navigate to home page
@@ -451,13 +533,9 @@ const ChatApp = ({ notificationData }) => {
             });
         }
     };
-    // useEffect(() => {
-    //     if (chatList.length === 0) {
-    //         // Navigate to home page when chatList is empty
-    //         // router.push("/");
-    //     }
-    //     console.log(chatList.length)
-    // }, [])
+    useEffect(() => { }, [selectedFilePreview])
+    useEffect(() => {
+    }, [selectedTab, activeTabKey]);
 
     return (
         <>
@@ -465,9 +543,12 @@ const ChatApp = ({ notificationData }) => {
                 <div className="container">
                     <div className="card">
 
-                        {chatList?.length > 0 ? (
+                        {console.log(activeTabKey)}
+                        {chatList?.length > 0 && chatList !== "" ? (
 
                             <Tabs defaultActiveKey={activeTabKey} tabPosition="left" onChange={handleTabChange}>
+                            
+                                {console.log(chatList)}
                                 {chatList.map((chat) => (
                                     <TabPane
                                         key={chat.property_id}
@@ -483,6 +564,7 @@ const ChatApp = ({ notificationData }) => {
 
                                             </div>
                                         }
+                                    // forceRenderTabPane={activeTabKey == chat.property_id}
                                     >
                                         <div className="chat_deatils">
                                             <div className="chat_deatils_header">
@@ -578,6 +660,16 @@ const ChatApp = ({ notificationData }) => {
                                             </div>
 
 
+                                            {selectedFilePreview && (
+                                                <div className="file-preview-section">
+                                                    <>
+                                                        <img src={selectedFilePreview} alt="File Preview" />
+                                                        <button className="change-button" onClick={() => handleFileCancel(chat.property_id)}>
+                                                            <IoMdCloseCircleOutline size={35} />
+                                                        </button>
+                                                    </>
+                                                </div>
+                                            )}
 
                                             <div className="chat_inputs">
                                                 <div
@@ -637,12 +729,15 @@ const ChatApp = ({ notificationData }) => {
                                 </div>
                                 <div className='no_page_found_text'>
                                     <h3>{translate("noChat")}</h3>
-                                    {/* <span>{translate("startConversation")}</span> */}
+
                                 </div>
                             </div>
                         )}
 
                     </div>
+
+
+
                 </div>
             </div>
         </>

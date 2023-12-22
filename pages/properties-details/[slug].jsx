@@ -188,6 +188,7 @@ const PropertieDeatils = () => {
             setChatData((prevChatData) => {
                 const newChatData = {
                     property_id: getPropData.id,
+                    slug_id: getPropData.slug_id,
                     title: getPropData.title,
                     title_image: getPropData.title_image,
                     user_id: getPropData.added_by,
@@ -200,7 +201,7 @@ const PropertieDeatils = () => {
                 getChatData(newChatData)
 
 
-                console.log(newChatData)
+                // console.log(newChatData)
                 return newChatData;
             });
 

@@ -16,7 +16,7 @@ import Image from "next/image";
 const Footer = () => {
     const systemData = useSelector(settingsData);
     const webdata = systemData && systemData;
-
+    // console.log(webdata)
     return (
         <section id="footer">
             <div className="container">
@@ -156,16 +156,16 @@ const Footer = () => {
                             </div>
 
                             <div className="download_app_platforms">
-                                {process.env.NEXT_PUBLIC_PLAYSTORE ? (
+                                {webdata?.playstore_id ? (
                                     <div id="playstore_logo">
-                                        <a href={process.env.NEXT_PUBLIC_PLAYSTORE} target="_blank">
+                                        <a href={webdata?.playstore_id} target="_blank">
                                             <Image loading="lazy" src={playstore.src} alt="no_img" className="platforms_imgs" width={0} height={0} style={{ width: "100%", height: "100%" }} />
                                         </a>
                                     </div>
                                 ) : null}
-                                {process.env.NEXT_PUBLIC_APPSTORE ? (
+                                {webdata?.appstore_id ? (
                                     <div id="appstore_logo">
-                                        <a href={process.env.NEXT_PUBLIC_APPSTORE} target="_blank">
+                                        <a href={webdata?.appstore_id} target="_blank">
                                             <Image loading="lazy" src={appstore.src} alt="no_img" className="platforms_imgs" width={0} height={0} style={{ width: "100%", height: "100%" }} />
                                         </a>
                                     </div>

@@ -110,7 +110,7 @@ const HorizontalCard = ({ ele }) => {
                                         <div id="footer_content" key={index}>
                                             <div>
                                                 {/* <Image loading="lazy" src={elem.image} alt="no_img" width={20} height={20} /> */}
-                                                <ImageToSvg imageUrl={ele.image && ele.image} className="custom-svg" />
+                                                <ImageToSvg imageUrl={elem?.image} className="custom-svg" />
                                             </div>
                                             <p className="text_footer"> {elem.name}</p>
                                         </div>

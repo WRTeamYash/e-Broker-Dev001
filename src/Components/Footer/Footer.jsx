@@ -152,7 +152,7 @@ const Footer = () => {
                                 <span>{translate("downloadApps")}</span>
                             </div>
                             <div className="download_app_desc">
-                                <span>Get the latest resources for downloading, installing, and updating {webdata.company_name} app. Select your device platform and Use Our app.</span>
+                                <span>Get the latest resources for downloading, installing, and updating {webdata?.company_name} app. Select your device platform and Use Our app.</span>
                             </div>
 
                             <div className="download_app_platforms">

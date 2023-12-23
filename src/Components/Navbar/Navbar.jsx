@@ -28,19 +28,42 @@ import { isSupported } from "firebase/messaging";
 const Nav = () => {
     const router = useRouter();
     const language = store.getState().Language.languages;
-    const isSupportedBrowser = isSupported()
+    const [isMessagingSupported, setIsMessagingSupported] = useState(false);
+    const [notificationPermissionGranted, setNotificationPermissionGranted] = useState(false);
+
+    useEffect(() => {
+        const checkMessagingSupport = async () => {
+            try {
+                const supported = await isSupported();
+                setIsMessagingSupported(supported);
+
+                if (supported) {
+                    const permission = await Notification.requestPermission();
+                    if (permission === 'granted') {
+                        setNotificationPermissionGranted(true);
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking messaging support:', error);
+            }
+        };
+
+        checkMessagingSupport();
+    }, [notificationPermissionGranted, isMessagingSupported]);
+
+
+
     const isHomePage = router.pathname === '/';
     const user_register = router.pathname === '/user-register';
     const chat = router.pathname === '/messages';
     const signupData = useSelector(userSignUpData);
     const sliderdata = useSelector(silderCacheData);
     const settingData = useSelector(settingsData);
+
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
     const isLoggedIn = useSelector((state) => state.User_signup);
     const isSubscription = settingData?.subscription;
     const LanguageList = settingData && settingData.languages;
-
-
     const systemDefaultLanguageCode = settingData?.default_language;
     const [showModal, setShowModal] = useState(false);
     const [areaconverterModal, setAreaConverterModal] = useState(false);
@@ -79,7 +102,14 @@ const Nav = () => {
         }
     }, []);
 
+    useEffect(() => {
 
+        if (settingData?.system_color) {
+            document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
+        } else {
+            document.documentElement.style.setProperty('--primary-color', "#087c7c");
+        }
+    }, [settingData?.system_color])
 
     useEffect(() => {
         const header = document.querySelector(".header");
@@ -215,22 +245,34 @@ const Nav = () => {
     };
     const handleChat = () => {
         setShow(false)
-
-        if (signupData?.data?.data.id) {
-            // Corrected the condition
-            router.push("/messages"); // Use an absolute path here
-        } else {
+        if (settingData?.demo_mode === true) {
             Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "You have not login. Please Login first",
-                confirmButtonColor: primaryColor,
-                // footer: '<a href="">Why do I have this issue?</a>'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    setShowModal(true);
-                }
+                title: "Opps!",
+                text: "This Action is Not Allowed in Demo Mode",
+                icon: "warning",
+                showCancelButton: false,
+                confirmButtonColor: primaryColor, // Use the primary color from CSS
+                cancelButtonColor: "#d33",
+                confirmButtonText: "OK",
             });
+            return false;
+        } else {
+            if (signupData?.data?.data.id) {
+                // Corrected the condition
+                router.push("/messages"); // Use an absolute path here
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "You have not login. Please Login first",
+                    confirmButtonColor: primaryColor,
+                    // footer: '<a href="">Why do I have this issue?</a>'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        setShowModal(true);
+                    }
+                });
+            }
         }
     };
 
@@ -311,11 +353,11 @@ const Nav = () => {
                                         </li>
                                     </Link>
 
-                                    {isSupportedBrowser ? (
+                                    {isMessagingSupported && notificationPermissionGranted && (
                                         <li className="nav-link" onClick={handleChat}>
                                             {translate("chat")}
                                         </li>
-                                    ) : null}
+                                    )}
                                 </ul>
                             </div>
                         </div>
@@ -481,14 +523,13 @@ const Nav = () => {
                                     </Link>
                                 </li>
 
-                                {isSupportedBrowser ? (
-
-                                    <li className="nav-item" onClick={handleChat}>
-                                        <span className="nav-link">
+                                {isMessagingSupported && notificationPermissionGranted && (
+                                    <li className="nav-item">
+                                        <span className="nav-link" onClick={handleChat}>
                                             {translate("chat")}
                                         </span>
                                     </li>
-                                ) : null}
+                                )}
                                 <Dropdown>
                                     <Dropdown.Toggle id="dropdown-basic">  {selectedLanguage ? selectedLanguage : defaultlang}</Dropdown.Toggle>
 

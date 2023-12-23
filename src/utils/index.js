@@ -77,3 +77,17 @@ export const formatPriceAbbreviated = (price) => {
       return price.toString();
   }
 };
+
+
+// Function to convert an image URL to inline SVG
+export const convertImageToSvg = async (imageUrl) => {
+  try {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    const objectUrl = URL.createObjectURL(blob);
+    return `<img src="${objectUrl}" alt="converted-svg" />`;
+  } catch (error) {
+    console.error('Error converting image to SVG:', error);
+    return null;
+  }
+};

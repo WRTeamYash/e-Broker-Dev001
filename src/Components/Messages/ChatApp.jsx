@@ -28,13 +28,10 @@ const ChatApp = ({ notificationData }) => {
     const userProfile = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.profile : PlaceHolderImg;
     const [chatList, setChatList] = useState([]);
     const [newChat, setNewChat] = useState([]);
-    // const storedChatData = localStorage.getItem('newUserChat');
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
     const router = useRouter();
-    // console.log(slug_id)
     const storedChatData = localStorage.getItem('newUserChat')
     const newChatData = JSON.parse(storedChatData);
-    // const storedChatData = useSelector(newchatData);
     const signupData = useSelector(userSignUpData);
     useEffect(() => {
         if (signupData.data === null) {
@@ -42,21 +39,6 @@ const ChatApp = ({ notificationData }) => {
         }
     }, [signupData])
 
-    // const initialState = chatList.reduce((acc, chat) => {
-    //     acc[chat.property_id] = {
-    //         messageInput: '',
-    //         showVoiceButton: true,
-    //         selectedFile: null,
-    //         recording: false,
-    //         mediaRecorder: null,
-    //         audioChunks: [],
-    //         messages: [],
-    //         ...((storedChatData && chat.property_id)
-    //             ? storedChatData
-    //             : {}),
-    //     };
-    //     return acc;
-    // }, {});
     const initialState = chatList.reduce((acc, chat) => {
         acc[chat.property_id] = {
             messageInput: '',
@@ -84,78 +66,62 @@ const ChatApp = ({ notificationData }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(10);
     const [loadingMore, setLoadingMore] = useState(false);
+
+
     useEffect(() => {
         getChatsListApi(
             (res) => {
-                if (res.data.length > 0) {
+                // if (res.data.length > 0) {
+                    // Update chatList with the fetched data
                     setChatList(res.data);
-                    setSelectedTab(res.data[0]);
-                } else {
-                    setChatList([])
-                }
+
+                    // If there's storedChatData and it has property_id, set it as the default active tab
+                    if (storedChatData) {
+                        // Check if the chat with the same property_id already exists in the chatList
+                        if (!res.data.some(chat => chat.property_id === newChatData.property_id)) {
+                            // Update chatList with the newChatData at the beginning
+                            setChatList(prevList => [newChatData, ...prevList]);
+                        }
+
+                        setSelectedTab(newChatData);
+
+                        // Set the active tab key to the newChatData's property_id
+                        setActiveTabKey(newChatData.property_id);
+                    } else {
+                        // Set the selected tab to the first chat in the list
+                        setSelectedTab(res.data[0]);
+                        setActiveTabKey(res.data[0].property_id);
+                    }
+
             },
             (err) => {
-                toast.error(err.message);
+                console.log(err);
+                // toast.error("")
             }
         );
-    }, []);
-
+    }, [storedChatData]);
+    ;
     // useEffect(() => {
-    //     if (storedChatData && chatList.every(chat => chat.property_id !== Number(storedChatData.property_id))) {
-    //         setChatList(prevList => [storedChatData, ...prevList]);
+    //     if (storedChatData) {
+    //         // Parse storedChatData if needed
+    //         const newChatData = JSON.parse(storedChatData);
 
-    //         // Check if the selected tab is already set
-    //         if (selectedTab !== storedChatData) {
-    //             // Set the selected tab only if it's not already set
-    //             setSelectedTab(storedChatData);
+    //         // Check if the chat with the same property_id already exists in the chatList
+    //         if (!chatList.some(chat => chat.property_id === newChatData.property_id)) {
+    //             // Update chatList with the newChatData at the beginning
+    //             setChatList(prevList => [newChatData, ...prevList]);
+
+    //             // Set the selected tab to the newChatData
+    //             setSelectedTab(newChatData);
     //         }
+    //         setNewChat(newChatData);
 
-    //         // Use the functional form to ensure correct state update
-    //         setActiveTabKey(prevActiveTabKey => {
-    //             // Check if the activeTabKey is already set to the desired value
-    //             if (prevActiveTabKey !== storedChatData.property_id) {
-    //                 return storedChatData.property_id;
-    //             }
-    //             return prevActiveTabKey;
-    //         });
-
-    //         // Set other relevant state
-    //         setNewChat(storedChatData);
+    //         if (selectedTab?.property_id === newChatData.property_id) {
+    //             setActiveTabKey(newChatData.property_id);
+    //         }
     //     }
     // }, [storedChatData, chatList, selectedTab, activeTabKey]);
-
-    useEffect(() => {
-        if (storedChatData) {
-            // Parse storedChatData if needed
-            const newChatData = JSON.parse(storedChatData);
-    
-            // Check if the chat with the same property_id already exists in the chatList
-            if (!chatList.some(chat => chat.property_id === newChatData.property_id)) {
-                // Update chatList with the newChatData at the beginning
-                setChatList(prevList => [newChatData, ...prevList]);
-    
-                // Set the selected tab to the newChatData
-                setSelectedTab(newChatData);
-    
-               
-            }
-    
-            // Set the newChat state to newChatData
-            setNewChat(newChatData);
-    
-            // Update activeTabKey if the selectedTab's property_id matches the newChatData's property_id
-            if (selectedTab?.property_id === newChatData.property_id) {
-                setActiveTabKey(newChatData.property_id);
-                console.log("if id is same ", activeTabKey)
-            }
-        }
-    }, [storedChatData, chatList, selectedTab, activeTabKey]);
-
-
-
     const chatDisplayRef = useRef(null);
-
-
     useEffect(() => {
         if (selectedTab) {
             getChatsMessagesApi(
@@ -543,12 +509,12 @@ const ChatApp = ({ notificationData }) => {
                 <div className="container">
                     <div className="card">
 
-                        {console.log(activeTabKey)}
+                       
                         {chatList?.length > 0 && chatList !== "" ? (
 
                             <Tabs defaultActiveKey={activeTabKey} tabPosition="left" onChange={handleTabChange}>
-                            
-                                {console.log(chatList)}
+
+                               
                                 {chatList.map((chat) => (
                                     <TabPane
                                         key={chat.property_id}
@@ -566,73 +532,49 @@ const ChatApp = ({ notificationData }) => {
                                         }
                                     // forceRenderTabPane={activeTabKey == chat.property_id}
                                     >
-                                        <div className="chat_deatils">
-                                            <div className="chat_deatils_header">
-                                                <div className="profile_img_name_div">
-                                                    <div className="chat_profile_div">
-                                                        <Image loading="lazy" id="chat_profile" src={chat?.title_image ? chat?.title_image : PlaceHolderImg} alt="no_img" width={0} height={0} />
+                                       
+                                            <div className="chat_deatils">
+                                                <div className="chat_deatils_header">
+                                                    <div className="profile_img_name_div">
+                                                        <div className="chat_profile_div">
+                                                            <Image loading="lazy" id="chat_profile" src={chat?.title_image ? chat?.title_image : PlaceHolderImg} alt="no_img" width={0} height={0} />
+                                                        </div>
+                                                        <div className="profile_name">
+                                                            <span>{chat.name}</span>
+                                                            <p>{chat.title}</p>
+                                                        </div>
                                                     </div>
-                                                    <div className="profile_name">
-                                                        <span>{chat.name}</span>
-                                                        <p>{chat.title}</p>
-                                                    </div>
+
+                                                    {chatMessages.length > 0 ? (
+
+                                                        <div className="delete_messages" onClick={handleDeleteChat}>
+                                                            <span>{translate("deleteMessages")}</span>
+                                                        </div>
+                                                    ) : null}
                                                 </div>
 
-                                                {chatMessages.length > 0 ? (
-
-                                                    <div className="delete_messages" onClick={handleDeleteChat}>
-                                                        <span>{translate("deleteMessages")}</span>
-                                                    </div>
-                                                ) : null}
-                                            </div>
-                                            <div className="chat_display" ref={chatDisplayRef}>
-                                                <div className='sender_masg'>
-                                                    {chatMessages.length > 0 ? (
-                                                        chatMessages.map((message, index) => (
-                                                            <div key={index} className={message.sender_id === userCurrentId ? 'user-message' : 'other-message'}>
-                                                                <div className="chat_user_profile">
-                                                                    <Image
-                                                                        loading="lazy"
-                                                                        id="sender_profile"
-                                                                        src={message.sender_id === userCurrentId ? userProfile : message.profile}
-                                                                        alt="no_img"
-                                                                        width={0}
-                                                                        height={0}
-                                                                        onError={(e) => {
-                                                                            e.target.src = PlaceHolderImg;
-                                                                        }}
-                                                                    />
-                                                                </div>
-                                                                {message.type === 'text' || (message.type === 'chat' && message.message !== "") ? (
-                                                                    <span>{message.message}</span>
-                                                                ) : message.type === 'file' ? (
-                                                                    <div className="file-preview">
-                                                                        {message.file && message.file.type && message.file.type.startsWith('image/') ? (
-                                                                            <img src={URL.createObjectURL(message.file)} alt="File Preview" />
-                                                                        ) : message.file && message.file.type === 'application/pdf' ? (
-                                                                            <embed src={URL.createObjectURL(message.file)} type="application/pdf" width="100%" height="600px" />
-                                                                        ) : (
-                                                                            <img src={message.file} alt="File Preview" />
-                                                                        )}
+                                                
+                                                <div className="chat_display" ref={chatDisplayRef}>
+                                                    <div className='sender_masg'>
+                                                        {chatMessages.length > 0 ? (
+                                                            chatMessages.map((message, index) => (
+                                                                <div key={index} className={message.sender_id === userCurrentId ? 'user-message' : 'other-message'}>
+                                                                    <div className="chat_user_profile">
+                                                                        <Image
+                                                                            loading="lazy"
+                                                                            id="sender_profile"
+                                                                            src={message.sender_id === userCurrentId ? userProfile : message.profile}
+                                                                            alt="no_img"
+                                                                            width={0}
+                                                                            height={0}
+                                                                            onError={(e) => {
+                                                                                e.target.src = PlaceHolderImg;
+                                                                            }}
+                                                                        />
                                                                     </div>
-                                                                ) : message.type === 'chat' && message.file && message.message === "" ? (
-                                                                    <img src={message.file} alt="File Preview" />
-                                                                ) : message.type === 'audio' ? (
-                                                                    <div className={message.sender_id === userCurrentId ? 'user-audio' : 'other-audio'}>
-                                                                        {typeof message.audio === 'string' ? (
-                                                                            <audio controls>
-                                                                                <source src={message.audio} type="audio/webm;codecs=opus" />
-                                                                                Your browser does not support the audio element.
-                                                                            </audio>
-                                                                        ) : message.audio && message.audio instanceof File && message.audio.type.startsWith('audio/') ? (
-                                                                            <audio controls>
-                                                                                <source src={URL.createObjectURL(message.audio)} type="audio/webm;codecs=opus" />
-                                                                                Your browser does not support the audio element.
-                                                                            </audio>
-                                                                        ) : null}
-                                                                    </div>
-                                                                ) : message.type === 'file_and_text' ? (
-                                                                    <div className='file_text'>
+                                                                    {message.type === 'text' || (message.type === 'chat' && message.message !== "") ? (
+                                                                        <span>{message.message}</span>
+                                                                    ) : message.type === 'file' ? (
                                                                         <div className="file-preview">
                                                                             {message.file && message.file.type && message.file.type.startsWith('image/') ? (
                                                                                 <img src={URL.createObjectURL(message.file)} alt="File Preview" />
@@ -642,83 +584,111 @@ const ChatApp = ({ notificationData }) => {
                                                                                 <img src={message.file} alt="File Preview" />
                                                                             )}
                                                                         </div>
-                                                                    </div>
-                                                                ) : null}
+                                                                    ) : message.type === 'chat' && message.file && message.message === "" ? (
+                                                                        <img src={message.file} alt="File Preview" />
+                                                                    ) : message.type === 'audio' ? (
+                                                                        <div className={message.sender_id === userCurrentId ? 'user-audio' : 'other-audio'}>
+                                                                            {typeof message.audio === 'string' ? (
+                                                                                <audio controls>
+                                                                                    <source src={message.audio} type="audio/webm;codecs=opus" />
+                                                                                    Your browser does not support the audio element.
+                                                                                </audio>
+                                                                            ) : message.audio && message.audio instanceof File && message.audio.type.startsWith('audio/') ? (
+                                                                                <audio controls>
+                                                                                    <source src={URL.createObjectURL(message.audio)} type="audio/webm;codecs=opus" />
+                                                                                    Your browser does not support the audio element.
+                                                                                </audio>
+                                                                            ) : null}
+                                                                        </div>
+                                                                    ) : message.type === 'file_and_text' ? (
+                                                                        <div className='file_text'>
+                                                                            <div className="file-preview">
+                                                                                {message.file && message.file.type && message.file.type.startsWith('image/') ? (
+                                                                                    <img src={URL.createObjectURL(message.file)} alt="File Preview" />
+                                                                                ) : message.file && message.file.type === 'application/pdf' ? (
+                                                                                    <embed src={URL.createObjectURL(message.file)} type="application/pdf" width="100%" height="600px" />
+                                                                                ) : (
+                                                                                    <img src={message.file} alt="File Preview" />
+                                                                                )}
+                                                                            </div>
+                                                                        </div>
+                                                                    ) : null}
+                                                                </div>
+                                                            ))
+                                                        ) : (
+                                                            <div className="col-12 text-center" id='noChats'>
+                                                                <div>
+                                                                    <Image loading="lazy" src={No_Chat.src} alt="start_chat" width={250} height={250} />
+                                                                </div>
+                                                                <div className='no_page_found_text'>
+                                                                    <h3>{translate("startConversation")}</h3>
+                                                                </div>
                                                             </div>
-                                                        ))
-                                                    ) : (
-                                                        <div className="col-12 text-center" id='noChats'>
-                                                            <div>
-                                                                <Image loading="lazy" src={No_Chat.src} alt="start_chat" width={250} height={250} />
-                                                            </div>
-                                                            <div className='no_page_found_text'>
-                                                                <h3>{translate("startConversation")}</h3>
-                                                            </div>
-                                                        </div>
-                                                    )}
+                                                        )}
+                                                    </div>
                                                 </div>
-                                            </div>
 
 
-                                            {selectedFilePreview && (
-                                                <div className="file-preview-section">
-                                                    <>
-                                                        <img src={selectedFilePreview} alt="File Preview" />
-                                                        <button className="change-button" onClick={() => handleFileCancel(chat.property_id)}>
-                                                            <IoMdCloseCircleOutline size={35} />
-                                                        </button>
-                                                    </>
-                                                </div>
-                                            )}
-
-                                            <div className="chat_inputs">
-                                                <div
-                                                    className="attechment"
-                                                    onClick={() => handleAttachmentClick(chat.property_id)}
-                                                >
-                                                    <MdOutlineAttachFile size={20} />
-                                                    <input
-                                                        type="file"
-                                                        id={`fileInput-${chat.property_id}`}
-                                                        onChange={(e) => handleFileChange(e, chat.property_id)}
-                                                    />
-                                                </div>
-                                                <div className="type_input">
-                                                    <input
-                                                        type="text"
-                                                        placeholder="Type Your Message"
-                                                        value={tabStates[chat.property_id]?.messageInput}
-                                                        onChange={(e) => handleInputChange(chat.property_id, e.target.value)}
-                                                    />
-                                                </div>
-                                                {tabStates[chat.property_id]?.recording ? (
-                                                    <button
-                                                        className={`voice_message recording`}
-                                                        onMouseDown={() => startRecording(chat.property_id)}
-                                                        onMouseUp={() => stopRecording(chat.property_id)}
-                                                        onMouseMove={() => handleMouseMove(chat.property_id)}
-                                                    >
-                                                        <FaMicrophone size={30} />
-                                                    </button>
-                                                ) : (
-                                                    <button
-                                                        className="voice_message"
-                                                        onMouseDown={() => startRecording(chat.property_id)}
-                                                        onMouseUp={() => stopRecording(chat.property_id)}
-                                                        onMouseMove={() => handleMouseMove(chat.property_id)}
-                                                    >
-                                                        <FaMicrophone size={20} />
-                                                    </button>
+                                                {selectedFilePreview && (
+                                                    <div className="file-preview-section">
+                                                        <>
+                                                            <img src={selectedFilePreview} alt="File Preview" />
+                                                            <button className="change-button" onClick={() => handleFileCancel(chat.property_id)}>
+                                                                <IoMdCloseCircleOutline size={35} />
+                                                            </button>
+                                                        </>
+                                                    </div>
                                                 )}
-                                                <button
-                                                    className="send_message"
-                                                    onClick={() => handleSendClick(chat.property_id)}
-                                                >
-                                                    <span> {translate("send")} </span>
-                                                    <RiSendPlaneLine size={20} />
-                                                </button>
+
+                                                <div className="chat_inputs">
+                                                    <div
+                                                        className="attechment"
+                                                        onClick={() => handleAttachmentClick(chat.property_id)}
+                                                    >
+                                                        <MdOutlineAttachFile size={20} />
+                                                        <input
+                                                            type="file"
+                                                            id={`fileInput-${chat.property_id}`}
+                                                            onChange={(e) => handleFileChange(e, chat.property_id)}
+                                                        />
+                                                    </div>
+                                                    <div className="type_input">
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Type Your Message"
+                                                            value={tabStates[chat.property_id]?.messageInput}
+                                                            onChange={(e) => handleInputChange(chat.property_id, e.target.value)}
+                                                        />
+                                                    </div>
+                                                    {tabStates[chat.property_id]?.recording ? (
+                                                        <button
+                                                            className={`voice_message recording`}
+                                                            onMouseDown={() => startRecording(chat.property_id)}
+                                                            onMouseUp={() => stopRecording(chat.property_id)}
+                                                            onMouseMove={() => handleMouseMove(chat.property_id)}
+                                                        >
+                                                            <FaMicrophone size={30} />
+                                                        </button>
+                                                    ) : (
+                                                        <button
+                                                            className="voice_message"
+                                                            onMouseDown={() => startRecording(chat.property_id)}
+                                                            onMouseUp={() => stopRecording(chat.property_id)}
+                                                            onMouseMove={() => handleMouseMove(chat.property_id)}
+                                                        >
+                                                            <FaMicrophone size={20} />
+                                                        </button>
+                                                    )}
+                                                    <button
+                                                        className="send_message"
+                                                        onClick={() => handleSendClick(chat.property_id)}
+                                                    >
+                                                        <span> {translate("send")} </span>
+                                                        <RiSendPlaneLine size={20} />
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
+                                       
                                     </TabPane>
                                 ))}
                             </Tabs>

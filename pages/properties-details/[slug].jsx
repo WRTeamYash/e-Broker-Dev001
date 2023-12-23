@@ -23,12 +23,15 @@ import LightBox from "@/Components/LightBox/LightBox";
 import Loader from "@/Components/Loader/Loader";
 import toast from "react-hot-toast";
 import { getChatData } from "@/store/reducer/momentSlice";
+import { isSupported } from "firebase/messaging";
+import { ImageToSvg } from "@/Components/Cards/ImageToSvg";
 
 const PropertieDeatils = () => {
     const router = useRouter();
     const propId = router.query;
     const { isLoaded } = loadGoogleMaps();
-
+    const [isMessagingSupported, setIsMessagingSupported] = useState(false);
+    const [notificationPermissionGranted, setNotificationPermissionGranted] = useState(false);
 
     const [isLoading, setIsLoading] = useState(true);
     const [expanded, setExpanded] = useState(false);
@@ -55,7 +58,25 @@ const PropertieDeatils = () => {
     const DummyImgData = useSelector(settingsData);
 
     useEffect(() => { }, [lang]);
+    useEffect(() => {
+        const checkMessagingSupport = async () => {
+            try {
+                const supported = await isSupported();
+                setIsMessagingSupported(supported);
 
+                if (supported) {
+                    const permission = await Notification.requestPermission();
+                    if (permission === 'granted') {
+                        setNotificationPermissionGranted(true);
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking messaging support:', error);
+            }
+        };
+
+        checkMessagingSupport();
+    }, [notificationPermissionGranted, isMessagingSupported]);
     useEffect(() => {
         setIsLoading(true);
         if (propId.slug && propId.slug != "") {
@@ -182,7 +203,6 @@ const PropertieDeatils = () => {
     };
     const handleChat = (e) => {
         e.preventDefault();
-        // console.log(getPropData);
 
         if (userCurrentId) {
             setChatData((prevChatData) => {
@@ -198,7 +218,7 @@ const PropertieDeatils = () => {
 
                 // Use the updater function to ensure you're working with the latest state
                 localStorage.setItem('newUserChat', JSON.stringify(newChatData));
-                getChatData(newChatData)
+                // getChatData(newChatData)
 
 
                 // console.log(newChatData)
@@ -355,7 +375,8 @@ const PropertieDeatils = () => {
                                                                     <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
                                                                         <div id="specification">
                                                                             <div className="spec-icon">
-                                                                                <Image loading="lazy" src={elem.image} width={20} height={16} alt="no_img" />
+                                                                                {/* <Image loading="lazy" src={elem.image} width={20} height={16} alt="no_img" /> */}
+                                                                                <ImageToSvg imageUrl={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg} className="custom-svg" />
                                                                             </div>
                                                                             <div id="specs-deatils">
                                                                                 <div>
@@ -392,7 +413,7 @@ const PropertieDeatils = () => {
                                                                     <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
                                                                         <div id="specification">
                                                                             <div className="spec-icon">
-                                                                                <Image
+                                                                                {/* <Image
                                                                                     loading="lazy"
                                                                                     src={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg}
                                                                                     width={20}
@@ -401,7 +422,8 @@ const PropertieDeatils = () => {
                                                                                     onError={(e) => {
                                                                                         e.target.src = PlaceHolderImg; // Set the source to the placeholder image on error
                                                                                     }}
-                                                                                />
+                                                                                /> */}
+                                                                                   <ImageToSvg imageUrl={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg} className="custom-svg" />
                                                                             </div>
 
                                                                             <div id="specs-deatils">
@@ -560,7 +582,7 @@ const PropertieDeatils = () => {
                                                         </div>
                                                     </div>
                                                 </a>
-                                                {showChat && (
+                                                {showChat && isMessagingSupported && notificationPermissionGranted && (
                                                     <div className='owner-contact' onClick={handleChat}>
                                                         <div>
                                                             <FiMessageSquare id='chat-o' size={60} />

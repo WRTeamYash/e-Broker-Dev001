@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import Image from "next/image";
+import { ImageToSvg } from "./ImageToSvg";
 
 const HorizontalCard = ({ ele }) => {
     const priceSymbol = useSelector(settingsData);
@@ -89,7 +90,8 @@ const HorizontalCard = ({ ele }) => {
                     <div>
                         <div className="prop_card_mainbody">
                             <div className="cate_image">
-                                <Image loading="lazy" src={ele.category.image} alt="no_img" width={20} height={20} />
+                                {/* <Image loading="lazy" src={ele.category.image} alt="no_img" width={20} height={20} /> */}
+                                <ImageToSvg imageUrl={ele.category && ele.category.image} className="custom-svg" />
                             </div>
                             <span className="body_title"> {ele.category.category} </span>
                         </div>
@@ -107,7 +109,8 @@ const HorizontalCard = ({ ele }) => {
                                     <div className="col-sm-12 col-md-6" key={index}>
                                         <div id="footer_content" key={index}>
                                             <div>
-                                                <Image loading="lazy" src={elem.image} alt="no_img" width={20} height={20} />
+                                                {/* <Image loading="lazy" src={elem.image} alt="no_img" width={20} height={20} /> */}
+                                                <ImageToSvg imageUrl={ele.image && ele.image} className="custom-svg" />
                                             </div>
                                             <p className="text_footer"> {elem.name}</p>
                                         </div>

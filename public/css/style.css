@@ -1,13 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500&display=swap");
 /* @import url("../../src/assets/Images/Category_BG.jpg"); */
 :root {
-  --primary-color: #087c7c;
   --primary-text-color01: #fff;
   --primary-text-color02: #000;
   --primary-sell: #e8aa42;
   --primary-font: "Manrope", sans-serif;
   --primary-background: #f4f5f4;
-}
+} 
 body {
   background-color: var(--primary-background) !important;
   overflow-x: hidden;
@@ -7061,4 +7060,18 @@ audio {
   width: 20px;
   height: 20px;
   padding: 0;
+}
+
+.custom-svg svg{
+  fill: var(--primary-color) !important;
+}
+.custom-svg svg path{
+  fill: var(--primary-color) !important;
+}
+
+#main_aprt_card:hover .custom-svg svg {
+  fill: #fff !important;
+}
+#main_aprt_card:hover .custom-svg svg path {
+  fill: #fff !important;
 }

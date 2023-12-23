@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import Image from "next/image";
+import { ImageToSvg } from "./ImageToSvg";
 
 function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
 
@@ -17,9 +18,9 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
 
     const handleImageLoad = () => {
         if (onImageLoad) {
-          onImageLoad();
+            onImageLoad();
         }
-      };
+    };
     // Initialize isLiked based on ele.is_favourite
     const [isLiked, setIsLiked] = useState(ele.is_favourite === 1);
 
@@ -75,23 +76,11 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
     const DummyImgData = useSelector(settingsData);
     const PlaceHolderImg = DummyImgData?.img_placeholder;
 
-    // function formatPriceAbbreviated(price) {
-    //     if (price >= 1000000000) {
-    //         return (price / 1000000000).toFixed(1) + 'B';
-    //     } else if (price >= 1000000) {
-    //         return (price / 1000000).toFixed(1) + 'M';
-    //     } else if (price >= 1000) {
-    //         return (price / 1000).toFixed(1) + 'K';
-    //     } else {
-    //         return price.toString();
-    //     }
-    // }
-
     return (
         <div className="verticle_card">
             <div className="card verticle_main_card">
                 <div className="verticle_card_img_div">
-                    <Image loading="lazy" className="card-img" id="verticle_card_img" src={ele.title_image ? ele.title_image : PlaceHolderImg} alt="no_img" width={200} height={200} onLoad={handleImageLoad}/>
+                    <Image loading="lazy" className="card-img" id="verticle_card_img" src={ele.title_image ? ele.title_image : PlaceHolderImg} alt="no_img" width={200} height={200} onLoad={handleImageLoad} />
                 </div>
                 <div className="card-img-overlay">
                     {ele.promoted ? <span className="feature_tag">{translate("feature")}</span> : null}
@@ -110,11 +99,13 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
                 <div className="card-body">
                     <span className="sell_teg">{ele.propery_type}</span>
                     <span className="price_teg">
-                          {CurrencySymbol} {formatPriceAbbreviated(ele.price)}
+                        {CurrencySymbol} {formatPriceAbbreviated(ele.price)}
                     </span>
                     <div className="feature_card_mainbody">
                         <div className="cate_image">
-                            <Image loading="lazy" src={ele.category && ele.category.image} alt="no_img" width={20} height={20} />
+                            {/* <Image loading="lazy" src={ele.category && ele.category.image} alt="no_img" width={20} height={20} /> */}
+                           
+                           <ImageToSvg imageUrl={ele.category && ele.category.image} className="custom-svg" />
                         </div>
                         <span className="feature_body_title"> {ele.category && ele.category.category} </span>
                     </div>
@@ -133,7 +124,7 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
                                 <div className="col-sm-12 col-md-6 " key={index}>
                                     <div className="footer_content" key={index}>
                                         <div>
-                                            <Image loading="lazy" src={elem.image} alt="no_img" width={20} height={16} />
+                                        <ImageToSvg imageUrl={ele.category && ele.category.image} className="custom-svg" />
                                         </div>
                                         <p className="text_footer"> {elem.name}</p>
                                     </div>

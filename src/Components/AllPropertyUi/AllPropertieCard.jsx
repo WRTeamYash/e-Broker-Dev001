@@ -7,6 +7,7 @@ import { Card } from "react-bootstrap";
 import { toast } from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import { ImageToSvg } from "../Cards/ImageToSvg";
 
 const AllPropertieCard = ({ ele }) => {
     const priceSymbol = useSelector(settingsData);
@@ -85,13 +86,15 @@ const AllPropertieCard = ({ ele }) => {
                     </span>
                     <span className="all_prop_sell">{ele.propery_type}</span>
                     <span className="all_prop_price">
-                    {CurrencySymbol} {formatPriceAbbreviated(ele.price)}
+                        {CurrencySymbol} {formatPriceAbbreviated(ele.price)}
                     </span>
 
                     <div>
                         <div id="all_prop_sub_body">
                             <div className="cate_image">
-                                <Image loading="lazy" src={ele.category.image} alt="no_img" width={20} height={20} />
+                                {/* <Image loading="lazy" src={ele.category.image} alt="no_img" width={20} height={20} /> */}
+                                <ImageToSvg imageUrl={ele.category && ele.category.image} className="custom-svg" />
+
                             </div>
                             <span className="sub_body_title"> {ele.category.category}</span>
                         </div>
@@ -109,7 +112,9 @@ const AllPropertieCard = ({ ele }) => {
                                     <div className="col-sm-12 col-md-4" key={index}>
                                         <div id="all_footer_content" key={index}>
                                             <div>
-                                                <Image src={elem.image} alt="no_img" width={20} height={20} />
+                                                {/* <Image src={elem.image} alt="no_img" width={20} height={20} /> */}
+                                                <ImageToSvg imageUrl={elem?.image} className="custom-svg" />
+
                                             </div>
                                             <p className="text_footer"> {elem.name}</p>
                                         </div>

@@ -4,6 +4,7 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Image from "next/image";
+import { ImageToSvg } from "./ImageToSvg";
 
 const CategoryCard = ({ ele }) => {
     const DummyImgData = useSelector(settingsData);
@@ -14,7 +15,8 @@ const CategoryCard = ({ ele }) => {
                 <Card.Body>
                     <div className="apart_card_content">
                         <div id="apart_icon">
-                            <Image loading="lazy" src={ele.image ? ele.image : PlaceHolderImg} alt="no_img" className="solo_icon" width={200} height={200} />
+                            {/* <Image loading="lazy" src={ele.image ? ele.image : PlaceHolderImg} alt="no_img" className="solo_icon" width={200} height={200} /> */}
+                            <ImageToSvg imageUrl={ele.image ? ele.image : PlaceHolderImg} className="custom-svg" />
                         </div>
                         <div id="apart_name">
                             {ele.category}

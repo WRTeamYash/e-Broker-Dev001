@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import Map from "@/Components/GoogleMap/GoogleMap";
 import Skeleton from "react-loading-skeleton";
 import { languageData } from "@/store/reducer/languageSlice";
-import { loadGoogleMaps, translate } from "@/utils";
+import { isThemeEnabled, loadGoogleMaps, translate } from "@/utils";
 import { useRouter } from "next/router";
 import { GetFeturedListingsApi, intrestedPropertyApi } from "@/store/actions/campaign";
 import Header from "@/Components/Header/Header";
@@ -56,7 +56,8 @@ const PropertieDeatils = () => {
     const lang = useSelector(languageData);
     const isLoggedIn = useSelector((state) => state.User_signup);
     const DummyImgData = useSelector(settingsData);
-
+    const themeEnabled = isThemeEnabled();
+    // console.log(themeEnabled)
     useEffect(() => { }, [lang]);
     useEffect(() => {
         const checkMessagingSupport = async () => {
@@ -375,8 +376,11 @@ const PropertieDeatils = () => {
                                                                     <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
                                                                         <div id="specification">
                                                                             <div className="spec-icon">
-                                                                                {/* <Image loading="lazy" src={elem.image} width={20} height={16} alt="no_img" /> */}
-                                                                                <ImageToSvg imageUrl={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg} className="custom-svg" />
+                                                                                {themeEnabled ? (
+                                                                                    <ImageToSvg imageUrl={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg} className="custom-svg" />
+                                                                                ) : (
+                                                                                    <Image loading="lazy" src={elem.image} width={20} height={16} alt="no_img" />
+                                                                                )}
                                                                             </div>
                                                                             <div id="specs-deatils">
                                                                                 <div>
@@ -413,17 +417,20 @@ const PropertieDeatils = () => {
                                                                     <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
                                                                         <div id="specification">
                                                                             <div className="spec-icon">
-                                                                                {/* <Image
-                                                                                    loading="lazy"
-                                                                                    src={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg}
-                                                                                    width={20}
-                                                                                    height={16}
-                                                                                    alt="no_img"
-                                                                                    onError={(e) => {
-                                                                                        e.target.src = PlaceHolderImg; // Set the source to the placeholder image on error
-                                                                                    }}
-                                                                                /> */}
-                                                                                   <ImageToSvg imageUrl={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg} className="custom-svg" />
+                                                                                {themeEnabled ? (
+                                                                                    <ImageToSvg imageUrl={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg} className="custom-svg" />
+                                                                                ) : (
+                                                                                    <Image
+                                                                                        loading="lazy"
+                                                                                        src={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg}
+                                                                                        width={20}
+                                                                                        height={16}
+                                                                                        alt="no_img"
+                                                                                        onError={(e) => {
+                                                                                            e.target.src = PlaceHolderImg;
+                                                                                        }}
+                                                                                    />
+                                                                                )}
                                                                             </div>
 
                                                                             <div id="specs-deatils">

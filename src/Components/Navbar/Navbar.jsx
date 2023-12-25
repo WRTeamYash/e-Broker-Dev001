@@ -15,7 +15,7 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { toast } from "react-hot-toast";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { languageLoaded, setLanguage } from "@/store/reducer/languageSlice";
-import { translate } from "@/utils";
+import { isThemeEnabled, translate } from "@/utils";
 import { store } from "@/store/store";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
@@ -101,15 +101,18 @@ const Nav = () => {
             });
         }
     }, []);
-
+   
     useEffect(() => {
-
-        if (settingData?.system_color) {
+        if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
             document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
+            document.documentElement.style.setProperty('--primary-category-background', settingData?.category_background);
+            document.documentElement.style.setProperty('--primary-sell', settingData?.sell_background);
         } else {
             document.documentElement.style.setProperty('--primary-color', "#087c7c");
+            document.documentElement.style.setProperty('--primary-category-background', "#087c7c14");
+            document.documentElement.style.setProperty('--primary-sell', "#e8aa42");
         }
-    }, [settingData?.system_color])
+    }, [settingData?.svg_clr])
 
     useEffect(() => {
         const header = document.querySelector(".header");

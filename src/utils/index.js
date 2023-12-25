@@ -3,7 +3,6 @@
 import { store } from '@/store/store';
 import localeTranslations from './locale/en.json';
 import { useJsApiLoader } from '@react-google-maps/api';
-import { useSelector } from 'react-redux';
 import { settingsData } from '@/store/reducer/settingsSlice';
 
 // transalte strings 
@@ -51,7 +50,8 @@ export const loadGoogleMaps = () => {
 export const loadStripeApiKey = () => {
   const STRIPEData = store.getState()?.Settings;
   const StripeKey = STRIPEData?.data?.stripe_publishable_key
-  if (StripeKey) {``
+  if (StripeKey) {
+    ``
     return StripeKey
   }
   return false;
@@ -68,26 +68,19 @@ export const isDemoMode = (store) => {
 // Function to format large numbers as strings with K, M, and B abbreviations
 export const formatPriceAbbreviated = (price) => {
   if (price >= 1000000000) {
-      return (price / 1000000000).toFixed(1) + 'B';
+    return (price / 1000000000).toFixed(1) + 'B';
   } else if (price >= 1000000) {
-      return (price / 1000000).toFixed(1) + 'M';
+    return (price / 1000000).toFixed(1) + 'M';
   } else if (price >= 1000) {
-      return (price / 1000).toFixed(1) + 'K';
+    return (price / 1000).toFixed(1) + 'K';
   } else {
-      return price.toString();
+    return price.toString();
   }
 };
 
 
-// Function to convert an image URL to inline SVG
-export const convertImageToSvg = async (imageUrl) => {
-  try {
-    const response = await fetch(imageUrl);
-    const blob = await response.blob();
-    const objectUrl = URL.createObjectURL(blob);
-    return `<img src="${objectUrl}" alt="converted-svg" />`;
-  } catch (error) {
-    console.error('Error converting image to SVG:', error);
-    return null;
-  }
+// Check if the theme color is true
+export const isThemeEnabled = () => {
+  const systemSettingsData = store.getState().Settings?.data
+  return systemSettingsData?.svg_clr === '1';
 };

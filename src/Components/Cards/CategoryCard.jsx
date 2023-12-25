@@ -1,6 +1,6 @@
 import { settingsData } from "@/store/reducer/settingsSlice";
-import { translate } from "@/utils";
-import React from "react";
+import { isThemeEnabled, translate } from "@/utils";
+import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Image from "next/image";
@@ -9,13 +9,14 @@ import { ImageToSvg } from "./ImageToSvg";
 const CategoryCard = ({ ele }) => {
     const DummyImgData = useSelector(settingsData);
     const PlaceHolderImg = DummyImgData?.img_placeholder;
+    const themeEnabled = isThemeEnabled();
+
     return (
         <div className="Category_card">
             <Card id="main_aprt_card">
                 <Card.Body>
                     <div className="apart_card_content">
                         <div id="apart_icon">
-                            {/* <Image loading="lazy" src={ele.image ? ele.image : PlaceHolderImg} alt="no_img" className="solo_icon" width={200} height={200} /> */}
                             <ImageToSvg imageUrl={ele.image ? ele.image : PlaceHolderImg} className="custom-svg" />
                         </div>
                         <div id="apart_name">

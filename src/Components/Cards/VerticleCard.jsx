@@ -1,6 +1,6 @@
 import { AddFavourite } from "@/store/actions/campaign";
 import { settingsData } from "@/store/reducer/settingsSlice";
-import { formatPriceAbbreviated, translate } from "@/utils";
+import { formatPriceAbbreviated, isThemeEnabled, translate } from "@/utils";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -75,6 +75,7 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
 
     const DummyImgData = useSelector(settingsData);
     const PlaceHolderImg = DummyImgData?.img_placeholder;
+    const themeEnabled = isThemeEnabled();
 
     return (
         <div className="verticle_card">
@@ -103,9 +104,13 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
                     </span>
                     <div className="feature_card_mainbody">
                         <div className="cate_image">
-                            {/* <Image loading="lazy" src={ele.category && ele.category.image} alt="no_img" width={20} height={20} /> */}
-                           
-                           <ImageToSvg imageUrl={ele.category && ele.category.image} className="custom-svg" />
+                            {themeEnabled ? (
+
+                                <ImageToSvg imageUrl={ele.category && ele.category.image} className="custom-svg" />
+                            ) : (
+                                <Image loading="lazy" src={ele.category && ele.category.image} alt="no_img" width={20} height={20} />
+                            )}
+
                         </div>
                         <span className="feature_body_title"> {ele.category && ele.category.category} </span>
                     </div>
@@ -124,7 +129,12 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
                                 <div className="col-sm-12 col-md-6 " key={index}>
                                     <div className="footer_content" key={index}>
                                         <div>
-                                        <ImageToSvg imageUrl={ele.category && ele.category.image} className="custom-svg" />
+                                            {themeEnabled ? (
+
+                                                <ImageToSvg imageUrl={elem?.image} className="custom-svg" />
+                                            ) : (
+                                                <Image loading="lazy" src={elem.image} alt="no_img" width={20} height={16} />
+                                            )}
                                         </div>
                                         <p className="text_footer"> {elem.name}</p>
                                     </div>

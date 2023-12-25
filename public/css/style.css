@@ -3,10 +3,9 @@
 :root {
   --primary-text-color01: #fff;
   --primary-text-color02: #000;
-  --primary-sell: #e8aa42;
   --primary-font: "Manrope", sans-serif;
   --primary-background: #f4f5f4;
-} 
+}
 body {
   background-color: var(--primary-background) !important;
   overflow-x: hidden;
@@ -651,7 +650,7 @@ body {
   width: 100%;
   display: inline-block;
   border: 1px solid var(--primary-color);
-  background-color: #087c7c14;
+  background-color: var(--primary-category-background);
   color: var(--primary-color);
   text-align: center;
   padding: 20px;
@@ -2295,7 +2294,7 @@ h3 {
 
 #main_agent_card {
   border: none;
-  background-color: #087c7c14;
+  background-color: var(--primary-category-background);
   width: 100%;
   height: auto;
 }
@@ -3507,7 +3506,7 @@ option {
   color: var(--primary-color);
   padding: 5px;
   border-radius: 8px;
-  background: #087c7c14;
+  background: var(--primary-category-background);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -3931,7 +3930,7 @@ div#all-articles_card_footer .allarticles_footer_text p {
   justify-content: flex-start;
 }
 .pop-tags span {
-  background-color: #087c7c14;
+  background-color: var(--primary-category-background);
   color: var(--primary-color);
   border: 0.30000001192092896px solid var(--primary-color);
   padding: 5px 15px;
@@ -5346,7 +5345,7 @@ a {
 }
 .active_status {
   color: var(--primary-color);
-  background-color: #087c7c14;
+  background-color: var(--primary-category-background);
   padding: 5px 20px;
   border: 1px solid var(--primary-color);
   border-radius: 8px;
@@ -6772,23 +6771,23 @@ a {
 .other-message .file-preview,
 .other-message span {
   border-radius: 0 20px 20px 25px;
-  background-color: #087c7c14;
+  background-color: var(--primary-category-background);
 }
 /* .other-message audio{
   border-radius: 0 20px 20px 25px;
-  background-color: #087c7c14 !important;
+  background-color: var(--primary-category-background) !important;
 
 } */
 .other-message audio::-webkit-media-controls-panel {
   border-radius: 0 20px 20px 25px !important;
-  background-color: #087c7c14 !important;
+  background-color: var(--primary-category-background) !important;
 }
 .other-message .file-preview img {
   border-radius: 0 20px 20px 25px;
 }
 .audio-container::-webkit-media-controls-panel {
   border-radius: 0 20px 20px 25px !important;
-  background-color: #087c7c14 !important;
+  background-color: var(--primary-category-background) !important;
 }
 
 /* Apply styles to the audio controls */
@@ -7062,10 +7061,10 @@ audio {
   padding: 0;
 }
 
-.custom-svg svg{
+.custom-svg svg {
   fill: var(--primary-color) !important;
 }
-.custom-svg svg path{
+.custom-svg svg path {
   fill: var(--primary-color) !important;
 }
 
@@ -7074,4 +7073,11 @@ audio {
 }
 #main_aprt_card:hover .custom-svg svg path {
   fill: #fff !important;
+}
+
+embed svg {
+  fill: var(--primary-color) !important;
+}
+embed svg path {
+  fill: var(--primary-color) !important;
 }

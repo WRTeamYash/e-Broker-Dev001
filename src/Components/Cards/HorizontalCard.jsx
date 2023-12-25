@@ -1,6 +1,6 @@
 import { AddFavourite } from "@/store/actions/campaign";
 import { settingsData } from "@/store/reducer/settingsSlice";
-import { formatPriceAbbreviated, translate } from "@/utils";
+import { formatPriceAbbreviated, isThemeEnabled, translate } from "@/utils";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -16,6 +16,7 @@ const HorizontalCard = ({ ele }) => {
     const DummyImgData = useSelector(settingsData);
     const PlaceHolderImg = DummyImgData?.img_placeholder;
     const [isLiked, setIsLiked] = useState(ele.is_favourite === 1);
+    const themeEnabled = isThemeEnabled();
 
     // Initialize isDisliked as false
     const [isDisliked, setIsDisliked] = useState(false);
@@ -84,14 +85,17 @@ const HorizontalCard = ({ ele }) => {
                     </span>
                     <span className="prop_sell">{ele.propery_type}</span>
                     <span className="prop_price">
-                    {CurrencySymbol} {formatPriceAbbreviated(ele.price)}
+                        {CurrencySymbol} {formatPriceAbbreviated(ele.price)}
                     </span>
 
                     <div>
                         <div className="prop_card_mainbody">
                             <div className="cate_image">
-                                {/* <Image loading="lazy" src={ele.category.image} alt="no_img" width={20} height={20} /> */}
-                                <ImageToSvg imageUrl={ele.category && ele.category.image} className="custom-svg" />
+                                {themeEnabled ? (
+                                    <ImageToSvg imageUrl={ele.category && ele.category.image} className="custom-svg" />
+                                ) : (
+                                    <Image loading="lazy" src={ele.category.image} alt="no_img" width={20} height={20} />
+                                )}
                             </div>
                             <span className="body_title"> {ele.category.category} </span>
                         </div>
@@ -109,8 +113,13 @@ const HorizontalCard = ({ ele }) => {
                                     <div className="col-sm-12 col-md-6" key={index}>
                                         <div id="footer_content" key={index}>
                                             <div>
-                                                {/* <Image loading="lazy" src={elem.image} alt="no_img" width={20} height={20} /> */}
-                                                <ImageToSvg imageUrl={elem?.image} className="custom-svg" />
+                                                {themeEnabled ? (
+                                                    <ImageToSvg imageUrl={elem?.image} className="custom-svg" />
+
+                                                ) : (
+                                                    <Image loading="lazy" src={elem.image} alt="no_img" width={20} height={20} />
+
+                                                )}
                                             </div>
                                             <p className="text_footer"> {elem.name}</p>
                                         </div>

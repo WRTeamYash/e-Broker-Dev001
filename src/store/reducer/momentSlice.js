@@ -43,7 +43,6 @@ const momentSlice = createSlice({
             state.newUserChatData = action.payload.data;
         },
         newUserRemoveChat: (state) => {
-            // console.log(state, "stateeeeeee")
             state.newUserChatData = null;
             // return state;
         },

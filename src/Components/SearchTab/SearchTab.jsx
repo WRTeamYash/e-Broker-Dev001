@@ -76,7 +76,7 @@ const SearchTab = ({ getCategories }) => {
             postedSince: postedSinceValue, // Include it here
             selectedLocation: formData.selectedLocation || null, // Set to null if not selected
         };
-        // console.log(filterData)
+       
         // Set the filter data in state
         setFilterD(filterData);
         setShowFilterModal(false); // Close the modal

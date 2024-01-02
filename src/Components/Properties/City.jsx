@@ -33,7 +33,7 @@ const City = () => {
     const limit = 8;
 
     const router = useRouter();
-    // console.log(router)
+   
     const city = router.query;
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;

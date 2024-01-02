@@ -174,7 +174,7 @@ const SubscriptionPlan = () => {
             assignFreePackageApi(
                 priceData.id,
                 (res) => {
-                    // console.log(res);
+                   
                     router.push("/");
                     toast.success(res.message);
                 },

@@ -28,7 +28,7 @@ const index = () => {
     const limit = 10;
 
     const systemsettings = useSelector(settingsData);
-    const PlaceHolderImg = systemsettings?.img_placeholder;
+    const PlaceHolderImg = systemsettings?.web_placeholder_logo;
 
     const lang = useSelector(languageData);
 
@@ -47,7 +47,7 @@ const index = () => {
                 setTotal(res.total);
                 setData(res.data);
                 setIsLoading(false)
-                // console.log(res.data);
+               
             },
             (err) => {
                 toast.error(err);

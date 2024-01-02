@@ -9,7 +9,6 @@ import { MdOutlineAttachFile } from 'react-icons/md';
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { deleteChatMessagesApi, getChatsListApi, getChatsMessagesApi, sendMessageApi } from '@/store/actions/campaign';
 import { formatDistanceToNow } from 'date-fns';
-import { toast } from 'react-toastify';
 import No_Chat from "../../../public/no_chat_found.svg"
 import { translate } from '@/utils';
 import Swal from 'sweetalert2';
@@ -17,12 +16,14 @@ import { useRouter } from 'next/router';
 import { newchatData, removeChat } from '@/store/reducer/momentSlice';
 import { userSignUpData } from '@/store/reducer/authSlice';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
+import toast from 'react-hot-toast';
+import moment from 'moment';
 
 const { TabPane } = Tabs;
 
 const ChatApp = ({ notificationData }) => {
     const DummyImgData = useSelector(settingsData);
-    const PlaceHolderImg = DummyImgData?.img_placeholder;
+    const PlaceHolderImg = DummyImgData?.web_placeholder_logo;
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const userProfile = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.profile : PlaceHolderImg;
@@ -72,55 +73,33 @@ const ChatApp = ({ notificationData }) => {
         getChatsListApi(
             (res) => {
                 // if (res.data.length > 0) {
-                    // Update chatList with the fetched data
-                    setChatList(res.data);
+                // Update chatList with the fetched data
+                setChatList(res.data);
 
-                    // If there's storedChatData and it has property_id, set it as the default active tab
-                    if (storedChatData) {
-                        // Check if the chat with the same property_id already exists in the chatList
-                        if (!res.data.some(chat => chat.property_id === newChatData.property_id)) {
-                            // Update chatList with the newChatData at the beginning
-                            setChatList(prevList => [newChatData, ...prevList]);
-                        }
-
-                        setSelectedTab(newChatData);
-
-                        // Set the active tab key to the newChatData's property_id
-                        setActiveTabKey(newChatData.property_id);
-                    } else {
-                        // Set the selected tab to the first chat in the list
-                        setSelectedTab(res.data[0]);
-                        setActiveTabKey(res.data[0].property_id);
+                // If there's storedChatData and it has property_id, set it as the default active tab
+                if (storedChatData) {
+                    // Check if the chat with the same property_id already exists in the chatList
+                    if (!res.data.some(chat => chat.property_id === newChatData.property_id)) {
+                        // Update chatList with the newChatData at the beginning
+                        setChatList(prevList => [newChatData, ...prevList]);
                     }
+
+                    setSelectedTab(newChatData);
+
+                    // Set the active tab key to the newChatData's property_id
+                    setActiveTabKey(newChatData.property_id);
+                } else {
+                    // Set the selected tab to the first chat in the list
+                    setSelectedTab(res.data[0]);
+                    setActiveTabKey(res.data[0].property_id);
+                }
 
             },
             (err) => {
                 console.log(err);
-                // toast.error("")
             }
         );
     }, [storedChatData]);
-    ;
-    // useEffect(() => {
-    //     if (storedChatData) {
-    //         // Parse storedChatData if needed
-    //         const newChatData = JSON.parse(storedChatData);
-
-    //         // Check if the chat with the same property_id already exists in the chatList
-    //         if (!chatList.some(chat => chat.property_id === newChatData.property_id)) {
-    //             // Update chatList with the newChatData at the beginning
-    //             setChatList(prevList => [newChatData, ...prevList]);
-
-    //             // Set the selected tab to the newChatData
-    //             setSelectedTab(newChatData);
-    //         }
-    //         setNewChat(newChatData);
-
-    //         if (selectedTab?.property_id === newChatData.property_id) {
-    //             setActiveTabKey(newChatData.property_id);
-    //         }
-    //     }
-    // }, [storedChatData, chatList, selectedTab, activeTabKey]);
     const chatDisplayRef = useRef(null);
     useEffect(() => {
         if (selectedTab) {
@@ -248,13 +227,14 @@ const ChatApp = ({ notificationData }) => {
                 setIsRecording(true);
             })
             .catch((error) => {
-                console.error('Error accessing microphone:', error);
+                console.log('Error accessing microphone:', error);
+                toast.error("Permission is not allow for Microphone")
             });
     };
 
     const stopRecording = (tabKey) => {
-        if (tabStates[tabKey].mediaRecorder) {
-            tabStates[tabKey].mediaRecorder.stop();
+        if (tabStates[tabKey]?.mediaRecorder) {
+            tabStates[tabKey]?.mediaRecorder.stop();
             setTabStates((prevState) => ({
                 ...prevState,
                 [tabKey]: {
@@ -274,20 +254,26 @@ const ChatApp = ({ notificationData }) => {
 
     const handleSendClick = (tabKey) => {
         const tabState = tabStates[tabKey] || {};
-        const messageType = tabState.selectedFile
-            ? 'file'
-            : (tabState.audioChunks && tabState.audioChunks.length > 0)
-                ? 'audio'
-                : 'text';
+        const hasText = tabState.messageInput?.trim();
+        const hasFile = tabState.selectedFile || (tabState.audioChunks && tabState.audioChunks.length > 0);
 
+        let messageType;
+
+        if (hasText && hasFile) {
+            messageType = 'file_and_text';
+        } else if (hasText) {
+            messageType = 'text';
+        } else if (hasFile) {
+            messageType = tabState.selectedFile ? 'file' : 'audio';
+        }
 
         // Check if the message input is empty for text messages
         if (messageType === 'text' && !tabState.messageInput?.trim()) {
-            // You can choose to return or display a message to the user
-            // For example, you can show a toast message using react-toastify
             toast.error("Please enter a message before sending.");
             return;
         }
+
+
         let newMessage = {
             sender_id: userCurrentId,
             receiver_id: selectedTab.user_id,
@@ -300,19 +286,13 @@ const ChatApp = ({ notificationData }) => {
         };
 
         if (messageType === 'audio' && tabState.audioChunks.length > 0) {
-            // Convert Blob to File
             const audioBlob = new Blob(tabState.audioChunks, { type: 'audio/webm;codecs=opus' });
             const audioFile = new File([audioBlob], 'audio_message.webm', { type: 'audio/webm;codecs=opus' });
-
-            // Update newMessage with the File object
             newMessage = {
                 ...newMessage,
                 audio: audioFile,
             };
         }
-
-        // Log only the new message data
-        // console.log('New Message Data:', newMessage);
 
         setTabStates((prevState) => ({
             ...prevState,
@@ -325,6 +305,7 @@ const ChatApp = ({ notificationData }) => {
             },
         }));
         setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+
 
         sendMessageApi(
             newMessage.sender_id,
@@ -348,15 +329,15 @@ const ChatApp = ({ notificationData }) => {
 
         requestAnimationFrame(() => {
             const chatDisplay = chatDisplayRef.current;
-            chatDisplay.scrollTop = chatDisplay.scrollHeight;
+
+            chatDisplay.scrollTop = chatDisplay?.scrollHeight;
         });
     };
 
 
 
     useEffect(() => {
-        // console.log(notificationData);
-
+        
         if (notificationData) {
             const newMessage = {
                 sender_id: notificationData.sender_id,
@@ -380,7 +361,7 @@ const ChatApp = ({ notificationData }) => {
             setChatMessages((prevMessages) => [...prevMessages, newMessage]);
 
             requestAnimationFrame(() => {
-                const chatDisplay = chatDisplayRef.current;
+                const chatDisplay = chatDisplayRef?.current;
                 chatDisplay.scrollTop = chatDisplay.scrollHeight;
             });
         }
@@ -499,9 +480,28 @@ const ChatApp = ({ notificationData }) => {
             });
         }
     };
-    useEffect(() => { }, [selectedFilePreview])
+    useEffect(() => { }, [selectedFilePreview, chatMessages])
     useEffect(() => {
     }, [selectedTab, activeTabKey]);
+
+    const formatTimeDifference = (timestamp) => {
+        const now = moment();
+        const messageTime = moment(timestamp);
+        const diffInSeconds = now.diff(messageTime, 'seconds');
+
+        if (diffInSeconds < 1) {
+            return '1s ago';
+        } else if (diffInSeconds < 60) {
+            return `${diffInSeconds}s ago`;
+        } else if (diffInSeconds < 3600) {
+            return `${Math.floor(diffInSeconds / 60)}m ago`;
+        } else if (diffInSeconds < 86400) {
+            return `${Math.floor(diffInSeconds / 3600)}h ago`;
+        } else {
+            return messageTime.format('MMMM D, YYYY [at] h:mm A');
+        }
+    };
+
 
     return (
         <>
@@ -509,12 +509,12 @@ const ChatApp = ({ notificationData }) => {
                 <div className="container">
                     <div className="card">
 
-                       
+
                         {chatList?.length > 0 && chatList !== "" ? (
 
                             <Tabs defaultActiveKey={activeTabKey} tabPosition="left" onChange={handleTabChange}>
 
-                               
+
                                 {chatList.map((chat) => (
                                     <TabPane
                                         key={chat.property_id}
@@ -532,38 +532,45 @@ const ChatApp = ({ notificationData }) => {
                                         }
                                     // forceRenderTabPane={activeTabKey == chat.property_id}
                                     >
-                                       
-                                            <div className="chat_deatils">
-                                                <div className="chat_deatils_header">
-                                                    <div className="profile_img_name_div">
-                                                        <div className="chat_profile_div">
-                                                            <Image loading="lazy" id="chat_profile" src={chat?.title_image ? chat?.title_image : PlaceHolderImg} alt="no_img" width={0} height={0} />
-                                                        </div>
-                                                        <div className="profile_name">
-                                                            <span>{chat.name}</span>
-                                                            <p>{chat.title}</p>
-                                                        </div>
+
+                                        <div className="chat_deatils">
+                                            <div className="chat_deatils_header">
+                                                <div className="profile_img_name_div">
+                                                    <div className="chat_profile_div">
+                                                        <Image loading="lazy" id="chat_profile" src={chat?.title_image ? chat?.title_image : PlaceHolderImg} alt="no_img" width={0} height={0} />
                                                     </div>
-
-                                                    {chatMessages.length > 0 ? (
-
-                                                        <div className="delete_messages" onClick={handleDeleteChat}>
-                                                            <span>{translate("deleteMessages")}</span>
-                                                        </div>
-                                                    ) : null}
+                                                    <div className="profile_name">
+                                                        <span>{chat.name}</span>
+                                                        <p>{chat.title}</p>
+                                                    </div>
                                                 </div>
 
-                                                
-                                                <div className="chat_display" ref={chatDisplayRef}>
-                                                    <div className='sender_masg'>
-                                                        {chatMessages.length > 0 ? (
-                                                            chatMessages.map((message, index) => (
+                                                {chatMessages.length > 0 ? (
+
+                                                    <div className="delete_messages" onClick={handleDeleteChat}>
+                                                        <span>{translate("deleteMessages")}</span>
+                                                    </div>
+                                                ) : null}
+                                            </div>
+
+
+                                            <div className="chat_display" ref={chatDisplayRef}>
+                                                <div className='sender_masg'>
+                                                    {chatMessages.length > 0 ? (
+                                                        chatMessages.map((message, index) => (
+                                                            <>
                                                                 <div key={index} className={message.sender_id === userCurrentId ? 'user-message' : 'other-message'}>
                                                                     <div className="chat_user_profile">
                                                                         <Image
                                                                             loading="lazy"
                                                                             id="sender_profile"
-                                                                            src={message.sender_id === userCurrentId ? userProfile : message.profile}
+                                                                            src={
+                                                                                message.sender_id === userCurrentId
+                                                                                    ? userProfile
+                                                                                    : message.user_profile
+                                                                                        ? message.user_profile
+                                                                                        : PlaceHolderImg
+                                                                            }
                                                                             alt="no_img"
                                                                             width={0}
                                                                             height={0}
@@ -611,84 +618,100 @@ const ChatApp = ({ notificationData }) => {
                                                                                     <img src={message.file} alt="File Preview" />
                                                                                 )}
                                                                             </div>
+                                                                            <span>{message.message}</span>
                                                                         </div>
                                                                     ) : null}
                                                                 </div>
-                                                            ))
-                                                        ) : (
-                                                            <div className="col-12 text-center" id='noChats'>
-                                                                <div>
-                                                                    <Image loading="lazy" src={No_Chat.src} alt="start_chat" width={250} height={250} />
+                                                                <div className={message.sender_id === userCurrentId ? 'user-message-time' : 'other-message-time'}>
+                                                                    <span className='chat_time'>{formatTimeDifference(message.created_at)}</span>
                                                                 </div>
-                                                                <div className='no_page_found_text'>
-                                                                    <h3>{translate("startConversation")}</h3>
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </div>
+                                                            </>
 
-
-                                                {selectedFilePreview && (
-                                                    <div className="file-preview-section">
-                                                        <>
-                                                            <img src={selectedFilePreview} alt="File Preview" />
-                                                            <button className="change-button" onClick={() => handleFileCancel(chat.property_id)}>
-                                                                <IoMdCloseCircleOutline size={35} />
-                                                            </button>
-                                                        </>
-                                                    </div>
-                                                )}
-
-                                                <div className="chat_inputs">
-                                                    <div
-                                                        className="attechment"
-                                                        onClick={() => handleAttachmentClick(chat.property_id)}
-                                                    >
-                                                        <MdOutlineAttachFile size={20} />
-                                                        <input
-                                                            type="file"
-                                                            id={`fileInput-${chat.property_id}`}
-                                                            onChange={(e) => handleFileChange(e, chat.property_id)}
-                                                        />
-                                                    </div>
-                                                    <div className="type_input">
-                                                        <input
-                                                            type="text"
-                                                            placeholder="Type Your Message"
-                                                            value={tabStates[chat.property_id]?.messageInput}
-                                                            onChange={(e) => handleInputChange(chat.property_id, e.target.value)}
-                                                        />
-                                                    </div>
-                                                    {tabStates[chat.property_id]?.recording ? (
-                                                        <button
-                                                            className={`voice_message recording`}
-                                                            onMouseDown={() => startRecording(chat.property_id)}
-                                                            onMouseUp={() => stopRecording(chat.property_id)}
-                                                            onMouseMove={() => handleMouseMove(chat.property_id)}
-                                                        >
-                                                            <FaMicrophone size={30} />
-                                                        </button>
+                                                        ))
                                                     ) : (
-                                                        <button
-                                                            className="voice_message"
-                                                            onMouseDown={() => startRecording(chat.property_id)}
-                                                            onMouseUp={() => stopRecording(chat.property_id)}
-                                                            onMouseMove={() => handleMouseMove(chat.property_id)}
-                                                        >
-                                                            <FaMicrophone size={20} />
-                                                        </button>
+                                                        <div className="col-12 text-center" id='noChats'>
+                                                            <div>
+                                                                <Image loading="lazy" src={No_Chat.src} alt="start_chat" width={250} height={250} />
+                                                            </div>
+                                                            <div className='no_page_found_text'>
+                                                                <h3>{translate("startConversation")}</h3>
+                                                            </div>
+                                                        </div>
                                                     )}
-                                                    <button
-                                                        className="send_message"
-                                                        onClick={() => handleSendClick(chat.property_id)}
-                                                    >
-                                                        <span> {translate("send")} </span>
-                                                        <RiSendPlaneLine size={20} />
-                                                    </button>
+                                                </div>
+                                                <div>
+
                                                 </div>
                                             </div>
-                                       
+
+
+                                            {selectedFilePreview && (
+                                                <div className="file-preview-section">
+                                                    <>
+                                                        <img src={selectedFilePreview} alt="File Preview" />
+                                                        <button className="change-button" onClick={() => handleFileCancel(chat.property_id)}>
+                                                            <IoMdCloseCircleOutline size={35} />
+                                                        </button>
+                                                    </>
+                                                </div>
+                                            )}
+
+                                            <div className="chat_inputs">
+                                                <div
+                                                    className="attechment"
+                                                    onClick={() => handleAttachmentClick(chat.property_id)}
+                                                >
+                                                    <MdOutlineAttachFile size={20} />
+                                                    <input
+                                                        type="file"
+                                                        id={`fileInput-${chat.property_id}`}
+                                                        onChange={(e) => handleFileChange(e, chat.property_id)}
+                                                    />
+                                                </div>
+                                                <div className="type_input">
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Type Your Message"
+                                                        value={tabStates[chat.property_id]?.messageInput}
+                                                        onChange={(e) => handleInputChange(chat.property_id, e.target.value)}
+                                                        onKeyDown={(e) => {
+                                                            if (e.key === 'Enter') {
+                                                                e.preventDefault(); // Prevents a new line in the input field
+                                                                handleSendClick(chat.property_id);
+                                                            }
+                                                        }}
+                                                    />
+                                                </div>
+                                                {tabStates[chat.property_id]?.recording ? (
+                                                    <button
+                                                        className={`voice_message recording`}
+                                                        onMouseDown={() => startRecording(chat.property_id)}
+                                                        onMouseUp={() => stopRecording(chat.property_id)}
+                                                        onMouseMove={() => handleMouseMove(chat.property_id)}
+                                                    >
+                                                        <FaMicrophone size={30} />
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        className="voice_message"
+                                                        onMouseDown={() => startRecording(chat.property_id)}
+                                                        onMouseUp={() => stopRecording(chat.property_id)}
+                                                        onMouseMove={() => handleMouseMove(chat.property_id)}
+                                                    >
+                                                        <FaMicrophone size={20} />
+                                                    </button>
+                                                )}
+                                                <button
+                                                    type='submit'
+                                                    className="send_message"
+                                                    onClick={() => handleSendClick(chat.property_id)}
+                                                >
+                                                    <span> {translate("send")} </span>
+                                                    <RiSendPlaneLine size={20} />
+                                                </button>
+                                            </div>
+                                        </div>
+
                                     </TabPane>
                                 ))}
                             </Tabs>

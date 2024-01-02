@@ -25,7 +25,7 @@ const Index = () => {
     const usedAdLimit = currentUserPackage[0]?.used_limit_for_advertisement;
     const lang = useSelector(languageData);
 
-    useEffect(() => {}, [lang]);
+    useEffect(() => { }, [lang]);
     const getDaysRemaining = (endDate) => {
         if (endDate) {
             const currentDate = new Date();
@@ -115,7 +115,11 @@ const Index = () => {
                                     <div className="package_price">
                                         <span className="package_details_title">{translate("price")}</span>
                                         <span className="package_details_value">
-                                            {currentUserPackage[0].package.price} {CurrencySymbol}
+                                            {
+                                                currentUserPackage[0].package.price !== 0
+                                                    ? CurrencySymbol + currentUserPackage[0].package.price
+                                                    : "Free"
+                                            }
                                         </span>
                                     </div>
                                 </div>

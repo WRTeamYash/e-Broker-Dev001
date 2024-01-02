@@ -54,7 +54,7 @@ const Articles = () => {
     }, []);
 
     const SettingsData = useSelector(settingsData);
-    const PlaceHolderImg = SettingsData?.img_placeholder;
+    const PlaceHolderImg = SettingsData?.web_placeholder_logo;
 
     const adminProfile = SettingsData;
     const getArticleByCategory = (cateId) => {

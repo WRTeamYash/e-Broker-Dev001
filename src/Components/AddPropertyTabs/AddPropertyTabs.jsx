@@ -395,7 +395,7 @@ export default function AddPropertyTabs() {
     };
     const handleNextTab4 = () => {
         // Check if the location fields in tab 4 are empty
-        // console.log(selectedLocationAddress)
+        
         if (!areLocationFieldsFilled(selectedLocationAddress)) {
             // Display a toast message to fill in all property address details in tab 4
             toast.error("Please fill in all property address details.");
@@ -406,131 +406,119 @@ export default function AddPropertyTabs() {
         }
     };
 
-    const handlePostproperty = (e) => {
+    const handlePostproperty = async (e) => {
         e.preventDefault();
-
-        if (!areFieldsFilled(tab1)) {
-            // Display a toast message to fill in all required fields for Tab 1
-            toast.error("Please fill in all required fields in Property Details");
-
-            // Switch to Tab 1
-            setValue(0);
-        } else if (!areLocationFieldsFilled(selectedLocationAddress)) {
-            // Display a toast message to fill in all required location fields
-            toast.error("Please select a location with all required fields (city, state, country, and formatted_address)");
-            // Switch to Tab 4
-            setValue(3);
-        } else if (uploadedImages.length === 0) {
-            // Display a toast message if Title Image is not selected
-            toast.error("Please select a Title Image");
-        } else if (packageId === undefined) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "You have not subscribed. Please subscribe first",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    router.push("/subscription-plan"); // Redirect to the subscription page
-                }
-            });
-        } else {
-
-            const parameters = [];
-            const facilities = [];
-
-            // Assuming tab2 contains parameter data
-            for (const [key, value] of Object.entries(tab2)) {
-                parameters.push({
-                    parameter_id: key,
-                    value: value,
-                    // You may need to adjust these fields based on your data structure
-                });
-            }
-
-            // Assuming tab3 contains facility data
-            // Assuming tab2 contains parameter data
-            for (const [key, value] of Object.entries(tab3)) {
-                facilities.push({
-                    facility_id: key,
-                    distance: value,
-                    // You may need to adjust these fields based on your data structure
-                });
-            }
-            // Concatenate parameters and facilities into the allParameters array
-            // const allParameters = [...parameters, ...facilities];
-
-
-            // Rest of your code remains the same
-
-            PostProperty(
-                userId,
-                packageId ? packageId : "",
-                tab1.title,
-                tab1.propertyDesc,
-                selectedLocationAddress.city,
-                selectedLocationAddress.state,
-                selectedLocationAddress.country,
-                selectedLocationAddress.lat,
-                selectedLocationAddress.lng,
-                selectedLocationAddress.formatted_address,
-                tab1.price,
-                tab1.category,
-                tab1.propertyType,
-                tab5.videoLink,
-                parameters, // Pass the combined parameters as "allParameters"
-                facilities,
-                tab5.titleImage[0],
-                tab5._3DImages[0],
-                tab5.galleryImages,
-                (response) => {
-
-                    if (response.message === "Package not found") {
-                        toast.error(response.message);
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "You have not subscribed. Please subscribe first",
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                router.push("/subscription-plan"); // Redirect to the subscription page
-                            }
-                        });
-                    } else if (response.message === "Package Limit is over") {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Your Package Limit is Over. Please Purchase Package.",
-                            confirmButtonColor: primaryColor,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                router.push("/subscription-plan"); // Redirect to the subscription page
-                            }
-                        });
-                    } else if (response.message === "Package not found for add property") {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Package not found for add property. Please Purchase Package.",
-                            confirmButtonColor: primaryColor,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                router.push("/subscription-plan"); // Redirect to the subscription page
-                            }
-                        });
-                    } else {
-                        toast.success(response.message);
-                        router.push("/user/dashboard");
+    
+        try {
+            if (!areFieldsFilled(tab1)) {
+                // Display a toast message to fill in all required fields for Tab 1
+                toast.error("Please fill in all required fields in Property Details");
+    
+                // Switch to Tab 1
+                setValue(0);
+            } else if (!areLocationFieldsFilled(selectedLocationAddress)) {
+                // Display a toast message to fill in all required location fields
+                toast.error("Please select a location with all required fields (city, state, country, and formatted_address)");
+                // Switch to Tab 4
+                setValue(3);
+            } else if (uploadedImages.length === 0) {
+                // Display a toast message if Title Image is not selected
+                toast.error("Please select a Title Image");
+            } else if (packageId === undefined) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "You have not subscribed. Please subscribe first",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        router.push("/subscription-plan"); // Redirect to the subscription page
                     }
-                },
-                (error) => {
-                    toast.error(error);
-                    
-
+                });
+            } else {
+                // Rest of your code remains the same
+    
+                const parameters = [];
+                const facilities = [];
+    
+                // Assuming tab2 contains parameter data
+                for (const [key, value] of Object.entries(tab2)) {
+                    parameters.push({
+                        parameter_id: key,
+                        value: value,
+                        // You may need to adjust these fields based on your data structure
+                    });
                 }
-            );
+    
+                // Assuming tab3 contains facility data
+                for (const [key, value] of Object.entries(tab3)) {
+                    facilities.push({
+                        facility_id: key,
+                        distance: value,
+                        // You may need to adjust these fields based on your data structure
+                    });
+                }
+    
+                PostProperty(
+                    userId,
+                    packageId ? packageId : "",
+                    tab1.title,
+                    tab1.propertyDesc,
+                    selectedLocationAddress.city,
+                    selectedLocationAddress.state,
+                    selectedLocationAddress.country,
+                    selectedLocationAddress.lat,
+                    selectedLocationAddress.lng,
+                    selectedLocationAddress.formatted_address,
+                    tab1.price,
+                    tab1.category,
+                    tab1.propertyType,
+                    tab5.videoLink,
+                    parameters, // Pass the combined parameters as "allParameters"
+                    facilities,
+                    tab5.titleImage[0],
+                    tab5._3DImages[0],
+                    tab5.galleryImages,
+                    async (response) => {
+                        if (response.message === "Package not found") {
+                            toast.error(response.message);
+                            await Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "You have not subscribed. Please subscribe first",
+                            });
+                            router.push("/subscription-plan"); // Redirect to the subscription page
+                        } else if (response.message === "Package Limit is over") {
+                            await Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Your Package Limit is Over. Please Purchase Package.",
+                                confirmButtonColor: primaryColor,
+                            });
+                            router.push("/subscription-plan"); // Redirect to the subscription page
+                        } else if (response.message === "Package not found for add property") {
+                            await Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Package not found for add property. Please Purchase Package.",
+                                confirmButtonColor: primaryColor,
+                            });
+                            router.push("/subscription-plan"); // Redirect to the subscription page
+                        } else {
+                            toast.success(response.message);
+                            router.push("/user/dashboard");
+                        }
+                    },
+                    (error) => {
+                        toast.error(error);
+                    }
+                );
+            }
+        } catch (error) {
+            console.error("An error occurred:", error);
+            toast.error("An error occurred. Please try again later.");
         }
     };
-
+    
     return (
         <Box sx={{ width: "100%" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

@@ -235,51 +235,55 @@ const HomePage = () => {
                             <SearchTab getCategories={Categorydata} />
                         </section>
                     )
-                ) : null}
+                ) : (
+                    <div className="no-data-text">
+                        {translate("addDatafromAdmin")}
+                    </div>
+                )}
 
                 {/* Feature Section  */}
-                {getFeaturedListing && getFeaturedListing.length > 0 ? (
-                    <section id="feature">
-                        <div className="container">
-                            <div id="main_features">
-                                <div>
-                                    {isLoading ? (
-                                        <Skeleton width="100%" height={20} />
-                                    ) : (
-                                        <>
-                                            <div className="feature_header">
-                                                <span className="headline">
-                                                    {translate("discoverOur")} <span className="highlight">{translate("featured")}</span> {translate("listings")}
-                                                </span>
-                                                <div className="rightside_header">
-                                                    <Link href="/featured-properties">
-                                                        <button className="learn-more" id="viewall">
-                                                            <span aria-hidden="true" className="circle">
-                                                                <div className="icon_div">
-                                                                    <span className="icon arrow">
-                                                                        <BsArrowRight />
-                                                                    </span>
-                                                                </div>
-                                                            </span>
-                                                            <span className="button-text">{translate("seeAllProp")}</span>
-                                                        </button>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                            <div className="mobile-headline-view">
-                                                <MobileHeadline
-                                                    data={{
-                                                        start: translate("discoverOur"),
-                                                        center: translate("featured"),
-                                                        end: translate("listings"),
-                                                        link: "/featured-properties",
-                                                    }}
-                                                />
-                                            </div>
-                                        </>
-                                    )}
-                                </div>
 
+                <section id="feature">
+                    <div className="container">
+                        <div id="main_features">
+                            <div>
+                                {isLoading ? (
+                                    <Skeleton width="100%" height={20} />
+                                ) : (
+                                    <>
+                                        <div className="feature_header">
+                                            <span className="headline">
+                                                {translate("discoverOur")} <span className="highlight">{translate("featured")}</span> {translate("listings")}
+                                            </span>
+                                            <div className="rightside_header">
+                                                <Link href="/featured-properties">
+                                                    <button className="learn-more" id="viewall">
+                                                        <span aria-hidden="true" className="circle">
+                                                            <div className="icon_div">
+                                                                <span className="icon arrow">
+                                                                    <BsArrowRight />
+                                                                </span>
+                                                            </div>
+                                                        </span>
+                                                        <span className="button-text">{translate("seeAllProp")}</span>
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                        <div className="mobile-headline-view">
+                                            <MobileHeadline
+                                                data={{
+                                                    start: translate("discoverOur"),
+                                                    center: translate("featured"),
+                                                    end: translate("listings"),
+                                                    link: "/featured-properties",
+                                                }}
+                                            />
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                            {getFeaturedListing && getFeaturedListing.length > 0 ? (
                                 <div className="feature-section-cards">
                                     <div id="feature_cards" className="row">
                                         {isLoading
@@ -299,10 +303,14 @@ const HomePage = () => {
                                             ))}
                                     </div>
                                 </div>
-                            </div>
+                            ) : (
+                                <div className="no-data-text">
+                                    {translate("addDatafromAdmin")}
+                                </div>
+                            )}
                         </div>
-                    </section>
-                ) : null}
+                    </div>
+                </section>
 
                 {/* APARTMENT SECTION */}
 
@@ -333,53 +341,58 @@ const HomePage = () => {
                                     />
                                 </div>
                                 <div className="col-sm-12 col-md-8 col-lg-9" id="all-apart-cards">
-                                    <div className="aprt_cards">
-                                        <Swiper
-                                            dir={language.rtl === "1" ? "rtl" : "ltr"}
-                                            spaceBetween={30}
-                                            freeMode={true}
-                                            pagination={{
-                                                clickable: true,
-                                            }}
-                                            modules={[FreeMode, Pagination]}
-                                            className="aprtment-swiper"
-                                            breakpoints={breakpoints}
-                                        >
-                                            {isLoading ? (
-                                                // Show skeleton loading when data is being fetched
-                                                <div className="col-12 loading_data">
-                                                    <Swiper
-                                                        dir={language.rtl === "1" ? "rtl" : "ltr"}
-                                                        spaceBetween={30}
-                                                        freeMode={true}
-                                                        pagination={{
-                                                            clickable: true,
-                                                        }}
-                                                        modules={[FreeMode, Pagination]}
-                                                        className="aprtment-swiper"
-                                                        breakpoints={breakpoints}
-                                                    >
-                                                        {Array.from({ length: 6 }).map((_, index) => (
-                                                            <SwiperSlide>
-                                                                <CustomCategorySkeleton />
+                                    {Categorydata.some(ele => ele.properties_count !== 0 && ele.properties_count !== "") ? (
+                                        <div className="aprt_cards">
+                                            <Swiper
+                                                dir={language.rtl === "1" ? "rtl" : "ltr"}
+                                                spaceBetween={30}
+                                                freeMode={true}
+                                                pagination={{
+                                                    clickable: true,
+                                                }}
+                                                modules={[FreeMode, Pagination]}
+                                                className="aprtment-swiper"
+                                                breakpoints={breakpoints}
+                                            >
+                                                {isLoading ? (
+                                                    // Show skeleton loading when data is being fetched
+                                                    <div className="col-12 loading_data">
+                                                        <Swiper
+                                                            dir={language.rtl === "1" ? "rtl" : "ltr"}
+                                                            spaceBetween={30}
+                                                            freeMode={true}
+                                                            pagination={{
+                                                                clickable: true,
+                                                            }}
+                                                            modules={[FreeMode, Pagination]}
+                                                            className="aprtment-swiper"
+                                                            breakpoints={breakpoints}
+                                                        >
+                                                            {Array.from({ length: 6 }).map((_, index) => (
+                                                                <SwiperSlide>
+                                                                    <CustomCategorySkeleton />
+                                                                </SwiperSlide>
+                                                            ))}
+                                                        </Swiper>
+                                                    </div>
+                                                ) : (
+                                                    Categorydata?.map((ele, index) =>
+                                                        ele.properties_count !== 0 && ele.properties_count !== "" ? (
+                                                            <SwiperSlide id="aprt-swiper-slider" key={index}>
+                                                                <Link href={`/properties/categories/${ele.slug_id}`}>
+                                                                    <CategoryCard ele={ele} />
+                                                                </Link>
                                                             </SwiperSlide>
-                                                        ))}
-                                                    </Swiper>
-                                                </div>
-                                            ) : (
-                                                Categorydata &&
-                                                Categorydata?.map((ele, index) =>
-                                                    ele.properties_count !== 0 && ele.properties_count !== "" ? (
-                                                        <SwiperSlide id="aprt-swiper-slider" key={index}>
-                                                            <Link href={`/properties/categories/${ele.slug_id}`}>
-                                                                <CategoryCard ele={ele} />
-                                                            </Link>
-                                                        </SwiperSlide>
-                                                    ) : null
-                                                )
-                                            )}
-                                        </Swiper>
-                                    </div>
+                                                        ) : null
+                                                    )
+                                                )}
+                                            </Swiper>
+                                        </div>
+                                    ) : (
+                                        <div className="no-data-text">
+                                            {translate("addDatafromAdmin")}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -387,47 +400,48 @@ const HomePage = () => {
                 ) : null}
                 {/* ===== PROPERTIE SECTION ====== */}
 
-                {getMostViewedProp && getMostViewedProp.length > 0 ? (
-                    <section id="main_properties">
-                        <div className="properties_section">
-                            <div className="container">
-                                <div id="prop">
-                                    <div className="prop_header">
-                                        <div>
-                                            <h3>
-                                                {translate("most")}{" "}
-                                                <span>
-                                                    <span className="highlight"> {translate("viewed")}</span>
-                                                </span>{" "}
-                                                {translate("properties")}
-                                            </h3>
-                                        </div>
-                                        <div className="rightside_prop_header">
-                                            <Link href="/most-viewed-properties">
-                                                <button className="learn-more" id="viewall">
-                                                    <span aria-hidden="true" className="circle">
-                                                        <div className="icon_div">
-                                                            <span className="icon arrow">
-                                                                <BsArrowRight />
-                                                            </span>
-                                                        </div>
-                                                    </span>
-                                                    <span className="button-text">{translate("seeAllProp")}</span>
-                                                </button>
-                                            </Link>
-                                        </div>
+
+                <section id="main_properties">
+                    <div className="properties_section">
+                        <div className="container">
+                            <div id="prop">
+                                <div className="prop_header">
+                                    <div>
+                                        <h3>
+                                            {translate("most")}{" "}
+                                            <span>
+                                                <span className="highlight"> {translate("viewed")}</span>
+                                            </span>{" "}
+                                            {translate("properties")}
+                                        </h3>
                                     </div>
-                                    <div className="mobile-headline-view">
-                                        <MobileHeadline
-                                            data={{
-                                                start: translate("most"),
-                                                center: translate("viewed"),
-                                                end: translate("properties"),
-                                                link: "/most-viewed-properties",
-                                            }}
-                                        />
+                                    <div className="rightside_prop_header">
+                                        <Link href="/most-viewed-properties">
+                                            <button className="learn-more" id="viewall">
+                                                <span aria-hidden="true" className="circle">
+                                                    <div className="icon_div">
+                                                        <span className="icon arrow">
+                                                            <BsArrowRight />
+                                                        </span>
+                                                    </div>
+                                                </span>
+                                                <span className="button-text">{translate("seeAllProp")}</span>
+                                            </button>
+                                        </Link>
                                     </div>
                                 </div>
+                                <div className="mobile-headline-view">
+                                    <MobileHeadline
+                                        data={{
+                                            start: translate("most"),
+                                            center: translate("viewed"),
+                                            end: translate("properties"),
+                                            link: "/most-viewed-properties",
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            {getMostViewedProp && getMostViewedProp.length > 0 ? (
                                 <div id="prop_cards">
                                     <div className="cards_sec">
                                         <div className="row">
@@ -448,50 +462,52 @@ const HomePage = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            ) : <div className="no-data-text">
+                                {translate("addDatafromAdmin")}
+                            </div>}
                         </div>
-                    </section>
-                ) : null}
+                    </div>
+                </section>
                 {/* ===== PROPERTIES NEARBY CITY  SECTION ====== */}
 
-                {getNearByCitysData && getNearByCitysData.length > 0 ? (
-                    <section id="main_citySection">
-                        <div className="container">
-                            <div className="prop_city_header">
-                                <div>
-                                    <h3>
-                                        {translate("properties")}{" "}
-                                        <span>
-                                            <span className="highlight"> {translate("nearby")}</span>
-                                        </span>{" "}
-                                        {translate("cities")}
-                                    </h3>
-                                </div>
-                                <div className="rightside_prop_city_header">
-                                    <Link href="/properties-nearby-city">
-                                        <button className="learn-more" id="viewall">
-                                            <span aria-hidden="true" className="circle">
-                                                <div className="icon_div">
-                                                    <span className="icon arrow">
-                                                        <BsArrowRight />
-                                                    </span>
-                                                </div>
-                                            </span>
-                                            <span className="button-text">{translate("seeAllProp")}</span>
-                                        </button>
-                                    </Link>
-                                </div>
+                <section id="main_citySection">
+                    <div className="container">
+                        <div className="prop_city_header">
+                            <div>
+                                <h3>
+                                    {translate("properties")}{" "}
+                                    <span>
+                                        <span className="highlight"> {translate("nearby")}</span>
+                                    </span>{" "}
+                                    {translate("cities")}
+                                </h3>
                             </div>
-                            <div className="mobile-headline-view">
-                                <MobileHeadline
-                                    data={{
-                                        start: translate("properties"),
-                                        center: translate("nearby"),
-                                        end: translate("cities"),
-                                        link: "/properties-nearby-city",
-                                    }}
-                                />
+                            <div className="rightside_prop_city_header">
+                                <Link href="/properties-nearby-city">
+                                    <button className="learn-more" id="viewall">
+                                        <span aria-hidden="true" className="circle">
+                                            <div className="icon_div">
+                                                <span className="icon arrow">
+                                                    <BsArrowRight />
+                                                </span>
+                                            </div>
+                                        </span>
+                                        <span className="button-text">{translate("seeAllProp")}</span>
+                                    </button>
+                                </Link>
                             </div>
+                        </div>
+                        <div className="mobile-headline-view">
+                            <MobileHeadline
+                                data={{
+                                    start: translate("properties"),
+                                    center: translate("nearby"),
+                                    end: translate("cities"),
+                                    link: "/properties-nearby-city",
+                                }}
+                            />
+                        </div>
+                        {getNearByCitysData && getNearByCitysData.length > 0 ? (
                             <div>
                                 {isLoading ? (
                                     // Show skeleton UI
@@ -623,49 +639,52 @@ const HomePage = () => {
                                         </div>
                                     )}
                             </div>
-                        </div>
-                    </section>
-                ) : null}
+                        ) : <div className="no-data-text">
+                            {translate("addDatafromAdmin")}
+                        </div>}
+                    </div>
+                </section>
 
                 {/* ===== MOST FAV SECTION =======  */}
-                {getMostFavProperties && getMostFavProperties.length > 0 ? (
-                    <section id="most_fav">
-                        <div className="container">
-                            <div className="most_fav_header">
-                                <div>
-                                    <h3>
-                                        {translate("most")}{" "}
-                                        <span>
-                                            <span className="highlight">{translate("fav")}</span>
-                                        </span>{" "}
-                                        {translate("properties")}
-                                    </h3>
-                                </div>
-                                <div className="rightside_most_fav_header">
-                                    <Link href="/mostfav-properties">
-                                        <button className="learn-more" id="viewall">
-                                            <span aria-hidden="true" className="circle">
-                                                <div className="icon_div">
-                                                    <span className="icon arrow">
-                                                        <BsArrowRight />
-                                                    </span>
-                                                </div>
-                                            </span>
-                                            <span className="button-text">{translate("seeAllProp")}</span>
-                                        </button>
-                                    </Link>
-                                </div>
+
+                <section id="most_fav">
+                    <div className="container">
+                        <div className="most_fav_header">
+                            <div>
+                                <h3>
+                                    {translate("most")}{" "}
+                                    <span>
+                                        <span className="highlight">{translate("fav")}</span>
+                                    </span>{" "}
+                                    {translate("properties")}
+                                </h3>
                             </div>
-                            <div className="mobile-headline-view">
-                                <MobileHeadline
-                                    data={{
-                                        start: translate("most"),
-                                        center: translate("fav"),
-                                        end: translate("properties"),
-                                        link: "/mostfav-properties",
-                                    }}
-                                />
+                            <div className="rightside_most_fav_header">
+                                <Link href="/mostfav-properties">
+                                    <button className="learn-more" id="viewall">
+                                        <span aria-hidden="true" className="circle">
+                                            <div className="icon_div">
+                                                <span className="icon arrow">
+                                                    <BsArrowRight />
+                                                </span>
+                                            </div>
+                                        </span>
+                                        <span className="button-text">{translate("seeAllProp")}</span>
+                                    </button>
+                                </Link>
                             </div>
+                        </div>
+                        <div className="mobile-headline-view">
+                            <MobileHeadline
+                                data={{
+                                    start: translate("most"),
+                                    center: translate("fav"),
+                                    end: translate("properties"),
+                                    link: "/mostfav-properties",
+                                }}
+                            />
+                        </div>
+                        {getMostFavProperties && getMostFavProperties?.length > 0 ? (
                             <div id="most-view-properties" dir={language.rtl === "1" ? "rtl" : "ltr"}>
                                 <Swiper
                                     slidesPerView={4}
@@ -711,9 +730,12 @@ const HomePage = () => {
                                     )}
                                 </Swiper>
                             </div>
-                        </div>
-                    </section>
-                ) : null}
+                        ) : <div className="no-data-text">
+                            {translate("addDatafromAdmin")}
+                        </div>}
+
+                    </div>
+                </section>
                 {/* ===== AGENT SECTION =======  */}
                 {/* <section id='agent_section' data-aos="fade-up" data-aos-duration="7000">
                     <div className="container">
@@ -806,42 +828,43 @@ const HomePage = () => {
                 </section> */}
                 {/* ========== ARTICLE SECTION ========== */}
 
-                {getArticles && getArticles.length > 0 ? (
-                    <section id="articles">
-                        <div className="container">
-                            <div className="article_headline">
-                                <div>
-                                    <h3>
-                                        {translate("our")}{" "}
-                                        <span>
-                                            <span className="highlight">{translate("articles")}</span>
+
+                <section id="articles">
+                    <div className="container">
+                        <div className="article_headline">
+                            <div>
+                                <h3>
+                                    {translate("our")}{" "}
+                                    <span>
+                                        <span className="highlight">{translate("articles")}</span>
+                                    </span>
+                                </h3>
+                            </div>
+                            <div className="rightside_article_headlin">
+                                <Link href="/articles">
+                                    <button className="learn-more" id="viewall">
+                                        <span aria-hidden="true" className="circle">
+                                            <div className="icon_div">
+                                                <span className="icon arrow">
+                                                    <BsArrowRight />
+                                                </span>
+                                            </div>
                                         </span>
-                                    </h3>
-                                </div>
-                                <div className="rightside_article_headlin">
-                                    <Link href="/articles">
-                                        <button className="learn-more" id="viewall">
-                                            <span aria-hidden="true" className="circle">
-                                                <div className="icon_div">
-                                                    <span className="icon arrow">
-                                                        <BsArrowRight />
-                                                    </span>
-                                                </div>
-                                            </span>
-                                            <span className="button-text">{translate("seeAllProp")}</span>
-                                        </button>
-                                    </Link>
-                                </div>
+                                        <span className="button-text">{translate("seeAllProp")}</span>
+                                    </button>
+                                </Link>
                             </div>
-                            <div className="mobile-headline-view">
-                                <MobileHeadline
-                                    data={{
-                                        start: translate("our"),
-                                        center: translate("articles"),
-                                        link: "/articles",
-                                    }}
-                                />
-                            </div>
+                        </div>
+                        <div className="mobile-headline-view">
+                            <MobileHeadline
+                                data={{
+                                    start: translate("our"),
+                                    center: translate("articles"),
+                                    link: "/articles",
+                                }}
+                            />
+                        </div>
+                        {getArticles && getArticles?.length > 0 ? (
                             <div className="row" id="article_cards">
                                 {isLoading
                                     ? // Show skeleton loading when data is being fetched
@@ -856,9 +879,11 @@ const HomePage = () => {
                                         </div>
                                     ))}
                             </div>
-                        </div>
-                    </section>
-                ) : null}
+                        ) : <div className="no-data-text">
+                            {translate("addDatafromAdmin")}
+                        </div>}
+                    </div>
+                </section>
 
                 {/* WHEN NO DATA IN ADMIN PANEL  */}
                 {sliderdata?.length === 0 &&
@@ -869,7 +894,7 @@ const HomePage = () => {
                     getMostFavProperties?.length === 0 &&
                     getArticles?.length === 0 && (
                         <div className="no-data-text">
-                            No data available
+                            {translate("noDataAvailabe")}
                         </div>
                     )}
 

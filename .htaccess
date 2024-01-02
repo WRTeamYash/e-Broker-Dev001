@@ -8,6 +8,7 @@
     RewriteRule ^about-us$ /about-us.html [L]
     RewriteRule ^agent-deatils$ /agent-deatils.html [L]
     RewriteRule ^all-categories$ /all-categories.html [L]
+    RewriteRule ^chat$ /chat.html [L]
     RewriteRule ^articles$ /articles.html [L]
     RewriteRule ^contact-us$ /contact-us.html [L]
     RewriteRule ^featured-properties$ /featured-properties.html [L]

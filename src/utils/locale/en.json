@@ -232,6 +232,7 @@
   "noChat": "No Chats Available",
   "startConversation": "Start Conversation",
   "messages": "Messages",
-  "deleteMessages":"Delete Message?",
-  "send":"Send"
+  "deleteMessages":"Delete Chat?",
+  "send":"Send",
+  "addDatafromAdmin": "No data available please add Data from admin Panel"
 }

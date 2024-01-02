@@ -39,7 +39,7 @@ const Index = () => {
 
     useEffect(() => { }, [lang]);
     const DummyImgData = useSelector(settingsData);
-    const PlaceHolderImg = DummyImgData?.img_placeholder;
+    const PlaceHolderImg = DummyImgData?.web_placeholder_logo;
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
 
@@ -121,7 +121,7 @@ const Index = () => {
             },
             (error) => {
                 toast.error(error.message);
-                // console.log(error.message);
+                
             }
         );
     };

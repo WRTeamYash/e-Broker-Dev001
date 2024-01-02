@@ -16,7 +16,6 @@ import Image from "next/image";
 const Footer = () => {
     const systemData = useSelector(settingsData);
     const webdata = systemData && systemData;
-    // console.log(webdata)
     return (
         <section id="footer">
             <div className="container">

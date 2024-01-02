@@ -74,7 +74,7 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
     }, [ele.is_favourite]);
 
     const DummyImgData = useSelector(settingsData);
-    const PlaceHolderImg = DummyImgData?.img_placeholder;
+    const PlaceHolderImg = DummyImgData?.web_placeholder_logo;
     const themeEnabled = isThemeEnabled();
 
     return (

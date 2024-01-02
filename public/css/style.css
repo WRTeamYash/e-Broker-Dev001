@@ -870,7 +870,8 @@ body {
 .logo {
   height: 76px;
   filter: brightness(0) invert(1);
-  max-width: 160px;
+  width: 100%;
+  max-width: 300px;
   padding: 18px 1px;
 }
 .is-sticky .logo {
@@ -2473,7 +2474,8 @@ div#article_card_footer .article_footer_text p {
   gap: 40px;
 }
 .footer_logo {
-  width: 182px;
+  width: 100%;
+  max-width: 200px;
   height: 60px;
   filter: brightness(0) invert(1);
 }
@@ -6682,6 +6684,30 @@ a {
   width: 50px;
   height: 50px;
   margin-left: 10px;
+}
+.user-message-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.other-message-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-message-time span {
+     padding: 5px 10px;
+    background-color: var(--primary-background) !important;
+    border-radius: 8px;
+    font-weight: bold;
+
+}
+.other-message-time span {
+     padding: 5px 10px;
+    background-color: var(--primary-background) !important;
+    border-radius: 8px;
+    font-weight: bold;
+
 }
 .user-message #sender_profile {
   width: 50px;

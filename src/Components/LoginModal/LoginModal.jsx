@@ -44,8 +44,7 @@ const LoginModal = ({ isOpen, onClose }) => {
         setShowOtpModal(false);
         window.recaptchaVerifier = null;
     };
-    // console.log(process.env.NEXT_PUBLIC_DEFAULT_COUNTRY)
-
+   
     return (
         <>
             <Modal show={isOpen} onHide={onClose} size="md" aria-labelledby="contained-modal-title-vcenter" centered className="login-modal">

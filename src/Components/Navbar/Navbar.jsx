@@ -55,7 +55,7 @@ const Nav = () => {
 
     const isHomePage = router.pathname === '/';
     const user_register = router.pathname === '/user-register';
-    const chat = router.pathname === '/messages';
+    const chat = router.pathname === '/chat';
     const signupData = useSelector(userSignUpData);
     const sliderdata = useSelector(silderCacheData);
     const settingData = useSelector(settingsData);
@@ -102,17 +102,7 @@ const Nav = () => {
         }
     }, []);
    
-    useEffect(() => {
-        if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
-            document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
-            document.documentElement.style.setProperty('--primary-category-background', settingData?.category_background);
-            document.documentElement.style.setProperty('--primary-sell', settingData?.sell_background);
-        } else {
-            document.documentElement.style.setProperty('--primary-color', "#087c7c");
-            document.documentElement.style.setProperty('--primary-category-background', "#087c7c14");
-            document.documentElement.style.setProperty('--primary-sell', "#e8aa42");
-        }
-    }, [settingData?.svg_clr])
+   
 
     useEffect(() => {
         const header = document.querySelector(".header");
@@ -163,7 +153,6 @@ const Nav = () => {
     };
     useEffect(() => {
 
-        // console.log("selected lang", selectedLanguage)
     }, [selectedLanguage, language, defaultlang])
 
     const handleScroll = () => {
@@ -262,7 +251,7 @@ const Nav = () => {
         } else {
             if (signupData?.data?.data.id) {
                 // Corrected the condition
-                router.push("/messages"); // Use an absolute path here
+                router.push("/chat"); // Use an absolute path here
             } else {
                 Swal.fire({
                     icon: "error",

@@ -8,6 +8,7 @@ export const ImageToSvg = ({ imageUrl, className }) => {
 
 
   useEffect(() => {
+
     const convertImageToSvg = async () => {
       try {
         const response = await fetch(imageUrl);

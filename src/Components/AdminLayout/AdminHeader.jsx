@@ -57,7 +57,7 @@ const AdminHeader = () => {
     };
     useEffect(() => {
 
-        // console.log("selected lang", selectedLanguage)
+       
     }, [selectedLanguage])
 
 

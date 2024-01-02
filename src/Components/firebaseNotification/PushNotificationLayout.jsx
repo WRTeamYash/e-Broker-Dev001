@@ -44,12 +44,10 @@ const PushNotificationLayout = ({ children, onNotificationReceived }) => {
         toast.error('Error handling notification.');
       });
   }, [notification, onNotificationReceived]);
-  // console.log(notification, "notification")
 
   // / service worker
   useEffect(() => {
     if ('serviceWorker' in navigator) {
-      console.log("hello")
       window.addEventListener('load', function () {
         navigator.serviceWorker.register('/firebase-messaging-sw.js').then(
           function (registration) {

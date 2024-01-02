@@ -25,6 +25,7 @@ import toast from "react-hot-toast";
 import { getChatData } from "@/store/reducer/momentSlice";
 import { isSupported } from "firebase/messaging";
 import { ImageToSvg } from "@/Components/Cards/ImageToSvg";
+import Swal from "sweetalert2";
 
 const PropertieDeatils = () => {
     const router = useRouter();
@@ -57,7 +58,7 @@ const PropertieDeatils = () => {
     const isLoggedIn = useSelector((state) => state.User_signup);
     const DummyImgData = useSelector(settingsData);
     const themeEnabled = isThemeEnabled();
-    // console.log(themeEnabled)
+
     useEffect(() => { }, [lang]);
     useEffect(() => {
         const checkMessagingSupport = async () => {
@@ -123,9 +124,8 @@ const PropertieDeatils = () => {
 
 
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    // console.log(userCurrentId)
-    // console.log(getPropData?.added_by)
-    const PlaceHolderImg = DummyImgData?.img_placeholder;
+
+    const PlaceHolderImg = DummyImgData?.web_placeholder_logo;
     const videoLink = getPropData && getPropData.video_link;
     const videoId = videoLink ? videoLink.split("/").pop() : null;
 
@@ -202,38 +202,48 @@ const PropertieDeatils = () => {
             }
         );
     };
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
     const handleChat = (e) => {
         e.preventDefault();
-
-        if (userCurrentId) {
-            setChatData((prevChatData) => {
-                const newChatData = {
-                    property_id: getPropData.id,
-                    slug_id: getPropData.slug_id,
-                    title: getPropData.title,
-                    title_image: getPropData.title_image,
-                    user_id: getPropData.added_by,
-                    name: getPropData.customer_name,
-                    profile: getPropData.profile,
-                };
-
-                // Use the updater function to ensure you're working with the latest state
-                localStorage.setItem('newUserChat', JSON.stringify(newChatData));
-                // getChatData(newChatData)
-
-
-                // console.log(newChatData)
-                return newChatData;
+        if (DummyImgData?.demo_mode === true) {
+            Swal.fire({
+                title: "Opps!",
+                text: "This Action is Not Allowed in Demo Mode",
+                icon: "warning",
+                showCancelButton: false,
+                confirmButtonColor: primaryColor, // Use the primary color from CSS
+                cancelButtonColor: "#d33",
+                confirmButtonText: "OK",
             });
-
-            router.push('/messages');
+            return false;
         } else {
-            toast.error("Please login first");
-            setShowChat(true);
+            if (userCurrentId) {
+                setChatData((prevChatData) => {
+                    const newChatData = {
+                        property_id: getPropData.id,
+                        slug_id: getPropData.slug_id,
+                        title: getPropData.title,
+                        title_image: getPropData.title_image,
+                        user_id: getPropData.added_by,
+                        name: getPropData.customer_name,
+                        profile: getPropData.profile,
+                    };
+
+                    // Use the updater function to ensure you're working with the latest state
+                    localStorage.setItem('newUserChat', JSON.stringify(newChatData));
+
+                    return newChatData;
+                });
+
+                router.push('/chat');
+            } else {
+                toast.error("Please login first");
+                setShowChat(true);
+            }
         }
     };
     useEffect(() => {
-        // console.log("chatData", chatData)
+
     }, [chatData])
 
     return (
@@ -418,7 +428,7 @@ const PropertieDeatils = () => {
                                                                         <div id="specification">
                                                                             <div className="spec-icon">
                                                                                 {themeEnabled ? (
-                                                                                    <ImageToSvg imageUrl={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg} className="custom-svg" />
+                                                                                    <ImageToSvg imageUrl={elem.image !== undefined && elem.image !== null ? elem?.image : PlaceHolderImg} className="custom-svg" />
                                                                                 ) : (
                                                                                     <Image
                                                                                         loading="lazy"

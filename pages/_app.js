@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import { Provider, useSelector } from "react-redux";
 import { store, persistor } from "../src/store/store";
 import { PersistGate } from "redux-persist/integration/react";
@@ -13,8 +13,9 @@ import Head from "next/head";
 import { Toaster } from "react-hot-toast";
 import PushNotificationLayout from "@/Components/firebaseNotification/PushNotificationLayout";
 
+
 function MyApp({ Component, pageProps, data }) {
-   
+
     return (
         <Fragment>
             <Head>

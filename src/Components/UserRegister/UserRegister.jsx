@@ -18,7 +18,6 @@ const UserRegister = () => {
     const navigate = useRouter();
     const signupData = useSelector(userSignUpData);
     const FcmToken = useSelector(Fcmtoken)
-    // console.log("signupdata", signupData)
     const navigateToHome = () => {
         navigate.push("/");
     };

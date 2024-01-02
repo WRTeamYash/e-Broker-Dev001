@@ -48,7 +48,7 @@ const UserRegister = () => {
         setShowCurrentLoc(false);
     };
     const handleSelectLocation = (location) => {
-
+        console.log(location)
         setSelectedLocation(location);
     };
     const modalStyle = {
@@ -74,34 +74,30 @@ const UserRegister = () => {
     };
     const handleSubmitInfo = (e) => {
         e.preventDefault();
-        UpdateProfileApi(
-            signupData.data.data.id,
-            username,
-            email,
-            signupData.data.data.mobile,
-            "3",
-            address,
-            signupData.data.data.firebase_id,
-            "mobile",
-            image,
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            FcmToken,
-            "1",
-            (res) => {
+        UpdateProfileApi({
+            userid: signupData.data.data.id,
+            name: username,
+            email: email,
+            mobile: signupData.data.data.mobile,
+            type: "3",
+            address: address,
+            firebase_id: signupData.data.data.firebase_id,
+            logintype: "mobile",
+            profile: image,
+            fcm_id: FcmToken,
+            notification: "1",
+            city: selectedLocation.city,
+            state: selectedLocation.state,
+            country: selectedLocation.country,
+            onSuccess: (res) => {
                 toast.success("User Register Successfully.");
                 loadUpdateUserData(res.data);
                 navigate.push("/");
             },
-            (err) => {
+            onError: (err) => {
                 toast.error(err.message);
             }
-        );
+        });
     };
 
     return (

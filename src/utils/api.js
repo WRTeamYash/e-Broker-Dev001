@@ -30,7 +30,7 @@ const GET_CHATS = "get_chats"
 const GET_CHATS_MESSAGES = "get_messages"
 const SEND_MESSAGE = "send_message"
 const DELETE_MESSAGES = "delete_chat_message"
-
+const DELETE_USER = "delete_user"
 
 // is login user check
 export const getUserID = () => {
@@ -84,7 +84,7 @@ export const user_signupApi = (name, email, mobile, type, address, firebase_id, 
     }
 }
 // UPDATE PROFILE
-export const update_profile = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id, notification) => {
+export const update_profile = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id, notification, city, state, country) => {
     let data = new FormData();
     data.append("userid", userid);
     data.append("name", name);
@@ -104,6 +104,9 @@ export const update_profile = (userid, name, email, mobile, type, address, fireb
     data.append("pintrest_id", pintrest_id);
     data.append("fcm_id", fcm_id);
     data.append("notification", notification);
+    data.append("city", city);
+    data.append("state", state);
+    data.append("country", country);
     return {
         url: `${UPDATE_PROFILE}`,
         method: 'POST',
@@ -534,7 +537,7 @@ export const getNotificationList = (userid, offset, limit) => {
         authorizationHeader: true,
     }
 }
-// get notification list
+// assign free package 
 export const assignFreePackage = (package_id) => {
     let data = new FormData();
     data.append("package_id", package_id);
@@ -608,5 +611,17 @@ export const deleteChatMessages = (sender_id, receiver_id, property_id) => {
         data,
         authorizationHeader: true,
 
+    }
+}
+// Delete user api 
+export const deleteUser = (userid) => {
+    let data = new FormData();
+    data.append("userid", userid);
+
+    return {
+        url: `${DELETE_USER}`,
+        method: "POST",
+        data,
+        authorizationHeader: true,
     }
 }

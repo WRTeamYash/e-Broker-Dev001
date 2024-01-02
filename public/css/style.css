@@ -1942,7 +1942,12 @@ button.learn-more .button-text {
   color: #282f39c2;
   opacity: 1;
 }
-
+#nearbyCityProperties {
+  background: #fff;
+  padding: 60px 0;
+  margin-top: -170px;
+  margin-bottom: 60px;
+}
 /* ========== PROPERTIE CSS ======================= */
 
 #main_properties {

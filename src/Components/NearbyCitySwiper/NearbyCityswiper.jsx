@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import { BsArrowRight } from "react-icons/bs";
 
 // Import Swiper styles
 import "swiper/css";
@@ -11,38 +12,11 @@ import { FreeMode, Pagination } from "swiper/modules";
 import VerticalCard from "../Cards/VerticleCard";
 import VerticalCardSkeleton from "../Skeleton/VerticalCardSkeleton";
 import Link from "next/link";
-import { GetFeturedListingsApi } from "@/store/actions/campaign";
-import { useSelector } from "react-redux";
-import { useRouter } from "next/router";
+import MobileHeadline from "../MobileHeadlines/MobileHeadline";
+
 import { store } from "@/store/store";
 import { translate } from "@/utils";
-
-const SimilerPropertySlider = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [getSimilerData, setSimilerData] = useState();
-
-    const isLoggedIn = useSelector((state) => state.User_signup);
-    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    const router = useRouter();
-    const propId = router.query;
-
-    useEffect(() => {
-        setIsLoading(true);
-        GetFeturedListingsApi({
-            get_simiilar: "1",
-            current_user: isLoggedIn ? userCurrentId : "",
-            slug_id: propId.slug,
-            onSuccess: (response) => {
-                const propertyData = response.data;
-                setIsLoading(false);
-                setSimilerData(propertyData);
-            },
-            onError: (error) => {
-                setIsLoading(false);
-                console.log(error);
-            }
-        });
-    }, [isLoggedIn, propId]);
+const NearbyCityswiper = ({ data, isLoading, userCurrentLocation }) => {
 
     const breakpoints = {
         320: {
@@ -71,16 +45,47 @@ const SimilerPropertySlider = () => {
     const language = store.getState().Language.languages;
     return (
         <div div id="similer-properties">
-            {getSimilerData?.length > 0 ? (
+            {data?.length > 0 ? (
                 <>
-                    <div className="similer-headline">
-                        <span className="headline">
-                            {translate("similer")} {" "}
-                            <span>
-                                <span className="highlight"> {translate("properties")}</span>
-                            </span>
-                        </span>
+                    <div className="most_fav_header">
+                        <div>
+                            <h3>
+                                {translate("properties")}{" "} {translate("nearby")}{" "}
+                                <span>
+                                    <span className="highlight"> {userCurrentLocation}</span>
+                                </span>{" "}
+
+                            </h3>
+                        </div>
+                        {data.length > 4 ? (
+                            <div className="rightside_most_fav_header">
+                                <Link href={`/properties/city/${userCurrentLocation}`}>
+                                    <button className="learn-more" id="viewall">
+                                        <span aria-hidden="true" className="circle">
+                                            <div className="icon_div">
+                                                <span className="icon arrow">
+                                                    <BsArrowRight />
+                                                </span>
+                                            </div>
+                                        </span>
+                                        <span className="button-text">{translate("seeAllProp")}</span>
+                                    </button>
+                                </Link>
+                            </div>
+                        ) : null}
                     </div>
+                    {data.length > 4 ? (
+                        <div className="mobile-headline-view">
+                            <MobileHeadline
+                                data={{
+                                    start: translate("most"),
+                                    center: translate("fav"),
+                                    end: translate("properties"),
+                                    link: `/properties/city/${userCurrentLocation}`,
+                                }}
+                            />
+                        </div>
+                    ) : null}
                     <div className="similer-prop-slider">
                         <Swiper
                             dir={language.rtl === "1" ? "rtl" : "ltr"}
@@ -116,8 +121,8 @@ const SimilerPropertySlider = () => {
                                     ))}
                                 </Swiper>
                             ) : (
-                                getSimilerData &&
-                                getSimilerData.map((ele, index) => (
+                                data &&
+                                data.map((ele, index) => (
                                     <SwiperSlide id="similer-swiper-slider" key={index}>
                                         <Link href="/properties-details/[slug]" as={`/properties-details/${ele.slug_id}`} passHref>
                                             <VerticalCard ele={ele} />
@@ -133,4 +138,4 @@ const SimilerPropertySlider = () => {
     );
 };
 
-export default SimilerPropertySlider;
+export default NearbyCityswiper;

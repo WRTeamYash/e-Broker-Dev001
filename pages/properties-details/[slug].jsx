@@ -26,7 +26,7 @@ import { getChatData } from "@/store/reducer/momentSlice";
 import { isSupported } from "firebase/messaging";
 import { ImageToSvg } from "@/Components/Cards/ImageToSvg";
 import Swal from "sweetalert2";
-
+import { MdReport } from "react-icons/md";
 const PropertieDeatils = () => {
     const router = useRouter();
     const propId = router.query;
@@ -38,6 +38,7 @@ const PropertieDeatils = () => {
     const [expanded, setExpanded] = useState(false);
     const [getPropData, setPropData] = useState();
     const [interested, setInterested] = useState(false);
+    const [isReported, setIsReported] = useState(false);
     const [showMap, setShowMap] = useState(false);
     const [showChat, setShowChat] = useState(true);
     const [chatData, setChatData] = useState({
@@ -89,6 +90,10 @@ const PropertieDeatils = () => {
                     const propertyData = response && response.data;
                     setIsLoading(false);
                     setPropData(propertyData[0]);
+                    if (getPropData?.is_reported) {
+                        console.log(getPropData.is_reported)
+                        setIsReported(true)
+                    }
                 },
                 onError: (error) => {
                     setIsLoading(false);
@@ -152,10 +157,11 @@ const PropertieDeatils = () => {
 
         return () => {
             setShowMap(false);
+            setIsReported(false)
         };
 
 
-    }, [userCurrentId, propId]);
+    }, [userCurrentId, propId, isReported]);
     useEffect(() => {
 
         if (userCurrentId === getPropData?.added_by) {
@@ -242,9 +248,15 @@ const PropertieDeatils = () => {
             }
         }
     };
-    useEffect(() => {
+    const handleReportProperty = (e) => {
+        e.preventDefault();
+    }
 
-    }, [chatData])
+
+
+    useEffect(() => {
+        console.log(isReported)
+    }, [chatData, isReported])
 
     return (
         <>
@@ -611,7 +623,9 @@ const PropertieDeatils = () => {
                                                     </div>
                                                 )}
                                                 <div className="enquiry">
-                                                    {/* <button className='enquiry-buttons'> <RiSendPlane2Line className='mx-1' size={20} />{translate("sendEnquiry")}</button> */}
+                                                    {!isReported ? (
+                                                        <button className='enquiry-buttons' onClick={handleReportProperty}> <MdReport className='mx-1' size={20} />{translate("reportProp")}</button>
+                                                    ) : null}
 
                                                     {interested && getPropData?.is_interested === 1 ? (
                                                         <button className="enquiry-buttons" onClick={handleNotInterested}>

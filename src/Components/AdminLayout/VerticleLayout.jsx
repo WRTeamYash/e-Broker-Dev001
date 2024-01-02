@@ -11,6 +11,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AddHomeOutlinedIcon from "@mui/icons-material/AddHomeOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
@@ -38,9 +39,12 @@ import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import { RiAdvertisementLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { languageData } from "@/store/reducer/languageSlice.js";
+import { deleteUserApi } from "@/store/actions/campaign.js"
 import { store } from "@/store/store.js";
 import Image from "next/image";
 import { settingsData } from "@/store/reducer/settingsSlice.js";
+import { getAuth, deleteUser } from 'firebase/auth';
+
 
 const drawerWidth = 240;
 
@@ -117,9 +121,9 @@ export default function VerticleLayout(props) {
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
     const settingData = useSelector(settingsData);
 
-    useEffect(() => {}, [lang]);
     const language = store.getState().Language.languages;
-
+    const current_user = store.getState().User_signup?.data?.data?.id
+    useEffect(() => { }, [lang]);
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -143,6 +147,58 @@ export default function VerticleLayout(props) {
                 logoutSuccess();
                 toast.success(translate("logoutSuccess"));
                 router.push("/");
+            } else {
+                toast.error(translate("logoutcancel"));
+            }
+        });
+    };
+
+
+
+
+
+
+    const handleDeleteAcc = () => {
+        // Initialize Firebase Authentication
+        const auth = getAuth();
+
+        // Get the currently signed-in user
+        const user = auth.currentUser;
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: primaryColor,
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Delete the user
+                deleteUser(user)
+                    .then(() => {
+                        deleteUserApi(
+                            current_user,
+                            (res) => {
+                                console.log(res)
+                                logoutSuccess();
+                                toast.success("User deleted successfully.")
+                                router.push("/");
+
+                            }, (err) => {
+                                console.log(err)
+                            },)
+                    })
+                    .catch((error) => {
+                        console.error('Error deleting user:', error.message);
+                        console.log(error)
+                        if (error.code === "auth/requires-recent-login") {
+                            toast.error(translate("deletePop"));
+                            logoutSuccess();
+                            router.push("/");
+                        }
+                    });
             } else {
                 toast.error(translate("logoutcancel"));
             }
@@ -406,6 +462,28 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </ListItem>
                     </Link>
+                    <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                        <ListItemButton
+                            onClick={handleDeleteAcc}
+                            sx={{
+                                minHeight: 30,
+                                justifyContent: open ? "initial" : "center",
+                                px: 2.5,
+                            }}
+                        >
+                            <ListItemIcon
+                                className="drawer_list_icon"
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : "auto",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                <DeleteOutlineIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={translate("deleteUser")} sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
+                    </ListItem>
                     <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
                         <ListItemButton
                             onClick={handleLogout}

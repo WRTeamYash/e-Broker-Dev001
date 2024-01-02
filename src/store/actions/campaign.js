@@ -25,16 +25,42 @@ import {
     getChatList,
     getChatMessages,
     sendMessage,
-    deleteChatMessages
+    deleteChatMessages,
+    deleteUser
 } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
 
+
 // update profile
-export const UpdateProfileApi = (userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id, notification, onSuccess, onError, onStart) => {
+export const UpdateProfileApi = ({
+    userid = "",
+    name = "",
+    email = "",
+    mobile = "",
+    type = "",
+    address = "",
+    firebase_id = "",
+    logintype = "",
+    profile = "",
+    latitude = "",
+    longitude = "",
+    about_me = "",
+    facebook_id = "",
+    twiiter_id = "",
+    instagram_id = "",
+    pintrest_id = "",
+    fcm_id = "",
+    notification = "",
+    city = "",
+    state = "",
+    country = "",
+    onSuccess = () => { },
+    onError = () => { },
+    onStart = () => { } }) => {
     store.dispatch(
         apiCallBegan({
-            ...update_profile(userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id, notification),
+            ...update_profile(userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id, notification, city, state, country),
             displayToast: false,
             onStart,
             onSuccess,
@@ -448,6 +474,18 @@ export const deleteChatMessagesApi = (sender_id, receiver_id, property_id, onSuc
     store.dispatch(
         apiCallBegan({
             ...deleteChatMessages(sender_id, receiver_id, property_id),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+// Delete user Api 
+export const deleteUserApi = (userid, onSuccess, onError, onStart) => {
+    store.dispatch(
+        apiCallBegan({
+            ...deleteUser(userid),
             displayToast: false,
             onStart,
             onSuccess,

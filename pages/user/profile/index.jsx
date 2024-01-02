@@ -29,7 +29,7 @@ const Index = () => {
         pintrest: userProfileData?.pintrest_id,
         twiiter: userProfileData?.twiiter_id,
         profileImage: userProfileData?.profile,
-        
+
     });
     const fileInputRef = useRef(null);
 
@@ -84,26 +84,27 @@ const Index = () => {
     const handleUpdateProfile = (e) => {
         e.preventDefault();
 
-        UpdateProfileApi(
-            userCurrentId,
-            formData.fullName,
-            formData.email,
-            formData.phoneNumber,
-            "",
-            formData.address,
-            "",
-            "",
-            formData.profileImage,
-            formData.selectedLocation?.lat,
-            formData.selectedLocation?.lng,
-            formData.aboutMe ? formData.aboutMe : "",
-            formData.facebook ? formData.facebook : "",
-            formData.twiiter ? formData.twiiter : "",
-            formData.instagram ? formData.instagram : "",
-            formData.pintrest ? formData.pintrest : "",
-            FcmToken,
-            "1",
-            (response) => {
+        UpdateProfileApi({
+
+            userid: userCurrentId,
+            name: formData.fullName,
+            email: formData.email,
+            mobile: formData.phoneNumber,
+            address: formData.address,
+            profile: formData.profileImage,
+            latitude: formData.selectedLocation?.lat,
+            longitude: formData.selectedLocation?.lng,
+            about_me: formData.aboutMe ? formData.aboutMe : "",
+            facebook_id: formData.facebook ? formData.facebook : "",
+            twiiter_id: formData.twiiter ? formData.twiiter : "",
+            instagram_id: formData.instagram ? formData.instagram : "",
+            pintrest_id: formData.pintrest ? formData.pintrest : "",
+            fcm_id: FcmToken,
+            notification: "1",
+            city: formData.selectedLocation?.city,
+            state: formData.selectedLocation?.state,
+            country: formData.selectedLocation?.country,
+            onSuccess: (response) => {
                 toast.success("Profile Updated Successfully");
                 loadUpdateUserData(response.data);
                 navigate.push("/");
@@ -119,11 +120,12 @@ const Index = () => {
                     twiiter: "",
                 });
             },
-            (error) => {
+            onError: (error) => {
                 toast.error(error.message);
-                
+
             }
-        );
+        });
+
     };
 
     return (
@@ -179,9 +181,9 @@ const Index = () => {
                                                 <div className="add_user_fields_div">
                                                     <span>{translate("location")}</span>
 
-                                                    <LocationSearchBox onLocationSelected={handleLocationSelected} 
-                                                    initialLatitude={userProfileData?.latitude}
-                                                    initialLongitude={userProfileData?.longitude}
+                                                    <LocationSearchBox onLocationSelected={handleLocationSelected}
+                                                        initialLatitude={userProfileData?.latitude}
+                                                        initialLongitude={userProfileData?.longitude}
                                                     />
                                                 </div>
                                             </div>

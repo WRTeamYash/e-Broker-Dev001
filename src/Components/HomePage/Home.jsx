@@ -31,6 +31,7 @@ import "aos/dist/aos.css";
 import { translate } from "@/utils";
 import Layout from "../Layout/Layout";
 import SearchTab from "../SearchTab/SearchTab.jsx";
+import NearbyCityswiper from "../NearbyCitySwiper/NearbyCityswiper.jsx"
 import { store } from "@/store/store";
 import { categoriesCacheData, silderCacheData } from "@/store/reducer/momentSlice";
 import SliderComponent from "../HomeSlider/SliderComponent";
@@ -43,7 +44,7 @@ const HomePage = () => {
     const [showFilterModal, setShowFilterModal] = useState(false);
     const [showVideoModal, setShowVideoModal] = useState(false);
     const [expandedStates, setExpandedStates] = useState([]);
-
+    const [nearbyCityData, setnearbyCityData] = useState()
     const [getFeaturedListing, setGetFeaturedListing] = useState();
     const [getMostViewedProp, setGetMostViewedProp] = useState();
     const [getMostFavProperties, setGetMostFavProperties] = useState();
@@ -52,6 +53,7 @@ const HomePage = () => {
 
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+    const userCurrentLocation = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.city : null;
     const language = store.getState().Language.languages;
     const sliderdata = useSelector(silderCacheData);
     const Categorydata = useSelector(categoriesCacheData);
@@ -108,6 +110,27 @@ const HomePage = () => {
         },
     };
 
+    // GET NEARBY CITY DATA
+
+    useEffect(() => {
+        setIsLoading(true);
+        if (userCurrentLocation) {
+            GetFeturedListingsApi({
+                city: userCurrentLocation,
+                current_user: isLoggedIn ? userCurrentId : "",
+                onSuccess: (response) => {
+                    const cityData = response.data;
+                    setIsLoading(false);
+                    setnearbyCityData(cityData);
+                },
+                onError: (error) => {
+                    console.log(error);
+                    setIsLoading(true);
+                }
+            }
+            );
+        }
+    }, [isLoggedIn, userCurrentLocation]);
     // GET FEATURED LISTINGS and
 
     useEffect(() => {
@@ -212,6 +235,9 @@ const HomePage = () => {
             }
         );
     }, []);
+    useEffect(() => {
+
+    }, [nearbyCityData])
 
 
     const handleImageLoaded = () => {
@@ -241,8 +267,19 @@ const HomePage = () => {
                     </div>
                 )}
 
-                {/* Feature Section  */}
 
+
+                {/* Nearby City Section  Section  */}
+                {userCurrentLocation && (
+                    <section id="nearbyCityProperties">
+                        <div className="container">
+                            <NearbyCityswiper data={nearbyCityData} isLoading={isLoading} userCurrentLocation={userCurrentLocation} />
+                        </div>
+                    </section>
+                )}
+
+
+                {/* Feature Section  */}
                 <section id="feature">
                     <div className="container">
                         <div id="main_features">
@@ -850,7 +887,7 @@ const HomePage = () => {
                                                 </span>
                                             </div>
                                         </span>
-                                        <span className="button-text">{translate("seeAllProp")}</span>
+                                        <span className="button-text">{translate("seeAllArticles")}</span>
                                     </button>
                                 </Link>
                             </div>

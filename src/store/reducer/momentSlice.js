@@ -9,7 +9,8 @@ let initialState = {
     lastFetch: null,
     slider: [],
     categories: [],
-    newUserChatData: []
+    newUserChatData: [],
+    filterData: []
 };
 
 const momentSlice = createSlice({
@@ -46,10 +47,14 @@ const momentSlice = createSlice({
             state.newUserChatData = null;
             // return state;
         },
+        filterData: (state, action) => {
+            state.loading = false;
+            state.filterData = action.payload.data;
+        },
     },
 });
 
-export const { sliderRequested, sliderSuccess, sliderFailed, categoriesRequested, categoriesSuccess, categoriesFailed, newUserChatData, newUserRemoveChat } = momentSlice.actions;
+export const { sliderRequested, sliderSuccess, sliderFailed, categoriesRequested, categoriesSuccess, categoriesFailed, newUserChatData, newUserRemoveChat, filterData } = momentSlice.actions;
 export default momentSlice.reducer;
 
 // API Calls
@@ -94,6 +99,9 @@ export const loadCategories = (onSuccess, onError, onStart) => {
 export const getChatData = (data) => {
     store.dispatch(newUserChatData({ data }))
 }
+export const getfilterData = (data) => {
+    store.dispatch(filterData({ data }))
+}
 export const removeChat = (remove) => {
     store.dispatch(newUserRemoveChat({ remove }));
 };
@@ -110,4 +118,8 @@ export const categoriesCacheData = createSelector(
 export const newchatData = createSelector(
     (state) => state.cachedata,
     (cachedata) => cachedata.newUserChatData
+);
+export const filterDataaa = createSelector(
+    (state) => state.cachedata,
+    (cachedata) => cachedata.filterData
 );

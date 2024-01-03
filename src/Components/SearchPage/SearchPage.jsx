@@ -14,12 +14,16 @@ import VerticalCardSkeleton from "@/Components/Skeleton/VerticalCardSkeleton.jsx
 import Link from "next/link.js";
 import VerticalCard from "@/Components/Cards/VerticleCard.jsx";
 import NoData from "@/Components/NoDataFound/NoData.jsx";
-import { categoriesCacheData } from "@/store/reducer/momentSlice";
+import { categoriesCacheData, filterDataaa } from "@/store/reducer/momentSlice";
 
 
 const SearchPage = () => {
-    const searchedData = JSON.parse(localStorage.getItem("searchData"));
 
+
+    // const Sdata = useSelector(filterDataaa)
+    // console.log(Sdata)
+    // const searchedData = JSON.parse(localStorage.getItem("searchData"));
+    const searchedData = useSelector(filterDataaa)
     const [searchData, setSearchData] = useState();
     const [filterData, setFilterData] = useState("");
     const isLoggedIn = useSelector((state) => state.User_signup);
@@ -36,7 +40,7 @@ const SearchPage = () => {
         minPrice: searchedData?.filterData?.minPrice ? searchedData?.filterData?.minPrice : "",
         maxPrice: searchedData?.filterData?.maxPrice ? searchedData?.filterData?.maxPrice : "",
         postedSince: searchedData?.filterData?.postedSince ? searchedData?.filterData?.postedSince : "",
-        selectedLocation: null,
+        selectedLocation: searchedData?.filterData?.selectedLocation ? searchedData?.filterData?.selectedLocation : null,
     });
     const [activeTab, setActiveTab] = useState(searchedData.activeTab);
     const [searchInput, setSearchInput] = useState(searchedData.searchInput);

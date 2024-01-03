@@ -7,6 +7,9 @@ import LocationSearchBox from "../Location/LocationSearchBox";
 import { GrRefresh } from "react-icons/gr";
 import { RiCloseCircleLine, RiSendPlane2Line } from "react-icons/ri";
 import { useRouter } from "next/router";
+import { getfilterData } from "@/store/reducer/momentSlice";
+import { BsPinMap } from "react-icons/bs";
+
 
 const SearchTab = ({ getCategories }) => {
     const router = useRouter();
@@ -76,7 +79,7 @@ const SearchTab = ({ getCategories }) => {
             postedSince: postedSinceValue, // Include it here
             selectedLocation: formData.selectedLocation || null, // Set to null if not selected
         };
-       
+        console.log("filter data", filterData)
         // Set the filter data in state
         setFilterD(filterData);
         setShowFilterModal(false); // Close the modal
@@ -92,8 +95,7 @@ const SearchTab = ({ getCategories }) => {
             activeTab: activeTab,
             searchInput: searchInput,
         };
-
-        localStorage.setItem("searchData", JSON.stringify(searchData));
+        getfilterData(searchData)
 
         setShowFilterModal(false); // Close the modal
 
@@ -135,6 +137,11 @@ const SearchTab = ({ getCategories }) => {
                         <input className="searchinput" placeholder="Search your property" name="propertySearch" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
                     </div>
                     <div id="leftside-buttons">
+                        <button className="map" onClick={() => setShowFilterModal(true)}>
+                            <BsPinMap size={20} /> {""}{""}{""}
+                            <span>{translate("map")}
+                            </span>
+                        </button>
                         <button className="filter" onClick={() => setShowFilterModal(true)}>
                             <BiFilter size={25} />
                             {translate("filter")}

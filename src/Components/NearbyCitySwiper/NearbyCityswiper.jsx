@@ -74,18 +74,18 @@ const NearbyCityswiper = ({ data, isLoading, userCurrentLocation }) => {
                             </div>
                         ) : null}
                     </div>
-                    {data.length > 4 ? (
+                    {/* {data.length > 4 ? ( */}
                         <div className="mobile-headline-view">
                             <MobileHeadline
                                 data={{
-                                    start: translate("most"),
-                                    center: translate("fav"),
-                                    end: translate("properties"),
+                                    start: translate("properties"),
+                                    center: translate("nearby"),
+                                    end: userCurrentLocation,
                                     link: `/properties/city/${userCurrentLocation}`,
                                 }}
                             />
                         </div>
-                    ) : null}
+                    {/* ) : null} */}
                     <div className="similer-prop-slider">
                         <Swiper
                             dir={language.rtl === "1" ? "rtl" : "ltr"}

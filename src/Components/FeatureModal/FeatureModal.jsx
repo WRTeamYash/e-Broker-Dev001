@@ -99,7 +99,7 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
         () =>
             uploadedImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} alt="no_img" />
+                    <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeImage(index)}>
                             <RiCloseCircleLine size="25px" />

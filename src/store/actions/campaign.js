@@ -26,7 +26,9 @@ import {
     getChatMessages,
     sendMessage,
     deleteChatMessages,
-    deleteUser
+    deleteUser,
+    getReportReasons,
+    addReport
 } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
@@ -486,6 +488,39 @@ export const deleteUserApi = (userid, onSuccess, onError, onStart) => {
     store.dispatch(
         apiCallBegan({
             ...deleteUser(userid),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+
+// GET REPORT rEASONS  API
+export const GetReportReasonsApi = (onSuccess, onError, onStart) => {
+    store.dispatch(
+        apiCallBegan({
+            ...getReportReasons(),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+
+// GET REPORT rEASONS  API
+export const addReportApi = ({
+    reason_id = "",
+    property_id = "",
+    other_message = "",
+    onSuccess = () => { },
+    onError = () => { },
+    onStart = () => { }
+}) => {
+    store.dispatch(
+        apiCallBegan({
+            ...addReport(reason_id, property_id, other_message),
             displayToast: false,
             onStart,
             onSuccess,

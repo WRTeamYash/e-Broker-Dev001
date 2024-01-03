@@ -698,12 +698,7 @@
   .searchinput {
     width: 100%;
   }
-  .filter {
-    width: 110px;
-  }
-  .find {
-    width: 130px;
-  }
+
 
   /* HERO SECTION  CSS END  */
   /* FEATURE SECTION  CSS START  */
@@ -1550,7 +1545,8 @@
   }
 
   #leftside-buttons {
-    margin-top: 30px;
+    /* margin-top: 30px; */
+    padding: 20px;
   }
 
   /* #searchbox #tabs #rentbutton,

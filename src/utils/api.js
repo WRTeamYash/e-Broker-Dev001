@@ -31,6 +31,8 @@ const GET_CHATS_MESSAGES = "get_messages"
 const SEND_MESSAGE = "send_message"
 const DELETE_MESSAGES = "delete_chat_message"
 const DELETE_USER = "delete_user"
+const GET_REPORT_REASONS = "get_report_reasons"
+const ADD_REPORT = "add_reports"
 
 // is login user check
 export const getUserID = () => {
@@ -623,5 +625,32 @@ export const deleteUser = (userid) => {
         method: "POST",
         data,
         authorizationHeader: true,
+    }
+}
+
+// Get Report Reasons list 
+export const getReportReasons = () => {
+    return {
+        url: `${GET_REPORT_REASONS}`,
+        method: "GET",
+        params: {
+
+        },
+        authorizationHeader: false,
+
+    }
+}
+// ADD Report 
+export const addReport = (reason_id, property_id, other_message) => {
+    let data = new FormData();
+    data.append("reason_id", reason_id);
+    data.append("property_id", property_id);
+    data.append("other_message", other_message);
+    return {
+        url: `${ADD_REPORT}`,
+        method: "POST",
+        data,
+        authorizationHeader: true,
+
     }
 }

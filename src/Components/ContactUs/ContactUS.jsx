@@ -200,7 +200,7 @@ const ContactUS = () => {
                                                 </div>
                                                 <div className="contact-deatils">
                                                     <p>{translate("emailUs")}</p>
-                                                    <a href={`mail to:${systemsettings?.company_email}`} style={{ textDecoration: "none" }}>
+                                                    <a href={`mailto:${systemsettings?.company_email}`} style={{ textDecoration: "none" }}>
                                                         <span>{systemsettings?.company_email}</span>
                                                     </a>
                                                 </div>

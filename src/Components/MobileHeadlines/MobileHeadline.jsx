@@ -4,7 +4,6 @@ import { IoIosArrowForward } from "react-icons/io";
 
 const MobileHeadline = (props) => {
     const { data } = props;
-
     return (
         <>
             <div className="container">
@@ -19,7 +18,7 @@ const MobileHeadline = (props) => {
                         </span>
                     </div>
                     <div>
-                        <Link href={data && data.link}>
+                        <Link href={data?.link}>
                             <button className="mobileViewArrow">
                                 <IoIosArrowForward size={25} />
                             </button>

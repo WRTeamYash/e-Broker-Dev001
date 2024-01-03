@@ -27,13 +27,14 @@ import { isSupported } from "firebase/messaging";
 import { ImageToSvg } from "@/Components/Cards/ImageToSvg";
 import Swal from "sweetalert2";
 import { MdReport } from "react-icons/md";
+import ReportPropertyModal from "@/Components/ReportPropertyModal/ReportPropertyModal";
 const PropertieDeatils = () => {
     const router = useRouter();
     const propId = router.query;
     const { isLoaded } = loadGoogleMaps();
     const [isMessagingSupported, setIsMessagingSupported] = useState(false);
     const [notificationPermissionGranted, setNotificationPermissionGranted] = useState(false);
-
+    const [isReporteModal, setIsReporteModal] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [expanded, setExpanded] = useState(false);
     const [getPropData, setPropData] = useState();
@@ -90,8 +91,8 @@ const PropertieDeatils = () => {
                     const propertyData = response && response.data;
                     setIsLoading(false);
                     setPropData(propertyData[0]);
-                    if (getPropData?.is_reported) {
-                        console.log(getPropData.is_reported)
+                    if (propertyData[0]?.is_reported) {
+                        // console.log(getPropData.is_reported)
                         setIsReported(true)
                     }
                 },
@@ -102,7 +103,7 @@ const PropertieDeatils = () => {
             }
             );
         }
-    }, [isLoggedIn, propId, interested]);
+    }, [isLoggedIn, propId, interested, isReported]);
 
 
 
@@ -161,7 +162,16 @@ const PropertieDeatils = () => {
         };
 
 
-    }, [userCurrentId, propId, isReported]);
+    }, [userCurrentId, propId]);
+    useEffect(() => {
+
+        return () => {
+            console.log("property is", propId , "isReported or not ", isReported)
+            setIsReported(false)
+        };
+
+
+    }, [userCurrentId, propId]);
     useEffect(() => {
 
         if (userCurrentId === getPropData?.added_by) {
@@ -250,12 +260,13 @@ const PropertieDeatils = () => {
     };
     const handleReportProperty = (e) => {
         e.preventDefault();
+        setIsReporteModal(true)
     }
 
 
 
     useEffect(() => {
-        console.log(isReported)
+        // console.log(isReported)
     }, [chatData, isReported])
 
     return (
@@ -645,6 +656,10 @@ const PropertieDeatils = () => {
                                 </div>
 
                                 <SimilerPropertySlider />
+
+                                {isReporteModal && 
+                                    <ReportPropertyModal show={handleReportProperty} onHide={() => setIsReporteModal(false)} propertyId={getPropData?.id} setIsReported={setIsReported}/>
+                                }
                             </div>
                         </div>
                     </section>

@@ -137,7 +137,7 @@ const SearchTab = ({ getCategories }) => {
                         <input className="searchinput" placeholder="Search your property" name="propertySearch" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
                     </div>
                     <div id="leftside-buttons">
-                        <button className="map" onClick={() => setShowFilterModal(true)}>
+                        <button className="map" onClick={() => router.push('/map')}>
                             <BsPinMap size={20} /> {""}{""}{""}
                             <span>{translate("map")}
                             </span>

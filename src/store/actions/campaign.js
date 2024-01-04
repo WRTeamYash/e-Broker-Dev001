@@ -28,7 +28,8 @@ import {
     deleteChatMessages,
     deleteUser,
     getReportReasons,
-    addReport
+    addReport,
+    getNearbyProperties
 } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
@@ -521,6 +522,24 @@ export const addReportApi = ({
     store.dispatch(
         apiCallBegan({
             ...addReport(reason_id, property_id, other_message),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+// GET REPORT rEASONS  API
+export const getNearbyPropertiesApi = ({
+    city = "",
+    state = "",
+    onSuccess = () => { },
+    onError = () => { },
+    onStart = () => { }
+}) => {
+    store.dispatch(
+        apiCallBegan({
+            ...getNearbyProperties(city, state),
             displayToast: false,
             onStart,
             onSuccess,

@@ -33,6 +33,7 @@ const DELETE_MESSAGES = "delete_chat_message"
 const DELETE_USER = "delete_user"
 const GET_REPORT_REASONS = "get_report_reasons"
 const ADD_REPORT = "add_reports"
+const GET_NEARBY_PROPERTIES = "get_nearby_properties"
 
 // is login user check
 export const getUserID = () => {
@@ -652,5 +653,17 @@ export const addReport = (reason_id, property_id, other_message) => {
         data,
         authorizationHeader: true,
 
+    }
+}
+// GET_NEARBY_PROPERTIES    
+export const getNearbyProperties = (city, state) => {
+    return {
+        url: `${GET_NEARBY_PROPERTIES}`,
+        method: "GET",
+        params: {
+            city: city,
+            state: state
+        },
+        authorizationHeader: false,
     }
 }

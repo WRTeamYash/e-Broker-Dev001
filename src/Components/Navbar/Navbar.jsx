@@ -59,7 +59,19 @@ const Nav = () => {
     const signupData = useSelector(userSignUpData);
     const sliderdata = useSelector(silderCacheData);
     const settingData = useSelector(settingsData);
+    useEffect(() => {
+        if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
+            document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
+            document.documentElement.style.setProperty('--primary-category-background', settingData?.category_background);
+            document.documentElement.style.setProperty('--primary-sell', settingData?.sell_background);
+        } else {
+            document.documentElement.style.setProperty('--primary-color', "#087c7c");
+            document.documentElement.style.setProperty('--primary-category-background', "#087c7c14");
+            document.documentElement.style.setProperty('--primary-sell', "#e8aa42");
+        }
 
+  
+    }, [settingData?.svg_clr])
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
     const isLoggedIn = useSelector((state) => state.User_signup);
     const isSubscription = settingData?.subscription;

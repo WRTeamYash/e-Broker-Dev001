@@ -115,7 +115,7 @@ const Footer = () => {
                             </div>
 
                             <div className="prop_links">
-                                <Link href="/mostfav-properties">{translate("mostFavProp")}</Link>
+                                <Link href="/most-favorite-properties">{translate("mostFavProp")}</Link>
                             </div>
 
                             {/* <div className='prop_links'>

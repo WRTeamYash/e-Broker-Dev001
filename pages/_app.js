@@ -8,7 +8,11 @@ import "../public/css/style.css";
 import "../public/css/responsive.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-loading-skeleton/dist/skeleton.css";
+// // Import lightbox2 CSS
+import 'lightbox2/dist/css/lightbox.min.css';
 
+// // Import lightbox2 JS (You may need to adjust the path depending on your project structure)
+// import 'lightbox2/dist/js/lightbox-plus-jquery.min.js';
 import Head from "next/head";
 import { Toaster } from "react-hot-toast";
 import PushNotificationLayout from "@/Components/firebaseNotification/PushNotificationLayout";

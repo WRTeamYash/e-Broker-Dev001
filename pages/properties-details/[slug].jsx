@@ -166,7 +166,7 @@ const PropertieDeatils = () => {
     useEffect(() => {
 
         return () => {
-            console.log("property is", propId , "isReported or not ", isReported)
+            // console.log("property is", propId , "isReported or not ", isReported)
             setIsReported(false)
         };
 
@@ -315,7 +315,7 @@ const PropertieDeatils = () => {
                                                         height={200}
                                                         onClick={() => openLightbox(1)} />
                                                     <div className="see_all02">
-                                                        <button onClick={(e) => openLightbox(e, { index: 0 })}>{translate("seeAllPhotos")}</button>
+                                                        <button onClick={() => openLightbox(0)}>{translate("seeAllPhotos")}</button>
                                                     </div>
                                                 </div>
                                             </>

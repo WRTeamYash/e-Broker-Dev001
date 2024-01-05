@@ -10,19 +10,42 @@ const PropertiesOnMap = () => {
   const GoogleMapApi = process.env.NEXT_PUBLIC_GOOGLE_API;
   const [selectedLocationAddress, setSelectedLocationAddress] = useState("");
   const [nearbyProperties, setNearbyProperties] = useState([])
+  const [activeTab, setActiveTab] = useState(0);
+
+  const fetchAllData = () => {
+    getNearbyPropertiesApi(
+      {
+        city: "",
+        state: "",
+        type: "",
+        onSuccess: (res) => {
+          setNearbyProperties(res.data)
+        },
+        onError: (err) => {
+          console.log(err)
+        }
+      }
+    )
+  }
+
+
+  useEffect(() => {
+    fetchAllData()
+  }, [])
 
   const handleLocationSelect = (address) => {
     // Update the form field with the selected address
     setSelectedLocationAddress(address);
     getNearbyPropertiesApi(
       {
-        city:address.city,
+        city: address.city,
         state: address.state,
-        onSuccess: (res)=>{
+        type: activeTab,
+        onSuccess: (res) => {
           setNearbyProperties(res.data)
-          console.log(nearbyProperties)
+          // console.log(nearbyProperties)
         },
-        onError: (err) =>{
+        onError: (err) => {
           console.log(err)
         }
       }
@@ -32,16 +55,16 @@ const PropertiesOnMap = () => {
 
   useEffect(() => {
 
-  }, [nearbyProperties])
-  
+  }, [nearbyProperties, activeTab])
+
   return (
     <Layout>
       <Breadcrumb />
       <section id='properties_on_map'>
         {/* <div className="container">
           <div className="search_map_card"> */}
-            <PropertiesOnLocationMap apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} data={nearbyProperties}/>
-          {/* </div>
+        <PropertiesOnLocationMap apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} data={nearbyProperties} setActiveTab={setActiveTab} activeTab={activeTab} fetchAllData={fetchAllData} />
+        {/* </div>
         </div> */}
       </section>
     </Layout>

@@ -9,7 +9,7 @@ const LightBox = ({ photos, viewerIsOpen, currentImage, onClose, title_image }) 
 
     // Create an array to include title_image at index 0
     const lightboxPhotos = title_image ? [{ image_url: title_image }, ...photos] : photos;
-
+  
     return (
         <div>
             <ModalGateway>

@@ -321,7 +321,7 @@ const Nav = () => {
                                                 <Link href="/properties-nearby-city">{translate("nearbyCities")}</Link>
                                             </Dropdown.Item>
                                             <Dropdown.Item>
-                                                <Link href="/mostfav-properties">{translate("mostFavProp")}</Link>
+                                                <Link href="/most-favorite-properties">{translate("mostFavProp")}</Link>
                                             </Dropdown.Item>
                                             {/* <Dropdown.Item><Link href="/listby-agents"></Link>{translate("listByAgents")}</Dropdown.Item> */}
                                         </Dropdown.Menu>
@@ -479,7 +479,7 @@ const Nav = () => {
                                             </Link>
                                         </Dropdown.Item>
                                         <Dropdown.Item>
-                                            <Link href="/mostfav-properties" onClick={handleClose}>
+                                            <Link href="/most-favorite-properties" onClick={handleClose}>
                                                 {translate("mostFavProp")}
                                             </Link>
                                         </Dropdown.Item>

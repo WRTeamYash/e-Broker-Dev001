@@ -1,39 +1,40 @@
 import { store } from "@/store/store"
 
-const GET_SETTINGS = "get_system_settings"
-const USER_SIGNUP = "user_signup"
-const UPDATE_PROFILE = "update_profile"
-const GET_SLIDERS = "get_slider"
-const GET_CATEGORES = "get_categories"
-const GET_PROPETRES = "get_property"
-const GET_ARTICLES = "get_articles"
-const GET_COUNT_BY_CITIES_CATEGORIS = "get_count_by_cities_categoris"
-const ADD_FAVOURITE = "add_favourite"
-const GET_LANGUAGES = "get_languages"
-const CONTACT_US = "contct_us"
-const GET_FAV = "get_favourite_property"
-const GET_PACKAGES = "get_package";
-const GET_PAYMENT_SETTINGS = "get_payment_settings";
-const CREATEPAYMENT = "createPaymentIntent";
-const CONFIRMPAYMENT = "confirmPayment"
-const POST_PROPERTY = "post_property"
-const GET_FACILITITES = "get_facilities"
-const GET_LIMITS = "get_limits"
-const GET_PAYMENT_DETAILS = "get_payment_details";
-const UPDATE_POST_PROPERTY = "update_post_property";
-const DELETE_PROPERTY = "delete_property"
-const INTEREST_PROPERTY = "interested_users"
-const STORE_ADVERTISEMENT = "store_advertisement"
-const GET_NOTIFICATION_LIST = "get_notification_list"
-const ASSIGN_FREE_PACKAGE = "assign_free_package"
-const GET_CHATS = "get_chats"
-const GET_CHATS_MESSAGES = "get_messages"
-const SEND_MESSAGE = "send_message"
-const DELETE_MESSAGES = "delete_chat_message"
-const DELETE_USER = "delete_user"
-const GET_REPORT_REASONS = "get_report_reasons"
-const ADD_REPORT = "add_reports"
-const GET_NEARBY_PROPERTIES = "get_nearby_properties"
+export const GET_SETTINGS = "get_system_settings"
+export const USER_SIGNUP = "user_signup"
+export const UPDATE_PROFILE = "update_profile"
+export const GET_SLIDERS = "get_slider"
+export const GET_CATEGORES = "get_categories"
+export const GET_PROPETRES = "get_property"
+export const GET_ARTICLES = "get_articles"
+export const GET_COUNT_BY_CITIES_CATEGORIS = "get_count_by_cities_categoris"
+export const ADD_FAVOURITE = "add_favourite"
+export const GET_LANGUAGES = "get_languages"
+export const CONTACT_US = "contct_us"
+export const GET_FAV = "get_favourite_property"
+export const GET_PACKAGES = "get_package";
+export const GET_PAYMENT_SETTINGS = "get_payment_settings";
+export const CREATEPAYMENT = "createPaymentIntent";
+export const CONFIRMPAYMENT = "confirmPayment"
+export const POST_PROPERTY = "post_property"
+export const GET_FACILITITES = "get_facilities"
+export const GET_LIMITS = "get_limits"
+export const GET_PAYMENT_DETAILS = "get_payment_details";
+export const UPDATE_POST_PROPERTY = "update_post_property";
+export const DELETE_PROPERTY = "delete_property"
+export const INTEREST_PROPERTY = "interested_users"
+export const STORE_ADVERTISEMENT = "store_advertisement"
+export const GET_NOTIFICATION_LIST = "get_notification_list"
+export const ASSIGN_FREE_PACKAGE = "assign_free_package"
+export const GET_CHATS = "get_chats"
+export const GET_CHATS_MESSAGES = "get_messages"
+export const SEND_MESSAGE = "send_message"
+export const DELETE_MESSAGES = "delete_chat_message"
+export const DELETE_USER = "delete_user"
+export const GET_REPORT_REASONS = "get_report_reasons"
+export const ADD_REPORT = "add_reports"
+export const GET_NEARBY_PROPERTIES = "get_nearby_properties"
+export const GET_SEO_SETTINGS = "get_seo_settings"
 
 // is login user check
 export const getUserID = () => {
@@ -656,13 +657,14 @@ export const addReport = (reason_id, property_id, other_message) => {
     }
 }
 // GET_NEARBY_PROPERTIES    
-export const getNearbyProperties = (city, state) => {
+export const getNearbyProperties = (city, state, type) => {
     return {
         url: `${GET_NEARBY_PROPERTIES}`,
         method: "GET",
         params: {
             city: city,
-            state: state
+            state: state,
+            type: type,
         },
         authorizationHeader: false,
     }

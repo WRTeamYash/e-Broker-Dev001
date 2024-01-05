@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 const nextConfig = {
-  output: 'export',
   trailingSlash: true,
   images: {
     unoptimized: true,
@@ -15,4 +14,11 @@ const nextConfig = {
     return config
   }
 }
+
+// Conditionally set the output based on the environment
+if (process.env.NEXT_PUBLIC_SEO === 'false') {
+  nextConfig.output = 'export',
+  nextConfig.images.unoptimized = true
+}
+// console.log(nextConfig)
 module.exports = nextConfig

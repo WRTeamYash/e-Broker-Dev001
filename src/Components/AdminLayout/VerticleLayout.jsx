@@ -174,6 +174,21 @@ export default function VerticleLayout(props) {
 
 
     const handleDeleteAcc = () => {
+
+        if (settingsData.demo_mode === true) {
+            Swal.fire({
+                title: "Opps!",
+                text: "This Action is Not Allowed in Demo Mode",
+                icon: "warning",
+                showCancelButton: false,
+                confirmButtonColor: primaryColor, // Use the primary color from CSS
+                cancelButtonColor: "#d33",
+                confirmButtonText: "OK",
+            });
+            return false;
+        }
+
+
         // Initialize Firebase Authentication
         const auth = getAuth();
 

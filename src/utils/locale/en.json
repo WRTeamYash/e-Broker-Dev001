@@ -55,6 +55,7 @@
   "feature": "Feature",
   "filterProp": "Filter Properties",
   "clearFilter": "Clear Filter",
+  "clear": "Clear",
   "forSell": "For Sell",
   "forRent": "For Rent",
   "propTypes": "Property Type",

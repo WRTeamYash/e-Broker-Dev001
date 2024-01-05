@@ -32,6 +32,7 @@
     "firebase": "10.1.0",
     "form-data": "^4.0.0",
     "ionicons": "^7.1.2",
+    "lightbox2": "^2.11.4",
     "localforage": "^1.10.0",
     "lottie-react": "^2.4.0",
     "moment": "^2.29.4",

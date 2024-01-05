@@ -6,8 +6,10 @@ import { useSelector } from "react-redux";
 import { FiSearch } from "react-icons/fi";
 import Link from "next/link";
 import { ButtonGroup, Modal } from "react-bootstrap";
-import { translate } from "@/utils";
-const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude, data }) => {
+import { formatPriceAbbreviated, translate } from "@/utils";
+const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude, data, setActiveTab, activeTab, fetchAllData }) => {
+
+
     const libraries = ["places"];
     const [initialLocation, setInitialLocation] = useState({
         lat: latitude ? parseFloat(latitude) : 23.2419997,
@@ -18,7 +20,7 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
     const [mapError, setMapError] = useState(null);
     const [searchText, setSearchText] = useState("");
     const [clickedMarker, setClickedMarker] = useState(null);
-    const [activeTab, setActiveTab] = useState(0);
+
     // Declare autocomplete as a ref
     const autocompleteRef = useRef(null);
     const priceSymbol = useSelector(settingsData);
@@ -60,6 +62,14 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
                 setSearchText(formatted_address);
                 setLocation(updatedLocation);
                 onSelectLocation(updatedLocation);
+
+
+
+               // Scroll down after selecting a place
+            const mapElement = document.getElementById("map");
+            if (mapElement) {
+                mapElement.scrollIntoView({ behavior: "smooth" });
+            }
             } else {
                 console.error("No geometry available for selected place.");
             }
@@ -85,6 +95,13 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
         return { city, country, state };
     };
 
+
+    const handleClearLocation = (e) => {
+        e.preventDefault()
+        setSearchText("")
+        fetchAllData()
+
+    }
     return (
         <>
             <div id="map">
@@ -96,9 +113,9 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
                             onLoad={(autocomplete) => {
                                 autocompleteRef.current = autocomplete;
                             }}
-                            // onPlaceChanged={handlePlaceSelect}
+                        // onPlaceChanged={handlePlaceSelect}
                         >
-                          
+
                             <div id="searchbox1" className="container">
                                 <ButtonGroup>
                                     <ul className="nav nav-tabs" id="tabs">
@@ -121,6 +138,9 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
                                         <input className="searchinput" placeholder="Search your property" name="propertySearch" value={searchText} onChange={handleSearchTextChange} />
                                     </div>
                                     <div id="leftside-buttons1">
+                                        <button className="clear-map" onClick={handleClearLocation}>
+                                            {translate("clear")}
+                                        </button>
                                         <button className="find-map" onClick={handlePlaceSelect}>
                                             {translate("search")}
                                         </button>
@@ -136,7 +156,7 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
                                     position={{ lat: parseFloat(markerData.latitude), lng: parseFloat(markerData.longitude) }}
                                     onClick={() => setClickedMarker(markerData)}
                                     label={{
-                                        text: `$${markerData.price}`,
+                                        text: CurrencySymbol + formatPriceAbbreviated(markerData.price),
                                         className: 'custom-marker-label',
                                     }}
                                 />
@@ -148,28 +168,30 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
                                 >
                                     {/* <Link > */}
                                     {/* {console.log(data)} */}
-                                    <div className="card" id="marked_property_card">
-                                        <div className="marked_property_card_img">
-                                            <Image loading="lazy" src={clickedMarker?.title_image} alt="no_img" id="marked_property_card_main_img" width={150} height={0} style={{ height: "auto" }} />
-                                        </div>
-                                        <div className="marked_property_card_body">
-                                            <span className="marked_property_card_title">{clickedMarker.title}</span>
-                                            <div>
+                                    <Link href="/properties-details/[slug]" as={`/properties-details/${clickedMarker.slug_id}`} passHref>
+                                        <div className="card" id="marked_property_card">
+                                            <div className="marked_property_card_img">
+                                                <Image loading="lazy" src={clickedMarker?.title_image} alt="no_img" id="marked_property_card_main_img" width={150} height={0} style={{ height: "auto" }} />
+                                            </div>
+                                            <div className="marked_property_card_body">
+                                                <span className="marked_property_card_title">{clickedMarker.title}</span>
+                                                <div>
 
-                                            <span className="marked_property_card_propType">
-                                                {clickedMarker.property_type}
-                                            </span>
-                                            <span className="marked_property_card_price">
-                                                {CurrencySymbol}{clickedMarker.price}
-                                            </span>
+                                                    <span className="marked_property_card_propType">
+                                                        {clickedMarker.property_type}
+                                                    </span>
+                                                    <span className="marked_property_card_price">
+                                                        {CurrencySymbol}{clickedMarker.price}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                     {/* </div> */}
                                 </InfoWindow>
                             )}
                         </GoogleMap>
-                      
+
                     </LoadScript>
                 )}
             </div>

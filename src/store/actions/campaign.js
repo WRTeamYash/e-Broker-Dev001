@@ -533,13 +533,14 @@ export const addReportApi = ({
 export const getNearbyPropertiesApi = ({
     city = "",
     state = "",
+    type= "",
     onSuccess = () => { },
     onError = () => { },
     onStart = () => { }
 }) => {
     store.dispatch(
         apiCallBegan({
-            ...getNearbyProperties(city, state),
+            ...getNearbyProperties(city, state, type),
             displayToast: false,
             onStart,
             onSuccess,

@@ -33,10 +33,21 @@ import Layout from "../Layout/Layout";
 import SearchTab from "../SearchTab/SearchTab.jsx";
 import NearbyCityswiper from "../NearbyCitySwiper/NearbyCityswiper.jsx"
 import { store } from "@/store/store";
-import { categoriesCacheData, silderCacheData } from "@/store/reducer/momentSlice";
+import { categoriesCacheData, loadCategories, loadSlider, silderCacheData } from "@/store/reducer/momentSlice";
 import SliderComponent from "../HomeSlider/SliderComponent";
+import { languageData } from "@/store/reducer/languageSlice";
 
 const HomePage = () => {
+
+
+
+    const lang = useSelector(languageData);
+    useEffect(() => { }, [lang])
+
+    useEffect(() => {
+        loadSlider();
+        loadCategories();
+    }, []);
     const settingData = useSelector(settingsData);
     const CurrencySymbol = settingData && settingData.currency_symbol;
 
@@ -697,7 +708,7 @@ const HomePage = () => {
                                 </h3>
                             </div>
                             <div className="rightside_most_fav_header">
-                                <Link href="/mostfav-properties">
+                                <Link href="/most-favorite-properties">
                                     <button className="learn-more" id="viewall">
                                         <span aria-hidden="true" className="circle">
                                             <div className="icon_div">
@@ -717,7 +728,7 @@ const HomePage = () => {
                                     start: translate("most"),
                                     center: translate("fav"),
                                     end: translate("properties"),
-                                    link: "/mostfav-properties",
+                                    link: "/most-favorite-properties",
                                 }}
                             />
                         </div>

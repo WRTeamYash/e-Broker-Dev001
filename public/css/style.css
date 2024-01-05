@@ -1302,8 +1302,15 @@ body {
   color: var(--primary-text-color01);
   padding: 0 20px;
   height: 54px;
-  background: var(--primary-color-087c7c) 0% 0% no-repeat padding-box;
   background: var(--primary-color) 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+}
+.clear-map {
+  border: none;
+  color: var(--primary-text-color02);
+  padding: 0 20px;
+  height: 54px;
+  background: var(--primary-background) 0% 0% no-repeat padding-box;
   border-radius: 8px;
 }
 .index-module_FadeIn__iDwzu {
@@ -7276,12 +7283,22 @@ embed svg path {
   text-align: center;
   margin: -60px auto auto auto;
 }
-
+.custom-marker-label::before {
+  content: "";
+  position: absolute;
+  background: var(--primary-color);
+  height: 20px;
+  width: 20px;
+  top: 22px;
+  left: 16px;
+  transform: rotate(45deg);
+  z-index: -1;
+}
 #marked_property_card {
   display: flex;
   width: 100%;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   gap: 20px;
 }
 #marked_property_card .marked_property_card_img {
@@ -7289,9 +7306,10 @@ embed svg path {
   height: 100%;
 }
 #marked_property_card .marked_property_card_img #marked_property_card_main_img {
-  width: 100%;
+ aspect-ratio: 4/1;
   height: 150px !important;
   object-fit: cover;
+  border-radius: 5px 0 0 5px;
 }
 #marked_property_card .marked_property_card_body {
   width: 100%;
@@ -7300,7 +7318,6 @@ embed svg path {
   display: flex;
   flex-direction: column;
   gap: 20px;
-
 }
 #marked_property_card .marked_property_card_body div {
   width: 100%;

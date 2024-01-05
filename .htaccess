@@ -14,7 +14,7 @@
     RewriteRule ^featured-properties$ /featured-properties.html [L]
     RewriteRule ^listby-agents$ /listby-agents.html [L]
     RewriteRule ^most-viewed-properties$ /most-viewed-properties.html [L]
-    RewriteRule ^mostfav-properties$ /mostfav-properties.html [L]
+    RewriteRule ^most-favorite-properties$ /most-favorite-properties.html [L]
     RewriteRule ^privacy-policy$ /privacy-policy.html [L]
     RewriteRule ^properties/all-properties$ /properties/all-properties.html [L]
     RewriteRule ^properties-nearby-city$ /properties-nearby-city.html [L]

@@ -1,7 +1,13 @@
 import Head from 'next/head'
 
-const Meta = ({ title, description, keywords, ogImage, pathName, schema }) => {
+const Meta = ({ title, description, keywords, ogImage, pathName }) => {
 
+  console.log(
+    title, "title",
+    description, "description",
+    keywords, "keywords",
+    ogImage, "ogImage",
+    pathName, "pathName")
   return (
     <Head>
       {/* title */}
@@ -34,7 +40,7 @@ const Meta = ({ title, description, keywords, ogImage, pathName, schema }) => {
       <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       <meta name='robots' content='index, follow,max-snippet:-1,max-video-preview:-1,max-image-preview:large' />
 
-   
+
     </Head>
   )
 }

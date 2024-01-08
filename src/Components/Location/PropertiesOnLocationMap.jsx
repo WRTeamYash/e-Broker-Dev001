@@ -7,6 +7,7 @@ import { FiSearch } from "react-icons/fi";
 import Link from "next/link";
 import { ButtonGroup, Modal } from "react-bootstrap";
 import { formatPriceAbbreviated, translate } from "@/utils";
+import MapCard from "../Cards/MapCard";
 const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude, data, setActiveTab, activeTab, fetchAllData }) => {
 
 
@@ -25,6 +26,7 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
     const autocompleteRef = useRef(null);
     const priceSymbol = useSelector(settingsData);
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;
+    const PlaceHolderImg = priceSymbol?.web_placeholder_logo;
     useEffect(() => {
         setLocation(initialLocation);
     }, [initialLocation]);
@@ -65,11 +67,11 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
 
 
 
-               // Scroll down after selecting a place
-            const mapElement = document.getElementById("map");
-            if (mapElement) {
-                mapElement.scrollIntoView({ behavior: "smooth" });
-            }
+                // Scroll down after selecting a place
+                const mapElement = document.getElementById("map");
+                if (mapElement) {
+                    mapElement.scrollIntoView({ behavior: "smooth" });
+                }
             } else {
                 console.error("No geometry available for selected place.");
             }
@@ -168,26 +170,9 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
                                 >
                                     {/* <Link > */}
                                     {/* {console.log(data)} */}
-                                    <Link href="/properties-details/[slug]" as={`/properties-details/${clickedMarker.slug_id}`} passHref>
-                                        <div className="card" id="marked_property_card">
-                                            <div className="marked_property_card_img">
-                                                <Image loading="lazy" src={clickedMarker?.title_image} alt="no_img" id="marked_property_card_main_img" width={150} height={0} style={{ height: "auto" }} />
-                                            </div>
-                                            <div className="marked_property_card_body">
-                                                <span className="marked_property_card_title">{clickedMarker.title}</span>
-                                                <div>
-
-                                                    <span className="marked_property_card_propType">
-                                                        {clickedMarker.property_type}
-                                                    </span>
-                                                    <span className="marked_property_card_price">
-                                                        {CurrencySymbol}{clickedMarker.price}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                    {/* </div> */}
+                                    {/* <Link href="/properties-details/[slug]" as={`/properties-details/${clickedMarker.slug_id}`} passHref> */}
+                                    <MapCard data={clickedMarker} CurrencySymbol={CurrencySymbol} PlaceHolderImg={PlaceHolderImg}/>
+                                    {/* </Link> */}
                                 </InfoWindow>
                             )}
                         </GoogleMap>

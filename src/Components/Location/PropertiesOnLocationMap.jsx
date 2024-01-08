@@ -104,6 +104,9 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
         fetchAllData()
 
     }
+
+
+    // if (typeof window !== "undefined" && window.google && window.google.maps) {
     return (
         <>
             <div id="map">
@@ -157,22 +160,21 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
                                     key={index}
                                     position={{ lat: parseFloat(markerData.latitude), lng: parseFloat(markerData.longitude) }}
                                     onClick={() => setClickedMarker(markerData)}
-                                    label={{
-                                        text: CurrencySymbol + formatPriceAbbreviated(markerData.price),
-                                        className: 'custom-marker-label',
+                                    icon={{
+                                        url: "/map-icon.svg",
+
                                     }}
+
                                 />
                             ))}
                             {clickedMarker && (
                                 <InfoWindow
+
                                     position={{ lat: parseFloat(clickedMarker.latitude), lng: parseFloat(clickedMarker.longitude) }}
                                     onCloseClick={() => setClickedMarker(null)}
                                 >
-                                    {/* <Link > */}
-                                    {/* {console.log(data)} */}
-                                    {/* <Link href="/properties-details/[slug]" as={`/properties-details/${clickedMarker.slug_id}`} passHref> */}
-                                    <MapCard data={clickedMarker} CurrencySymbol={CurrencySymbol} PlaceHolderImg={PlaceHolderImg}/>
-                                    {/* </Link> */}
+                                   
+                                    <MapCard data={clickedMarker} CurrencySymbol={CurrencySymbol} PlaceHolderImg={PlaceHolderImg} />
                                 </InfoWindow>
                             )}
                         </GoogleMap>
@@ -184,6 +186,10 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
         </>
 
     );
+    // } else {
+    //     // Show loading or alternative content while the Google Maps library is being loaded
+    //     return <div>Loading map...</div>;
+    // }
 };
 
 export default PropertiesOnLocationMap;

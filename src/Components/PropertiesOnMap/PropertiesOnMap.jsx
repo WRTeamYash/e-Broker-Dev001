@@ -61,11 +61,8 @@ const PropertiesOnMap = () => {
     <Layout>
       <Breadcrumb />
       <section id='properties_on_map'>
-        {/* <div className="container">
-          <div className="search_map_card"> */}
         <PropertiesOnLocationMap apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} data={nearbyProperties} setActiveTab={setActiveTab} activeTab={activeTab} fetchAllData={fetchAllData} />
-        {/* </div>
-        </div> */}
+    
       </section>
     </Layout>
   )

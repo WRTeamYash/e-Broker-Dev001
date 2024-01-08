@@ -579,9 +579,9 @@ const ChatApp = ({ notificationData }) => {
                                                                             }}
                                                                         />
                                                                     </div>
-                                                                    {message.type === 'text' || (message.type === 'chat' && message.message !== "") ? (
+                                                                    {message.chat_message_type === 'text' || (message.chat_message_type === 'chat' && message.message !== "") ? (
                                                                         <span>{message.message}</span>
-                                                                    ) : message.type === 'file' ? (
+                                                                    ) : message.chat_message_type === 'file' ? (
                                                                         <div className="file-preview">
                                                                             {message.file && message.file.type && message.file.type.startsWith('image/') ? (
                                                                                 <img src={URL.createObjectURL(message.file)} alt="File Preview" />
@@ -591,9 +591,9 @@ const ChatApp = ({ notificationData }) => {
                                                                                 <img src={message.file} alt="File Preview" />
                                                                             )}
                                                                         </div>
-                                                                    ) : message.type === 'chat' && message.file && message.message === "" ? (
+                                                                    ) : message.chat_message_type === 'chat' && message.file && message.message === "" ? (
                                                                         <img src={message.file} alt="File Preview" />
-                                                                    ) : message.type === 'audio' ? (
+                                                                    ) : message.chat_message_type === 'audio' ? (
                                                                         <div className={message.sender_id === userCurrentId ? 'user-audio' : 'other-audio'}>
                                                                             {typeof message.audio === 'string' ? (
                                                                                 <audio controls>
@@ -607,7 +607,7 @@ const ChatApp = ({ notificationData }) => {
                                                                                 </audio>
                                                                             ) : null}
                                                                         </div>
-                                                                    ) : message.type === 'file_and_text' ? (
+                                                                    ) : message.chat_message_type === 'file_and_text' ? (
                                                                         <div className='file_text'>
                                                                             <div className="file-preview">
                                                                                 {message.file && message.file.type && message.file.type.startsWith('image/') ? (

@@ -9,10 +9,9 @@ import Meta from "@/Components/Seo/Meta";
 
 // This is seo api
 const fetchDataFromSeo = async (page) => {
-    const cleaned_url = page.replace(/^\/|\/$/g, '');
     try {
         const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_END_POINT}${GET_SEO_SETTINGS}?page=${cleaned_url}`
+            `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_END_POINT}${GET_SEO_SETTINGS}?page=about-us`
         );
 
         const SEOData = response.data;

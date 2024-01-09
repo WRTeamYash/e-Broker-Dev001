@@ -19,10 +19,6 @@ import { categoriesCacheData, filterDataaa } from "@/store/reducer/momentSlice";
 
 const SearchPage = () => {
 
-
-    // const Sdata = useSelector(filterDataaa)
-    // console.log(Sdata)
-    // const searchedData = JSON.parse(localStorage.getItem("searchData"));
     const searchedData = useSelector(filterDataaa)
     const [searchData, setSearchData] = useState();
     const [filterData, setFilterData] = useState("");

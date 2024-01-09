@@ -6,10 +6,9 @@ import { GET_SEO_SETTINGS } from "@/utils/api";
 import Meta from "@/Components/Seo/Meta";
 
 const fetchDataFromSeo = async (page) => {
-    const cleaned_url = page.replace(/^\/|\/$/g, '');
     try {
         const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_END_POINT}${GET_SEO_SETTINGS}?page=contact-us}`
+            `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_END_POINT}${GET_SEO_SETTINGS}?page=chat`
         );
 
         const SEOData = response.data;
@@ -37,32 +36,28 @@ const Index = ({ seoData, currentURL }) => {
     );
 };
 
-export const getServerSideProps = async (context) => {
-    const { req } = context;
+
+let serverSidePropsFunction = null;
+if (process.env.NEXT_PUBLIC_SEO === "true") {
+  serverSidePropsFunction = async (context) => {
+    const { req } = context; // Extract query and request object from context
+
     const currentURL = `${req.headers.host}${req.url}`;
-    
-    try {
-        const seoData = await fetchDataFromSeo(req.url);
+    const seoData = await fetchDataFromSeo(req.url);
+    // Pass the fetched data as props to the page component
 
-        console.log("context=======", context);
-        console.log("seoData=======", seoData);
 
-        return {
-            props: {
-                seoData,
-                currentURL,
-            },
-        };
-    } catch (error) {
-        console.error("Error in getServerSideProps:", error);
+    // console.log("req.url=======", req.url)
+    // console.log("seoData=======", seoData)
+    return {
+      props: {
+        seoData,
+        currentURL,
+      },
+    };
+  };
+}
 
-        return {
-            props: {
-                seoData: null,
-                currentURL: "",
-            },
-        };
-    }
-};
+export const getServerSideProps = serverSidePropsFunction;
 
 export default Index;

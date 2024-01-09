@@ -1,5 +1,4 @@
 import React from "react";
-import Layout from "@/Components/Layout/Layout";
 import AllProperties from "@/Components/Properties/AllProperties";
 import axios from "axios";
 import { GET_SEO_SETTINGS } from "@/utils/api";

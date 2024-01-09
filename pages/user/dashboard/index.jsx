@@ -230,7 +230,7 @@ const index = () => {
                                                     </div>
                                                 </TableCell>
                                             </TableRow>
-                                        ) : getFeaturedListing.length > 0 ? (
+                                        ) : getFeaturedListing && getFeaturedListing.length > 0 ? (
                                             getFeaturedListing.map((elem, index) => (
                                                 <TableRow key={index}>
                                                     <TableCell component="th" scope="row" sx={{ width: "40%" }}>
@@ -306,7 +306,7 @@ const index = () => {
 
                             <FeatureModal show={isFeatureModalVisible} onHide={() => setIsFeatureModalVisible(false)} propertyId={propertyId} />
 
-                            {getFeaturedListing.length > 0 ? (
+                            {getFeaturedListing && getFeaturedListing.length > 0 ? (
                                 <div className="col-12">
                                     <ReactPagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
                                 </div>

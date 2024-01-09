@@ -17,7 +17,13 @@ const Index = () => {
     const currentUserPackage = packageDetails?.package?.user_purchased_package;
 
     const CurrencySymbol = packageDetails && packageDetails.currency_symbol;
-
+    // Add checks to ensure currentUserPackage is defined and has at least one element
+    if (!currentUserPackage || currentUserPackage.length === 0) {
+        console.error("currentUserPackage is undefined or empty");
+        // Handle the case where currentUserPackage is undefined or empty
+        // You might want to set default values or redirect to an error page
+        return null;
+    }
     const packageId = currentUserPackage[0].package.id;
     const PropertyLimit = currentUserPackage[0].package.property_limit;
     const usedPropertyLimit = currentUserPackage[0]?.used_limit_for_property;

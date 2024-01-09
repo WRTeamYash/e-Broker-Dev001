@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect } from "react";
 import EditPropertyTabs from "@/Components/EditPropertyTabs/EditPropertyTabs";
 import VerticleLayout from "@/Components/AdminLayout/VerticleLayout";

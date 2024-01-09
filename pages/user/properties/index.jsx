@@ -1,3 +1,4 @@
+"use client"
 import AddPropertyTabs from "@/Components/AddPropertyTabs/AddPropertyTabs";
 import VerticleLayout from "@/Components/AdminLayout/VerticleLayout";
 import { languageData } from "@/store/reducer/languageSlice";

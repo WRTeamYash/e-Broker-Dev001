@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import VerticleLayout from "@/Components/AdminLayout/VerticleLayout";
 import { useRef } from "react";

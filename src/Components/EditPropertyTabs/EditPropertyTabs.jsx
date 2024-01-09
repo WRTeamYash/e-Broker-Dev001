@@ -47,7 +47,8 @@ function a11yProps(index) {
 
 export default function EditPropertyTabs() {
     const GoogleMapApi = process.env.NEXT_PUBLIC_GOOGLE_API;
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
+    const rootStyles = window.getComputedStyle(document.documentElement);
+    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
     const Categorydata = useSelector(categoriesCacheData);
 
     const router = useRouter();

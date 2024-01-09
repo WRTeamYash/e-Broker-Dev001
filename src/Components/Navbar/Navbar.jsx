@@ -72,7 +72,8 @@ const Nav = () => {
 
   
     }, [settingData?.svg_clr])
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
+    const rootStyles = window.getComputedStyle(document.documentElement);
+    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
     const isLoggedIn = useSelector((state) => state.User_signup);
     const isSubscription = settingData?.subscription;
     const LanguageList = settingData && settingData.languages;

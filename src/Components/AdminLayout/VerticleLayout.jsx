@@ -119,7 +119,8 @@ export default function VerticleLayout(props) {
     const [open, setOpen] = React.useState(false);
     const lang = useSelector(languageData);
    
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
+    const rootStyles = window.getComputedStyle(document.documentElement);
+    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
     const settingData = useSelector(settingsData);
     
     

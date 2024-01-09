@@ -215,7 +215,8 @@ const PropertyDetails = () => {
             }
         );
     };
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
+    const rootStyles = window.getComputedStyle(document.documentElement);
+    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
     const handleChat = (e) => {
         e.preventDefault();
         if (DummyImgData?.demo_mode === true) {

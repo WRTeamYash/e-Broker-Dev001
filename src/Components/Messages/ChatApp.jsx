@@ -29,7 +29,8 @@ const ChatApp = ({ notificationData }) => {
     const userProfile = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.profile : PlaceHolderImg;
     const [chatList, setChatList] = useState([]);
     const [newChat, setNewChat] = useState([]);
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
+    const rootStyles = window.getComputedStyle(document.documentElement);
+    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
     const router = useRouter();
     const storedChatData = localStorage.getItem('newUserChat')
     const newChatData = JSON.parse(storedChatData);

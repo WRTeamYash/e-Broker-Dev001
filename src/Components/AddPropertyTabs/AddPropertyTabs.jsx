@@ -61,7 +61,8 @@ export default function AddPropertyTabs() {
     const packageId = PackageData?.package?.user_purchased_package[0]?.package_id;
 
     const Categorydata = useSelector(categoriesCacheData);
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
+    const rootStyles = window.getComputedStyle(document.documentElement);
+    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
 
     const [tab1, setTab1] = useState({
         propertyType: "",

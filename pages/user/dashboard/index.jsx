@@ -42,7 +42,8 @@ const index = () => {
 
     const SettingsData = useSelector(settingsData);
 
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
+    const rootStyles = window.getComputedStyle(document.documentElement);
+    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
     const lang = useSelector(languageData);
 
     useEffect(() => { }, [lang]);

@@ -38,7 +38,8 @@ const Index = () => {
     };
 
     const packageRemaining = getDaysRemaining(currentUserPackage[0]?.end_date);
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue("--primary-color");
+    const rootStyles = window.getComputedStyle(document.documentElement);
+    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
 
     const calculatePackageDuration = () => {
         if (currentUserPackage[0]?.start_date && currentUserPackage[0]?.end_date) {

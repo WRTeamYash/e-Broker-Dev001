@@ -353,7 +353,6 @@ const PropertyDetails = () => {
                                                     />
                                                     <div className="see_all">
                                                         <button onClick={() => openLightbox(0)}>{translate("seeAllPhotos")}</button>
-
                                                     </div>
                                                 </div>
                                             </>

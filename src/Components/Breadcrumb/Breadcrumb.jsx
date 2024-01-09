@@ -8,15 +8,20 @@ import { settingsData } from "@/store/reducer/settingsSlice";
 import { toast } from "react-hot-toast";
 import { AddFavourite } from "@/store/actions/campaign";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { GrCopy } from "react-icons/gr";
+import { Tooltip } from "antd";
+import { useRouter } from "next/router";
+
 
 const Breadcrumb = (props) => {
+
+    const router = useRouter()
     let { data, title } = props;
     const priceSymbol = useSelector(settingsData);
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;
 
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-    // Initialize isLiked based on props.data.is_favourite
     const [isLiked, setIsLiked] = useState(props.data && props.data.is_favourite);
 
     // Initialize isDisliked as false
@@ -58,6 +63,21 @@ const Breadcrumb = (props) => {
                 console.log(error);
             }
         );
+    };
+    const handleCopyUrl = async (e) => {
+        e.preventDefault();
+
+        // Get the current URL from the router
+        const currentUrl = process.env.NEXT_PUBLIC_BASE_URL + router.asPath;
+
+        try {
+            // Use the Clipboard API to copy the URL to the clipboard
+            await navigator.clipboard.writeText(currentUrl);
+            toast.success("URL copied to clipboard!");
+        } catch (error) {
+            console.error("Error copying to clipboard:", error);
+            toast.error("Failed to copy URL to clipboard.");
+        }
     };
 
     useEffect(() => {
@@ -103,20 +123,31 @@ const Breadcrumb = (props) => {
                                         {" "}
                                         {CurrencySymbol} {data.price}{" "}
                                     </span>
-                                    <div>
-                                        {isLiked ? (
-                                            <button onClick={handleDislike}>
-                                                <AiFillHeart size={25} className="liked_property" />
-                                            </button>
-                                        ) : isDisliked ? (
-                                            <button onClick={handleLike}>
-                                                <AiOutlineHeart size={25} className="disliked_property" />
-                                            </button>
-                                        ) : (
-                                            <button onClick={handleLike}>
-                                                <AiOutlineHeart size={25} />
-                                            </button>
-                                        )}
+
+                                    <div className="rightside_buttons">
+
+                                        <div>
+                                            {isLiked ? (
+                                                <button onClick={handleDislike}>
+                                                    <AiFillHeart size={25} className="liked_property" />
+                                                </button>
+                                            ) : isDisliked ? (
+                                                <button onClick={handleLike}>
+                                                    <AiOutlineHeart size={25} className="disliked_property" />
+                                                </button>
+                                            ) : (
+                                                <button onClick={handleLike}>
+                                                    <AiOutlineHeart size={25} />
+                                                </button>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <Tooltip title="Copy URL" placement="bottom">
+                                                <button onClick={handleCopyUrl}>
+                                                    <GrCopy size={25} className="disliked_property" />
+                                                </button>
+                                            </Tooltip>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

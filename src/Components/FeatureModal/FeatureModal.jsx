@@ -17,6 +17,16 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
 
     const packageDetails = useSelector(settingsData);
     const currentUserPackage = packageDetails?.package?.user_purchased_package;
+
+    // Add checks to ensure currentUserPackage is defined and has at least one element
+    if (!currentUserPackage || currentUserPackage.length === 0) {
+        console.error("currentUserPackage is undefined or empty");
+        // Handle the case where currentUserPackage is undefined or empty
+        // You might want to set default values or return early
+        return null;
+    }
+
+
     const packageId = currentUserPackage[0]?.package.id;
 
     const router = useRouter();
@@ -103,7 +113,7 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
 
     const files = useMemo(
         () =>
-        uploadedImages && uploadedImages.map((file, index) => (
+            uploadedImages && uploadedImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
                     <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
                     <div className="dropbox_d">

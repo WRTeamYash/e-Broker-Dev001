@@ -6,7 +6,6 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import { useSelector } from "react-redux";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { GetLimitsApi } from "@/store/actions/campaign";
-import { Box, CircularProgress } from "@mui/material";
 import { Progress } from "antd";
 import { translate } from "@/utils/index.js";
 import { languageData } from "@/store/reducer/languageSlice.js";

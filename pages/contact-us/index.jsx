@@ -8,7 +8,7 @@ import Meta from "@/Components/Seo/Meta";
 const fetchDataFromSeo = async (page) => {
     try {
         const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_END_POINT}${GET_SEO_SETTINGS}?page=chat`
+            `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_END_POINT}${GET_SEO_SETTINGS}?page=contact-us`
         );
 
         const SEOData = response.data;

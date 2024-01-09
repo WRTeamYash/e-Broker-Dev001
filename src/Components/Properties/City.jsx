@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import Pagination from "@/Components/Pagination/ReactPagination";
 import NoData from "@/Components/NoDataFound/NoData";
 import { categoriesCacheData } from "@/store/reducer/momentSlice";
+import Layout from '../Layout/Layout';
 
 const City = () => {
 
@@ -164,7 +165,7 @@ const City = () => {
     };
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={city.slug ? `Properties Listed in ${city.slug} ` : `No Properties in ${city.slug}`} />
 
             <div id="all-prop-containt">
@@ -232,7 +233,7 @@ const City = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </Layout>
     )
 }
 

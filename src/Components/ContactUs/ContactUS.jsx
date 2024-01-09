@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { languageData } from "@/store/reducer/languageSlice";
 import { ContactUsApi } from "@/store/actions/campaign";
 import { settingsData } from "@/store/reducer/settingsSlice";
+import Layout from '../Layout/Layout';
 
 const ContactUS = () => {
 
@@ -100,7 +101,7 @@ const ContactUS = () => {
 
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("contactUs")} />
             <section id="contact-us">
                 <div className="container">
@@ -268,7 +269,7 @@ const ContactUS = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </Layout>
     )
 }
 

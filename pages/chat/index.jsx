@@ -30,9 +30,7 @@ const Index = ({ seoData, currentURL }) => {
         ogImage={seoData?.data[0]?.meta_image}
         pathName={currentURL}
       />
-      <Layout>
         <Messages />
-      </Layout>
     </>
   )
 }

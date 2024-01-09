@@ -1,5 +1,4 @@
 import React from "react";
-import Layout from "@/Components/Layout/Layout";
 import AllCategories from "@/Components/AllCategories/AllCategories";
 import Meta from "@/Components/Seo/Meta";
 import axios from "axios";
@@ -33,9 +32,7 @@ const Index = ({ seoData, currentURL }) => {
         ogImage={seoData && seoData.data[0].meta_image}
         pathName={currentURL}
       />
-      <Layout>
         <AllCategories />
-      </Layout>
     </>
   );
 };

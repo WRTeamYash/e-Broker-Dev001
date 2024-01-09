@@ -8,6 +8,7 @@ import { categoriesCacheData } from "@/store/reducer/momentSlice";
 import { translate } from "@/utils";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import Layout from '../Layout/Layout';
 
 const AllCategories = () => {
 
@@ -19,7 +20,7 @@ const AllCategories = () => {
     const Categorydata = useSelector(categoriesCacheData);
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("allCategories")} />
             <section id="view_all_cate_section">
                 <div className="cate_section">
@@ -52,7 +53,7 @@ const AllCategories = () => {
                     )}
                 </div>
             </section>
-        </>
+        </Layout>
     )
 }
 

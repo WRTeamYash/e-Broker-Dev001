@@ -6,9 +6,7 @@ import TermsAndCondition from "@/Components/TermsAndCondition/TermsAndCondition"
 const Index = () => {
     
     return (
-        <Layout>
           <TermsAndCondition />
-        </Layout>
     );
 };
 

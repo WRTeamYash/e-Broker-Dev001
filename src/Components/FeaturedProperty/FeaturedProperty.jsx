@@ -9,6 +9,7 @@ import { translate } from "@/utils";
 import { languageData } from "@/store/reducer/languageSlice";
 import Pagination from "@/Components/Pagination/ReactPagination";
 import NoData from "@/Components/NoDataFound/NoData";
+import Layout from '../Layout/Layout';
 
 
 const FeaturedProperty = () => {
@@ -54,7 +55,7 @@ const FeaturedProperty = () => {
     };
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("featurdAllProp")} />
             <section id="featured_prop_section">
                 {isLoading ? ( // Show Skeleton when isLoading is true
@@ -94,7 +95,7 @@ const FeaturedProperty = () => {
                     </div>
                 ) : null}
             </section>
-        </>
+        </Layout>
     )
 }
 

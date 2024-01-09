@@ -14,6 +14,7 @@ import { languageData } from "@/store/reducer/languageSlice";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import NoData from "@/Components/NoDataFound/NoData";
 import { categoriesCacheData } from "@/store/reducer/momentSlice";
+import Layout from '../Layout/Layout';
 
 
 
@@ -104,7 +105,7 @@ const Articles = () => {
     };
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("articles")} />
             <div className="all-articles">
                 <div id="all-articles-content">
@@ -229,7 +230,7 @@ const Articles = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </Layout>
     )
 }
 

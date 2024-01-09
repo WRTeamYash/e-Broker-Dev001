@@ -34,7 +34,6 @@ const Index = ({ seoData, currentURL }) => {
                 ogImage={seoData && seoData.data[0]?.meta_image}
                 pathName={currentURL}
             />
-
             <AboutUs />
 
         </>

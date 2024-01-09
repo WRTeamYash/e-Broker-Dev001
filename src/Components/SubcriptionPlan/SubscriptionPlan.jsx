@@ -25,6 +25,7 @@ import "swiper/css/pagination";
 import Swal from "sweetalert2";
 import NoData from "@/Components/NoDataFound/NoData";
 import { useRouter } from "next/router";
+import Layout from '../Layout/Layout';
 
 
 const stripeLoadKey = loadStripeApiKey()
@@ -245,7 +246,7 @@ const SubscriptionPlan = () => {
 
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("subscriptionPlan")} />
 
             <section id="subscription" className="mb-5">
@@ -523,7 +524,7 @@ const SubscriptionPlan = () => {
                     </Form.Item>
                 </Form>
             </Modal>
-        </>
+        </Layout>
     )
 }
 

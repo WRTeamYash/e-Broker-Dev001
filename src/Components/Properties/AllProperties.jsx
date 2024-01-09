@@ -13,6 +13,7 @@ import { languageData } from "@/store/reducer/languageSlice";
 import Pagination from "@/Components/Pagination/ReactPagination";
 import NoData from "@/Components/NoDataFound/NoData";
 import { categoriesCacheData } from "@/store/reducer/momentSlice";
+import Layout from '../Layout/Layout';
 
 
 const AllProperties = () => {
@@ -172,7 +173,7 @@ const AllProperties = () => {
     };
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("allProperties")} />
 
             <div id="all-prop-containt">
@@ -255,7 +256,7 @@ const AllProperties = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </Layout>
     )
 }
 

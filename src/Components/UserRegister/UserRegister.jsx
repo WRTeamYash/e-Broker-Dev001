@@ -12,6 +12,7 @@ import { translate } from "@/utils";
 import LocationSearchBox from "@/Components/Location/LocationSearchBox";
 import Image from "next/image";
 import { Fcmtoken } from '@/store/reducer/settingsSlice';
+import Layout from '../Layout/Layout';
 
 const UserRegister = () => {
 
@@ -101,7 +102,7 @@ const UserRegister = () => {
     };
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("basicInfo")} />
             <section id="user_register">
                 <div className="container">
@@ -182,7 +183,7 @@ const UserRegister = () => {
                 </div>
             </section>
             {showCurrentLoc && <Location isOpen={true} onClose={handleCloseLocModal} onSelectLocation={handleSelectLocation} />}
-        </>
+        </Layout>
     )
 }
 

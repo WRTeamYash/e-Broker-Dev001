@@ -5,6 +5,7 @@ import { settingsData } from "@/store/reducer/settingsSlice";
 import { translate } from "@/utils";
 import Skeleton from "react-loading-skeleton";
 import { useSelector } from "react-redux";
+import Layout from "../Layout/Layout";
 
 const PrivacyPolicy = () => {
     const privacyPolicyData = useSelector(settingsData);
@@ -23,7 +24,7 @@ const PrivacyPolicy = () => {
     useEffect(() => { }, [lang]);
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("privacyPolicy")} />
             <section id="privacySect">
                 <div className="container">
@@ -39,7 +40,7 @@ const PrivacyPolicy = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </Layout>
     )
 }
 

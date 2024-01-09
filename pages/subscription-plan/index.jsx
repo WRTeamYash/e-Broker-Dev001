@@ -7,9 +7,7 @@ import SubscriptionPlan from "@/Components/SubcriptionPlan/SubscriptionPlan";
 const Index = () => {
 
     return (
-        <Layout>
             <SubscriptionPlan />
-        </Layout>
     );
 };
 

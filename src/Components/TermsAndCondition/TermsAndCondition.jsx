@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import { translate } from "@/utils";
 import { languageData } from "@/store/reducer/languageSlice";
+import Layout from '../Layout/Layout';
 
 
 const TermsAndCondition = () => {
@@ -28,7 +29,7 @@ const TermsAndCondition = () => {
     useEffect(() => { }, [lang]);
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("terms&condition")} />
             <section id="termsSect">
                 <div className="container">
@@ -45,7 +46,7 @@ const TermsAndCondition = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </Layout>
     )
 }
 

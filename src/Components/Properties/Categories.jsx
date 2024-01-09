@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { languageData } from "@/store/reducer/languageSlice";
 import Pagination from "@/Components/Pagination/ReactPagination";
 import NoData from "@/Components/NoDataFound/NoData";
+import Layout from '../Layout/Layout';
 
 const Categories = () => {
 
@@ -181,7 +182,7 @@ const Categories = () => {
     };
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={`${cateName} Properties`} />
             <div id="all-prop-containt">
                 <div className="all-properties container">
@@ -263,7 +264,7 @@ const Categories = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </Layout>
     )
 }
 

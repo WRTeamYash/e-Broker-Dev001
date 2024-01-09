@@ -6,9 +6,7 @@ import City from "@/Components/Properties/City";
 const Index = () => {
 
     return (
-        <Layout>
             <City />
-        </Layout>
     );
 };
 

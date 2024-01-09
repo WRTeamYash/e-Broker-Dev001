@@ -5,9 +5,8 @@ import Categories from "@/Components/Properties/Categories";
 const Index = () => {
 
     return (
-        <Layout>
+        
             <Categories />
-        </Layout>
     );
 };
 

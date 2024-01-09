@@ -15,6 +15,7 @@ import Link from "next/link.js";
 import VerticalCard from "@/Components/Cards/VerticleCard.jsx";
 import NoData from "@/Components/NoDataFound/NoData.jsx";
 import { categoriesCacheData, filterDataaa } from "@/store/reducer/momentSlice";
+import Layout from '../Layout/Layout';
 
 
 const SearchPage = () => {
@@ -182,7 +183,7 @@ const SearchPage = () => {
         window.scrollTo(0, 0);
     };
     return (
-        <>
+        <Layout>
             <Breadcrumb title="" />
             <div className="serach_page_tab">
                 <div id="searchbox" className="container">
@@ -340,7 +341,7 @@ const SearchPage = () => {
                     )}
                 </div>
             </div>
-        </>
+        </Layout>
     )
 }
 

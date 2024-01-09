@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { languageData } from "@/store/reducer/languageSlice";
 import Image from "next/image";
 import NoData from "@/Components/NoDataFound/NoData";
+import Layout from '../Layout/Layout';
 
 const NearBycity = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +32,7 @@ const NearBycity = () => {
     useEffect(() => { }, [lang]);
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("propNearByCities")} />
             <section id="all-nearby-citys">
                 {isLoading ? (
@@ -73,7 +74,7 @@ const NearBycity = () => {
                     </div>
                 )}
             </section>
-        </>
+        </Layout>
     )
 }
 

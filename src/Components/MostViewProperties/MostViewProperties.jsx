@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { translate } from "@/utils";
 import { languageData } from "@/store/reducer/languageSlice";
 import NoData from "@/Components/NoDataFound/NoData";
+import Layout from '../Layout/Layout';
 
 
 const MostViewProperties = () => {
@@ -54,7 +55,7 @@ const MostViewProperties = () => {
 
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("mostViewedProp")} />
             <section id="featured_prop_section">
                 {isLoading ? ( // Show Skeleton when isLoading is true
@@ -94,7 +95,7 @@ const MostViewProperties = () => {
                     </div>
                 ) : null}
             </section>
-        </>
+        </Layout>
     )
 }
 

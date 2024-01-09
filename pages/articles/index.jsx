@@ -1,5 +1,4 @@
 import React from "react";
-import Layout from "@/Components/Layout/Layout";
 import Articles from "@/Components/Articles/Articles";
 import axios from "axios";
 import { GET_SEO_SETTINGS } from "@/utils/api";
@@ -35,9 +34,7 @@ const Index = () => {
                 ogImage={seoData && seoData.data[0].meta_image}
                 pathName={currentURL}
             />
-        <Layout>
             <Articles />
-        </Layout>
         </>
     );
 };

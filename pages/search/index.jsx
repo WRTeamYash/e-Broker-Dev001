@@ -7,9 +7,7 @@ const Index = () => {
 
 
     return (
-        <Layout>
             <SearchPage />
-        </Layout>
     );
 };
 

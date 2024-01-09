@@ -6,9 +6,7 @@ const Index = () => {
 
 
     return (
-        <Layout>
             <NearBycity />
-        </Layout>
     );
 };
 

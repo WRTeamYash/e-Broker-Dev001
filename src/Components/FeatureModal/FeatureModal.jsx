@@ -103,7 +103,7 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
 
     const files = useMemo(
         () =>
-            uploadedImages.map((file, index) => (
+        uploadedImages && uploadedImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
                     <Image loading="lazy" className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
                     <div className="dropbox_d">
@@ -153,7 +153,7 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
                         <div className="dropbox">
                             <div {...getRootProps()} className={`dropzone ${isDragActive ? "active" : ""}`}>
                                 <input {...getInputProps()} />
-                                {uploadedImages.length === 0 ? (
+                                {uploadedImages && uploadedImages.length === 0 ? (
                                     isDragActive ? (
                                         <span>{translate("dropFiles")}</span>
                                     ) : (

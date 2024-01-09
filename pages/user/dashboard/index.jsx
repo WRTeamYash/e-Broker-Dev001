@@ -305,7 +305,7 @@ const index = () => {
                                 </Table>
                             </TableContainer>
 
-                            {/* <FeatureModal show={isFeatureModalVisible} onHide={() => setIsFeatureModalVisible(false)} propertyId={propertyId} /> */}
+                            <FeatureModal show={isFeatureModalVisible} onHide={() => setIsFeatureModalVisible(false)} propertyId={propertyId} />
 
                             {getFeaturedListing && getFeaturedListing.length > 0 ? (
                                 <div className="col-12">

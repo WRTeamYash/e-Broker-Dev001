@@ -37,10 +37,10 @@ const Index = () => {
         return null;
     };
 
-    const packageRemaining = getDaysRemaining(currentUserPackage[0]?.end_date);
+    const packageRemaining = getDaysRemaining(currentUserPackage && currentUserPackage[0]?.end_date);
 
     const calculatePackageDuration = () => {
-        if (currentUserPackage[0]?.start_date && currentUserPackage[0]?.end_date) {
+        if (currentUserPackage && currentUserPackage[0]?.start_date && currentUserPackage[0]?.end_date) {
             const startDate = new Date(currentUserPackage[0].start_date);
             const endDate = new Date(currentUserPackage[0].end_date);
             const durationInMilliseconds = endDate - startDate;
@@ -82,8 +82,8 @@ const Index = () => {
         return `${dayOfWeek}, ${day} ${month}, ${year}`;
     }
 
-    const formattedStartDate = formatDate(currentUserPackage[0]?.start_date);
-    const formattedEndDate = formatDate(currentUserPackage[0]?.end_date);
+    const formattedStartDate = formatDate(currentUserPackage && currentUserPackage[0]?.start_date);
+    const formattedEndDate = formatDate(currentUserPackage && currentUserPackage[0]?.end_date);
 
     return (
         <VerticleLayout>
@@ -102,7 +102,7 @@ const Index = () => {
                                 <div id="subscription_validity">
                                     <div className="package_validity">
                                         <span className="package_details_title">{translate("packVali")}</span>
-                                        {currentUserPackage[0]?.end_date !== null ? (
+                                        {currentUserPackage && currentUserPackage[0]?.end_date !== null ? (
                                             <span className="package_details_value">
                                                 {currentUserPackage[0].package.duration}
                                                 {""} {translate("days")}
@@ -115,7 +115,7 @@ const Index = () => {
                                         <span className="package_details_title">{translate("price")}</span>
                                         <span className="package_details_value">
                                             {
-                                                currentUserPackage[0].package.price !== 0
+                                                currentUserPackage && currentUserPackage[0].package.price !== 0
                                                     ? CurrencySymbol + currentUserPackage[0].package.price
                                                     : "Free"
                                             }
@@ -149,10 +149,10 @@ const Index = () => {
                                                         <Progress
                                                             id="progress_bar"
                                                             type="circle"
-                                                            percent={currentUserPackage[0]?.end_date !== null ? progress : 100}
+                                                            percent={currentUserPackage && currentUserPackage[0]?.end_date !== null ? progress : 100}
                                                             format={() => null}
                                                             strokeWidth={10}
-                                                         
+
                                                         />
                                                         <div
                                                             style={{
@@ -166,7 +166,7 @@ const Index = () => {
                                                                 left: 0,
                                                             }}
                                                         >
-                                                            {currentUserPackage[0]?.end_date !== null ? (
+                                                            {currentUserPackage && currentUserPackage[0]?.end_date !== null ? (
                                                                 <span className="progress_bar_count">{`${packageRemaining} Days`}</span>
                                                             ) : (
                                                                 <span className="progress_bar_count">{translate("infinity")}</span>
@@ -188,7 +188,7 @@ const Index = () => {
                                             <span className="dates_value">{formattedStartDate}</span>
                                         </div>
                                     </div>
-                                    {currentUserPackage[0]?.end_date !== null ? (
+                                    {currentUserPackage && currentUserPackage[0]?.end_date !== null ? (
                                         <div className="ends_on">
                                             <div className="dates">
                                                 <span className="dates_title">{translate("endsOn")}</span>

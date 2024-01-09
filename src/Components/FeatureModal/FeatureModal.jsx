@@ -53,7 +53,10 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
                         icon: "error",
                         title: "Oops...",
                         text: "Your Package Limit is Over. Please Purchase Package.",
-                        confirmButtonColor: primaryColor,
+                        customClass: {
+                            confirmButton: 'Swal-confirm-buttons',
+                            cancelButton: "Swal-cancel-buttons"
+                        },
                     }).then((result) => {
                         if (result.isConfirmed) {
                             router.push("/subscription-plan"); // Redirect to the subscription page
@@ -64,7 +67,10 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
                         icon: "error",
                         title: "Oops...",
                         text: "Package not found for add property. Please Purchase Package.",
-                        confirmButtonColor: primaryColor,
+                        customClass: {
+                            confirmButton: 'Swal-confirm-buttons',
+                            cancelButton: "Swal-cancel-buttons"
+                        },
                     }).then((result) => {
                         if (result.isConfirmed) {
                             router.push("/subscription-plan"); // Redirect to the subscription page

@@ -36,7 +36,6 @@ const { Option } = Select;
 const SubscriptionPlan = () => {
     const router = useRouter();
     
-   
     const [packagedata, setPackageData] = useState([]);
 
     const [loading, setLoading] = useState(false);
@@ -143,8 +142,10 @@ const SubscriptionPlan = () => {
                 text: "This Action is Not Allowed in Demo Mode",
                 icon: "warning",
                 showCancelButton: false,
-                confirmButtonColor: primaryColor,
-                cancelButtonColor: "#d33",
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
                 confirmButtonText: "OK",
             });
             return false;

@@ -11,7 +11,7 @@ const systemsettings =  useSelector(settingsData)
     <>
            <div className="admindash_footer">
             <span>
-            Copyright @ 2023 {systemsettings.company_name}. All Rights Reserved
+            Copyright @ 2023 {systemsettings?.company_name}. All Rights Reserved
             </span>
            </div>
     </>

@@ -70,11 +70,9 @@ const Nav = () => {
             document.documentElement.style.setProperty('--primary-sell', "#e8aa42");
         }
 
-  
+
     }, [settingData?.svg_clr])
-    const rootStyles = window.getComputedStyle(document.documentElement);
-    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
-    const isLoggedIn = useSelector((state) => state.User_signup);
+
     const isSubscription = settingData?.subscription;
     const LanguageList = settingData && settingData.languages;
     const systemDefaultLanguageCode = settingData?.default_language;
@@ -103,7 +101,9 @@ const Nav = () => {
             Swal.fire({
                 title: 'Complete Profile First',
                 icon: 'info',
-                confirmButtonColor: primaryColor,
+                customClass: {
+                    confirmButton: 'Swal-buttons',
+                },
                 confirmButtonText: 'OK',
                 backdrop: 'static',
             }).then((result) => {
@@ -114,8 +114,8 @@ const Nav = () => {
             });
         }
     }, []);
-   
-   
+
+
 
     useEffect(() => {
         const header = document.querySelector(".header");
@@ -197,8 +197,9 @@ const Nav = () => {
                 icon: "error",
                 title: "Oops...",
                 text: "You have not subscribed. Please subscribe first",
-                confirmButtonColor: primaryColor,
-
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                },
                 // footer: '<a href="">Why do I have this issue?</a>'
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -216,7 +217,9 @@ const Nav = () => {
                 icon: "error",
                 title: "Oops...",
                 text: "You have not subscribed. Please subscribe first",
-                confirmButtonColor: primaryColor,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                },
 
                 // footer: '<a href="">Why do I have this issue?</a>'
             }).then((result) => {
@@ -233,8 +236,10 @@ const Nav = () => {
             text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: primaryColor,
-            cancelButtonColor: "#d33",
+            customClass: {
+                confirmButton: 'Swal-confirm-buttons',
+                cancelButton: "Swal-cancel-buttons"
+            },
             confirmButtonText: "Yes! Logout",
         }).then((result) => {
             if (result.isConfirmed) {
@@ -256,8 +261,10 @@ const Nav = () => {
                 text: "This Action is Not Allowed in Demo Mode",
                 icon: "warning",
                 showCancelButton: false,
-                confirmButtonColor: primaryColor, // Use the primary color from CSS
-                cancelButtonColor: "#d33",
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
                 confirmButtonText: "OK",
             });
             return false;
@@ -270,7 +277,10 @@ const Nav = () => {
                     icon: "error",
                     title: "Oops...",
                     text: "You have not login. Please Login first",
-                    confirmButtonColor: primaryColor,
+                    customClass: {
+                        confirmButton: 'Swal-confirm-buttons',
+                        cancelButton: "Swal-cancel-buttons"
+                    },
                     // footer: '<a href="">Why do I have this issue?</a>'
                 }).then((result) => {
                     if (result.isConfirmed) {

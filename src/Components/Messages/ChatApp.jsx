@@ -29,8 +29,7 @@ const ChatApp = ({ notificationData }) => {
     const userProfile = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.profile : PlaceHolderImg;
     const [chatList, setChatList] = useState([]);
     const [newChat, setNewChat] = useState([]);
-    const rootStyles = window.getComputedStyle(document.documentElement);
-    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
+
     const router = useRouter();
     const storedChatData = localStorage.getItem('newUserChat')
     const newChatData = JSON.parse(storedChatData);
@@ -338,7 +337,7 @@ const ChatApp = ({ notificationData }) => {
 
 
     useEffect(() => {
-        
+
         if (notificationData) {
             const newMessage = {
                 sender_id: notificationData.sender_id,
@@ -438,7 +437,10 @@ const ChatApp = ({ notificationData }) => {
                 confirmButtonText: "Yes, delete it!",
                 cancelButtonText: "No, cancel!",
                 reverseButtons: true,
-                confirmButtonColor: primaryColor,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
             }).then((result) => {
                 if (result.isConfirmed) {
 
@@ -451,7 +453,10 @@ const ChatApp = ({ notificationData }) => {
                                 title: "Deleted!",
                                 text: res.message,
                                 icon: "success",
-                                confirmButtonColor: primaryColor,
+                                customClass: {
+                                    confirmButton: 'Swal-confirm-buttons',
+                                    cancelButton: "Swal-cancel-buttons"
+                                },
                             });
 
                             // Remove the deleted chat from state

@@ -47,8 +47,6 @@ function a11yProps(index) {
 
 export default function EditPropertyTabs() {
     const GoogleMapApi = process.env.NEXT_PUBLIC_GOOGLE_API;
-    const rootStyles = window.getComputedStyle(document.documentElement);
-    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
     const Categorydata = useSelector(categoriesCacheData);
 
     const router = useRouter();
@@ -548,8 +546,10 @@ export default function EditPropertyTabs() {
                 text: "This Action is Not Allowed in Demo Mode",
                 icon: "warning",
                 showCancelButton: false,
-                confirmButtonColor: primaryColor,
-                cancelButtonColor: "#d33",
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
                 confirmButtonText: "OK",
             });
             return false;
@@ -644,7 +644,10 @@ export default function EditPropertyTabs() {
                             icon: "error",
                             title: "Oops...",
                             text: "Your Package Limit is Over. Please Purchase Package.",
-                            confirmButtonColor: primaryColor,
+                            customClass: {
+                                confirmButton: 'Swal-confirm-buttons',
+                                cancelButton: "Swal-cancel-buttons"
+                            },
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 router.push("/subscription-plan"); // Redirect to the subscription page

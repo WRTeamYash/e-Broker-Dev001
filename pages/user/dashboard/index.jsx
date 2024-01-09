@@ -42,8 +42,7 @@ const index = () => {
 
     const SettingsData = useSelector(settingsData);
 
-    const rootStyles = window.getComputedStyle(document.documentElement);
-    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
+
     const lang = useSelector(languageData);
 
     useEffect(() => { }, [lang]);
@@ -58,7 +57,9 @@ const index = () => {
                 text: "This Action is Not Allowed in Demo Mode",
                 icon: "warning",
                 showCancelButton: false,
-                confirmButtonColor: primaryColor, // Use the primary color from CSS
+                customClass: {
+                    confirmButton: 'Swal-buttons',
+                },
                 cancelButtonColor: "#d33",
                 confirmButtonText: "OK",
             });

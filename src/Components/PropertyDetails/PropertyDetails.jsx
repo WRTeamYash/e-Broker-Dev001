@@ -215,8 +215,7 @@ const PropertyDetails = () => {
             }
         );
     };
-    const rootStyles = window.getComputedStyle(document.documentElement);
-    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
+
     const handleChat = (e) => {
         e.preventDefault();
         if (DummyImgData?.demo_mode === true) {
@@ -225,8 +224,10 @@ const PropertyDetails = () => {
                 text: "This Action is Not Allowed in Demo Mode",
                 icon: "warning",
                 showCancelButton: false,
-                confirmButtonColor: primaryColor, // Use the primary color from CSS
-                cancelButtonColor: "#d33",
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
                 confirmButtonText: "OK",
             });
             return false;

@@ -118,25 +118,24 @@ export default function VerticleLayout(props) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const lang = useSelector(languageData);
-   
-    const rootStyles = window.getComputedStyle(document.documentElement);
-    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
+
+
     const settingData = useSelector(settingsData);
-    
-    
-        useEffect(() => {
-            if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
-                document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
-                document.documentElement.style.setProperty('--primary-category-background', settingData?.category_background);
-                document.documentElement.style.setProperty('--primary-sell', settingData?.sell_background);
-            } else {
-                document.documentElement.style.setProperty('--primary-color', "#087c7c");
-                document.documentElement.style.setProperty('--primary-category-background', "#087c7c14");
-                document.documentElement.style.setProperty('--primary-sell', "#e8aa42");
-            }
-    
-      
-        }, [settingData?.svg_clr])
+
+
+    useEffect(() => {
+        if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
+            document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
+            document.documentElement.style.setProperty('--primary-category-background', settingData?.category_background);
+            document.documentElement.style.setProperty('--primary-sell', settingData?.sell_background);
+        } else {
+            document.documentElement.style.setProperty('--primary-color', "#087c7c");
+            document.documentElement.style.setProperty('--primary-category-background', "#087c7c14");
+            document.documentElement.style.setProperty('--primary-sell', "#e8aa42");
+        }
+
+
+    }, [settingData?.svg_clr])
     const language = store.getState().Language.languages;
     const current_user = store.getState().User_signup?.data?.data?.id
     useEffect(() => { }, [lang]);
@@ -155,8 +154,10 @@ export default function VerticleLayout(props) {
             text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: primaryColor,
-            cancelButtonColor: "#d33",
+            customClass: {
+                confirmButton: 'Swal-confirm-buttons',
+                cancelButton: "Swal-cancel-buttons"
+            },
             confirmButtonText: "Yes",
         }).then((result) => {
             if (result.isConfirmed) {
@@ -182,8 +183,10 @@ export default function VerticleLayout(props) {
                 text: "This Action is Not Allowed in Demo Mode",
                 icon: "warning",
                 showCancelButton: false,
-                confirmButtonColor: primaryColor, // Use the primary color from CSS
-                cancelButtonColor: "#d33",
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
                 confirmButtonText: "OK",
             });
             return false;
@@ -201,7 +204,10 @@ export default function VerticleLayout(props) {
             text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: primaryColor,
+            customClass: {
+                confirmButton: 'Swal-confirm-buttons',
+                cancelButton: "Swal-cancel-buttons"
+            },
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes",
         }).then((result) => {
@@ -263,10 +269,7 @@ export default function VerticleLayout(props) {
                         onClick={handleDrawerOpen}
                         edge="start"
                         sx={{
-                            color: primaryColor,
-
                             marginRight: 5,
-
                             ...(open && { display: "none" }),
                         }}
                     >

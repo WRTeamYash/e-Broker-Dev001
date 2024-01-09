@@ -4,8 +4,7 @@ import { Progress } from "antd";
 function ProgressBar({ usedLimit, totalLimit }) {
     // Calculate the percentage of used limit relative to the total limit
     const progress = (usedLimit / totalLimit) * 100;
-    const rootStyles = window.getComputedStyle(document.documentElement);
-    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
+
 
     return (
         <div style={{ position: "relative", display: "inline-flex" }}>
@@ -15,10 +14,7 @@ function ProgressBar({ usedLimit, totalLimit }) {
                 percent={progress}
                 format={() => null} // Remove the percentage display
                 strokeWidth={10} // Adjust the stroke width as needed
-                strokeColor={{
-                    "0%": primaryColor,
-                    "100%": primaryColor,
-                }}
+               
             />
             <div
                 style={{

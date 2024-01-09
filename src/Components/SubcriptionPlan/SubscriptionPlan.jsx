@@ -35,10 +35,8 @@ const { Option } = Select;
 
 const SubscriptionPlan = () => {
     const router = useRouter();
-
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
-
-
+    
+   
     const [packagedata, setPackageData] = useState([]);
 
     const [loading, setLoading] = useState(false);

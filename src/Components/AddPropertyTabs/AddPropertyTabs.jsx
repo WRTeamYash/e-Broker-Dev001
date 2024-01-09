@@ -61,8 +61,6 @@ export default function AddPropertyTabs() {
     const packageId = PackageData?.package?.user_purchased_package[0]?.package_id;
 
     const Categorydata = useSelector(categoriesCacheData);
-    const rootStyles = window.getComputedStyle(document.documentElement);
-    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
 
     const [tab1, setTab1] = useState({
         propertyType: "",
@@ -396,7 +394,7 @@ export default function AddPropertyTabs() {
     };
     const handleNextTab4 = () => {
         // Check if the location fields in tab 4 are empty
-        
+
         if (!areLocationFieldsFilled(selectedLocationAddress)) {
             // Display a toast message to fill in all property address details in tab 4
             toast.error("Please fill in all property address details.");
@@ -409,12 +407,12 @@ export default function AddPropertyTabs() {
 
     const handlePostproperty = async (e) => {
         e.preventDefault();
-    
+
         try {
             if (!areFieldsFilled(tab1)) {
                 // Display a toast message to fill in all required fields for Tab 1
                 toast.error("Please fill in all required fields in Property Details");
-    
+
                 // Switch to Tab 1
                 setValue(0);
             } else if (!areLocationFieldsFilled(selectedLocationAddress)) {
@@ -437,10 +435,10 @@ export default function AddPropertyTabs() {
                 });
             } else {
                 // Rest of your code remains the same
-    
+
                 const parameters = [];
                 const facilities = [];
-    
+
                 // Assuming tab2 contains parameter data
                 for (const [key, value] of Object.entries(tab2)) {
                     parameters.push({
@@ -449,7 +447,7 @@ export default function AddPropertyTabs() {
                         // You may need to adjust these fields based on your data structure
                     });
                 }
-    
+
                 // Assuming tab3 contains facility data
                 for (const [key, value] of Object.entries(tab3)) {
                     facilities.push({
@@ -458,7 +456,7 @@ export default function AddPropertyTabs() {
                         // You may need to adjust these fields based on your data structure
                     });
                 }
-    
+
                 PostProperty(
                     userId,
                     packageId ? packageId : "",
@@ -493,7 +491,9 @@ export default function AddPropertyTabs() {
                                 icon: "error",
                                 title: "Oops...",
                                 text: "Your Package Limit is Over. Please Purchase Package.",
-                                confirmButtonColor: primaryColor,
+                                customClass: {
+                                    confirmButton: 'Swal-buttons',
+                                },
                             });
                             router.push("/subscription-plan"); // Redirect to the subscription page
                         } else if (response.message === "Package not found for add property") {
@@ -501,7 +501,9 @@ export default function AddPropertyTabs() {
                                 icon: "error",
                                 title: "Oops...",
                                 text: "Package not found for add property. Please Purchase Package.",
-                                confirmButtonColor: primaryColor,
+                                customClass: {
+                                    confirmButton: 'Swal-buttons',
+                                },
                             });
                             router.push("/subscription-plan"); // Redirect to the subscription page
                         } else {
@@ -519,7 +521,7 @@ export default function AddPropertyTabs() {
             toast.error("An error occurred. Please try again later.");
         }
     };
-    
+
     return (
         <Box sx={{ width: "100%" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

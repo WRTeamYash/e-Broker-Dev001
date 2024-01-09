@@ -38,8 +38,6 @@ const Index = () => {
     };
 
     const packageRemaining = getDaysRemaining(currentUserPackage[0]?.end_date);
-    const rootStyles = window.getComputedStyle(document.documentElement);
-    const primaryColor = rootStyles.getPropertyValue('--primary-color').trim();
 
     const calculatePackageDuration = () => {
         if (currentUserPackage[0]?.start_date && currentUserPackage[0]?.end_date) {
@@ -154,10 +152,7 @@ const Index = () => {
                                                             percent={currentUserPackage[0]?.end_date !== null ? progress : 100}
                                                             format={() => null}
                                                             strokeWidth={10}
-                                                            strokeColor={{
-                                                                "0%": primaryColor,
-                                                                "100%": primaryColor,
-                                                            }}
+                                                         
                                                         />
                                                         <div
                                                             style={{

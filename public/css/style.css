@@ -6424,6 +6424,8 @@ a {
   height: 120px !important;
   /* color: var(--primary-color) !important; */
 }
+
+
 /* #progress_bar .MuiCircularProgress-circle {
   stroke: var(--primary-color) !important;} */
 #progress_bar_count {
@@ -7542,4 +7544,34 @@ embed svg path {
 }
 .gm-ui-hover-effect span {
   background-color: #000;
+}
+
+
+
+
+
+/* SWAL CSS */
+
+
+.Swal-confirm-buttons{
+  background-color: var(--primary-color) !important;
+}
+.Swal-confirm-buttons:focus{
+  box-shadow: var(--primary-color) !important;
+}
+.Swal-cancel-buttons{
+  background-color: transparent !important;
+  border: 1px solid gray !important;
+  color: var(--primary-text-color02) !important;  
+}
+.Swal-cancel-buttons:hover{
+  background-image: none !important;
+}
+
+.ant-progress .ant-progress-inner .ant-progress-circle-path{
+  stroke: var(--primary-color) !important;
+}
+
+.open_drawer {
+  color: var(--primary-color) !important;
 }

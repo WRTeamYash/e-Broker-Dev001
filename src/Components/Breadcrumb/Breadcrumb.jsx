@@ -141,13 +141,15 @@ const Breadcrumb = (props) => {
                                                 </button>
                                             )}
                                         </div>
-                                        <div>
-                                            <Tooltip title="Copy URL" placement="bottom">
-                                                <button onClick={handleCopyUrl}>
-                                                    <GrCopy size={25} className="disliked_property" />
-                                                </button>
-                                            </Tooltip>
-                                        </div>
+                                        {process.env.NEXT_PUBLIC_SEO === "true" ? (
+                                            <div>
+                                                <Tooltip title="Copy URL" placement="bottom">
+                                                    <button onClick={handleCopyUrl}>
+                                                        <GrCopy size={25} className="disliked_property" />
+                                                    </button>
+                                                </Tooltip>
+                                            </div>
+                                        ) : null}
                                     </div>
                                 </div>
                             </div>

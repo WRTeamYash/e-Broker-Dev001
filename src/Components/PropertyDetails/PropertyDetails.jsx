@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import { RiThumbUpFill } from "react-icons/ri";
 import { AiOutlineArrowRight } from "react-icons/ai";

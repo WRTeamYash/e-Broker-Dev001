@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from 'react'
 import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
 import { Swiper, SwiperSlide } from "swiper/react";

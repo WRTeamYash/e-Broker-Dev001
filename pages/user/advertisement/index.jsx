@@ -1,3 +1,4 @@
+"use client"
 import VerticleLayout from "@/Components/AdminLayout/VerticleLayout";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";

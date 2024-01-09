@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from 'react'
 import Breadcrumb from '../Breadcrumb/Breadcrumb'
 import Layout from '../Layout/Layout'

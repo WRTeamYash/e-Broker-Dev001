@@ -1,3 +1,4 @@
+"use client"
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";

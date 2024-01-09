@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from 'react'
 import ChatApp from '@/Components/Messages/ChatApp'
 import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";

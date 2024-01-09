@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { FiEye } from "react-icons/fi";
@@ -19,8 +20,6 @@ import HorizontalCard from "../Cards/HorizontalCard";
 import CustomHorizontalSkeleton from "../Skeleton/CustomHorizontalSkeleton";
 import CategoryCard from "../Cards/CategoryCard";
 import CustomCategorySkeleton from "../Skeleton/CustomCategorySkeleton";
-import AgentCardSkeleton from "../Skeleton/AgentCardSkeleton";
-import AgentCard from "../Cards/AgentCard";
 import ArticleCard from "../Cards/ArticleCard";
 import ArticleCardSkeleton from "../Skeleton/ArticleCardSkeleton";
 import NearByCitysSkeleton from "../Skeleton/NearByCitysSkeleton";

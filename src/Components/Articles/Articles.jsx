@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from 'react'
 import { AiOutlineUnorderedList } from "react-icons/ai";
 import { RiGridFill } from "react-icons/ri";

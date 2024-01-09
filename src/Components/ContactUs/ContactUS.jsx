@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useRef, useState } from 'react'
 import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
 import { AiFillTwitterCircle } from "react-icons/ai";

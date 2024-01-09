@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import { GET_SEO_SETTINGS } from "@/utils/api";
 import Meta from "@/Components/Seo/Meta.jsx";
 import HomePage from "@/Components/HomePage/Home";
@@ -13,7 +12,6 @@ const fetchDataFromSeo = async (page) => {
 
     const SEOData = response.data;
 
-    // console.log("SEODATA".Data)
     return SEOData;
   } catch (error) {
     console.error("Error fetching data:", error);

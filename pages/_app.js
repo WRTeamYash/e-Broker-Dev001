@@ -1,5 +1,5 @@
 import React from "react";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { store, persistor } from "../src/store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Fragment } from "react";
@@ -11,9 +11,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 // // Import lightbox2 CSS
 import 'lightbox2/dist/css/lightbox.min.css';
 
-// // Import lightbox2 JS (You may need to adjust the path depending on your project structure)
-// import 'lightbox2/dist/js/lightbox-plus-jquery.min.js';
-import Head from "next/head";
+
 import { Toaster } from "react-hot-toast";
 import PushNotificationLayout from "@/Components/firebaseNotification/PushNotificationLayout";
 
@@ -37,13 +35,12 @@ function MyApp({ Component, pageProps, data }) {
             </Head> */}
             <link rel="shortcut icon" href="/favicon.ico" sizes="32x32" type="image/png" />
             <Provider store={store}>
-                <PersistGate persistor={persistor}>
+                {/* <PersistGate persistor={persistor}> */}
                     <PushNotificationLayout>
                         <Component {...pageProps} data={data} />
                     </PushNotificationLayout>
-
                     <Toaster />
-                </PersistGate>
+                {/* </PersistGate> */}
             </Provider>
         </Fragment>
     );

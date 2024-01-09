@@ -1,6 +1,5 @@
 
 import React from "react";
-import Layout from "@/Components/Layout/Layout";
 import AboutUs from "@/Components/AboutUs/AboutUs";
 import axios from "axios";
 import { GET_SEO_SETTINGS } from "@/utils/api";
@@ -24,7 +23,7 @@ const fetchDataFromSeo = async (page) => {
     }
 };
 
-const page = ({ seoData, currentURL }) => {
+const Index = ({ seoData, currentURL }) => {
 
     return (
         <>
@@ -35,9 +34,9 @@ const page = ({ seoData, currentURL }) => {
                 ogImage={seoData && seoData.data[0]?.meta_image}
                 pathName={currentURL}
             />
-            <Layout>
-                <AboutUs />
-            </Layout>
+
+            <AboutUs />
+
         </>
     );
 };
@@ -49,7 +48,7 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
 
         const currentURL = `${req.headers.host}${req.url}`;
         const seoData = await fetchDataFromSeo(req.url);
-        // Pass the fetched data as props to the page component
+        // Pass the fetched data as props to the Index component
 
 
         console.log("req.url=======", req.url)
@@ -65,4 +64,4 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
 
 export const getServerSideProps = serverSidePropsFunction;
 
-export default page;
+export default Index;

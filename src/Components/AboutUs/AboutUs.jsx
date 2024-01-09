@@ -5,6 +5,7 @@ import { languageData } from "@/store/reducer/languageSlice";
 import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { useSelector } from "react-redux";
+import Layout from '../Layout/Layout';
 
 
 const AboutUs = () => {
@@ -34,7 +35,7 @@ const AboutUs = () => {
 
   
   return (
-    <>
+    <Layout>
       <Breadcrumb title={translate("aboutUs")} />
       <section id="termsSect">
         <div className="container">
@@ -51,7 +52,7 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
-    </>
+    </Layout>
   )
 }
 

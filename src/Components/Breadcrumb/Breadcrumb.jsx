@@ -68,7 +68,7 @@ const Breadcrumb = (props) => {
         e.preventDefault();
 
         // Get the current URL from the router
-        const currentUrl = process.env.NEXT_PUBLIC_BASE_URL + router.asPath;
+        const currentUrl = process.env.NEXT_PUBLIC_API_URL + router.asPath;
 
         try {
             // Use the Clipboard API to copy the URL to the clipboard

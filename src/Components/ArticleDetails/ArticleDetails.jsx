@@ -20,6 +20,7 @@ import { GetAllArticlesApi } from "@/store/actions/campaign";
 import { store } from "@/store/store";
 import ArticleCard from "@/Components/Cards/ArticleCard";
 import { categoriesCacheData } from "@/store/reducer/momentSlice";
+import Layout from '../Layout/Layout';
 
 
 const ArticleDetails = () => {
@@ -104,7 +105,7 @@ const ArticleDetails = () => {
     const language = store.getState().Language.languages;
 
     return (
-        <>
+        <Layout>
             <Breadcrumb title={translate("articleDeatils")} />
             <div className="all-articles">
                 <div id="all-articles-deatil-content">
@@ -194,7 +195,7 @@ const ArticleDetails = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </Layout>
     )
 }
 

@@ -21,6 +21,8 @@ const fetchDataFromSeo = async (slug) => {
         return null;
     }
 };
+
+
 const Index = ({ seoData, currentURL }) => {
     return (
         <>

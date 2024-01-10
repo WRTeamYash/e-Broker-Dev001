@@ -40,18 +40,16 @@ let serverSidePropsFunction = null;
 if (process.env.NEXT_PUBLIC_SEO === "true") {
     serverSidePropsFunction = async (context) => {
         const { req } = context; // Extract query and request object from context
+        const { params } = req[Symbol.for('NextInternalRequestMeta')]._nextMatch;
+        // Accessing the slug property
+        const slugValue = params.slug;
 
+        // console.log(slugValue, "slugValue");
         const currentURL = `${req.headers.host}${req.url}`;
 
-        // Extract the slug from the URL
-        const slug = req.url.replace(/^\/properties\/categories\//, '').replace(/\/$/, '');
-
-
-        const seoData = await fetchDataFromSeo(slug);
-
-        console.log("req.url=======", req.url);
-        console.log("req.params.slug=======", slug);
-        console.log("seoData=======", seoData);
+        const seoData = await fetchDataFromSeo(slugValue);
+        // console.log("req.url=======", req.url);
+        // console.log("seoData=======", seoData);
         return {
             props: {
                 seoData,

@@ -22,7 +22,7 @@ const fetchDataFromSeo = async (page) => {
     }
 };
 
-const Index = () => {
+const Index = ({seoData, currentURL}) => {
 
 
     return (

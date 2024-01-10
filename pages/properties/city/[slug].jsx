@@ -21,12 +21,26 @@ const fetchDataFromSeo = async (slug) => {
 };
 
 const Index = ({ seoData, currentURL, citySlug }) => {
+    const replaceCityPlaceholder = (str) => {
+        // Use a generic placeholder that represents where the city name should be inserted
+        const placeholder = "[City]";
+        
+        // Check if the placeholder is present in the string
+        if (str.includes(placeholder)) {
+            // Replace the placeholder with the actual city slug
+            return str.replace(placeholder, citySlug);
+        } else {
+            // If no placeholder is found, simply append the city slug to the end
+            return `${str} ${citySlug}`;
+        }
+    };
+
     return (
         <>
             <Meta
-                title={seoData && seoData.data[0]?.meta_title.replace("[Your City]", citySlug)}
-                description={seoData && seoData.data[0]?.meta_description.replace("[Your City]", citySlug)}
-                keywords={seoData && seoData.data[0]?.meta_keywords.replace("[Your City]", citySlug)}
+                title={seoData && replaceCityPlaceholder(seoData.data[0]?.meta_title)}
+                description={seoData && replaceCityPlaceholder(seoData.data[0]?.meta_description)}
+                keywords={seoData && replaceCityPlaceholder(seoData.data[0]?.meta_keywords)}
                 ogImage={seoData && seoData.data[0]?.meta_image}
                 pathName={currentURL}
             />
@@ -38,26 +52,26 @@ const Index = ({ seoData, currentURL, citySlug }) => {
 let serverSidePropsFunction = null;
 if (process.env.NEXT_PUBLIC_SEO === "true") {
     serverSidePropsFunction = async (context) => {
-        const { req } = context;
+        const { req } = context; // Extract query and request object from context
+        const { params } = req[Symbol.for('NextInternalRequestMeta')]._nextMatch;
+        // Accessing the slug property
+        const slugValue = params.slug;
+
+        // console.log(slugValue, "slugValue");
         const currentURL = `${req.headers.host}${req.url}`;
-        const slug = req.url.replace(/^\/properties\/city\//, '').replace(/\/$/, '');
 
-        const seoData = await fetchDataFromSeo(slug);
-
-        console.log("req.url=======", req.url);
-        console.log("req.params.slug=======", slug);
-        console.log("seoData=======", seoData);
-
+        const seoData = await fetchDataFromSeo(slugValue);
+        // console.log("req.url=======", req.url);
+        // console.log("seoData=======", seoData);
         return {
             props: {
                 seoData,
                 currentURL,
-                citySlug: slug, // Pass the city slug to the component
             },
         };
     };
 }
-
 export const getServerSideProps = serverSidePropsFunction;
+
 
 export default Index;

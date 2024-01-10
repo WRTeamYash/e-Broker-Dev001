@@ -8,10 +8,17 @@ import { settingsData } from "@/store/reducer/settingsSlice";
 import { toast } from "react-hot-toast";
 import { AddFavourite } from "@/store/actions/campaign";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { GrCopy } from "react-icons/gr";
-import { Tooltip } from "antd";
+import { Tooltip, Dropdown, Menu } from "antd";
 import { useRouter } from "next/router";
-
+import { RxShare2 } from "react-icons/rx";
+import {
+    FacebookShareButton,
+    TwitterShareButton,
+    WhatsappShareButton,
+    FacebookIcon,
+    WhatsappIcon,
+    TwitterIcon,
+} from "react-share";
 
 const Breadcrumb = (props) => {
 
@@ -19,7 +26,7 @@ const Breadcrumb = (props) => {
     let { data, title } = props;
     const priceSymbol = useSelector(settingsData);
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;
-
+    const CompanyName = priceSymbol && priceSymbol.company_name
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const [isLiked, setIsLiked] = useState(props.data && props.data.is_favourite);
@@ -64,27 +71,56 @@ const Breadcrumb = (props) => {
             }
         );
     };
-    const handleCopyUrl = async (e) => {
-        e.preventDefault();
+    const currentUrl = process.env.NEXT_PUBLIC_WEB_URL + router.asPath;
+    // const handleCopyUrl = async (e) => {
+    //     e.preventDefault();
 
-        // Get the current URL from the router
-        const currentUrl = process.env.NEXT_PUBLIC_WEB_URL + router.asPath;
+    //     // Get the current URL from the router
 
-        try {
-            // Use the Clipboard API to copy the URL to the clipboard
-            await navigator.clipboard.writeText(currentUrl);
-            toast.success("URL copied to clipboard!");
-        } catch (error) {
-            console.error("Error copying to clipboard:", error);
-            toast.error("Failed to copy URL to clipboard.");
-        }
-    };
+    //     try {
+    //         // Use the Clipboard API to copy the URL to the clipboard
+    //         await navigator.clipboard.writeText(currentUrl);
+    //         toast.success("URL copied to clipboard!");
+    //     } catch (error) {
+    //         console.error("Error copying to clipboard:", error);
+    //         toast.error("Failed to copy URL to clipboard.");
+    //     }
+    // };
 
     useEffect(() => {
         // Update the state based on props.data.is_favourite  when the component mounts
         setIsLiked(props.data && props.data.is_favourite === 1);
         setIsDisliked(false);
     }, [props.data && props.data.is_favourite]);
+
+
+
+    const shareMenu = (
+        <Menu>
+            <Menu.Item key="1">
+                <FacebookShareButton url={currentUrl} title={data?.title + CompanyName} hashtag={CompanyName}>
+                    {/* <a target="_blank" rel="noopener noreferrer"> */}
+                    <FacebookIcon size={30} round /> {""} Facebook
+                    {/* </a> */}
+                </FacebookShareButton>
+            </Menu.Item>
+            <Menu.Item key="2">
+                <TwitterShareButton url={currentUrl}>
+                    <a target="_blank" rel="noopener noreferrer">
+                        <TwitterIcon size={30} round /> {""} Twitter
+                    </a>
+                </TwitterShareButton>
+            </Menu.Item>
+            <Menu.Item key="3">
+                <WhatsappShareButton url={currentUrl} title={data?.title + "" + " - " + "" + CompanyName} hashtag={CompanyName}>
+                    {/* <a target="_blank" rel="noopener noreferrer"> */}
+                        <WhatsappIcon size={30} round /> {""} Whatsapp
+                    {/* </a> */}
+                </WhatsappShareButton>
+            </Menu.Item>
+            {/* Add more share buttons as needed */}
+        </Menu>
+    );
 
     return (
         <div
@@ -142,13 +178,11 @@ const Breadcrumb = (props) => {
                                             )}
                                         </div>
                                         {process.env.NEXT_PUBLIC_SEO === "true" ? (
-                                            <div>
-                                                <Tooltip title="Copy URL" placement="bottom">
-                                                    <button onClick={handleCopyUrl}>
-                                                        <GrCopy size={25} className="disliked_property" />
-                                                    </button>
-                                                </Tooltip>
-                                            </div>
+                                            <Dropdown overlay={shareMenu} placement="bottomCenter" arrow>
+                                                <button>
+                                                    <RxShare2 size={25} className="disliked_property" />
+                                                </button>
+                                            </Dropdown>
                                         ) : null}
                                     </div>
                                 </div>

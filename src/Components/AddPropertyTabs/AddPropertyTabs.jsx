@@ -17,6 +17,7 @@ import { userSignUpData } from "@/store/reducer/authSlice";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import { categoriesCacheData } from "@/store/reducer/momentSlice";
+import { languageData } from "@/store/reducer/languageSlice";
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -62,7 +63,9 @@ export default function AddPropertyTabs() {
     const packageId = PackageData?.package?.user_purchased_package[0]?.package_id;
 
     const Categorydata = useSelector(categoriesCacheData);
+    const lang = useSelector(languageData);
 
+    useEffect(() => { }, [lang]);
     const [tab1, setTab1] = useState({
         propertyType: "",
         category: "",
@@ -78,6 +81,12 @@ export default function AddPropertyTabs() {
         _3DImages: [],
         galleryImages: [],
         videoLink: "",
+    });
+    const [tab6, setTab6] = useState({
+        MetaTitle: "",
+        MetaKeyword: "",
+        MetaDesc: "",
+
     });
 
     const GoogleMapApi = process.env.NEXT_PUBLIC_GOOGLE_API;
@@ -101,6 +110,10 @@ export default function AddPropertyTabs() {
         const { name, value } = e.target;
         setTab1({
             ...tab1,
+            [name]: value,
+        });
+        setTab6({
+            ...tab6,
             [name]: value,
         });
     };
@@ -402,7 +415,7 @@ export default function AddPropertyTabs() {
         } else {
             // Proceed to the next tab
             setValue(value + 1);
-
+            console.log("selectedLocationAddress", selectedLocationAddress)
         }
     };
 
@@ -478,6 +491,9 @@ export default function AddPropertyTabs() {
                     tab5.titleImage[0],
                     tab5._3DImages[0],
                     tab5.galleryImages,
+                    tab6.MetaTitle,
+                    tab6.MetaDesc,
+                    tab6.MetaKeyword,
                     async (response) => {
                         if (response.message === "Package not found") {
                             toast.error(response.message);
@@ -532,7 +548,7 @@ export default function AddPropertyTabs() {
                     <Tab label={translate("OTF")} {...a11yProps(2)} />
                     <Tab label={translate("location")} {...a11yProps(3)} />
                     <Tab label={translate("I&V")} {...a11yProps(4)} />
-                    <Tab label={translate("I&V")} {...a11yProps(4)} />
+                    {/* <Tab label={translate("SEOS")} {...a11yProps(5)} /> */}
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -859,6 +875,40 @@ export default function AddPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
+            {/* <CustomTabPanel value={value} index={5}>
+                <form>
+                    <div className="row" id="add_prop_form_row">
+                        <div className="col-sm-12">
+                            <div id="add_prop_form">
+                                <div className="add_prop_fields">
+                                    <span>Meta Title</span>
+                                    <input type="text" id="prop_title_input" placeholder="Enter Property Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-12 col-md-6">
+                            <div id="add_prop_form">
+                                <div className="add_prop_fields">
+                                    <span>Meta Keyword</span>
+                                    <textarea rows={10} id="about_prop" placeholder="Enter About Property" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-12 col-md-6">
+                            <div className="add_prop_fields">
+                                <span>Meta Description</span>
+                                <textarea rows={10} id="about_prop" placeholder="Enter About Property" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="nextButton">
+                        <button type="button" onClick={handleNextTab}>
+                            {translate("next")}
+                        </button>
+                    </div>
+                </form>
+            </CustomTabPanel> */}
         </Box>
     );
 }

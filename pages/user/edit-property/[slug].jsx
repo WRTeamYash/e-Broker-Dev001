@@ -1,12 +1,13 @@
 "use client"
 import React, { useEffect } from "react";
 import EditPropertyTabs from "@/Components/EditPropertyTabs/EditPropertyTabs";
-import VerticleLayout from "@/Components/AdminLayout/VerticleLayout";
 import { translate } from "@/utils";
 import { languageData } from "@/store/reducer/languageSlice";
 import { useSelector } from "react-redux";
+import dynamic from "next/dynamic.js";
 
-const index = () => {
+const VerticleLayout = dynamic(() => import('../../../src/Components/AdminLayout/VerticleLayout.jsx'), { ssr: false })
+const Index = () => {
     const lang = useSelector(languageData);
 
     useEffect(() => {}, [lang]);
@@ -24,4 +25,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default Index;

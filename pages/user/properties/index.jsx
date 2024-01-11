@@ -1,27 +1,22 @@
 "use client"
-import AddPropertyTabs from "@/Components/AddPropertyTabs/AddPropertyTabs";
-import VerticleLayout from "@/Components/AdminLayout/VerticleLayout";
-import { languageData } from "@/store/reducer/languageSlice";
-import { translate } from "@/utils";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import UserAddProperty from '@/Components/User/UserAddProperty.jsx'
+import Meta from "@/Components/Seo/Meta";
 
-const index = () => {
-    const lang = useSelector(languageData);
+const Index = () => {
 
-    useEffect(() => {}, [lang]);
     return (
-        <VerticleLayout>
-            <div className="container">
-                <div className="dashboard_titles">
-                    <h3>{translate("addProp")}</h3>
-                </div>
-                <div className="card" id="add_prop_tab">
-                    <AddPropertyTabs />
-                </div>
-            </div>
-        </VerticleLayout>
+        <> 
+        <Meta
+        title=""
+        description=""
+        keywords=""
+        ogImage=""
+        pathName=""
+    />
+            <UserAddProperty />
+        </>
     );
 };
 
-export default index;
+export default Index;

@@ -4,6 +4,9 @@ import { settingsLoaded } from "@/store/reducer/settingsSlice.js";
 import { useSelector } from "react-redux";
 import { languageData } from "@/store/reducer/languageSlice.js";
 import Loader from "../Loader/Loader.jsx";
+import "../../../public/css/style.css";
+import "../../../public/css/responsive.css";
+
 
 const Layout = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);

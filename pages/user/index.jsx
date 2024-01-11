@@ -2,7 +2,7 @@
 import React from "react";
 import DashboardContent from "../../src/Components/DashboardContent/DashboardContent.jsx";
 
-const index = () => {
+const Index = () => {
     return (
         <>
             <DashboardContent />
@@ -10,4 +10,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default Index;

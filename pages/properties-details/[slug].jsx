@@ -13,7 +13,7 @@ const fetchDataFromSeo = async (slug) => {
         );
 
         const SEOData = response.data;
-        console.log(SEOData)
+        console.log(typeof(SEOData))
 
         return SEOData;
     } catch (error) {
@@ -49,7 +49,8 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         const currentURL = `${req.headers.host}${req.url}`;
 
         const seoData = await fetchDataFromSeo(slugValue);
-
+        console.log("req=======", req);
+        // console.log("seoData=======", seoData);
         return {
             props: {
                 seoData,

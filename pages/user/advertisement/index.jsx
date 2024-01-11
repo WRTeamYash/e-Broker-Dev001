@@ -7,13 +7,13 @@ import UserAdvertisement from '@/Components/User/UserAdvertisement.jsx'
 const Index = () => {
     return (
         <>
-            <Meta
+            {/* <Meta
                 title=""
                 description=""
                 keywords=""
                 ogImage=""
                 pathName=""
-            />
+            /> */}
             <UserAdvertisement />
         </>
     )

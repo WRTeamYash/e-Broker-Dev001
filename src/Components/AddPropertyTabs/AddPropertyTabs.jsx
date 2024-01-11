@@ -178,7 +178,7 @@ export default function AddPropertyTabs() {
             [fieldId]: isChecked,
         }));
     };
-    const handleRadioChange = (e,fieldId, selectedOption) => {
+    const handleRadioChange = (e, fieldId, selectedOption) => {
         e.preventDefault()
         setTab2((prevTab2Data) => ({
             ...prevTab2Data,
@@ -198,8 +198,8 @@ export default function AddPropertyTabs() {
         }));
     };
 
-    const handleLocationSelect = (e, address) => {
-        e.preventDefault()
+    const handleLocationSelect = (address) => {
+
         // Update the form field with the selected address
         setSelectedLocationAddress(address);
     };
@@ -395,6 +395,16 @@ export default function AddPropertyTabs() {
         // All required fields are filled
         return true;
     };
+    const areFieldsFilled1 = (seodata) => {
+        // Check if any of the required fields are empty or undefined
+        if (!seodata.MetaTitle || !seodata.MetaKeyword || !seodata.MetaDesc) {
+            // Some required fields are not filled
+            return false;
+        }
+
+        // All required fields are filled
+        return true;
+    };
 
     const areLocationFieldsFilled = (location) => {
 
@@ -411,6 +421,17 @@ export default function AddPropertyTabs() {
     const handleNextTab = (e) => {
         e.preventDefault();
         if (!areFieldsFilled(tab1)) {
+            // Display a toast message to fill in all required fields
+            toast.error("Please fill in all required fields ");
+        } else {
+            // Proceed to the next tab
+            setValue(value + 1);
+
+        }
+    };
+    const handleNextTab2 = (e) => {
+        e.preventDefault();
+        if (!areFieldsFilled1(tab6)) {
             // Display a toast message to fill in all required fields
             toast.error("Please fill in all required fields ");
         } else {
@@ -446,7 +467,12 @@ export default function AddPropertyTabs() {
                 // Display a toast message to fill in all required location fields
                 toast.error("Please select a location with all required fields (city, state, country, and formatted_address)");
                 // Switch to Tab 4
-                setValue(3);
+                setValue(4);
+            } else if (!areFieldsFilled1(tab6)) {
+                // Display a toast message to fill in all required location fields
+                toast.error("Please fill in all required fields in Property Details");
+                // Switch to Tab 4
+                setValue(1);
             } else if (uploadedImages.length === 0) {
                 // Display a toast message if Title Image is not selected
                 toast.error("Please select a Title Image");
@@ -666,7 +692,7 @@ export default function AddPropertyTabs() {
                     </div>
 
                     <div className="nextButton">
-                        <button type="button" onClick={handleNextTab}>
+                        <button type="button" onClick={handleNextTab2}>
                             {translate("next")}
                         </button>
                     </div>
@@ -807,7 +833,6 @@ export default function AddPropertyTabs() {
             </CustomTabPanel>
 
 
-
             <CustomTabPanel value={value} index={4}>
                 <form>
                     <div className="row" id="add_prop_form_row">
@@ -932,7 +957,7 @@ export default function AddPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
-           
+
         </Box>
     );
 }

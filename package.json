@@ -70,5 +70,8 @@
     "validator": "^13.9.0",
     "yet-another-react-lightbox": "^3.12.2"
   },
-  "homepage": "https://ebrokerweb.wrteam.me/"
+  "homepage": "https://ebrokerweb.wrteam.me/",
+  "devDependencies": {
+    "eslint-plugin-prettier": "^5.1.3"
+  }
 }

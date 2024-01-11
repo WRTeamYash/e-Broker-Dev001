@@ -6,8 +6,7 @@ import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Layout from "../AdminLayout/Layout";
-import "../../../public/css/style.css";
-import "../../../public/css/responsive.css";
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({

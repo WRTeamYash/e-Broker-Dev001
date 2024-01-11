@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import VerticleLayout from "./VerticleLayout.jsx";
 import { settingsLoaded } from "@/store/reducer/settingsSlice.js";

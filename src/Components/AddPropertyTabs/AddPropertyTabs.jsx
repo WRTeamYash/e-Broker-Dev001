@@ -103,10 +103,13 @@ export default function AddPropertyTabs() {
         );
     }, []);
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (e, newValue) => {
+        console.log(e)
+        e.preventDefault()
         setValue(newValue);
     };
     const handleInputChange = (e) => {
+        e.preventDefault()
         const { name, value } = e.target;
         setTab1({
             ...tab1,
@@ -118,6 +121,7 @@ export default function AddPropertyTabs() {
         });
     };
     const handleCategoryChange = (e) => {
+        e.preventDefault()
         const selectedCategory = e.target.value;
 
         // Parse selectedCategory as a number (assuming id is a number in Categoriesss)
@@ -149,6 +153,7 @@ export default function AddPropertyTabs() {
         }
     };
     const handlePropertyTypes = (event) => {
+        event.preventDefault()
         const selectedValue = event.target.value;
 
         if (selectedValue !== tab1.propertyType) {
@@ -157,26 +162,30 @@ export default function AddPropertyTabs() {
         }
     };
 
-    const handleTab2InputChange = (fieldId, value) => {
+    const handleTab2InputChange = (fieldId, value, e) => {
+        e.preventDefault()
         setTab2((prevData) => ({
             ...prevData,
             [fieldId]: value,
         }));
     };
-    const handleCheckboxChange = (fieldId, isChecked) => {
+    const handleCheckboxChange = (e, fieldId, isChecked) => {
+        e.preventDefault()
         setTab2((prevTab2Data) => ({
             ...prevTab2Data,
             [fieldId]: isChecked,
         }));
     };
-    const handleRadioChange = (fieldId, selectedOption) => {
+    const handleRadioChange = (e,fieldId, selectedOption) => {
+        e.preventDefault()
         setTab2((prevTab2Data) => ({
             ...prevTab2Data,
             [fieldId]: selectedOption,
         }));
     };
 
-    const handleTab3InputChange = (fieldId, value) => {
+    const handleTab3InputChange = (e, fieldId, value) => {
+        e.preventDefault()
         // Ensure that the input value is a positive number
         const parsedValue = parseFloat(value);
         const newValue = isNaN(parsedValue) || parsedValue < 0 ? 0 : parsedValue;
@@ -187,12 +196,14 @@ export default function AddPropertyTabs() {
         }));
     };
 
-    const handleLocationSelect = (address) => {
+    const handleLocationSelect = (e, address) => {
+        e.preventDefault()
         // Update the form field with the selected address
         setSelectedLocationAddress(address);
     };
 
     const handleTab4InputChange = (event) => {
+        event.preventDefault()
         const { name, value } = event.target;
         // Update the corresponding field in tab4Data using the input's "name" attribute
         setSelectedLocationAddress((prevData) => ({

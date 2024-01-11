@@ -1,14 +1,15 @@
-import AddPropertyTabs from "@/Components/AddPropertyTabs/AddPropertyTabs";
-import VerticleLayout from "@/Components/AdminLayout/VerticleLayout";
-import { languageData } from "@/store/reducer/languageSlice";
+"use client"
 import { translate } from "@/utils";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import dynamic from "next/dynamic.js";
+import React from "react";
 
-const Index = () => {
-    const lang = useSelector(languageData);
+// import VerticleLayout from "@/Components/AdminLayout/VerticleLayout";
+import AddPropertyTabs from "@/Components/AddPropertyTabs/AddPropertyTabs";
 
-    useEffect(() => {}, [lang]);
+const VerticleLayout = dynamic(() => import('../../../src/Components/AdminLayout/VerticleLayout.jsx'), { ssr: false })
+
+const UserAddProperty = () => {
+   
     return (
         <VerticleLayout>
             <div className="container">
@@ -23,4 +24,4 @@ const Index = () => {
     );
 };
 
-export default Index;
+export default UserAddProperty;

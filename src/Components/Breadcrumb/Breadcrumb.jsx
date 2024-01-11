@@ -11,6 +11,10 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { Tooltip, Dropdown, Menu } from "antd";
 import { useRouter } from "next/router";
 import { RxShare2 } from "react-icons/rx";
+import { CiLink } from "react-icons/ci";
+
+
+
 import {
     FacebookShareButton,
     TwitterShareButton,
@@ -72,20 +76,20 @@ const Breadcrumb = (props) => {
         );
     };
     const currentUrl = process.env.NEXT_PUBLIC_WEB_URL + router.asPath;
-    // const handleCopyUrl = async (e) => {
-    //     e.preventDefault();
+    const handleCopyUrl = async (e) => {
+        e.preventDefault();
 
-    //     // Get the current URL from the router
+        // Get the current URL from the router
 
-    //     try {
-    //         // Use the Clipboard API to copy the URL to the clipboard
-    //         await navigator.clipboard.writeText(currentUrl);
-    //         toast.success("URL copied to clipboard!");
-    //     } catch (error) {
-    //         console.error("Error copying to clipboard:", error);
-    //         toast.error("Failed to copy URL to clipboard.");
-    //     }
-    // };
+        try {
+            // Use the Clipboard API to copy the URL to the clipboard
+            await navigator.clipboard.writeText(currentUrl);
+            // toast.success("URL copied to clipboard!");
+        } catch (error) {
+            console.error("Error copying to clipboard:", error);
+            // toast.error("Failed to copy URL to clipboard.");
+        }
+    };
 
     useEffect(() => {
         // Update the state based on props.data.is_favourite  when the component mounts
@@ -99,26 +103,30 @@ const Breadcrumb = (props) => {
         <Menu>
             <Menu.Item key="1">
                 <FacebookShareButton url={currentUrl} title={data?.title + CompanyName} hashtag={CompanyName}>
-                    {/* <a target="_blank" rel="noopener noreferrer"> */}
+
                     <FacebookIcon size={30} round /> {""} Facebook
-                    {/* </a> */}
+
                 </FacebookShareButton>
             </Menu.Item>
             <Menu.Item key="2">
                 <TwitterShareButton url={currentUrl}>
-                    <a target="_blank" rel="noopener noreferrer">
-                        <TwitterIcon size={30} round /> {""} Twitter
-                    </a>
+
+                    <TwitterIcon size={30} round /> {""} Twitter
+
                 </TwitterShareButton>
             </Menu.Item>
             <Menu.Item key="3">
                 <WhatsappShareButton url={currentUrl} title={data?.title + "" + " - " + "" + CompanyName} hashtag={CompanyName}>
-                    {/* <a target="_blank" rel="noopener noreferrer"> */}
-                        <WhatsappIcon size={30} round /> {""} Whatsapp
-                    {/* </a> */}
+
+                    <WhatsappIcon size={30} round /> {""} Whatsapp
+
                 </WhatsappShareButton>
             </Menu.Item>
-            {/* Add more share buttons as needed */}
+            <Menu.Item key="4">
+                <span onClick={handleCopyUrl}>
+                    <CiLink size={30} /> {""} Copy Link
+                </span>
+            </Menu.Item>
         </Menu>
     );
 

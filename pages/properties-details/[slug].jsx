@@ -49,8 +49,7 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         const currentURL = `${req.headers.host}${req.url}`;
 
         const seoData = await fetchDataFromSeo(slugValue);
-        // console.log("req.url=======", req.url);
-        // console.log("seoData=======", seoData);
+
         return {
             props: {
                 seoData,

@@ -532,6 +532,7 @@ export default function AddPropertyTabs() {
                     <Tab label={translate("OTF")} {...a11yProps(2)} />
                     <Tab label={translate("location")} {...a11yProps(3)} />
                     <Tab label={translate("I&V")} {...a11yProps(4)} />
+                    <Tab label={translate("I&V")} {...a11yProps(4)} />
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>

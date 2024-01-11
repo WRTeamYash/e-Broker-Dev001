@@ -557,11 +557,11 @@ export default function AddPropertyTabs() {
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label={translate("propDeatils")} {...a11yProps(0)} />
-                    <Tab label={translate("facilities")} {...a11yProps(1)} />
-                    <Tab label={translate("OTF")} {...a11yProps(2)} />
-                    <Tab label={translate("location")} {...a11yProps(3)} />
-                    <Tab label={translate("I&V")} {...a11yProps(4)} />
-                    {/* <Tab label={translate("SEOS")} {...a11yProps(5)} /> */}
+                    <Tab label={translate("SEOS")} {...a11yProps(1)} />
+                    <Tab label={translate("facilities")} {...a11yProps(2)} />
+                    <Tab label={translate("OTF")} {...a11yProps(3)} />
+                    <Tab label={translate("location")} {...a11yProps(4)} />
+                    <Tab label={translate("I&V")} {...a11yProps(5)} />
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -636,7 +636,44 @@ export default function AddPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
+
+
             <CustomTabPanel value={value} index={1}>
+                <form>
+                    <div className="row" id="add_prop_form_row">
+                        <div className="col-sm-12">
+                            <div id="add_prop_form">
+                                <div className="add_prop_fields">
+                                    <span>Meta Title</span>
+                                    <input type="text" id="prop_title_input" placeholder="Enter Property Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-12 col-md-6">
+                            <div id="add_prop_form">
+                                <div className="add_prop_fields">
+                                    <span>Meta Keyword</span>
+                                    <textarea rows={10} id="about_prop" placeholder="Enter About Property" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-12 col-md-6">
+                            <div className="add_prop_fields">
+                                <span>Meta Description</span>
+                                <textarea rows={10} id="about_prop" placeholder="Enter About Property" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="nextButton">
+                        <button type="button" onClick={handleNextTab}>
+                            {translate("next")}
+                        </button>
+                    </div>
+                </form>
+            </CustomTabPanel>
+
+            <CustomTabPanel value={value} index={2}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         {categoryParameters.length > 0 ? (
@@ -745,7 +782,9 @@ export default function AddPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
+
+
+            <CustomTabPanel value={value} index={3}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         {getFacilities.length > 0
@@ -766,7 +805,10 @@ export default function AddPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
-            <CustomTabPanel value={value} index={3}>
+
+
+
+            <CustomTabPanel value={value} index={4}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
@@ -811,7 +853,9 @@ export default function AddPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
-            <CustomTabPanel value={value} index={4}>
+
+
+            <CustomTabPanel value={value} index={5}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6 col-lg-3">
@@ -888,40 +932,7 @@ export default function AddPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
-            {/* <CustomTabPanel value={value} index={5}>
-                <form>
-                    <div className="row" id="add_prop_form_row">
-                        <div className="col-sm-12">
-                            <div id="add_prop_form">
-                                <div className="add_prop_fields">
-                                    <span>Meta Title</span>
-                                    <input type="text" id="prop_title_input" placeholder="Enter Property Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-sm-12 col-md-6">
-                            <div id="add_prop_form">
-                                <div className="add_prop_fields">
-                                    <span>Meta Keyword</span>
-                                    <textarea rows={10} id="about_prop" placeholder="Enter About Property" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-sm-12 col-md-6">
-                            <div className="add_prop_fields">
-                                <span>Meta Description</span>
-                                <textarea rows={10} id="about_prop" placeholder="Enter About Property" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="nextButton">
-                        <button type="button" onClick={handleNextTab}>
-                            {translate("next")}
-                        </button>
-                    </div>
-                </form>
-            </CustomTabPanel> */}
+           
         </Box>
     );
 }

@@ -339,6 +339,9 @@ export const UpdatePostProperty = (
     threeD_image,
     gallery_images,
     slug_id,
+    meta_title,
+    meta_description,
+    meta_keywords,
     onSuccess,
     onError,
     onStart
@@ -366,7 +369,10 @@ export const UpdatePostProperty = (
                 title_image,
                 threeD_image,
                 gallery_images,
-                slug_id
+                slug_id,
+                meta_title,
+                meta_description,
+                meta_keywords
             ),
             displayToast: false,
             onStart,
@@ -536,7 +542,7 @@ export const addReportApi = ({
 export const getNearbyPropertiesApi = ({
     city = "",
     state = "",
-    type= "",
+    type = "",
     onSuccess = () => { },
     onError = () => { },
     onStart = () => { }

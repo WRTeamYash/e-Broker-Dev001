@@ -106,7 +106,6 @@ export default function AddPropertyTabs() {
     }, []);
 
     const handleChange = (e, newValue) => {
-        console.log(e)
         e.preventDefault()
         setValue(newValue);
     };

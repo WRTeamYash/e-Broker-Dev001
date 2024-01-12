@@ -431,7 +431,7 @@ export const getPaymentDetials = (offset, limit) => {
 
 
 // UPDATE POST PROPERTY
-export const updatePostProperty = (action_type, id, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, slug_id) => {
+export const updatePostProperty = (action_type, id, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, slug_id, meta_title, meta_description, meta_keywords) => {
     let data = new FormData();
 
     // Append the property data to the FormData object
@@ -475,6 +475,9 @@ export const updatePostProperty = (action_type, id, package_id, title, descripti
         });
     }
     data.append('slug_id', slug_id);
+    data.append('meta_title', meta_title);
+    data.append('meta_description', meta_description);
+    data.append('meta_keywords', meta_keywords);
 
 
     return {

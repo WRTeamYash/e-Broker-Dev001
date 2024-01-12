@@ -90,7 +90,12 @@ export default function EditPropertyTabs() {
         galleryImages: [],
         videoLink: "",
     });
+    const [tab6, setTab6] = useState({
+        MetaTitle: "",
+        MetaKeyword: "",
+        MetaDesc: "",
 
+    });
     useEffect(() => {
         GetFacilitiesApi(
             (response) => {
@@ -115,7 +120,7 @@ export default function EditPropertyTabs() {
                 setLat(propertyData?.latitude);
                 setLng(propertyData?.longitude);
                 setIsLoading(false);
-
+                console.log(propertyData)
                 if (propertyData) {
                     setTab1({
                         propertyType: propertyData.property_type === "Sell" ? "1" : "0" || "",
@@ -125,6 +130,14 @@ export default function EditPropertyTabs() {
                         propertyDesc: propertyData.description || "",
                     });
                     setSelectedLocationAddress({});
+                }
+                if (propertyData) {
+                    setTab6({
+                        MetaTitle: propertyData.meta_title || "",
+                        MetaDesc: propertyData.meta_description || "",
+                        MetaKeyword: propertyData.meta_keywords || "",
+
+                    });
                 }
                 if (propertyData.parameters) {
                     const defaultTab2Values = {};
@@ -248,6 +261,10 @@ export default function EditPropertyTabs() {
         const { name, value } = e.target;
         setTab1({
             ...tab1,
+            [name]: value,
+        });
+        setTab6({
+            ...tab6,
             [name]: value,
         });
     };
@@ -505,6 +522,16 @@ export default function EditPropertyTabs() {
         // All required fields are filled
         return true;
     };
+    const areFieldsFilled1 = (seodata) => {
+        // Check if any of the required fields are empty or undefined
+        if (!seodata.MetaTitle || !seodata.MetaKeyword || !seodata.MetaDesc) {
+            // Some required fields are not filled
+            return false;
+        }
+
+        // All required fields are filled
+        return true;
+    };
 
     const areLocationFieldsFilled = (location) => {
         // Check if any of the required fields are empty or undefined
@@ -525,6 +552,17 @@ export default function EditPropertyTabs() {
         } else {
             // Proceed to the next tab
             setValue(value + 1);
+        }
+    };
+    const handleNextTab2 = (e) => {
+        e.preventDefault();
+        if (!areFieldsFilled1(tab6)) {
+            // Display a toast message to fill in all required fields
+            toast.error("Please fill in all required fields ");
+        } else {
+            // Proceed to the next tab
+            setValue(value + 1);
+
         }
     };
     const handleNextTab4 = () => {
@@ -566,8 +604,14 @@ export default function EditPropertyTabs() {
             // Display a toast message to fill in all required location fields
             toast.error("Please select a location with all required fields (city, state, country, and formatted_address)");
             // Switch to Tab 4
-            setValue(3);
-        } else if (uploadedImages.length === 0) {
+            setValue(4);
+        } else if (!areFieldsFilled1(tab6)) {
+            // Display a toast message to fill in all required location fields
+            toast.error("Please fill in all required fields in Property Details");
+            // Switch to Tab 4
+            setValue(1);
+        }
+        else if (uploadedImages.length === 0) {
             // Display a toast message if Title Image is not selected
             toast.error("Please select a Title Image");
         } else if (packageId === undefined) {
@@ -627,6 +671,9 @@ export default function EditPropertyTabs() {
                 tab5._3DImages[0],
                 tab5.galleryImages,
                 propertyId,
+                tab6.MetaTitle,
+                tab6.MetaDesc,
+                tab6.MetaKeyword,
                 (response) => {
                     if (response.message === "Package not found") {
                         toast.error(response.message);
@@ -672,10 +719,11 @@ export default function EditPropertyTabs() {
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label={translate("propDeatils")} {...a11yProps(0)} />
-                    <Tab label={translate("facilities")} {...a11yProps(1)} />
-                    <Tab label={translate("OTF")} {...a11yProps(2)} />
-                    <Tab label={translate("location")} {...a11yProps(3)} />
-                    <Tab label={translate("I&V")} {...a11yProps(4)} />
+                    <Tab label={translate("SEOS")} {...a11yProps(1)} />
+                    <Tab label={translate("facilities")} {...a11yProps(2)} />
+                    <Tab label={translate("OTF")} {...a11yProps(3)} />
+                    <Tab label={translate("location")} {...a11yProps(4)} />
+                    <Tab label={translate("I&V")} {...a11yProps(5)} />
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -750,7 +798,45 @@ export default function EditPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
+
             <CustomTabPanel value={value} index={1}>
+                <form>
+                    <div className="row" id="add_prop_form_row">
+                        <div className="col-sm-12">
+                            <div id="add_prop_form">
+                                <div className="add_prop_fields">
+                                    <span>Meta Title</span>
+                                    <input type="text" id="prop_title_input" placeholder="Enter Property Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-12 col-md-6">
+                            <div id="add_prop_form">
+                                <div className="add_prop_fields">
+                                    <span>Meta Keyword</span>
+                                    <textarea rows={10} id="about_prop" placeholder="Enter About Property" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-12 col-md-6">
+                            <div className="add_prop_fields">
+                                <span>Meta Description</span>
+                                <textarea rows={10} id="about_prop" placeholder="Enter About Property" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="nextButton">
+                        <button type="button" onClick={handleNextTab2}>
+                            {translate("next")}
+                        </button>
+                    </div>
+                </form>
+            </CustomTabPanel>
+
+
+
+            <CustomTabPanel value={value} index={2}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         {categoryParameters.length > 0 ? (
@@ -858,7 +944,7 @@ export default function EditPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
+            <CustomTabPanel value={value} index={3}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         {getFacilities.length > 0
@@ -879,7 +965,7 @@ export default function EditPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
-            <CustomTabPanel value={value} index={3}>
+            <CustomTabPanel value={value} index={4}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
@@ -924,7 +1010,7 @@ export default function EditPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
-            <CustomTabPanel value={value} index={4}>
+            <CustomTabPanel value={value} index={5}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6 col-lg-3">

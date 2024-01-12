@@ -13,7 +13,7 @@ const fetchDataFromSeo = async (slug) => {
         );
 
         const SEOData = response.data;
-        console.log(typeof(SEOData))
+        // console.log(typeof(SEOData))
 
         return SEOData;
     } catch (error) {
@@ -24,6 +24,8 @@ const fetchDataFromSeo = async (slug) => {
 
 
 const Index = ({ seoData, currentURL }) => {
+
+    console.log(seoData.data[0]?.meta_image)
     return (
         <>
           <Meta
@@ -49,7 +51,6 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         // const currentURL = `${req.headers.host}${req.url}`;
 
         const seoData = await fetchDataFromSeo(slugValue);
-        console.log("req=======", req);
         // console.log("seoData=======", seoData);
         return {
             props: {

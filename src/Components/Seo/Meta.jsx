@@ -1,8 +1,6 @@
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
-const Meta = ({ title, description, keywords, ogImage }) => {
-  const router = useRouter();
+const Meta = ({ title, description, keywords, ogImage, pathName }) => {
 
   return (
     <Head>
@@ -21,7 +19,7 @@ const Meta = ({ title, description, keywords, ogImage }) => {
       <meta property='og:image:type' content='image/jpg' />
       <meta property='og:image:width' content='1080' />
       <meta property='og:image:height' content='608' />
-      <meta property='og:url' content={process.env.NEXT_PUBLIC_WEB_URL + router.asPath} />
+      <meta property='og:url' content={pathName} />
       <meta property='og:type' content='website' />
 
       {/* Twitter Meta Tags */}

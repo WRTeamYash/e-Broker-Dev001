@@ -18,7 +18,7 @@ const Meta = ({ title, description, keywords, ogImage, pathName }) => {
       <meta property='og:title' content={title ? title : process.env.NEXT_PUBLIC_META_TITLE} />
       <meta property='og:description' content={description ? description : process.env.NEXT_PUBLIC_META_DESCRIPTION} />
       {/* <meta property='og:image' content={!ogImage ? "../../assets/Logo_Color.png" : ogImage} /> */}
-      <meta name='image' content='../../assets/Logo_Color.png' />
+      <meta name='og:image' content='../../assets/Logo_Color.png' />
       <meta property='og:image:type' content='image/jpg' />
       <meta property='og:image:width' content='1080' />
       <meta property='og:image:height' content='608' />
@@ -29,7 +29,7 @@ const Meta = ({ title, description, keywords, ogImage, pathName }) => {
       <meta name='twitter:title' content={title ? title : process.env.NEXT_PUBLIC_META_TITLE} />
       <meta name='twitter:description' content={description ? description : process.env.NEXT_PUBLIC_META_DESCRIPTION} />
       {/* <meta name='twitter:image' content={!ogImage ? "../../assets/Logo_Color.png" : ogImage} /> */}
-      <meta name='image' content='../../assets/Logo_Color.png' />
+      <meta name='twitter:image' content='../../assets/Logo_Color.png' />
       <meta name='twitter:card' content='summary_large_image' />
 
       {/* robot and cononical */}

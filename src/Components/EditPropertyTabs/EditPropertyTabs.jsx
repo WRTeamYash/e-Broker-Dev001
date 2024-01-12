@@ -67,6 +67,7 @@ export default function EditPropertyTabs() {
     const [uploaded3DImages, setUploaded3DImages] = useState([]); // State to store uploaded images
     const [galleryImages, setGalleryImages] = useState([]); // State to store uploaded images
     const [defaultGallryImages, setDefaultGallryImages] = useState([]);
+    const [uploadedOgImages, setUploadedOgImages] = useState([]); // State to store uploaded images
     const [categoryParameters, setCategoryParameters] = useState([]);
     const [selectedLocationAddress, setSelectedLocationAddress] = useState("");
     const [lat, setLat] = useState();
@@ -94,7 +95,7 @@ export default function EditPropertyTabs() {
         MetaTitle: "",
         MetaKeyword: "",
         MetaDesc: "",
-
+        ogImages: []
     });
     useEffect(() => {
         GetFacilitiesApi(
@@ -239,6 +240,36 @@ export default function EditPropertyTabs() {
                         galleryImages: defaultGalleryImages,
                     }));
                 }
+                // Check if propertyData.title_image exists and set it as the default title image
+                if (propertyData?.meta_image) {
+                    // Assuming propertyData.title_image contains the image URL
+                    const OgImageURL = propertyData?.meta_image;
+                  
+                    // Fetch the image data and convert it to a Blob
+                    fetch(OgImageURL)
+                        .then((response) => response.blob())
+                        .then((blob) => {
+                            // Check if the fetched blob is of image type (e.g., image/jpeg, image/png, etc.)
+                            if (blob.type.startsWith("image/")) {
+                                // Create a File object from the Blob
+                                const file = new File([blob], "meta_image.jpg", { type: "image/jpeg" });
+
+                                // Set the default title image
+                                setUploadedOgImages([file]);
+                                setTab6((prevState) => ({
+                                    ...prevState,
+                                    ogImages: [file],
+                                }));
+                            } else {
+                                console.error("Fetched file is not an image.");
+                                // Handle the case where the fetched file is not an image
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error fetching image data:", error);
+                        });
+                }
+
                 if (propertyData.video_link) {
                     setTab5((prevState) => ({
                         ...prevState,
@@ -501,6 +532,57 @@ export default function EditPropertyTabs() {
         [galleryImages]
     );
 
+
+    // Seo OG img
+    const onDropOgImage = useCallback((acceptedFiles) => {
+        // Log the acceptedFiles to check if they are being received correctly
+        // Check if each selected image is less than or equal to 300KB
+        const isSizeValid = acceptedFiles.every((file) => file.size <= 300 * 1024);
+
+        if (!isSizeValid) {
+            // Display a toast error message
+            toast.error('Error: Selected image size should be 300KB or less.');
+            return;
+        }
+        // Append the uploaded ogImage files to the uploadedOgImages state
+        setUploadedOgImages((prevImages) => [...prevImages, ...acceptedFiles]);
+        setTab6((prevState) => ({
+            ...prevState,
+            ogImages: acceptedFiles,
+        }));
+    }, []);
+
+    const removeOgImage = (index) => {
+        // Remove an ogImage from the uploadedOgImages state by index
+        setUploadedOgImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    };
+
+    const { getRootProps: getRootPropsOgImage, getInputProps: getInputPropsOgImage, isDragActive: isDragActiveOgImage } = useDropzone({
+        onDrop: onDropOgImage,
+        accept: 'image/*', // Accept only image files (update the accept type as needed)
+    });
+
+    const ogImageFiles = useMemo(
+        () =>
+            uploadedOgImages.map((file, index) => (
+                <div key={index} className="dropbox_img_div">
+                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                    <div className="dropbox_d">
+                        <button className="dropbox_remove_img" onClick={() => removeOgImage(index)}>
+                            <CloseIcon fontSize='25px' />
+                        </button>
+                        <div className="dropbox_img_deatils">
+                            <span>{file.name}</span>
+                            <span>{Math.round(file.size / 1024)} KB</span>
+                        </div>
+                    </div>
+                </div>
+            )),
+        [uploadedOgImages]
+    );
+
+
+
     const handleVideoInputChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -674,6 +756,7 @@ export default function EditPropertyTabs() {
                 tab6.MetaTitle,
                 tab6.MetaDesc,
                 tab6.MetaKeyword,
+                tab6.ogImages[0],
                 (response) => {
                     if (response.message === "Package not found") {
                         toast.error(response.message);
@@ -802,26 +885,50 @@ export default function EditPropertyTabs() {
             <CustomTabPanel value={value} index={1}>
                 <form>
                     <div className="row" id="add_prop_form_row">
-                        <div className="col-sm-12">
+                        <div className="col-sm-12 col-md-6 col-lg-3">
                             <div id="add_prop_form">
                                 <div className="add_prop_fields">
                                     <span>Meta Title</span>
-                                    <input type="text" id="prop_title_input" placeholder="Enter Property Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
+                                    <input type="text" id="prop_title_input" placeholder="Enter Property Meta Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
                                 </div>
                             </div>
                         </div>
-                        <div className="col-sm-12 col-md-6">
+                        <div className="col-sm-12 col-md-6 col-lg-3">
+                            <div id="add_prop_form">
+                                <div className="add_prop_fields">
+                                    <span>Og Image</span>
+                                    <div className="dropbox">
+                                       
+                                        <div {...getRootPropsOgImage()} className={`dropzone ${isDragActiveOgImage ? "active" : ""}`}>
+                                            <input {...getInputPropsOgImage()} />
+                                            {uploadedOgImages.length === 0 ? (
+                                                isDragActiveOgImage ? (
+                                                    <span>{translate("dropFiles")}</span>
+                                                ) : (
+                                                    <span>
+                                                        {translate("dragFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span>
+                                                    </span>
+                                                )
+                                            ) : null}
+                                        </div>
+                                        <div>{ogImageFiles}</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className="col-sm-12 col-md-6 col-lg-3">
                             <div id="add_prop_form">
                                 <div className="add_prop_fields">
                                     <span>Meta Keyword</span>
-                                    <textarea rows={10} id="about_prop" placeholder="Enter About Property" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
+                                    <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Keywords" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
                                 </div>
                             </div>
                         </div>
-                        <div className="col-sm-12 col-md-6">
+                        <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
                                 <span>Meta Description</span>
-                                <textarea rows={10} id="about_prop" placeholder="Enter About Property" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
+                                <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Description" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
                             </div>
                         </div>
                     </div>
@@ -1015,7 +1122,7 @@ export default function EditPropertyTabs() {
                 </form>
             </CustomTabPanel>
 
-            
+
             <CustomTabPanel value={value} index={5}>
                 <form>
                     <div className="row" id="add_prop_form_row">

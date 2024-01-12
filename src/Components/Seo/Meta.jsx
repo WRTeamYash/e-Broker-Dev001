@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import OgsImage from "../../assets/Logo_Color.png"
+
+
 const Meta = ({ title, description, keywords, ogImage, pathName }) => {
 
   return (

@@ -277,13 +277,14 @@ export const PostProperty = (
     meta_title,
     meta_description,
     meta_keywords,
+    meta_image,
     onSuccess,
     onError,
     onStart
 ) => {
     store.dispatch(
         apiCallBegan({
-            ...postProperty(userid, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, meta_title, meta_description, meta_keywords),
+            ...postProperty(userid, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, meta_title, meta_description, meta_keywords, meta_image),
             displayToast: false,
             onStart,
             onSuccess,
@@ -342,6 +343,7 @@ export const UpdatePostProperty = (
     meta_title,
     meta_description,
     meta_keywords,
+    meta_image,
     onSuccess,
     onError,
     onStart
@@ -372,7 +374,8 @@ export const UpdatePostProperty = (
                 slug_id,
                 meta_title,
                 meta_description,
-                meta_keywords
+                meta_keywords,
+                meta_image
             ),
             displayToast: false,
             onStart,

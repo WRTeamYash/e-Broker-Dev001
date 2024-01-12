@@ -334,7 +334,7 @@ export const confirmPayment = (paymentIntentId) => {
     }
 }
 // POST PROPERTY
-export const postProperty = (userid, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, meta_title, meta_description, meta_keywords) => {
+export const postProperty = (userid, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, meta_title, meta_description, meta_keywords, meta_image) => {
     let data = new FormData();
 
     // Append the property data to the FormData object
@@ -355,6 +355,7 @@ export const postProperty = (userid, package_id, title, description, city, state
     data.append('meta_title', meta_title);
     data.append('meta_description', meta_description);
     data.append('meta_keywords', meta_keywords);
+    data.append('meta_image', meta_image);
 
     // Append the parameters array if it is an array
     if (Array.isArray(parameters)) {
@@ -431,7 +432,7 @@ export const getPaymentDetials = (offset, limit) => {
 
 
 // UPDATE POST PROPERTY
-export const updatePostProperty = (action_type, id, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, slug_id, meta_title, meta_description, meta_keywords) => {
+export const updatePostProperty = (action_type, id, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, slug_id, meta_title, meta_description, meta_keywords, meta_image) => {
     let data = new FormData();
 
     // Append the property data to the FormData object
@@ -478,6 +479,7 @@ export const updatePostProperty = (action_type, id, package_id, title, descripti
     data.append('meta_title', meta_title);
     data.append('meta_description', meta_description);
     data.append('meta_keywords', meta_keywords);
+    data.append('meta_image', meta_image);
 
 
     return {

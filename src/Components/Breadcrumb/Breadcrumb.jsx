@@ -21,7 +21,7 @@ import {
     WhatsappShareButton,
     FacebookIcon,
     WhatsappIcon,
-    TwitterIcon,
+    XIcon,
 } from "react-share";
 
 const Breadcrumb = (props) => {
@@ -111,7 +111,7 @@ const Breadcrumb = (props) => {
             <Menu.Item key="2">
                 <TwitterShareButton url={currentUrl}>
 
-                    <TwitterIcon size={30} round /> {""} Twitter
+                    <XIcon size={30} round /> {""} Twitter
 
                 </TwitterShareButton>
             </Menu.Item>

@@ -944,6 +944,8 @@ export default function EditPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
+
+
             <CustomTabPanel value={value} index={3}>
                 <form>
                     <div className="row" id="add_prop_form_row">
@@ -965,6 +967,8 @@ export default function EditPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
+
+
             <CustomTabPanel value={value} index={4}>
                 <form>
                     <div className="row" id="add_prop_form_row">
@@ -1010,6 +1014,8 @@ export default function EditPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
+
+            
             <CustomTabPanel value={value} index={5}>
                 <form>
                     <div className="row" id="add_prop_form_row">

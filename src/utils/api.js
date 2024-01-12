@@ -334,7 +334,7 @@ export const confirmPayment = (paymentIntentId) => {
     }
 }
 // POST PROPERTY
-export const postProperty = (userid, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, meta_title, meta_description, meta_keywords, meta_image) => {
+export const postProperty = (userid, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, meta_title, meta_description, meta_keywords, meta_image, rentduration) => {
     let data = new FormData();
 
     // Append the property data to the FormData object

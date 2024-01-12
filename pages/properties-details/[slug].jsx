@@ -23,16 +23,15 @@ const fetchDataFromSeo = async (slug) => {
 };
 
 
-const Index = ({ seoData, currentURL }) => {
+const index = ({ seoData, currentURL }) => {
 
-    console.log(seoData.data[0]?.meta_image)
     return (
         <>
           <Meta
-                title={seoData && seoData.data[0]?.meta_title}
-                description={seoData && seoData.data[0]?.meta_description}
-                keywords={seoData && seoData.data[0]?.meta_keywords}
-                ogImage={seoData && seoData.data[0]?.meta_image}
+                title={seoData?.data[0] && seoData.data[0]?.meta_title}
+                description={seoData?.data[0] && seoData.data[0]?.meta_description}
+                keywords={seoData?.data[0] && seoData.data[0]?.meta_keywords}
+                ogImage={seoData?.data[0] && seoData.data[0]?.meta_image}
                 pathName={currentURL}
             />
             <PropertyDetails />
@@ -46,7 +45,7 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         const { params } = req[Symbol.for('NextInternalRequestMeta')]._nextMatch;
         // Accessing the slug property
          const currentURL = req[Symbol.for('NextInternalRequestMeta')].__NEXT_INIT_URL;
-        // console.log(slugValue, "slugValue");
+       
         const slugValue = params.slug;
         // const currentURL = `${req.headers.host}${req.url}`;
 
@@ -61,4 +60,4 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
     };
 }
 export const getServerSideProps = serverSidePropsFunction;
-export default Index
+export default index

@@ -923,6 +923,7 @@ export default function EditPropertyTabs() {
                                     <span>Meta Keyword</span>
                                     <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Keywords" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
                                 </div>
+                                <p style={{color: red, fontSize: "smaller"}}>Warning: Please enter keywords separated by commas for optimal SEO performance.</p>
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">

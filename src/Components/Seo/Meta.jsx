@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import OgsImage from "../../assets/Logo_Color.png"
 
 
 const Meta = ({ title, description, keywords, ogImage, pathName }) => {
@@ -13,12 +12,12 @@ const Meta = ({ title, description, keywords, ogImage, pathName }) => {
       <meta name='name' content={title ? title : process.env.NEXT_PUBLIC_META_TITLE} />
       <meta name='description' content={description ? description : process.env.NEXT_PUBLIC_META_DESCRIPTION} />
       <meta name='keywords' content={keywords ? keywords : process.env.NEXT_PUBLIC_META_KEYWORD} />
-      <meta name='image' content={ogImage ? ogImage : OgsImage} />
+      <meta name='image' content={ogImage ? ogImage : null} />
 
       {/*<!-- Facebook Meta Tags -->*/}
       <meta property='og:title' content={title ? title : process.env.NEXT_PUBLIC_META_TITLE} />
       <meta property='og:description' content={description ? description : process.env.NEXT_PUBLIC_META_DESCRIPTION} />
-      <meta property='og:image' content={ogImage ? ogImage : OgsImage} />
+      <meta property='og:image' content={ogImage ? ogImage : null} />
       <meta property='og:image:type' content='image/jpg' />
       <meta property='og:image:width' content='1080' />
       <meta property='og:image:height' content='608' />
@@ -28,7 +27,7 @@ const Meta = ({ title, description, keywords, ogImage, pathName }) => {
       {/*<!-- Twitter Meta Tags -->*/}
       <meta name='twitter:title' content={title ? title : process.env.NEXT_PUBLIC_META_TITLE} />
       <meta name='twitter:description' content={description ? description : process.env.NEXT_PUBLIC_META_DESCRIPTION} />
-      <meta name='twitter:image' content={ogImage ? ogImage : OgsImage } />
+      <meta name='twitter:image' content={ogImage ? ogImage : null } />
       <meta name='twitter:card' content='summary_large_image' />
 
       {/* robot and cononical */}

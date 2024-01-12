@@ -5659,6 +5659,17 @@ a {
   flex-direction: row;
   gap: 10px;
 }
+
+.add_prop_fields .categories {
+  height: 54px;
+  margin: auto;
+  color: gray;
+}
+.add_prop_fields .RentDuration {
+  height: 54px;
+  margin: auto;
+  color: gray;
+}
 .add_prop_fields .form-check {
   display: flex;
   align-items: center;

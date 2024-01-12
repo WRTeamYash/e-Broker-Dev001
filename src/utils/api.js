@@ -356,6 +356,7 @@ export const postProperty = (userid, package_id, title, description, city, state
     data.append('meta_description', meta_description);
     data.append('meta_keywords', meta_keywords);
     data.append('meta_image', meta_image);
+    data.append('rentduration', rentduration);
 
     // Append the parameters array if it is an array
     if (Array.isArray(parameters)) {

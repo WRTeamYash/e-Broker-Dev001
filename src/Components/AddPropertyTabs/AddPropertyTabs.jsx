@@ -75,6 +75,7 @@ export default function AddPropertyTabs() {
         title: "",
         price: "",
         propertyDesc: "",
+        rentduration: ""
     });
     const [tab2, setTab2] = useState({});
     const [tab3, setTab3] = useState({});
@@ -156,39 +157,40 @@ export default function AddPropertyTabs() {
         }
     };
     const handlePropertyTypes = (event) => {
-        event.preventDefault()
         const selectedValue = event.target.value;
 
         if (selectedValue !== tab1.propertyType) {
             // Only update formData.propertyType if a different option is selected
             setTab1({ ...tab1, propertyType: selectedValue });
+
         }
     };
-
+    const handleRentDurationChange = (e) => {
+        const value = e.target.value;
+        // Do something with the selected value, for example, update the state
+        setTab1((prevTab1) => ({ ...prevTab1, rentduration: value }));
+    };
     const handleTab2InputChange = (fieldId, value, e) => {
-        e.preventDefault()
         setTab2((prevData) => ({
             ...prevData,
             [fieldId]: value,
         }));
     };
-    const handleCheckboxChange = (e, fieldId, isChecked) => {
-        e.preventDefault()
+    const handleCheckboxChange = (fieldId, isChecked) => {
         setTab2((prevTab2Data) => ({
             ...prevTab2Data,
             [fieldId]: isChecked,
         }));
     };
     const handleRadioChange = (e, fieldId, selectedOption) => {
-        e.preventDefault()
         setTab2((prevTab2Data) => ({
             ...prevTab2Data,
             [fieldId]: selectedOption,
         }));
     };
 
-    const handleTab3InputChange = (e, fieldId, value) => {
-        e.preventDefault()
+    const handleTab3InputChange = (fieldId, value) => {
+      
         // Ensure that the input value is a positive number
         const parsedValue = parseFloat(value);
         const newValue = isNaN(parsedValue) || parsedValue < 0 ? 0 : parsedValue;
@@ -476,7 +478,6 @@ export default function AddPropertyTabs() {
     };
 
     const handleNextTab = (e) => {
-        e.preventDefault();
         if (!areFieldsFilled(tab1)) {
             // Display a toast message to fill in all required fields
             toast.error("Please fill in all required fields ");
@@ -487,7 +488,6 @@ export default function AddPropertyTabs() {
         }
     };
     const handleNextTab2 = (e) => {
-        e.preventDefault();
         if (!areFieldsFilled1(tab6)) {
             // Display a toast message to fill in all required fields
             toast.error("Please fill in all required fields ");
@@ -506,7 +506,7 @@ export default function AddPropertyTabs() {
         } else {
             // Proceed to the next tab
             setValue(value + 1);
-            // console.log("selectedLocationAddress", selectedLocationAddress)
+            // console.log("selectedLoca    tionAddress", selectedLocationAddress)
         }
     };
 
@@ -591,6 +591,7 @@ export default function AddPropertyTabs() {
                     tab6.MetaDesc,
                     tab6.MetaKeyword,
                     tab6.ogImages[0],
+                    tab1.rentduration,
                     async (response) => {
                         if (response.message === "Package not found") {
                             toast.error(response.message);
@@ -672,7 +673,7 @@ export default function AddPropertyTabs() {
                                 </div>
                                 <div className="add_prop_fields">
                                     <span>{translate("category")}</span>
-                                    <select className="form-select" aria-label="Default select" name="category" value={tab1.category} onChange={handleCategoryChange}>
+                                    <select className="form-select categories" aria-label="Default select" name="category" value={tab1.category} onChange={handleCategoryChange}>
                                         <option value="">{translate("selectPropType")}</option>
                                         {/* Map over Categories and set the 'value' of each option to the 'id' */}
                                         {Categorydata &&
@@ -687,22 +688,66 @@ export default function AddPropertyTabs() {
                                     <span>{translate("title")}</span>
                                     <input type="text" id="prop_title_input" placeholder="Enter Property Title" name="title" onChange={handleInputChange} value={tab1.title} />
                                 </div>
-                                <div className="add_prop_fields">
-                                    <span>{translate("price")}</span>
-                                    <input
-                                        type="number"
-                                        id="prop_title_input"
-                                        placeholder="Enter Property Price ($)"
-                                        name="price"
-                                        onChange={handleInputChange}
-                                        value={tab1.price}
-                                        onInput={(e) => {
-                                            if (e.target.value < 0) {
-                                                e.target.value = 0;
-                                            }
-                                        }}
-                                    />
-                                </div>
+                                {tab1.propertyType !== "1" ? (
+                                    <div className="add_prop_fields">
+                                        <span>{translate("price")}</span>
+                                        <input
+                                            type="number"
+                                            id="prop_title_input"
+                                            placeholder="Enter Property Price ($)"
+                                            name="price"
+                                            onChange={handleInputChange}
+                                            value={tab1.price}
+                                            onInput={(e) => {
+                                                if (e.target.value < 0) {
+                                                    e.target.value = 0;
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="row">
+                                        <div className="col-sm-12 col-md-6">
+
+                                            <div className="add_prop_fields">
+                                                <span>{translate("price")}</span>
+                                                <input
+                                                    type="number"
+                                                    id="prop_title_input"
+                                                    placeholder="Enter Property Price ($)"
+                                                    name="price"
+                                                    onChange={handleInputChange}
+                                                    value={tab1.price}
+                                                    onInput={(e) => {
+                                                        if (e.target.value < 0) {
+                                                            e.target.value = 0;
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-12 col-md-6">
+                                            <div className="add_prop_fields">
+                                                <span>{translate("RentDuration")}</span>
+                                                <select
+                                                    className="form-select RentDuration"
+                                                    aria-label="Default select"
+                                                    name="rentduration"
+                                                
+                                                    value={tab1.rentduration}
+                                                    onChange={handleRentDurationChange}
+                                                >
+                                                    <option value="">{translate("SelectRentDuration")}</option>
+                                                    <option value="Daily">Daily</option>
+                                                    <option value="Monthly">Monthly</option>
+                                                    <option value="Yearly">Yearly</option>
+                                                    <option value="Quarterly">Quarterly</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6">
@@ -762,6 +807,7 @@ export default function AddPropertyTabs() {
                                     <span>Meta Keyword</span>
                                     <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Keywords" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
                                 </div>
+                                <p style={{ color: "#FF0000", fontSize: "smaller" }}>Warning: Please enter keywords separated by commas for optimal SEO performance.</p>
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">

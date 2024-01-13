@@ -1,27 +1,28 @@
 "use client"
+import React, { useEffect } from "react";
+import EditPropertyTabs from "@/Components/EditPropertyTabs/EditPropertyTabs";
 import { translate } from "@/utils";
+import { languageData } from "@/store/reducer/languageSlice";
+import { useSelector } from "react-redux";
 import dynamic from "next/dynamic.js";
-import React from "react";
-
-// import VerticleLayout from "@/Components/AdminLayout/VerticleLayout";
-import AddPropertyTabs from "@/Components/AddPropertyTabs/AddPropertyTabs";
 
 const VerticleLayout = dynamic(() => import('../AdminLayout/VerticleLayout.jsx'), { ssr: false })
+const UserEditProperty = () => {
+    const lang = useSelector(languageData);
 
-const UserAddProperty = () => {
-   
+    useEffect(() => {}, [lang]);
     return (
         <VerticleLayout>
             <div className="container">
                 <div className="dashboard_titles">
-                    <h3>{translate("addProp")}</h3>
+                    <h3>{translate("editProp")}</h3>
                 </div>
                 <div className="card" id="add_prop_tab">
-                    <AddPropertyTabs />
+                    <EditPropertyTabs />
                 </div>
             </div>
         </VerticleLayout>
     );
 };
 
-export default UserAddProperty;
+export default UserEditProperty;

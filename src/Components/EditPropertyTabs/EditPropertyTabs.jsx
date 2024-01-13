@@ -771,7 +771,7 @@ export default function EditPropertyTabs() {
                 tab6.MetaDesc,
                 tab6.MetaKeyword,
                 tab6.ogImages[0],
-                teb1.rentduration,
+                tab1.rentduration ?  tab1.rentduration : "",
                 (response) => {
                     if (response.message === "Package not found") {
                         toast.error(response.message);

@@ -7,14 +7,14 @@ import Meta from "@/Components/Seo/Meta";
 const Index = () => {
 
     return (
-        <> 
-        <Meta
-        title=""
-        description=""
-        keywords=""
-        ogImage=""
-        pathName=""
-    />
+        <>
+            <Meta
+                title=""
+                description=""
+                keywords=""
+                ogImage=""
+                pathName=""
+            />
             <UserDashboard />
         </>
     );

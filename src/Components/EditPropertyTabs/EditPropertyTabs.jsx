@@ -125,7 +125,7 @@ export default function EditPropertyTabs() {
                 console.log(propertyData)
                 if (propertyData) {
                     setTab1({
-                        propertyType: propertyData.property_type === "Sell" ? "1" : "0" || "",
+                        propertyType: propertyData.property_type === "sell" ? "0" : "1" || "",
                         category: propertyData.category.id || "",
                         title: propertyData.title || "",
                         price: propertyData.price || "",

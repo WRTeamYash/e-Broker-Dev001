@@ -3,7 +3,7 @@ import PropertyDetails from '@/Components/PropertyDetails/PropertyDetails'
 import axios from "axios";
 import { GET_PROPETRES } from "@/utils/api";
 import Meta from "@/Components/Seo/Meta";
-
+import web from "../../src/assets/Logo_Color.png"
 
 // This is seo api
 const fetchDataFromSeo = async (slug) => {
@@ -31,7 +31,7 @@ const index = ({ seoData, currentURL }) => {
                 title={seoData?.data[0] && seoData.data[0]?.meta_title}
                 description={seoData?.data[0] && seoData.data[0]?.meta_description}
                 keywords={seoData?.data[0] && seoData.data[0]?.meta_keywords}
-                ogImage={seoData?.data[0] && seoData.data[0]?.meta_image}
+                ogImage={web}
                 pathName={currentURL}
             />
             <PropertyDetails />

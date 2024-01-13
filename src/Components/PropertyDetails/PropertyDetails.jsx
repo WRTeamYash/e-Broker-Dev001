@@ -668,10 +668,10 @@ const PropertyDetails = () => {
                                             </div>
                                         </div>
 
-                                        <div className="share-card">
+                                        {/* <div className="share-card">
                                             <ReactShare CompanyName={CompanyName} data={getPropData?.title} handleCopyUrl={handleCopyUrl} currentUrl={currentUrl} />
 
-                                        </div>
+                                        </div> */}
 
                                     </div>
 

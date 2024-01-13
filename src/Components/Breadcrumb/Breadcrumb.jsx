@@ -185,13 +185,13 @@ const Breadcrumb = (props) => {
                                                 </button>
                                             )}
                                         </div>
-                                        {/* {process.env.NEXT_PUBLIC_SEO === "true" ? (
+                                        {process.env.NEXT_PUBLIC_SEO === "true" ? (
                                             <Dropdown overlay={shareMenu} placement="bottomCenter" arrow>
                                                 <button>
                                                     <RxShare2 size={25} className="disliked_property" />
                                                 </button>
                                             </Dropdown>
-                                        ) : null} */}
+                                        ) : null}
                                     </div>
                                 </div>
                             </div>

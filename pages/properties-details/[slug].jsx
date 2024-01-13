@@ -31,7 +31,7 @@ const index = ({ seoData, currentURL }) => {
                 title={seoData?.data[0] && seoData.data[0]?.meta_title}
                 description={seoData?.data[0] && seoData.data[0]?.meta_description}
                 keywords={seoData?.data[0] && seoData.data[0]?.meta_keywords}
-                ogImage={web}
+                ogImage={web.src}
                 pathName={currentURL}
             />
             <PropertyDetails />

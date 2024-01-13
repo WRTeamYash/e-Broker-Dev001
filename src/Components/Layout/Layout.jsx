@@ -9,12 +9,13 @@ import { settingsData, settingsLoaded } from "@/store/reducer/settingsSlice";
 import under_maintain from '../../../public/under_maintain.svg'
 import { translate } from "@/utils";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const Layout = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
-
+    const router = useRouter()
     const settingData = useSelector(settingsData);
 
     useEffect(() => {
@@ -29,6 +30,13 @@ const Layout = ({ children }) => {
             }
         );
     }, [isLoggedIn]);
+
+
+    useEffect(() => {
+        if (!userCurrentId && window.location.pathname === "/user-register") {
+            router.push('/')
+        }
+    }, [])
 
     const lang = useSelector(languageData);
 

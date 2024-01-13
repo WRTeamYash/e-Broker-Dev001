@@ -272,7 +272,7 @@ const Nav = () => {
         } else {
             if (signupData?.data?.data.id) {
                 // Corrected the condition
-                router.push("/chat"); // Use an absolute path here
+                router.push("/user/chat"); // Use an absolute path here
             } else {
                 Swal.fire({
                     icon: "error",

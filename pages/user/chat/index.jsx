@@ -1,4 +1,5 @@
 
+
 import React from 'react'
 import Messages from '@/Components/Messages/Messages';
 import axios from "axios";
@@ -18,7 +19,7 @@ const fetchDataFromSeo = async (page) => {
     throw error; // Re-throw the error to be caught by getServerSideProps
   }
 };
-const Index = ({ seoData, currentURL }) => {
+const index = ({ seoData, currentURL }) => {
 
   return (
     <>
@@ -52,4 +53,4 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
 }
 
 export const getServerSideProps = serverSidePropsFunction;
-export default Index
+export default index

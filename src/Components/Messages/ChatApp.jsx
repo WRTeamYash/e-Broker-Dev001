@@ -31,7 +31,7 @@ const ChatApp = ({ notificationData }) => {
     const [newChat, setNewChat] = useState([]);
 
     const router = useRouter();
-    const storedChatData = localStorage.getItem('newUserChat')
+    const storedChatData = localStorage && localStorage.getItem('newUserChat')
     const newChatData = JSON.parse(storedChatData);
     const signupData = useSelector(userSignUpData);
     useEffect(() => {
@@ -511,11 +511,12 @@ const ChatApp = ({ notificationData }) => {
 
     return (
         <>
-            <div className="messages">
+            <div>
                 <div className="container">
+                    <div className="dashboard_titles">
+                        <h3>{translate("messages")}</h3>
+                    </div>
                     <div className="card">
-
-
                         {chatList?.length > 0 && chatList !== "" ? (
 
                             <Tabs defaultActiveKey={activeTabKey} tabPosition="left" onChange={handleTabChange}>

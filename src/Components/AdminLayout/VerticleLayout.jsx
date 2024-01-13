@@ -13,6 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import AddHomeOutlinedIcon from "@mui/icons-material/AddHomeOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
@@ -119,11 +120,11 @@ export default function VerticleLayout(props) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const lang = useSelector(languageData);
-
+    const router = useRouter();
 
     const settingData = useSelector(settingsData);
-
-
+    const IsSubScribed = settingData?.subscription
+ 
     useEffect(() => {
         if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
             document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
@@ -139,6 +140,9 @@ export default function VerticleLayout(props) {
     }, [settingData?.svg_clr])
     const language = store.getState().Language.languages;
     const current_user = store.getState().User_signup?.data?.data?.id
+
+
+
     useEffect(() => { }, [lang]);
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -148,7 +152,7 @@ export default function VerticleLayout(props) {
         setOpen(false);
     };
 
-    const router = useRouter();
+
     const handleLogout = () => {
         Swal.fire({
             title: "Are you sure?",
@@ -402,6 +406,29 @@ export default function VerticleLayout(props) {
                                     <FavoriteBorderOutlinedIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={translate("fav")} sx={{ opacity: open ? 1 : 0 }} />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                    <Link href="/user/chat">
+                        <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                            <ListItemButton
+                                sx={{
+                                    minHeight: 30,
+                                    justifyContent: open ? "initial" : "center",
+                                    px: 2.5,
+                                }}
+                            >
+                                <ListItemIcon
+                                    className="drawer_list_icon"
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : "auto",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <SmsOutlinedIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={translate("messages")} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     </Link>

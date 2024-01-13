@@ -12,6 +12,7 @@ import SimilerPropertySlider from "@/Components/SimilerPropertySlider/SimilerPro
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { useSelector } from "react-redux";
 import Map from "@/Components/GoogleMap/GoogleMap";
+import ReactShare from "@/Components/ShareUrl/ReactShare";
 import { languageData } from "@/store/reducer/languageSlice";
 import { isThemeEnabled, loadGoogleMaps, translate } from "@/utils";
 import { useRouter } from "next/router";
@@ -28,10 +29,10 @@ import { MdReport } from "react-icons/md";
 import ReportPropertyModal from "@/Components/ReportPropertyModal/ReportPropertyModal";
 
 
-
 const PropertyDetails = () => {
     const router = useRouter();
     const propId = router.query;
+    const currentUrl = process.env.NEXT_PUBLIC_WEB_URL + router.asPath;
     const { isLoaded } = loadGoogleMaps();
     const [isMessagingSupported, setIsMessagingSupported] = useState(false);
     const [notificationPermissionGranted, setNotificationPermissionGranted] = useState(false);
@@ -60,6 +61,7 @@ const PropertyDetails = () => {
     const lang = useSelector(languageData);
     const isLoggedIn = useSelector((state) => state.User_signup);
     const DummyImgData = useSelector(settingsData);
+    const CompanyName = DummyImgData && DummyImgData.company_name
     const themeEnabled = isThemeEnabled();
 
     useEffect(() => { }, [lang]);
@@ -269,6 +271,20 @@ const PropertyDetails = () => {
         // console.log(isReported)
     }, [chatData, isReported])
 
+    const handleCopyUrl = async (e) => {
+        e.preventDefault();
+
+        // Get the current URL from the router
+
+        try {
+            // Use the Clipboard API to copy the URL to the clipboard
+            await navigator.clipboard.writeText(currentUrl);
+            // toast.success("URL copied to clipboard!");
+        } catch (error) {
+            console.error("Error copying to clipboard:", error);
+            // toast.error("Failed to copy URL to clipboard.");
+        }
+    };
     return (
         <>
             {isLoading ? (
@@ -281,7 +297,7 @@ const PropertyDetails = () => {
                             type: getPropData && getPropData.category.category,
                             title: getPropData && getPropData.title,
                             loc: getPropData && getPropData.address,
-                            propertyType: getPropData && getPropData.propery_type,
+                            propertyType: getPropData && getPropData.property_type,
                             time: getPropData && getPropData.post_created,
                             price: getPropData && getPropData.price,
                             is_favourite: getPropData && getPropData.is_favourite,
@@ -651,13 +667,20 @@ const PropertyDetails = () => {
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div className="share-card">
+                                            <ReactShare CompanyName={CompanyName} data={getPropData?.title} handleCopyUrl={handleCopyUrl} currentUrl={currentUrl} />
+
+                                        </div>
+
                                     </div>
+
                                 </div>
 
                                 <SimilerPropertySlider />
 
-                                {isReporteModal && 
-                                    <ReportPropertyModal show={handleReportProperty} onHide={() => setIsReporteModal(false)} propertyId={getPropData?.id} setIsReported={setIsReported}/>
+                                {isReporteModal &&
+                                    <ReportPropertyModal show={handleReportProperty} onHide={() => setIsReporteModal(false)} propertyId={getPropData?.id} setIsReported={setIsReported} />
                                 }
                             </div>
                         </div>

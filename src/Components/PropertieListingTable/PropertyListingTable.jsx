@@ -99,7 +99,7 @@ export default function PropertyListingTable({ data, handlePageChange, total, li
                                         <div className="card" id="listing_card">
                                             <div className="listing_card_img">
                                                 <Image loading="lazy" width={0} height={0} style={{ width: "150px", height: "auto" }} src={elem.title_image} alt="no_img" id="main_listing_img" />
-                                                <span className="listing_type_tag">{elem.propery_type}</span>
+                                                <span className="listing_type_tag">{elem.property_type}</span>
                                             </div>
                                             <div className="listing_card_body">
                                                 <span className="listing_prop_title">{elem.title}</span>

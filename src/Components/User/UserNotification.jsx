@@ -131,7 +131,7 @@ const UserNotification = () => {
                                                             width={150}
                                                             height={0}
                                                             style={{ height: "auto" }} />
-                                                        {/* <span className="listing_type_tag">{elem.propery_type}</span> */}
+                                                        {/* <span className="listing_type_tag">{elem.property_type}</span> */}
                                                     </div>
                                                     <div className="notification_card_body">
                                                         <span className="notification_title">{elem.title}</span>

@@ -21,15 +21,19 @@ import { store } from "@/store/store";
 import ArticleCard from "@/Components/Cards/ArticleCard";
 import { categoriesCacheData } from "@/store/reducer/momentSlice";
 import Layout from '../Layout/Layout';
+import { settingsData } from '@/store/reducer/settingsSlice';
+import ReactShare from "@/Components/ShareUrl/ReactShare";
 
 
 const ArticleDetails = () => {
 
-    
+
     const router = useRouter();
+    const currentUrl = process.env.NEXT_PUBLIC_WEB_URL + router.asPath;
     const articleId = router.query;
     const Categorydata = useSelector(categoriesCacheData);
-    
+    const settings = useSelector(settingsData);
+    const CompanyName = settings && settings.company_name
     const [isLoading, setIsLoading] = useState(false);
     const [articleData, setArticleData] = useState();
     const [relatedArticleData, setRelatedArticleData] = useState();
@@ -104,6 +108,22 @@ const ArticleDetails = () => {
     };
     const language = store.getState().Language.languages;
 
+    const handleCopyUrl = async (e) => {
+        e.preventDefault();
+
+        // Get the current URL from the router
+
+        try {
+            // Use the Clipboard API to copy the URL to the clipboard
+            await navigator.clipboard.writeText(currentUrl);
+            // toast.success("URL copied to clipboard!");
+        } catch (error) {
+            console.error("Error copying to clipboard:", error);
+            // toast.error("Failed to copy URL to clipboard.");
+        }
+    };
+
+
     return (
         <Layout>
             <Breadcrumb title={translate("articleDeatils")} />
@@ -153,6 +173,12 @@ const ArticleDetails = () => {
                                             </div>
                                         </div>
                                     </div>
+                                    {process.env.NEXT_PUBLIC_SEO === "true" ? (
+                                         <div className="share-card">
+                                         <ReactShare CompanyName={CompanyName} data={articleData?.title} handleCopyUrl={handleCopyUrl} currentUrl={currentUrl} />
+
+                                     </div>
+                                    ) : null}
                                 </div>
                             </div>
                         </div>

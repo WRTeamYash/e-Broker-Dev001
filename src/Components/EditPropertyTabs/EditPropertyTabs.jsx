@@ -122,7 +122,6 @@ export default function EditPropertyTabs() {
                 setLat(propertyData?.latitude);
                 setLng(propertyData?.longitude);
                 setIsLoading(false);
-                console.log(propertyData)
                 if (propertyData) {
                     setTab1({
                         propertyType: propertyData.property_type === "sell" ? "0" : "1" || "",

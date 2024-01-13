@@ -83,7 +83,7 @@ const HorizontalCard = ({ ele }) => {
                             <AiOutlineHeart size={25} onClick={handleLike} />
                         )}
                     </span>
-                    <span className="prop_sell">{ele.propery_type}</span>
+                    <span className="prop_sell">{ele.property_type}</span>
                     <span className="prop_price">
                         {CurrencySymbol} {formatPriceAbbreviated(ele.price)}
                     </span>

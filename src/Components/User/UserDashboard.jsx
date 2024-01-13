@@ -239,7 +239,7 @@ const UserDashboard = () => {
                                                         <div className="card" id="listing_card">
                                                             <div className="listing_card_img">
                                                                 <Image loading="lazy" src={elem.title_image} alt="no_img" id="main_listing_img" width={150} height={0} style={{ height: "auto" }} />
-                                                                <span className="listing_type_tag">{elem.propery_type}</span>
+                                                                <span className="listing_type_tag">{elem.property_type}</span>
                                                             </div>
                                                             <div className="listing_card_body">
                                                                 <span className="listing_prop_title">{elem.title}</span>

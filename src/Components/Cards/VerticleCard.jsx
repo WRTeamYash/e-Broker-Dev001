@@ -98,7 +98,7 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
                 </div>
 
                 <div className="card-body">
-                    <span className="sell_teg">{ele.propery_type}</span>
+                    <span className="sell_teg">{ele.property_type}</span>
                     <span className="price_teg">
                         {CurrencySymbol} {formatPriceAbbreviated(ele.price)}
                     </span>

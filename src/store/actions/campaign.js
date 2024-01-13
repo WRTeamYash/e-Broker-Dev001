@@ -345,6 +345,7 @@ export const UpdatePostProperty = (
     meta_description,
     meta_keywords,
     meta_image,
+    rentduration,
     onSuccess,
     onError,
     onStart
@@ -376,7 +377,8 @@ export const UpdatePostProperty = (
                 meta_title,
                 meta_description,
                 meta_keywords,
-                meta_image
+                meta_image,
+                rentduration
             ),
             displayToast: false,
             onStart,

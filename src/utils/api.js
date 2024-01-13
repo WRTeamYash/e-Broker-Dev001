@@ -433,7 +433,7 @@ export const getPaymentDetials = (offset, limit) => {
 
 
 // UPDATE POST PROPERTY
-export const updatePostProperty = (action_type, id, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, slug_id, meta_title, meta_description, meta_keywords, meta_image) => {
+export const updatePostProperty = (action_type, id, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, slug_id, meta_title, meta_description, meta_keywords, meta_image, rentduration) => {
     let data = new FormData();
 
     // Append the property data to the FormData object
@@ -481,6 +481,7 @@ export const updatePostProperty = (action_type, id, package_id, title, descripti
     data.append('meta_description', meta_description);
     data.append('meta_keywords', meta_keywords);
     data.append('meta_image', meta_image);
+    data.append('rentduration', rentduration);
 
 
     return {

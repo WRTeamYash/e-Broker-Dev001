@@ -18,6 +18,11 @@ import { userSignUpData } from '@/store/reducer/authSlice';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
 import toast from 'react-hot-toast';
 import moment from 'moment';
+import dynamic from 'next/dynamic';
+const VerticleLayout = dynamic(() => import('../AdminLayout/VerticleLayout.jsx'), { ssr: false })
+
+
+
 
 const { TabPane } = Tabs;
 
@@ -28,11 +33,10 @@ const ChatApp = ({ notificationData }) => {
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const userProfile = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.profile : PlaceHolderImg;
     const [chatList, setChatList] = useState([]);
-    const [newChat, setNewChat] = useState([]);
 
     const router = useRouter();
-    const storedChatData = localStorage && localStorage.getItem('newUserChat')
-    const newChatData = JSON.parse(storedChatData);
+    const storedChatData = useSelector(newchatData)
+    const newChatData = storedChatData;
     const signupData = useSelector(userSignUpData);
     useEffect(() => {
         if (signupData.data === null) {
@@ -49,12 +53,11 @@ const ChatApp = ({ notificationData }) => {
             mediaRecorder: null,
             audioChunks: [],
             messages: [],
-            ...((storedChatData && chat.property_id.toString() === JSON.parse(storedChatData)?.property_id.toString())
-                ? JSON.parse(storedChatData)
-                : {}),
+            ...(storedChatData && storedChatData[chat.property_id] ? storedChatData[chat.property_id] : {}),
         };
         return acc;
     }, {});
+
 
     const [tabStates, setTabStates] = useState((prev) => {
         return Object.keys(prev ?? {}).length === 0 ? initialState : prev;
@@ -278,7 +281,7 @@ const ChatApp = ({ notificationData }) => {
             sender_id: userCurrentId,
             receiver_id: selectedTab.user_id,
             property_id: selectedTab.property_id,
-            type: messageType,
+            chat_message_type: messageType,
             message: tabState.messageInput,
             file: tabState.selectedFile,
             audio: tabState.audioChunks,
@@ -343,7 +346,7 @@ const ChatApp = ({ notificationData }) => {
                 sender_id: notificationData.sender_id,
                 receiver_id: notificationData.receiver_id,
                 property_id: notificationData.property_id,
-                type: notificationData.chat_message_type,
+                chat_message_type: notificationData.chat_message_type,
                 message: notificationData.message,
                 file: notificationData.file,
                 audio: notificationData.audio,
@@ -470,7 +473,6 @@ const ChatApp = ({ notificationData }) => {
                             // console.log(selectedTab.property_id, " === ", newChatData)
                             if (selectedTab.property_id === newChatData.property_id) {
                                 removeChat()
-                                localStorage.removeItem('newUserChat');
                             }
                             if (chatList.length === 0) {
                                 // Navigate to home page
@@ -508,10 +510,25 @@ const ChatApp = ({ notificationData }) => {
         }
     };
 
+    const MAX_TEXT_LENGTH = 30; // Set your desired maximum length
 
+    const breakText = (text) => {
+        if (text.length > MAX_TEXT_LENGTH) {
+            const firstPart = text.substring(0, MAX_TEXT_LENGTH);
+            const secondPart = text.substring(MAX_TEXT_LENGTH);
+            return (
+                <>
+                    {firstPart}
+                    <br />
+                    {secondPart}
+                </>
+            );
+        }
+        return text;
+    };
     return (
-        <>
-            <div>
+        <VerticleLayout>
+            <div className='messages'>
                 <div className="container">
                     <div className="dashboard_titles">
                         <h3>{translate("messages")}</h3>
@@ -689,6 +706,17 @@ const ChatApp = ({ notificationData }) => {
                                                         }}
                                                     />
                                                 </div>
+                                                <div
+                                                    className="hide-attechment"
+                                                    onClick={() => handleAttachmentClick(chat.property_id)}
+                                                >
+                                                    <MdOutlineAttachFile size={20} />
+                                                    <input
+                                                        type="file"
+                                                        id={`fileInput-${chat.property_id}`}
+                                                        onChange={(e) => handleFileChange(e, chat.property_id)}
+                                                    />
+                                                </div>
                                                 {tabStates[chat.property_id]?.recording ? (
                                                     <button
                                                         className={`voice_message recording`}
@@ -740,7 +768,7 @@ const ChatApp = ({ notificationData }) => {
 
                 </div>
             </div>
-        </>
+        </VerticleLayout>
     );
 };
 

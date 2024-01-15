@@ -194,19 +194,7 @@ const Nav = () => {
             // Corrected the condition
             router.push("/user/dashboard"); // Use an absolute path here
         } else {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "You have not subscribed. Please subscribe first",
-                customClass: {
-                    confirmButton: 'Swal-confirm-buttons',
-                },
-                // footer: '<a href="">Why do I have this issue?</a>'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    router.push("/subscription-plan"); // Redirect to the subscription page
-                }
-            });
+            router.push("/user/profile"); // Redirect to the subscription page
         }
     };
     const handleAddProperty = () => {

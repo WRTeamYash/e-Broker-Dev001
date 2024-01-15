@@ -849,7 +849,8 @@ body {
   background-color: var(--primary-text-color01);
   width: 100%;
   height: 70px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   -webkit-animation: headerSlideDown 0.95s ease forwards;
   animation: headerSlideDown 0.95s ease forwards;
@@ -1265,7 +1266,7 @@ body {
   width: 100%;
   justify-content: flex-end;
 }
-.map_add{
+.map_add {
   border: none;
   width: 100%;
   height: 54px;
@@ -1275,7 +1276,7 @@ body {
   opacity: 1;
 }
 @media only screen and (max-width: 1199px) {
-  .map span {
+  .map_add span {
     display: none;
   }
 }
@@ -3982,7 +3983,7 @@ div#all-articles_card_footer .allarticles_footer_text p {
   flex-direction: column;
   text-transform: capitalize;
 }
-.all-articles-leftside .share-card{
+.all-articles-leftside .share-card {
   margin-top: 20px;
 }
 .all-articles-leftside .share-card .card .card-header {
@@ -4001,13 +4002,23 @@ div#all-articles_card_footer .allarticles_footer_text p {
   display: flex;
   border: none;
 }
-.all-articles-leftside .share-card .card .card-body .ant-menu .ant-menu-item:hover{
-background-color: transparent !important;
+.all-articles-leftside
+  .share-card
+  .card
+  .card-body
+  .ant-menu
+  .ant-menu-item:hover {
+  background-color: transparent !important;
 }
-.all-articles-leftside .share-card .card .card-body .ant-menu .ant-menu-item-selected{
-background-color: transparent !important;
+.all-articles-leftside
+  .share-card
+  .card
+  .card-body
+  .ant-menu
+  .ant-menu-item-selected {
+  background-color: transparent !important;
 }
-.share-card{
+.share-card {
   margin-top: 20px;
 }
 .share-card .card .card-header {
@@ -4026,11 +4037,11 @@ background-color: transparent !important;
   display: flex;
   border: none;
 }
-.share-card .card .card-body .ant-menu .ant-menu-item:hover{
-background-color: transparent !important;
+.share-card .card .card-body .ant-menu .ant-menu-item:hover {
+  background-color: transparent !important;
 }
-.share-card .card .card-body .ant-menu .ant-menu-item-selected{
-background-color: transparent !important;
+.share-card .card .card-body .ant-menu .ant-menu-item-selected {
+  background-color: transparent !important;
 }
 .cate-list {
   display: flex;
@@ -5427,6 +5438,22 @@ a {
   border-left: none;
   border-right: none;
 }
+.drawer_list .drawer_list_item_active {
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
+    border-bottom: 1px solid;
+    border-style: dashed;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background:rgba(0, 0, 0, 0.04) !important;
+}
+.drawer_list .drawer_list_item_active .MuiTypography-root{
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+ 
+}
+
 .drawer_list .drawer_list_item:hover {
   border-color: var(--primary-color) !important;
 }
@@ -5441,6 +5468,9 @@ a {
   color: var(--primary-text-color02) !important;
   transition: all 0.3s ease-out;
 }
+.drawer_list_icon_active {
+  color: var(--primary-color) !important;
+}
 .drawer_list .drawer_list_item:hover .drawer_list_icon {
   color: var(--primary-color) !important;
   margin-left: 10px !important;
@@ -5452,7 +5482,9 @@ a {
   font-size: 14px;
   font-variant: tabular-nums;
   list-style: none;
-  font-family: IBM Plex Sans, sans-serif;
+  font-family:
+    IBM Plex Sans,
+    sans-serif;
   position: relative;
   display: inline-block;
   line-height: 1;
@@ -5897,7 +5929,9 @@ a {
   color: var(--primary-text-color01);
   border-radius: 50%;
   border: none;
-  transition: border 0.3s, transform 0.3s;
+  transition:
+    border 0.3s,
+    transform 0.3s;
 }
 
 .dropbox_remove_img:hover {
@@ -6058,7 +6092,9 @@ a {
   border: 1px solid #ccc; /* Border color for the custom checkbox */
   background-color: #fff; /* Background color for the custom checkbox */
   border-radius: 4px; /* Rounded corners for the custom checkbox */
-  transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
+  transition:
+    background-color 0.3s,
+    color 0.3s; /* Smooth transition effect */
 }
 
 .custom-checkbox-input:checked + .custom-checkbox-label {
@@ -6487,7 +6523,6 @@ a {
   /* color: var(--primary-color) !important; */
 }
 
-
 /* #progress_bar .MuiCircularProgress-circle {
   stroke: var(--primary-color) !important;} */
 #progress_bar_count {
@@ -6662,9 +6697,9 @@ a {
 
 /* chat  */
 .messages {
-  margin: 60px 0;
+  /* margin: 60px 0; */
   position: relative;
-  top: 4vh;
+  /* top: 4vh; */
 }
 .messages .message_list_details {
   display: flex;
@@ -6706,61 +6741,48 @@ a {
   justify-content: flex-end;
 }
 
-:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab {
+.ant-tabs .ant-tabs-tab {
   border-bottom: 1px solid lightgray;
   padding: 20px !important;
   color: var(--primary-text-color02) !important;
   width: 350px;
   margin: 0 !important;
 }
-:where(.css-1vr7spz).ant-tabs-left > .ant-tabs-nav .ant-tabs-tab,
-:where(.css-1vr7spz).ant-tabs-right > .ant-tabs-nav .ant-tabs-tab,
-:where(.css-1vr7spz).ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab,
-:where(.css-1vr7spz).ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab {
+.ant-tabs-nav .ant-tabs-tab {
   border-bottom: 1px solid lightgray;
   padding: 20px !important;
   color: var(--primary-text-color02) !important;
   width: 350px;
   margin: 0 !important;
 }
-:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs
-  .ant-tabs-tab-btn:focus:not(:focus-visible),
-:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs
-  .ant-tabs-tab-remove:focus:not(:focus-visible),
-:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab-btn:active,
-:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs
-  .ant-tabs-tab-remove:active {
+.ant-tabs .ant-tabs-tab-remove:active {
   color: var(--primary-text-color02);
 }
-:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs
-  .ant-tabs-tab.ant-tabs-tab-active
-  .ant-tabs-tab-btn {
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: var(--primary-text-color02) !important;
 }
-:where(.css-1vr7spz).ant-tabs
-  .ant-tabs-tab.ant-tabs-tab-active
-  .ant-tabs-tab-btn {
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: var(--primary-text-color02) !important;
 }
-:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab:hover {
+.ant-tabs .ant-tabs-tab:hover {
   color: var(--primary-text-color02) !important;
 }
-:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-left
+.ant-tabs-left
   > .ant-tabs-content-holder
   > .ant-tabs-content
   > .ant-tabs-tabpane,
-:where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-left
+.ant-tabs-left
   > div
   > .ant-tabs-content-holder
   > .ant-tabs-content
   > .ant-tabs-tabpane {
   padding-left: 0 !important;
 }
-:where(.css-1vr7spz).ant-tabs-left
+.ant-tabs-left
   > .ant-tabs-content-holder
   > .ant-tabs-content
   > .ant-tabs-tabpane,
-:where(.css-1vr7spz).ant-tabs-left
+.ant-tabs-left
   > div
   > .ant-tabs-content-holder
   > .ant-tabs-content
@@ -6833,11 +6855,13 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px 0;
 }
 .other-message-time {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px 0;
 }
 .user-message-time span {
   padding: 5px 10px;
@@ -6870,6 +6894,17 @@ a {
   border: 1px solid lightgray;
 }
 .chat_inputs .attechment {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  background: #282f39;
+  color: var(--primary-text-color01);
+  justify-content: center;
+  border-radius: 4px;
+  border: 1px solid #2c3746de;
+}
+.chat_inputs .hide-attechment {
+  display: none !important;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -6915,6 +6950,10 @@ a {
   display: none; /* Initially hide the file input */
   /* Add any additional styling as needed */
 }
+.chat_inputs .hide-attechment input[type="file"] {
+  display: none; /* Initially hide the file input */
+  /* Add any additional styling as needed */
+}
 
 .chat_inputs .type_input input[type="text"] {
   /* Your existing styles for the text input */
@@ -6932,7 +6971,7 @@ a {
 /* Add these styles to your existing CSS */
 
 .chat_display {
-  height: 60vh;
+  height: 50vh;
   overflow-y: auto;
   padding: 20px;
 }
@@ -7031,11 +7070,20 @@ audio {
 .user-message span {
   border-radius: 20px 0 25px 20px;
   background: var(--primary-background);
-  padding: 10px 37px;
+  padding: 10px 20px;
+  text-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .other-message span {
-  padding: 10px 37px;
-  border-radius: 0 20px 20px 25px;
+  border-radius: 20px 0 25px 20px;
+  background: var(--primary-background);
+  padding: 10px 20px;
+  text-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .user-message .file_text {
   display: flex;
@@ -7068,7 +7116,7 @@ audio {
     width: 35px;
     height: 35px;
   }
-  :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab {
+  .ant-tabs .ant-tabs-tab {
     padding: 10px !important;
   }
 }
@@ -7079,17 +7127,14 @@ audio {
   .chat_deatils .chat_deatils_header .delete_messages {
     font-size: small;
   }
-  :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab {
+  .ant-tabs .ant-tabs-tab {
     border-bottom: 1px solid lightgray;
     padding: 20px !important;
     color: var(--primary-text-color02) !important;
     width: 200px !important;
     margin: 0 !important;
   }
-  :where(.css-1vr7spz).ant-tabs-left > .ant-tabs-nav .ant-tabs-tab,
-  :where(.css-1vr7spz).ant-tabs-right > .ant-tabs-nav .ant-tabs-tab,
-  :where(.css-1vr7spz).ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab,
-  :where(.css-1vr7spz).ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab {
+  .ant-tabs-nav .ant-tabs-tab {
     border-bottom: 1px solid lightgray;
     padding: 20px !important;
     color: var(--primary-text-color02) !important;
@@ -7105,41 +7150,24 @@ audio {
     width: 150px;
     height: 150px;
   }
-  :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-left
-    > .ant-tabs-nav
-    .ant-tabs-tab
-    + .ant-tabs-tab,
-  :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-right
-    > .ant-tabs-nav
-    .ant-tabs-tab
-    + .ant-tabs-tab,
-  :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-left
-    > div
-    > .ant-tabs-nav
-    .ant-tabs-tab
-    + .ant-tabs-tab,
-  :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs-right
-    > div
-    > .ant-tabs-nav
-    .ant-tabs-tab
-    + .ant-tabs-tab {
+  .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
+  .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
+  .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
+  .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab {
     margin: 0 !important ;
   }
 }
 @media only screen and (max-width: 767px) {
-  :where(.css-dev-only-do-not-override-1vr7spz).ant-tabs .ant-tabs-tab {
+  .ant-tabs .ant-tabs-tab {
     border-bottom: 1px solid lightgray;
     padding: 20px !important;
     color: var(--primary-text-color02) !important;
     width: 100% !important;
     margin: 0 !important;
   }
-  :where(.css-1vr7spz).ant-tabs-left > .ant-tabs-nav .ant-tabs-tab,
-  :where(.css-1vr7spz).ant-tabs-right > .ant-tabs-nav .ant-tabs-tab,
-  :where(.css-1vr7spz).ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab,
-  :where(.css-1vr7spz).ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab {
+  .ant-tabs-nav .ant-tabs-tab {
     border-bottom: 1px solid lightgray;
-    padding: 20px !important;
+    padding: 10px !important;
     color: var(--primary-text-color02) !important;
     width: 100% !important;
     margin: 0 !important;
@@ -7161,17 +7189,30 @@ audio {
     display: none;
   }
   .messages .message_list_details .profile_img {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .messages .message_list_details .profile_img #profile {
     width: 40px;
     height: 40px;
   }
+  .file-preview img {
+    width: 100px;
+    height: 100px;
+  }
 }
 @media only screen and (max-width: 574px) {
   .send_message span {
     display: none;
+  }
+  .chat_inputs .attechment{
+    display: none !important;
+  }
+  .chat_inputs .hide-attechment{
+    display: inline-block !important;
   }
 }
 @media only screen and (max-width: 400px) {
@@ -7180,6 +7221,11 @@ audio {
     gap: 5px;
   }
   .chat_inputs .attechment {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 5px;
+  }
+  .chat_inputs .hide-attechment {
     width: 30px !important;
     height: 30px !important;
     padding: 5px;
@@ -7194,6 +7240,47 @@ audio {
 
 #noChats {
   padding: 60px 0;
+}
+@media only screen and (max-width: 575px) {
+  #noChats img {
+    width: 100%;
+    height: 100%;
+  }
+  .chat_display{
+    height: 35vh;
+  }
+  .user-message .chat_user_profile {
+    width: 30px;
+    height: 30px;
+  }
+  .user-message #sender_profile {
+    height: 20px;
+    width: 20px;
+  }
+  .user-message span{
+    padding: 10px 20px;
+  }
+  .user-message-time span{
+    font-size: smaller;
+  }
+
+  .chat_inputs {
+    padding: 5px;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+  .chat_inputs .attechment{
+    padding: 5px;
+  }
+  .chat_inputs .hide-attechment{
+    padding: 5px;
+    display: flex !important;
+    justify-content: center;
+  }
+  .chat_inputs .send_message, .chat_inputs .voice_message{
+    padding: 5px;
+  }
 }
 .file-preview-section {
   margin-bottom: 10px;
@@ -7589,12 +7676,12 @@ embed svg path {
     .card-body
     div.view_property_map
     button {
-      width: auto;
-      height: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2px;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
   }
 }
 .gm-ui-hover-effect {
@@ -7608,29 +7695,24 @@ embed svg path {
   background-color: #000;
 }
 
-
-
-
-
 /* SWAL CSS */
 
-
-.Swal-confirm-buttons{
+.Swal-confirm-buttons {
   background-color: var(--primary-color) !important;
 }
-.Swal-confirm-buttons:focus{
+.Swal-confirm-buttons:focus {
   box-shadow: var(--primary-color) !important;
 }
-.Swal-cancel-buttons{
+.Swal-cancel-buttons {
   background-color: transparent !important;
   border: 1px solid gray !important;
-  color: var(--primary-text-color02) !important;  
+  color: var(--primary-text-color02) !important;
 }
-.Swal-cancel-buttons:hover{
+.Swal-cancel-buttons:hover {
   background-image: none !important;
 }
 
-.ant-progress .ant-progress-inner .ant-progress-circle-path{
+.ant-progress .ant-progress-inner .ant-progress-circle-path {
   stroke: var(--primary-color) !important;
 }
 

@@ -27,6 +27,7 @@ import { ImageToSvg } from "@/Components/Cards/ImageToSvg";
 import Swal from "sweetalert2";
 import { MdReport } from "react-icons/md";
 import ReportPropertyModal from "@/Components/ReportPropertyModal/ReportPropertyModal";
+import { getChatData } from "@/store/reducer/momentSlice";
 
 
 const PropertyDetails = () => {
@@ -248,12 +249,12 @@ const PropertyDetails = () => {
                     };
 
                     // Use the updater function to ensure you're working with the latest state
-                    localStorage.setItem('newUserChat', JSON.stringify(newChatData));
-
+                    // localStorage.setItem('newUserChat', JSON.stringify(newChatData));
+                    getChatData(newChatData)
                     return newChatData;
                 });
 
-                router.push('/chat');
+                router.push('/user/chat');
             } else {
                 toast.error("Please login first");
                 setShowChat(true);

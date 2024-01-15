@@ -46,7 +46,8 @@ import { store } from "@/store/store.js";
 import Image from "next/image";
 import { settingsData } from "@/store/reducer/settingsSlice.js";
 import { getAuth, deleteUser } from 'firebase/auth';
-
+import { isSubscribeRoutes } from "@/routes/routes.jsx";
+import { usePathname } from 'next/navigation'
 
 const drawerWidth = 240;
 
@@ -121,10 +122,18 @@ export default function VerticleLayout(props) {
     const [open, setOpen] = React.useState(false);
     const lang = useSelector(languageData);
     const router = useRouter();
+    const pathname = usePathname();
 
     const settingData = useSelector(settingsData);
-    const IsSubScribed = settingData?.subscription
- 
+    const hasSubscription = settingData?.subscription
+
+
+
+    const currentRoute = router.pathname;
+
+    const isRouteActive = (route) => {
+        return currentRoute === route;
+    };
     useEffect(() => {
         if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
             document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
@@ -247,6 +256,54 @@ export default function VerticleLayout(props) {
         });
     };
 
+    const handleChat = () => {
+        if (settingData && settingData.demo_mode === true) {
+            Swal.fire({
+                title: "Opps!",
+                text: "This Action is Not Allowed in Demo Mode",
+                icon: "warning",
+                showCancelButton: false,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "OK",
+            });
+            return; // Stop further execution
+        }
+
+        // If not in demo mode, navigate to the chat page
+        router.push('/user/chat');
+    };
+
+
+    // ... (existing code)
+
+    // Check if the current route requires a subscription
+    const requiresSubscription = isSubscribeRoutes.includes(pathname);
+
+    useEffect(() => {
+        subscriptionCheck();
+    }, [requiresSubscription]);
+
+    const subscriptionCheck = () => {
+        console.log('Current route:', pathname);
+        console.log('Checking subscription...');
+        console.log('requiresSubscription:', requiresSubscription);
+        console.log('hasSubscription:', hasSubscription);
+    
+        // Debugging: Log if the current route is in isSubscribeRoutes
+        console.log('Is in isSubscribeRoutes:', isSubscribeRoutes.includes(pathname));
+    
+        if (requiresSubscription && !hasSubscription) {
+            toast.error('Subscription required to access this page');
+            // Optionally, you can redirect the user to another page:
+            router.push('/');
+        }
+    }
+    
+
+
     return (
         <Box sx={{ display: "flex" }}>
             <CssBaseline />
@@ -317,7 +374,7 @@ export default function VerticleLayout(props) {
                 </DrawerHeader>
                 <Divider />
                 <List className="drawer_list">
-                    <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                    <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/dashboard') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                         <Link href="/user/dashboard">
                             <ListItemButton
                                 sx={{
@@ -327,12 +384,13 @@ export default function VerticleLayout(props) {
                                 }}
                             >
                                 <ListItemIcon
-                                    className="drawer_list_icon"
+                                    className={isRouteActive('/user/dashboard') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
                                     sx={{
                                         minWidth: 0,
                                         mr: open ? 3 : "auto",
                                         justifyContent: "center",
                                     }}
+
                                 >
                                     <DashboardOutlinedIcon />
                                 </ListItemIcon>
@@ -340,7 +398,7 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </Link>
                     </ListItem>
-                    <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                    <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/advertisement') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                         <Link href="/user/advertisement">
                             <ListItemButton
                                 sx={{
@@ -350,7 +408,7 @@ export default function VerticleLayout(props) {
                                 }}
                             >
                                 <ListItemIcon
-                                    className="drawer_list_icon"
+                                    className={isRouteActive('/user/advertisement') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
                                     sx={{
                                         minWidth: 0,
                                         mr: open ? 3 : "auto",
@@ -364,7 +422,7 @@ export default function VerticleLayout(props) {
                         </Link>
                     </ListItem>
                     <Link href="/user/properties">
-                        <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                        <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/properties') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 30,
@@ -373,7 +431,7 @@ export default function VerticleLayout(props) {
                                 }}
                             >
                                 <ListItemIcon
-                                    className="drawer_list_icon"
+                                    className={isRouteActive('/user/properties') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
                                     sx={{
                                         minWidth: 0,
                                         mr: open ? 3 : "auto",
@@ -387,7 +445,7 @@ export default function VerticleLayout(props) {
                         </ListItem>
                     </Link>
                     <Link href="/user/favorites-properties">
-                        <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                        <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/favorites-properties') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 30,
@@ -396,7 +454,7 @@ export default function VerticleLayout(props) {
                                 }}
                             >
                                 <ListItemIcon
-                                    className="drawer_list_icon"
+                                    className={isRouteActive('/user/favorites-properties') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
                                     sx={{
                                         minWidth: 0,
                                         mr: open ? 3 : "auto",
@@ -409,31 +467,38 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </ListItem>
                     </Link>
-                    <Link href="/user/chat">
-                        <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
-                            <ListItemButton
+                    {/* <Link href="/user/chat"> */}
+                    <ListItem
+
+                        disablePadding
+                        sx={{ display: "block" }}
+                        className={isRouteActive('/user/chat') ? 'drawer_list_item_active' : 'drawer_list_item'}
+                    >
+                        <ListItemButton
+                            onClick={handleChat}
+                            sx={{
+                                minHeight: 30,
+                                justifyContent: open ? "initial" : "center",
+                                px: 2.5,
+                            }}
+                        >
+                            <ListItemIcon
+                                className={isRouteActive('/user/chat') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
                                 sx={{
-                                    minHeight: 30,
-                                    justifyContent: open ? "initial" : "center",
-                                    px: 2.5,
+                                    minWidth: 0,
+                                    mr: open ? 3 : "auto",
+                                    justifyContent: "center",
                                 }}
                             >
-                                <ListItemIcon
-                                    className="drawer_list_icon"
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : "auto",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <SmsOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={translate("messages")} sx={{ opacity: open ? 1 : 0 }} />
-                            </ListItemButton>
-                        </ListItem>
-                    </Link>
+                                <SmsOutlinedIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={translate("messages")} sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
+                    </ListItem>
+                    {/* </Link> */}
+
                     <Link href="/user/profile">
-                        <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                        <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/profile') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 30,
@@ -442,7 +507,7 @@ export default function VerticleLayout(props) {
                                 }}
                             >
                                 <ListItemIcon
-                                    className="drawer_list_icon"
+                                    className={isRouteActive('/user/profile') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
                                     sx={{
                                         minWidth: 0,
                                         mr: open ? 3 : "auto",
@@ -456,7 +521,7 @@ export default function VerticleLayout(props) {
                         </ListItem>
                     </Link>
                     <Link href="/user/notifications">
-                        <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                        <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/notifications') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 30,
@@ -465,7 +530,7 @@ export default function VerticleLayout(props) {
                                 }}
                             >
                                 <ListItemIcon
-                                    className="drawer_list_icon"
+                                    className={isRouteActive('/user/notifications') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
                                     sx={{
                                         minWidth: 0,
                                         mr: open ? 3 : "auto",
@@ -479,7 +544,7 @@ export default function VerticleLayout(props) {
                         </ListItem>
                     </Link>
                     <Link href="/user/subscription">
-                        <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                        <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/subscription') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 30,
@@ -488,7 +553,7 @@ export default function VerticleLayout(props) {
                                 }}
                             >
                                 <ListItemIcon
-                                    className="drawer_list_icon"
+                                    className={isRouteActive('/user/subscription') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
                                     sx={{
                                         minWidth: 0,
                                         mr: open ? 3 : "auto",
@@ -502,7 +567,7 @@ export default function VerticleLayout(props) {
                         </ListItem>
                     </Link>
                     <Link href="/user/transaction-history">
-                        <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                        <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/transaction-history') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 30,
@@ -511,7 +576,7 @@ export default function VerticleLayout(props) {
                                 }}
                             >
                                 <ListItemIcon
-                                    className="drawer_list_icon"
+                                    className={isRouteActive('/user/transaction-history') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
                                     sx={{
                                         minWidth: 0,
                                         mr: open ? 3 : "auto",
@@ -524,7 +589,7 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </ListItem>
                     </Link>
-                    <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                    <ListItem disablePadding sx={{ display: "block" }} className='drawer_list_item'>
                         <ListItemButton
                             onClick={handleDeleteAcc}
                             sx={{
@@ -534,7 +599,7 @@ export default function VerticleLayout(props) {
                             }}
                         >
                             <ListItemIcon
-                                className="drawer_list_icon"
+                                className='drawer_list_icon'
                                 sx={{
                                     minWidth: 0,
                                     mr: open ? 3 : "auto",
@@ -546,7 +611,7 @@ export default function VerticleLayout(props) {
                             <ListItemText primary={translate("deleteUser")} sx={{ opacity: open ? 1 : 0 }} />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem disablePadding sx={{ display: "block" }} className="drawer_list_item">
+                    <ListItem disablePadding sx={{ display: "block" }} className='drawer_list_item'>
                         <ListItemButton
                             onClick={handleLogout}
                             sx={{

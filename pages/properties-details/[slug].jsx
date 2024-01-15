@@ -3,7 +3,6 @@ import PropertyDetails from '@/Components/PropertyDetails/PropertyDetails'
 import axios from "axios";
 import { GET_PROPETRES } from "@/utils/api";
 import Meta from "@/Components/Seo/Meta";
-import web from "../../src/assets/Logo_Color.png"
 
 // This is seo api
 const fetchDataFromSeo = async (slug) => {

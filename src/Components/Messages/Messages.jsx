@@ -1,10 +1,9 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import ChatApp from '@/Components/Messages/ChatApp'
-import PushNotificationLayout from '@/Components/firebaseNotification/PushNotificationLayout'
-import VerticleLayout from '../AdminLayout/VerticleLayout'
-
-
+import dynamic from 'next/dynamic.js'
+import PushNotificationLayout from '../firebaseNotification/PushNotificationLayout.jsx'
+const VerticleLayout = dynamic(() => import('../AdminLayout/VerticleLayout.jsx'), { ssr: false })
 
 const Messages = () => {
     const [notificationData, setNotificationData] = useState(null);
@@ -15,9 +14,9 @@ const Messages = () => {
     useEffect(() => { }, [notificationData])
     return (
         <PushNotificationLayout onNotificationReceived={handleNotificationReceived}>
-            <VerticleLayout>
+            {/* <VerticleLayout> */}
                 <ChatApp notificationData={notificationData} />
-            </VerticleLayout>
+            {/* </VerticleLayout> */}
         </PushNotificationLayout>
     )
 }

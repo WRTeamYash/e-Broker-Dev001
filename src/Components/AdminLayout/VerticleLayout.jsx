@@ -287,18 +287,24 @@ export default function VerticleLayout(props) {
     }, [requiresSubscription]);
 
     const subscriptionCheck = () => {
-        console.log('Current route:', pathname);
-        console.log('Checking subscription...');
-        console.log('requiresSubscription:', requiresSubscription);
-        console.log('hasSubscription:', hasSubscription);
-    
-        // Debugging: Log if the current route is in isSubscribeRoutes
-        console.log('Is in isSubscribeRoutes:', isSubscribeRoutes.includes(pathname));
+       
     
         if (requiresSubscription && !hasSubscription) {
-            toast.error('Subscription required to access this page');
-            // Optionally, you can redirect the user to another page:
-            router.push('/');
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You have not subscribed. Please subscribe first",
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                },
+
+                // footer: '<a href="">Why do I have this issue?</a>'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    router.push("/subscription-plan"); // Redirect to the subscription page
+                    
+                }
+            });
         }
     }
     

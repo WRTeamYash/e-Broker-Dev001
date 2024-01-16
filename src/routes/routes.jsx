@@ -23,7 +23,6 @@ export const publicRoutes = [
 export const isSubscribeRoutes = [
     '/user/dashboard/',
     '/user/advertisement/',
-    '/user/favorites-properties/',
     '/user/properties/',
     '/user/subscription/',
     '/user/transaction-history/',
@@ -33,4 +32,5 @@ export const protectedRoutes = [
     '/user/chat/',
     '/user-register/',
     '/user/profile/',
+    '/user/favorites-properties/',
 ]

@@ -9,7 +9,7 @@ let initialState = {
     lastFetch: null,
     slider: [],
     categories: [],
-    newUserChatData: [],
+    newUserChatData: null,
     filterData: []
 };
 

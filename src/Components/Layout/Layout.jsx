@@ -10,6 +10,9 @@ import under_maintain from '../../../public/under_maintain.svg'
 import { translate } from "@/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { protectedRoutes } from "@/routes/routes";
+import { usePathname } from "next/navigation";
+import Swal from "sweetalert2";
 
 const Layout = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +26,9 @@ const Layout = ({ children }) => {
             null,
             isLoggedIn ? userCurrentId : "",
             (res) => {
+               
                 setIsLoading(false);
+             
             },
             (err) => {
                 console.log(err);
@@ -31,7 +36,36 @@ const Layout = ({ children }) => {
         );
     }, [isLoggedIn]);
 
+    const pathname = usePathname();
 
+    // Check if the current route requires a subscription
+    const requiresAuth = protectedRoutes.includes(pathname);
+
+    useEffect(() => {
+        authcheck();
+    }, [requiresAuth]);
+
+    const authcheck = () => {
+
+
+        if (requiresAuth && !userCurrentId) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You have notLogin. Please Login First",
+                allowOutsideClick: false,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                },
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    router.push("/"); // Redirect to the subscription page
+
+                }
+            });
+        }
+    }
     useEffect(() => {
         if (!userCurrentId && window.location.pathname === "/user-register") {
             router.push('/')

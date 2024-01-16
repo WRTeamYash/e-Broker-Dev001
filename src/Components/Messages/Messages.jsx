@@ -14,9 +14,9 @@ const Messages = () => {
     useEffect(() => { }, [notificationData])
     return (
         <PushNotificationLayout onNotificationReceived={handleNotificationReceived}>
-            {/* <VerticleLayout> */}
+            <VerticleLayout>
                 <ChatApp notificationData={notificationData} />
-            {/* </VerticleLayout> */}
+            </VerticleLayout>
         </PushNotificationLayout>
     )
 }

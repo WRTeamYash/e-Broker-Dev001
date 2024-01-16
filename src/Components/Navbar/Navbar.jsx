@@ -16,47 +16,23 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { toast } from "react-hot-toast";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { languageLoaded, setLanguage } from "@/store/reducer/languageSlice";
-import { isThemeEnabled, translate } from "@/utils";
+import {  translate } from "@/utils";
 import { store } from "@/store/store";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { silderCacheData } from "@/store/reducer/momentSlice";
-import { isSupported } from "firebase/messaging";
 
 
 
 const Nav = () => {
     const router = useRouter();
     const language = store.getState().Language.languages;
-    const [isMessagingSupported, setIsMessagingSupported] = useState(false);
-    const [notificationPermissionGranted, setNotificationPermissionGranted] = useState(false);
-
-    useEffect(() => {
-        const checkMessagingSupport = async () => {
-            try {
-                const supported = await isSupported();
-                setIsMessagingSupported(supported);
-
-                if (supported) {
-                    const permission = await Notification.requestPermission();
-                    if (permission === 'granted') {
-                        setNotificationPermissionGranted(true);
-                    }
-                }
-            } catch (error) {
-                console.error('Error checking messaging support:', error);
-            }
-        };
-
-        checkMessagingSupport();
-    }, [notificationPermissionGranted, isMessagingSupported]);
 
 
 
     const isHomePage = router.pathname === '/';
     const user_register = router.pathname === '/user-register';
-    const chat = router.pathname === '/chat';
     const signupData = useSelector(userSignUpData);
     const sliderdata = useSelector(silderCacheData);
     const settingData = useSelector(settingsData);
@@ -283,7 +259,7 @@ const Nav = () => {
     return (
         <>
             <header>
-                <nav className={`navbar header navbar-expand-lg navbar-light ${scroll > headerTop || (isHomePage && (!sliderdata || sliderdata.length === 0)) || chat ? "is-sticky" : ""}`}>
+                <nav className={`navbar header navbar-expand-lg navbar-light ${scroll > headerTop || (isHomePage && (!sliderdata || sliderdata.length === 0)) ? "is-sticky" : ""}`}>
                     <div className="container">
                         <div className="left-side">
                             <Link className="navbar-brand" href="/">
@@ -356,12 +332,6 @@ const Nav = () => {
                                             {translate("aboutUs")}
                                         </li>
                                     </Link>
-
-                                    {isMessagingSupported && notificationPermissionGranted && (
-                                        <li className="nav-link" onClick={handleChat}>
-                                            {translate("chat")}
-                                        </li>
-                                    )}
                                 </ul>
                             </div>
                         </div>
@@ -527,13 +497,6 @@ const Nav = () => {
                                     </Link>
                                 </li>
 
-                                {isMessagingSupported && notificationPermissionGranted && (
-                                    <li className="nav-item">
-                                        <span className="nav-link" onClick={handleChat}>
-                                            {translate("chat")}
-                                        </span>
-                                    </li>
-                                )}
                                 <Dropdown>
                                     <Dropdown.Toggle id="dropdown-basic">  {selectedLanguage ? selectedLanguage : defaultlang}</Dropdown.Toggle>
 

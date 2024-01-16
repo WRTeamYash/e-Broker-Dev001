@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -48,6 +48,7 @@ import { settingsData } from "@/store/reducer/settingsSlice.js";
 import { getAuth, deleteUser } from 'firebase/auth';
 import { isSubscribeRoutes } from "@/routes/routes.jsx";
 import { usePathname } from 'next/navigation'
+import { isSupported } from "firebase/messaging";
 
 const drawerWidth = 240;
 
@@ -118,7 +119,28 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 export default function VerticleLayout(props) {
     const { children } = props;
 
-    const theme = useTheme();
+    const [isMessagingSupported, setIsMessagingSupported] = useState(false);
+    const [notificationPermissionGranted, setNotificationPermissionGranted] = useState(false);
+
+    useEffect(() => {
+        const checkMessagingSupport = async () => {
+            try {
+                const supported = await isSupported();
+                setIsMessagingSupported(supported);
+
+                if (supported) {
+                    const permission = await Notification.requestPermission();
+                    if (permission === 'granted') {
+                        setNotificationPermissionGranted(true);
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking messaging support:', error);
+            }
+        };
+
+        checkMessagingSupport();
+    }, [notificationPermissionGranted, isMessagingSupported]);
     const [open, setOpen] = React.useState(false);
     const lang = useSelector(languageData);
     const router = useRouter();
@@ -287,27 +309,27 @@ export default function VerticleLayout(props) {
     }, [requiresSubscription]);
 
     const subscriptionCheck = () => {
-       
-    
+
+
         if (requiresSubscription && !hasSubscription) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "You have not subscribed. Please subscribe first",
+                allowOutsideClick: false,
                 customClass: {
                     confirmButton: 'Swal-confirm-buttons',
                 },
 
-                // footer: '<a href="">Why do I have this issue?</a>'
             }).then((result) => {
                 if (result.isConfirmed) {
                     router.push("/subscription-plan"); // Redirect to the subscription page
-                    
+
                 }
             });
         }
     }
-    
+
 
 
     return (
@@ -474,34 +496,36 @@ export default function VerticleLayout(props) {
                         </ListItem>
                     </Link>
                     {/* <Link href="/user/chat"> */}
-                    <ListItem
 
-                        disablePadding
-                        sx={{ display: "block" }}
-                        className={isRouteActive('/user/chat') ? 'drawer_list_item_active' : 'drawer_list_item'}
-                    >
-                        <ListItemButton
-                            onClick={handleChat}
-                            sx={{
-                                minHeight: 30,
-                                justifyContent: open ? "initial" : "center",
-                                px: 2.5,
-                            }}
+                    {isMessagingSupported && notificationPermissionGranted && (
+
+                        <ListItem
+                            disablePadding
+                            sx={{ display: "block" }}
+                            className={isRouteActive('/user/chat') ? 'drawer_list_item_active' : 'drawer_list_item'}
                         >
-                            <ListItemIcon
-                                className={isRouteActive('/user/chat') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
+                            <ListItemButton
+                                onClick={handleChat}
                                 sx={{
-                                    minWidth: 0,
-                                    mr: open ? 3 : "auto",
-                                    justifyContent: "center",
+                                    minHeight: 30,
+                                    justifyContent: open ? "initial" : "center",
+                                    px: 2.5,
                                 }}
                             >
-                                <SmsOutlinedIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={translate("messages")} sx={{ opacity: open ? 1 : 0 }} />
-                        </ListItemButton>
-                    </ListItem>
-                    {/* </Link> */}
+                                <ListItemIcon
+                                    className={isRouteActive('/user/chat') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : "auto",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <SmsOutlinedIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={translate("messages")} sx={{ opacity: open ? 1 : 0 }} />
+                            </ListItemButton>
+                        </ListItem>
+                    )}
 
                     <Link href="/user/profile">
                         <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/profile') ? 'drawer_list_item_active' : 'drawer_list_item'}>

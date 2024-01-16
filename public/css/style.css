@@ -6697,20 +6697,20 @@ a {
 /* chat  */
 .messages {
   /* margin: 60px 0; */
-  position: relative;
-  top: -14vh;
+  /* position: relative;
+  top: -14vh; */
 }
 @media only screen and (max-width:767px) {
   .messages {
   top: -14vh;
   left: 4px;
   }
-  .css-2dum1v-MuiDrawer-docked {
+  /* .css-2dum1v-MuiDrawer-docked {
     width: 30px !important;
 }
   .css-bpnhhg{
     width: 30px !important;
-}
+} */
 }
 .messages .message_list_details {
   display: flex;

@@ -526,7 +526,7 @@ const ChatApp = ({ notificationData }) => {
         return text;
     };
     return (
-        <VerticleLayout>
+        <>
             <div className='messages'>
                 <div className="container">
                     <div className="dashboard_titles">
@@ -767,7 +767,7 @@ const ChatApp = ({ notificationData }) => {
 
                 </div>
             </div>
-        </VerticleLayout>
+        </>
     );
 };
 

@@ -6699,7 +6699,13 @@ a {
 .messages {
   /* margin: 60px 0; */
   position: relative;
-  /* top: 4vh; */
+  /* top: -14vh; */
+}
+@media only screen and (max-width:767px) {
+  /* .messages {
+   margin-left: -20px;
+   z-index: 9999;
+  } */
 }
 .messages .message_list_details {
   display: flex;

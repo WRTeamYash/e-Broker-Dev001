@@ -497,7 +497,7 @@ export default function VerticleLayout(props) {
                     </Link>
                     {/* <Link href="/user/chat"> */}
 
-                    {isMessagingSupported && notificationPermissionGranted && (
+                    {/* {isMessagingSupported && notificationPermissionGranted && ( */}
 
                         <ListItem
                             disablePadding
@@ -525,7 +525,7 @@ export default function VerticleLayout(props) {
                                 <ListItemText primary={translate("messages")} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
-                    )}
+                    {/* )} */}
 
                     <Link href="/user/profile">
                         <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/profile') ? 'drawer_list_item_active' : 'drawer_list_item'}>

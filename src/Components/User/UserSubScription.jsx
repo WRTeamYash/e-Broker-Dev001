@@ -9,20 +9,30 @@ import { Progress } from "antd";
 import { translate } from "@/utils/index.js";
 import { languageData } from "@/store/reducer/languageSlice.js";
 import dynamic from "next/dynamic.js";
+import { useRouter } from "next/router.js";
+import toast from "react-hot-toast";
 const VerticleLayout = dynamic(() => import('../AdminLayout/VerticleLayout.jsx'), { ssr: false })
 const UserSubScription = () => {
     const [getlimitsData, setGetLimitsData] = useState();
 
     const packageDetails = useSelector(settingsData);
     const currentUserPackage = packageDetails?.package?.user_purchased_package;
-
+const router = useRouter()
     const CurrencySymbol = packageDetails && packageDetails.currency_symbol;
     // Add checks to ensure currentUserPackage is defined and has at least one element
     if (!currentUserPackage || currentUserPackage.length === 0) {
         console.error("currentUserPackage is undefined or empty");
-      
+
         return null;
     }
+    useEffect(() => {
+        if (!currentUserPackage || currentUserPackage.length === 0) {
+            toast.error("Opps! No P{ackage Found!!!")
+            router.push('/')
+            
+        }
+    }, [currentUserPackage])
+
     const packageId = currentUserPackage[0].package.id;
     const PropertyLimit = currentUserPackage[0].package.property_limit;
     const usedPropertyLimit = currentUserPackage[0]?.used_limit_for_property;
@@ -50,7 +60,7 @@ const UserSubScription = () => {
             const startDate = new Date(currentUserPackage[0].start_date);
             const endDate = new Date(currentUserPackage[0].end_date);
             const durationInMilliseconds = endDate - startDate;
-            const durationInDays =15;
+            const durationInDays = 15;
             // const durationInDays = Math.floor(durationInMilliseconds / (1000 * 60 * 60 * 24));
             return durationInDays;
         }
@@ -100,7 +110,9 @@ const UserSubScription = () => {
                 </div>
                 <div className="row">
                     <div className="col-sm-12 col-md-6" id="subscription_card_col">
+
                         <div className="card" id="subscription_card">
+                           
                             <div className="card-header" id="subscription_card_header">
                                 <span className="subscription_current_package">{translate("currentPack")}</span>
                                 <span className="subscription_current_package_type">{currentUserPackage[0].package.name}</span>
@@ -208,6 +220,7 @@ const UserSubScription = () => {
                                     ) : null}
                                 </div>
                             </div>
+                        
                         </div>
                     </div>
                 </div>

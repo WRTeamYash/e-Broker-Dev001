@@ -5439,19 +5439,18 @@ a {
   border-right: none;
 }
 .drawer_list .drawer_list_item_active {
-    border-color: var(--primary-color) !important;
-    color: var(--primary-color) !important;
-    border-bottom: 1px solid;
-    border-style: dashed;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    background:rgba(0, 0, 0, 0.04) !important;
-}
-.drawer_list .drawer_list_item_active .MuiTypography-root{
   border-color: var(--primary-color) !important;
   color: var(--primary-color) !important;
- 
+  border-bottom: 1px solid;
+  border-style: dashed;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+.drawer_list .drawer_list_item_active .MuiTypography-root {
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
 }
 
 .drawer_list .drawer_list_item:hover {
@@ -6699,13 +6698,16 @@ a {
 .messages {
   /* margin: 60px 0; */
   position: relative;
-  /* top: -14vh; */
+  top: -14vh;
 }
 @media only screen and (max-width:767px) {
-  /* .messages {
-   margin-left: -20px;
-   z-index: 9999;
-  } */
+  .messages {
+  top: -14vh;
+  left: 4px;
+  }
+  .css-2dum1v-MuiDrawer-docked {
+    width: 30px !important;
+}
 }
 .messages .message_list_details {
   display: flex;
@@ -7214,10 +7216,10 @@ audio {
   .send_message span {
     display: none;
   }
-  .chat_inputs .attechment{
+  .chat_inputs .attechment {
     display: none !important;
   }
-  .chat_inputs .hide-attechment{
+  .chat_inputs .hide-attechment {
     display: inline-block !important;
   }
 }
@@ -7252,7 +7254,7 @@ audio {
     width: 100%;
     height: 100%;
   }
-  .chat_display{
+  .chat_display {
     height: 35vh;
   }
   .user-message .chat_user_profile {
@@ -7263,10 +7265,10 @@ audio {
     height: 20px;
     width: 20px;
   }
-  .user-message span{
+  .user-message span {
     padding: 10px 20px;
   }
-  .user-message-time span{
+  .user-message-time span {
     font-size: smaller;
   }
 
@@ -7275,16 +7277,17 @@ audio {
     gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
-}
-  .chat_inputs .attechment{
+  }
+  .chat_inputs .attechment {
     padding: 5px;
   }
-  .chat_inputs .hide-attechment{
+  .chat_inputs .hide-attechment {
     padding: 5px;
     display: flex !important;
     justify-content: center;
   }
-  .chat_inputs .send_message, .chat_inputs .voice_message{
+  .chat_inputs .send_message,
+  .chat_inputs .voice_message {
     padding: 5px;
   }
 }

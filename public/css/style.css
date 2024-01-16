@@ -7731,3 +7731,12 @@ embed svg path {
 .open_drawer {
   color: var(--primary-color) !important;
 }
+.dashboard_mobile_logo{
+  display: none;
+}
+@media only screen and (max-width:574px){
+  
+  .dashboard_mobile_logo{
+    display: block;
+  }
+}

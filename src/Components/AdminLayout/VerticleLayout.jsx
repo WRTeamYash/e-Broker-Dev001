@@ -365,6 +365,9 @@ export default function VerticleLayout(props) {
                     >
                         <MenuIcon />
                     </IconButton>
+                    <Link href="/">
+                        <Image loading="lazy" src={settingData?.app_home_screen ? settingData?.app_home_screen : ebroker.src} alt="no_img" className="dashboard_mobile_logo" width={30} height={30} />
+                    </Link>
                     <div className="container">
                         <AdminHeader />
                     </div>
@@ -525,7 +528,7 @@ export default function VerticleLayout(props) {
                                 <ListItemText primary={translate("messages")} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
-                     )}
+                    )}
 
                     <Link href="/user/profile">
                         <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/profile') ? 'drawer_list_item_active' : 'drawer_list_item'}>

@@ -22,7 +22,6 @@ const ReportPropertyModal = ({ show, onHide, propertyId, setIsReported }) => {
     useEffect(() => {
         GetReportReasonsApi(
             (res) => {
-                // console.log(res)
                 setGetListReasons(res.data)
                 setIsloading(false)
             },
@@ -38,7 +37,6 @@ const ReportPropertyModal = ({ show, onHide, propertyId, setIsReported }) => {
 
 
     const handleOptionChange = (option) => {
-        // console.log(option)
         if (option === "other") {
             setSelectedOption(0);
         } else {
@@ -49,7 +47,6 @@ const ReportPropertyModal = ({ show, onHide, propertyId, setIsReported }) => {
 
 
     useEffect(() => {
-        // console.log(propertyId)
     }, [reportReason])
 
 
@@ -67,8 +64,8 @@ const ReportPropertyModal = ({ show, onHide, propertyId, setIsReported }) => {
                 onHide()
             },
             onError: (err) => {
-                console.log(res)
-                toast.error(res.message)
+                console.log(err)
+                toast.error(err.message)
             }
         })
     }

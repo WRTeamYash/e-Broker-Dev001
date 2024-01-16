@@ -96,7 +96,6 @@ const PropertyDetails = () => {
                     setIsLoading(false);
                     setPropData(propertyData[0]);
                     if (propertyData[0]?.is_reported) {
-                        // console.log(getPropData.is_reported)
                         setIsReported(true)
                     }
                 },
@@ -269,7 +268,6 @@ const PropertyDetails = () => {
 
 
     useEffect(() => {
-        // console.log(isReported)
     }, [chatData, isReported])
 
     const handleCopyUrl = async (e) => {

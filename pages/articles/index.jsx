@@ -14,7 +14,7 @@ const fetchDataFromSeo = async (page) => {
 
         const SEOData = response.data;
 
-        // console.log("SEODATA", SEOData)
+     
         return SEOData;
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -48,8 +48,6 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         // Pass the fetched data as props to the page component
 
 
-        // console.log("req.url=======", req.url)
-        // console.log("seoData=======", seoData)
         return {
             props: {
                 seoData,

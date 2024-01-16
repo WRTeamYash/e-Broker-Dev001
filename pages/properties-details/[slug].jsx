@@ -12,7 +12,6 @@ const fetchDataFromSeo = async (slug) => {
         );
 
         const SEOData = response.data;
-        // console.log(typeof(SEOData))
 
         return SEOData;
     } catch (error) {
@@ -44,13 +43,12 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         const { params } = req[Symbol.for('NextInternalRequestMeta')]._nextMatch;
         // Accessing the slug property
         //  const currentURL = req[Symbol.for('NextInternalRequestMeta')].__NEXT_INIT_URL;
-         // console.log(slugValue, "slugValue");
+       
          const currentURL = `${req.headers.host}${req.url}`;
         const slugValue = params.slug;
-        // const currentURL = `${req.headers.host}${req.url}`;
+      
 
         const seoData = await fetchDataFromSeo(slugValue);
-        // console.log("seoData=======", seoData);
         return {
             props: {
                 seoData,

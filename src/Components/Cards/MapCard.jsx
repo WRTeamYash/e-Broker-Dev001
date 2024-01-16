@@ -11,7 +11,6 @@ const MapCard = ({ data, CurrencySymbol, PlaceHolderImg }) => {
 
 
     const themeEnabled = isThemeEnabled();
-    console.log("data", data)
     const viewProperty = (e) => {
         e.preventDefault()
         router.push(`properties-details/${data.slug_id}`)

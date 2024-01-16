@@ -470,7 +470,6 @@ const ChatApp = ({ notificationData }) => {
                                 return newState;
                             });
                             setChatMessages([]);
-                            // console.log(selectedTab.property_id, " === ", newChatData)
                             if (selectedTab.property_id === newChatData.property_id) {
                                 removeChat()
                             }

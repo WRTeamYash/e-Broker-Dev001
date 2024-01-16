@@ -48,9 +48,6 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         const seoData = await fetchDataFromSeo(req.url);
         // Pass the fetched data as props to the page component
 
-
-        // console.log("req.url=======", req.url)
-        // console.log("seoData=======", seoData)
         return {
             props: {
                 seoData,

@@ -44,7 +44,6 @@ const PropertiesOnMap = () => {
         type: activeTab,
         onSuccess: (res) => {
           setNearbyProperties(res.data)
-          // console.log(nearbyProperties)
         },
         onError: (err) => {
           console.log(err)

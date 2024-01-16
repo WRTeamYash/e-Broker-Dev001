@@ -506,7 +506,7 @@ export default function AddPropertyTabs() {
         } else {
             // Proceed to the next tab
             setValue(value + 1);
-            // console.log("selectedLoca    tionAddress", selectedLocationAddress)
+            
         }
     };
 

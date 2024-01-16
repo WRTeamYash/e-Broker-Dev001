@@ -50,7 +50,7 @@ const UserRegister = () => {
         setShowCurrentLoc(false);
     };
     const handleSelectLocation = (location) => {
-        console.log(location)
+  
         setSelectedLocation(location);
     };
     const modalStyle = {

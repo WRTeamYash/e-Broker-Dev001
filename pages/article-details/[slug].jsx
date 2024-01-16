@@ -13,7 +13,7 @@ const fetchDataFromSeo = async (slug) => {
         );
 
         const SEOData = response.data;
-        console.log(SEOData)
+
 
         return SEOData;
     } catch (error) {
@@ -45,12 +45,11 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         // Accessing the slug property
         const slugValue = params.slug;
 
-        // console.log(slugValue, "slugValue");
+       
         const currentURL = `${req.headers.host}${req.url}`;
 
         const seoData = await fetchDataFromSeo(slugValue);
-        // console.log("req.url=======", req.url);
-        // console.log("seoData=======", seoData);
+
         return {
             props: {
                 seoData,

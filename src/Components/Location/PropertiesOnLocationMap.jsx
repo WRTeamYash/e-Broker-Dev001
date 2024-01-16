@@ -32,7 +32,6 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
     }, [initialLocation]);
     useEffect(() => {
 
-        // console.log("clickedMarker", clickedMarker)
     }, [clickedMarker]);
     const handleTabClick = (tab) => {
         setActiveTab(tab === "sell" ? 0 : 1);

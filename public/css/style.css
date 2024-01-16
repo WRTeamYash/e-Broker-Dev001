@@ -6708,6 +6708,9 @@ a {
   .css-2dum1v-MuiDrawer-docked {
     width: 30px !important;
 }
+  .css-bpnhhg{
+    width: 0px !important;
+}
 }
 .messages .message_list_details {
   display: flex;

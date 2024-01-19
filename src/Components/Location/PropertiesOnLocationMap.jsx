@@ -153,7 +153,7 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
                             </div>
                         </Autocomplete>
 
-                        <GoogleMap zoom={11} center={location} mapContainerStyle={{ height: "100vh", bottom: "12vh" }} className="properties_on_map_googlemap">
+                        <GoogleMap zoom={11} center={location} id="properties_on_map_googlemap">
                             {data.map((markerData, index) => (
                                 <Marker
                                     key={index}
@@ -172,7 +172,7 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
                                     position={{ lat: parseFloat(clickedMarker.latitude), lng: parseFloat(clickedMarker.longitude) }}
                                     onCloseClick={() => setClickedMarker(null)}
                                 >
-                                   
+
                                     <MapCard data={clickedMarker} CurrencySymbol={CurrencySymbol} PlaceHolderImg={PlaceHolderImg} />
                                 </InfoWindow>
                             )}

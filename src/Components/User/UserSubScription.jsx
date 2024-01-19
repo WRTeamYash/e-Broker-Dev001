@@ -17,7 +17,7 @@ const UserSubScription = () => {
 
     const packageDetails = useSelector(settingsData);
     const currentUserPackage = packageDetails?.package?.user_purchased_package;
-const router = useRouter()
+    const router = useRouter()
     const CurrencySymbol = packageDetails && packageDetails.currency_symbol;
     // Add checks to ensure currentUserPackage is defined and has at least one element
     if (!currentUserPackage || currentUserPackage.length === 0) {
@@ -29,7 +29,7 @@ const router = useRouter()
         if (!currentUserPackage || currentUserPackage.length === 0) {
             toast.error("Opps! No P{ackage Found!!!")
             router.push('/')
-            
+
         }
     }, [currentUserPackage])
 
@@ -41,34 +41,9 @@ const router = useRouter()
     const lang = useSelector(languageData);
 
     useEffect(() => { }, [lang]);
-    const getDaysRemaining = (endDate) => {
-        if (endDate) {
-            const currentDate = new Date();
-            const endDateObject = new Date(endDate);
-            const remainingTime = endDateObject - currentDate;
-            // const daysLeft = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-            const daysLeft = 14;
-            return daysLeft;
-        }
-        return null;
-    };
 
-    const packageRemaining = getDaysRemaining(currentUserPackage && currentUserPackage[0]?.end_date);
 
-    const calculatePackageDuration = () => {
-        if (currentUserPackage && currentUserPackage[0]?.start_date && currentUserPackage[0]?.end_date) {
-            const startDate = new Date(currentUserPackage[0].start_date);
-            const endDate = new Date(currentUserPackage[0].end_date);
-            const durationInMilliseconds = endDate - startDate;
-            const durationInDays = 15;
-            // const durationInDays = Math.floor(durationInMilliseconds / (1000 * 60 * 60 * 24));
-            return durationInDays;
-        }
-        return null;
-    };
 
-    const packageDuration = calculatePackageDuration();
-    const progress = (packageRemaining / packageDuration) * 100;
 
     useEffect(() => {
         GetLimitsApi(
@@ -112,7 +87,7 @@ const router = useRouter()
                     <div className="col-sm-12 col-md-6" id="subscription_card_col">
 
                         <div className="card" id="subscription_card">
-                           
+
                             <div className="card-header" id="subscription_card_header">
                                 <span className="subscription_current_package">{translate("currentPack")}</span>
                                 <span className="subscription_current_package_type">{currentUserPackage[0].package.name}</span>
@@ -168,7 +143,7 @@ const router = useRouter()
                                                         <Progress
                                                             id="progress_bar"
                                                             type="circle"
-                                                            percent={currentUserPackage && currentUserPackage[0]?.end_date !== null ? progress : 100}
+                                                            percent={currentUserPackage && currentUserPackage[0]?.remaining_days ? currentUserPackage[0]?.remaining_days / currentUserPackage[0].package.duration * 100 : 100}
                                                             format={() => null}
                                                             strokeWidth={10}
 
@@ -186,7 +161,7 @@ const router = useRouter()
                                                             }}
                                                         >
                                                             {currentUserPackage && currentUserPackage[0]?.end_date !== null ? (
-                                                                <span className="progress_bar_count">{`${packageRemaining} Days`}</span>
+                                                                <span className="progress_bar_count">{`${currentUserPackage && currentUserPackage[0]?.remaining_days} Days`}</span>
                                                             ) : (
                                                                 <span className="progress_bar_count">{translate("infinity")}</span>
                                                             )}
@@ -220,7 +195,7 @@ const router = useRouter()
                                     ) : null}
                                 </div>
                             </div>
-                        
+
                         </div>
                     </div>
                 </div>

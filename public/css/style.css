@@ -6700,10 +6700,10 @@ a {
   /* position: relative;
   top: -14vh; */
 }
-@media only screen and (max-width:767px) {
+@media only screen and (max-width: 767px) {
   .messages {
-  top: -14vh;
-  left: 4px;
+    top: -14vh;
+    left: 4px;
   }
   /* .css-2dum1v-MuiDrawer-docked {
     width: 30px !important;
@@ -7541,13 +7541,13 @@ embed svg path {
   justify-content: center;
 }
 
-.properties_on_map_googlemap {
-  height: 100vh !important;
+#properties_on_map_googlemap {
+  height: 650px !important;
   position: relative !important;
   overflow: hidden !important;
-  bottom: 12vh !important;
+  margin: 60px 0 !important;
 }
-
+  
 .verticle_card_map {
   width: 300px;
   height: 100%;
@@ -7731,12 +7731,11 @@ embed svg path {
 .open_drawer {
   color: var(--primary-color) !important;
 }
-.dashboard_mobile_logo{
+.dashboard_mobile_logo {
   display: none;
 }
-@media only screen and (max-width:574px){
-  
-  .dashboard_mobile_logo{
+@media only screen and (max-width: 574px) {
+  .dashboard_mobile_logo {
     display: block;
   }
 }

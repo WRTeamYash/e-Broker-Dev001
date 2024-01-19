@@ -262,7 +262,11 @@ const PropertyDetails = () => {
     };
     const handleReportProperty = (e) => {
         e.preventDefault();
+        if (userCurrentId) {
         setIsReporteModal(true)
+        }else{
+            toast.error("Please login first to Report this property.");
+        }
     }
 
 
@@ -270,20 +274,7 @@ const PropertyDetails = () => {
     useEffect(() => {
     }, [chatData, isReported])
 
-    const handleCopyUrl = async (e) => {
-        e.preventDefault();
 
-        // Get the current URL from the router
-
-        try {
-            // Use the Clipboard API to copy the URL to the clipboard
-            await navigator.clipboard.writeText(currentUrl);
-            // toast.success("URL copied to clipboard!");
-        } catch (error) {
-            console.error("Error copying to clipboard:", error);
-            // toast.error("Failed to copy URL to clipboard.");
-        }
-    };
     return (
         <>
             {isLoading ? (

@@ -717,6 +717,7 @@ body {
   width: 50%;
 }
 .filter-button-box-modal #props-tabs-modal #prop-sellbutton {
+  text-transform: capitalize;
   /* width: 19vw; */
   color: var(--primary-text-color02) !important;
   text-align: center;
@@ -1148,6 +1149,8 @@ body {
   margin: auto;
 }
 #searchbox #tabs #sellbutton {
+  text-transform: capitalize;
+  text-transform: capitalize;
   border: none;
   color: var(--primary-text-color02);
   top: 2px;
@@ -1190,6 +1193,7 @@ body {
   margin: auto;
 }
 #searchbox1 #tabs #sellbutton {
+  text-transform: capitalize;
   border: none;
   color: var(--primary-text-color02);
   top: 2px;
@@ -1578,6 +1582,7 @@ button.learn-more .button-text {
   color: var(--primary-color);
 }
 .verticle_card .verticle_main_card .sell_teg {
+  text-transform: capitalize;
   background: var(--primary-sell);
   border-radius: 5px;
   opacity: 1;
@@ -1685,6 +1690,7 @@ button.learn-more .button-text {
   top: 9px;
 }
 .horizontal_card #main_prop_card_body .prop_sell {
+  text-transform: capitalize;
   background: var(--primary-sell);
   border-radius: 5px;
   opacity: 1;
@@ -2105,6 +2111,7 @@ button.learn-more .button-text {
 }
 
 .prop_sell {
+  text-transform: capitalize;
   background: var(--primary-sell);
   border-radius: 5px;
   opacity: 1;
@@ -2754,6 +2761,7 @@ hr {
 }
 .filter-button-box #props-tabs #prop-sellbutton {
   /* width: 8vw; */
+  text-transform: capitalize;
   color: var(--primary-text-color02) !important;
   text-align: center;
   border: none;
@@ -2978,6 +2986,7 @@ option {
   /* right: 68%; */
 }
 #all-prop-containt .all_prop_sell {
+  text-transform: capitalize;
   background: var(--primary-sell);
   border-radius: 5px;
   opacity: 1;
@@ -3293,6 +3302,7 @@ option {
   color: white;
 }
 .propertie-sell-tag {
+  text-transform: capitalize;
   padding: 3px 20px;
   background-color: var(--primary-sell);
   border: none;
@@ -3865,6 +3875,7 @@ option {
   right: 10px;
 }
 .similer_sell_tag {
+  text-transform: capitalize;
   background: var(--primary-sell);
   border-radius: 5px;
   opacity: 1;
@@ -4960,6 +4971,7 @@ a {
 }
 #agentDetailsSect .all_prop_sell {
   background: var(--primary-sell);
+  text-transform: capitalize;
   border-radius: 5px;
   opacity: 1;
   border: none;
@@ -5123,6 +5135,7 @@ a {
     /* right: 68%; */
   }
   #agentDetailsSect .all_prop_sell {
+    text-transform: capitalize;
     margin-top: -60px;
     /* bottom: 0px !important; */
   }
@@ -5650,6 +5663,7 @@ a {
   aspect-ratio: 1/0.5;
 }
 .listing_type_tag {
+  text-transform: capitalize;
   position: absolute;
   background-color: var(--primary-sell);
   color: var(--primary-text-color01);
@@ -7547,7 +7561,7 @@ embed svg path {
   overflow: hidden !important;
   margin: 60px 0 !important;
 }
-  
+
 .verticle_card_map {
   width: 300px;
   height: 100%;
@@ -7585,6 +7599,7 @@ embed svg path {
   font-weight: bold;
   color: var(--primary-text-color01);
   position: relative;
+  text-transform: capitalize;
 }
 .verticle_card_map .verticle_main_card_map .card-body .price_teg {
   position: absolute;

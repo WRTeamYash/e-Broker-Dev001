@@ -10,7 +10,8 @@ app.prepare().then(() => {
   createServer((req, res) => {
     const parsedUrl = parse(req.url, true);
     const { pathname, query } = parsedUrl;
-    if (pathname.startsWith('/.well-known/')) {
+    console.log(pathname)
+    if (pathname.startsWith('/.well-known')) {
       const filePath = path.join(process.cwd(), pathname.substring(1));
       try {
         const fileContent = fs.readFileSync(filePath, 'utf-8');
@@ -25,7 +26,7 @@ app.prepare().then(() => {
       }
     }
     handle(req, res, parsedUrl);
-  }).listen(3000, (err) => {
+  }).listen(3001, (err) => {
     if (err) throw err;
     console.log('> Ready on http://localhost:3000');
   });

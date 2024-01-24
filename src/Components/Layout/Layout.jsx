@@ -26,15 +26,16 @@ const Layout = ({ children }) => {
             null,
             isLoggedIn ? userCurrentId : "",
             (res) => {
-               
                 setIsLoading(false);
-             
+                document.documentElement.style.setProperty('--primary-color', res?.data?.system_color);
+                document.documentElement.style.setProperty('--primary-category-background', res?.data?.category_background);
+                document.documentElement.style.setProperty('--primary-sell', res?.data?.sell_background);
             },
             (err) => {
                 console.log(err);
             }
         );
-    }, [isLoggedIn]);
+    }, [isLoggedIn, settingData?.svg_clr]);
 
     const pathname = usePathname();
 

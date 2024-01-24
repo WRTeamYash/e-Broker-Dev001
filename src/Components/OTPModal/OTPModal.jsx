@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { translate } from "@/utils";
 import { Fcmtoken, settingsData, settingsLoadedLogin } from "@/store/reducer/settingsSlice";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 const OTPModal = ({ isOpen, onClose, phonenum }) => {
     const SettingsData = useSelector(settingsData);
@@ -160,6 +161,25 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                     },
                     (err) => {
                         console.log(err);
+                        if (err === 'Account Deactivated by Administrative please connect to them') {
+                            onClose(); // Close the modal
+                            Swal.fire({
+                                title: "Opps!",
+                                text: "Account Deactivated by Administrative please connect to them",
+                                icon: "warning",
+                                showCancelButton: false,
+                                customClass: {
+                                    confirmButton: 'Swal-confirm-buttons',
+                                    cancelButton: "Swal-cancel-buttons"
+                                },
+                                confirmButtonText: "Ok",
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    navigate.push("/contact-us");
+                                }
+                            });
+
+                        }
                     }
                 );
             })

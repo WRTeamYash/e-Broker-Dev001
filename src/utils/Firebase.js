@@ -130,8 +130,10 @@ const FirebaseData = () => {
       return null;
     }
   };
-
-  return { firebase, authentication, fetchToken, onMessageListener }
+  const signOut = () => {
+    return authentication.signOut();
+  };
+  return { firebase, authentication, fetchToken, onMessageListener, signOut }
 }
 
 export default FirebaseData;

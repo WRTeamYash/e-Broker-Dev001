@@ -44,7 +44,7 @@ import { languageData } from "@/store/reducer/languageSlice.js";
 import { deleteUserApi } from "@/store/actions/campaign.js"
 import { store } from "@/store/store.js";
 import Image from "next/image";
-import { settingsData } from "@/store/reducer/settingsSlice.js";
+import { settingsData, settingsLoaded } from "@/store/reducer/settingsSlice.js";
 import { getAuth, deleteUser } from 'firebase/auth';
 import { isSubscribeRoutes } from "@/routes/routes.jsx";
 import { usePathname } from 'next/navigation'
@@ -121,6 +121,24 @@ export default function VerticleLayout(props) {
 
     const [isMessagingSupported, setIsMessagingSupported] = useState(false);
     const [notificationPermissionGranted, setNotificationPermissionGranted] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
+    const settingData = useSelector(settingsData);
+    useEffect(() => {
+        settingsLoaded(
+            null,
+            isLoggedIn ? userCurrentId : "",
+            (res) => {
+                document.documentElement.style.setProperty('--primary-color', res?.data?.system_color);
+                document.documentElement.style.setProperty('--primary-category-background',res?.data?.category_background);
+                document.documentElement.style.setProperty('--primary-sell',res?.data?.sell_background);
+            },
+            (err) => {
+                console.log(err);
+            }
+        );
+    }, [isLoggedIn, settingData?.svg_clr]);
 
     useEffect(() => {
         const checkMessagingSupport = async () => {
@@ -146,29 +164,55 @@ export default function VerticleLayout(props) {
     const router = useRouter();
     const pathname = usePathname();
 
-    const settingData = useSelector(settingsData);
+    
     const hasSubscription = settingData?.subscription
 
 
+
+
+
+    const CheckActiveUserAccount = () => {
+        if (settingData?.is_active === false) {
+            Swal.fire({
+                title: "Opps!",
+                text: "Your Account have been Deactivetd by Admin please connect them \.",
+                icon: "warning",
+                showCancelButton: false,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "Logout",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    logoutSuccess();
+                    signOut()
+                }
+            });
+        }
+    }
+    useEffect(() => {
+        CheckActiveUserAccount()
+    }, [settingData?.is_active])
 
     const currentRoute = router.pathname;
 
     const isRouteActive = (route) => {
         return currentRoute === route;
     };
-    useEffect(() => {
-        if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
-            document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
-            document.documentElement.style.setProperty('--primary-category-background', settingData?.category_background);
-            document.documentElement.style.setProperty('--primary-sell', settingData?.sell_background);
-        } else {
-            document.documentElement.style.setProperty('--primary-color', "#087c7c");
-            document.documentElement.style.setProperty('--primary-category-background', "#087c7c14");
-            document.documentElement.style.setProperty('--primary-sell', "#e8aa42");
-        }
+    // useEffect(() => {
+    //     if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
+    //         document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
+    //         document.documentElement.style.setProperty('--primary-category-background', settingData?.category_background);
+    //         document.documentElement.style.setProperty('--primary-sell', settingData?.sell_background);
+    //     } else {
+    //         document.documentElement.style.setProperty('--primary-color', "#087c7c");
+    //         document.documentElement.style.setProperty('--primary-category-background', "#087c7c14");
+    //         document.documentElement.style.setProperty('--primary-sell', "#e8aa42");
+    //     }
 
 
-    }, [settingData?.svg_clr])
+    // }, [settingData?.svg_clr])
     const language = store.getState().Language.languages;
     const current_user = store.getState().User_signup?.data?.data?.id
 

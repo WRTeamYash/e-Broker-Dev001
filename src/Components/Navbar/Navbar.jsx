@@ -16,39 +16,41 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { toast } from "react-hot-toast";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { languageLoaded, setLanguage } from "@/store/reducer/languageSlice";
-import {  translate } from "@/utils";
+import { translate } from "@/utils";
 import { store } from "@/store/store";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { silderCacheData } from "@/store/reducer/momentSlice";
+import FirebaseData from "@/utils/Firebase";
+
 
 
 
 const Nav = () => {
     const router = useRouter();
     const language = store.getState().Language.languages;
-
-
+    const { signOut } = FirebaseData();
 
     const isHomePage = router.pathname === '/';
     const user_register = router.pathname === '/user-register';
     const signupData = useSelector(userSignUpData);
     const sliderdata = useSelector(silderCacheData);
     const settingData = useSelector(settingsData);
-    useEffect(() => {
-        if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
-            document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
-            document.documentElement.style.setProperty('--primary-category-background', settingData?.category_background);
-            document.documentElement.style.setProperty('--primary-sell', settingData?.sell_background);
-        } else {
-            document.documentElement.style.setProperty('--primary-color', "#087c7c");
-            document.documentElement.style.setProperty('--primary-category-background', "#087c7c14");
-            document.documentElement.style.setProperty('--primary-sell', "#e8aa42");
-        }
+    
+    // useEffect(() => {
+    //     if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
+    //         document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
+    //         document.documentElement.style.setProperty('--primary-category-background', settingData?.category_background);
+    //         document.documentElement.style.setProperty('--primary-sell', settingData?.sell_background);
+    //     } else {
+    //         document.documentElement.style.setProperty('--primary-color', "#087c7c");
+    //         document.documentElement.style.setProperty('--primary-category-background', "#087c7c14");
+    //         document.documentElement.style.setProperty('--primary-sell', "#e8aa42");
+    //     }
 
 
-    }, [settingData?.svg_clr])
+    // }, [settingData?.svg_clr])
 
     const isSubscription = settingData?.subscription;
     const LanguageList = settingData && settingData.languages;
@@ -212,49 +214,38 @@ const Nav = () => {
                 window.recaptchaVerifier = null;
                 // Perform the logout action
                 logoutSuccess();
+                signOut()
+                router.push("/contact-us");
                 toast.success(translate("logoutSuccess"));
             } else {
                 toast.error(translate("logoutcancel"));
             }
         });
     };
-    const handleChat = () => {
-        setShow(false)
-        if (settingData?.demo_mode === true) {
+
+    const CheckActiveUserAccount = () => {
+        if (settingData?.is_active === false) {
             Swal.fire({
                 title: "Opps!",
-                text: "This Action is Not Allowed in Demo Mode",
+                text: "Your Account have been Deactivetd by Admin please connect them \.",
                 icon: "warning",
                 showCancelButton: false,
                 customClass: {
                     confirmButton: 'Swal-confirm-buttons',
                     cancelButton: "Swal-cancel-buttons"
                 },
-                confirmButtonText: "OK",
+                confirmButtonText: "Logout",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    logoutSuccess();
+                    signOut()
+                }
             });
-            return false;
-        } else {
-            if (signupData?.data?.data.id) {
-                // Corrected the condition
-                router.push("/user/chat"); // Use an absolute path here
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "You have not login. Please Login first",
-                    customClass: {
-                        confirmButton: 'Swal-confirm-buttons',
-                        cancelButton: "Swal-cancel-buttons"
-                    },
-                    // footer: '<a href="">Why do I have this issue?</a>'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        setShowModal(true);
-                    }
-                });
-            }
         }
-    };
+    }
+    useEffect(() => {
+        CheckActiveUserAccount()
+    }, [settingData?.is_active])
 
     return (
         <>

@@ -16,6 +16,7 @@ import Image from "next/image";
 const Footer = () => {
     const systemData = useSelector(settingsData);
     const webdata = systemData && systemData;
+    const currentYear = new Date().getFullYear();
     return (
         <section id="footer">
             <div className="container">
@@ -151,7 +152,7 @@ const Footer = () => {
                                 <span>{translate("downloadApps")}</span>
                             </div>
                             <div className="download_app_desc">
-                                <span>Get the latest resources for downloading, installing, and updating {webdata?.company_name} app. Select your device platform and Use Our app.</span>
+                                <span>{translate("Getthelatest")} {webdata?.company_name} {translate("Selectyourdevice")}</span>
                             </div>
 
                             <div className="download_app_platforms">
@@ -176,7 +177,7 @@ const Footer = () => {
             </div>
             <div className="rights_footer">
                 <hr />
-                <h6>Copyright @ 2023 {webdata?.company_name}. All Rights Reserved</h6>
+                <h6>{translate("Copyright")} {currentYear} {webdata?.company_name} {translate("All Rights Reserved")}</h6>
             </div>
         </section>
     );

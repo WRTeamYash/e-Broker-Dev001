@@ -41,37 +41,35 @@ const StripeModal = (props) => {
         const { stripe, elements, orderID } = props;
 
         setloadingPay(true);
-        if (!stripe || !elements) {
-            // Stripe.js has not yet loaded.
-            // Make sure to disable form submission until Stripe.js has loaded.
+        if (!stripe || !elements || !orderID) {
             setloadingPay(false);
             return;
         }
 
-        if (!orderID) {
-            setloadingPay(false);
-            return;
-        }
-        // Confirm the PaymentIntent with the Payment Element
-        const { paymentIntent, error } = await stripe.confirmCardPayment(props?.client_key?.client_secret, {
+        const { paymentIntent, error } = await stripe?.confirmCardPayment(props?.client_key?.client_secret, {
             payment_method: {
                 card: elements.getElement(CardElement),
                 billing_details: {
-                    name: user && user?.data?.data?.name,
-                    // description: props.stripeForm.description,
+                    name: user?.data?.data?.name,
                     address: {
-                        line1: props.stripeForm.address,
-                        postal_code: props.stripeForm.postalcode,
-                        city: props.stripeForm.city,
-                        state: props.stripeForm.state,
-                        country: props.stripeForm.country,
+                        line1: props?.stripeForm?.address,
+                        postal_code: props?.stripeForm?.postalcode,
+                        city: props?.stripeForm?.city,
+                        state: props?.stripeForm?.state,
+                        country: props?.stripeForm?.country,
                     },
                 },
             },
         });
 
         if (error) {
+            console.log(error)
             toast.error(error.message);
+            setloadingPay(false)
+            props?.setPaymentModal(false)
+            props?.resetFormAndCardNumber();
+
+
         } else if (paymentIntent.status === "succeeded") {
             confirmPaymentApi(
                 props?.client_key?.id,
@@ -79,18 +77,19 @@ const StripeModal = (props) => {
                     toast.success(res.message);
                     navigate.push("/");
                     setloadingPay(false);
-                    // setIsOrderPlaced(true)
+                    props?.setPaymentModal(false)
+                    props?.resetFormAndCardNumber();
                 },
                 (err) => {
                     toast.error(err.message);
+                    console.log(err)
                 }
             );
-            // Redirect the customer to a success page
-
-            toast.success("Success");
+            // toast.success("Success");
         } else {
             setloadingPay(false);
             toast.error("Payment failed");
+            console.log(paymentIntent.status)
         }
     };
 
@@ -122,11 +121,20 @@ const StripeModal = (props) => {
 export default function InjectCheckout(props) {
     return (
         <ElementsConsumer orderID={props.orderID} currency={props.currency} user_id={props.user_id} amount={props.amount} client_key={props.client_key}>
-            {({ stripe, elements }) => (
-                <>
-                    <StripeModal stripeForm={props.stripeForm} stripe={stripe} elements={elements} orderID={props.orderID} currency={props.currency} user_id={props.user_id} amount={props.amount} client_key={props.client_key}></StripeModal>
-                </>
-            )}
-        </ElementsConsumer>
+        {({ stripe, elements }) => (
+            <StripeModal
+                stripeForm={props.stripeForm}
+                stripe={stripe}
+                elements={elements}
+                orderID={props.orderID}
+                currency={props.currency}
+                user_id={props.user_id}
+                amount={props.amount}
+                client_key={props.client_key}
+                setPaymentModal={props.setPaymentModal}
+                resetFormAndCardNumber={() => props.resetFormAndCardNumber(elements)}  
+            />
+        )}
+    </ElementsConsumer>
     );
 }

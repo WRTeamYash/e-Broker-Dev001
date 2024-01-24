@@ -43,7 +43,7 @@ const ChatApp = ({ notificationData }) => {
             router.push("/");
         }
     }, [signupData])
-
+    console.log("notificationData", notificationData)
     const initialState = chatList.reduce((acc, chat) => {
         acc[chat.property_id] = {
             messageInput: '',

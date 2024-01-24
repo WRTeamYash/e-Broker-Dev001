@@ -29,6 +29,7 @@ const FirebaseData = () => {
     : getApp();
   const settingsdata = store.getState().Settings?.data;
   const appstoreLink = settingsdata?.appstore_id
+  
   const messagingInstance = async () => {
     try {
       const isSupportedBrowser = await isSupported();

@@ -16,8 +16,7 @@ import { Modal } from "antd";
 import InjectCheckout from "@/Components/Payment/StripeModal";
 import { loadStripe } from "@stripe/stripe-js";
 import toast from "react-hot-toast";
-import { Elements } from "@stripe/react-stripe-js";
-import { userSignUpData } from "@/store/reducer/authSlice";
+import { CardElement, Elements } from "@stripe/react-stripe-js";
 import countryLookup from "country-code-lookup";
 // Import Swiper styles
 import "swiper/css";
@@ -27,6 +26,7 @@ import Swal from "sweetalert2";
 import NoData from "@/Components/NoDataFound/NoData";
 import { useRouter } from "next/router";
 import Layout from '../Layout/Layout';
+import { userSignUpData } from '@/store/reducer/authSlice';
 
 
 const stripeLoadKey = loadStripeApiKey()
@@ -36,9 +36,9 @@ const { Option } = Select;
 
 const SubscriptionPlan = () => {
     const router = useRouter();
-    
     const [packagedata, setPackageData] = useState([]);
-
+    const userData = useSelector(userSignUpData);
+    const user = userData?.data?.data
     const [loading, setLoading] = useState(false);
 
     const [paymentSettingsdata, setPaymentSettingsData] = useState([]);
@@ -49,18 +49,17 @@ const SubscriptionPlan = () => {
 
     const [stripeForm, setStripeForm] = useState({
         description: "",
-        name: "",
-        address: "",
+        name: user?.name ? user?.name : "",
+        address: user?.address ? user?.address : "",
         postalcode: "",
-        city: "",
-        state: "",
+        city: user?.city ? user?.city : "",
+        state: user?.state ? user?.state : "",
         country: "",
         amount: "",
         currency: "",
         payemnttypes: "",
         packageid: "",
     });
-
 
     const [stripeformModal, setStripeFormModal] = useState(false);
 
@@ -72,7 +71,6 @@ const SubscriptionPlan = () => {
 
     const systemsettings = useSelector(settingsData);
 
-    const userData = useSelector(userSignUpData);
 
     const lang = useSelector(languageData);
     // useSelector(languageData)
@@ -83,6 +81,19 @@ const SubscriptionPlan = () => {
     const handleCountryCodeChange = (value) => {
         setStripeForm({ ...stripeForm, country: value });
     };
+    const closeStripeModal = async () => {
+        console.error("Payment canceled by the user.");
+
+        // Close all modals
+        setStripeFormModal(false);
+        setPaymentModal(false);
+        // setLoading(false);
+
+        // Additional logic for handling payment cancellation
+        // You can show a toast message or perform any other actions as needed
+        toast.error("Payment canceled. Please try again later.");
+    };
+
 
     // country codes
     const countryCodes = countryLookup.countries.map((elem) => ({
@@ -175,7 +186,7 @@ const SubscriptionPlan = () => {
             assignFreePackageApi(
                 priceData.id,
                 (res) => {
-                   
+
                     router.push("/");
                     toast.success(res.message);
                 },
@@ -203,37 +214,51 @@ const SubscriptionPlan = () => {
             payemnttypes: "card",
         });
 
-        // Display success toast
-        toast.success("Successfully Added"); // Stringify the object
+        try {
+            // Display success toast
+            // toast.success("Successfully Added");
 
-        // create payment api
-        createPaymentIntentApi(
-            priceData.name,
-            stripeForm.name,
-            stripeForm.address,
-            stripeForm.postalcode,
-            stripeForm.city,
-            stripeForm.state,
-            stripeForm.country,
-            priceData.price,
-            systemsettings?.currency_symbol,
-            "card",
-            priceData.id,
-            (res) => {
-                setclientKey(res?.data);
-                // on confirm close modal
-                setStripeFormModal(false);
-                setPaymentModal(true);
-            },
-            (err) => {
-                console.log(err);
-            }
-        );
+            // create payment api
+            createPaymentIntentApi(
+                priceData.name,
+                stripeForm.name,
+                stripeForm.address,
+                stripeForm.postalcode,
+                stripeForm.city,
+                stripeForm.state,
+                stripeForm.country,
+                priceData.price,
+                systemsettings?.currency_symbol,
+                "card",
+                priceData.id,
+                (res) => {
+                    // console.log("createPaymentIntentApi success response:", res);
+                    setclientKey(res?.data);
+                    // on confirm close modal
+                    setStripeFormModal(false);
+                    setPaymentModal(true);
+                },
+                (err) => {
+                    console.log(err);
+                    // Set loading state to false in case of error
+                    setLoading(false);
+                }
+            );
+        } catch (error) {
+            console.error("An error occurred during payment submission:", error);
+            // Set loading state to false in case of an exception
+            setLoading(false);
+        }
     };
+
 
     // error
     const onFinishFailed = (errorInfo) => {
+        // console.log("helloooooooooooo")
         toast.error(JSON.stringify(errorInfo));
+        // console.log(errorInfo)
+        setLoading(false);
+
     };
 
     // Example usage of the filter function
@@ -243,8 +268,33 @@ const SubscriptionPlan = () => {
     const sortedPackageData = packagedata.sort((a, b) => {
         return b.is_active - a.is_active;
     });
-
-
+    const handlePaymentFailure = async (error) => {
+        // Close all modals
+        setStripeFormModal(false);
+        setPaymentModal(false);
+    };
+    const resetFormAndCardNumber = (elements) => {
+        setStripeForm({
+            description: "",
+            name: "",
+            address: "",
+            postalcode: "",
+            city: "",
+            state: "",
+            country: "",
+            amount: "",
+            currency: "",
+            payemnttypes: "",
+            packageid: "",
+        });
+        
+        // Clear the card number
+        const cardElement = elements.getElement(CardElement);
+        if (cardElement) {
+            cardElement.clear();
+        }
+    };
+    
     return (
         <Layout>
             <Breadcrumb title={translate("subscriptionPlan")} />
@@ -397,9 +447,18 @@ const SubscriptionPlan = () => {
             </Modal>
 
             {/* stripe element */}
-            <Modal centered open={paymentModal} footer={null}>
+            <Modal centered open={paymentModal} footer={null} onCancel={closeStripeModal}>
                 <Elements stripe={stripePromise} client_key={clientKey} currency={stripe_currency} orderID={priceData.id} amount={priceData.price}>
-                    <InjectCheckout stripeForm={stripeForm} orderID={priceData.id} currency={stripe_currency} client_key={clientKey} amount={priceData.price} />
+                    <InjectCheckout
+                        stripeForm={stripeForm}
+                        orderID={priceData.id}
+                        currency={stripe_currency}
+                        client_key={clientKey}
+                        amount={priceData.price}
+                        onFailure={handlePaymentFailure}
+                        setPaymentModal={setPaymentModal}
+                        resetFormAndCardNumber={resetFormAndCardNumber}
+                    />
                 </Elements>
             </Modal>
 
@@ -407,9 +466,7 @@ const SubscriptionPlan = () => {
             <Modal className="stripemodal" onCancel={() => setStripeFormModal(false)} centered open={stripeformModal} footer={null}>
                 <Form
                     name="basic"
-                    initialValues={{
-                        remember: true,
-                    }}
+                    initialValues={stripeForm}
                     onFinish={onStripeFormSubmit}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
@@ -469,6 +526,10 @@ const SubscriptionPlan = () => {
                                 required: true,
                                 message: "Please enter your city",
                             },
+                            {
+                                pattern: /^[A-Za-z\s]+$/,
+                                message: "Please enter only letters for the city",
+                            },
                         ]}
                     >
                         <Input onChange={(e) => setStripeForm({ ...stripeForm, city: e.target.value })} />
@@ -481,6 +542,10 @@ const SubscriptionPlan = () => {
                             {
                                 required: true,
                                 message: "Please enter your state",
+                            },
+                            {
+                                pattern: /^[A-Za-z\s]+$/,
+                                message: "Please enter only letters for the state",
                             },
                         ]}
                     >
@@ -524,7 +589,7 @@ const SubscriptionPlan = () => {
                     </Form.Item>
                 </Form>
             </Modal>
-        </Layout>
+        </Layout >
     )
 }
 

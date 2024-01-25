@@ -150,10 +150,11 @@ const PropertyDetails = () => {
 
 
     const closeLightbox = () => {
-        setCurrentImage(0);
-        setViewerIsOpen(false);
-    };
-
+        if (viewerIsOpen) {
+          setCurrentImage(0);
+          setViewerIsOpen(false);
+        }
+      };
     const handleShowMap = () => {
         setShowMap(true);
     }

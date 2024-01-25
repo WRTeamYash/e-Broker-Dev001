@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
-import Layout from "../AdminLayout/AdminLayout.jsx";
+import AdminLayout from "../AdminLayout/AdminLayout.jsx";
 
 const drawerWidth = 240;
 
@@ -74,7 +74,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 
 export default function DashboardContent({ children }) {
     return (
-        <Layout>
+        <AdminLayout>
             <Box sx={{ display: "flex" }}>
                 <CssBaseline />
 
@@ -83,6 +83,6 @@ export default function DashboardContent({ children }) {
                     {children}
                 </Box>
             </Box>
-        </Layout>
+        </AdminLayout>
     );
 }

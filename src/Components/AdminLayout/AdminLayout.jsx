@@ -2,8 +2,9 @@
 import "../../../public/css/style.css";
 import "../../../public/css/responsive.css";
 import React from 'react'
-import Layout from './Layout'
 import VerticleLayout from "./VerticleLayout";
+
+
 const AdminLayout = (props) => {
 
 

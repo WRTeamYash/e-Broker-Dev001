@@ -175,8 +175,9 @@ export default function VerticleLayout(props) {
         if (settingData?.is_active === false) {
             Swal.fire({
                 title: "Opps!",
-                text: "Your Account have been Deactivetd by Admin please connect them \.",
+                text: "Your Account have been Deactivetd by Admin please connect them.",
                 icon: "warning",
+                allowOutsideClick: false,
                 showCancelButton: false,
                 customClass: {
                     confirmButton: 'Swal-confirm-buttons',

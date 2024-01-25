@@ -215,7 +215,7 @@ const Nav = () => {
                 // Perform the logout action
                 logoutSuccess();
                 signOut()
-                router.push("/contact-us");
+                
                 toast.success(translate("logoutSuccess"));
             } else {
                 toast.error(translate("logoutcancel"));
@@ -229,6 +229,7 @@ const Nav = () => {
                 title: "Opps!",
                 text: "Your Account have been Deactivetd by Admin please connect them \.",
                 icon: "warning",
+                allowOutsideClick: false,
                 showCancelButton: false,
                 customClass: {
                     confirmButton: 'Swal-confirm-buttons',
@@ -239,6 +240,7 @@ const Nav = () => {
                 if (result.isConfirmed) {
                     logoutSuccess();
                     signOut()
+                    router.push("/contact-us");
                 }
             });
         }

@@ -1,6 +1,4 @@
 "use client"
-import "../../../public/css/style.css";
-import "../../../public/css/responsive.css";
 import React from 'react'
 import VerticleLayout from "./VerticleLayout";
 

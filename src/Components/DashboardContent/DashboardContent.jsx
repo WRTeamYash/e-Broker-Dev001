@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
-import Layout from "../AdminLayout/Layout";
+import Layout from "../AdminLayout/AdminLayout.jsx";
 
 const drawerWidth = 240;
 

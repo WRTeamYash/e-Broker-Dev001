@@ -376,7 +376,7 @@ const SubscriptionPlan = () => {
                                                                     <span>
                                                                         <BiSolidCheckCircle size={20} />{" "}
                                                                     </span>
-                                                                    <span> Advertisement limit is : {elem.advertisement_limit === "unlimited" ? "Unlimited" : elem.advertisement_limit} </span>
+                                                                    <span> {translate("Advertisement limit is :")} {elem.advertisement_limit === "unlimited" ? "Unlimited" : elem.advertisement_limit} </span>
                                                                 </span>
                                                             ) : null}
                                                             {elem.property_limit !== "not_available"
@@ -385,7 +385,7 @@ const SubscriptionPlan = () => {
                                                                         <span>
                                                                             <BiSolidCheckCircle size={20} />{" "}
                                                                         </span>
-                                                                        <span> Property limit is : {elem.property_limit === "unlimited" ? "Unlimited" : elem.property_limit}</span>
+                                                                        <span> {translate("Property limit is :")} {elem.property_limit === "unlimited" ? "Unlimited" : elem.property_limit}</span>
                                                                     </span>
                                                                 ) :
                                                                 null
@@ -394,7 +394,7 @@ const SubscriptionPlan = () => {
                                                                 <span>
                                                                     <BiSolidCheckCircle size={20} />{" "}
                                                                 </span>
-                                                                <span> Validity {elem.duration} days</span>
+                                                                <span> {translate("Validity")} {elem.duration} {translate("days")}</span>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -405,7 +405,7 @@ const SubscriptionPlan = () => {
                                                         <div className="card-footer">
                                                             <div className="subscribe_button">
                                                                 <button type="submit" onClick={(e) => subscribePayment(e, elem)}>
-                                                                    Subscribe
+                                                                    {translate("Subscribe")}
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -440,9 +440,9 @@ const SubscriptionPlan = () => {
                 className="warning_modal"
             >
                 <p>
-                    You have an existing subscription.
+                    {translate("You have an existing subscription.")}
                     <br />
-                    Subscribing to this package will cancel your prevoius subscription, are you sure you want to proceed.
+                   {translate("Subscribing to this package will cancel your prevoius subscription, are you sure you want to proceed.")}
                 </p>
             </Modal>
 
@@ -473,12 +473,12 @@ const SubscriptionPlan = () => {
                     className="stripeform pt-5"
                 >
                     <Form.Item
-                        label="Name"
+                        label={translate("Name")}
                         name="name"
                         rules={[
                             {
                                 required: true,
-                                message: "Please enter your name!",
+                                message: translate("Please enter your name!")
                             },
                         ]}
                     >
@@ -486,12 +486,12 @@ const SubscriptionPlan = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Address"
+                        label={translate("Address")}
                         name="address"
                         rules={[
                             {
                                 required: true,
-                                message: "Please enter your address!",
+                                message: translate("Please enter your address!"),
                             },
                         ]}
                     >
@@ -499,12 +499,12 @@ const SubscriptionPlan = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Postal Code"
+                        label={translate("Postal Code")}
                         name="postalcode"
                         rules={[
                             {
                                 required: true,
-                                message: "Please enter your postal code!",
+                                message: translate("Please enter your postal code!"),
                             },
                         ]}
                     >
@@ -519,12 +519,12 @@ const SubscriptionPlan = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="City"
+                        label={translate("City")}
                         name="city"
                         rules={[
                             {
                                 required: true,
-                                message: "Please enter your city",
+                                message: translate("Please enter your city"),
                             },
                             {
                                 pattern: /^[A-Za-z\s]+$/,
@@ -536,12 +536,12 @@ const SubscriptionPlan = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="State"
+                        label={translate("State")}
                         name="state"
                         rules={[
                             {
                                 required: true,
-                                message: "Please enter your state",
+                                message: translate("Please enter your state"),
                             },
                             {
                                 pattern: /^[A-Za-z\s]+$/,
@@ -553,12 +553,12 @@ const SubscriptionPlan = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Country"
+                        label={translate("Country")}
                         name="country"
                         rules={[
                             {
                                 required: true,
-                                message: "Please enter your country",
+                                message: translate("Please enter your country"),
                             },
                         ]}
                     >
@@ -578,7 +578,7 @@ const SubscriptionPlan = () => {
                                 ))}
                             </Select>
                         ) : (
-                            <p>Loading country codes...</p>
+                            <p>{translate("Loading country codes...")}</p>
                         )}
                     </Form.Item>
 

@@ -14,7 +14,7 @@ import 'lightbox2/dist/css/lightbox.min.css';
 
 import { Toaster } from "react-hot-toast";
 import PushNotificationLayout from "@/Components/firebaseNotification/PushNotificationLayout";
-
+import InspectElement from '@/Components/InspectElement/InspectElement'
 
 function MyApp({ Component, pageProps, data }) {
 
@@ -36,10 +36,12 @@ function MyApp({ Component, pageProps, data }) {
             <link rel="shortcut icon" href="/favicon.ico" sizes="32x32" type="image/png" />
             <Provider store={store}>
                 {/* <PersistGate persistor={persistor}> */}
+                <InspectElement>
                     <PushNotificationLayout>
                         <Component {...pageProps} data={data} />
                     </PushNotificationLayout>
-                    <Toaster />
+                </InspectElement>
+                <Toaster />
                 {/* </PersistGate> */}
             </Provider>
         </Fragment>

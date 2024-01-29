@@ -773,7 +773,7 @@ export default function AddPropertyTabs() {
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div id="add_prop_form">
                                 <div className="add_prop_fields">
-                                    <span>Meta Title</span>
+                                    <span>{translate("metatitle")}</span>
                                     <input type="text" id="prop_title_input" placeholder="Enter Property Meta Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
                                 </div>
                             </div>
@@ -781,7 +781,7 @@ export default function AddPropertyTabs() {
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div id="add_prop_form">
                                 <div className="add_prop_fields">
-                                    <span>Og Image</span>
+                                <span>{translate("ogimage")}</span>
                                     <div className="dropbox">
                                         <div {...getRootPropsOgImage()} className={`dropzone ${isDragActiveOgImage ? "active" : ""}`}>
                                             <input {...getInputPropsOgImage()} />
@@ -804,7 +804,7 @@ export default function AddPropertyTabs() {
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div id="add_prop_form">
                                 <div className="add_prop_fields">
-                                    <span>Meta Keyword</span>
+                                <span>{translate("metakeyword")}</span>
                                     <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Keywords" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
                                 </div>
                                 <p style={{ color: "#FF0000", fontSize: "smaller" }}>Warning: Please enter keywords separated by commas for optimal SEO performance.</p>
@@ -812,7 +812,7 @@ export default function AddPropertyTabs() {
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
-                                <span>Meta Description</span>
+                            <span>{translate("metadescription")}</span>
                                 <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Description" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
                             </div>
                         </div>

@@ -380,7 +380,7 @@ const PropertyDetails = () => {
                                         </div>
                                     </div>
                                 }
-                                <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={closeLightbox} title_image={getPropData?.title_image} />
+                                <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={closeLightbox} title_image={getPropData?.title_image} setViewerIsOpen={setViewerIsOpen}/>
 
                                 <div className="row" id="prop-all-deatils-cards">
                                     <div className="col-12 col-md-12 col-lg-9" id="prop-deatls-card">

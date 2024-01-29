@@ -23,6 +23,7 @@ import {
     WhatsappIcon,
     XIcon,
 } from "react-share";
+import { translate } from "@/utils";
 
 const Breadcrumb = (props) => {
 
@@ -104,27 +105,27 @@ const Breadcrumb = (props) => {
             <Menu.Item key="1">
                 <FacebookShareButton url={currentUrl} title={data?.title + CompanyName} hashtag={CompanyName}>
 
-                    <FacebookIcon size={30} round /> {""} Facebook
+                    <FacebookIcon size={30} round /> {""} {translate("Facebook")}
 
                 </FacebookShareButton>
             </Menu.Item>
             <Menu.Item key="2">
                 <TwitterShareButton url={currentUrl}>
 
-                    <XIcon size={30} round /> {""} Twitter
+                    <XIcon size={30} round /> {""} {translate("Twitter")}
 
                 </TwitterShareButton>
             </Menu.Item>
             <Menu.Item key="3">
                 <WhatsappShareButton url={currentUrl} title={data?.title + "" + " - " + "" + CompanyName} hashtag={CompanyName}>
 
-                    <WhatsappIcon size={30} round /> {""} Whatsapp
+                    <WhatsappIcon size={30} round /> {""} {translate("Whatsapp")}
 
                 </WhatsappShareButton>
             </Menu.Item>
             <Menu.Item key="4">
                 <span onClick={handleCopyUrl}>
-                    <CiLink size={30} /> {""} Copy Link
+                    <CiLink size={30} /> {""} {translate("Copy Link")}
                 </span>
             </Menu.Item>
         </Menu>

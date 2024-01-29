@@ -1,7 +1,7 @@
 import React from "react";
 import FSLightbox from "fslightbox-react";
 
-const LightBox = ({ photos, viewerIsOpen, currentImage, onClose, title_image }) => {
+const LightBox = ({ photos, viewerIsOpen, currentImage, title_image, setViewerIsOpen }) => {
     if (!photos || photos.length === 0) {
         // Handle the case when photos is undefined or empty.
         return null;
@@ -12,11 +12,9 @@ const LightBox = ({ photos, viewerIsOpen, currentImage, onClose, title_image }) 
 
     return (
         <FSLightbox
-            key={viewerIsOpen}
-            toggler={viewerIsOpen}
+            toggler={() => setViewerIsOpen(!viewerIsOpen)}
             sources={lightboxPhotos.map((photo) => photo.image_url || "")}
             sourceIndex={currentImage}
-            onClose={onClose}
         />
     );
 };

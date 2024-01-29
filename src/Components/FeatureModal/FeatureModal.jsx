@@ -122,7 +122,7 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
                         </button>
                         <div className="dropbox_img_deatils">
                             <span>{file.name}</span>
-                            <span>{Math.round(file.size / 1024)} KB</span>
+                            <span>{Math.round(file.size / 1024)} {translate("KB")}</span>
                         </div>
                     </div>
                 </div>

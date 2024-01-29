@@ -14,6 +14,11 @@ const nextConfig = {
     return config
   }
 }
+module.exports = {
+  devIndicators: {
+      buildActivity: false
+  }
+}
 
 // Conditionally set the output based on the environment
 if (process.env.NEXT_PUBLIC_SEO === 'false') {

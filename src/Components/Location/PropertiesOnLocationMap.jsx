@@ -185,10 +185,7 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
         </>
 
     );
-    // } else {
-    //     // Show loading or alternative content while the Google Maps library is being loaded
-    //     return <div>Loading map...</div>;
-    // }
+   
 };
 
 export default PropertiesOnLocationMap;

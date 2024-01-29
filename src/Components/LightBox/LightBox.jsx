@@ -1,7 +1,7 @@
 import React from "react";
-import FSLightbox from "fslightbox-react";
+import Carousel, { Modal, ModalGateway } from "react-images";
 
-const LightBox = ({ photos, viewerIsOpen, currentImage, title_image, setViewerIsOpen }) => {
+const LightBox = ({ photos, viewerIsOpen, currentImage, onClose, title_image }) => {
     if (!photos || photos.length === 0) {
         // Handle the case when photos is undefined or empty.
         return null;
@@ -11,11 +11,27 @@ const LightBox = ({ photos, viewerIsOpen, currentImage, title_image, setViewerIs
     const lightboxPhotos = title_image ? [{ image_url: title_image }, ...photos] : photos;
 
     return (
-        <FSLightbox
-            toggler={() => setViewerIsOpen(!viewerIsOpen)}
-            sources={lightboxPhotos.map((photo) => photo.image_url || "")}
-            sourceIndex={currentImage}
-        />
+        <div>
+            <ModalGateway>
+                {viewerIsOpen ? (
+                    <Modal onClose={onClose}>
+                        <Carousel
+                            currentIndex={currentImage}
+                            views={lightboxPhotos.map((photo, index) => {
+                                // Check if the 'src' property exists before accessing it
+                                const src = photo.image_url || ""; // Provide a default value if 'src' doesn't exist
+
+                                return {
+                                    src: src,
+                                    srcset: `${src} ${index}`,
+                                    
+                                };
+                            })}
+                        />
+                    </Modal>
+                ) : null}
+            </ModalGateway>
+        </div>
     );
 };
 

@@ -8,8 +8,7 @@ import "../public/css/style.css";
 import "../public/css/responsive.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-loading-skeleton/dist/skeleton.css";
-// // Import lightbox2 CSS
-import 'lightbox2/dist/css/lightbox.min.css';
+
 
 
 import { Toaster } from "react-hot-toast";

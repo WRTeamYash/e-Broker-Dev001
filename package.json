@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "export": "next build",
-    "start": "NODE_ENV=production node server.js",
+    "start": "NODE_ENV=production NODE_PORT=8001 node server.js",
     "custom": "node server.js",
     "lint": "next lint"
   },
@@ -32,10 +32,7 @@
     "eslint-config-next": "13.4.9",
     "firebase": "10.1.0",
     "form-data": "^4.0.0",
-    "fslightbox-react": "^1.7.6",
     "ionicons": "^7.1.2",
-    "lightbox2": "^2.11.4",
-    "lightgallery": "^2.7.2",
     "localforage": "^1.10.0",
     "lottie-react": "^2.4.0",
     "moment": "^2.29.4",
@@ -59,7 +56,6 @@
     "react-paginate": "^8.2.0",
     "react-phone-input-2": "^2.15.1",
     "react-phone-number-input": "^3.3.0",
-    "react-photoswipe-gallery": "^3.0.1",
     "react-player": "^2.12.0",
     "react-redux": "^8.1.1",
     "react-share": "^5.0.3",
@@ -69,8 +65,7 @@
     "styled-components": "^6.0.8",
     "sweetalert2": "^11.7.28",
     "swiper": "^10.0.4",
-    "validator": "^13.9.0",
-    "yet-another-react-lightbox": "^3.12.2"
+    "validator": "^13.9.0"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "^5.1.3"

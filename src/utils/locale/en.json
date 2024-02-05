@@ -274,5 +274,8 @@
   "Advertisement limit is :":"Advertisement limit is :",
   "Property limit is :":"Property limit is :",
   "Validity":"Validity",
-  "Subscribe":"Subscribe"
+  "Subscribe":"Subscribe",
+  "Warning: Meta Title":"Warning: Meta Title length should not exceed 60 characters.",
+  "Warning: Meta Keywords":"Warning: Meta Keywords are not more than 10 keyword phrases & should be comma separated.",
+  "Warning: Meta Description":"Warning: Meta Description length should between 50 to 160 characters."
 }

@@ -84,3 +84,7 @@ export const isThemeEnabled = () => {
   const systemSettingsData = store.getState().Settings?.data
   return systemSettingsData?.svg_clr === '1';
 };
+
+export const formatNumberWithCommas = (number) => {
+  return number.toLocaleString();
+}; 

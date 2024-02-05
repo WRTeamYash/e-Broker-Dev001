@@ -190,7 +190,7 @@ export default function AddPropertyTabs() {
     };
 
     const handleTab3InputChange = (fieldId, value) => {
-      
+
         // Ensure that the input value is a positive number
         const parsedValue = parseFloat(value);
         const newValue = isNaN(parsedValue) || parsedValue < 0 ? 0 : parsedValue;
@@ -506,7 +506,7 @@ export default function AddPropertyTabs() {
         } else {
             // Proceed to the next tab
             setValue(value + 1);
-            
+
         }
     };
 
@@ -733,7 +733,7 @@ export default function AddPropertyTabs() {
                                                     className="form-select RentDuration"
                                                     aria-label="Default select"
                                                     name="rentduration"
-                                                
+
                                                     value={tab1.rentduration}
                                                     onChange={handleRentDurationChange}
                                                 >
@@ -776,12 +776,13 @@ export default function AddPropertyTabs() {
                                     <span>{translate("metatitle")}</span>
                                     <input type="text" id="prop_title_input" placeholder="Enter Property Meta Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
                                 </div>
+                                <p style={{ color: "#FF0000", fontSize: "smaller" }}> {translate("Warning: Meta Title")}</p>
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div id="add_prop_form">
                                 <div className="add_prop_fields">
-                                <span>{translate("ogimage")}</span>
+                                    <span>{translate("ogimage")}</span>
                                     <div className="dropbox">
                                         <div {...getRootPropsOgImage()} className={`dropzone ${isDragActiveOgImage ? "active" : ""}`}>
                                             <input {...getInputPropsOgImage()} />
@@ -804,17 +805,19 @@ export default function AddPropertyTabs() {
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div id="add_prop_form">
                                 <div className="add_prop_fields">
-                                <span>{translate("metakeyword")}</span>
+                                    <span>{translate("metakeyword")}</span>
                                     <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Keywords" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
                                 </div>
-                                <p style={{ color: "#FF0000", fontSize: "smaller" }}>Warning: Please enter keywords separated by commas for optimal SEO performance.</p>
+                                <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Keywords")}</p>
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
-                            <span>{translate("metadescription")}</span>
+                                <span>{translate("metadescription")}</span>
                                 <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Description" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
+
                             </div>
+                            <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Description")}</p>
                         </div>
                     </div>
 

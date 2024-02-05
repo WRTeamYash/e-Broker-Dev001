@@ -122,7 +122,7 @@ const ChatApp = ({ notificationData }) => {
                     setLoadingMore(false);
                 },
                 (err) => {
-                    toast.error(err.message);
+                    toast.error(err);
                     setLoadingMore(false);
                 }
             );

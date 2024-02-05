@@ -29,7 +29,8 @@ const ArticleDetails = () => {
 
 
     const router = useRouter();
-    const currentUrl = process.env.NEXT_PUBLIC_WEB_URL + router.asPath;
+    const currentUrl = `${process.env.NEXT_PUBLIC_WEB_URL}${router.asPath}`;
+
     const articleId = router.query;
     const Categorydata = useSelector(categoriesCacheData);
     const settings = useSelector(settingsData);

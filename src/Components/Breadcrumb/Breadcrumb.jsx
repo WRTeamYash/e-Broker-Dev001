@@ -23,7 +23,7 @@ import {
     WhatsappIcon,
     XIcon,
 } from "react-share";
-import { translate } from "@/utils";
+import { formatNumberWithCommas, translate } from "@/utils";
 
 const Breadcrumb = (props) => {
 
@@ -76,7 +76,9 @@ const Breadcrumb = (props) => {
             }
         );
     };
-    const currentUrl = process.env.NEXT_PUBLIC_WEB_URL + router.asPath;
+    const currentUrl = `${process.env.NEXT_PUBLIC_WEB_URL}${router.asPath}`;
+
+    
     const handleCopyUrl = async (e) => {
         e.preventDefault();
 
@@ -166,7 +168,7 @@ const Breadcrumb = (props) => {
                                 <div className="right-side-content">
                                     <span>
                                         {" "}
-                                        {CurrencySymbol} {data.price}{" "}
+                                        {CurrencySymbol} {formatNumberWithCommas(data.price)}{" "}
                                     </span>
 
                                     <div className="rightside_buttons">

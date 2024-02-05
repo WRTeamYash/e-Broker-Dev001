@@ -8,7 +8,7 @@ import { GoPlay } from 'react-icons/go';
 import VideoPlayerModal from '../PlayerModal/VideoPlayerModal';
 import { useSelector } from 'react-redux';
 import { settingsData } from '@/store/reducer/settingsSlice';
-import { translate } from '@/utils';
+import { formatNumberWithCommas, translate } from '@/utils';
 import { BiLeftArrowCircle, BiRightArrowCircle } from 'react-icons/bi';
 
 const AutoplaySlider = withAutoplay(AwesomeSlider);
@@ -50,7 +50,7 @@ const SliderComponent = ({ sliderData }) => {
               <div id="herotexts">
                 <div>
                   <span id="priceteg">
-                    {CurrencySymbol} {single.property_price}
+                    {CurrencySymbol} {formatNumberWithCommas(single.property_price)}
                   </span>
                   <h1 id="hero_headlines">{single.property_title}</h1>  
                   <div className="hero_text_parameters">

@@ -26,7 +26,7 @@ const Footer = () => {
                             <Link href="/">
                                 <Image
                                     loading="lazy"
-                                    src={webdata?.web_logo ? webdata.web_logo : eBroker}
+                                    src={webdata?.web_footer_logo ? webdata.web_footer_logo : eBroker}
                                     alt="eBroker_logo"
                                     width={0}
                                     height={0}

@@ -2568,7 +2568,7 @@ div#article_card_footer .article_footer_text p {
   width: 100%;
   max-width: 200px;
   height: 60px;
-  filter: brightness(0) invert(1);
+  /* filter: brightness(0) invert(1); */
 }
 #footer_deatils {
   gap: 20px 0;

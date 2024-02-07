@@ -877,7 +877,7 @@ body {
   filter: brightness(0) invert(1);
   width: 100%;
   max-width: 300px;
-  padding: 18px 1px;
+  padding: 12px 1px;
 }
 .is-sticky .logo {
   filter: none;
@@ -1702,7 +1702,7 @@ button.learn-more .button-text {
   color: var(--primary-text-color01);
   padding: 5px 10px;
   position: absolute;
-  width: 60px;
+  width: fit-content;
   left: 10px;
   margin-top: 210px;
 }
@@ -2123,7 +2123,7 @@ button.learn-more .button-text {
   color: var(--primary-text-color01);
   padding: 5px 10px;
   position: absolute;
-  width: 60px;
+  width: fit-content;
   left: 10px;
   /* bottom: 9px; */
   margin-top: 210px;
@@ -2999,7 +2999,7 @@ option {
   left: 10px;
   position: absolute;
   margin-top: 170px;
-  width: 60px;
+  width: fit-content;
   padding: 5px 10px;
   text-align: center;
 }
@@ -4984,7 +4984,7 @@ a {
   padding: 5px 12px 5px 14px;
   position: absolute;
   margin-top: 160px;
-  width: 60px;
+  width: fit-content;
 }
 #agentDetailsSect .all_prop_price {
   position: absolute;

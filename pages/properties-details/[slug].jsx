@@ -25,11 +25,11 @@ const index = ({ seoData, currentURL }) => {
 
     return (
         <>
-          <Meta
-                title={seoData?.data[0] && seoData.data[0]?.meta_title}
-                description={seoData?.data[0] && seoData.data[0]?.meta_description}
-                keywords={seoData?.data[0] && seoData.data[0]?.meta_keywords}
-                ogImage={seoData?.data[0] && seoData.data[0]?.meta_image}
+            <Meta
+                title={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_title}
+                description={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_description}
+                keywords={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_keywords}
+                ogImage={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_image}
                 pathName={currentURL}
             />
             <PropertyDetails />
@@ -43,10 +43,10 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         const { params } = req[Symbol.for('NextInternalRequestMeta')]._nextMatch;
         // Accessing the slug property
         //  const currentURL = req[Symbol.for('NextInternalRequestMeta')].__NEXT_INIT_URL;
-       
-         const currentURL = `${req.headers.host}${req.url}`;
+
+        const currentURL = `${req.headers.host}${req.url}`;
         const slugValue = params.slug;
-      
+
 
         const seoData = await fetchDataFromSeo(slugValue);
         return {

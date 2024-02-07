@@ -232,7 +232,6 @@ const SubscriptionPlan = () => {
                 "card",
                 priceData.id,
                 (res) => {
-                    // console.log("createPaymentIntentApi success response:", res);
                     setclientKey(res?.data);
                     // on confirm close modal
                     setStripeFormModal(false);
@@ -254,9 +253,7 @@ const SubscriptionPlan = () => {
 
     // error
     const onFinishFailed = (errorInfo) => {
-        // console.log("helloooooooooooo")
         toast.error(JSON.stringify(errorInfo));
-        // console.log(errorInfo)
         setLoading(false);
 
     };

@@ -16,7 +16,7 @@ import ReactShare from "@/Components/ShareUrl/ReactShare";
 import { languageData } from "@/store/reducer/languageSlice";
 import { isThemeEnabled, loadGoogleMaps, translate } from "@/utils";
 import { useRouter } from "next/router";
-import { GetFeturedListingsApi, intrestedPropertyApi } from "@/store/actions/campaign";
+import { GetFeturedListingsApi, intrestedPropertyApi, setPropertyTotalClicksApi } from "@/store/actions/campaign";
 import Header from "@/Components/Header/Header";
 import Footer from "@/Components/Footer/Footer";
 import LightBox from "@/Components/LightBox/LightBox";
@@ -151,10 +151,10 @@ const PropertyDetails = () => {
 
     const closeLightbox = () => {
         if (viewerIsOpen) {
-          setCurrentImage(0);
-          setViewerIsOpen(false);
+            setCurrentImage(0);
+            setViewerIsOpen(false);
         }
-      };
+    };
     const handleShowMap = () => {
         setShowMap(true);
     }
@@ -264,8 +264,8 @@ const PropertyDetails = () => {
     const handleReportProperty = (e) => {
         e.preventDefault();
         if (userCurrentId) {
-        setIsReporteModal(true)
-        }else{
+            setIsReporteModal(true)
+        } else {
             toast.error("Please login first to Report this property.");
         }
     }
@@ -274,6 +274,24 @@ const PropertyDetails = () => {
 
     useEffect(() => {
     }, [chatData, isReported])
+
+
+
+    useEffect(() => {
+        if (propId) {
+            setPropertyTotalClicksApi({
+                slug_id: propId.slug,
+                onSuccess: (res) => {
+                    // console.log(res)
+                },
+                onError: (error) => {
+                    console.log(error)
+                }
+            })
+        }
+    }, [getPropData?.id])
+
+
 
 
     return (
@@ -380,7 +398,7 @@ const PropertyDetails = () => {
                                         </div>
                                     </div>
                                 }
-                                <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={closeLightbox} title_image={getPropData?.title_image} setViewerIsOpen={setViewerIsOpen}/>
+                                <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={closeLightbox} title_image={getPropData?.title_image} setViewerIsOpen={setViewerIsOpen} />
 
                                 <div className="row" id="prop-all-deatils-cards">
                                     <div className="col-12 col-md-12 col-lg-9" id="prop-deatls-card">

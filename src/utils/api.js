@@ -35,6 +35,7 @@ export const GET_REPORT_REASONS = "get_report_reasons"
 export const ADD_REPORT = "add_reports"
 export const GET_NEARBY_PROPERTIES = "get_nearby_properties"
 export const GET_SEO_SETTINGS = "get_seo_settings"
+export const SET_PROPERTY_TOTAL_CLICKS = "set_property_total_click"
 
 // is login user check
 export const getUserID = () => {
@@ -676,6 +677,17 @@ export const getNearbyProperties = (city, state, type) => {
             state: state,
             type: type,
         },
+        authorizationHeader: false,
+    }
+}
+// GET_NEARBY_PROPERTIES    
+export const setPropertyTotalClicks = (slug_id) => {
+    let data = new FormData();
+    data.append("slug_id", slug_id);
+    return {
+        url: `${SET_PROPERTY_TOTAL_CLICKS}`,
+        method: "POST",
+        data,
         authorizationHeader: false,
     }
 }

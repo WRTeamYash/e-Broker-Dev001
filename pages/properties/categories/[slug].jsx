@@ -11,7 +11,7 @@ const fetchDataFromSeo = async (slug) => {
         );
 
         const SEOData = response.data;
-      
+
 
         return SEOData;
     } catch (error) {
@@ -26,10 +26,10 @@ const Index = ({ seoData, currentURL }) => {
     return (
         <>
             <Meta
-                title={seoData && seoData.data[0]?.meta_title}
-                description={seoData && seoData.data[0]?.meta_description}
-                keywords={seoData && seoData.data[0]?.meta_keywords}
-                ogImage={seoData && seoData.data[0]?.meta_image}
+                title={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_title}
+                description={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_description}
+                keywords={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_keywords}
+                ogImage={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_image}
                 pathName={currentURL}
             />
             <Categories />
@@ -44,11 +44,11 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         // Accessing the slug property
         const slugValue = params.slug;
 
-        
+
         const currentURL = `${req.headers.host}${req.url}`;
 
         const seoData = await fetchDataFromSeo(slugValue);
-    
+
         return {
             props: {
                 seoData,

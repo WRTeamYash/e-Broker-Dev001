@@ -23,10 +23,10 @@ const Index = ({ seoData, currentURL }) => {
   return (
     <>
       <Meta
-        title={seoData?.data[0]?.meta_title}
-        description={seoData?.data[0]?.meta_description}
-        keywords={seoData?.data[0]?.meta_keywords}
-        ogImage={seoData?.data[0]?.meta_image}
+         title={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_title}
+         description={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_description}
+         keywords={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_keywords}
+         ogImage={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_image}
         pathName={currentURL}
       />
         <Messages />

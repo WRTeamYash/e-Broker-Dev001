@@ -50,7 +50,7 @@ const UserRegister = () => {
         setShowCurrentLoc(false);
     };
     const handleSelectLocation = (location) => {
-  
+
         setSelectedLocation(location);
     };
     const modalStyle = {
@@ -88,9 +88,9 @@ const UserRegister = () => {
             profile: image,
             fcm_id: FcmToken,
             notification: "1",
-            city: selectedLocation.city,
-            state: selectedLocation.state,
-            country: selectedLocation.country,
+            city: selectedLocation && selectedLocation.city ? selectedLocation.city : "",
+            state: selectedLocation && selectedLocation.state ? selectedLocation.state : "",
+            country: selectedLocation && selectedLocation.country ? selectedLocation.country : "",
             onSuccess: (res) => {
                 toast.success("User Register Successfully.");
                 loadUpdateUserData(res.data);

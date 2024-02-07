@@ -11,7 +11,6 @@ app.prepare().then(() => {
   createServer((req, res) => {
     const parsedUrl = parse(req.url, true);
     const { pathname, query } = parsedUrl;
-    console.log(pathname)
     if (pathname.startsWith('/.well-known')) {
       const filePath = path.join(process.cwd(), pathname.substring(1));
       try {

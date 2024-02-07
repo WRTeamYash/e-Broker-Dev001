@@ -29,7 +29,8 @@ import {
     deleteUser,
     getReportReasons,
     addReport,
-    getNearbyProperties
+    getNearbyProperties,
+    setPropertyTotalClicks
 } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
@@ -544,7 +545,7 @@ export const addReportApi = ({
         })
     );
 };
-// GET REPORT rEASONS  API
+// getNearbyProperties  API
 export const getNearbyPropertiesApi = ({
     city = "",
     state = "",
@@ -556,6 +557,23 @@ export const getNearbyPropertiesApi = ({
     store.dispatch(
         apiCallBegan({
             ...getNearbyProperties(city, state, type),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+// setPropertyTotalClicks  API
+export const setPropertyTotalClicksApi = ({
+    slug_id = "",
+    onSuccess = () => { },
+    onError = () => { },
+    onStart = () => { }
+}) => {
+    store.dispatch(
+        apiCallBegan({
+            ...setPropertyTotalClicks(slug_id),
             displayToast: false,
             onStart,
             onSuccess,

@@ -85,11 +85,9 @@ const StripeModal = (props) => {
                     console.log(err)
                 }
             );
-            // toast.success("Success");
         } else {
             setloadingPay(false);
             toast.error("Payment failed");
-            console.log(paymentIntent.status)
         }
     };
 

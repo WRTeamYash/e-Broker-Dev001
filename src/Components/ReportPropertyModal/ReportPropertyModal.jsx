@@ -60,7 +60,6 @@ const ReportPropertyModal = ({ show, onHide, propertyId, setIsReported }) => {
                 property_id: propertyId,
                 other_message: reportReason,
             onSuccess: (res) => {
-                // console.log(res)
                 toast.success(res.message)
                 setIsReported(true)
                 onHide()

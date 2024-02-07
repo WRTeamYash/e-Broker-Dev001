@@ -43,7 +43,6 @@ const ChatApp = ({ notificationData }) => {
             router.push("/");
         }
     }, [signupData])
-    console.log("notificationData", notificationData)
     const initialState = chatList.reduce((acc, chat) => {
         acc[chat.property_id] = {
             messageInput: '',
@@ -230,7 +229,6 @@ const ChatApp = ({ notificationData }) => {
                 setIsRecording(true);
             })
             .catch((error) => {
-                console.log('Error accessing microphone:', error);
                 toast.error("Permission is not allow for Microphone")
             });
     };
@@ -318,7 +316,6 @@ const ChatApp = ({ notificationData }) => {
             newMessage.file ? newMessage.file : "",
             newMessage.audio ? newMessage.audio : "",
             (res) => {
-                // console.log(res)
                 setSelectedFilePreview(null);
             },
             (error) => {

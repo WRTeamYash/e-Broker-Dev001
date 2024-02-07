@@ -163,12 +163,14 @@ body {
 /*================= LOGIN MODAL CSS ============= */
 .otp-modal .modal-header,
 .login-modal .modal-header,
-.feature-modal .modal-header {
+.feature-modal .modal-header,
+.change-status-modal .modal-header {
   padding: 20px !important;
 }
 .login-modal .modal-title,
 .otp-modal .modal-title,
-.feature-modal .modal-header {
+.feature-modal .modal-header,
+.change-status-modal .modal-header {
   text-transform: capitalize;
   font-weight: 600 !important;
 }
@@ -187,6 +189,14 @@ body {
   cursor: pointer;
 }
 .feature-modal .close-icon {
+  color: var(--primary-text-color01);
+  background: var(--primary-text-color02);
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  z-index: 9999;
+}
+.change-status-modal .close-icon {
   color: var(--primary-text-color01);
   background: var(--primary-text-color02);
   border-radius: 50%;
@@ -6667,6 +6677,19 @@ a {
   background-color: var(--primary-color);
   padding: 10px;
 }
+#change_cancel_button {
+  width: 50%;
+  color: var(--primary-text-color02);
+  background-color: transparent;
+  border: 1px solid var(--primary-text-color02);
+  padding: 10px;
+}
+#change_button {
+  width: 50%;
+  color: var(--primary-text-color01);
+  background-color: var(--primary-color);
+  padding: 10px;
+}
 
 .feature_form_titles {
   font-size: small;
@@ -6676,6 +6699,43 @@ a {
 
 .feature-modal .modal-footer {
   border-top: none;
+}
+/* .change-status-modal .modal-body {
+
+} */
+.change-status-modal .modal-body .changePropSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  padding: 20px;
+}
+.change-status-modal .modal-body .changePropSection .convert1 {
+  padding: 10px 30px;
+  background: var(--primary-color);
+  color: var(--primary-text-color01);
+  border-radius: 8px;
+}
+/* .change-status-modal .modal-body .changePropSection .convert_arrow{
+            
+
+} */
+.change-status-modal .modal-body .changePropSection .convert2{
+  padding: 10px 30px;
+  background: var(--primary-color);
+  color: var(--primary-text-color01);
+  border-radius: 8px;
+}
+.change-status-modal .modal-footer {
+  border-top: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .slider_img {
@@ -6712,11 +6772,7 @@ a {
 }
 
 /* chat  */
-.messages {
-  /* margin: 60px 0; */
-  /* position: relative;
-  top: -14vh; */
-}
+
 @media only screen and (max-width: 767px) {
   .messages {
     top: -14vh;

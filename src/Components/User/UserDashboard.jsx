@@ -21,7 +21,9 @@ import { deletePropertyApi } from "@/store/actions/campaign";
 import Loader from "../../../src/Components/Loader/Loader.jsx";
 import toast from "react-hot-toast";
 import { FaCrown } from "react-icons/fa";
+import { MdOutlineSell } from "react-icons/md";
 import FeatureModal from "@/Components/FeatureModal/FeatureModal.jsx";
+import ChangeStatusModal from "@/Components/ChangeStatusModal/ChangeStatusModal.jsx";
 import { translate } from "@/utils/index.js";
 import { languageData } from "@/store/reducer/languageSlice.js";
 import Swal from "sweetalert2";
@@ -41,7 +43,10 @@ const UserDashboard = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [propertyIdToDelete, setPropertyIdToDelete] = useState(null);
     const [propertyId, setPropertyId] = useState(null);
+    const [propertyType, setPropertyType] = useState(null);
+    const [changeStatus, setChangeStatus] = useState(false);
     const [isFeatureModalVisible, setIsFeatureModalVisible] = useState(false);
+    const [changestatusModal, setChangestatusModal] = useState(false);
 
     const SettingsData = useSelector(settingsData);
 
@@ -105,6 +110,11 @@ const UserDashboard = () => {
         setPropertyId(propertyId);
         setIsFeatureModalVisible(true);
     };
+    const handleChangeStatusClick = (propertyId, propertyType) => {
+        setPropertyId(propertyId);
+        setPropertyType(propertyType);
+        setChangestatusModal(true);
+    };
 
     const limit = 8;
 
@@ -133,9 +143,12 @@ const UserDashboard = () => {
             }
         }
         );
-    }, [offsetdata, isLoggedIn, propertyIdToDelete]);
+    }, [offsetdata, isLoggedIn, propertyIdToDelete, changeStatus]);
 
-    useEffect(() => { }, [propertyId, propertyIdToDelete]);
+    useEffect(() => { }, [propertyId, propertyIdToDelete, propertyType, changeStatus]);
+    useEffect(() => {
+        setChangeStatus(false)
+    }, [changeStatus]);
 
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;
@@ -274,14 +287,24 @@ const UserDashboard = () => {
                                                                         </Button>
                                                                     </Menu.Item>
                                                                     {elem.status === 1 && elem.promoted === false ? (
-                                                                        <Menu.Item key="feature">
-                                                                            <Button type="text" icon={<FaCrown />} onClick={() => handleFeatureClick(elem.id)}>
+                                                                        <Menu.Item key="feature" onClick={() => handleFeatureClick(elem.id)}>
+                                                                            <Button type="text" icon={<FaCrown />} >
                                                                                 {translate("feature")}
                                                                             </Button>
                                                                         </Menu.Item>
                                                                     ) : null}
-                                                                    <Menu.Item key="delete">
-                                                                        <Button type="text" icon={<DeleteOutlined />} onClick={() => handleClickDelete(elem.id)}>
+
+                                                                    {elem.status === 1 ? (
+                                                                        <Menu.Item key="change_status" onClick={() => handleChangeStatusClick(elem.id, elem.property_type)}>
+                                                                            <Button type="text" icon={<MdOutlineSell />}>
+                                                                                {translate("change status")}
+                                                                            </Button>
+                                                                        </Menu.Item>
+                                                                    ) : null}
+
+
+                                                                    <Menu.Item key="delete" onClick={() => handleClickDelete(elem.id)}>
+                                                                        <Button type="text" icon={<DeleteOutlined />} >
                                                                             {translate("delete")}
                                                                         </Button>
                                                                     </Menu.Item>
@@ -307,6 +330,8 @@ const UserDashboard = () => {
                             </TableContainer>
 
                             <FeatureModal show={isFeatureModalVisible} onHide={() => setIsFeatureModalVisible(false)} propertyId={propertyId} />
+
+                            <ChangeStatusModal show={changestatusModal} onHide={() => setChangestatusModal(false)} propertyId={propertyId} propertyType={propertyType} setChangeStatus={setChangeStatus} />
 
                             {getFeaturedListing && getFeaturedListing.length > 0 ? (
                                 <div className="col-12">

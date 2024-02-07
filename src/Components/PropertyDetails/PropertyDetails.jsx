@@ -282,7 +282,6 @@ const PropertyDetails = () => {
             setPropertyTotalClicksApi({
                 slug_id: propId.slug,
                 onSuccess: (res) => {
-                    // console.log(res)
                 },
                 onError: (error) => {
                     console.log(error)

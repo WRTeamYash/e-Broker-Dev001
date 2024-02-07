@@ -299,7 +299,6 @@ export default function VerticleLayout(props) {
                         deleteUserApi(
                             current_user,
                             (res) => {
-                                console.log(res)
                                 logoutSuccess();
                                 toast.success("User deleted successfully.")
                                 router.push("/");

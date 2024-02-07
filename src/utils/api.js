@@ -36,6 +36,7 @@ export const ADD_REPORT = "add_reports"
 export const GET_NEARBY_PROPERTIES = "get_nearby_properties"
 export const GET_SEO_SETTINGS = "get_seo_settings"
 export const SET_PROPERTY_TOTAL_CLICKS = "set_property_total_click"
+export const UPDATE_PROPERTYY_STATUS = "update_property_status"
 
 // is login user check
 export const getUserID = () => {
@@ -680,7 +681,7 @@ export const getNearbyProperties = (city, state, type) => {
         authorizationHeader: false,
     }
 }
-// GET_NEARBY_PROPERTIES    
+// set property clicks     
 export const setPropertyTotalClicks = (slug_id) => {
     let data = new FormData();
     data.append("slug_id", slug_id);
@@ -689,5 +690,17 @@ export const setPropertyTotalClicks = (slug_id) => {
         method: "POST",
         data,
         authorizationHeader: false,
+    }
+}
+// set property status     
+export const changePropertyStatus = (property_id, status) => {
+    let data = new FormData();
+    data.append("property_id", property_id);
+    data.append("status", status);
+    return {
+        url: `${UPDATE_PROPERTYY_STATUS}`,
+        method: "POST",
+        data,
+        authorizationHeader: true,
     }
 }

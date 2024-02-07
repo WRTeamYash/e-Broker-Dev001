@@ -277,5 +277,10 @@
   "Subscribe":"Subscribe",
   "Warning: Meta Title":"Warning: Meta Title length should not exceed 60 characters.",
   "Warning: Meta Keywords":"Warning: Meta Keywords are not more than 10 keyword phrases & should be comma separated.",
-  "Warning: Meta Description":"Warning: Meta Description length should between 50 to 160 characters."
+  "Warning: Meta Description":"Warning: Meta Description length should between 50 to 160 characters.",
+  "change status":"Change Status",
+  "changePropStatus":"Change Property Status",
+  "change":"Change",
+  "sold":"Sold",
+  "rented":"Rented"
 }

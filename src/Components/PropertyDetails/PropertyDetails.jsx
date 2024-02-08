@@ -292,7 +292,6 @@ const PropertyDetails = () => {
 
 
 
-
     return (
         <>
             {isLoading ? (
@@ -311,6 +310,7 @@ const PropertyDetails = () => {
                             is_favourite: getPropData && getPropData.is_favourite,
                             propId: getPropData && getPropData.id,
                             title_img: getPropData && getPropData.title_image,
+                            rentduration: getPropData && getPropData.rentduration
                         }}
                     />
                     <section className="properties-deatil-page">

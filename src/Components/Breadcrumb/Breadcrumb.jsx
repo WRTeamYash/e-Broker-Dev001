@@ -168,7 +168,7 @@ const Breadcrumb = (props) => {
                                 <div className="right-side-content">
                                     <span>
                                         {" "}
-                                        {CurrencySymbol} {formatNumberWithCommas(data.price)}{" "}
+                                        {CurrencySymbol} {formatNumberWithCommas(data.price)}{" "}{data.propertyType === "rent" && data.rentduration ? `/ ${data.rentduration}` : ""}
                                     </span>
 
                                     <div className="rightside_buttons">

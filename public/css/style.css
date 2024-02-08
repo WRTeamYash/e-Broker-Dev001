@@ -6123,10 +6123,8 @@ a {
     color 0.3s; /* Smooth transition effect */
 }
 
-.custom-checkbox-input:checked + .custom-checkbox-label {
-  background-color: var(
-    --primary-color
-  ); /* Change background color when checked */
+.custom-radio input[type="radio"]:checked + .custom-checkbox-label {
+  background-color: var(--primary-color); /* Change background color when checked */
   color: #fff; /* Change text color when checked */
 }
 

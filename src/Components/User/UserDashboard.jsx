@@ -107,10 +107,38 @@ const UserDashboard = () => {
     };
 
     const handleFeatureClick = (propertyId) => {
-        setPropertyId(propertyId);
+        if (SettingsData.demo_mode === true) {
+            Swal.fire({
+                title: "Opps!",
+                text: "This Action is Not Allowed in Demo Mode",
+                icon: "warning",
+                showCancelButton: false,
+                customClass: {
+                    confirmButton: 'Swal-buttons',
+                },
+                cancelButtonColor: "#d33",
+                confirmButtonText: "OK",
+            });
+            return false;
+        }
+            (propertyId);
         setIsFeatureModalVisible(true);
     };
     const handleChangeStatusClick = (propertyId, propertyType) => {
+        if (SettingsData.demo_mode === true) {
+            Swal.fire({
+                title: "Opps!",
+                text: "This Action is Not Allowed in Demo Mode",
+                icon: "warning",
+                showCancelButton: false,
+                customClass: {
+                    confirmButton: 'Swal-buttons',
+                },
+                cancelButtonColor: "#d33",
+                confirmButtonText: "OK",
+            });
+            return false;
+        }
         setPropertyId(propertyId);
         setPropertyType(propertyType);
         setChangestatusModal(true);

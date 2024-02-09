@@ -8,10 +8,11 @@ const CustomDocument = () => {
                 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
                 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+                <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API}&libraries=places`}></script>   
             </Head>
-
+            
             <body>
-                <Main />
+            <Main />
                 <NextScript />
                 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
             </body>

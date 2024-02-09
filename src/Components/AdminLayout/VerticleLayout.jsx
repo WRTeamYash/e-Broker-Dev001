@@ -19,6 +19,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -201,16 +202,7 @@ export default function VerticleLayout(props) {
     const isRouteActive = (route) => {
         return currentRoute === route;
     };
-    // useEffect(() => {
-    //     if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
-    //         document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
-    //         document.documentElement.style.setProperty('--primary-category-background', settingData?.category_background);
-    //         document.documentElement.style.setProperty('--primary-sell', settingData?.sell_background);
-    //     } else {
-    //         document.documentElement.style.setProperty('--primary-color', "#087c7c");
-    //         document.documentElement.style.setProperty('--primary-category-background', "#087c7c14");
-    //         document.documentElement.style.setProperty('--primary-sell', "#e8aa42");
-    //     }
+ 
 
 
     // }, [settingData?.svg_clr])
@@ -542,8 +534,30 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </ListItem>
                     </Link>
-                    {/* <Link href="/user/chat"> */}
-
+                    <Link href="/user/intrested">
+                        <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/intrested') ? 'drawer_list_item_active' : 'drawer_list_item'}>
+                            <ListItemButton
+                                sx={{
+                                    minHeight: 30,
+                                    justifyContent: open ? "initial" : "center",
+                                    px: 2.5,
+                                }}
+                            >
+                                <ListItemIcon
+                                    className={isRouteActive('/user/intrested') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : "auto",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <ThumbUpIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={translate("intrestedUsers")} sx={{ opacity: open ? 1 : 0 }} />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+               
                     {isMessagingSupported && notificationPermissionGranted && (
 
                         <ListItem

@@ -37,6 +37,7 @@ export const GET_NEARBY_PROPERTIES = "get_nearby_properties"
 export const GET_SEO_SETTINGS = "get_seo_settings"
 export const SET_PROPERTY_TOTAL_CLICKS = "set_property_total_click"
 export const UPDATE_PROPERTYY_STATUS = "update_property_status"
+export const GET_INTREESTED_USERS = "get_interested_users"
 
 // is login user check
 export const getUserID = () => {
@@ -704,3 +705,18 @@ export const changePropertyStatus = (property_id, status) => {
         authorizationHeader: true,
     }
 }
+
+
+// get details of intrested users 
+export const getIntretsedUsers = (property_id) => {
+
+    return {
+        url: `${GET_INTREESTED_USERS}`,
+        method: "GET",
+        params: {
+            property_id: property_id
+        },
+        authorizationHeader: true,
+    }
+}
+

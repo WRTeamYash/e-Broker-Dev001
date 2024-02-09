@@ -29,6 +29,7 @@ import { languageData } from "@/store/reducer/languageSlice.js";
 import Swal from "sweetalert2";
 import Image from "next/image";
 import dynamic from "next/dynamic.js";
+import Link from "next/link.js";
 
 const VerticleLayout = dynamic(() => import('../AdminLayout/VerticleLayout.jsx'), { ssr: false })
 const UserDashboard = () => {
@@ -253,6 +254,9 @@ const UserDashboard = () => {
                                                 {translate("views")}
                                             </TableCell>
                                             <TableCell sx={{ fontWeight: "600" }} align="center">
+                                                {translate("intrestedUsers")}
+                                            </TableCell>
+                                            <TableCell sx={{ fontWeight: "600" }} align="center">
                                                 {translate("postedOn")}
                                             </TableCell>
                                             <TableCell sx={{ fontWeight: "600" }} align="center">
@@ -295,6 +299,15 @@ const UserDashboard = () => {
                                                     </TableCell>
                                                     <TableCell align="center">{elem.category.category}</TableCell>
                                                     <TableCell align="center">{elem.total_view}</TableCell>
+                                                    <TableCell align="center">
+                                                        <div className="intrested_users">
+                                                            <Link href={`/user/intrested/${elem.slug_id}`}>
+                                                            <span>
+                                                                View 
+                                                            </span>
+                                                            </Link>
+                                                        </div>
+                                                    </TableCell>
                                                     <TableCell align="center">{elem.post_created}</TableCell>
                                                     <TableCell align="center">{elem.status === 1 ? <span className="active_status">{translate("active")}</span> : <span className="inactive_status">{translate("inactive")}</span>}</TableCell>
                                                     <TableCell align="center">

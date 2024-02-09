@@ -31,7 +31,8 @@ import {
     addReport,
     getNearbyProperties,
     setPropertyTotalClicks,
-    changePropertyStatus
+    changePropertyStatus,
+    getIntretsedUsers
 } from "@/utils/api";
 import { store } from "../store";
 import { apiCallBegan } from "./apiActions";
@@ -593,6 +594,23 @@ export const changePropertyStatusApi = ({
     store.dispatch(
         apiCallBegan({
             ...changePropertyStatus(property_id, status),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+// setPropertyTotalClicks  API
+export const getIntrestedUserApi = ({
+    property_id = "",
+    onSuccess = () => { },
+    onError = () => { },
+    onStart = () => { }
+}) => {
+    store.dispatch(
+        apiCallBegan({
+            ...getIntretsedUsers(property_id),
             displayToast: false,
             onStart,
             onSuccess,

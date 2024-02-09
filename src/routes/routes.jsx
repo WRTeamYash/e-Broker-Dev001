@@ -26,6 +26,7 @@ export const isSubscribeRoutes = [
     '/user/properties/',
     '/user/subscription/',
     '/user/transaction-history/',
+    '/user/intrested/',
 ];
 
 export const protectedRoutes = [

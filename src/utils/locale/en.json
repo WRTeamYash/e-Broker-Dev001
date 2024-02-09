@@ -282,5 +282,8 @@
   "changePropStatus":"Change Property Status",
   "change":"Change",
   "sold":"Sold",
-  "rented":"Rented"
+  "rented":"Rented",
+  "intresteduserDetails":"Intrested Users Details",
+  "mobileno":"Mobile No",
+  "intrestedUsers":"Intrested User"
 }

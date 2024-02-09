@@ -171,7 +171,9 @@ const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
             {mapError ? (
                 <div>{mapError}</div>
             ) : (
-                <LoadScript googleMapsApiKey={apiKey} libraries={libraries} onError={handleMapLoadError}>
+                // <LoadScript googleMapsApiKey={apiKey} libraries={libraries} onError={handleMapLoadError}>
+                <>
+
                     <Autocomplete
                         onLoad={(autocomplete) => {
                             // Store the Autocomplete instance in the ref
@@ -186,7 +188,8 @@ const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
                     <GoogleMap zoom={11} center={location} mapContainerStyle={{ height: "350px" }}>
                         <Marker position={location} draggable={true} onDragStart={onMarkerDragStart} onDragEnd={onMarkerDragEnd} />
                     </GoogleMap>
-                </LoadScript>
+                </>
+                // </LoadScript>
             )}
         </div>
     );

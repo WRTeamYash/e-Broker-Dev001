@@ -6124,7 +6124,9 @@ a {
 }
 
 .custom-radio input[type="radio"]:checked + .custom-checkbox-label {
-  background-color: var(--primary-color); /* Change background color when checked */
+  background-color: var(
+    --primary-color
+  ); /* Change background color when checked */
   color: #fff; /* Change text color when checked */
 }
 
@@ -6720,7 +6722,7 @@ a {
             
 
 } */
-.change-status-modal .modal-body .changePropSection .convert2{
+.change-status-modal .modal-body .changePropSection .convert2 {
   padding: 10px 30px;
   background: var(--primary-color);
   color: var(--primary-text-color01);
@@ -7813,11 +7815,18 @@ embed svg path {
 }
 
 .intrested_users {
-    padding: 5px 10px;
-    background: var(--primary-color);
-    color: var(--primary-text-color01);
-    border-radius: 8px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.intrested_users span {
+  padding: 5px 10px;
+  background: var(--primary-color);
+  color: var(--primary-text-color01);
+  border-radius: 8px;
+  cursor: pointer;
+  width: 50%;
 }
 
 .intrested_contact a {

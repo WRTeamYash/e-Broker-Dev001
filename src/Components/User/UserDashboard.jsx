@@ -29,6 +29,7 @@ import { languageData } from "@/store/reducer/languageSlice.js";
 import Swal from "sweetalert2";
 import Image from "next/image";
 import dynamic from "next/dynamic.js";
+import { FaRegEye } from "react-icons/fa";
 import Link from "next/link.js";
 
 const VerticleLayout = dynamic(() => import('../AdminLayout/VerticleLayout.jsx'), { ssr: false })
@@ -305,7 +306,7 @@ const UserDashboard = () => {
                                                     <TableCell align="center" onClick={() => handleShowIntrestedUser(elem.slug_id)}>
                                                         <div className="intrested_users">
                                                             <span>
-                                                                View
+                                                            <FaRegEye size={20} />
                                                             </span>
                                                         </div>
                                                     </TableCell>

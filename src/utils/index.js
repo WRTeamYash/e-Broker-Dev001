@@ -86,5 +86,8 @@ export const isThemeEnabled = () => {
 };
 
 export const formatNumberWithCommas = (number) => {
+  if (number == null) {
+    return ''; // or any default value you want
+  }
   return number.toLocaleString();
-}; 
+};

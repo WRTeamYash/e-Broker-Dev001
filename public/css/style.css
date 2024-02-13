@@ -7811,3 +7811,16 @@ embed svg path {
     display: block;
   }
 }
+
+.intrested_users {
+    padding: 5px 10px;
+    background: var(--primary-color);
+    color: var(--primary-text-color01);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.intrested_contact a {
+  color: var(--primary-text-color02);
+  text-decoration: underline !important;
+}

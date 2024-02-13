@@ -708,13 +708,16 @@ export const changePropertyStatus = (property_id, status) => {
 
 
 // get details of intrested users 
-export const getIntretsedUsers = (property_id) => {
+export const getIntretsedUsers = (property_id, slug_id,  limit, offset) => {
 
     return {
         url: `${GET_INTREESTED_USERS}`,
         method: "GET",
         params: {
-            property_id: property_id
+            property_id: property_id,
+            slug_id: slug_id,
+            limit: limit,
+            offset: property_id
         },
         authorizationHeader: true,
     }

@@ -122,7 +122,7 @@ const UserDashboard = () => {
             });
             return false;
         }
-            (propertyId);
+        (propertyId);
         setIsFeatureModalVisible(true);
     };
     const handleChangeStatusClick = (propertyId, propertyType) => {
@@ -184,6 +184,9 @@ const UserDashboard = () => {
         setOffsetdata(newOffset);
         window.scrollTo(0, 0);
     };
+    const handleShowIntrestedUser = (slug_id) => {
+        router.push(`/user/intrested/${slug_id}`);
+    }
     return (
         <VerticleLayout>
             <div className="container">
@@ -299,13 +302,11 @@ const UserDashboard = () => {
                                                     </TableCell>
                                                     <TableCell align="center">{elem.category.category}</TableCell>
                                                     <TableCell align="center">{elem.total_view}</TableCell>
-                                                    <TableCell align="center">
+                                                    <TableCell align="center" onClick={() => handleShowIntrestedUser(elem.slug_id)}>
                                                         <div className="intrested_users">
-                                                            <Link href={`/user/intrested/${elem.slug_id}`}>
                                                             <span>
-                                                                View 
+                                                                View
                                                             </span>
-                                                            </Link>
                                                         </div>
                                                     </TableCell>
                                                     <TableCell align="center">{elem.post_created}</TableCell>

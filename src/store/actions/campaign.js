@@ -604,13 +604,16 @@ export const changePropertyStatusApi = ({
 // setPropertyTotalClicks  API
 export const getIntrestedUserApi = ({
     property_id = "",
+    slug_id = "",
+    limit = "",
+    offset = "",
     onSuccess = () => { },
     onError = () => { },
     onStart = () => { }
 }) => {
     store.dispatch(
         apiCallBegan({
-            ...getIntretsedUsers(property_id),
+            ...getIntretsedUsers(property_id, slug_id, limit, offset),
             displayToast: false,
             onStart,
             onSuccess,

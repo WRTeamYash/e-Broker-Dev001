@@ -17,9 +17,12 @@ import { translate } from "@/utils/index.js";
 import { languageData } from "@/store/reducer/languageSlice.js";
 import Loader from "@/Components/Loader/Loader";
 import dynamic from "next/dynamic.js";
+import { useRouter } from "next/router.js";
 const VerticleLayout = dynamic(() => import('../../../src/Components/AdminLayout/VerticleLayout.jsx'), { ssr: false })
 
 const IntrestedUsers = () => {
+
+    const router = useRouter()
 
     const lang = useSelector(languageData);
     const [Data, setData] = useState([]);
@@ -29,13 +32,14 @@ const IntrestedUsers = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const limit = 10;
-
     useEffect(() => { }, [lang]);
     // api call
     useEffect(() => {
         setIsLoading(true)
         getIntrestedUserApi({
-            property_id: "",
+            slug_id: router?.query?.slug,
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
             onSuccess: (res) => {
                 setTotal(res.total)
                 setData(res.data)
@@ -117,14 +121,17 @@ const IntrestedUsers = () => {
                                 ) : Data.length > 0 ? (
                                     Data.map((elem, index) => (
                                         <TableRow key={index}>
-                                            <TableCell align="center">id</TableCell>
-                                            <TableCell align="center">Name</TableCell>
-                                            <TableCell align="center">email</TableCell>
-                                            <TableCell align="center">
-                                                Number
+                                            <TableCell align="center">{index + 1}</TableCell>
+                                            <TableCell align="center">{elem?.name}</TableCell>
+                                            <TableCell align="center" className="intrested_contact">
+                                                <a href={`mailto:${elem?.email}}`}>
+                                                    {elem?.email}
+                                                </a>
                                             </TableCell>
-                                            <TableCell align="center">
-                                                date
+                                            <TableCell align="center" className="intrested_contact">  
+                                            <a href={`tel:${elem?.mobile}}`}>
+                                                {elem?.mobile}
+                                            </a>
                                             </TableCell>
 
                                         </TableRow>

@@ -42,7 +42,7 @@ const IntrestedUsers = () => {
         setIsLoading(true)
         if (slug) {
             getIntrestedUserApi({
-                slug_id: slug_id,
+                slug_id: slug,
                 offset: offsetdata.toString(),
                 limit: limit.toString(),
                 onSuccess: (res) => {
@@ -99,16 +99,16 @@ const IntrestedUsers = () => {
                                         background: "#f5f5f5",
                                     }}
                                 >
-                                    <TableCell sx={{ fontWeight: "600" }} align="center">
+                                    <TableCell sx={{ fontWeight: "600" }} align="left">
                                         {translate("ID")}
                                     </TableCell>
-                                    <TableCell sx={{ fontWeight: "600" }} align="center">
+                                    <TableCell sx={{ fontWeight: "600" }} align="left">
                                         {translate("Name")}
                                     </TableCell>
-                                    <TableCell sx={{ fontWeight: "600" }} align="center">
+                                    <TableCell sx={{ fontWeight: "600" }} align="left">
                                         {translate("email")}
                                     </TableCell>
-                                    <TableCell sx={{ fontWeight: "600" }} align="center">
+                                    <TableCell sx={{ fontWeight: "600" }} align="left">
                                         {translate("mobileno")}
                                     </TableCell>
 
@@ -118,7 +118,6 @@ const IntrestedUsers = () => {
                                 {isLoading ? (
                                     <TableRow>
                                         <TableCell colSpan={6} align="center">
-                                            {/* Centered loader */}
                                             <div>
                                                 <Loader />
                                             </div>
@@ -127,14 +126,14 @@ const IntrestedUsers = () => {
                                 ) : Data.length > 0 ? (
                                     Data.map((elem, index) => (
                                         <TableRow key={index}>
-                                            <TableCell align="center">{index + 1}</TableCell>
-                                            <TableCell align="center">{elem?.name}</TableCell>
-                                            <TableCell align="center" className="intrested_contact">
+                                            <TableCell align="left">{index + 1}</TableCell>
+                                            <TableCell align="left">{elem?.name}</TableCell>
+                                            <TableCell align="left" className="intrested_contact">
                                                 <a href={`mailto:${elem?.email}}`}>
                                                     {elem?.email}
                                                 </a>
                                             </TableCell>
-                                            <TableCell align="center" className="intrested_contact">
+                                            <TableCell align="left" className="intrested_contact">
                                                 <a href={`tel:${elem?.mobile}}`}>
                                                     {elem?.mobile}
                                                 </a>
@@ -144,7 +143,7 @@ const IntrestedUsers = () => {
                                     ))
                                 ) : (
                                     <TableRow>
-                                        <TableCell colSpan={6} align="center">
+                                        <TableCell colSpan={6} align="left">
                                             <p>{translate("noDataAvailabe")}</p>
                                         </TableCell>
                                     </TableRow>

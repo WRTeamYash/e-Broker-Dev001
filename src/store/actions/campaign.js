@@ -66,7 +66,7 @@ export const UpdateProfileApi = ({
     onStart = () => { } }) => {
     store.dispatch(
         apiCallBegan({
-            ...update_profile(userid, name, email, mobile, type, address, firebase_id, logintype, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id, notification, city, state, country),
+            ...update_profile(userid, name, email, mobile, address, firebase_id, profile, latitude, longitude, about_me, facebook_id, twiiter_id, instagram_id, pintrest_id, fcm_id, notification, city, state, country),
             displayToast: false,
             onStart,
             onSuccess,

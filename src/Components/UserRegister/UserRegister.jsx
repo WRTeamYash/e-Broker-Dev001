@@ -31,8 +31,9 @@ const UserRegister = () => {
     }, [signupData])
     const [showCurrentLoc, setShowCurrentLoc] = useState(false);
     const [selectedLocation, setSelectedLocation] = useState(null);
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState(signupData?.data?.data?.name ? signupData?.data?.data?.name : "");
+    const [email, setEmail] = useState(signupData?.data?.data?.email ? signupData?.data?.data?.email : "");
+    const [mobile, setMobile] = useState(signupData?.data?.data?.mobile ? signupData?.data?.data?.mobile : "");
     const [address, setAddress] = useState("");
     const [image, setImage] = useState(null);
     const fileInputRef = useRef(null);
@@ -80,11 +81,9 @@ const UserRegister = () => {
             userid: signupData.data.data.id,
             name: username,
             email: email,
-            mobile: signupData.data.data.mobile,
-            type: "3",
+            mobile: mobile,
             address: address,
             firebase_id: signupData.data.data.firebase_id,
-            logintype: "mobile",
             profile: image,
             fcm_id: FcmToken,
             notification: "1",
@@ -139,12 +138,23 @@ const UserRegister = () => {
                                                         <input type="text" name="uname" placeholder="Enter Your Name Please" value={username} onChange={(e) => setUsername(e.target.value)} />
                                                     </div>
                                                 </div>
-                                                <div className="col-sm-12 col-md-6">
-                                                    <div className="user_fields">
-                                                        <span>{translate("email")}</span>
-                                                        <input type="email" name="email" placeholder="Enter Your Email Please" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                                {signupData?.data?.data?.logintype === "1" ? (
+
+                                                    <div className="col-sm-12 col-md-6">
+                                                        <div className="user_fields">
+                                                            <span>{translate("email")}</span>
+                                                            <input type="email" name="email" placeholder="Enter Your Email Please" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                ) : (
+                                                    <div className="col-sm-12 col-md-6">
+                                                        <div className="user_fields">
+                                                            <span>{translate("phoneNumber")}</span>
+                                                            <input type="text" name="mobile" placeholder="Enter Your Phone Number Please" value={mobile} onChange={(e) => setMobile(e.target.value)} />
+                                                        </div>
+                                                    </div>
+
+                                                )}
                                                 <div className="col-sm-12 col-md-12">
                                                     <div className="user_fields">
                                                         <span>{translate("location")}</span>

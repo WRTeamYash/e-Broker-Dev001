@@ -7,10 +7,12 @@ import OTPModal from "../OTPModal/OTPModal";
 import { toast } from "react-hot-toast";
 import { translate } from "@/utils";
 import { useSelector } from "react-redux";
-import { settingsData } from "@/store/reducer/settingsSlice";
+import { Fcmtoken, settingsData } from "@/store/reducer/settingsSlice";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import FirebaseData from "@/utils/Firebase";
+import { signupLoaded } from "@/store/reducer/authSlice";
+import { useRouter } from "next/router";
 
 const LoginModal = ({ isOpen, onClose }) => {
     const SettingsData = useSelector(settingsData);
@@ -42,18 +44,65 @@ const LoginModal = ({ isOpen, onClose }) => {
             }
         }
     };
+    const navigate = useRouter();
     const { authentication } = FirebaseData()
+    const FcmToken = useSelector(Fcmtoken)
 
-    
     const handleGoogleSignup = async () => {
         const provider = new GoogleAuthProvider()
         await signInWithPopup(authentication, provider)
             .then(async response => {
+                signupLoaded(
+                    response.user.displayName,
+                    response.user.email,
+                    "",
+                    "0",
+                    "",
+                    response.user.uid,
+                    "",
+                    "",
+                    FcmToken,
+                    (res) => {
+                        let signupData = res.data;
+                        console.log("signupData", signupData)
+                        // Show a success toast notification
+                        // Check if any of the required fields is empty
+                        if (!res.error) {
+                            if(signupData.mobile === ""){
+                                navigate.push("/user-register");
+                                onClose();
+                            }else{
+                                toast.success(res.messgae)
+                                onClose();
+                            }
+                        }
+                    },
+                    (err) => {
+                        console.log(err);
+                        if (err === 'Account Deactivated by Administrative please connect to them') {
+                            onClose(); // Close the modal
+                            Swal.fire({
+                                title: "Opps!",
+                                text: "Account Deactivated by Administrative please connect to them",
+                                icon: "warning",
+                                showCancelButton: false,
+                                customClass: {
+                                    confirmButton: 'Swal-confirm-buttons',
+                                    cancelButton: "Swal-cancel-buttons"
+                                },
+                                confirmButtonText: "Ok",
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    navigate.push("/contact-us");
+                                }
+                            });
 
-                console.log(response)
+                        }
+                    }
+                );
             })
             .catch(err => {
-                console.log(err.message)
+                toast.error(err.message)
             })
     }
     const handlOTPModalClose = () => {

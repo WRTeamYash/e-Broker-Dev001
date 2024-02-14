@@ -25,7 +25,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
     const [showLoader, setShowLoader] = useState(true);
     const [otpSent, setOTPSent] = useState(true); // Add a state to track OTP sent status
     const navigate = useRouter();
-    let fcmtoken = localStorage.getItem("token")
+   
 
     const otpInputRef = useRef(null);
     const generateRecaptcha = () => {

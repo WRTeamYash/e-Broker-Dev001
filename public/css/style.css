@@ -218,7 +218,7 @@ body {
   color: #282f39c2;
 }
 .mobile-number {
-  margin-top: 60px !important;
+  margin-top: 40px !important;
 }
 .mobile-number label {
   color: #282f39;
@@ -322,7 +322,7 @@ body {
   color: var(--primary-color) !important;
 }
 .custom-phone-input {
-  margin-top: 30px;
+  margin-top: 10px;
   border: 0.5px solid #cdcdcd;
   padding: 0 10px;
   width: 100%;
@@ -383,6 +383,33 @@ body {
   color: var(--primary-color);
   font-weight: 600;
 }
+
+
+.or_devider{
+  margin-top: 20px;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.google_signup{
+  margin-top: 10px;
+}
+.google_signup .google_signup_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  border: 1px solid #282F39;
+  padding: 10px;
+  border-radius: 8px;
+  background: transparent;
+}
+
 /* ============================= REGISTER MODAL CSS================== */
 #user_register {
   position: relative;

@@ -8,6 +8,9 @@ import { toast } from "react-hot-toast";
 import { translate } from "@/utils";
 import { useSelector } from "react-redux";
 import { settingsData } from "@/store/reducer/settingsSlice";
+import { FcGoogle } from "react-icons/fc";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import FirebaseData from "@/utils/Firebase";
 
 const LoginModal = ({ isOpen, onClose }) => {
     const SettingsData = useSelector(settingsData);
@@ -39,12 +42,25 @@ const LoginModal = ({ isOpen, onClose }) => {
             }
         }
     };
+    const { authentication } = FirebaseData()
 
+    
+    const handleGoogleSignup = async () => {
+        const provider = new GoogleAuthProvider()
+        await signInWithPopup(authentication, provider)
+            .then(async response => {
+
+                console.log(response)
+            })
+            .catch(err => {
+                console.log(err.message)
+            })
+    }
     const handlOTPModalClose = () => {
         setShowOtpModal(false);
         window.recaptchaVerifier = null;
     };
-   
+
     return (
         <>
             <Modal show={isOpen} onHide={onClose} size="md" aria-labelledby="contained-modal-title-vcenter" centered className="login-modal">
@@ -68,6 +84,21 @@ const LoginModal = ({ isOpen, onClose }) => {
                             </button>
                         </div>
                     </form>
+                    <div className="or_devider">
+                        <hr />
+                        <span>{translate("or")}</span>
+                        <hr />
+                    </div>
+                    <div className="google_signup" onClick={handleGoogleSignup}>
+                        <button className="google_signup_button">
+                            <div className="google_icon">
+                                <FcGoogle size={25} />
+                            </div>
+                            <span className="google_text">
+                                Continue with Google
+                            </span>
+                        </button>
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <span>

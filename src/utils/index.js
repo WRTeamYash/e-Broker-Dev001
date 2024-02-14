@@ -85,9 +85,18 @@ export const isThemeEnabled = () => {
   return systemSettingsData?.svg_clr === '1';
 };
 
+
 export const formatNumberWithCommas = (number) => {
   if (number == null) {
     return ''; // or any default value you want
   }
   return number.toLocaleString();
+};
+
+
+export const customLog = (message) => {
+  const logEnabled = process.env.NEXT_PUBLIC_SHOW_CONSOLE_LOG === 'true';
+  if (logEnabled) {
+    console.log(`[Custom Log]: ${message}`);
+  }
 };

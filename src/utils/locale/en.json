@@ -283,7 +283,8 @@
   "change":"Change",
   "sold":"Sold",
   "rented":"Rented",
-  "intresteduserDetails":"Intrested Users Details",
+  "intresteduserDetails":"Interested Users Details",
   "mobileno":"Mobile No",
-  "intrestedUsers":"Intrested User"
+  "intrestedUsers":"Interested User",
+  "or":"Or"
 }

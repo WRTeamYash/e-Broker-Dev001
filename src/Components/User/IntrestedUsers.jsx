@@ -8,12 +8,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
-import { getIntrestedUserApi, getPaymentDetialsApi } from "@/store/actions/campaign";
+import { getIntrestedUserApi } from "@/store/actions/campaign";
 import toast from "react-hot-toast";
-import { settingsData } from "@/store/reducer/settingsSlice";
 import { useSelector } from "react-redux";
 import Pagination from "@/Components/Pagination/ReactPagination";
-import { translate } from "@/utils/index.js";
+import { customLog, translate } from "@/utils/index.js";
 import { languageData } from "@/store/reducer/languageSlice.js";
 import Loader from "@/Components/Loader/Loader";
 import dynamic from "next/dynamic.js";
@@ -23,9 +22,11 @@ const VerticleLayout = dynamic(() => import('../../../src/Components/AdminLayout
 const IntrestedUsers = () => {
 
     const router = useRouter()
+    const slug_id = router?.query?.slug
 
     const lang = useSelector(languageData);
     const [Data, setData] = useState([]);
+    const [slug, setSlug] = useState();
 
     const [total, setTotal] = useState(0);
     const [offsetdata, setOffsetdata] = useState(0);
@@ -33,23 +34,28 @@ const IntrestedUsers = () => {
 
     const limit = 10;
     useEffect(() => { }, [lang]);
+    useEffect(() => {
+        setSlug(slug_id)
+    }, [slug]);
     // api call
     useEffect(() => {
         setIsLoading(true)
-        getIntrestedUserApi({
-            slug_id: router?.query?.slug,
-            offset: offsetdata.toString(),
-            limit: limit.toString(),
-            onSuccess: (res) => {
-                setTotal(res.total)
-                setData(res.data)
-                setIsLoading(false)
+        if (slug) {
+            getIntrestedUserApi({
+                slug_id: slug_id,
+                offset: offsetdata.toString(),
+                limit: limit.toString(),
+                onSuccess: (res) => {
+                    setTotal(res.total)
+                    setData(res.data)
+                    setIsLoading(false)
 
-            },
-            onError: (err) => {
-                toast.error(err.message);
-            }
-        });
+                },
+                onError: (err) => {
+                    toast.error(err.message);
+                }
+            });
+        }
 
     }, []);
     // handle page change
@@ -128,10 +134,10 @@ const IntrestedUsers = () => {
                                                     {elem?.email}
                                                 </a>
                                             </TableCell>
-                                            <TableCell align="center" className="intrested_contact">  
-                                            <a href={`tel:${elem?.mobile}}`}>
-                                                {elem?.mobile}
-                                            </a>
+                                            <TableCell align="center" className="intrested_contact">
+                                                <a href={`tel:${elem?.mobile}}`}>
+                                                    {elem?.mobile}
+                                                </a>
                                             </TableCell>
 
                                         </TableRow>

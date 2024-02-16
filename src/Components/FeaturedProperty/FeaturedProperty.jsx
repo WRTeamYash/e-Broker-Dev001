@@ -75,7 +75,7 @@ const FeaturedProperty = () => {
                             <div id="feature_cards" className="row">
                                 {getFeaturedListing.map((ele, index) => (
                                     <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
-                                        <Link href="/properties-details/[slug]" as={`/properties-details/${ele.slug_id}`} passHref>
+                                        <Link href={`/properties-details/${ele.slug_id}`} >
                                             <VerticalCard ele={ele} />
                                         </Link>
                                     </div>

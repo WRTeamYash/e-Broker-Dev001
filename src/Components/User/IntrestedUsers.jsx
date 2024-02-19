@@ -26,7 +26,6 @@ const IntrestedUsers = () => {
 
     const lang = useSelector(languageData);
     const [Data, setData] = useState([]);
-    const [slug, setSlug] = useState();
 
     const [total, setTotal] = useState(0);
     const [offsetdata, setOffsetdata] = useState(0);
@@ -34,15 +33,11 @@ const IntrestedUsers = () => {
 
     const limit = 10;
     useEffect(() => { }, [lang]);
-    useEffect(() => {
-        console.log(slug_id)
-        setSlug(slug_id)
-        console.log("slug", slug)
-    }, [slug]);
+
     // api call
     useEffect(() => {
+        if (!router.isReady) return;
         setIsLoading(true)
-        // if (slug) {
             getIntrestedUserApi({
                 slug_id: slug_id,
                 offset: offsetdata.toString(),
@@ -57,9 +52,8 @@ const IntrestedUsers = () => {
                     toast.error(err.message);
                 }
             });
-        // }
 
-    }, []);
+    }, [router.isReady]);
     // handle page change
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;

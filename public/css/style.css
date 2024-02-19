@@ -7854,6 +7854,9 @@ embed svg path {
   border-radius: 8px;
   cursor: pointer;
   width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .intrested_contact a {

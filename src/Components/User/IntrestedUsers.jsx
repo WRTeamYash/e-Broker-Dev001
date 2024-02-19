@@ -35,7 +35,9 @@ const IntrestedUsers = () => {
     const limit = 10;
     useEffect(() => { }, [lang]);
     useEffect(() => {
+        console.log(slug_id)
         setSlug(slug_id)
+        console.log("slug", slug)
     }, [slug]);
     // api call
     useEffect(() => {

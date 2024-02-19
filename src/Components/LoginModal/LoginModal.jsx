@@ -49,45 +49,13 @@ const LoginModal = ({ isOpen, onClose }) => {
     const FcmToken = useSelector(Fcmtoken)
 
 
-    // Function to convert image URL to binary data
-    async function convertImageToBinary(imageUrl) {
-        try {
-            // Fetch the image data as a blob
-            const response = await fetch(imageUrl);
-            const blob = await response.blob();
-    
-            // Convert the blob to binary data
-            const reader = new FileReader();
-            reader.readAsArrayBuffer(blob); // Use readAsArrayBuffer() instead of readAsBinaryString()
-    
-            return new Promise((resolve, reject) => {
-                reader.onload = () => {
-                    const arrayBuffer = reader.result;
-                    resolve(arrayBuffer);
-                };
-    
-                reader.onerror = () => {
-                    reject(new Error('Failed to read the image data.'));
-                };
-            });
-        } catch (error) {
-            throw new Error('Failed to fetch the image: ' + error.message);
-        }
-    }
-    
+
 
 
     const handleGoogleSignup = async () => {
         const provider = new GoogleAuthProvider()
         await signInWithPopup(authentication, provider)
             .then(async response => {
-                console.log("response", response)
-                console.log("response", response.user.photoURL)
-                const photoUrl = response?.user?.photoURL;
-
-                const binaryData = await convertImageToBinary(photoUrl);
-
-                console.log(typeof(binaryData))
                 // Extract photoURL from response
                 signupLoaded(
                     response?.user?.displayName,

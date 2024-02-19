@@ -55,17 +55,17 @@ const LoginModal = ({ isOpen, onClose }) => {
             // Fetch the image data as a blob
             const response = await fetch(imageUrl);
             const blob = await response.blob();
-
+    
             // Convert the blob to binary data
             const reader = new FileReader();
-            reader.readAsBinaryString(blob);
-
+            reader.readAsArrayBuffer(blob); // Use readAsArrayBuffer() instead of readAsBinaryString()
+    
             return new Promise((resolve, reject) => {
                 reader.onload = () => {
-                    const binaryString = reader.result;
-                    resolve(binaryString);
+                    const arrayBuffer = reader.result;
+                    resolve(arrayBuffer);
                 };
-
+    
                 reader.onerror = () => {
                     reject(new Error('Failed to read the image data.'));
                 };
@@ -74,6 +74,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             throw new Error('Failed to fetch the image: ' + error.message);
         }
     }
+    
 
 
     const handleGoogleSignup = async () => {

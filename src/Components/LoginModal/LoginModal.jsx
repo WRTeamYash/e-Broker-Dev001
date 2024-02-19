@@ -48,30 +48,67 @@ const LoginModal = ({ isOpen, onClose }) => {
     const { authentication } = FirebaseData()
     const FcmToken = useSelector(Fcmtoken)
 
+
+    // Function to convert image URL to binary data
+    async function convertImageToBinary(imageUrl) {
+        try {
+            // Fetch the image data as a blob
+            const response = await fetch(imageUrl);
+            const blob = await response.blob();
+
+            // Convert the blob to binary data
+            const reader = new FileReader();
+            reader.readAsBinaryString(blob);
+
+            return new Promise((resolve, reject) => {
+                reader.onload = () => {
+                    const binaryString = reader.result;
+                    resolve(binaryString);
+                };
+
+                reader.onerror = () => {
+                    reject(new Error('Failed to read the image data.'));
+                };
+            });
+        } catch (error) {
+            throw new Error('Failed to fetch the image: ' + error.message);
+        }
+    }
+
+
     const handleGoogleSignup = async () => {
         const provider = new GoogleAuthProvider()
         await signInWithPopup(authentication, provider)
             .then(async response => {
+                console.log("response", response)
+                console.log("response", response.user.photoURL)
+                const photoUrl = response?.user?.photoURL;
+
+                const binaryData = await convertImageToBinary(photoUrl);
+
+                console.log(typeof(binaryData))
+                // Extract photoURL from response
                 signupLoaded(
-                    response.user.displayName,
-                    response.user.email,
+                    response?.user?.displayName,
+                    response?.user?.email,
                     "",
                     "0",
                     "",
-                    response.user.uid,
+                    response?.user?.uid,
                     "",
-                    "",
+                    response?.user?.photoURL,
                     FcmToken,
                     (res) => {
                         let signupData = res.data;
-                        console.log("signupData", signupData)
+
+
                         // Show a success toast notification
                         // Check if any of the required fields is empty
                         if (!res.error) {
-                            if(signupData.mobile === ""){
+                            if (signupData.mobile === "") {
                                 navigate.push("/user-register");
                                 onClose();
-                            }else{
+                            } else {
                                 toast.success(res.messgae)
                                 onClose();
                             }

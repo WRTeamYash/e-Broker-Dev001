@@ -23,11 +23,11 @@ function MyApp({ Component, pageProps, data }) {
             <link rel="shortcut icon" href="/favicon.ico" sizes="32x32" type="image/png" />
             <Provider store={store}>
                 {/* <PersistGate persistor={persistor}> */}
-                {/* <InspectElement> */}
+                <InspectElement>
                     <PushNotificationLayout>
                         <Component {...pageProps} data={data} />
                     </PushNotificationLayout>
-                {/* </InspectElement> */}
+                </InspectElement>
                 <Toaster />
                 {/* </PersistGate> */}
             </Provider>

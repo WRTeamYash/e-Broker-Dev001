@@ -23,7 +23,6 @@ const UserProfile = () => {
     const userProfileData = userData?.data?.data;
     const navigate = useRouter();
     const FcmToken = useSelector(Fcmtoken)
-
     const [formData, setFormData] = useState({
         fullName: userProfileData?.name,
         email: userProfileData?.email,
@@ -174,13 +173,26 @@ const UserProfile = () => {
                                             <div className="col-sm-12 col-md-6">
                                                 <div className="add_user_fields_div">
                                                     <span>{translate("email")}</span>
-                                                    <input type="text" className="add_user_fields" name="email" placeholder="Enter Email" value={formData.email} onChange={handleInputChange} />
+                                                    <input
+                                                        readOnly={userProfileData?.logintype === "0" ? true : false}
+                                                        type="text"
+                                                        className="add_user_fields"
+                                                        name="email"
+                                                        placeholder="Enter Email"
+                                                        value={formData.email}
+                                                        onChange={handleInputChange} />
                                                 </div>
                                             </div>
                                             <div className="col-sm-12 col-md-6">
                                                 <div className="add_user_fields_div">
                                                     <span>{translate("phoneNumber")}</span>
-                                                    <input readOnly type="text" className="add_user_fields" name="phoneNumber" placeholder="Enter Phone Number" value={formData.phoneNumber} onChange={handlePhoneNumberChange} />
+                                                    <input readOnly={userProfileData?.logintype === "1" ? true : false}
+                                                        type="text" 
+                                                        className="add_user_fields" 
+                                                        name="phoneNumber" 
+                                                        placeholder="Enter Phone Number" 
+                                                        value={formData.phoneNumber} 
+                                                        onChange={handlePhoneNumberChange} />
                                                 </div>
                                             </div>
                                             <div className="col-sm-12 col-md-6">

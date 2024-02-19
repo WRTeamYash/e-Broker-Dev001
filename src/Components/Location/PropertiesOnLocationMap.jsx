@@ -11,10 +11,12 @@ import MapCard from "../Cards/MapCard";
 const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude, data, setActiveTab, activeTab, fetchAllData }) => {
 
 
+    const systemsettings = useSelector(settingsData)
+
     const libraries = ["places"];
     const [initialLocation, setInitialLocation] = useState({
-        lat: latitude ? parseFloat(latitude) : 23.2419997,
-        lng: longitude ? parseFloat(longitude) : 69.6669324,
+        lat: latitude ? parseFloat(latitude) : parseFloat(systemsettings?.latitude),
+        lng: longitude ? parseFloat(longitude) : parseFloat(systemsettings?.longitude),
     });
 
     const [location, setLocation] = useState(initialLocation);
@@ -112,7 +114,9 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
                 {mapError ? (
                     <div>{mapError}</div>
                 ) : (
-                    <LoadScript googleMapsApiKey={apiKey} libraries={libraries} onError={handleMapLoadError}>
+                    <>
+
+                        {/* // <LoadScript googleMapsApiKey={apiKey} libraries={libraries} onError={handleMapLoadError}> */}
                         <Autocomplete
                             onLoad={(autocomplete) => {
                                 autocompleteRef.current = autocomplete;
@@ -178,14 +182,15 @@ const PropertiesOnLocationMap = ({ onSelectLocation, apiKey, latitude, longitude
                             )}
                         </GoogleMap>
 
-                    </LoadScript>
+                        {/* // </LoadScript> */}
+                    </>
                 )}
             </div>
 
         </>
 
     );
-   
+
 };
 
 export default PropertiesOnLocationMap;

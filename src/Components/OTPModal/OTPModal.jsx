@@ -138,9 +138,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                         if (!res.error) {
                             if (
                                 signupData.name === "" ||
-                                signupData.email === "" ||
-                                // signupData.address === "" ||
-                                signupData.logintype === ""
+                                signupData.email === "" 
                             ) {
                                 navigate.push("/user-register");
                                 onClose(); // Close the modal

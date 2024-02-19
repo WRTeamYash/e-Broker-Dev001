@@ -3,8 +3,11 @@ import { useEffect } from 'react'
 
 const InspectElement = ({ children }) => {
   useEffect(() => {
-    const handleContextMenu = e => {
-      e.preventDefault()
+
+    if(process.env.NEXT_PUBLIC_ALLOW_INSPECT === "true"){
+
+      const handleContextMenu = e => {
+        e.preventDefault()
     }
 
     const handleKeyDown = e => {
@@ -32,8 +35,9 @@ const InspectElement = ({ children }) => {
       document.removeEventListener('contextmenu', handleContextMenu)
       document.removeEventListener('keydown', handleKeyDown)
     }
+  }
   }, [])
-
+  
   return children
 }
 

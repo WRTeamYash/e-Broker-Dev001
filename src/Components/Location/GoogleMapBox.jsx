@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { GoogleMap, LoadScript, Marker, Autocomplete } from "@react-google-maps/api";
+import { useSelector } from "react-redux";
+import { settingsData } from "@/store/reducer/settingsSlice";
 
 const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
+
+    const systemsettings = useSelector(settingsData)
+
     const libraries = ["places"];
     const [initialLocation, setInitialLocation] = useState({
-        lat: latitude ? parseFloat(latitude) : 23.2419997,
-        lng: longitude ? parseFloat(longitude) : 69.6669324,
+        lat: latitude ? parseFloat(latitude) : parseFloat(systemsettings?.latitude),
+        lng: longitude ? parseFloat(longitude) : parseFloat(systemsettings?.longitude),
     });
 
     const [location, setLocation] = useState(initialLocation);

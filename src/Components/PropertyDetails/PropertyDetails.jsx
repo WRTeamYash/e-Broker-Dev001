@@ -657,7 +657,7 @@ const PropertyDetails = () => {
                                                     </div>
                                                 )}
                                                 <div className="enquiry">
-                                                    {!isReported && !userCurrentId === getPropData?.added_by ? (
+                                                    {!isReported && userCurrentId !== getPropData?.added_by ? (
                                                         <button className='enquiry-buttons' onClick={handleReportProperty}> <MdReport className='mx-1' size={20} />{translate("reportProp")}</button>
                                                     ) : null}
 

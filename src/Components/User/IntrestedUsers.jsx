@@ -42,7 +42,7 @@ const IntrestedUsers = () => {
     // api call
     useEffect(() => {
         setIsLoading(true)
-        if (slug) {
+        // if (slug) {
             getIntrestedUserApi({
                 slug_id: slug_id,
                 offset: offsetdata.toString(),
@@ -57,7 +57,7 @@ const IntrestedUsers = () => {
                     toast.error(err.message);
                 }
             });
-        }
+        // }
 
     }, []);
     // handle page change

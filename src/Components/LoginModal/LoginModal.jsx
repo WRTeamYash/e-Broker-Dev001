@@ -78,7 +78,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                                 navigate.push("/user-register");
                                 onClose();
                             } else {
-                                toast.success(res.messgae)
+                                toast.success(res.message)
                                 onClose();
                             }
                         }

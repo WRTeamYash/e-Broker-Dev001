@@ -44,7 +44,7 @@ const IntrestedUsers = () => {
         setIsLoading(true)
         if (slug) {
             getIntrestedUserApi({
-                slug_id: slug,
+                slug_id: slug_id,
                 offset: offsetdata.toString(),
                 limit: limit.toString(),
                 onSuccess: (res) => {

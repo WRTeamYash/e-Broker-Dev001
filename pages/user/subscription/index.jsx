@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react";
+import dynamic from "next/dynamic.js";
 // import UserSubScription from '@/Components/User/UserSubScription.jsx'
 const UserSubScription = dynamic(() => import('../../../src/Components/User/UserSubScription.jsx'), { ssr: false })
 

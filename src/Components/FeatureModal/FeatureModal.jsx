@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useCallback, useMemo, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -19,15 +20,17 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
     const currentUserPackage = packageDetails?.package?.user_purchased_package;
 
     // Add checks to ensure currentUserPackage is defined and has at least one element
-    if (!currentUserPackage || currentUserPackage.length === 0) {
-        console.error("currentUserPackage is undefined or empty");
-        // Handle the case where currentUserPackage is undefined or empty
-        // You might want to set default values or return early
-        return null;
-    }
+    useEffect(() => {
+        if (!currentUserPackage || currentUserPackage.length === 0) {
+            // toast.error("Opps! No Package Found!!!")
+            router.push('/')
+
+        }
+    }, [currentUserPackage])
 
 
-    const packageId = currentUserPackage[0]?.package.id;
+
+    const packageId = currentUserPackage && currentUserPackage[0]?.package.id;
 
     const router = useRouter();
 

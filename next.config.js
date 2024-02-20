@@ -7,16 +7,30 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  webpack: config => {
+  webpack: (config) => {
+    // if (isServer) {
+    //   require('./scripts/sitemap-generator')
+    // }
     config.resolve.alias = {
       ...config.resolve.alias,
       apexcharts: path.resolve(__dirname, './node_modules/apexcharts-clevision')
     }
     return config
   },
+  // webpack: (config, { isServer }) => {
+  //   if (isServer) {
+  //     require('./scripts/sitemap-generator')
+  //   }
+  //   config.resolve.alias = {
+  //     ...config.resolve.alias,
+  //     apexcharts: path.resolve(__dirname, './node_modules/apexcharts-clevision')
+  //   }
+  //   return config
+  // },
   devIndicators: {
     buildActivity: false
   }
+
 }
 
 // Conditionally set the output based on the environment

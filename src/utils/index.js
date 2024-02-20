@@ -93,10 +93,12 @@ export const formatNumberWithCommas = (number) => {
   return number.toLocaleString();
 };
 
+// # For console logs (Do not change)
+// NEXT_PUBLIC_SHOW_CONSOLE_LOG="true"
 
-export const customLog = (message) => {
-  const logEnabled = process.env.NEXT_PUBLIC_SHOW_CONSOLE_LOG === 'true';
-  if (logEnabled) {
-    console.log(`[Custom Log]: ${message}`);
-  }
-};
+// export const customLog = (message) => {
+//   const logEnabled = process.env.NEXT_PUBLIC_SHOW_CONSOLE_LOG === 'true';
+//   if (logEnabled) {
+//     console.log(`[Custom Log]: ${message}`);
+//   }
+// };

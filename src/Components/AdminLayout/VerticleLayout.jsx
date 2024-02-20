@@ -132,8 +132,8 @@ export default function VerticleLayout(props) {
             isLoggedIn ? userCurrentId : "",
             (res) => {
                 document.documentElement.style.setProperty('--primary-color', res?.data?.system_color);
-                document.documentElement.style.setProperty('--primary-category-background',res?.data?.category_background);
-                document.documentElement.style.setProperty('--primary-sell',res?.data?.sell_background);
+                document.documentElement.style.setProperty('--primary-category-background', res?.data?.category_background);
+                document.documentElement.style.setProperty('--primary-sell', res?.data?.sell_background);
             },
             (err) => {
                 console.log(err);
@@ -165,7 +165,7 @@ export default function VerticleLayout(props) {
     const router = useRouter();
     const pathname = usePathname();
 
-    
+
     const hasSubscription = settingData?.subscription
 
 
@@ -202,7 +202,7 @@ export default function VerticleLayout(props) {
     const isRouteActive = (route) => {
         return currentRoute === route;
     };
- 
+
 
 
     // }, [settingData?.svg_clr])
@@ -248,7 +248,7 @@ export default function VerticleLayout(props) {
 
 
 
-    const handleDeleteAcc = () => {
+    const handleDeleteAcc = async() => {
 
         if (settingsData.demo_mode === true) {
             Swal.fire({
@@ -283,17 +283,17 @@ export default function VerticleLayout(props) {
             },
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes",
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 // Delete the user
-                deleteUser(user)
+                await deleteUser(user)
                     .then(() => {
                         deleteUserApi(
                             current_user,
                             (res) => {
-                                logoutSuccess();
-                                toast.success("User deleted successfully.")
                                 router.push("/");
+                                toast.success("User deleted successfully.")
+                                logoutSuccess();
 
                             }, (err) => {
                                 console.log(err)
@@ -301,11 +301,10 @@ export default function VerticleLayout(props) {
                     })
                     .catch((error) => {
                         console.error('Error deleting user:', error.message);
-                        console.log(error)
                         if (error.code === "auth/requires-recent-login") {
+                            router.push("/");
                             toast.error(translate("deletePop"));
                             logoutSuccess();
-                            router.push("/");
                         }
                     });
             } else {
@@ -314,6 +313,8 @@ export default function VerticleLayout(props) {
         });
     };
 
+
+    
     const handleChat = () => {
         if (settingData && settingData.demo_mode === true) {
             Swal.fire({
@@ -557,7 +558,7 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </ListItem>
                     </Link> */}
-               
+
                     {isMessagingSupported && notificationPermissionGranted && (
 
                         <ListItem

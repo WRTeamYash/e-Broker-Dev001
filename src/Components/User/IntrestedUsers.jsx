@@ -12,7 +12,7 @@ import { getIntrestedUserApi } from "@/store/actions/campaign";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import Pagination from "@/Components/Pagination/ReactPagination";
-import { customLog, translate } from "@/utils/index.js";
+import { translate } from "@/utils/index.js";
 import { languageData } from "@/store/reducer/languageSlice.js";
 import Loader from "@/Components/Loader/Loader";
 import dynamic from "next/dynamic.js";
@@ -38,20 +38,20 @@ const IntrestedUsers = () => {
     useEffect(() => {
         if (!router.isReady) return;
         setIsLoading(true)
-            getIntrestedUserApi({
-                slug_id: slug_id,
-                offset: offsetdata.toString(),
-                limit: limit.toString(),
-                onSuccess: (res) => {
-                    setTotal(res.total)
-                    setData(res.data)
-                    setIsLoading(false)
+        getIntrestedUserApi({
+            slug_id: slug_id,
+            offset: offsetdata.toString(),
+            limit: limit.toString(),
+            onSuccess: (res) => {
+                setTotal(res.total)
+                setData(res.data)
+                setIsLoading(false)
 
-                },
-                onError: (err) => {
-                    toast.error(err.message);
-                }
-            });
+            },
+            onError: (err) => {
+                toast.error(err.message);
+            }
+        });
 
     }, [router.isReady]);
     // handle page change

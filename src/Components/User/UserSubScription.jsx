@@ -20,24 +20,20 @@ const UserSubScription = () => {
     const router = useRouter()
     const CurrencySymbol = packageDetails && packageDetails.currency_symbol;
     // Add checks to ensure currentUserPackage is defined and has at least one element
-    if (!currentUserPackage || currentUserPackage.length === 0) {
-        console.error("currentUserPackage is undefined or empty");
 
-        return null;
-    }
     useEffect(() => {
         if (!currentUserPackage || currentUserPackage.length === 0) {
-            toast.error("Opps! No P{ackage Found!!!")
+            // toast.error("Opps! No Package Found!!!")
             router.push('/')
 
         }
     }, [currentUserPackage])
 
-    const packageId = currentUserPackage[0].package.id;
-    const PropertyLimit = currentUserPackage[0].package.property_limit;
-    const usedPropertyLimit = currentUserPackage[0]?.used_limit_for_property;
-    const AdLimit = currentUserPackage[0].package.property_limit;
-    const usedAdLimit = currentUserPackage[0]?.used_limit_for_advertisement;
+    const packageId = currentUserPackage && currentUserPackage[0].package.id;
+    const PropertyLimit = currentUserPackage && currentUserPackage[0].package.property_limit;
+    const usedPropertyLimit = currentUserPackage && currentUserPackage[0]?.used_limit_for_property;
+    const AdLimit = currentUserPackage && currentUserPackage[0].package.property_limit;
+    const usedAdLimit = currentUserPackage && currentUserPackage[0]?.used_limit_for_advertisement;
     const lang = useSelector(languageData);
 
     useEffect(() => { }, [lang]);

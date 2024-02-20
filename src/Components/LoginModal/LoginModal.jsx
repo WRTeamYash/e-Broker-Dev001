@@ -53,64 +53,69 @@ const LoginModal = ({ isOpen, onClose }) => {
 
 
     const handleGoogleSignup = async () => {
-        const provider = new GoogleAuthProvider()
-        await signInWithPopup(authentication, provider)
-            .then(async response => {
-                // Extract photoURL from response
-                signupLoaded(
-                    response?.user?.displayName,
-                    response?.user?.email,
-                    "",
-                    "0",
-                    "",
-                    response?.user?.uid,
-                    "",
-                    response?.user?.photoURL,
-                    FcmToken,
-                    (res) => {
-                        let signupData = res.data;
-
-
-                        // Show a success toast notification
-                        // Check if any of the required fields is empty
-                        if (!res.error) {
-                            if (signupData.mobile === "") {
-                                navigate.push("/user-register");
-                                onClose();
-                            } else {
-                                toast.success(res.message)
-                                onClose();
-                            }
-                        }
-                    },
-                    (err) => {
-                        console.log(err);
-                        if (err === 'Account Deactivated by Administrative please connect to them') {
-                            onClose(); // Close the modal
-                            Swal.fire({
-                                title: "Opps!",
-                                text: "Account Deactivated by Administrative please connect to them",
-                                icon: "warning",
-                                showCancelButton: false,
-                                customClass: {
-                                    confirmButton: 'Swal-confirm-buttons',
-                                    cancelButton: "Swal-cancel-buttons"
-                                },
-                                confirmButtonText: "Ok",
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    navigate.push("/contact-us");
-                                }
-                            });
-
+        const provider = new GoogleAuthProvider();
+        try {
+            const response = await signInWithPopup(authentication, provider);
+    
+            signupLoaded(
+                response?.user?.displayName,
+                response?.user?.email,
+                "",
+                "0",
+                "",
+                response?.user?.uid,
+                "",
+                response?.user?.photoURL,
+                FcmToken,
+                (res) => {
+                    let signupData = res.data;
+    
+                    // Show a success toast notification
+                    // Check if any of the required fields is empty
+                    if (!res.error) {
+                        if (signupData.mobile === "") {
+                            navigate.push("/user-register");
+                            onClose();
+                        } else {
+                            toast.success(res.message);
+                            onClose();
                         }
                     }
-                );
-            })
-            .catch(err => {
-                toast.error(err.message)
-            })
-    }
+                },
+                (err) => {
+                    if (err === 'Account Deactivated by Administrative please connect to them') {
+                        onClose(); // Close the modal
+                        Swal.fire({
+                            title: "Opps!",
+                            text: "Account Deactivated by Administrative please connect to them",
+                            icon: "warning",
+                            showCancelButton: false,
+                            customClass: {
+                                confirmButton: 'Swal-confirm-buttons',
+                                cancelButton: "Swal-cancel-buttons"
+                            },
+                            confirmButtonText: "Ok",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                navigate.push("/contact-us");
+                            }
+                        });
+    
+                    }
+                }
+            );
+        } catch (error) {
+            // Handle cancelled popup request error
+            if (error.code === 'auth/cancelled-popup-request') {
+                // Optionally notify the user or take other actions
+                toast.error("Popup request was cancelled by the user");
+            } else {
+                console.error(error);
+                toast.error(error.message);
+            }
+        }
+    };
+    
     const handlOTPModalClose = () => {
         setShowOtpModal(false);
         window.recaptchaVerifier = null;

@@ -58,7 +58,6 @@ const FirebaseData = () => {
 
     // Update link with the dynamic appstoreLink
     link.href = process.env.NEXT_PUBLIC_APP_ID;
-    console.log("link", link)
     stickyNote.innerHTML = 'Chat and Notification features are not supported on this browser. For a better user experience, please use our mobile application. ';
     stickyNote.appendChild(closeButton);
     stickyNote.appendChild(link);

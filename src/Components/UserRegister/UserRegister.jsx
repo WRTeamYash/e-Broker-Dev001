@@ -34,11 +34,11 @@ const UserRegister = () => {
     const [username, setUsername] = useState(signupData?.data?.data?.name ? signupData?.data?.data?.name : "");
     const [email, setEmail] = useState(signupData?.data?.data?.email ? signupData?.data?.data?.email : "");
     const [mobile, setMobile] = useState(signupData?.data?.data?.mobile ? signupData?.data?.data?.mobile : "");
-    const [address, setAddress] = useState("");
-    const [image, setImage] = useState(null);
+    const [address, setAddress] = useState(null);
+    const [image, setImage] = useState();
     const fileInputRef = useRef(null);
 
-    const [uploadedImage, setUploadedImage] = useState(null);
+    const [uploadedImage, setUploadedImage] = useState(signupData?.data?.data?.profile ? signupData?.data?.data?.profile : null);
 
     const lang = useSelector(languageData);
 
@@ -60,6 +60,7 @@ const UserRegister = () => {
     const handleUploadButtonClick = () => {
         fileInputRef.current.click(); // Trigger the file input click event
     };
+
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
 

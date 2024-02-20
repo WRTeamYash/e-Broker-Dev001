@@ -53,7 +53,7 @@ const Layout = ({ children }) => {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "You have notLogin. Please Login First",
+                text: "You have not login. Please Login First",
                 allowOutsideClick: false,
                 customClass: {
                     confirmButton: 'Swal-confirm-buttons',

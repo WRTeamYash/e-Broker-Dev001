@@ -37,7 +37,7 @@ const Nav = () => {
     const signupData = useSelector(userSignUpData);
     const sliderdata = useSelector(silderCacheData);
     const settingData = useSelector(settingsData);
-    
+
     // useEffect(() => {
     //     if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
     //         document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
@@ -76,12 +76,13 @@ const Nav = () => {
         }
     }, [language]);
     useEffect(() => {
-        if (signupData?.data?.data.name === "" && signupData?.data?.data.email === "" && !user_register) {
+        if (signupData?.data?.data.name === "" || signupData?.data?.data.email === "" || signupData?.data?.data?.mobile === "" && !user_register) {
             Swal.fire({
                 title: 'Complete Profile First',
                 icon: 'info',
                 customClass: {
-                    confirmButton: 'Swal-buttons',
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
                 },
                 confirmButtonText: 'OK',
                 backdrop: 'static',
@@ -92,7 +93,7 @@ const Nav = () => {
                 }
             });
         }
-    }, []);
+    }, [signupData]);
 
 
 
@@ -215,7 +216,7 @@ const Nav = () => {
                 // Perform the logout action
                 logoutSuccess();
                 signOut()
-                
+
                 toast.success(translate("logoutSuccess"));
             } else {
                 toast.error(translate("logoutcancel"));

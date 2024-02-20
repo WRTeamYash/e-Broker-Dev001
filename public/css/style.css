@@ -7863,3 +7863,7 @@ embed svg path {
   color: var(--primary-text-color02);
   text-decoration: underline !important;
 }
+
+.css-pwxzbm{
+  overflow: visible !important; 
+}

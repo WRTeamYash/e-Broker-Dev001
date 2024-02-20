@@ -18,7 +18,7 @@ const UserSubScription = () => {
     const packageDetails = useSelector(settingsData);
     const currentUserPackage = packageDetails?.package?.user_purchased_package;
     const router = useRouter()
-    const CurrencySymbol = packageDetails && packageDetails.currency_symbol;
+    const CurrencySymbol = packageDetails && packageDetails?.currency_symbol;
     // Add checks to ensure currentUserPackage is defined and has at least one element
 
     useEffect(() => {
@@ -29,10 +29,10 @@ const UserSubScription = () => {
         }
     }, [currentUserPackage])
 
-    const packageId = currentUserPackage && currentUserPackage[0].package.id;
-    const PropertyLimit = currentUserPackage && currentUserPackage[0].package.property_limit;
+    const packageId = currentUserPackage && currentUserPackage[0]?.package.id;
+    const PropertyLimit = currentUserPackage && currentUserPackage[0]?.package.property_limit;
     const usedPropertyLimit = currentUserPackage && currentUserPackage[0]?.used_limit_for_property;
-    const AdLimit = currentUserPackage && currentUserPackage[0].package.property_limit;
+    const AdLimit = currentUserPackage && currentUserPackage[0]?.package.property_limit;
     const usedAdLimit = currentUserPackage && currentUserPackage[0]?.used_limit_for_advertisement;
     const lang = useSelector(languageData);
 

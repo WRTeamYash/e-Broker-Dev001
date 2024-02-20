@@ -56,7 +56,7 @@ const LoginModal = ({ isOpen, onClose }) => {
         const provider = new GoogleAuthProvider();
         try {
             const response = await signInWithPopup(authentication, provider);
-    
+
             signupLoaded(
                 response?.user?.displayName,
                 response?.user?.email,
@@ -69,7 +69,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                 FcmToken,
                 (res) => {
                     let signupData = res.data;
-    
+
                     // Show a success toast notification
                     // Check if any of the required fields is empty
                     if (!res.error) {
@@ -100,22 +100,16 @@ const LoginModal = ({ isOpen, onClose }) => {
                                 navigate.push("/contact-us");
                             }
                         });
-    
+
                     }
                 }
             );
         } catch (error) {
-            // Handle cancelled popup request error
-            if (error.code === 'auth/cancelled-popup-request') {
-                // Optionally notify the user or take other actions
-                toast.error("Popup request was cancelled by the user");
-            } else {
-                console.error(error);
-                toast.error(error.message);
-            }
+            console.error(error);
+            toast.error("Popup request was cancelled by the user");
         }
     };
-    
+
     const handlOTPModalClose = () => {
         setShowOtpModal(false);
         window.recaptchaVerifier = null;

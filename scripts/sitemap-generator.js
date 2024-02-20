@@ -1,8 +1,9 @@
+"use client"
 const fs = require('fs')
 const globby = require('globby')
 const addPage = (page) => {
   const path = page
-    .replace('src/pages/', '')
+    .replace('pages/', '')
     .replace('.js', '')
     .replace('.mdx', '')
     .replace('.jsx', '')
@@ -26,10 +27,10 @@ const addPage = (page) => {
  const generateSitemap = async () => {
   // excludes Nextjs files and API routes.
   const pages = await globby([
-    'src/pages/**/*{.js,.jsx,.ts,.tsx,.mdx}',
-    '!src/pages/_*.js',
-    '!src/pages/api',
-    '!src/pages/_*.jsx'
+    'pages/**/*{.js,.jsx,.ts,.tsx,.mdx}',
+    '!pages/_*.js',
+    '!pages/api',
+    '!pages/_*.jsx'
   ])
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

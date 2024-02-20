@@ -1,35 +1,25 @@
-/** @type {import('next').NextConfig} */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
+/** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  trailingSlash: true,
   images: {
     unoptimized: true,
   },
-  webpack: (config) => {
-    // if (isServer) {
-    //   require('./scripts/sitemap-generator')
-    // }
+  devIndicators: {
+    buildActivity: false
+  },
+  trailingSlash: true,
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      require('./scripts/sitemap-generator')
+    }
     config.resolve.alias = {
       ...config.resolve.alias,
       apexcharts: path.resolve(__dirname, './node_modules/apexcharts-clevision')
     }
     return config
   },
-  // webpack: (config, { isServer }) => {
-  //   if (isServer) {
-  //     require('./scripts/sitemap-generator')
-  //   }
-  //   config.resolve.alias = {
-  //     ...config.resolve.alias,
-  //     apexcharts: path.resolve(__dirname, './node_modules/apexcharts-clevision')
-  //   }
-  //   return config
-  // },
-  devIndicators: {
-    buildActivity: false
-  }
 
 }
 

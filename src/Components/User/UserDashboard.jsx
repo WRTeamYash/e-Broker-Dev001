@@ -68,9 +68,9 @@ const UserDashboard = () => {
                 icon: "warning",
                 showCancelButton: false,
                 customClass: {
-                    confirmButton: 'Swal-buttons',
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
                 },
-                cancelButtonColor: "#d33",
                 confirmButtonText: "OK",
             });
             return false;
@@ -160,7 +160,7 @@ const UserDashboard = () => {
             offset: offsetdata.toString(),
             limit: limit.toString(),
             userid: isLoggedIn ? userCurrentId : "",
-            onSuccess: (response) => {
+            onSuccess: (response) => {  
                 setTotal(response.total);
                 setView(response.total_clicks);
                 const FeaturedListingData = response.data;

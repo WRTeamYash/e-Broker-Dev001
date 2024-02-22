@@ -61,6 +61,8 @@ export default function EditPropertyTabs() {
     const userData = useSelector(userSignUpData);
     const userId = userData?.data?.data?.id;
     const packageId = SettingsData?.package?.user_purchased_package[0]?.package_id;
+    const CurrencySymbol = SettingsData && SettingsData?.currency_symbol;
+
     const [value, setValue] = useState(0);
     const [getFacilities, setGetFacilities] = useState([]);
     const [uploadedImages, setUploadedImages] = useState([]);
@@ -868,7 +870,7 @@ export default function EditPropertyTabs() {
                                         <input
                                             type="number"
                                             id="prop_title_input"
-                                            placeholder="Enter Property Price ($)"
+                                            placeholder={`Enter Property Price (${CurrencySymbol})`}
                                             name="price"
                                             onChange={handleInputChange}
                                             value={tab1.price}
@@ -888,7 +890,7 @@ export default function EditPropertyTabs() {
                                                 <input
                                                     type="number"
                                                     id="prop_title_input"
-                                                    placeholder="Enter Property Price ($)"
+                                                    placeholder={`Enter Property Price (${CurrencySymbol})`}
                                                     name="price"
                                                     onChange={handleInputChange}
                                                     value={tab1.price}

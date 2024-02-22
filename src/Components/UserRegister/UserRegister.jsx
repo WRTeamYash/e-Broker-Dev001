@@ -34,7 +34,7 @@ const UserRegister = () => {
     const [username, setUsername] = useState(signupData?.data?.data?.name ? signupData?.data?.data?.name : "");
     const [email, setEmail] = useState(signupData?.data?.data?.email ? signupData?.data?.data?.email : "");
     const [mobile, setMobile] = useState(signupData?.data?.data?.mobile ? signupData?.data?.data?.mobile : "");
-    const [address, setAddress] = useState(null);
+    const [address, setAddress] = useState();
     const [image, setImage] = useState();
     const fileInputRef = useRef(null);
 

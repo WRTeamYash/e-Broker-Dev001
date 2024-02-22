@@ -250,7 +250,7 @@ export default function VerticleLayout(props) {
 
     const handleDeleteAcc = async() => {
 
-        if (settingsData.demo_mode === true) {
+        if (settingData && settingData.demo_mode === true) {
             Swal.fire({
                 title: "Opps!",
                 text: "This Action is Not Allowed in Demo Mode",
@@ -262,7 +262,7 @@ export default function VerticleLayout(props) {
                 },
                 confirmButtonText: "OK",
             });
-            return false;
+            return; // Stop further execution
         }
 
 
@@ -308,7 +308,7 @@ export default function VerticleLayout(props) {
                         }
                     });
             } else {
-                toast.error(translate("logoutcancel"));
+                console.log("delete account process canceled ")
             }
         });
     };

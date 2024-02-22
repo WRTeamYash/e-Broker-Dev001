@@ -147,14 +147,14 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
                                 onClose(); // Close the modal
 
                             }
-                            settingsLoadedLogin(
-                                null,
-                                signupData?.id,
-                                (res) => { },
-                                (error) => {
-                                    console.log(error);
-                                }
-                            );
+                            // settingsLoadedLogin(
+                            //     null,
+                            //     signupData?.id,
+                            //     (res) => { },
+                            //     (error) => {
+                            //         console.log(error);
+                            //     }
+                            // );
                         }
                     },
                     (err) => {

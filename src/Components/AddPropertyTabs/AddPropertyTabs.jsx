@@ -64,7 +64,7 @@ export default function AddPropertyTabs() {
     const userData = useSelector(userSignUpData);
     const userId = userData?.data?.data?.id;
     const packageId = PackageData?.package?.user_purchased_package[0]?.package_id;
-
+    const CurrencySymbol = PackageData && PackageData.currency_symbol;
     const Categorydata = useSelector(categoriesCacheData);
     const lang = useSelector(languageData);
 
@@ -678,8 +678,8 @@ export default function AddPropertyTabs() {
                                         {/* Map over Categories and set the 'value' of each option to the 'id' */}
                                         {Categorydata &&
                                             Categorydata.map((ele, index) => (
-                                                <option key={index} value={ele.id}>
-                                                    {ele.category}
+                                                <option key={index} value={ele?.id}>
+                                                    {ele?.category}
                                                 </option>
                                             ))}
                                     </select>
@@ -694,7 +694,7 @@ export default function AddPropertyTabs() {
                                         <input
                                             type="number"
                                             id="prop_title_input"
-                                            placeholder="Enter Property Price ($)"
+                                            placeholder={`Enter Property Price (${CurrencySymbol})`}
                                             name="price"
                                             onChange={handleInputChange}
                                             value={tab1.price}
@@ -714,7 +714,7 @@ export default function AddPropertyTabs() {
                                                 <input
                                                     type="number"
                                                     id="prop_title_input"
-                                                    placeholder="Enter Property Price ($)"
+                                                    placeholder={`Enter Property Price (${CurrencySymbol})`}
                                                     name="price"
                                                     onChange={handleInputChange}
                                                     value={tab1.price}
@@ -836,16 +836,16 @@ export default function AddPropertyTabs() {
                             categoryParameters.map((ele, index) => (
                                 <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
                                     <div className="add_prop_fields">
-                                        <span>{ele.name}</span>
+                                        <span>{ele?.name}</span>
 
-                                        {ele.type_of_parameter === "number" ? (
+                                        {ele?.type_of_parameter === "number" ? (
                                             <>
                                                 <input
-                                                    value={tab2[ele.id] || ""}
+                                                    value={tab2[ele?.id] || ""}
                                                     type="number"
                                                     className="prop_number_input"
-                                                    id={`prop_title_input_${ele.id}`}
-                                                    onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}
+                                                    id={`prop_title_input_${ele?.id}`}
+                                                    onChange={(e) => handleTab2InputChange(ele?.id, e.target.value)}
                                                     onInput={(e) => {
                                                         if (e.target.value < 0) {
                                                             e.target.value = 0;
@@ -853,20 +853,20 @@ export default function AddPropertyTabs() {
                                                     }}
                                                 />
                                             </>
-                                        ) : ele.type_of_parameter === "checkbox" ? (
+                                        ) : ele?.type_of_parameter === "checkbox" ? (
                                             <>
                                                 <div className="row paramters_row">
-                                                    {ele.type_values.map((option, optionIndex) => (
+                                                    {ele?.type_values.map((option, optionIndex) => (
                                                         <div className="col-sm-12" key={optionIndex}>
                                                             <div className="custom-checkbox">
                                                                 <input
                                                                     type="checkbox"
-                                                                    id={`checkbox_${ele.id}_${optionIndex}`}
+                                                                    id={`checkbox_${ele?.id}_${optionIndex}`}
                                                                     className="custom-checkbox-input"
-                                                                    checked={tab2[`${ele.id}_${optionIndex}`] || false}
-                                                                    onChange={(e) => handleCheckboxChange(`${ele.id}_${optionIndex}`, e.target.checked)}
+                                                                    checked={tab2[`${ele?.id}_${optionIndex}`] || false}
+                                                                    onChange={(e) => handleCheckboxChange(`${ele?.id}_${optionIndex}`, e.target.checked)}
                                                                 />
-                                                                <label htmlFor={`checkbox_${ele.id}_${optionIndex}`} className="custom-checkbox-label">
+                                                                <label htmlFor={`checkbox_${ele?.id}_${optionIndex}`} className="custom-checkbox-label">
                                                                     {option}
                                                                 </label>
                                                             </div>
@@ -874,25 +874,25 @@ export default function AddPropertyTabs() {
                                                     ))}
                                                 </div>
                                             </>
-                                        ) : ele.type_of_parameter === "textbox" ? (
-                                            <input type="text" className="prop_textbox_input" id={`textbox_${ele.id}`} value={tab2[ele.id] || ""} onChange={(e) => handleTab2InputChange(ele.id, e.target.value)} />
-                                        ) : ele.type_of_parameter === "textarea" ? (
-                                            <textarea className="prop_textarea_input" rows={4} id={`textarea_${ele.id}`} value={tab2[ele.id] || ""} onChange={(e) => handleTab2InputChange(ele.id, e.target.value)} />
-                                        ) : ele.type_of_parameter === "radiobutton" ? (
+                                        ) : ele?.type_of_parameter === "textbox" ? (
+                                            <input type="text" className="prop_textbox_input" id={`textbox_${ele?.id}`} value={tab2[ele?.id] || ""} onChange={(e) => handleTab2InputChange(ele?.id, e.target.value)} />
+                                        ) : ele?.type_of_parameter === "textarea" ? (
+                                            <textarea className="prop_textarea_input" rows={4} id={`textarea_${ele?.id}`} value={tab2[ele?.id] || ""} onChange={(e) => handleTab2InputChange(ele?.id, e.target.value)} />
+                                        ) : ele?.type_of_parameter === "radiobutton" ? (
                                             <>
                                                 <div className="row paramters_row">
-                                                    {ele.type_values.map((option, optionIndex) => (
+                                                    {ele?.type_values.map((option, optionIndex) => (
                                                         <div className="col-sm-12" key={optionIndex}>
                                                             <div className="custom-radio">
                                                                 <input
                                                                     type="radio"
-                                                                    id={`radio_${ele.id}_${optionIndex}`}
-                                                                    name={`radio_${ele.id}`}
+                                                                    id={`radio_${ele?.id}_${optionIndex}`}
+                                                                    name={`radio_${ele?.id}`}
                                                                     className="custom-checkbox-input"
-                                                                    checked={tab2[ele.id] === option}
-                                                                    onChange={(e) => handleRadioChange(ele.id, option)}
+                                                                    checked={tab2[ele?.id] === option}
+                                                                    onChange={(e) => handleRadioChange(ele?.id, option)}
                                                                 />
-                                                                <label htmlFor={`radio_${ele.id}_${optionIndex}`} className="custom-checkbox-label">
+                                                                <label htmlFor={`radio_${ele?.id}_${optionIndex}`} className="custom-checkbox-label">
                                                                     {option}
                                                                 </label>
                                                             </div>
@@ -900,27 +900,27 @@ export default function AddPropertyTabs() {
                                                     ))}
                                                 </div>
                                             </>
-                                        ) : ele.type_of_parameter === "dropdown" ? (
+                                        ) : ele?.type_of_parameter === "dropdown" ? (
                                             <div className="custom-dropdown">
-                                                <select id={`dropdown_${ele.id}`} name={`dropdown_${ele.id}`} value={tab2[ele.id] || ""} onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}>
-                                                    {ele.type_values.map((option, optionIndex) => (
+                                                <select id={`dropdown_${ele?.id}`} name={`dropdown_${ele?.id}`} value={tab2[ele?.id] || ""} onChange={(e) => handleTab2InputChange(ele?.id, e.target.value)}>
+                                                    {ele?.type_values.map((option, optionIndex) => (
                                                         <option key={optionIndex} value={option}>
                                                             {option}
                                                         </option>
                                                     ))}
                                                 </select>
                                             </div>
-                                        ) : ele.type_of_parameter === "file" ? (
+                                        ) : ele?.type_of_parameter === "file" ? (
                                             <>
-                                                <input type="file" id={`file-input_${ele.id}`} className="custom-file-input" onChange={updateFileInput(ele.id)} />
-                                                <label htmlFor={`file-input_${ele.id}`} className="custom-file01-label" id={`file-label_${ele.id}`}>
+                                                <input type="file" id={`file-input_${ele?.id}`} className="custom-file-input" onChange={updateFileInput(ele?.id)} />
+                                                <label htmlFor={`file-input_${ele?.id}`} className="custom-file01-label" id={`file-label_${ele?.id}`}>
                                                     Choose a file
                                                 </label>
-                                                {/* <p id={`selected-file-name_${ele.id}`}></p> */}
+                                                {/* <p id={`selected-file-name_${ele?.id}`}></p> */}
                                             </>
                                         ) : (
                                             // Handle other input types or provide a default component here
-                                            <input type="text" id={`default_${ele.id}`} />
+                                            <input type="text" id={`default_${ele?.id}`} />
                                         )}
                                     </div>
                                 </div>
@@ -947,8 +947,8 @@ export default function AddPropertyTabs() {
                             ? getFacilities.map((ele, index) => (
                                 <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
                                     <div className="add_prop_fields">
-                                        <span>{ele.name}</span>
-                                        <input value={tab3[ele.id] || ""} type="number" placeholder="00 KM" className="prop_number_input" id={`prop_title_input_${ele.id}`} onChange={(e) => handleTab3InputChange(ele.id, e.target.value)} />
+                                        <span>{ele?.name}</span>
+                                        <input value={tab3[ele?.id] || ""} type="number" placeholder="00 KM" className="prop_number_input" id={`prop_title_input_${ele?.id}`} onChange={(e) => handleTab3InputChange(ele?.id, e.target.value)} />
                                     </div>
                                 </div>
                             ))

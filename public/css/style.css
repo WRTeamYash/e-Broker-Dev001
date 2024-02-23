@@ -1630,7 +1630,7 @@ button.learn-more .button-text {
   color: var(--primary-text-color01);
   position: absolute;
   padding: 0 12px;
-  width: 65px;
+  width: max-content;
   margin-top: -30px;
   text-align: center;
 }

@@ -51,6 +51,7 @@ import { isSubscribeRoutes } from "@/routes/routes.jsx";
 import { usePathname } from 'next/navigation'
 import { isSupported } from "firebase/messaging";
 import { settingsApi } from "@/hooks/settingsApi.jsx";
+import { useQuery } from "@tanstack/react-query";
 
 const drawerWidth = 240;
 

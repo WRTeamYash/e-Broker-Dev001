@@ -34,7 +34,7 @@ const PropertyDetails = () => {
     const router = useRouter();
     const propId = router.query;
     const currentUrl = process.env.NEXT_PUBLIC_WEB_URL + router.asPath;
-    const { isLoaded } = loadGoogleMaps();
+    // const { isLoaded } = loadGoogleMaps();
     const [isMessagingSupported, setIsMessagingSupported] = useState(false);
     const [notificationPermissionGranted, setNotificationPermissionGranted] = useState(false);
     const [isReporteModal, setIsReporteModal] = useState(false);
@@ -150,10 +150,10 @@ const PropertyDetails = () => {
 
 
     const closeLightbox = () => {
-        if (viewerIsOpen) {
+        // if (viewerIsOpen) {
             setCurrentImage(0);
             setViewerIsOpen(false);
-        }
+        // }
     };
     const handleShowMap = () => {
         setShowMap(true);
@@ -291,7 +291,6 @@ const PropertyDetails = () => {
     }, [getPropData?.id])
 
 
-
     return (
         <>
             {isLoading ? (
@@ -397,7 +396,10 @@ const PropertyDetails = () => {
                                         </div>
                                     </div>
                                 }
-                                <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={closeLightbox} title_image={getPropData?.title_image} setViewerIsOpen={setViewerIsOpen} />
+
+                                {/* {viewerIsOpen && */}
+                                <LightBox  photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={setViewerIsOpen} title_image={getPropData?.title_image} setViewerIsOpen={setViewerIsOpen} />
+                                {/* } */}
 
                                 <div className="row" id="prop-all-deatils-cards">
                                     <div className="col-12 col-md-12 col-lg-9" id="prop-deatls-card">

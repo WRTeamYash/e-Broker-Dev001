@@ -45,11 +45,12 @@ import { languageData } from "@/store/reducer/languageSlice.js";
 import { deleteUserApi } from "@/store/actions/campaign.js"
 import { store } from "@/store/store.js";
 import Image from "next/image";
-import { settingsData, settingsLoaded } from "@/store/reducer/settingsSlice.js";
+import { settingsData, settingsLoaded, settingsSucess } from "@/store/reducer/settingsSlice.js";
 import { getAuth, deleteUser } from 'firebase/auth';
 import { isSubscribeRoutes } from "@/routes/routes.jsx";
 import { usePathname } from 'next/navigation'
 import { isSupported } from "firebase/messaging";
+import { settingsApi } from "@/hooks/settingsApi.jsx";
 
 const drawerWidth = 240;
 
@@ -122,24 +123,32 @@ export default function VerticleLayout(props) {
 
     const [isMessagingSupported, setIsMessagingSupported] = useState(false);
     const [notificationPermissionGranted, setNotificationPermissionGranted] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const settingData = useSelector(settingsData);
-    useEffect(() => {
-        settingsLoaded(
-            null,
-            isLoggedIn ? userCurrentId : "",
-            (res) => {
-                document.documentElement.style.setProperty('--primary-color', res?.data?.system_color);
-                document.documentElement.style.setProperty('--primary-category-background', res?.data?.category_background);
-                document.documentElement.style.setProperty('--primary-sell', res?.data?.sell_background);
-            },
-            (err) => {
-                console.log(err);
-            }
-        );
-    }, [isLoggedIn, settingData?.svg_clr]);
+
+      // api call
+      const SetSystemSettingsApi = async () => {
+        try {
+            const { data } = await settingsApi.getSettingsApi({
+                user_id: isLoggedIn ? userCurrentId : "",
+            })
+            dispatch(settingsSucess(data));
+            console.log("data", data)
+            document.documentElement.style.setProperty('--primary-color', data?.data?.system_color);
+            document.documentElement.style.setProperty('--primary-category-background', data?.data?.category_background);
+            document.documentElement.style.setProperty('--primary-sell', data?.data?.sell_background);
+            return data.data ?? null
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    // react query
+    const { isLoading, data } = useQuery({
+        queryKey: ['systemSettingsData', isLoggedIn, settingData?.svg_clr],
+        queryFn: SetSystemSettingsApi
+    })
 
     useEffect(() => {
         const checkMessagingSupport = async () => {

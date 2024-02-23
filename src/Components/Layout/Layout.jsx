@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { languageData } from "@/store/reducer/languageSlice";
 import Loader from "../Loader/Loader";
-import { settingsData, settingsLoaded } from "@/store/reducer/settingsSlice";
+import { settingsData, settingsLoaded, settingsSucess } from "@/store/reducer/settingsSlice";
 import under_maintain from '../../../public/under_maintain.svg'
 import { translate } from "@/utils";
 import Image from "next/image";
@@ -13,29 +13,38 @@ import { useRouter } from "next/router";
 import { protectedRoutes } from "@/routes/routes";
 import { usePathname } from "next/navigation";
 import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
+import { settingsApi } from "@/hooks/settingsApi";
 
 const Layout = ({ children }) => {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoadinggggg, setIsLoading] = useState(true);
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const router = useRouter()
     const settingData = useSelector(settingsData);
+    const dispatch = useDispatch()
 
-    useEffect(() => {
-        settingsLoaded(
-            null,
-            isLoggedIn ? userCurrentId : "",
-            (res) => {
-                setIsLoading(false);
-                document.documentElement.style.setProperty('--primary-color', res?.data?.system_color);
-                document.documentElement.style.setProperty('--primary-category-background', res?.data?.category_background);
-                document.documentElement.style.setProperty('--primary-sell', res?.data?.sell_background);
-            },
-            (err) => {
-                console.log(err);
-            }
-        );
-    }, [isLoggedIn, settingData?.svg_clr]);
+
+    // api call
+    const SetSystemSettingsApi = async () => {
+        try {
+            const { data } = await settingsApi.getSettingsApi({
+                user_id: isLoggedIn ? userCurrentId : "",
+            })
+            dispatch(settingsSucess(data));
+            document.documentElement.style.setProperty('--primary-color', data?.data?.system_color);
+            document.documentElement.style.setProperty('--primary-category-background', data?.data?.category_background);
+            document.documentElement.style.setProperty('--primary-sell', data?.data?.sell_background);
+            return data.data ?? null
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    // react query
+    const { isLoading, data } = useQuery({
+        queryKey: ['systemSettingsData', isLoggedIn, settingData?.svg_clr],
+        queryFn: SetSystemSettingsApi
+    })
 
     const pathname = usePathname();
 

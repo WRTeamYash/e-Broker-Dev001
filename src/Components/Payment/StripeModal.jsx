@@ -70,7 +70,7 @@ const StripeModal = (props) => {
             props?.resetFormAndCardNumber();
 
 
-        } else if (paymentIntent.status === "succeeded") {
+        } else if (paymentIntent?.status === "succeeded") {
             confirmPaymentApi(
                 props?.client_key?.id,
                 (res) => {

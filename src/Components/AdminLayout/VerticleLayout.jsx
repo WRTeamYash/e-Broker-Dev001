@@ -40,9 +40,9 @@ import { useRouter } from "next/router.js";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import { RiAdvertisementLine } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { languageData } from "@/store/reducer/languageSlice.js";
-import { deleteUserApi } from "@/store/actions/campaign.js"
+import { GetLimitsApi, deleteUserApi } from "@/store/actions/campaign.js"
 import { store } from "@/store/store.js";
 import Image from "next/image";
 import { settingsData, settingsLoaded, settingsSucess } from "@/store/reducer/settingsSlice.js";
@@ -128,15 +128,14 @@ export default function VerticleLayout(props) {
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const settingData = useSelector(settingsData);
-
-      // api call
-      const SetSystemSettingsApi = async () => {
+    const dispatch = useDispatch()
+    // api call
+    const SetSystemSettingsApi = async () => {
         try {
             const { data } = await settingsApi.getSettingsApi({
                 user_id: isLoggedIn ? userCurrentId : "",
             })
             dispatch(settingsSucess(data));
-            console.log("data", data)
             document.documentElement.style.setProperty('--primary-color', data?.data?.system_color);
             document.documentElement.style.setProperty('--primary-category-background', data?.data?.category_background);
             document.documentElement.style.setProperty('--primary-sell', data?.data?.sell_background);
@@ -258,7 +257,7 @@ export default function VerticleLayout(props) {
 
 
 
-    const handleDeleteAcc = async() => {
+    const handleDeleteAcc = async () => {
 
         if (settingData && settingData.demo_mode === true) {
             Swal.fire({
@@ -324,7 +323,7 @@ export default function VerticleLayout(props) {
     };
 
 
-    
+
     const handleChat = () => {
         if (settingData && settingData.demo_mode === true) {
             Swal.fire({
@@ -376,7 +375,21 @@ export default function VerticleLayout(props) {
             });
         }
     }
+    const handleCheckLimits = () => {
 
+        
+        GetLimitsApi(
+            "property",
+            (response) => {
+                console.log(response)
+                router.push("/user/properties");
+            },
+            (error) => {
+                console.log("API Error:", error);
+            }
+        );
+  
+    }
 
 
     return (
@@ -499,29 +512,30 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </Link>
                     </ListItem>
-                    <Link href="/user/properties">
-                        <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/properties') ? 'drawer_list_item_active' : 'drawer_list_item'}>
-                            <ListItemButton
+                    {/* <Link href="/user/properties"> */}
+
+                    <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/properties') ? 'drawer_list_item_active' : 'drawer_list_item'} onClick={handleCheckLimits}>
+                        <ListItemButton
+                            sx={{
+                                minHeight: 30,
+                                justifyContent: open ? "initial" : "center",
+                                px: 2.5,
+                            }}
+                        >
+                            <ListItemIcon
+                                className={isRouteActive('/user/properties') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
                                 sx={{
-                                    minHeight: 30,
-                                    justifyContent: open ? "initial" : "center",
-                                    px: 2.5,
+                                    minWidth: 0,
+                                    mr: open ? 3 : "auto",
+                                    justifyContent: "center",
                                 }}
                             >
-                                <ListItemIcon
-                                    className={isRouteActive('/user/properties') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : "auto",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <AddHomeOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={translate("properties")} sx={{ opacity: open ? 1 : 0 }} />
-                            </ListItemButton>
-                        </ListItem>
-                    </Link>
+                                <AddHomeOutlinedIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={translate("properties")} sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
+                    </ListItem>
+                    {/* </Link> */}
                     <Link href="/user/favorites-properties">
                         <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/favorites-properties') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                             <ListItemButton

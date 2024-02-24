@@ -407,12 +407,12 @@ export const getFacilities = () => {
 }
 
 // GET_COUNT_BY_CITIES_CATEGORIS
-export const getLimits = (id) => {
+export const getLimits = ( package_type) => {
     return {
         url: `${GET_LIMITS}`,
         method: "GET",
         params: {
-            id: id
+            package_type:package_type
         },
         authorizationHeader: true,
 

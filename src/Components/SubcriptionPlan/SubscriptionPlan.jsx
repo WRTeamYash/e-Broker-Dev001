@@ -167,21 +167,22 @@ const SubscriptionPlan = () => {
             toast.error("Please Login first");
             return false;
         }
+        setPriceData(data);
         // here condition based on if before subscription is active
         if (isUserLogin) {
             paymentModalChecker(e);
         }
 
 
-        setPriceData(data);;
     };
 
     // paymentModalChecker
     const paymentModalChecker = (e) => {
         e.preventDefault();
-        if (priceData.price !== 0) {
+        if (priceData?.price !== 0) {
             setStripeFormModal(true);
         } else {
+            setStripeFormModal(false);
             assignFreePackageApi(
                 priceData.id,
                 (res) => {
@@ -291,6 +292,9 @@ const SubscriptionPlan = () => {
         }
     };
 
+    useEffect(() => {
+    }, [priceData])
+    
     return (
         <Layout>
             <Breadcrumb title={translate("subscriptionPlan")} />

@@ -297,10 +297,10 @@ export const PostProperty = (
     );
 };
 // GET LIMITS API
-export const GetLimitsApi = (id, onSuccess, onError, onStart) => {
+export const GetLimitsApi = (package_type, onSuccess, onError, onStart) => {
     store.dispatch(
         apiCallBegan({
-            ...getLimits(id),
+            ...getLimits(package_type),
             displayToast: false,
             onStart,
             onSuccess,

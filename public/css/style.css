@@ -6439,6 +6439,9 @@ a {
     width: 100%;
   }
 }
+.user_packages{
+  gap: 20px 0;
+}
 #subscription_card {
   border: none;
   border-radius: 8px;
@@ -7909,3 +7912,24 @@ embed svg path {
     display: none;
   }
 }
+
+/* Custom Scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
+
+
+
+
+

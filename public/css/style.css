@@ -7867,3 +7867,36 @@ embed svg path {
 .css-pwxzbm{
   overflow: visible !important; 
 }
+
+.gallarybox_prevButton {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallarybox_nextButton {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media only screen and (max-width:1440px) {
+  .gallarybox_prevButton , .gallarybox_nextButton{
+    display: none;
+  }
+}

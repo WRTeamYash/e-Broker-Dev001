@@ -398,7 +398,7 @@ const PropertyDetails = () => {
                                 }
 
                                 {/* {viewerIsOpen && */}
-                                <LightBox  photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={setViewerIsOpen} title_image={getPropData?.title_image} setViewerIsOpen={setViewerIsOpen} />
+                                <LightBox  photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={setViewerIsOpen} title_image={getPropData?.title_image} setViewerIsOpen={setViewerIsOpen} setCurrentImage={setCurrentImage}/>
                                 {/* } */}
 
                                 <div className="row" id="prop-all-deatils-cards">

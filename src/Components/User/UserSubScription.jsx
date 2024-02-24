@@ -24,13 +24,13 @@ const UserSubScription = () => {
     const CurrencySymbol = packageDetails && packageDetails?.currency_symbol;
     // Add checks to ensure currentUserPackage is defined and has at least one element
 
-    useEffect(() => {
-        if (!packagedata || packagedata.length === 0) {
-            // toast.error("Opps! No Package Found!!!")
-            router.push('/')
+    // useEffect(() => {
+    //     if (!packagedata && packagedata.length === 0) {
+    //         // toast.error("Opps! No Package Found!!!")
+    //         router.push('/')
 
-        }
-    }, [packagedata])
+    //     }
+    // }, [packagedata])
 
    
     const lang = useSelector(languageData);

@@ -1139,6 +1139,8 @@ body {
 #specification {
   display: flex;
   gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
 }
 #viewall_hero_prop {
   padding-top: 20px;
@@ -3640,6 +3642,8 @@ option {
   padding: 5px;
   border-radius: 8px;
   background: var(--primary-category-background);
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -4621,12 +4625,8 @@ a {
   width: 100%;
   height: 499px;
 }
-#subscription #current_package_card .other_card_title {
-  background-color: #ffffff14 !important;
-  border-radius: 8px !important;
-  /* box-shadow: 1px 1px 5px 5px #FFFFFF14; */
-  opacity: 1;
-}
+
+
 
 .stripemodal .stripebtn {
   background-color: var(--primary-color);
@@ -4704,7 +4704,16 @@ a {
 }
 #subscription #package_headlines .other_card_title {
   background: #ffffff14;
-  width: 160px;
+  width: max-content;
+  color: var(--primary-text-color01);
+  padding: 10px 20px;
+  border-radius: 12px;
+}
+#subscription #current_package_card .current_package_card_title {
+  background-color: #282f39 !important;
+  border-radius: 8px !important;
+  opacity: 1;
+  width: max-content;
   color: var(--primary-text-color01);
   padding: 10px 20px;
   border-radius: 12px;

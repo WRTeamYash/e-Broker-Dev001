@@ -169,12 +169,11 @@ const SubscriptionPlan = () => {
         }
         // here condition based on if before subscription is active
         if (isUserLogin) {
-            setPreviusSubsscriptionModal(true);
+            paymentModalChecker(e);
         }
 
 
-        setPriceData(data);
-        // paymentModalChecker(e);
+        setPriceData(data);;
     };
 
     // paymentModalChecker
@@ -284,14 +283,14 @@ const SubscriptionPlan = () => {
             payemnttypes: "",
             packageid: "",
         });
-        
+
         // Clear the card number
         const cardElement = elements.getElement(CardElement);
         if (cardElement) {
             cardElement.clear();
         }
     };
-    
+
     return (
         <Layout>
             <Breadcrumb title={translate("subscriptionPlan")} />
@@ -355,7 +354,7 @@ const SubscriptionPlan = () => {
                                             <SwiperSlide key={index}>
                                                 <div className="card text-white" id={`${elem.is_active ? "current_package_card" : "other_package_card"}`}>
                                                     <div id="package_headlines">
-                                                        <span className="other_card_title">{elem.name}</span>
+                                                        <span className={`${elem.is_active ? "current_package_card_title" : "other_card_title"}`}>{elem?.name}</span>
                                                         <h1 className="card_text">
                                                             {
                                                                 elem.price !== 0
@@ -425,13 +424,13 @@ const SubscriptionPlan = () => {
             </section>
 
             {/* warning modal */}
-            <Modal
+            {/* <Modal
                 title="Warning"
                 centered
                 open={previusSubsscriptionModal}
                 onOk={(e) => {
                     setPreviusSubsscriptionModal(false);
-                    paymentModalChecker(e);
+                   
                 }}
                 onCancel={() => setPreviusSubsscriptionModal(false)}
                 className="warning_modal"
@@ -441,7 +440,7 @@ const SubscriptionPlan = () => {
                     <br />
                    {translate("Subscribing to this package will cancel your prevoius subscription, are you sure you want to proceed.")}
                 </p>
-            </Modal>
+            </Modal> */}
 
             {/* stripe element */}
             <Modal centered open={paymentModal} footer={null} onCancel={closeStripeModal}>

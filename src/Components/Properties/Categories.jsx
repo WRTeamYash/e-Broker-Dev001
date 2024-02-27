@@ -35,7 +35,7 @@ const Categories = () => {
 
     const router = useRouter();
     const cateId = router.query;
-
+    console.log("cateId", cateId)
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
 

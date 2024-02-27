@@ -16,22 +16,6 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
     const [selectedOption, setSelectedOption] = useState("HomeScreen");
     const [uploadedImages, setUploadedImages] = useState([]);
 
-    const packageDetails = useSelector(settingsData);
-    const currentUserPackage = packageDetails?.package?.user_purchased_package;
-
-    // Add checks to ensure currentUserPackage is defined and has at least one element
-    useEffect(() => {
-        if (!currentUserPackage || currentUserPackage.length === 0) {
-            // toast.error("Opps! No Package Found!!!")
-            router.push('/')
-
-        }
-    }, [currentUserPackage])
-
-
-
-    const packageId = currentUserPackage && currentUserPackage[0]?.package.id;
-
     const router = useRouter();
 
     const handleOptionChange = (option) => {
@@ -45,7 +29,6 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
     useEffect(() => { }, [uploadedImages]);
     const handleFeature = () => {
         featurePropertyApi(
-            packageId,
             propertyId,
             selectedOption,
             uploadedImages[0] ? uploadedImages[0] : "",

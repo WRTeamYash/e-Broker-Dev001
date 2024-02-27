@@ -4,7 +4,7 @@ import ProgressBar from "../ProgressBar/ProgressBar.jsx";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import { useSelector } from "react-redux";
 import { settingsData } from "@/store/reducer/settingsSlice";
-import {  getPackagesApi } from "@/store/actions/campaign";
+import { getPackagesApi } from "@/store/actions/campaign";
 import { Progress } from "antd";
 import { translate } from "@/utils/index.js";
 import { languageData } from "@/store/reducer/languageSlice.js";
@@ -19,7 +19,7 @@ const UserSubScription = () => {
 
     const [packagedata, setPackageData] = useState([]);
     const packageDetails = useSelector(settingsData);
-    
+
     const router = useRouter()
     const CurrencySymbol = packageDetails && packageDetails?.currency_symbol;
     // Add checks to ensure currentUserPackage is defined and has at least one element
@@ -32,7 +32,7 @@ const UserSubScription = () => {
     //     }
     // }, [packagedata])
 
-   
+
     const lang = useSelector(languageData);
 
     useEffect(() => { }, [lang]);
@@ -44,8 +44,9 @@ const UserSubScription = () => {
 
     useEffect(() => {
         getPackagesApi(
-            (res) => { 
-                const filteredData = res.data.filter(item => item?.is_active === 1);
+            (res) => {
+                const filteredData = res?.data.filter(item => item?.is_active === 1);
+                console.log(filteredData)
                 setPackageData(filteredData);
             },
             (err) => {
@@ -117,22 +118,26 @@ const UserSubScription = () => {
                                     <hr />
                                     <div id="subscription_details">
                                         <div className="row" id="subscription_card_row">
-                                            <div className="col-sm-12 col-md-6 col-lg-4" id="subscription_progress_cards">
-                                                <div className="property_count_card">
-                                                    <span>{translate("property")}</span>
-                                                    <div className="progress_bar_div">
-                                                        <ProgressBar usedLimit={ele?.used_limit_for_property} totalLimit={ele?.property_limit} />
+                                            {ele?.type !== "premium_user" &&
+                                                <div className="col-sm-12 col-md-6 col-lg-4" id="subscription_progress_cards">
+                                                    <div className="property_count_card">
+                                                        <span>{translate("property")}</span>
+                                                        <div className="progress_bar_div">
+                                                            <ProgressBar usedLimit={ele?.used_limit_for_property} totalLimit={ele?.property_limit} />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="col-sm-12 col-md-6 col-lg-4" id="subscription_progress_cards">
-                                                <div className="advertisement_count_card">
-                                                    <span>{translate("advertisement")}</span>
-                                                    <div className="progress_bar_div">
-                                                        <ProgressBar usedLimit={ele?.used_limit_for_advertisement} totalLimit={ele?.advertisement_limit} />
+                                            }
+                                            {ele?.type !== "premium_user" &&
+                                                <div className="col-sm-12 col-md-6 col-lg-4" id="subscription_progress_cards">
+                                                    <div className="advertisement_count_card">
+                                                        <span>{translate("advertisement")}</span>
+                                                        <div className="progress_bar_div">
+                                                            <ProgressBar usedLimit={ele?.used_limit_for_advertisement} totalLimit={ele?.advertisement_limit} />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            }
                                             <div className="col-sm-12 col-md-6 col-lg-4" id="subscription_progress_cards">
                                                 <div className="remaining_count_card">
                                                     <span>{translate("remaining")}</span>

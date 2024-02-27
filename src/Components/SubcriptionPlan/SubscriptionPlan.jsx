@@ -371,7 +371,7 @@ const SubscriptionPlan = () => {
 
                                                     <div className="subs_other_content">
                                                         <div className="limits">
-                                                            {elem.advertisement_limit !== "not_available" ? (
+                                                            {elem.type !== "premium_user" ? (
                                                                 <span className="limits_content">
                                                                     <span>
                                                                         <BiSolidCheckCircle size={20} />{" "}
@@ -379,7 +379,7 @@ const SubscriptionPlan = () => {
                                                                     <span> {translate("Advertisement limit is :")} {elem.advertisement_limit === "unlimited" ? "Unlimited" : elem.advertisement_limit} </span>
                                                                 </span>
                                                             ) : null}
-                                                            {elem.property_limit !== "not_available"
+                                                            {elem.type !== "premium_user"
                                                                 ? (
                                                                     <span className="limits_content">
                                                                         <span>

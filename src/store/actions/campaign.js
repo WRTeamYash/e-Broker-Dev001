@@ -257,38 +257,40 @@ export const GetFacilitiesApi = (onSuccess, onError, onStart) => {
     );
 };
 
-export const PostProperty = (
-    userid,
-    package_id,
-    title,
-    description,
-    city,
-    state,
-    country,
-    latitude,
-    longitude,
-    address,
-    price,
-    category_id,
-    property_type,
-    video_link,
-    parameters,
-    facilities,
-    title_image,
-    threeD_image,
-    gallery_images,
-    meta_title,
-    meta_description,
-    meta_keywords,
-    meta_image,
-    rentduration,
-    onSuccess,
-    onError,
-    onStart
+export const PostProperty = ({
+
+    userid = "",
+    title = "",
+    description = "",
+    city = "",
+    state = "",
+    country = "",
+    latitude = "",
+    longitude = "",
+    address = "",
+    price = "",
+    category_id = "",
+    property_type = "",
+    video_link = "",
+    parameters = [],
+    facilities = [],
+    title_image = {},
+    threeD_image = {},
+    gallery_images = [],
+    meta_title = "",
+    meta_description = "",
+    meta_keywords = "",
+    meta_image = {},
+    rentduration = "",
+    is_premium = "",
+    onSuccess = () => { },
+    onError = () => { },
+    onStart = () => { }
+}
 ) => {
     store.dispatch(
         apiCallBegan({
-            ...postProperty(userid, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, meta_title, meta_description, meta_keywords, meta_image, rentduration),
+            ...postProperty(userid, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, meta_title, meta_description, meta_keywords, meta_image, rentduration, is_premium),
             displayToast: false,
             onStart,
             onSuccess,
@@ -322,43 +324,43 @@ export const getPaymentDetialsApi = (offset, limit, onSuccess, onError, onStart)
     );
 };
 
-export const UpdatePostProperty = (
-    action_type,
-    id,
-    package_id,
-    title,
-    description,
-    city,
-    state,
-    country,
-    latitude,
-    longitude,
-    address,
-    price,
-    category_id,
-    property_type,
-    video_link,
-    parameters,
-    facilities,
-    title_image,
-    threeD_image,
-    gallery_images,
-    slug_id,
-    meta_title,
-    meta_description,
-    meta_keywords,
-    meta_image,
-    rentduration,
-    onSuccess,
-    onError,
-    onStart
+export const UpdatePostProperty = ({
+    action_type = "",
+    id = "",
+    title = "",
+    description = "",
+    city = "",
+    state = "",
+    country = "",
+    latitude = "",
+    longitude = "",
+    address = "",
+    price = "",
+    category_id = "",
+    property_type = "",
+    video_link = "",
+    parameters = [],
+    facilities = [],
+    title_image = {},
+    threeD_image = {},
+    gallery_images = [],
+    slug_id = "",
+    meta_title = "",
+    meta_description = "",
+    meta_keywords = "",
+    meta_image = {},
+    rentduration = "",
+    is_premium ="",
+    onSuccess = () => { },
+    onError = () => { },
+    onStart = () => { }
+}
 ) => {
     store.dispatch(
         apiCallBegan({
             ...updatePostProperty(
                 action_type,
                 id,
-                package_id,
                 title,
                 description,
                 city,
@@ -381,7 +383,8 @@ export const UpdatePostProperty = (
                 meta_description,
                 meta_keywords,
                 meta_image,
-                rentduration
+                rentduration,
+                is_premium
             ),
             displayToast: false,
             onStart,
@@ -405,10 +408,10 @@ export const deletePropertyApi = (id, onSuccess, onError, onStart) => {
 };
 
 // FETAURE PROPERY
-export const featurePropertyApi = (package_id, property_id, type, image, onSuccess, onError, onStart) => {
+export const featurePropertyApi = (property_id, type, image, onSuccess, onError, onStart) => {
     store.dispatch(
         apiCallBegan({
-            ...featureProperty(package_id, property_id, type, image),
+            ...featureProperty(property_id, type, image),
             displayToast: false,
             onStart,
             onSuccess,

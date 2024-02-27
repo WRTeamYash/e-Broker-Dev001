@@ -375,20 +375,36 @@ export default function VerticleLayout(props) {
             });
         }
     }
-    const handleCheckLimits = () => {
-
-        
+    const handleCheckLimits = (e) => {
+        e.preventDefault()
         GetLimitsApi(
             "property",
             (response) => {
                 console.log(response)
-                router.push("/user/properties");
+                if (response.message === "Please Subscribe for Post Property") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Your Package Limit is Over. Please Purchase Package.",
+                        allowOutsideClick: false,
+                        customClass: {
+                            confirmButton: 'Swal-confirm-buttons',
+                        },
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            router.push("/subscription-plan"); // Redirect to the subscription page
+                        }
+                    });
+                } else {
+                    router.push("/user/properties");
+                }
             },
             (error) => {
                 console.log("API Error:", error);
             }
         );
-  
+
     }
 
 

@@ -60,7 +60,6 @@ export default function EditPropertyTabs() {
     const SettingsData = useSelector(settingsData);
     const userData = useSelector(userSignUpData);
     const userId = userData?.data?.data?.id;
-    const packageId = SettingsData?.package?.user_purchased_package[0]?.package_id;
     const CurrencySymbol = SettingsData && SettingsData?.currency_symbol;
 
     const [value, setValue] = useState(0);
@@ -81,7 +80,8 @@ export default function EditPropertyTabs() {
         title: "",
         price: "",
         propertyDesc: "",
-        rentduration: ""
+        rentduration: "",
+        isPrivate: false
     });
 
     const [tab2, setTab2] = useState({});
@@ -120,7 +120,8 @@ export default function EditPropertyTabs() {
             slug_id: propertyId,
             onSuccess: (response) => {
                 const propertyData = response?.data[0]; // Assuming data is an array and you want the first item
-
+                console.log(propertyData)
+                console.log(propertyData?.is_premium)
                 setLat(propertyData?.latitude);
                 setLng(propertyData?.longitude);
                 setIsLoading(false);
@@ -139,7 +140,8 @@ export default function EditPropertyTabs() {
                                     ? "Yearly"
                                     : propertyData.rentduration === "Quarterly"
                                         ? "Quarterly"
-                                        : ""
+                                        : "",
+                        isPrivate: propertyData?.is_premium
                     });
                     setSelectedLocationAddress({});
                 }
@@ -355,6 +357,12 @@ export default function EditPropertyTabs() {
         // Do something with the selected value, for example, update the state
         setTab1((prevTab1) => ({ ...prevTab1, rentduration: value }));
     };
+    const handleToggleChange = () => {
+        setTab1({ ...tab1, isPrivate: !tab1.isPrivate });
+    };
+    useEffect(() => {
+        console.log(tab1?.isPrivate)
+    }, [tab1?.isPrivate])
     const handleTab2InputChange = (fieldId, value) => {
         setTab2((prevData) => ({
             ...prevData,
@@ -711,16 +719,6 @@ export default function EditPropertyTabs() {
         else if (uploadedImages.length === 0) {
             // Display a toast message if Title Image is not selected
             toast.error("Please select a Title Image");
-        } else if (packageId === undefined) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "You have not subscribed. Please subscribe first",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    router.push("/subscription-plan"); // Redirect to the subscription page
-                }
-            });
         } else {
             const parameters = [];
             const facilities = [];
@@ -746,69 +744,42 @@ export default function EditPropertyTabs() {
             // Concatenate parameters and facilities into the allParameters array
             // Rest of your code remains the same
 
-            UpdatePostProperty(
-                "0",
-                "",
-                packageId ? packageId : "",
-                tab1.title,
-                tab1.propertyDesc,
-                selectedLocationAddress.city,
-                selectedLocationAddress.state,
-                selectedLocationAddress.country,
-                selectedLocationAddress.lat,
-                selectedLocationAddress.lng,
-                selectedLocationAddress.formatted_address,
-                tab1.price,
-                tab1.category,
-                tab1.propertyType,
-                tab5.videoLink,
-                parameters, // Pass the combined parameters as "allParameters"
-                facilities,
-                tab5.titleImage[0],
-                tab5._3DImages[0],
-                tab5.galleryImages,
-                propertyId,
-                tab6.MetaTitle,
-                tab6.MetaDesc,
-                tab6.MetaKeyword,
-                tab6.ogImages[0],
-                tab1.rentduration ? tab1.rentduration : "",
-                (response) => {
-                    if (response.message === "Package not found") {
-                        toast.error(response.message);
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "You have not subscribed. Please subscribe first",
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                router.push("/subscription-plan"); // Redirect to the subscription page
-                            }
-                        });
-                    } else if (response.message === "Package Limit is over") {
-                        // toast.error(response.message);
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Your Package Limit is Over. Please Purchase Package.",
-                            customClass: {
-                                confirmButton: 'Swal-confirm-buttons',
-                                cancelButton: "Swal-cancel-buttons"
-                            },
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                router.push("/subscription-plan"); // Redirect to the subscription page
-                            }
-                        });
-                    } else {
-                        toast.success(response.message);
-                        router.push("/user/dashboard");
-                    }
+            UpdatePostProperty({
+                action_type: "0",
+                slug_id: propertyId,
+                title: tab1.title,
+                description: tab1.propertyDesc,
+                price: tab1.price,
+                category_id: tab1.category,
+                property_type: tab1.propertyType,
+                rentduration: tab1.rentduration ? tab1.rentduration : "",
+                is_premium: tab1?.isPrivate,
+                city: selectedLocationAddress.city,
+                state: selectedLocationAddress.state,
+                country: selectedLocationAddress.country,
+                latitude: selectedLocationAddress.lat,
+                longitude: selectedLocationAddress.lng,
+                address: selectedLocationAddress.formatted_address,
+                parameters: parameters, // Pass the combined parameters as "allParameters"
+                facilities: facilities,
+                title_image: tab5.titleImage[0],
+                threeD_image: tab5._3DImages[0],
+                gallery_images: tab5.galleryImages,
+                video_link: tab5.videoLink,
+                meta_title: tab6.MetaTitle,
+                meta_description: tab6.MetaDesc,
+                meta_keywords: tab6.MetaKeyword,
+                meta_image: tab6.ogImages[0],
+                onSuccess: (response) => {
+                    toast.success(response.message);
+                    router.push("/user/dashboard");
+
                 },
-                (error) => {
+                onError: (error) => {
                     console.log(error);
                     toast.error(error);
                 }
+            }
             );
         }
     };
@@ -865,26 +836,8 @@ export default function EditPropertyTabs() {
                                     <input type="text" id="prop_title_input" placeholder="Enter Property Title" name="title" onChange={handleInputChange} value={tab1.title} />
                                 </div>
                                 {tab1.propertyType !== "1" ? (
-                                    <div className="add_prop_fields">
-                                        <span>{translate("price")}</span>
-                                        <input
-                                            type="number"
-                                            id="prop_title_input"
-                                            placeholder={`Enter Property Price (${CurrencySymbol})`}
-                                            name="price"
-                                            onChange={handleInputChange}
-                                            value={tab1.price}
-                                            onInput={(e) => {
-                                                if (e.target.value < 0) {
-                                                    e.target.value = 0;
-                                                }
-                                            }}
-                                        />
-                                    </div>
-                                ) : (
                                     <div className="row">
                                         <div className="col-sm-12 col-md-6">
-
                                             <div className="add_prop_fields">
                                                 <span>{translate("price")}</span>
                                                 <input
@@ -904,6 +857,39 @@ export default function EditPropertyTabs() {
                                         </div>
                                         <div className="col-sm-12 col-md-6">
                                             <div className="add_prop_fields">
+                                                <span>{translate("propStatus")}</span>
+                                                <span class="switch mt-2">
+                                                    <input id="switch-rounded"
+                                                        type="checkbox"
+                                                        checked={tab1.isPrivate}
+                                                        onChange={handleToggleChange} />
+                                                    <label for="switch-rounded"></label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="row">
+                                        <div className="col-sm-12 col-md-6 col-lg-4">
+                                            <div className="add_prop_fields">
+                                                <span>{translate("price")}</span>
+                                                <input
+                                                    type="number"
+                                                    id="prop_title_input"
+                                                    placeholder={`Enter Property Price (${CurrencySymbol})`}
+                                                    name="price"
+                                                    onChange={handleInputChange}
+                                                    value={tab1.price}
+                                                    onInput={(e) => {
+                                                        if (e.target.value < 0) {
+                                                            e.target.value = 0;
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-12 col-md-6 col-lg-4">
+                                            <div className="add_prop_fields">
                                                 <span>{translate("RentDuration")}</span>
                                                 <select
                                                     className="form-select RentDuration"
@@ -914,13 +900,26 @@ export default function EditPropertyTabs() {
                                                     onChange={handleRentDurationChange}
                                                 >
                                                     <option value="">{translate("SelectRentDuration")}</option>
-                                                    <option value="Daily">Daily</option>
-                                                    <option value="Monthly">Monthly</option>
-                                                    <option value="Yearly">Yearly</option>
-                                                    <option value="Quarterly">Quarterly</option>
+                                                    <option value="Daily">{translate("daily")}</option>
+                                                    <option value="Monthly">{translate("monthly")}</option>
+                                                    <option value="Yearly">{translate("yearly")}rly</option>
+                                                    <option value="Quarterly">{translate("quarterly")}</option>
                                                 </select>
                                             </div>
                                         </div>
+                                        <div className="col-sm-12 col-md-6 col-lg-4">
+                                            <div className="add_prop_fields">
+                                                <span>{translate("propStatus")}</span>
+                                                <span class="switch mt-2">
+                                                    <input id="switch-rounded"
+                                                        type="checkbox"
+                                                        checked={tab1.isPrivate}
+                                                        onChange={handleToggleChange} />
+                                                    <label for="switch-rounded"></label>
+                                                </span>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 )}
                             </div>

@@ -922,6 +922,7 @@ body {
 #dropdown-basic {
   background: transparent;
   color: var(--primary-text-color01);
+  width: max-content;
   border: none;
   margin-top: 2px;
   text-transform: capitalize;
@@ -943,9 +944,9 @@ body {
   margin-top: 2px;
   text-transform: capitalize;
 }
-/* .dropdown:hover .dropdown-menu {
-  display: block;
-} */
+.navbar-nav .dropdown-menu{
+  width: max-content;
+}
 .dropdown-item {
   text-transform: capitalize;
   font-family: var(--primary-font);
@@ -7916,7 +7917,7 @@ embed svg path {
 /* Custom Scrollbar */
 /* width */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 /* Track */
 ::-webkit-scrollbar-track {
@@ -7930,6 +7931,54 @@ embed svg path {
 
 
 
+#addProp_tabs .MuiTabs-scroller::-webkit-scrollbar {
+  height: 2px !important;
+}
+#addProp_tabs .MuiTabs-scroller::-webkit-scrollbar-track {
+  border-radius: 10px;
+
+}
+#addProp_tabs .MuiTabs-scroller::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
 
 
+/* custome switch button */
+.switch {
+  display: inline-block;
+}
 
+.switch input {
+  display: none;
+}
+
+.switch label {
+  display: block;
+  width: 60px;
+  height: 30px;
+  padding: 3px;
+  border-radius: 15px;
+  border: 2px solid #9aa19a8f;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.switch label::after {
+  content: "";
+  display: inherit;
+  width: 20px;
+  height: 20px;
+  border-radius: 12px;
+  background: #9aa19a8f;
+  transition: 0.3s;
+}
+.switch input:checked ~ label {
+  border-color: var(--primary-color);
+  background: var(--primary-color);
+}
+
+.switch input:checked ~ label::after {
+  translate: 30px 0;
+  background: #fff;
+}

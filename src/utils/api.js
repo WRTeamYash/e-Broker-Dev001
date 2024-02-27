@@ -335,12 +335,11 @@ export const confirmPayment = (paymentIntentId) => {
     }
 }
 // POST PROPERTY
-export const postProperty = (userid, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, meta_title, meta_description, meta_keywords, meta_image, rentduration) => {
+export const postProperty = (userid, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, meta_title, meta_description, meta_keywords, meta_image, rentduration, is_premium) => {
     let data = new FormData();
 
     // Append the property data to the FormData object
     data.append('userid', userid);
-    data.append('package_id', package_id);
     data.append('title', title);
     data.append('description', description);
     data.append('city', city);
@@ -358,6 +357,7 @@ export const postProperty = (userid, package_id, title, description, city, state
     data.append('meta_keywords', meta_keywords);
     data.append('meta_image', meta_image);
     data.append('rentduration', rentduration);
+    data.append('is_premium', is_premium);
 
     // Append the parameters array if it is an array
     if (Array.isArray(parameters)) {
@@ -407,12 +407,12 @@ export const getFacilities = () => {
 }
 
 // GET_COUNT_BY_CITIES_CATEGORIS
-export const getLimits = ( package_type) => {
+export const getLimits = (package_type) => {
     return {
         url: `${GET_LIMITS}`,
         method: "GET",
         params: {
-            package_type:package_type
+            package_type: package_type
         },
         authorizationHeader: true,
 
@@ -434,13 +434,12 @@ export const getPaymentDetials = (offset, limit) => {
 
 
 // UPDATE POST PROPERTY
-export const updatePostProperty = (action_type, id, package_id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, slug_id, meta_title, meta_description, meta_keywords, meta_image, rentduration) => {
+export const updatePostProperty = (action_type, id, title, description, city, state, country, latitude, longitude, address, price, category_id, property_type, video_link, parameters, facilities, title_image, threeD_image, gallery_images, slug_id, meta_title, meta_description, meta_keywords, meta_image, rentduration, is_premium) => {
     let data = new FormData();
 
     // Append the property data to the FormData object
     data.append('action_type', action_type);
     data.append('id', id);
-    data.append('package_id', package_id);
     data.append('title', title);
     data.append('description', description);
     data.append('city', city);
@@ -483,6 +482,7 @@ export const updatePostProperty = (action_type, id, package_id, title, descripti
     data.append('meta_keywords', meta_keywords);
     data.append('meta_image', meta_image);
     data.append('rentduration', rentduration);
+    data.append('is_premium', is_premium);
 
 
     return {
@@ -507,9 +507,8 @@ export const deleteProperty = (id) => {
     }
 }
 // FEATURE PROPERTY
-export const featureProperty = (package_id, property_id, type, image) => {
+export const featureProperty = (property_id, type, image) => {
     let data = new FormData();
-    data.append("package_id", package_id);
     data.append("property_id", property_id);
     data.append("type", type);
     data.append("image", image);
@@ -706,7 +705,7 @@ export const changePropertyStatus = (property_id, status) => {
 
 
 // get details of intrested users 
-export const getIntretsedUsers = (property_id, slug_id,  limit, offset) => {
+export const getIntretsedUsers = (property_id, slug_id, limit, offset) => {
 
     return {
         url: `${GET_INTREESTED_USERS}`,

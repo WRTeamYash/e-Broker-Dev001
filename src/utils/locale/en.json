@@ -287,5 +287,10 @@
   "intresteduserDetails":"Interested Users Details",
   "mobileno":"Mobile No",
   "intrestedUsers":"Interested User",
-  "or":"Or"
+  "or":"Or",
+  "propStatus":"Is Private Property ?",
+  "daily":"Daily",
+  "monthly":"Monthly",
+  "yearly":"Yearly",
+  "quarterly":"Quarterly"
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import StarIcon from "@mui/icons-material/Star";
 import { useSelector } from "react-redux";
-import { GetFeturedListingsApi } from "@/store/actions/campaign";
+import { GetFeturedListingsApi, GetLimitsApi } from "@/store/actions/campaign";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -123,8 +123,35 @@ const UserDashboard = () => {
             });
             return false;
         }
-        (propertyId);
-        setIsFeatureModalVisible(true);
+        GetLimitsApi(
+            "advertisement",
+            (response) => {
+                if (response.message === "Please Subscribe for Advertisement") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Your Package Limit is Over. Please Purchase Package.",
+                        allowOutsideClick: false,
+                        customClass: {
+                            confirmButton: 'Swal-confirm-buttons',
+                        },
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            router.push("/subscription-plan"); // Redirect to the subscription page
+                        }
+                    });
+                    
+                } else {
+                    setPropertyId(propertyId);
+                    setIsFeatureModalVisible(true);
+                }
+            },
+            (error) => {
+                console.log("API Error:", error);
+            }
+
+        )
     };
     const handleChangeStatusClick = (propertyId, propertyType) => {
         if (SettingsData.demo_mode === true) {

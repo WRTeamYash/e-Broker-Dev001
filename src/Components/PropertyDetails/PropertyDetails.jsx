@@ -61,8 +61,10 @@ const PropertyDetails = () => {
 
     const lang = useSelector(languageData);
     const isLoggedIn = useSelector((state) => state.User_signup);
-    const DummyImgData = useSelector(settingsData);
-    const CompanyName = DummyImgData && DummyImgData.company_name
+    const SettingsData = useSelector(settingsData);
+
+    console.log(SettingsData)
+    const isPremiumUser = SettingsData && SettingsData.is_premium
     const themeEnabled = isThemeEnabled();
 
     useEffect(() => { }, [lang]);
@@ -134,7 +136,7 @@ const PropertyDetails = () => {
 
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
 
-    const PlaceHolderImg = DummyImgData?.web_placeholder_logo;
+    const PlaceHolderImg = SettingsData?.web_placeholder_logo;
     const videoLink = getPropData && getPropData.video_link;
     const videoId = videoLink ? videoLink.split("/").pop() : null;
 
@@ -151,12 +153,35 @@ const PropertyDetails = () => {
 
     const closeLightbox = () => {
         // if (viewerIsOpen) {
-            setCurrentImage(0);
-            setViewerIsOpen(false);
+        setCurrentImage(0);
+        setViewerIsOpen(false);
         // }
     };
     const handleShowMap = () => {
-        setShowMap(true);
+        if (getPropData?.is_premium) {
+            if (isPremiumUser) {
+                setShowMap(true);
+            } else {
+                Swal.fire({
+                    title: "Opps!",
+                    text: " Private property ahead. Upgrade for premium access. Join now to explore exclusive features!",
+                    icon: "warning",
+                    allowOutsideClick: true,
+                    showCancelButton: false,
+                    customClass: {
+                        confirmButton: 'Swal-confirm-buttons',
+                        cancelButton: "Swal-cancel-buttons"
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        router.push("/subscription-plan");
+                    }
+                });
+                
+            }
+        } else {
+            setShowMap(true);
+        }
     }
     useEffect(() => {
 
@@ -222,7 +247,7 @@ const PropertyDetails = () => {
 
     const handleChat = (e) => {
         e.preventDefault();
-        if (DummyImgData?.demo_mode === true) {
+        if (SettingsData?.demo_mode === true) {
             Swal.fire({
                 title: "Opps!",
                 text: "This Action is Not Allowed in Demo Mode",
@@ -398,7 +423,7 @@ const PropertyDetails = () => {
                                 }
 
                                 {/* {viewerIsOpen && */}
-                                <LightBox  photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={setViewerIsOpen} title_image={getPropData?.title_image} setViewerIsOpen={setViewerIsOpen} setCurrentImage={setCurrentImage}/>
+                                <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={setViewerIsOpen} title_image={getPropData?.title_image} setViewerIsOpen={setViewerIsOpen} setCurrentImage={setCurrentImage} />
                                 {/* } */}
 
                                 <div className="row" id="prop-all-deatils-cards">
@@ -513,36 +538,41 @@ const PropertyDetails = () => {
                                             <div className="card" id="propertie_address">
                                                 <div className="card-header">{translate("address")}</div>
                                                 <div className="card-body">
+                                                    {console.log(getPropData)}
                                                     <div className="row" id="prop-address">
-                                                        <div className="adrs">
-                                                            <div>
-                                                                <span> {translate("address")}</span>
-                                                            </div>
-                                                            <div className="">
-                                                                <span> {translate("city")}</span>
-                                                            </div>
-                                                            <div className="">
-                                                                <span> {translate("state")}</span>
-                                                            </div>
-                                                            <div className="">
-                                                                <span> {translate("country")}</span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="adrs02">
-                                                            <div className="adrs_value">
-                                                                <span>{getPropData && getPropData.address}</span>
-                                                            </div>
-                                                            <div className="adrs_value">
-                                                                <span className="">{getPropData && getPropData.city}</span>
-                                                            </div>
+                                                        {getPropData?.is_premium !== true ? (
+                                                            <>
+                                                                <div className="adrs">
+                                                                    <div>
+                                                                        <span> {translate("address")}</span>
+                                                                    </div>
+                                                                    <div className="">
+                                                                        <span> {translate("city")}</span>
+                                                                    </div>
+                                                                    <div className="">
+                                                                        <span> {translate("state")}</span>
+                                                                    </div>
+                                                                    <div className="">
+                                                                        <span> {translate("country")}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="adrs02">
+                                                                    <div className="adrs_value">
+                                                                        <span>{getPropData && getPropData.address}</span>
+                                                                    </div>
+                                                                    <div className="adrs_value">
+                                                                        <span className="">{getPropData && getPropData.city}</span>
+                                                                    </div>
 
-                                                            <div className="adrs_value">
-                                                                <span className="">{getPropData && getPropData.state}</span>
-                                                            </div>
-                                                            <div className="adrs_value">
-                                                                <span className="">{getPropData && getPropData.country}</span>
-                                                            </div>
-                                                        </div>
+                                                                    <div className="adrs_value">
+                                                                        <span className="">{getPropData && getPropData.state}</span>
+                                                                    </div>
+                                                                    <div className="adrs_value">
+                                                                        <span className="">{getPropData && getPropData.country}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </>
+                                                        ) : null}
                                                     </div>
                                                     {getPropData ? (
                                                         <div className="card google_map">
@@ -609,6 +639,9 @@ const PropertyDetails = () => {
                                             </div>
                                         ) : null}
                                     </div>
+
+
+
                                     <div className="col-12 col-md-12 col-lg-3">
                                         <div className="card" id="owner-deatils-card">
                                             <div className="card-header" id="card-owner-header">

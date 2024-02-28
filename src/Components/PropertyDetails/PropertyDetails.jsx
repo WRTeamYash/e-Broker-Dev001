@@ -55,7 +55,14 @@ const PropertyDetails = () => {
     });
     const [viewerIsOpen, setViewerIsOpen] = useState(false);
     const [currentImage, setCurrentImage] = useState(0);
-    const [play, setPlay] = useState(false);
+
+
+    const [playing, setPlaying] = useState(false);
+    const [manualPause, setManualPause] = useState(false); // State to track manual pause
+    const [seekPosition, setSeekPosition] = useState(0);
+    const [showThumbnail, setShowThumbnail] = useState(true);
+
+
     const [imageURL, setImageURL] = useState("");
 
 
@@ -63,7 +70,6 @@ const PropertyDetails = () => {
     const isLoggedIn = useSelector((state) => state.User_signup);
     const SettingsData = useSelector(settingsData);
 
-    console.log(SettingsData)
     const isPremiumUser = SettingsData && SettingsData.is_premium
     const themeEnabled = isThemeEnabled();
 
@@ -136,11 +142,46 @@ const PropertyDetails = () => {
 
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
 
-    const PlaceHolderImg = SettingsData?.web_placeholder_logo;
-    const videoLink = getPropData && getPropData.video_link;
-    const videoId = videoLink ? videoLink.split("/").pop() : null;
 
+    const PlaceHolderImg = SettingsData?.web_placeholder_logo;
+
+    const getVideoType = (videoLink) => {
+        if (videoLink && (videoLink.includes("youtube.com") || videoLink.includes("youtu.be"))) {
+            return "youtube";
+        } else if (videoLink && videoLink.includes("drive.google.com")) {
+            return "google_drive";
+        } else {
+            return "unknown";
+        }
+    };
+
+    const videoLink = getPropData && getPropData.video_link;
+    const videoType = getVideoType(videoLink);
+    const videoId = videoLink ? videoLink.split("/").pop().split("?")[0] : null;
     const backgroundImageUrl = videoId ? `url(https://img.youtube.com/vi/${videoId}/maxresdefault.jpg)` : PlaceHolderImg;
+
+    const handleVideoReady = (state) => {
+        setPlaying(state);
+        setShowThumbnail(!state);
+    };
+
+    const handleSeek = (e) => {
+        if (e && typeof e.playedSeconds === "number") {
+            setSeekPosition(parseFloat(e.playedSeconds));
+        }
+    };
+
+    const handleSeekEnd = () => {
+        setShowThumbnail(false);
+    };
+
+    const handlePause = () => {
+        setManualPause(true); // Manually pause the video
+        setPlaying(false);
+        setShowThumbnail(true); // Reset showThumbnail to true
+    };
+
+
 
     const galleryPhotos = getPropData && getPropData.gallery;
 
@@ -177,7 +218,7 @@ const PropertyDetails = () => {
                         router.push("/subscription-plan");
                     }
                 });
-                
+
             }
         } else {
             setShowMap(true);
@@ -599,42 +640,43 @@ const PropertyDetails = () => {
                                         {getPropData && getPropData.video_link ? (
                                             <div className="card" id="prop-video">
                                                 <div className="card-header">{translate("video")}</div>
-
                                                 <div className="card-body">
-                                                    {!play ? (
+                                                    {!playing ? (
                                                         <div
                                                             className="video-background container"
                                                             style={{
                                                                 backgroundImage: backgroundImageUrl,
-                                                                backgroundSize: "cover", // You might want to adjust the background size based on your design
-                                                                backgroundPosition: "center center", // You might want to adjust the position based on your design
+                                                                backgroundSize: "cover",
+                                                                backgroundPosition: "center center",
                                                             }}
                                                         >
                                                             <div id="video-play-button">
-                                                                <button
-                                                                    onClick={() => setPlay(true)}
-                                                                // href="https://youtu.be/y9j-BL5ocW8" target='_blank'
-                                                                >
+                                                                <button onClick={() => setPlaying(true)}>
                                                                     <PiPlayCircleThin className="button-icon" size={80} />
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     ) : (
                                                         <div>
-                                                            <ReactPlayer width="100%" height="500px" url={getPropData && getPropData.video_link} playing={play} controls={true} onPlay={() => setPlay(true)} onPause={() => setPlay(false)} />
+                                                            <ReactPlayer
+                                                                width="100%"
+                                                                height="500px"
+                                                                url={getPropData && getPropData.video_link}
+                                                                playing={playing}
+                                                                controls={true}
+                                                                onPlay={() => handleVideoReady(true)}
+                                                                onPause={() => {
+                                                                    setManualPause(true); // Manually pause the video
+                                                                    handlePause();
+                                                                }}
+                                                                onEnded={() => setPlaying(false)}
+                                                                onProgress={handleSeek}
+                                                                onSeek={handleSeek}
+                                                                onSeekEnd={handleSeekEnd}
+                                                            />
+                                                           
                                                         </div>
                                                     )}
-                                                </div>
-                                            </div>
-                                        ) : null}
-
-                                        {getPropData && getPropData.threeD_image ? (
-                                            <div className="card" id="prop-360-view">
-                                                <div className="card-header">{translate("vertualView")}</div>
-                                                <div className="card-body">
-                                                    <div id="virtual-view">
-                                                        <div id="panorama"></div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         ) : null}

@@ -53,25 +53,25 @@ const ReportPropertyModal = ({ show, onHide, propertyId, setIsReported }) => {
 
     const handleReportProperty = (e) => {
         e.preventDefault()
-        if(selectedOption){
+        if (selectedOption || reportReason) {
 
             addReportApi({
                 reason_id: selectedOption,
                 property_id: propertyId,
                 other_message: reportReason,
-            onSuccess: (res) => {
-                toast.success(res.message)
-                setIsReported(true)
-                onHide()
-            },
-            onError: (err) => {
-                console.log(err)
-                toast.error(err.message)
-            }
-        })
-    }else{
-        toast.error("please select reason first.")
-    }
+                onSuccess: (res) => {
+                    toast.success(res.message)
+                    setIsReported(true)
+                    onHide()
+                },
+                onError: (err) => {
+                    console.log(err)
+                    toast.error(err.message)
+                }
+            })
+        } else {
+            toast.error("please select reason first.")
+        }
     }
 
 

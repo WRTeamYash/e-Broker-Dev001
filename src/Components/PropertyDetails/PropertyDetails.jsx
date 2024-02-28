@@ -696,7 +696,7 @@ const PropertyDetails = () => {
                                                         <button className='enquiry-buttons' onClick={handleReportProperty}> <MdReport className='mx-1' size={20} />{translate("reportProp")}</button>
                                                     ) : null}
 
-                                                    {interested && getPropData?.is_interested === 1 ? (
+                                                    {interested || getPropData?.is_interested === 1 ? (
                                                         <button className="enquiry-buttons" onClick={handleNotInterested}>
                                                             <RiThumbUpFill className="mx-1" size={20} />
                                                             {translate("intrested")}

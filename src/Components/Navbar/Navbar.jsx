@@ -228,7 +228,7 @@ const Nav = () => {
         if (settingData?.is_active === false) {
             Swal.fire({
                 title: "Opps!",
-                text: "Your Account have been Deactivetd by Admin please connect them \.",
+                text: "Your Account have been Deactivated by Admin please connect them.",
                 icon: "warning",
                 allowOutsideClick: false,
                 showCancelButton: false,

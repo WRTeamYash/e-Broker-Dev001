@@ -495,13 +495,16 @@ export default function AddPropertyTabs() {
         }
     };
     const handleNextTab2 = (e) => {
+
         if (!areFieldsFilled1(tab6)) {
             // Display a toast message to fill in all required fields
-            toast.error("Please fill in all required fields ");
+            toast.error("Please fill in all required fields");
+        } else if (tab6?.ogImages.length === 0) {
+            // Display a toast message indicating that ogImage is empty
+            toast.error("Please provide ogImage");
         } else {
             // Proceed to the next tab
             setValue(value + 1);
-
         }
     };
     const handleNextTab4 = () => {

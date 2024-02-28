@@ -42,7 +42,15 @@ const Layout = ({ children }) => {
     }
     // react query
     const { isLoading, data } = useQuery({
-        queryKey: ['systemSettingsData', isLoggedIn, settingData?.svg_clr],
+        queryKey: ['systemSettingsData',
+         isLoggedIn, 
+         settingData?.svg_clr, 
+         settingData?.subscription, 
+         settingsData?.is_premium,
+         settingsData?.system_color,
+         settingsData?.category_background,
+         settingsData?.sell_background
+        ],
         queryFn: SetSystemSettingsApi
     })
 

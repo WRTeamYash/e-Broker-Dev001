@@ -13,6 +13,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import FirebaseData from "@/utils/Firebase";
 import { signupLoaded } from "@/store/reducer/authSlice";
 import { useRouter } from "next/router";
+import { PhoneNumberUtil } from "google-libphonenumber";
 
 const LoginModal = ({ isOpen, onClose }) => {
     const SettingsData = useSelector(settingsData);
@@ -21,29 +22,39 @@ const LoginModal = ({ isOpen, onClose }) => {
     const [showOtpModal, setShowOtpModal] = useState(false);
     const [phonenum, setPhonenum] = useState();
     const [value, setValue] = useState(isDemo ? DemoNumber : "");
+    const phoneUtil = PhoneNumberUtil.getInstance(); // Create an instance of PhoneNumberUtil
 
     const onSignUp = (e) => {
         e.preventDefault();
         if (!value) {
             toast.error("Please enter a phone number!");
         } else {
-            const phoneRegex = /^\+[1-9]\d{1,14}$/; // Regular expression to match valid phone numbers with country code
+            try {
+                // Parse the phone number
+                const phoneNumber = phoneUtil.parseAndKeepRawInput(value, 'ZZ');
 
-            if (phoneRegex.test(value)) {
-                // Phone number is valid, proceed to OTP modal
-                setPhonenum(value);
-                onClose();
-                setShowOtpModal(true);
-                if (isDemo) {
-                    setValue(DemoNumber)
+                // Check if the parsed phone number is valid
+                if (phoneUtil.isValidNumber(phoneNumber)) {
+                    // Phone number is valid, proceed to OTP modal
+                    setPhonenum(value);
+                    onClose();
+                    setShowOtpModal(true);
+                    if (isDemo) {
+                        setValue(DemoNumber)
+                    } else {
+                        setValue("");
+                    }
                 } else {
-                    setValue("");
+                    toast.error("Please enter a valid phone number");
                 }
-            } else {
-                toast.error("Please enter a valid phone number");
+            } catch (error) {
+                // Handle parsing errors
+                console.error("Error parsing phone number:", error);
+                toast.error("Error parsing phone number. Please try again.");
             }
         }
     };
+
     const navigate = useRouter();
     const { authentication } = FirebaseData()
     const FcmToken = useSelector(Fcmtoken)

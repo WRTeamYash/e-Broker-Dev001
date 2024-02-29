@@ -1,5 +1,6 @@
 import React from "react";
 import { Progress } from "antd";
+import { translate } from "@/utils";
 
 function ProgressBar({ usedLimit, totalLimit }) {
     // Calculate the percentage of used limit relative to the total limit
@@ -11,7 +12,7 @@ function ProgressBar({ usedLimit, totalLimit }) {
             <Progress
                 id="progress_bar"
                 type="circle"
-                percent={progress}
+                percent={totalLimit !== "unlimited" ? progress : 100}
                 format={() => null} // Remove the percentage display
                 strokeWidth={10} // Adjust the stroke width as needed
                
@@ -28,7 +29,14 @@ function ProgressBar({ usedLimit, totalLimit }) {
                     left: 0,
                 }}
             >
-                <span className="progress_bar_count">{`${usedLimit} / ${totalLimit}`}</span>
+               {totalLimit !== "unlimited" ? (
+
+                   <span className="progress_bar_count">{`${usedLimit} / ${totalLimit}`}</span>
+                   ):(
+                       <span className="progress_bar_count">{translate("Unlimited")}</span>
+                       
+                   )
+               } 
             </div>
         </div>
     );

@@ -28,6 +28,9 @@ import Swal from "sweetalert2";
 import { MdReport } from "react-icons/md";
 import ReportPropertyModal from "@/Components/ReportPropertyModal/ReportPropertyModal";
 import { getChatData } from "@/store/reducer/momentSlice";
+import { RiMailSendLine } from "react-icons/ri";
+import OwnerDeatilsCard from "../OwnerDeatilsCard/OwnerDeatilsCard";
+import PremiumOwnerDetailsCard from "../OwnerDeatilsCard/PremiumOwnerDetailsCard";
 
 
 const PropertyDetails = () => {
@@ -70,8 +73,10 @@ const PropertyDetails = () => {
     const isLoggedIn = useSelector((state) => state.User_signup);
     const SettingsData = useSelector(settingsData);
 
-    const isPremiumUser = SettingsData && SettingsData.is_premium
+    const isPremiumUser = SettingsData && SettingsData?.is_premium
     const themeEnabled = isThemeEnabled();
+    const isPremiumProperty = getPropData && getPropData.is_premium
+
 
     useEffect(() => { }, [lang]);
     useEffect(() => {
@@ -199,7 +204,7 @@ const PropertyDetails = () => {
         // }
     };
     const handleShowMap = () => {
-        if (getPropData?.is_premium) {
+        if (isPremiumProperty) {
             if (isPremiumUser) {
                 setShowMap(true);
             } else {
@@ -579,9 +584,8 @@ const PropertyDetails = () => {
                                             <div className="card" id="propertie_address">
                                                 <div className="card-header">{translate("address")}</div>
                                                 <div className="card-body">
-                                                    {console.log(getPropData)}
                                                     <div className="row" id="prop-address">
-                                                        {getPropData?.is_premium !== true ? (
+                                                        {!isPremiumProperty || isPremiumUser ? (
                                                             <>
                                                                 <div className="adrs">
                                                                     <div>
@@ -674,7 +678,7 @@ const PropertyDetails = () => {
                                                                 onSeek={handleSeek}
                                                                 onSeekEnd={handleSeekEnd}
                                                             />
-                                                           
+
                                                         </div>
                                                     )}
                                                 </div>
@@ -685,18 +689,21 @@ const PropertyDetails = () => {
 
 
                                     <div className="col-12 col-md-12 col-lg-3">
-                                        <div className="card" id="owner-deatils-card">
+                                        {console.log(getPropData)}
+                                        {/* <div className="card" id="owner-deatils-card">
                                             <div className="card-header" id="card-owner-header">
                                                 <div>
                                                     <Image loading="lazy" width={200} height={200} src={getPropData && getPropData.profile ? getPropData.profile : PlaceHolderImg} className="owner-img" alt="no_img" />
                                                 </div>
                                                 <div className="owner-deatils">
                                                     <span className="owner-name"> {getPropData && getPropData.customer_name}</span>
-                                                    <span className="owner-add">
-                                                        {" "}
-                                                        <CiLocationOn size={20} />
-                                                        {getPropData && getPropData.address}
-                                                    </span>
+                                                    {getPropData && getPropData.client_address &&
+                                                        <span className="owner-add">
+                                                            {" "}
+                                                            <CiLocationOn size={20} />
+                                                            {getPropData && getPropData.client_address}
+                                                        </span>
+                                                    }
                                                 </div>
                                             </div>
                                             <div className="card-body">
@@ -751,7 +758,40 @@ const PropertyDetails = () => {
                                                     )}
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
+
+                                        {!isPremiumProperty || isPremiumUser ? ( 
+                                            <OwnerDeatilsCard
+                                            getPropData={getPropData}
+                                            showChat={showChat}
+                                            userCurrentId={userCurrentId}
+                                            interested={interested}
+                                            isReported={isReported}
+                                            handleInterested={handleInterested}
+                                            isMessagingSupported={isMessagingSupported}
+                                            handleNotInterested={handleNotInterested}
+                                            notificationPermissionGranted={notificationPermissionGranted}
+                                            handleChat={handleChat}
+                                            handleReportProperty={handleReportProperty}
+
+                                        />
+                                        ):(
+                                            <PremiumOwnerDetailsCard
+                                            getPropData={getPropData}
+                                            showChat={showChat}
+                                            userCurrentId={userCurrentId}
+                                            interested={interested}
+                                            isReported={isReported}
+                                            handleInterested={handleInterested}
+                                            isMessagingSupported={isMessagingSupported}
+                                            handleNotInterested={handleNotInterested}
+                                            notificationPermissionGranted={notificationPermissionGranted}
+                                            handleChat={handleChat}
+                                            handleReportProperty={handleReportProperty}
+
+                                        />
+                                        )
+                                    }
                                     </div>
 
                                 </div>

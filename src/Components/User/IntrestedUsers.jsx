@@ -50,7 +50,7 @@ const IntrestedUsers = () => {
             },
             onError: (err) => {
                 toast.error(err.message);
-            }
+            }   
         });
 
     }, [router.isReady]);

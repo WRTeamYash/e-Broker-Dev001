@@ -119,9 +119,7 @@ export default function EditPropertyTabs() {
             userid: isLoggedIn ? userCurrentId : "",
             slug_id: propertyId,
             onSuccess: (response) => {
-                const propertyData = response?.data[0]; // Assuming data is an array and you want the first item
-                console.log(propertyData)
-                console.log(propertyData?.is_premium)
+                const propertyData = response?.data[0];
                 setLat(propertyData?.latitude);
                 setLng(propertyData?.longitude);
                 setIsLoading(false);
@@ -361,8 +359,7 @@ export default function EditPropertyTabs() {
         setTab1({ ...tab1, isPrivate: !tab1.isPrivate });
     };
     useEffect(() => {
-        console.log(tab1?.isPrivate)
-    }, [tab1?.isPrivate])
+    }, [tab1?.isPrivate,])
     const handleTab2InputChange = (fieldId, value) => {
         setTab2((prevData) => ({
             ...prevData,
@@ -407,7 +404,7 @@ export default function EditPropertyTabs() {
         }));
     };
 
-    useEffect(() => { }, [tab1, tab2, tab3, selectedLocationAddress, tab5, lat, lng]);
+    useEffect(() => { console.log(tab6) }, [tab1, tab2, tab3, selectedLocationAddress, tab5, lat, lng, tab6]);
 
     const updateFileInput = (fieldId) => (e) => {
         const fileInput = e.target;
@@ -769,7 +766,7 @@ export default function EditPropertyTabs() {
                 meta_title: tab6.MetaTitle,
                 meta_description: tab6.MetaDesc,
                 meta_keywords: tab6.MetaKeyword,
-                meta_image: tab6.ogImages[0],
+                meta_image: tab6.ogImages ? tab6.ogImages[0] : "",
                 onSuccess: (response) => {
                     toast.success(response.message);
                     router.push("/user/dashboard");

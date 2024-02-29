@@ -170,21 +170,19 @@ const SubscriptionPlan = () => {
         setPriceData(data);
         // here condition based on if before subscription is active
         if (isUserLogin) {
-            paymentModalChecker(e);
+            paymentModalChecker(e, data);
         }
 
 
     };
 
     // paymentModalChecker
-    const paymentModalChecker = (e) => {
+    const paymentModalChecker = (e, data) => {
         e.preventDefault();
-        if (priceData?.price !== 0) {
-            setStripeFormModal(true);
-        } else {
+        if (data?.price === 0) {
             setStripeFormModal(false);
             assignFreePackageApi(
-                priceData.id,
+                data.id,
                 (res) => {
 
                     router.push("/");
@@ -194,6 +192,8 @@ const SubscriptionPlan = () => {
                     console.log(err);
                 }
             );
+        } else {
+            setStripeFormModal(true);
         }
     };
 
@@ -294,7 +294,7 @@ const SubscriptionPlan = () => {
 
     useEffect(() => {
     }, [priceData])
-    
+
     return (
         <Layout>
             <Breadcrumb title={translate("subscriptionPlan")} />

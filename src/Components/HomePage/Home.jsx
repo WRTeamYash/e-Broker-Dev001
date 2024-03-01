@@ -35,6 +35,9 @@ import { store } from "@/store/store";
 import { categoriesCacheData, loadCategories, loadSlider, silderCacheData } from "@/store/reducer/momentSlice";
 import SliderComponent from "../HomeSlider/SliderComponent";
 import { languageData } from "@/store/reducer/languageSlice";
+import { IoIosArrowForward } from "react-icons/io";
+import ProjectCard from "../Cards/ProjectCard";
+import { FaArrowRight } from "react-icons/fa";
 
 const HomePage = () => {
 
@@ -103,6 +106,24 @@ const HomePage = () => {
     };
 
     const breakpointsMostFav = {
+        0: {
+            slidesPerView: 1,
+        },
+        375: {
+            slidesPerView: 1.5,
+        },
+        576: {
+            slidesPerView: 2,
+        },
+        1200: {
+            slidesPerView: 3,
+        },
+        1400: {
+            slidesPerView: 4,
+        },
+    };
+
+    const breakpointsProjects = {
         0: {
             slidesPerView: 1,
         },
@@ -515,8 +536,123 @@ const HomePage = () => {
                         </div>
                     </div>
                 </section>
-                {/* ===== PROPERTIES NEARBY CITY  SECTION ====== */}
 
+                {/* ===== UPCOMING PROJECTS SECTION ====== */}
+                <section id="upcoming_projects">
+                    <div className="container">
+                        <div className="project_header">
+                            <div>
+                                <h3>
+                                    {translate("upcoming")}{" "}
+                                    <span>
+                                        <span className="highlight"> {translate("projects")}</span>
+                                    </span>{" "}
+                                </h3>
+                            </div>
+                            <div className="rightside_project_header">
+                                <Link href="/projects">
+                                    <button className="learn-more-project" id="viewall_projects">
+                                        <span aria-hidden="true" className="circle">
+                                            <div className="icon_div">
+                                                <span className="icon arrow">
+                                                    <BsArrowRight />
+                                                </span>
+                                            </div>
+                                        </span>
+                                        <span className="button-text">{translate("seeAllProjects")}</span>
+                                    </button>
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="mobile-headline-view-project">
+
+                            <div id="mobile_headline_projects">
+                                <div className="main_headline_projects">
+                                    <span className="headline">
+                                        {translate("upcoming")}{" "}
+                                        <span>
+                                            <span className="highlight"> {translate("projects")}</span>
+                                        </span>{" "}
+                                    </span>
+                                </div>
+                                <div>
+                                    <Link href="/projects">
+                                        <button className="mobileViewArrowProject">
+                                            <IoIosArrowForward size={25} />
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* {getMostFavProperties && getMostFavProperties?.length > 0 ? ( */}
+                        <div id="projects_cards" dir={language.rtl === "1" ? "rtl" : "ltr"}>
+                            <Swiper
+                                slidesPerView={4}
+                                spaceBetween={30}
+                                freeMode={true}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                modules={[FreeMode, Pagination]}
+                                className="all_project_swiper"
+                                breakpoints={breakpointsProjects}
+                            >
+                                {isLoading ? (
+                                    // Show skeleton loading when data is being fetched
+                                    <Swiper
+                                        dir={language.rtl === "1" ? "rtl" : "ltr"}
+                                        slidesPerView={4}
+                                        spaceBetween={30}
+                                        freeMode={true}
+                                        pagination={{
+                                            clickable: true,
+                                        }}
+                                        modules={[FreeMode, Pagination]}
+                                        className="all_project_swiper"
+                                        breakpoints={breakpointsProjects}
+                                    >
+                                        {Array.from({ length: 6 }).map((_, index) => (
+                                            <SwiperSlide>
+                                                <div className="loading_data">
+                                                    <VerticalCardSkeleton />
+                                                </div>
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+                                ) : (
+                                    getMostFavProperties?.map((ele, index) => (
+                                        <SwiperSlide id="most-view-swiper-slider" key={index}>
+                                            <ProjectCard ele={ele} />
+                                        </SwiperSlide>
+                                    ))
+                                )}
+                            </Swiper>
+                        </div>
+
+                        {/* ) : <div className="no-data-text">
+                            {translate("addDatafromAdmin")}
+                        </div>} */}
+                    </div>
+                    <div className="subscribeForProject">
+                        <div className="container">
+
+                            <div className="card subcribeCard">
+                                <h3>
+                                    Details Await in Our Premium Membership
+                                </h3>
+                                <button>
+                                    Subscribe Now
+                                    <FaArrowRight size={20} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+
+                {/* ===== PROPERTIES NEARBY CITY  SECTION ====== */}
                 <section id="main_citySection">
                     <div className="container">
                         <div className="prop_city_header">

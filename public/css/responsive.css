@@ -566,6 +566,20 @@
     display: block;
     padding-bottom: 0px;
   }
+
+  #view_all_arrow {
+    border: 0px solid #fff;
+    outline: 7px solid #000;
+    background: white;
+    color: #000;
+    border-radius: 100%;
+    padding: 2px;
+    /* width: 30px; */
+    /* height: 30px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   #view_all_arrow {
     border: 0px solid #fff;
     outline: 7px solid #000;
@@ -926,6 +940,14 @@
     border: 2px solid var(--primary-color);
     box-shadow: var(--primary-color) !important;
   }
+  .project_header{
+    display: none;
+  }
+  .mobile-headline-view-project{
+    display: block;
+    
+  }
+  
 }
 
 /* Shaihid's resposives css  */

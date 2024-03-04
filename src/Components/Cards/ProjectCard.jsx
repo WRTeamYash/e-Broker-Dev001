@@ -50,7 +50,7 @@ const ProjectCard = ({ ele }) => {
                     <Swiper
                         ref={sliderRef}
                         slidesPerView={1}
-                        loop={true}
+                        loop={true} 
                         spaceBetween={30}
                         freeMode={true}
                         autoplay={{

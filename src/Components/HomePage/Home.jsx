@@ -51,7 +51,7 @@ const HomePage = () => {
         loadCategories();
     }, []);
     const settingData = useSelector(settingsData);
-    const CurrencySymbol = settingData && settingData.currency_symbol;
+    const isPremiumUser = settingData && settingData.is_premium;
 
     const [isLoading, setIsLoading] = useState(true);
     const [showFilterModal, setShowFilterModal] = useState(false);
@@ -538,7 +538,7 @@ const HomePage = () => {
                 </section>
 
                 {/* ===== UPCOMING PROJECTS SECTION ====== */}
-                <section id="upcoming_projects">
+                <section id="upcoming_projects" style={{ marginBottom: !isPremiumUser ? '100px' : '0' }}>
                     <div className="container">
                         <div className="project_header">
                             <div>
@@ -634,20 +634,24 @@ const HomePage = () => {
                             {translate("addDatafromAdmin")}
                         </div>} */}
                     </div>
-                    <div className="subscribeForProject">
-                        <div className="container">
 
-                            <div className="card subcribeCard">
-                                <h3>
-                                    Details Await in Our Premium Membership
-                                </h3>
-                                <button>
-                                    Subscribe Now
-                                    <FaArrowRight size={20} />
-                                </button>
+                    {!isPremiumUser &&
+                        <div className="subscribeForProject">
+                            <div className="container">
+
+                                <div className="card subcribeCard">
+                                    <h3>
+                                        {translate("ourPremium")}
+                                    </h3>
+                                    <Link href="/subrciption-plan" className="subscribeNoButton">
+                                        {translate("subscribeNow")} {""}
+                                        <FaArrowRight size={20} />
+                                    </Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
+
                 </section>
 
 

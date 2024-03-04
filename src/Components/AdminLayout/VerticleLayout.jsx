@@ -24,7 +24,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
+import DomainAddIcon from '@mui/icons-material/DomainAdd';
 import MailIcon from "@mui/icons-material/Mail";
 import AdminHeader from "./AdminHeader.jsx";
 import AdminFooter from "./AdminFooter.jsx";
@@ -406,6 +406,37 @@ export default function VerticleLayout(props) {
         );
 
     }
+    const handleCheckLimitsforProject = (e) => {
+        e.preventDefault()
+        GetLimitsApi(
+            "property",
+            (response) => {
+                console.log(response)
+                if (response.message === "Please Subscribe for Post Property") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Your Package Limit is Over. Please Purchase Package.",
+                        allowOutsideClick: false,
+                        customClass: {
+                            confirmButton: 'Swal-confirm-buttons',
+                        },
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            router.push("/subscription-plan"); // Redirect to the subscription page
+                        }
+                    });
+                } else {
+                    router.push("/user/add-project");
+                }
+            },
+            (error) => {
+                console.log("API Error:", error);
+            }
+        );
+
+    }
 
 
     return (
@@ -528,9 +559,8 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </Link>
                     </ListItem>
-                    {/* <Link href="/user/properties"> */}
 
-                    <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/properties') ? 'drawer_list_item_active' : 'drawer_list_item'} onClick={handleCheckLimits}>
+                    <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/properties') ? 'drawer_list_item_active' : 'drawer_list_item'} onClick={handleCheckLimitsforProject}>
                         <ListItemButton
                             sx={{
                                 minHeight: 30,
@@ -549,6 +579,30 @@ export default function VerticleLayout(props) {
                                 <AddHomeOutlinedIcon />
                             </ListItemIcon>
                             <ListItemText primary={translate("properties")} sx={{ opacity: open ? 1 : 0 }} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/add-project') ? 'drawer_list_item_active' : 'drawer_list_item'}
+                     onClick={handleCheckLimits}
+                     >
+                        <ListItemButton
+                            sx={{
+                                minHeight: 30,
+                                justifyContent: open ? "initial" : "center",
+                                px: 2.5,
+                            }}
+                        >
+                            <ListItemIcon
+                                className={isRouteActive('/user/add-project') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
+                                sx={{
+                                    minWidth: 0,
+                                    mr: open ? 3 : "auto",
+                                    justifyContent: "center",
+                                }}
+                            >
+
+                                <DomainAddIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={translate("projects")} sx={{ opacity: open ? 1 : 0 }} />
                         </ListItemButton>
                     </ListItem>
                     {/* </Link> */}

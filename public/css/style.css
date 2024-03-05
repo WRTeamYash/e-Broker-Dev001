@@ -8222,7 +8222,9 @@ button.learn-more-project .button-text {
   height: 230px;
   position: relative;
 }
-
+.cardImg_swiper{
+  position: relative;
+}
 .project_img img {
   width: 100%;
   height: 100%;
@@ -8230,8 +8232,8 @@ button.learn-more-project .button-text {
   padding: 10px;
   object-fit: cover;
 }
-.project_img .project_next,
-.project_img .project_prev {
+.cardImg_swiper .project_next,
+.cardImg_swiper .project_prev {
   opacity: 0;
   transition: all 0.5s;
   position: absolute;
@@ -8242,18 +8244,19 @@ button.learn-more-project .button-text {
   border-radius: 50%;
   padding: 5px;
   cursor: pointer;
+  z-index: 99;
 }
 
-.project_img .project_next {
+.cardImg_swiper .project_next {
   right: 20px;
 }
 
-.project_img .project_prev {
+.cardImg_swiper .project_prev {
   left: 20px;
 }
 
-.project_main_card:hover .project_img .project_next,
-.project_main_card:hover .project_img .project_prev {
+.project_main_card:hover .cardImg_swiper .project_next,
+.project_main_card:hover .cardImg_swiper .project_prev {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8261,8 +8264,8 @@ button.learn-more-project .button-text {
   opacity: 1;
 
 }
-.project_main_card:hover .project_img .project_next span,
-.project_main_card:hover .project_img .project_prev span {
+.project_main_card:hover .cardImg_swiper .project_next span,
+.project_main_card:hover .cardImg_swiper .project_prev span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8276,7 +8279,7 @@ button.learn-more-project .button-text {
 }
 
 
-.project_img .project_premium_icon {
+.cardImg_swiper .project_premium_icon {
   position: absolute;
   top: 20px;
   left: 20px;
@@ -8288,6 +8291,7 @@ button.learn-more-project .button-text {
   color: #fff;
   display: flex;
   text-align: center;
+  z-index: 99;
 }
 
 .project-swiper{

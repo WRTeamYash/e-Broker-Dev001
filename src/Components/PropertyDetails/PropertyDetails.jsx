@@ -1,9 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import { RiThumbUpFill } from "react-icons/ri";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import { CiLocationOn } from "react-icons/ci";
-import { FiMail, FiMessageSquare, FiPhoneCall, FiThumbsUp } from "react-icons/fi";
 import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
 import Image from "next/image";
 import { PiPlayCircleThin } from "react-icons/pi";
@@ -12,9 +9,8 @@ import SimilerPropertySlider from "@/Components/SimilerPropertySlider/SimilerPro
 import { settingsData } from "@/store/reducer/settingsSlice";
 import { useSelector } from "react-redux";
 import Map from "@/Components/GoogleMap/GoogleMap";
-import ReactShare from "@/Components/ShareUrl/ReactShare";
 import { languageData } from "@/store/reducer/languageSlice";
-import { isThemeEnabled, loadGoogleMaps, translate } from "@/utils";
+import { isThemeEnabled, translate } from "@/utils";
 import { useRouter } from "next/router";
 import { GetFeturedListingsApi, intrestedPropertyApi, setPropertyTotalClicksApi } from "@/store/actions/campaign";
 import Header from "@/Components/Header/Header";
@@ -25,12 +21,11 @@ import toast from "react-hot-toast";
 import { isSupported } from "firebase/messaging";
 import { ImageToSvg } from "@/Components/Cards/ImageToSvg";
 import Swal from "sweetalert2";
-import { MdReport } from "react-icons/md";
 import ReportPropertyModal from "@/Components/ReportPropertyModal/ReportPropertyModal";
 import { getChatData } from "@/store/reducer/momentSlice";
-import { RiMailSendLine } from "react-icons/ri";
 import OwnerDeatilsCard from "../OwnerDeatilsCard/OwnerDeatilsCard";
 import PremiumOwnerDetailsCard from "../OwnerDeatilsCard/PremiumOwnerDetailsCard";
+import Layout from "../Layout/Layout";
 
 
 const PropertyDetails = () => {
@@ -368,7 +363,7 @@ const PropertyDetails = () => {
                 <Loader />
             ) : (
                 <>
-                    <Header />
+                    <Layout>
                     <Breadcrumb
                         data={{
                             type: getPropData && getPropData.category.category,
@@ -805,7 +800,7 @@ const PropertyDetails = () => {
                             </div>
                         </div>
                     </section>
-                    <Footer />
+                    </Layout >
                 </>
             )}
         </>

@@ -15,22 +15,12 @@ const VerticleLayout = dynamic(() => import('../AdminLayout/VerticleLayout.jsx')
 const UserSubScription = () => {
 
 
-    const [getlimitsData, setGetLimitsData] = useState();
 
     const [packagedata, setPackageData] = useState([]);
     const packageDetails = useSelector(settingsData);
 
     const router = useRouter()
     const CurrencySymbol = packageDetails && packageDetails?.currency_symbol;
-    // Add checks to ensure currentUserPackage is defined and has at least one element
-
-    // useEffect(() => {
-    //     if (!packagedata && packagedata.length === 0) {
-    //         // toast.error("Opps! No Package Found!!!")
-    //         router.push('/')
-
-    //     }
-    // }, [packagedata])
 
 
     const lang = useSelector(languageData);

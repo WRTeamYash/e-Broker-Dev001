@@ -38,6 +38,7 @@ export const GET_SEO_SETTINGS = "get_seo_settings"
 export const SET_PROPERTY_TOTAL_CLICKS = "set_property_total_click"
 export const UPDATE_PROPERTYY_STATUS = "update_property_status"
 export const GET_INTREESTED_USERS = "get_interested_users"
+export const POST_PROJECT = "post_project"
 
 // is login user check
 export const getUserID = () => {
@@ -720,3 +721,63 @@ export const getIntretsedUsers = (property_id, slug_id, limit, offset) => {
     }
 }
 
+
+
+// POST PROJECT
+export const postProject = (id, title, description, category_id, type, meta_title, meta_description, meta_keywords, meta_image, city, state, country, latitude, longitude, address, video_link, image, plans, documents, gallery_images, remove_documents, remove_gallery_images, remove_plans) => {
+    let data = new FormData();
+
+    // Append the property data to the FormData object
+    data.append('id', id);
+    data.append('title', title);
+    data.append('description', description);
+    data.append('category_id', category_id);
+    data.append('type', type);
+
+    data.append('meta_title', meta_title);
+    data.append('meta_description', meta_description);
+    data.append('meta_keywords', meta_keywords);
+    data.append('meta_image', meta_image);
+
+    data.append('city', city);
+    data.append('state', state);
+    data.append('country', country);
+    data.append('latitude', latitude);
+    data.append('longitude', longitude);
+    data.append('address', address);
+
+    data.append('video_link', video_link);
+    data.append('image', image);
+
+    // Append the parameters array if it is an array
+    if (Array.isArray(plans)) {
+        plans.forEach((plans, index) => {
+            data.append(`plans[${index}][title]`, plans.title);
+            data.append(`plans[${index}][document]`, plans.document);
+        });
+    }
+
+    // Check if gallery_images is defined and an array before using forEach
+    if (Array.isArray(documents)) {
+        documents.forEach((image, index) => {
+            data.append(`documents[${index}]`, image);
+        });
+    }
+    // Check if gallery_images is defined and an array before using forEach
+    if (Array.isArray(gallery_images)) {
+        gallery_images.forEach((image, index) => {
+            data.append(`gallery_images[${index}]`, image);
+        });
+    }
+    data.append('remove_documents', remove_documents);
+    data.append('remove_gallery_images', remove_gallery_images);
+    data.append('remove_plans', remove_plans);
+
+
+    return {
+        url: `${POST_PROJECT}`,
+        method: 'POST',
+        data,
+        authorizationHeader: true,
+    };
+};

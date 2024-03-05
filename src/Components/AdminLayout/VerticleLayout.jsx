@@ -377,64 +377,67 @@ export default function VerticleLayout(props) {
     }
     const handleCheckLimits = (e) => {
         e.preventDefault()
-        GetLimitsApi(
-            "property",
-            (response) => {
-                console.log(response)
-                if (response.message === "Please Subscribe for Post Property") {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Your Package Limit is Over. Please Purchase Package.",
-                        allowOutsideClick: false,
-                        customClass: {
-                            confirmButton: 'Swal-confirm-buttons',
-                        },
+        router.push("/user/properties");
 
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            router.push("/subscription-plan"); // Redirect to the subscription page
-                        }
-                    });
-                } else {
-                    router.push("/user/properties");
-                }
-            },
-            (error) => {
-                console.log("API Error:", error);
-            }
-        );
+        // GetLimitsApi(
+        //     "property",
+        //     (response) => {
+        //         console.log(response)
+        //         if (response.message === "Please Subscribe for Post Property") {
+        //             Swal.fire({
+        //                 icon: "error",
+        //                 title: "Oops...",
+        //                 text: "Your Package Limit is Over. Please Purchase Package.",
+        //                 allowOutsideClick: false,
+        //                 customClass: {
+        //                     confirmButton: 'Swal-confirm-buttons',
+        //                 },
+
+        //             }).then((result) => {
+        //                 if (result.isConfirmed) {
+        //                     router.push("/subscription-plan"); // Redirect to the subscription page
+        //                 }
+        //             });
+        //         } else {
+        //             router.push("/user/properties");
+        //         }
+        //     },
+        //     (error) => {
+        //         console.log("API Error:", error);
+        //     }
+        // );
 
     }
     const handleCheckLimitsforProject = (e) => {
         e.preventDefault()
-        GetLimitsApi(
-            "property",
-            (response) => {
-                console.log(response)
-                if (response.message === "Please Subscribe for Post Property") {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Your Package Limit is Over. Please Purchase Package.",
-                        allowOutsideClick: false,
-                        customClass: {
-                            confirmButton: 'Swal-confirm-buttons',
-                        },
+        router.push("/user/add-project");
 
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            router.push("/subscription-plan"); // Redirect to the subscription page
-                        }
-                    });
-                } else {
-                    router.push("/user/add-project");
-                }
-            },
-            (error) => {
-                console.log("API Error:", error);
-            }
-        );
+        // GetLimitsApi(
+        //     "property",
+        //     (response) => {
+        //         if (response.message === "Please Subscribe for Post Property") {
+        //             Swal.fire({
+        //                 icon: "error",
+        //                 title: "Oops...",
+        //                 text: "Your Package Limit is Over. Please Purchase Package.",
+        //                 allowOutsideClick: false,
+        //                 customClass: {
+        //                     confirmButton: 'Swal-confirm-buttons',
+        //                 },
+
+        //             }).then((result) => {
+        //                 if (result.isConfirmed) {
+        //                     router.push("/subscription-plan"); // Redirect to the subscription page
+        //                 }
+        //             });
+        //         } else {
+        //             router.push("/user/add-project");
+        //         }
+        //     },
+        //     (error) => {
+        //         console.log("API Error:", error);
+        //     }
+        // );
 
     }
 
@@ -560,7 +563,7 @@ export default function VerticleLayout(props) {
                         </Link>
                     </ListItem>
 
-                    <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/properties') ? 'drawer_list_item_active' : 'drawer_list_item'} onClick={handleCheckLimitsforProject}>
+                    <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/properties') ? 'drawer_list_item_active' : 'drawer_list_item'} onClick={handleCheckLimits}>
                         <ListItemButton
                             sx={{
                                 minHeight: 30,
@@ -582,8 +585,8 @@ export default function VerticleLayout(props) {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/add-project') ? 'drawer_list_item_active' : 'drawer_list_item'}
-                     onClick={handleCheckLimits}
-                     >
+                        onClick={handleCheckLimitsforProject}
+                    >
                         <ListItemButton
                             sx={{
                                 minHeight: 30,

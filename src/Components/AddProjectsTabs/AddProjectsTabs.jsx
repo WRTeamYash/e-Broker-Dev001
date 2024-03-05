@@ -6,7 +6,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { translate } from "@/utils";
-import { GetFacilitiesApi, PostProperty } from "@/store/actions/campaign";
+import { GetFacilitiesApi, PostProjectApi, PostProperty } from "@/store/actions/campaign";
 import GoogleMapBox from "../Location/GoogleMapBox";
 import { useDropzone } from "react-dropzone";
 import CloseIcon from "@mui/icons-material/Close";
@@ -69,7 +69,7 @@ export default function AddProjectsTabs() {
 
 
 
-    
+
     const [tab1, setTab1] = useState({
         projectType: "",
         category: "",
@@ -477,10 +477,10 @@ export default function AddProjectsTabs() {
     };
 
     const onDropFloorImgs = (floorIndex, acceptedFiles) => {
-    
+
         setFloorFields(prevFloorFields => {
             const updatedFloorFields = [...prevFloorFields];
-           
+
             updatedFloorFields[floorIndex].floorImgs = [...updatedFloorFields[floorIndex]?.floorImgs, ...acceptedFiles];
             return updatedFloorFields;
         });
@@ -505,6 +505,7 @@ export default function AddProjectsTabs() {
     const { getRootProps: getRootPropsFloor, getInputProps: getInputPropsFloor, isDragActive: isDragActiveFloor } = useDropzone({
         onDrop: (acceptedFiles) => onDropFloorImgs(currentFloorIndex, acceptedFiles), // Pass the correct floor index directly
         accept: 'image/*',
+        multiple:false
     });
     const handleUploadClick = (floorIndex, imgIndex) => {
         const floorField = floorFields[floorIndex];
@@ -582,7 +583,7 @@ export default function AddProjectsTabs() {
         </div>
     ));
 
-    
+
     useEffect(() => {
     }, [floorFields]);
 
@@ -590,7 +591,7 @@ export default function AddProjectsTabs() {
 
     useEffect(() => { }, [tab1, floorFields, selectedLocationAddress, tab5]);
 
-    const handlePostproperty = async (e) => {
+    const handlePostProject = async (e) => {
         e.preventDefault();
 
         try {
@@ -615,50 +616,55 @@ export default function AddProjectsTabs() {
                 toast.error("Please select a Title Image");
 
             } else {
-                
-                console.log(
-                    "tab1",tab1,
-                    "floorFields",floorFields,
-                    "tab6",tab6,
-                    "tab5",tab5,
-                    "selectedLocationAddress",selectedLocationAddress,
-                )
+
+                const plans = []; // Initialize an empty array for plans
 
 
-                // PostProperty({
-                //     userid: userId,
-                //     title: tab1.title,
-                //     description: tab1.projectDesc,
-                //     price: tab1.price,
-                //     category_id: tab1.category,
-                //     rentduration: tab1.rentduration,
-                //     property_type: tab1.projectType,
-                //     is_premium: tab1.isPrivate,
-                //     city: selectedLocationAddress.city,
-                //     state: selectedLocationAddress.state,
-                //     country: selectedLocationAddress.country,
-                //     latitude: selectedLocationAddress.lat,
-                //     longitude: selectedLocationAddress.lng,
-                //     address: selectedLocationAddress.formatted_address,
-                //     parameters: parameters,
-                //     facilities: facilities,
-                //     threeD_image: tab5._3DImages[0],
-                //     gallery_images: tab5.galleryImages,
-                //     title_image: tab5.titleImage[0],
-                //     video_link: tab5.videoLink,
-                //     meta_title: tab6.MetaTitle,
-                //     meta_description: tab6.MetaDesc,
-                //     meta_keywords: tab6.MetaKeyword,
-                //     meta_image: tab6.ogImages[0],
-                //     onSuccess: async (response) => {
-                //         toast.success(response.message);
-                //         router.push("/user/dashboard");
-                //     },
-                //     onError: (error) => {
-                //         toast.error(error);
-                //     }
-                // }
-                // );
+                // Loop through floorFields and push each entry into plans array
+                for (const field of floorFields) {
+                    const title = field.floorTitle;
+                    const documents = field.floorImgs;
+
+                    // Loop through documents array to handle multiple images
+                    for (const document of documents) {
+                        plans.push({
+                            title: title,
+                            document: document,
+                            // You may need to adjust these fields based on your data structure
+                        });
+                    }
+                }
+
+
+                PostProjectApi({
+                    title: tab1?.title,
+                    description: tab1?.projectDesc,
+                    category_id: tab1?.category,
+                    type: tab1?.projectType,
+                    meta_title: tab6?.MetaTitle,
+                    meta_description: tab6?.MetaDesc,
+                    meta_keywords: tab6?.MetaKeyword,
+                    meta_image: tab6?.ogImages[0],
+                    city: selectedLocationAddress.city,
+                    state: selectedLocationAddress.state,
+                    country: selectedLocationAddress.country,
+                    latitude: selectedLocationAddress.lat,
+                    longitude: selectedLocationAddress.lng,
+                    address: selectedLocationAddress.formatted_address,
+                    plans: plans,
+                    image: tab5.titleImage[0],
+                    documents: tab5.docs,
+                    gallery_images: tab5.galleryImages,
+                    video_link: tab5.videoLink,
+                    onSuccess: async (response) => {
+                        console.log(response)
+                        toast.success(response.message);
+                        // router.push("/user/dashboard");
+                    },
+                    onError: (error) => {
+                        toast.error(error);
+                    }
+                });
             }
         } catch (error) {
 
@@ -859,7 +865,7 @@ export default function AddProjectsTabs() {
                 <div className="add_prop_form">
                     {/* <Floors onFloorFieldsChange={handleFloorFieldsChange} /> */}
                     {floorsContent}
-            <button className="add_floor" onClick={handleAddFloor}>Add Floor</button>
+                    <button className="add_floor" onClick={handleAddFloor}>{translate("addFloor")}</button>
                 </div>
                 <div className="nextButton">
                     <button type="button" onClick={handleNextTab4}>
@@ -939,7 +945,7 @@ export default function AddProjectsTabs() {
                 </div>
 
                 <div className="updateButton">
-                    <button type="submit" onClick={handlePostproperty}>
+                    <button type="submit" onClick={handlePostProject}>
                         {translate("submitProp")}
                     </button>
                 </div>

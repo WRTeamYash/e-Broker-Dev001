@@ -773,6 +773,7 @@ const PropertyDetails = () => {
                                             notificationPermissionGranted={notificationPermissionGranted}
                                             handleChat={handleChat}
                                             handleReportProperty={handleReportProperty}
+                                            PlaceHolderImg={PlaceHolderImg}
 
                                         />
                                         ):(

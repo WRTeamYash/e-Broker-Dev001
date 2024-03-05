@@ -18,8 +18,11 @@ const OwnerDeatilsCard = (
         notificationPermissionGranted,
         handleChat,
         userCurrentId,
-        handleReportProperty
+        handleReportProperty,
+        PlaceHolderImg
     }) => {
+
+        
     return (
         <>
             <div className="card" id="owner-deatils-card">

@@ -14,6 +14,7 @@ import {
     confirmPayment,
     getFacilities,
     postProperty,
+    postProject,
     getLimits,
     getPaymentDetials,
     updatePostProperty,
@@ -350,7 +351,7 @@ export const UpdatePostProperty = ({
     meta_keywords = "",
     meta_image = {},
     rentduration = "",
-    is_premium ="",
+    is_premium = "",
     onSuccess = () => { },
     onError = () => { },
     onStart = () => { }
@@ -617,6 +618,49 @@ export const getIntrestedUserApi = ({
     store.dispatch(
         apiCallBegan({
             ...getIntretsedUsers(property_id, slug_id, limit, offset),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+
+
+// post project api
+
+export const PostProjectApi = ({
+    id = "",
+    title = "",
+    description = "",
+    category_id = "",
+    type = "",
+    meta_title = "",
+    meta_description = "",
+    meta_keywords = "",
+    meta_image = {},
+    city = "",
+    state = "",
+    country = "",
+    latitude = "",
+    longitude = "",
+    address = "",
+    video_link = "",
+    image = {},
+    plans = [],
+    documents = [],
+    gallery_images = [],
+    remove_documents = [],
+    remove_gallery_images = [],
+    remove_plans = [],
+    onSuccess = () => { },
+    onError = () => { },
+    onStart = () => { }
+}
+) => {
+    store.dispatch(
+        apiCallBegan({
+            ...postProject(id, title, description, category_id, type, meta_title, meta_description, meta_keywords, meta_image, city, state, country, latitude, longitude, address,video_link, image, plans, documents, gallery_images, remove_documents, remove_gallery_images, remove_plans),
             displayToast: false,
             onStart,
             onSuccess,

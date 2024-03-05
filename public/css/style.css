@@ -8263,6 +8263,12 @@ button.learn-more-project .button-text {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.5s;
+
+}
+.project_main_card:hover .project_img img {
+  filter: brightness(0.7);
+  transition: all 0.5s;
 }
 
 

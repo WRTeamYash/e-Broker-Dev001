@@ -8222,7 +8222,7 @@ button.learn-more-project .button-text {
   height: 230px;
   position: relative;
 }
-.cardImg_swiper{
+.cardImg_swiper {
   position: relative;
 }
 .project_img img {
@@ -8262,7 +8262,6 @@ button.learn-more-project .button-text {
   justify-content: center;
   transition: opacity 0.9s;
   opacity: 1;
-
 }
 .project_main_card:hover .cardImg_swiper .project_next span,
 .project_main_card:hover .cardImg_swiper .project_prev span {
@@ -8271,13 +8270,11 @@ button.learn-more-project .button-text {
   justify-content: center;
   transition: opacity 0.9s;
   opacity: 1;
-
 }
 .project_main_card:hover .project_img img {
   filter: brightness(0.7);
   transition: all 0.5s;
 }
-
 
 .cardImg_swiper .project_premium_icon {
   position: absolute;
@@ -8294,8 +8291,8 @@ button.learn-more-project .button-text {
   z-index: 99;
 }
 
-.project-swiper{
-  padding-bottom:  0 !important;
+.project-swiper {
+  padding-bottom: 0 !important;
 }
 
 .project_main_card .cate_image {
@@ -8316,7 +8313,7 @@ button.learn-more-project .button-text {
   outline: 2px solid var(--primary-text-color01) !important;
 }
 
-#projects_cards{
+#projects_cards {
   margin: 30px 0;
 }
 .subscribeForProject .subcribeCard {
@@ -8333,9 +8330,9 @@ button.learn-more-project .button-text {
   margin-bottom: -5vh;
   z-index: 99;
 }
-.subscribeForProject .subcribeCard h3{
-color: var(--primary-text-color01);
-width: 50%;
+.subscribeForProject .subcribeCard h3 {
+  color: var(--primary-text-color01);
+  width: 50%;
 }
 .subscribeForProject .subcribeCard .subscribeNoButton {
   background: var(--primary-text-color01);
@@ -8349,35 +8346,34 @@ width: 50%;
   color: var(--primary-text-color02);
 }
 
-@media only screen and (max-width:1199px) {
+@media only screen and (max-width: 1199px) {
   .subscribeForProject .subcribeCard {
     width: 100%;
   }
 }
-@media only screen and (max-width:767px) {
+@media only screen and (max-width: 767px) {
   .subscribeForProject .subcribeCard {
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
   }
-  .subscribeForProject .subcribeCard h3{
+  .subscribeForProject .subcribeCard h3 {
     width: 100%;
   }
 
-  .project_card_middletext p{
+  .project_card_middletext p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 }
 
-
-.floorfields{
-margin-bottom: 10px;
+.floorfields {
+  margin-bottom: 10px;
 }
 
-.florimgandremove{
+.florimgandremove {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -8411,4 +8407,144 @@ margin-bottom: 10px;
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+#project_details {
+  position: relative;
+  top: -10vh;
+}
+.project_main_details {
+  background: #fff;
+  padding: 30px 0;
+}
+.project_main_details .project_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.project_div .project_right_details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.project_div .project_right_details .prop_types {
+  color: var(--primary-text-color01);
+  background: var(--primary-color);
+  padding: 5px 25px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  text-transform: capitalize;
+  width: max-content;
+}
+.project_div .project_right_details .prop_name {
+  font-size: 35px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--primary-text-color02);
+}
+.project_div .project_right_details .prop_Location {
+}
+
+@media only screen and (max-width: 1199px) {
+  .prop_name {
+    font-size: 25px;
+  }
+  .prop_Location {
+    font-size: 14px !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .prop_name {
+    font-size: 18px;
+  }
+  .project_right_details {
+    align-items: flex-start !important;
+  }
+}
+@media only screen and (max-width: 424px) {
+  .prop_name {
+    font-size: 16px;
+  }
+  .project_right_details {
+    align-items: flex-start !important;
+  }
+}
+.prop_Location {
+  display: flex;
+  gap: 5px;
+  color: gray;
+  align-items: center;
+  font-size: 18px;
+}
+/* .project_div .project_left_details{
+
+} */
+.project_div .project_left_details .share_project {
+  border: 1px solid rgba(128, 128, 128, 0.596);
+  background: transparent;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.project_otherDetails {
+  margin-top: 20px;
+}
+
+/* .accordion-button:focus,
+.accordion-button:focus-visible {
+  box-shadow: none !important;
+  border: none !important;
+  border-color: transparent !important;
+  outline: none !important;
+}
+
+.accordion-button:not(.collapsed):focus,
+.accordion-button:not(.collapsed):focus-visible {
+  box-shadow: none !important;
+  border: none !important;
+  border-color: transparent !important;
+  outline: none !important;
+}
+
+.accordion-button::after{
+  background-image: url("../../src/assets/Images/Vector.svg") !important;
+}
+.accordion-header {
+  border-bottom: 1px solid #80808045;
+  padding: 15px 0;
+} */
+.custom-accordion {
+  border: 1px solid lightgray;
+  border-radius: 8px;
+}
+
+.accordion-item {
+  border-bottom: 1px solid lightgray;
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  cursor: pointer;
+  border-bottom: 1px solid lightgray;
+}
+
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+  padding: 0 20px !important; /* Set initial padding */
+}
+
+/* Add class for open accordion item */
+.accordion-item.open .accordion-body {
+  max-height: 1000px;
+  padding: 20px !important;
+  border-bottom: 1px solid lightgray;
+  transition: max-height 0.5s ease-in-out;
+
 }

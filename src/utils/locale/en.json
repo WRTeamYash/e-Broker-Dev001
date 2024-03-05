@@ -313,5 +313,7 @@
   "underconstruction": "Under Construction",
   "floorTitle":"Floor Title",
   "floorImg":"Floor Image",
-  "addFloor":"Add Floor"
+  "addFloor":"Add Floor",
+  "ViewMap":"View Map",
+  "floorPlans":"Floor Plans"
 }

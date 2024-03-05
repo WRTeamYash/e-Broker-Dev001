@@ -364,442 +364,371 @@ const PropertyDetails = () => {
             ) : (
                 <>
                     <Layout>
-                    <Breadcrumb
-                        data={{
-                            type: getPropData && getPropData.category.category,
-                            title: getPropData && getPropData.title,
-                            loc: getPropData && getPropData.address,
-                            propertyType: getPropData && getPropData.property_type,
-                            time: getPropData && getPropData.post_created,
-                            price: getPropData && getPropData.price,
-                            is_favourite: getPropData && getPropData.is_favourite,
-                            propId: getPropData && getPropData.id,
-                            title_img: getPropData && getPropData.title_image,
-                            rentduration: getPropData && getPropData.rentduration
-                        }}
-                    />
-                    <section className="properties-deatil-page">
-                        <div id="all-prop-deatil-containt">
-                            <div className="container">
-                                {galleryPhotos && galleryPhotos.length > 0 ? (
-                                    <div className="row" id="prop-images">
-                                        {galleryPhotos.length < 2 ? (
-                                            <>
-                                                <div className="col-sm-12 col-md-6" id="prop-main-image">
-                                                    <Image
-                                                        loading="lazy"
-                                                        src={getPropData?.title_image || PlaceHolderImg}
-                                                        className="two-img01"
-                                                        alt="Main Image" width={200}
-                                                        height={200}
-                                                        onClick={() => openLightbox(0)} />
-                                                </div>
-                                                <div className="col-sm-12 col-md-6" id="prop-main-image">
-                                                    <Image
-                                                        loading="lazy"
-                                                        src={galleryPhotos[0]?.image_url || PlaceHolderImg}
-                                                        className="two-img02"
-                                                        alt="Main Image"
-                                                        width={200}
-                                                        height={200}
-                                                        onClick={() => openLightbox(1)} />
-                                                    <div className="see_all02">
-                                                        <button onClick={() => openLightbox(0)}>{translate("seeAllPhotos")}</button>
+                        <Breadcrumb
+                            data={{
+                                type: getPropData && getPropData.category.category,
+                                title: getPropData && getPropData.title,
+                                loc: getPropData && getPropData.address,
+                                propertyType: getPropData && getPropData.property_type,
+                                time: getPropData && getPropData.post_created,
+                                price: getPropData && getPropData.price,
+                                is_favourite: getPropData && getPropData.is_favourite,
+                                propId: getPropData && getPropData.id,
+                                title_img: getPropData && getPropData.title_image,
+                                rentduration: getPropData && getPropData.rentduration
+                            }}
+                        />
+                        <section className="properties-deatil-page">
+                            <div id="all-prop-deatil-containt">
+                                <div className="container">
+                                    {galleryPhotos && galleryPhotos.length > 0 ? (
+                                        <div className="row" id="prop-images">
+                                            {galleryPhotos.length < 2 ? (
+                                                <>
+                                                    <div className="col-sm-12 col-md-6" id="prop-main-image">
+                                                        <Image
+                                                            loading="lazy"
+                                                            src={getPropData?.title_image || PlaceHolderImg}
+                                                            className="two-img01"
+                                                            alt="Main Image" width={200}
+                                                            height={200}
+                                                            onClick={() => openLightbox(0)} />
                                                     </div>
-                                                </div>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <div className="col-lg-4 col-sm-12" id="prop-left-images">
-                                                    <Image
-                                                        loading="lazy"
-                                                        src={galleryPhotos[0]?.image_url || PlaceHolderImg}
-                                                        className="left-imgs01"
-                                                        alt="Image 1"
-                                                        width={200}
-                                                        height={200}
-                                                        onClick={() => openLightbox(1)}
-                                                    />
-                                                    <Image
-                                                        loading="lazy"
-                                                        src={galleryPhotos[1]?.image_url || PlaceHolderImg}
-                                                        className="left-imgs02"
-                                                        alt="Image 2"
-                                                        width={200}
-                                                        height={200}
-                                                        onClick={() => openLightbox(2)}
-                                                    />
-                                                </div>
-                                                <div className="col-lg-8 col-sm-12 text-center" id="prop-main-image">
-                                                    <Image
-                                                        loading="lazy"
-                                                        src={getPropData?.title_image || PlaceHolderImg}
-                                                        className="middle-img"
-                                                        alt="Main Image"
-                                                        width={200}
-                                                        height={200}
-                                                        onClick={() => openLightbox(0)}
-                                                    />
-                                                    <div className="see_all">
-                                                        <button onClick={() => openLightbox(0)}>{translate("seeAllPhotos")}</button>
+                                                    <div className="col-sm-12 col-md-6" id="prop-main-image">
+                                                        <Image
+                                                            loading="lazy"
+                                                            src={galleryPhotos[0]?.image_url || PlaceHolderImg}
+                                                            className="two-img02"
+                                                            alt="Main Image"
+                                                            width={200}
+                                                            height={200}
+                                                            onClick={() => openLightbox(1)} />
+                                                        <div className="see_all02">
+                                                            <button onClick={() => openLightbox(0)}>{translate("seeAllPhotos")}</button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <div className="col-lg-4 col-sm-12" id="prop-left-images">
+                                                        <Image
+                                                            loading="lazy"
+                                                            src={galleryPhotos[0]?.image_url || PlaceHolderImg}
+                                                            className="left-imgs01"
+                                                            alt="Image 1"
+                                                            width={200}
+                                                            height={200}
+                                                            onClick={() => openLightbox(1)}
+                                                        />
+                                                        <Image
+                                                            loading="lazy"
+                                                            src={galleryPhotos[1]?.image_url || PlaceHolderImg}
+                                                            className="left-imgs02"
+                                                            alt="Image 2"
+                                                            width={200}
+                                                            height={200}
+                                                            onClick={() => openLightbox(2)}
+                                                        />
+                                                    </div>
+                                                    <div className="col-lg-8 col-sm-12 text-center" id="prop-main-image">
+                                                        <Image
+                                                            loading="lazy"
+                                                            src={getPropData?.title_image || PlaceHolderImg}
+                                                            className="middle-img"
+                                                            alt="Main Image"
+                                                            width={200}
+                                                            height={200}
+                                                            onClick={() => openLightbox(0)}
+                                                        />
+                                                        <div className="see_all">
+                                                            <button onClick={() => openLightbox(0)}>{translate("seeAllPhotos")}</button>
+                                                        </div>
+                                                    </div>
+                                                </>
 
-                                        )}
-                                    </div>
-                                ) :
-                                    <div className="row" id="prop-images">
-                                        <div className="col-12" id="prop-main-image01">
-                                            <Image
-                                                loading="lazy"
-                                                src={getPropData?.title_image || PlaceHolderImg}
-                                                className="one-img"
-                                                alt="Main Image"
-                                                width={200}
-                                                height={200}
-                                                onClick={() => openLightbox(0)} />
+                                            )}
                                         </div>
-                                    </div>
-                                }
-
-                                {/* {viewerIsOpen && */}
-                                <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={setViewerIsOpen} title_image={getPropData?.title_image} setViewerIsOpen={setViewerIsOpen} setCurrentImage={setCurrentImage} />
-                                {/* } */}
-
-                                <div className="row" id="prop-all-deatils-cards">
-                                    <div className="col-12 col-md-12 col-lg-9" id="prop-deatls-card">
-                                        {getPropData && getPropData.description ? (
-                                            <div className="card about-propertie">
-                                                <div className="card-header">{translate("aboutProp")}</div>
-                                                <div className="card-body">
-                                                    {getPropData && getPropData.description && (
-                                                        <>
-                                                            <p>{expanded ? getPropData.description : getPropData.description.substring(0, 100) + "..."}</p>
-                                                            {getPropData.description.length > 100 && (
-                                                                <button onClick={() => setExpanded(!expanded)}>
-                                                                    {expanded ? "Show Less" : "Show More"}
-                                                                    <AiOutlineArrowRight className="mx-2" size={18} />
-                                                                </button>
-                                                            )}
-                                                        </>
-                                                    )}
-                                                </div>
+                                    ) :
+                                        <div className="row" id="prop-images">
+                                            <div className="col-12" id="prop-main-image01">
+                                                <Image
+                                                    loading="lazy"
+                                                    src={getPropData?.title_image || PlaceHolderImg}
+                                                    className="one-img"
+                                                    alt="Main Image"
+                                                    width={200}
+                                                    height={200}
+                                                    onClick={() => openLightbox(0)} />
                                             </div>
-                                        ) : null}
+                                        </div>
+                                    }
 
-                                        {getPropData && getPropData.parameters.length > 0 && getPropData.parameters.some((elem) => elem.value !== null && elem.value !== "") ? (
-                                            <div className="card " id="features-amenities">
-                                                <div className="card-header">{translate("feature&Amenties")}</div>
-                                                <div className="card-body">
-                                                    <div className="row">
-                                                        {getPropData &&
-                                                            getPropData.parameters.map((elem, index) =>
-                                                                // Check if the value is an empty string
-                                                                elem.value !== "" && elem.value !== "0" ? (
-                                                                    <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
-                                                                        <div id="specification">
-                                                                            <div className="spec-icon">
-                                                                                {themeEnabled ? (
-                                                                                    <ImageToSvg imageUrl={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg} className="custom-svg" />
-                                                                                ) : (
-                                                                                    <Image loading="lazy" src={elem.image} width={20} height={16} alt="no_img" />
-                                                                                )}
-                                                                            </div>
-                                                                            <div id="specs-deatils">
-                                                                                <div>
-                                                                                    <span>{elem.name}</span>
-                                                                                </div>
-                                                                                <div className="valueDiv">
-                                                                                    {/* Check if the value is a link */}
-                                                                                    {typeof elem.value === "string" && elem.value.startsWith("https://") ? (
-                                                                                        <a id="spacs-count" href={elem.value} target="_blank" rel="noopener noreferrer">
-                                                                                            {elem.value}
-                                                                                        </a>
+                                    {/* {viewerIsOpen && */}
+                                    <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={setViewerIsOpen} title_image={getPropData?.title_image} setViewerIsOpen={setViewerIsOpen} setCurrentImage={setCurrentImage} />
+                                    {/* } */}
+
+                                    <div className="row" id="prop-all-deatils-cards">
+                                        <div className="col-12 col-md-12 col-lg-9" id="prop-deatls-card">
+                                            {getPropData && getPropData.description ? (
+                                                <div className="card about-propertie">
+                                                    <div className="card-header">{translate("aboutProp")}</div>
+                                                    <div className="card-body">
+                                                        {getPropData && getPropData.description && (
+                                                            <>
+                                                                <p>{expanded ? getPropData.description : getPropData.description.substring(0, 100) + "..."}</p>
+                                                                {getPropData.description.length > 100 && (
+                                                                    <button onClick={() => setExpanded(!expanded)}>
+                                                                        {expanded ? "Show Less" : "Show More"}
+                                                                        <AiOutlineArrowRight className="mx-2" size={18} />
+                                                                    </button>
+                                                                )}
+                                                            </>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            ) : null}
+
+                                            {getPropData && getPropData.parameters.length > 0 && getPropData.parameters.some((elem) => elem.value !== null && elem.value !== "") ? (
+                                                <div className="card " id="features-amenities">
+                                                    <div className="card-header">{translate("feature&Amenties")}</div>
+                                                    <div className="card-body">
+                                                        <div className="row">
+                                                            {getPropData &&
+                                                                getPropData.parameters.map((elem, index) =>
+                                                                    // Check if the value is an empty string
+                                                                    elem.value !== "" && elem.value !== "0" ? (
+                                                                        <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
+                                                                            <div id="specification">
+                                                                                <div className="spec-icon">
+                                                                                    {themeEnabled ? (
+                                                                                        <ImageToSvg imageUrl={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg} className="custom-svg" />
                                                                                     ) : (
-                                                                                        <span id="spacs-count">{elem.value}</span>
+                                                                                        <Image loading="lazy" src={elem.image} width={20} height={16} alt="no_img" />
                                                                                     )}
                                                                                 </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                ) : null
-                                                            )}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ) : null}
-                                        {getPropData && getPropData.assign_facilities.length > 0 && getPropData.assign_facilities.some((elem) => elem.distance !== null && elem.distance !== "" && elem.distance !== 0) ? (
-                                            <div className="card " id="features-amenities">
-                                                <div className="card-header">{translate("OTF")}</div>
-                                                <div className="card-body">
-                                                    <div className="row">
-                                                        {getPropData &&
-                                                            getPropData.assign_facilities.map((elem, index) =>
-                                                                // Check if the value is an empty string
-                                                                elem.distance !== "" && elem.distance !== 0 ? (
-                                                                    <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
-                                                                        <div id="specification">
-                                                                            <div className="spec-icon">
-                                                                                {themeEnabled ? (
-                                                                                    <ImageToSvg imageUrl={elem.image !== undefined && elem.image !== null ? elem?.image : PlaceHolderImg} className="custom-svg" />
-                                                                                ) : (
-                                                                                    <Image
-                                                                                        loading="lazy"
-                                                                                        src={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg}
-                                                                                        width={20}
-                                                                                        height={16}
-                                                                                        alt="no_img"
-                                                                                        onError={(e) => {
-                                                                                            e.target.src = PlaceHolderImg;
-                                                                                        }}
-                                                                                    />
-                                                                                )}
-                                                                            </div>
-
-                                                                            <div id="specs-deatils">
-                                                                                <div>
-                                                                                    <span>{elem.name}</span>
-                                                                                </div>
-                                                                                <div className="valueDiv">
-
-                                                                                    <span id="spacs-count">{elem.distance} {""} {translate("km")}   </span>
-
+                                                                                <div id="specs-deatils">
+                                                                                    <div>
+                                                                                        <span>{elem.name}</span>
+                                                                                    </div>
+                                                                                    <div className="valueDiv">
+                                                                                        {/* Check if the value is a link */}
+                                                                                        {typeof elem.value === "string" && elem.value.startsWith("https://") ? (
+                                                                                            <a id="spacs-count" href={elem.value} target="_blank" rel="noopener noreferrer">
+                                                                                                {elem.value}
+                                                                                            </a>
+                                                                                        ) : (
+                                                                                            <span id="spacs-count">{elem.value}</span>
+                                                                                        )}
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                ) : null
-                                                            )}
+                                                                    ) : null
+                                                                )}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ) : null}
-                                        {getPropData && getPropData.latitude && getPropData.longitude ? (
-                                            <div className="card" id="propertie_address">
-                                                <div className="card-header">{translate("address")}</div>
-                                                <div className="card-body">
-                                                    <div className="row" id="prop-address">
-                                                        {!isPremiumProperty || isPremiumUser ? (
-                                                            <>
-                                                                <div className="adrs">
-                                                                    <div>
-                                                                        <span> {translate("address")}</span>
-                                                                    </div>
-                                                                    <div className="">
-                                                                        <span> {translate("city")}</span>
-                                                                    </div>
-                                                                    <div className="">
-                                                                        <span> {translate("state")}</span>
-                                                                    </div>
-                                                                    <div className="">
-                                                                        <span> {translate("country")}</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="adrs02">
-                                                                    <div className="adrs_value">
-                                                                        <span>{getPropData && getPropData.address}</span>
-                                                                    </div>
-                                                                    <div className="adrs_value">
-                                                                        <span className="">{getPropData && getPropData.city}</span>
-                                                                    </div>
+                                            ) : null}
+                                            {getPropData && getPropData.assign_facilities.length > 0 && getPropData.assign_facilities.some((elem) => elem.distance !== null && elem.distance !== "" && elem.distance !== 0) ? (
+                                                <div className="card " id="features-amenities">
+                                                    <div className="card-header">{translate("OTF")}</div>
+                                                    <div className="card-body">
+                                                        <div className="row">
+                                                            {getPropData &&
+                                                                getPropData.assign_facilities.map((elem, index) =>
+                                                                    // Check if the value is an empty string
+                                                                    elem.distance !== "" && elem.distance !== 0 ? (
+                                                                        <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
+                                                                            <div id="specification">
+                                                                                <div className="spec-icon">
+                                                                                    {themeEnabled ? (
+                                                                                        <ImageToSvg imageUrl={elem.image !== undefined && elem.image !== null ? elem?.image : PlaceHolderImg} className="custom-svg" />
+                                                                                    ) : (
+                                                                                        <Image
+                                                                                            loading="lazy"
+                                                                                            src={elem.image !== undefined && elem.image !== null ? elem.image : PlaceHolderImg}
+                                                                                            width={20}
+                                                                                            height={16}
+                                                                                            alt="no_img"
+                                                                                            onError={(e) => {
+                                                                                                e.target.src = PlaceHolderImg;
+                                                                                            }}
+                                                                                        />
+                                                                                    )}
+                                                                                </div>
 
-                                                                    <div className="adrs_value">
-                                                                        <span className="">{getPropData && getPropData.state}</span>
-                                                                    </div>
-                                                                    <div className="adrs_value">
-                                                                        <span className="">{getPropData && getPropData.country}</span>
-                                                                    </div>
-                                                                </div>
-                                                            </>
-                                                        ) : null}
+                                                                                <div id="specs-deatils">
+                                                                                    <div>
+                                                                                        <span>{elem.name}</span>
+                                                                                    </div>
+                                                                                    <div className="valueDiv">
+
+                                                                                        <span id="spacs-count">{elem.distance} {""} {translate("km")}   </span>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    ) : null
+                                                                )}
+                                                        </div>
                                                     </div>
-                                                    {getPropData ? (
-                                                        <div className="card google_map">
-                                                            {showMap ? (
-                                                                <Map latitude={getPropData.latitude} longitude={getPropData.longitude} />
-                                                            ) : (
+                                                </div>
+                                            ) : null}
+                                            {getPropData && getPropData.latitude && getPropData.longitude ? (
+                                                <div className="card" id="propertie_address">
+                                                    <div className="card-header">{translate("address")}</div>
+                                                    <div className="card-body">
+                                                        <div className="row" id="prop-address">
+                                                            {!isPremiumProperty || isPremiumUser ? (
                                                                 <>
-                                                                    <div className="blur-background" />
-                                                                    <div className="blur-container">
-                                                                        <div className="view-map-button-div">
-                                                                            <button onClick={handleShowMap} id="view-map-button">
-                                                                                View Map
-                                                                            </button>
+                                                                    <div className="adrs">
+                                                                        <div>
+                                                                            <span> {translate("address")}</span>
+                                                                        </div>
+                                                                        <div className="">
+                                                                            <span> {translate("city")}</span>
+                                                                        </div>
+                                                                        <div className="">
+                                                                            <span> {translate("state")}</span>
+                                                                        </div>
+                                                                        <div className="">
+                                                                            <span> {translate("country")}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="adrs02">
+                                                                        <div className="adrs_value">
+                                                                            <span>{getPropData && getPropData.address}</span>
+                                                                        </div>
+                                                                        <div className="adrs_value">
+                                                                            <span className="">{getPropData && getPropData.city}</span>
+                                                                        </div>
+
+                                                                        <div className="adrs_value">
+                                                                            <span className="">{getPropData && getPropData.state}</span>
+                                                                        </div>
+                                                                        <div className="adrs_value">
+                                                                            <span className="">{getPropData && getPropData.country}</span>
                                                                         </div>
                                                                     </div>
                                                                 </>
-                                                            )}
+                                                            ) : null}
                                                         </div>
-                                                    ) : null}
-                                                </div>
-                                            </div>
-                                        ) : null}
-
-                                        {getPropData && getPropData.video_link ? (
-                                            <div className="card" id="prop-video">
-                                                <div className="card-header">{translate("video")}</div>
-                                                <div className="card-body">
-                                                    {!playing ? (
-                                                        <div
-                                                            className="video-background container"
-                                                            style={{
-                                                                backgroundImage: backgroundImageUrl,
-                                                                backgroundSize: "cover",
-                                                                backgroundPosition: "center center",
-                                                            }}
-                                                        >
-                                                            <div id="video-play-button">
-                                                                <button onClick={() => setPlaying(true)}>
-                                                                    <PiPlayCircleThin className="button-icon" size={80} />
-                                                                </button>
+                                                        {getPropData ? (
+                                                            <div className="card google_map">
+                                                                {showMap ? (
+                                                                    <Map latitude={getPropData.latitude} longitude={getPropData.longitude} />
+                                                                ) : (
+                                                                    <>
+                                                                        <div className="blur-background" />
+                                                                        <div className="blur-container">
+                                                                            <div className="view-map-button-div">
+                                                                                <button onClick={handleShowMap} id="view-map-button">
+                                                                                    {translate("ViewMap")}
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </>
+                                                                )}
                                                             </div>
-                                                        </div>
-                                                    ) : (
-                                                        <div>
-                                                            <ReactPlayer
-                                                                width="100%"
-                                                                height="500px"
-                                                                url={getPropData && getPropData.video_link}
-                                                                playing={playing}
-                                                                controls={true}
-                                                                onPlay={() => handleVideoReady(true)}
-                                                                onPause={() => {
-                                                                    setManualPause(true); // Manually pause the video
-                                                                    handlePause();
+                                                        ) : null}
+                                                    </div>
+                                                </div>
+                                            ) : null}
+
+                                            {getPropData && getPropData.video_link ? (
+                                                <div className="card" id="prop-video">
+                                                    <div className="card-header">{translate("video")}</div>
+                                                    <div className="card-body">
+                                                        {!playing ? (
+                                                            <div
+                                                                className="video-background container"
+                                                                style={{
+                                                                    backgroundImage: backgroundImageUrl,
+                                                                    backgroundSize: "cover",
+                                                                    backgroundPosition: "center center",
                                                                 }}
-                                                                onEnded={() => setPlaying(false)}
-                                                                onProgress={handleSeek}
-                                                                onSeek={handleSeek}
-                                                                onSeekEnd={handleSeekEnd}
-                                                            />
+                                                            >
+                                                                <div id="video-play-button">
+                                                                    <button onClick={() => setPlaying(true)}>
+                                                                        <PiPlayCircleThin className="button-icon" size={80} />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        ) : (
+                                                            <div>
+                                                                <ReactPlayer
+                                                                    width="100%"
+                                                                    height="500px"
+                                                                    url={getPropData && getPropData.video_link}
+                                                                    playing={playing}
+                                                                    controls={true}
+                                                                    onPlay={() => handleVideoReady(true)}
+                                                                    onPause={() => {
+                                                                        setManualPause(true); // Manually pause the video
+                                                                        handlePause();
+                                                                    }}
+                                                                    onEnded={() => setPlaying(false)}
+                                                                    onProgress={handleSeek}
+                                                                    onSeek={handleSeek}
+                                                                    onSeekEnd={handleSeekEnd}
+                                                                />
 
-                                                        </div>
-                                                    )}
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ) : null}
+                                            ) : null}
+                                        </div>
+
+
+
+                                        <div className="col-12 col-md-12 col-lg-3">
+                                            {!isPremiumProperty || isPremiumUser ? (
+                                                <OwnerDeatilsCard
+                                                    getPropData={getPropData}
+                                                    showChat={showChat}
+                                                    userCurrentId={userCurrentId}
+                                                    interested={interested}
+                                                    isReported={isReported}
+                                                    handleInterested={handleInterested}
+                                                    isMessagingSupported={isMessagingSupported}
+                                                    handleNotInterested={handleNotInterested}
+                                                    notificationPermissionGranted={notificationPermissionGranted}
+                                                    handleChat={handleChat}
+                                                    handleReportProperty={handleReportProperty}
+                                                    PlaceHolderImg={PlaceHolderImg}
+
+                                                />
+                                            ) : (
+                                                <PremiumOwnerDetailsCard
+                                                    getPropData={getPropData}
+                                                    showChat={showChat}
+                                                    userCurrentId={userCurrentId}
+                                                    interested={interested}
+                                                    isReported={isReported}
+                                                    handleInterested={handleInterested}
+                                                    isMessagingSupported={isMessagingSupported}
+                                                    handleNotInterested={handleNotInterested}
+                                                    notificationPermissionGranted={notificationPermissionGranted}
+                                                    handleChat={handleChat}
+                                                    handleReportProperty={handleReportProperty}
+
+                                                />
+                                            )
+                                            }
+                                        </div>
+
                                     </div>
 
+                                    <SimilerPropertySlider />
 
-
-                                    <div className="col-12 col-md-12 col-lg-3">
-                                        {console.log(getPropData)}
-                                        {/* <div className="card" id="owner-deatils-card">
-                                            <div className="card-header" id="card-owner-header">
-                                                <div>
-                                                    <Image loading="lazy" width={200} height={200} src={getPropData && getPropData.profile ? getPropData.profile : PlaceHolderImg} className="owner-img" alt="no_img" />
-                                                </div>
-                                                <div className="owner-deatils">
-                                                    <span className="owner-name"> {getPropData && getPropData.customer_name}</span>
-                                                    {getPropData && getPropData.client_address &&
-                                                        <span className="owner-add">
-                                                            {" "}
-                                                            <CiLocationOn size={20} />
-                                                            {getPropData && getPropData.client_address}
-                                                        </span>
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className="card-body">
-                                                <a href={`tel:${getPropData && getPropData.mobile}`}>
-                                                    <div className="owner-contact">
-                                                        <div>
-                                                            <FiPhoneCall id="call-o" size={60} />
-                                                        </div>
-                                                        <div className="deatilss">
-                                                            <span className="o-d"> {translate("call")}</span>
-                                                            <span className="value">{getPropData && getPropData.mobile}</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a href={`mailto:${getPropData && getPropData.email}`}>
-                                                    <div className="owner-contact">
-                                                        <div>
-                                                            <FiMail id="mail-o" size={60} />
-                                                        </div>
-                                                        <div className="deatilss">
-                                                            <span className="o-d"> {translate("mail")}</span>
-                                                            <span className="value">{getPropData && getPropData.email}</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                {showChat && isMessagingSupported && notificationPermissionGranted && (
-                                                    <div className='owner-contact' onClick={handleChat}>
-                                                        <div>
-                                                            <FiMessageSquare id='chat-o' size={60} />
-                                                        </div>
-                                                        <div className='details'>
-                                                            <span className='o-d'> {translate("chat")}</span>
-                                                            <p className='value'> {translate("startAChat")}</p>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                                <div className="enquiry">
-                                                    {!isReported && userCurrentId !== getPropData?.added_by ? (
-                                                        <button className='enquiry-buttons' onClick={handleReportProperty}> <MdReport className='mx-1' size={20} />{translate("reportProp")}</button>
-                                                    ) : null}
-
-                                                    {interested || getPropData?.is_interested === 1 ? (
-                                                        <button className="enquiry-buttons" onClick={handleNotInterested}>
-                                                            <RiThumbUpFill className="mx-1" size={20} />
-                                                            {translate("intrested")}
-                                                        </button>
-                                                    ) : (
-                                                        <button className="enquiry-buttons" onClick={handleInterested}>
-                                                            <FiThumbsUp className="mx-1" size={20} />
-                                                            {translate("intrest")}
-                                                        </button>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div> */}
-
-                                        {!isPremiumProperty || isPremiumUser ? ( 
-                                            <OwnerDeatilsCard
-                                            getPropData={getPropData}
-                                            showChat={showChat}
-                                            userCurrentId={userCurrentId}
-                                            interested={interested}
-                                            isReported={isReported}
-                                            handleInterested={handleInterested}
-                                            isMessagingSupported={isMessagingSupported}
-                                            handleNotInterested={handleNotInterested}
-                                            notificationPermissionGranted={notificationPermissionGranted}
-                                            handleChat={handleChat}
-                                            handleReportProperty={handleReportProperty}
-                                            PlaceHolderImg={PlaceHolderImg}
-
-                                        />
-                                        ):(
-                                            <PremiumOwnerDetailsCard
-                                            getPropData={getPropData}
-                                            showChat={showChat}
-                                            userCurrentId={userCurrentId}
-                                            interested={interested}
-                                            isReported={isReported}
-                                            handleInterested={handleInterested}
-                                            isMessagingSupported={isMessagingSupported}
-                                            handleNotInterested={handleNotInterested}
-                                            notificationPermissionGranted={notificationPermissionGranted}
-                                            handleChat={handleChat}
-                                            handleReportProperty={handleReportProperty}
-
-                                        />
-                                        )
+                                    {isReporteModal &&
+                                        <ReportPropertyModal show={handleReportProperty} onHide={() => setIsReporteModal(false)} propertyId={getPropData?.id} setIsReported={setIsReported} />
                                     }
-                                    </div>
-
                                 </div>
-
-                                <SimilerPropertySlider />
-
-                                {isReporteModal &&
-                                    <ReportPropertyModal show={handleReportProperty} onHide={() => setIsReporteModal(false)} propertyId={getPropData?.id} setIsReported={setIsReported} />
-                                }
                             </div>
-                        </div>
-                    </section>
+                        </section>
                     </Layout >
                 </>
             )}

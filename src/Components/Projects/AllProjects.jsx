@@ -12,20 +12,36 @@ import { languageData } from "@/store/reducer/languageSlice";
 import NoData from "@/Components/NoDataFound/NoData";
 import Layout from '../Layout/Layout';
 import ProjectCard from '../Cards/ProjectCard';
+import { useRouter } from 'next/router';
+import { settingsData } from '@/store/reducer/settingsSlice';
 
 
-const MostViewProperties = () => {
+const AllProjects = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [getMostViewed, setMostViewed] = useState([]);
     const [total, setTotal] = useState(0);
     const [offsetdata, setOffsetdata] = useState(0);
-
+    const router = useRouter()
     const limit = 8;
+    const settingData = useSelector(settingsData);
+    const isPremiumUser = settingData && settingData.is_premium;
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
 
     const lang = useSelector(languageData);
+
+
+    const handlecheckPremiumUser = (e, slug_id) => {
+        e.preventDefault()
+
+        if (isPremiumUser) {
+            router.push(`project-details/${slug_id}`)
+        } else {
+            toast.error("oopss")
+        }
+    }
+
 
     useEffect(() => { }, [lang]);
     useEffect(() => {
@@ -75,10 +91,8 @@ const MostViewProperties = () => {
                         <div className="container">
                             <div id="feature_cards" className="row">
                                 {getMostViewed.map((ele, index) => (
-                                    <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
-                                        {/* <Link href="/properties-details/[slug]" as={`/properties-details/${ele.slug_id}`} passHref> */}
-                                            <ProjectCard ele={ele} />
-                                        {/* </Link> */}
+                                    <div className="col-sm-12 col-md-6 col-lg-3" key={index} onClick={(e) => handlecheckPremiumUser(e, ele.slug_id)}>
+                                        <ProjectCard ele={ele} />
                                     </div>
                                 ))}
                             </div>
@@ -101,4 +115,4 @@ const MostViewProperties = () => {
     )
 }
 
-export default MostViewProperties
+export default AllProjects

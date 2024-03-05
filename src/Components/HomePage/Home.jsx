@@ -38,10 +38,11 @@ import { languageData } from "@/store/reducer/languageSlice";
 import { IoIosArrowForward } from "react-icons/io";
 import ProjectCard from "../Cards/ProjectCard";
 import { FaArrowRight } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 const HomePage = () => {
 
-
+    const router = useRouter()
 
     const lang = useSelector(languageData);
     useEffect(() => { }, [lang])
@@ -71,15 +72,18 @@ const HomePage = () => {
     const sliderdata = useSelector(silderCacheData);
     const Categorydata = useSelector(categoriesCacheData);
 
-    // SLIDER API
-    const handleOpenFilterModal = () => {
-        setShowFilterModal(true);
-    };
+   
 
-    const handleCloseModal = () => {
-        setShowFilterModal(false);
-        setShowVideoModal(false);
-    };
+    const handlecheckPremiumUser = (e, slug_id) => {
+        e.preventDefault()
+
+        if (isPremiumUser) {
+            console.log("hello")
+            router.push(`project-details/${slug_id}`)
+        } else {
+            toast.error("oopss")
+        }
+    }
 
     const breakpoints = {
         0: {
@@ -550,7 +554,7 @@ const HomePage = () => {
                                 </h3>
                             </div>
                             <div className="rightside_project_header">
-                                <Link href="/projects">
+                                <Link href="/all-projects">
                                     <button className="learn-more-project" id="viewall_projects">
                                         <span aria-hidden="true" className="circle">
                                             <div className="icon_div">
@@ -576,7 +580,7 @@ const HomePage = () => {
                                     </span>
                                 </div>
                                 <div>
-                                    <Link href="/projects">
+                                    <Link href="/all-projects">
                                         <button className="mobileViewArrowProject">
                                             <IoIosArrowForward size={25} />
                                         </button>
@@ -613,7 +617,7 @@ const HomePage = () => {
                                         breakpoints={breakpointsProjects}
                                     >
                                         {Array.from({ length: 6 }).map((_, index) => (
-                                            <SwiperSlide>
+                                            <SwiperSlide key={index}>
                                                 <div className="loading_data">
                                                     <VerticalCardSkeleton />
                                                 </div>
@@ -622,7 +626,7 @@ const HomePage = () => {
                                     </Swiper>
                                 ) : (
                                     getMostFavProperties?.map((ele, index) => (
-                                        <SwiperSlide id="most-view-swiper-slider" key={index}>
+                                        <SwiperSlide id="most-view-swiper-slider" key={index} onClick={(e) => handlecheckPremiumUser(e, ele.slug_id)}>
                                             <ProjectCard ele={ele} />
                                         </SwiperSlide>
                                     ))

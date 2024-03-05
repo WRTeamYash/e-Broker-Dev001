@@ -1,9 +1,5 @@
 import React from "react";
-import Layout from "@/Components/Layout/Layout";
-import MostViewProperties from "@/Components/MostViewProperties/MostViewProperties";
-import Projects from "@/Components/Projects/Projects";
-
-
+import AllProjects from "@/Components/Projects/AllProjects";
 import axios from "axios";
 import { GET_SEO_SETTINGS } from "@/utils/api";
 import Meta from "@/Components/Seo/Meta";
@@ -36,7 +32,7 @@ const Index = ({ seoData, currentURL }) => {
                  ogImage={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_image}
                 pathName={currentURL}
             />
-                <Projects />
+                <AllProjects />
         </>
     );
 };

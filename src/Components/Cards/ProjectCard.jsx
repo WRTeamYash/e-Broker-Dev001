@@ -15,12 +15,16 @@ const ProjectCard = ({ ele }) => {
     const images = [titleImage, ...galleryImages]?.slice(0, 3);;
     const sliderRef = useRef(null);
 
-    const handlePrev = useCallback(() => {
+    const handlePrev = useCallback((e) => {
+        e.preventDefault();
+        e.stopPropagation();
         if (!sliderRef.current) return;
         sliderRef.current.swiper.slidePrev();
     }, []);
 
-    const handleNext = useCallback(() => {
+    const handleNext = useCallback((e) => {
+        e.preventDefault();
+        e.stopPropagation();
         if (!sliderRef.current) return;
         sliderRef.current.swiper.slideNext();
     }, []);
@@ -66,6 +70,9 @@ const ProjectCard = ({ ele }) => {
                             </SwiperSlide>
                         ))}
                     </Swiper>
+
+                    {images && images.length > 1 &&
+                    <>
                     <div className="project_next" onClick={handleNext}>
                         <span>
                             <FaArrowRight size={20} />
@@ -76,6 +83,8 @@ const ProjectCard = ({ ele }) => {
                             <FaArrowLeft size={20} />
                         </span>
                     </div>
+                    </>
+                    }
                     <div className="project_premium_icon">
                         <span>
                             <FaCrown size={20} />

@@ -8211,7 +8211,7 @@ button.learn-more-project .button-text {
 }
 
 .project_main_card {
-  transition: all 0.3s;
+  transition: all 0.5s;
   height: 100% !important;
   display: flex !important;
   border-radius: 14px !important;
@@ -8232,8 +8232,8 @@ button.learn-more-project .button-text {
 }
 .project_img .project_next,
 .project_img .project_prev {
-  display: none;
-  transition: all 0.3s;
+  opacity: 0;
+  transition: all 0.5s;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -8257,13 +8257,17 @@ button.learn-more-project .button-text {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 0.9s;
+  opacity: 1;
+
 }
 .project_main_card:hover .project_img .project_next span,
 .project_main_card:hover .project_img .project_prev span {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.5s;
+  transition: opacity 0.9s;
+  opacity: 1;
 
 }
 .project_main_card:hover .project_img img {

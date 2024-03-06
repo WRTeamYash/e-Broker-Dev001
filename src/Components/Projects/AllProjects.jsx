@@ -38,7 +38,7 @@ const AllProjects = () => {
         e.preventDefault()
         if (userCurrentId) {
             if (isPremiumUser) {
-                router.push(`project-details/${slug_id}`)
+                router.push(`/project-details/${slug_id}`)
             } else {
                 Swal.fire({
                     title: "Opps!",

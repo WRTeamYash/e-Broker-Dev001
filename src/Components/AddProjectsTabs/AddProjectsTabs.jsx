@@ -705,7 +705,7 @@ export default function AddProjectsTabs() {
                                         <div className="form-check">
                                             <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="0" onChange={handlePropertyTypes} checked={tab1.projectType === "upcoming"} />
                                             <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                                {translate("upcomming")}
+                                                {translate("upcoming")}
                                             </label>
                                         </div>
                                         <div className="form-check">

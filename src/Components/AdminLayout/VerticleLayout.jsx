@@ -345,7 +345,7 @@ export default function VerticleLayout(props) {
     };
 
 
-    // ... (existing code)
+    
 
     // Check if the current route requires a subscription
     const requiresSubscription = isSubscribeRoutes.includes(pathname);
@@ -377,67 +377,101 @@ export default function VerticleLayout(props) {
     }
     const handleCheckLimits = (e) => {
         e.preventDefault()
-        router.push("/user/properties");
+        // router.push("/user/properties");
+        if (hasSubscription) {
 
-        // GetLimitsApi(
-        //     "property",
-        //     (response) => {
-        //         console.log(response)
-        //         if (response.message === "Please Subscribe for Post Property") {
-        //             Swal.fire({
-        //                 icon: "error",
-        //                 title: "Oops...",
-        //                 text: "Your Package Limit is Over. Please Purchase Package.",
-        //                 allowOutsideClick: false,
-        //                 customClass: {
-        //                     confirmButton: 'Swal-confirm-buttons',
-        //                 },
+            GetLimitsApi(
+                "property",
+                (response) => {
+                    if (response.message === "Please Subscribe for Post Property") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Your Package Limit is Over. Please Purchase Package.",
+                            allowOutsideClick: false,
+                            customClass: {
+                                confirmButton: 'Swal-confirm-buttons',
+                            },
 
-        //             }).then((result) => {
-        //                 if (result.isConfirmed) {
-        //                     router.push("/subscription-plan"); // Redirect to the subscription page
-        //                 }
-        //             });
-        //         } else {
-        //             router.push("/user/properties");
-        //         }
-        //     },
-        //     (error) => {
-        //         console.log("API Error:", error);
-        //     }
-        // );
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                router.push("/subscription-plan"); // Redirect to the subscription page
+                            }
+                        });
+                    } else {
+                        router.push("/user/properties");
+                    }
+                },
+                (error) => {
+                    console.log("API Error:", error);
+                }
+            );
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You have not subscribed. Please subscribe first",
+                allowOutsideClick: false,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                },
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    router.push("/subscription-plan"); 
+
+                }
+            });
+        }
 
     }
     const handleCheckLimitsforProject = (e) => {
         e.preventDefault()
-        router.push("/user/add-project");
+        // router.push("/user/add-project");
+        if (hasSubscription) {
+            GetLimitsApi(
+                "property",
+                (response) => {
+                    if (response.message === "Please Subscribe for Post Property") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Your Package Limit is Over. Please Purchase Package.",
+                            allowOutsideClick: false,
+                            customClass: {
+                                confirmButton: 'Swal-confirm-buttons',
+                            },
 
-        // GetLimitsApi(
-        //     "property",
-        //     (response) => {
-        //         if (response.message === "Please Subscribe for Post Property") {
-        //             Swal.fire({
-        //                 icon: "error",
-        //                 title: "Oops...",
-        //                 text: "Your Package Limit is Over. Please Purchase Package.",
-        //                 allowOutsideClick: false,
-        //                 customClass: {
-        //                     confirmButton: 'Swal-confirm-buttons',
-        //                 },
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                router.push("/subscription-plan"); // Redirect to the subscription page
+                            }
+                        });
+                    } else {
+                        router.push("/user/add-project");
+                    }
+                },
+                (error) => {
+                    console.log("API Error:", error);
+                }
+            );
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You have not subscribed. Please subscribe first",
+                allowOutsideClick: false,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                },
 
-        //             }).then((result) => {
-        //                 if (result.isConfirmed) {
-        //                     router.push("/subscription-plan"); // Redirect to the subscription page
-        //                 }
-        //             });
-        //         } else {
-        //             router.push("/user/add-project");
-        //         }
-        //     },
-        //     (error) => {
-        //         console.log("API Error:", error);
-        //     }
-        // );
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    router.push("/subscription-plan"); // Redirect to the subscription page
+
+                }
+            });
+        }
 
     }
 
@@ -539,6 +573,7 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </Link>
                     </ListItem>
+
                     <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/advertisement') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                         <Link href="/user/advertisement">
                             <ListItemButton
@@ -584,6 +619,7 @@ export default function VerticleLayout(props) {
                             <ListItemText primary={translate("properties")} sx={{ opacity: open ? 1 : 0 }} />
                         </ListItemButton>
                     </ListItem>
+
                     <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/add-project') ? 'drawer_list_item_active' : 'drawer_list_item'}
                         onClick={handleCheckLimitsforProject}
                     >
@@ -608,7 +644,7 @@ export default function VerticleLayout(props) {
                             <ListItemText primary={translate("projects")} sx={{ opacity: open ? 1 : 0 }} />
                         </ListItemButton>
                     </ListItem>
-                    {/* </Link> */}
+
                     <Link href="/user/favorites-properties">
                         <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/favorites-properties') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                             <ListItemButton
@@ -632,58 +668,37 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </ListItem>
                     </Link>
-                    {/* <Link href="/user/intrested">
-                        <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/intrested') ? 'drawer_list_item_active' : 'drawer_list_item'}>
-                            <ListItemButton
-                                sx={{
-                                    minHeight: 30,
-                                    justifyContent: open ? "initial" : "center",
-                                    px: 2.5,
-                                }}
-                            >
-                                <ListItemIcon
-                                    className={isRouteActive('/user/intrested') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : "auto",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <ThumbUpIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={translate("intrestedUsers")} sx={{ opacity: open ? 1 : 0 }} />
-                            </ListItemButton>
-                        </ListItem>
-                    </Link> */}
 
                     {isMessagingSupported && notificationPermissionGranted && (
-
-                        <ListItem
-                            disablePadding
-                            sx={{ display: "block" }}
-                            className={isRouteActive('/user/chat') ? 'drawer_list_item_active' : 'drawer_list_item'}
-                        >
-                            <ListItemButton
-                                onClick={handleChat}
-                                sx={{
-                                    minHeight: 30,
-                                    justifyContent: open ? "initial" : "center",
-                                    px: 2.5,
-                                }}
+                        // <Link href="/user/chat">
+                            <ListItem
+                                disablePadding
+                                sx={{ display: "block" }}
+                                className={isRouteActive('/user/chat') ? 'drawer_list_item_active' : 'drawer_list_item'}
                             >
-                                <ListItemIcon
-                                    className={isRouteActive('/user/chat') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
+                                <ListItemButton
+                                    onClick={handleChat}
                                     sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : "auto",
-                                        justifyContent: "center",
+                                        minHeight: 30,
+                                        justifyContent: open ? "initial" : "center",
+                                        px: 2.5,
                                     }}
                                 >
-                                    <SmsOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={translate("messages")} sx={{ opacity: open ? 1 : 0 }} />
-                            </ListItemButton>
-                        </ListItem>
+                                    <ListItemIcon
+                                        className={isRouteActive('/user/chat') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : "auto",
+                                            justifyContent: "center",
+                                        }}
+                                    >
+                                        <SmsOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={translate("messages")} sx={{ opacity: open ? 1 : 0 }} />
+                                </ListItemButton>
+                            </ListItem>
+                        // </Link>
+
                     )}
 
                     <Link href="/user/profile">
@@ -709,6 +724,7 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </ListItem>
                     </Link>
+
                     <Link href="/user/notifications">
                         <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/notifications') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                             <ListItemButton
@@ -732,6 +748,7 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </ListItem>
                     </Link>
+
                     <Link href="/user/subscription">
                         <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/subscription') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                             <ListItemButton
@@ -755,6 +772,7 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </ListItem>
                     </Link>
+
                     <Link href="/user/transaction-history">
                         <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/transaction-history') ? 'drawer_list_item_active' : 'drawer_list_item'}>
                             <ListItemButton
@@ -778,6 +796,7 @@ export default function VerticleLayout(props) {
                             </ListItemButton>
                         </ListItem>
                     </Link>
+
                     <ListItem disablePadding sx={{ display: "block" }} className='drawer_list_item'>
                         <ListItemButton
                             onClick={handleDeleteAcc}
@@ -800,6 +819,7 @@ export default function VerticleLayout(props) {
                             <ListItemText primary={translate("deleteUser")} sx={{ opacity: open ? 1 : 0 }} />
                         </ListItemButton>
                     </ListItem>
+
                     <ListItem disablePadding sx={{ display: "block" }} className='drawer_list_item'>
                         <ListItemButton
                             onClick={handleLogout}

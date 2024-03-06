@@ -7,7 +7,6 @@ import { GetFeturedListingsApi } from "@/store/actions/campaign";
 import toast from "react-hot-toast";
 import Layout from "../Layout/Layout";
 import { CiLink, CiLocationOn } from "react-icons/ci";
-import pdf from '../../assets/Images/PDF.svg'
 
 import {
   FacebookShareButton,
@@ -28,7 +27,6 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import Map from "../GoogleMap/GoogleMap";
 import { PiPlayCircleThin } from "react-icons/pi";
 import ReactPlayer from "react-player";
-import { FaRegFilePdf } from "react-icons/fa6";
 
 import FloorAccordion from "../FloorAccordion/FloorAccordion";
 import { ImageToSvg } from "../Cards/ImageToSvg";
@@ -36,6 +34,7 @@ import { BiDownload } from "react-icons/bi";
 import { BsFiletypeDoc, BsFiletypePdf } from "react-icons/bs";
 import OwnerDeatilsCard from "../OwnerDeatilsCard/OwnerDeatilsCard";
 import Swal from "sweetalert2";
+import SimilerProjectSlider from "../SimilerProjectSlider/SimilerProjectSlider";
 const ProjectDetails = () => {
   const router = useRouter();
   const ProjectSlug = router.query;
@@ -58,7 +57,7 @@ const ProjectDetails = () => {
   const [seekPosition, setSeekPosition] = useState(0);
   const [showThumbnail, setShowThumbnail] = useState(true);
 
-
+ 
   useEffect(() => {
     if (!isSubscription && !isPremiumUser) {
       Swal.fire({
@@ -570,6 +569,8 @@ const ProjectDetails = () => {
                     />
                   </div>
                 </div>
+
+                <SimilerProjectSlider />
               </div>
             </div>
           </section>

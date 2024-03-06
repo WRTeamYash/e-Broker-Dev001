@@ -160,7 +160,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                                 <FcGoogle size={25} />
                             </div>
                             <span className="google_text">
-                                Continue with Google
+                                {translate("CWG")}
                             </span>
                         </button>
                     </div>

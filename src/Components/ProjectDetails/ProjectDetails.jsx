@@ -475,7 +475,7 @@ const ProjectDetails = () => {
                                     <BiDownload size={20} />
                                   </span>
                                   <span>
-                                    Download
+                                    {translate("download")}
                                   </span>
                                 </button>
                               </div>

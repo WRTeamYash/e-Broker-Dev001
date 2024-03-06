@@ -315,5 +315,7 @@
   "floorImg":"Floor Image",
   "addFloor":"Add Floor",
   "ViewMap":"View Map",
-  "floorPlans":"Floor Plans"
+  "floorPlans":"Floor Plans",
+  "CWG":"Continue with Google",
+  "download":"Donwload"
 }

@@ -6,8 +6,7 @@ import { useRouter } from "next/router";
 import { GetFeturedListingsApi } from "@/store/actions/campaign";
 import toast from "react-hot-toast";
 import Layout from "../Layout/Layout";
-import { CiLocationOn } from "react-icons/ci";
-import { Dropdown } from "react-bootstrap";
+import { CiLink, CiLocationOn } from "react-icons/ci";
 import pdf from '../../assets/Images/PDF.svg'
 
 import {
@@ -18,7 +17,7 @@ import {
   WhatsappIcon,
   XIcon,
 } from "react-share";
-import { Menu } from "antd";
+import { Dropdown, Menu } from "antd";
 import { FiShare2 } from "react-icons/fi";
 import Loader from "../Loader/Loader";
 import { settingsData } from "@/store/reducer/settingsSlice";
@@ -36,11 +35,13 @@ import { ImageToSvg } from "../Cards/ImageToSvg";
 import { BiDownload } from "react-icons/bi";
 import { BsFiletypeDoc, BsFiletypePdf } from "react-icons/bs";
 import OwnerDeatilsCard from "../OwnerDeatilsCard/OwnerDeatilsCard";
+import Swal from "sweetalert2";
 const ProjectDetails = () => {
   const router = useRouter();
   const ProjectSlug = router.query;
   const SettingsData = useSelector(settingsData);
-
+  const isPremiumUser = SettingsData && SettingsData.is_premium;
+  const isSubscription = SettingsData && SettingsData.subscription;
   const isLoggedIn = useSelector((state) => state.User_signup);
   const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null
   const PlaceHolderImg = SettingsData?.web_placeholder_logo;
@@ -56,6 +57,29 @@ const ProjectDetails = () => {
   const [manualPause, setManualPause] = useState(false); // State to track manual pause
   const [seekPosition, setSeekPosition] = useState(0);
   const [showThumbnail, setShowThumbnail] = useState(true);
+
+
+  useEffect(() => {
+    if (!isSubscription && !isPremiumUser) {
+      Swal.fire({
+        title: "Opps!",
+        text: "You are not premium user sorry!",
+        icon: "warning",
+        allowOutsideClick: false,
+        showCancelButton: false,
+        customClass: {
+            confirmButton: 'Swal-confirm-buttons',
+            cancelButton: "Swal-cancel-buttons"
+        },
+        confirmButtonText: "Ok",
+    }).then((result) => {
+        if (result.isConfirmed) {
+           router.push("/")
+        }
+    });
+    }
+  }, [isSubscription, isPremiumUser])
+
   useEffect(() => {
     setIsLoading(true);
     if (ProjectSlug.slug && ProjectSlug.slug != "") {
@@ -76,8 +100,7 @@ const ProjectDetails = () => {
       );
     }
   }, [isLoggedIn, ProjectSlug]);
-  // const settingsData = useSelector(settingsData);
-  // const CompanyName = settingsData && settingsData?.company_name
+  const CompanyName = settingsData && settingsData?.company_name
   const currentUrl = `${process.env.NEXT_PUBLIC_WEB_URL}${router.asPath}`;
   const handleCopyUrl = async (e) => {
     e.preventDefault();
@@ -93,6 +116,37 @@ const ProjectDetails = () => {
       // toast.error("Failed to copy URL to clipboard.");
     }
   };
+  const shareMenu = (
+    <Menu>
+      <Menu.Item key="1">
+        <FacebookShareButton url={currentUrl} title={projectData?.title + CompanyName} hashtag={CompanyName}>
+
+          <FacebookIcon size={30} round /> {""} {translate("Facebook")}
+
+        </FacebookShareButton>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <TwitterShareButton url={currentUrl} title={projectData?.title + CompanyName} hashtag={CompanyName}>
+
+          <XIcon size={30} round /> {""} {translate("Twitter")}
+
+        </TwitterShareButton>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <WhatsappShareButton url={currentUrl} title={projectData?.title + "" + " - " + "" + CompanyName} hashtag={CompanyName}>
+
+          <WhatsappIcon size={30} round /> {""} {translate("Whatsapp")}
+
+        </WhatsappShareButton>
+      </Menu.Item>
+      <Menu.Item key="4">
+        <span onClick={handleCopyUrl}>
+          <CiLink size={30} /> {""} {translate("Copy Link")}
+        </span>
+      </Menu.Item>
+    </Menu>
+  );
+
   const handleShowMap = (e) => {
     e.preventDefault()
     setShowMap(true);
@@ -167,8 +221,8 @@ const ProjectDetails = () => {
                   </div>
                   <div className="project_left_details">
                     {process.env.NEXT_PUBLIC_SEO === "true" ? (
-                      <Dropdown placement="bottomCenter" arrow>
-                        <button className="share_project" >
+                      <Dropdown overlay={shareMenu} placement="bottomCenter" arrow>
+                        <button className="share_project">
                           <FiShare2 size={25} />
                         </button>
                       </Dropdown>
@@ -269,7 +323,7 @@ const ProjectDetails = () => {
                   <div className="col-12 col-md-12 col-lg-9" id="prop-deatls-card">
                     {projectData && projectData.description ? (
                       <div className="card about-propertie">
-                        <div className="card-header">{translate("aboutProp")}</div>
+                        <div className="card-header">{translate("aboutProject")}</div>
                         <div className="card-body">
                           {projectData && projectData.description && (
                             <>
@@ -508,18 +562,18 @@ const ProjectDetails = () => {
                     </div>
 
                   </div>
-                    <div className="col-12 col-md-12 col-lg-3">
-                      <OwnerDeatilsCard
-                        getPropData={projectData}
-                        userCurrentId={userCurrentId}
-                        PlaceHolderImg={PlaceHolderImg}
-                      />
-                    </div>
+                  <div className="col-12 col-md-12 col-lg-3">
+                    <OwnerDeatilsCard
+                      getPropData={projectData}
+                      userCurrentId={userCurrentId}
+                      PlaceHolderImg={PlaceHolderImg}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </section>
-        </Layout >
+        </Layout>
       )}
     </>
   )

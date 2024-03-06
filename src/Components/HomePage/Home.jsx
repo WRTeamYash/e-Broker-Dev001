@@ -39,6 +39,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import ProjectCard from "../Cards/ProjectCard";
 import { FaArrowRight } from "react-icons/fa";
 import { useRouter } from "next/router";
+import Swal from "sweetalert2";
 
 const HomePage = () => {
 
@@ -78,10 +79,23 @@ const HomePage = () => {
         e.preventDefault()
 
         if (isPremiumUser) {
-            console.log("hello")
             router.push(`project-details/${slug_id}`)
         } else {
-            toast.error("oopss")
+            Swal.fire({
+                title: "Opps!",
+                text: "You are not premium user sorry!",
+                icon: "warning",
+                allowOutsideClick: false,
+                showCancelButton: false,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                }
+            });
         }
     }
 

@@ -14,6 +14,7 @@ import Layout from '../Layout/Layout';
 import ProjectCard from '../Cards/ProjectCard';
 import { useRouter } from 'next/router';
 import { settingsData } from '@/store/reducer/settingsSlice';
+import Swal from 'sweetalert2';
 
 
 const AllProjects = () => {
@@ -38,7 +39,22 @@ const AllProjects = () => {
         if (isPremiumUser) {
             router.push(`project-details/${slug_id}`)
         } else {
-            toast.error("oopss")
+            Swal.fire({
+                title: "Opps!",
+                text: "You are not premium user sorry!",
+                icon: "warning",
+                allowOutsideClick: false,
+                showCancelButton: false,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                   router.push("/")
+                }
+            });
         }
     }
 

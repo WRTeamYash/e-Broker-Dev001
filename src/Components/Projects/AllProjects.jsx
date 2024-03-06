@@ -16,6 +16,7 @@ import { useRouter } from 'next/router';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
+import ProjectCardSkeleton from '../Skeleton/ProjectCardSkeleton';
 
 
 const AllProjects = () => {
@@ -101,7 +102,7 @@ const AllProjects = () => {
                             <div id="feature_cards" className="row">
                                 {Array.from({ length: 8 }).map((_, index) => (
                                     <div className="col-sm-12 col-md-6 col-lg-3 loading_data" key={index}>
-                                        <VerticalCardSkeleton />
+                                        <ProjectCardSkeleton />
                                     </div>
                                 ))}
                             </div>

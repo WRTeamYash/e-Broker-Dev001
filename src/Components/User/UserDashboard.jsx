@@ -31,10 +31,12 @@ import Image from "next/image";
 import dynamic from "next/dynamic.js";
 import { FaRegEye } from "react-icons/fa";
 import Link from "next/link.js";
+import TablePagination from "../Pagination/TablePagination.jsx";
 
 const VerticleLayout = dynamic(() => import('../AdminLayout/VerticleLayout.jsx'), { ssr: false })
 const UserDashboard = () => {
 
+    const limit = 8;
 
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +52,8 @@ const UserDashboard = () => {
     const [isFeatureModalVisible, setIsFeatureModalVisible] = useState(false);
     const [changestatusModal, setChangestatusModal] = useState(false);
 
+    const startIndex = total > 0 ? (offsetdata * limit) + 1 : 0;
+    const endIndex = Math.min((offsetdata + 1) * limit, total);
     const SettingsData = useSelector(settingsData);
 
 
@@ -141,7 +145,7 @@ const UserDashboard = () => {
                             router.push("/subscription-plan"); // Redirect to the subscription page
                         }
                     });
-                    
+
                 } else {
                     setPropertyId(propertyId);
                     setIsFeatureModalVisible(true);
@@ -173,7 +177,6 @@ const UserDashboard = () => {
         setChangestatusModal(true);
     };
 
-    const limit = 8;
 
     const priceSymbol = useSelector(settingsData);
     const CurrencySymbol = priceSymbol && priceSymbol.currency_symbol;
@@ -187,7 +190,7 @@ const UserDashboard = () => {
             offset: offsetdata.toString(),
             limit: limit.toString(),
             userid: isLoggedIn ? userCurrentId : "",
-            onSuccess: (response) => {  
+            onSuccess: (response) => {
                 setTotal(response.total);
                 setView(response.total_clicks);
                 const FeaturedListingData = response.data;
@@ -333,7 +336,7 @@ const UserDashboard = () => {
                                                     <TableCell align="center" onClick={() => handleShowIntrestedUser(elem.slug_id)}>
                                                         <div className="intrested_users">
                                                             <span>
-                                                            <FaRegEye size={20} />
+                                                                <FaRegEye size={20} />
                                                             </span>
                                                         </div>
                                                     </TableCell>
@@ -405,7 +408,8 @@ const UserDashboard = () => {
 
                             {getFeaturedListing && getFeaturedListing.length > 0 ? (
                                 <div className="col-12">
-                                    <ReactPagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+
+                                    <TablePagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} startIndex={startIndex} endIndex={endIndex} total={total} />
                                 </div>
                             ) : null}
                         </div>

@@ -19,6 +19,7 @@ import { translate } from "@/utils";
 import ProjectCard from "../Cards/ProjectCard";
 import Swal from "sweetalert2";
 import { settingsData } from "@/store/reducer/settingsSlice";
+import ProjectCardSkeleton from "../Skeleton/ProjectCardSkeleton";
 
 const SimilerProjectSlider = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -144,7 +145,7 @@ const SimilerProjectSlider = () => {
                                     {Array.from({ length: 6 }).map((_, index) => (
                                         <SwiperSlide>
                                             <div className="loading_data">
-                                                <VerticalCardSkeleton />
+                                                <ProjectCardSkeleton />
                                             </div>
                                         </SwiperSlide>
                                     ))}

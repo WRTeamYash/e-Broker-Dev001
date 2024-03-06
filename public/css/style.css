@@ -5348,6 +5348,60 @@ a {
   background-color: #ebebe4 !important;
   color: #c6c6c6;
 }
+
+
+.tabel_pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+/* Table pagination */
+.pagination_table {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.pagination_table li.pagination__link_table--active a {
+  background-color: #282f39;
+  color: var(--primary-text-color01);
+}
+.pagination_table li.pagination__link_table--active a:hover {
+  color: var(--primary-text-color01) !important;
+}
+
+.pagination_table li a {
+  position: relative;
+  display: block;
+  padding: 0px 15px;
+  text-align: center;
+  line-height: 45px;
+  margin: 0 5px;
+  color: var(--primary-text-color02);
+  background-color: #f7f8f9;
+  border: 1px solid #f7f8f9;
+  border-radius: 5px;
+  transition: all 0.5s ease-out 0s;
+  text-decoration: none;
+}
+
+/* Link hover styles */
+.pagination_table li a:hover {
+  color: var(--primary-text-color02) !important;
+}
+.pagination_table .pagination__link_table--disabled{
+  overflow: hidden;
+}
+/* Disabled link styles */
+.pagination_table .pagination__link_table--disabled a {
+  cursor: not-allowed;
+  background-color: var(--primary-background) !important;
+  color: var(--primary-text-color02);
+  font-weight: bolder;
+}
 /* ERROR PAGE */
 .errorPage {
   display: flex;

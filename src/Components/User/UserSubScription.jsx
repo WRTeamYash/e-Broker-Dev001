@@ -27,16 +27,10 @@ const UserSubScription = () => {
 
     useEffect(() => { }, [lang]);
 
-
-
-
-
-
     useEffect(() => {
         getPackagesApi(
             (res) => {
                 const filteredData = res?.data.filter(item => item?.is_active === 1);
-                console.log(filteredData)
                 setPackageData(filteredData);
             },
             (err) => {

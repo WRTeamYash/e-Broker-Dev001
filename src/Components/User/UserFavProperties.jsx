@@ -10,6 +10,8 @@ import Pagination from "@/Components/Pagination/ReactPagination";
 import { translate } from "@/utils";
 import NoData from "@/Components/NoDataFound/NoData";
 import dynamic from "next/dynamic.js";
+import TablePagination from "../Pagination/TablePagination.jsx";
+import ReactPagination from "@/Components/Pagination/ReactPagination";
 const VerticleLayout = dynamic(() => import('../../../src/Components/AdminLayout/VerticleLayout.jsx'), { ssr: false })
 
 
@@ -19,12 +21,13 @@ const UserFavProperties = () => {
     const [getFavProp, setGetFavProp] = useState([]);
     const [offsetdata, setOffsetdata] = useState(0);
     const limit = 8;
-
+    const [startIndex, setStartIndex] = useState(0);
+    const [endIndex, setEndIndex] = useState(0);
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const lang = useSelector(languageData);
 
-    useEffect(() => {}, [lang]);
+    useEffect(() => { }, [lang]);
     useEffect(() => {
         GetFavPropertyApi(
             offsetdata.toString(),
@@ -34,6 +37,7 @@ const UserFavProperties = () => {
                 const favPropData = response.data;
                 setIsLoading(false);
                 setGetFavProp(favPropData);
+                updateIndices(offsetdata, response.total);
             },
             (error) => {
                 console.log(error);
@@ -49,7 +53,14 @@ const UserFavProperties = () => {
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
+        updateIndices(newOffset, total);
         window.scrollTo(0, 0);
+    };
+    const updateIndices = (newOffset, total) => {
+        const newStartIndex = total > 0 ? newOffset * limit + 1 : 0;
+        const newEndIndex = Math.min((newOffset + 1) * limit, total);
+        setStartIndex(newStartIndex);
+        setEndIndex(newEndIndex);
     };
 
     return (
@@ -78,7 +89,8 @@ const UserFavProperties = () => {
                                             </div>
                                         ))}
                                         <div className="col-12">
-                                            <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                                          
+                                            <TablePagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} startIndex={startIndex} endIndex={endIndex} total={total} />
                                         </div>
                                     </>
                                 ) : (

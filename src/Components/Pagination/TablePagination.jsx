@@ -1,23 +1,27 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
 
-const TablePagination = ({ pageCount, onPageChange }) => {
+const TablePagination = ({ pageCount, onPageChange, startIndex, endIndex, total }) => {
+    console.log(pageCount)
     return (
-        <div>
+        <div className="tabel_pagination">
+            <span>
+                Showing {startIndex} to {endIndex > total ? total : endIndex} of {total} entries
+            </span>
             <ReactPaginate
-                previousLabel={"previous"}
-                nextLabel={"next"}
+                previousLabel={"<"}
+                nextLabel={">"}
                 breakLabel="..."
                 breakClassName="break-me"
                 pageCount={pageCount}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
                 onPageChange={onPageChange}
-                containerClassName={"pagination"}
-                previousLinkClassName={"pagination__link01"}
-                nextLinkClassName={"pagination__link01"}
-                disabledClassName={"pagination__link--disabled"}
-                activeClassName={"pagination__link--active"}
+                containerClassName={"pagination_table"}
+                previousLinkClassName={"pagination__link_table"}
+                nextLinkClassName={"pagination__link_table"}
+                disabledClassName={"pagination__link_table--disabled"}
+                activeClassName={"pagination__link_table--active"}
             />
         </div>
     );

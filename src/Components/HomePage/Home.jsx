@@ -41,6 +41,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import ProjectCardSkeleton from "../Skeleton/ProjectCardSkeleton";
 
 const HomePage = () => {
 
@@ -637,7 +638,7 @@ const HomePage = () => {
                                         {Array.from({ length: 6 }).map((_, index) => (
                                             <SwiperSlide key={index}>
                                                 <div className="loading_data">
-                                                    <VerticalCardSkeleton />
+                                                    <ProjectCardSkeleton />
                                                 </div>
                                             </SwiperSlide>
                                         ))}

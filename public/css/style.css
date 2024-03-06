@@ -3637,7 +3637,8 @@ option {
   color: #282f39;
   font-size: medium;
 }
-#prop-deatls-card .card-body button {
+#prop-deatls-card .about-propertie .card-body button,
+#prop-deatls-card #prop-video .card-body button {
   border: none;
   background-color: transparent;
   color: var(--primary-color);
@@ -8481,6 +8482,11 @@ button.learn-more-project .button-text {
 /* .project_div .project_left_details{
 
 } */
+.project_div .project_left_details .dropdown {
+  background: transparent;
+  padding: 8px;
+  border-radius: 4px;
+}
 .project_div .project_left_details .share_project {
   border: 1px solid rgba(128, 128, 128, 0.596);
   background: transparent;
@@ -8492,59 +8498,115 @@ button.learn-more-project .button-text {
   margin-top: 20px;
 }
 
-/* .accordion-button:focus,
-.accordion-button:focus-visible {
+/* floor css */
+.accordion-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.accordion-button:focus {
   box-shadow: none !important;
   border: none !important;
   border-color: transparent !important;
-  outline: none !important;
+  background: transparent !important;
 }
 
-.accordion-button:not(.collapsed):focus,
-.accordion-button:not(.collapsed):focus-visible {
+.accordion-button:not(.collapsed) {
   box-shadow: none !important;
   border: none !important;
   border-color: transparent !important;
-  outline: none !important;
+  background: transparent !important;
 }
 
-.accordion-button::after{
-  background-image: url("../../src/assets/Images/Vector.svg") !important;
+.accordion-button::after {
+  background-image: none !important;
+  display: none !important;
 }
-.accordion-header {
-  border-bottom: 1px solid #80808045;
-  padding: 15px 0;
-} */
-.custom-accordion {
-  border: 1px solid lightgray;
-  border-radius: 8px;
-}
-
-.accordion-item {
-  border-bottom: 1px solid lightgray;
-}
-
 .accordion-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: 10px;
   cursor: pointer;
   border-bottom: 1px solid lightgray;
 }
-
-.accordion-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease-in-out;
-  padding: 0 20px !important; /* Set initial padding */
+.custom-toggle {
+  background: var(--primary-background);
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-toggle.open {
+  background: var(--primary-color);
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-text-color01);
+}
+.toggle-icon-minus,
+.toggle-icon-plus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Add class for open accordion item */
-.accordion-item.open .accordion-body {
-  max-height: 1000px;
-  padding: 20px !important;
-  border-bottom: 1px solid lightgray;
-  transition: max-height 0.5s ease-in-out;
+/* download docs css */
+.doc_row{
+  gap: 20px 0;
+}
+.docs_main_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.docs_main_div .doc_icon {
+  background: var(--primary-background);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: var(--primary-color) !important;
+  height: 60px;
+  width: 60px;
+  text-align: center;
+}
+.docs_main_div .doc_icon svg {
+  margin-left: 5px;
+}
+.docs_main_div .doc_title {
+  width: 100%;
+  text-align: center;
+}
+.docs_main_div .doc_download_button {
+  width: 100%;
+  transition: all 0.5s;
 
+}
+.docs_main_div .doc_download_button button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  background: transparent;
+  gap: 10px;
+  border: 1px solid darkgray;
+  padding: 10px 20px;
+  width: max-content;
+  border-radius: 8px;
+  margin: auto ;
+}
+
+.docs_main_div .doc_download_button button:hover {
+  color: var(--primary-text-color01);
+  background: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  transition: all 0.5s;
 }

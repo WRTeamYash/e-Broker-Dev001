@@ -7,13 +7,13 @@ import { MdReport } from 'react-icons/md'
 import { RiMailSendLine, RiThumbUpFill } from 'react-icons/ri'
 
 const OwnerDeatilsCard = (
-    { 
+    {
         getPropData,
         showChat,
         interested,
         isReported,
         handleInterested,
-        isMessagingSupported, 
+        isMessagingSupported,
         handleNotInterested,
         notificationPermissionGranted,
         handleChat,
@@ -22,7 +22,7 @@ const OwnerDeatilsCard = (
         PlaceHolderImg
     }) => {
 
-        
+
     return (
         <>
             <div className="card" id="owner-deatils-card">
@@ -75,23 +75,25 @@ const OwnerDeatilsCard = (
                             </div>
                         </div>
                     )}
-                    <div className="enquiry">
-                        {!isReported && userCurrentId !== getPropData?.added_by ? (
-                            <button className='enquiry-buttons' onClick={handleReportProperty}> <MdReport className='mx-1' size={20} />{translate("reportProp")}</button>
-                        ) : null}
+                    {handleReportProperty && handleInterested &&
+                        <div className="enquiry">
+                            {!isReported && userCurrentId !== getPropData?.added_by ? (
+                                <button className='enquiry-buttons' onClick={handleReportProperty}> <MdReport className='mx-1' size={20} />{translate("reportProp")}</button>
+                            ) : null}
 
-                        {interested || getPropData?.is_interested === 1 ? (
-                            <button className="enquiry-buttons" onClick={handleNotInterested}>
-                                <RiThumbUpFill className="mx-1" size={20} />
-                                {translate("intrested")}
-                            </button>
-                        ) : (
-                            <button className="enquiry-buttons" onClick={handleInterested}>
-                                <FiThumbsUp className="mx-1" size={20} />
-                                {translate("intrest")}
-                            </button>
-                        )}
-                    </div>
+                            {interested || getPropData?.is_interested === 1 ? (
+                                <button className="enquiry-buttons" onClick={handleNotInterested}>
+                                    <RiThumbUpFill className="mx-1" size={20} />
+                                    {translate("intrested")}
+                                </button>
+                            ) : (
+                                <button className="enquiry-buttons" onClick={handleInterested}>
+                                    <FiThumbsUp className="mx-1" size={20} />
+                                    {translate("intrest")}
+                                </button>
+                            )}
+                        </div>
+                    }
                 </div>
             </div>
         </>

@@ -8,8 +8,7 @@ import toast from "react-hot-toast";
 import Layout from "../Layout/Layout";
 import { CiLocationOn } from "react-icons/ci";
 import { Dropdown } from "react-bootstrap";
-import Accordion from 'react-bootstrap/Accordion';
-import { useAccordionButton } from 'react-bootstrap/AccordionButton';
+import pdf from '../../assets/Images/PDF.svg'
 
 import {
   FacebookShareButton,
@@ -30,7 +29,13 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import Map from "../GoogleMap/GoogleMap";
 import { PiPlayCircleThin } from "react-icons/pi";
 import ReactPlayer from "react-player";
-import { FaMinus, FaPlus } from "react-icons/fa";
+import { FaRegFilePdf } from "react-icons/fa6";
+
+import FloorAccordion from "../FloorAccordion/FloorAccordion";
+import { ImageToSvg } from "../Cards/ImageToSvg";
+import { BiDownload } from "react-icons/bi";
+import { BsFiletypeDoc, BsFiletypePdf } from "react-icons/bs";
+import OwnerDeatilsCard from "../OwnerDeatilsCard/OwnerDeatilsCard";
 const ProjectDetails = () => {
   const router = useRouter();
   const ProjectSlug = router.query;
@@ -51,7 +56,6 @@ const ProjectDetails = () => {
   const [manualPause, setManualPause] = useState(false); // State to track manual pause
   const [seekPosition, setSeekPosition] = useState(0);
   const [showThumbnail, setShowThumbnail] = useState(true);
-
   useEffect(() => {
     setIsLoading(true);
     if (ProjectSlug.slug && ProjectSlug.slug != "") {
@@ -142,33 +146,7 @@ const ProjectDetails = () => {
     setShowThumbnail(true); // Reset showThumbnail to true
   };
 
-  function CustomAccordionItem({ header, children }) {
-    const [isOpen, setIsOpen] = useState(false);
-  
-    const toggleAccordion = () => {
-      setIsOpen(!isOpen);
-    };
-  
-    return (
-      <div className={`accordion-item ${isOpen ? 'open' : ''}`}>
-        <div className="accordion-header" onClick={toggleAccordion}>
-          <span>{header}</span>
-          {isOpen ? (
-            <span> <FaMinus size={20} /></span>
-          ) : (
-            <span span > <FaPlus size={20} /></span> 
-          )}
-        </div>
-        <div className="accordion-body">
-          {children}
-        </div>
-      </div >
-    );
-  }
 
-  function CustomAccordion({ children }) {
-    return <div className="custom-accordion">{children}</div>;
-  }
   return (
     <>
       {isLoading ? (
@@ -283,9 +261,9 @@ const ProjectDetails = () => {
                   </div>
                 }
 
-                {/* {viewerIsOpen && */}
+
                 <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={setViewerIsOpen} title_image={projectData?.title_image} setViewerIsOpen={setViewerIsOpen} setCurrentImage={setCurrentImage} />
-                {/* } */}
+
 
                 <div className="row" id="prop-all-deatils-cards">
                   <div className="col-12 col-md-12 col-lg-9" id="prop-deatls-card">
@@ -416,28 +394,127 @@ const ProjectDetails = () => {
                     <div className="card" id="floor_plans">
                       <div className="card-header">{translate("floorPlans")}</div>
                       <div className="card-body">
-                        <CustomAccordion>
-                          <CustomAccordionItem header="Accordion Item #1">
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                              magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                          </CustomAccordionItem>
-                          <CustomAccordionItem header="Accordion Item #2">
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                              magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                          </CustomAccordionItem>
-                        </CustomAccordion>
-
+                        <FloorAccordion />
                       </div>
                     </div>
+
+
+                    <div className="card" id="download_docs">
+                      <div className="card-header">{translate("docs")}</div>
+                      <div className="card-body">
+                        <div className="row doc_row">
+                          <div className="col-sm-12 col-md-6 col-lg-3">
+                            <div className="docs_main_div">
+                              <div className="doc_icon">
+                                {/* <FaRegFilePdf size={30} /> */}
+                                <BsFiletypePdf size={30} />
+
+
+                              </div>
+                              <div className="doc_title">
+                                <span>
+                                  Villa-Document-1.pdf
+                                </span>
+                              </div>
+                              <div className="doc_download_button">
+                                <button>
+                                  <span>
+                                    <BiDownload size={20} />
+                                  </span>
+                                  <span>
+                                    Download
+                                  </span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-sm-12 col-md-6 col-lg-3">
+                            <div className="docs_main_div">
+                              <div className="doc_icon">
+                                <BsFiletypeDoc size={30} />
+
+                              </div>
+                              <div className="doc_title">
+                                <span>
+                                  Villa-Document-1.pdf
+                                </span>
+                              </div>
+                              <div className="doc_download_button">
+                                <button>
+                                  <span>
+                                    <BiDownload size={20} />
+                                  </span>
+                                  <span>
+                                    Download
+                                  </span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-sm-12 col-md-6 col-lg-3">
+                            <div className="docs_main_div">
+                              <div className="doc_icon">
+                                {/* <FaRegFilePdf size={30} /> */}
+                                <BsFiletypePdf size={30} />
+
+
+                              </div>
+                              <div className="doc_title">
+                                <span>
+                                  Villa-Document-1.pdf
+                                </span>
+                              </div>
+                              <div className="doc_download_button">
+                                <button>
+                                  <span>
+                                    <BiDownload size={20} />
+                                  </span>
+                                  <span>
+                                    Download
+                                  </span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-sm-12 col-md-6 col-lg-3">
+                            <div className="docs_main_div">
+                              <div className="doc_icon">
+                                {/* <FaRegFilePdf size={30} /> */}
+                                <BsFiletypePdf size={30} />
+
+
+                              </div>
+                              <div className="doc_title">
+                                <span>
+                                  Villa-Document-1.pdf
+                                </span>
+                              </div>
+                              <div className="doc_download_button">
+                                <button>
+                                  <span>
+                                    <BiDownload size={20} />
+                                  </span>
+                                  <span>
+                                    Download
+                                  </span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
+                    <div className="col-12 col-md-12 col-lg-3">
+                      <OwnerDeatilsCard
+                        getPropData={projectData}
+                        userCurrentId={userCurrentId}
+                        PlaceHolderImg={PlaceHolderImg}
+                      />
+                    </div>
                 </div>
               </div>
             </div>

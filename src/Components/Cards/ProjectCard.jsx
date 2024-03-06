@@ -65,7 +65,6 @@ const ProjectCard = ({ ele }) => {
                             <SwiperSlide key={index}>
                                 <div className="project_img">
                                     <Image src={image} width={0} height={0} alt="images" />
-
                                 </div>
                             </SwiperSlide>
                         ))}

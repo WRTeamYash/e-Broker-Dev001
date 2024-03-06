@@ -40,6 +40,7 @@ import ProjectCard from "../Cards/ProjectCard";
 import { FaArrowRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const HomePage = () => {
 
@@ -74,28 +75,31 @@ const HomePage = () => {
     const Categorydata = useSelector(categoriesCacheData);
 
    
-
     const handlecheckPremiumUser = (e, slug_id) => {
         e.preventDefault()
-
-        if (isPremiumUser) {
-            router.push(`project-details/${slug_id}`)
+        if (userCurrentId) {
+            if (isPremiumUser) {
+                router.push(`project-details/${slug_id}`)
+            } else {
+                Swal.fire({
+                    title: "Opps!",
+                    text: "You are not premium user sorry!",
+                    icon: "warning",
+                    allowOutsideClick: false,
+                    showCancelButton: false,
+                    customClass: {
+                        confirmButton: 'Swal-confirm-buttons',
+                        cancelButton: "Swal-cancel-buttons"
+                    },
+                    confirmButtonText: "Ok",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        router.push("/")
+                    }
+                });
+            }
         } else {
-            Swal.fire({
-                title: "Opps!",
-                text: "You are not premium user sorry!",
-                icon: "warning",
-                allowOutsideClick: false,
-                showCancelButton: false,
-                customClass: {
-                    confirmButton: 'Swal-confirm-buttons',
-                    cancelButton: "Swal-cancel-buttons"
-                },
-                confirmButtonText: "Ok",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                }
-            });
+            toast.error("Please login first")
         }
     }
 

@@ -15,6 +15,7 @@ import ProjectCard from '../Cards/ProjectCard';
 import { useRouter } from 'next/router';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import Swal from 'sweetalert2';
+import toast from 'react-hot-toast';
 
 
 const AllProjects = () => {
@@ -35,100 +36,103 @@ const AllProjects = () => {
 
     const handlecheckPremiumUser = (e, slug_id) => {
         e.preventDefault()
-
-        if (isPremiumUser) {
-            router.push(`project-details/${slug_id}`)
+        if (userCurrentId) {
+            if (isPremiumUser) {
+                router.push(`project-details/${slug_id}`)
+            } else {
+                Swal.fire({
+                    title: "Opps!",
+                    text: "You are not premium user sorry!",
+                    icon: "warning",
+                    allowOutsideClick: false,
+                    showCancelButton: false,
+                    customClass: {
+                        confirmButton: 'Swal-confirm-buttons',
+                        cancelButton: "Swal-cancel-buttons"
+                    },
+                    confirmButtonText: "Ok",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        router.push("/")
+                    }
+                });
+            }
         } else {
-            Swal.fire({
-                title: "Opps!",
-                text: "You are not premium user sorry!",
-                icon: "warning",
-                allowOutsideClick: false,
-                showCancelButton: false,
-                customClass: {
-                    confirmButton: 'Swal-confirm-buttons',
-                    cancelButton: "Swal-cancel-buttons"
-                },
-                confirmButtonText: "Ok",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                   router.push("/")
-                }
-            });
+            toast.error("Please login first")
         }
     }
 
 
-    useEffect(() => { }, [lang]);
-    useEffect(() => {
-        setIsLoading(true);
-        GetFeturedListingsApi({
-            top_rated: "2",
-            offset: offsetdata.toString(),
-            limit: limit.toString(),
-            current_user: isLoggedIn ? userCurrentId : "",
-            onSuccess: (response) => {
-                setTotal(response.total);
-                const MostViewedData = response.data;
-                setIsLoading(false);
-                setMostViewed(MostViewedData);
-            },
-            onError: (error) => {
-                setIsLoading(true);
-                console.log(error);
+        useEffect(() => { }, [lang]);
+        useEffect(() => {
+            setIsLoading(true);
+            GetFeturedListingsApi({
+                top_rated: "2",
+                offset: offsetdata.toString(),
+                limit: limit.toString(),
+                current_user: isLoggedIn ? userCurrentId : "",
+                onSuccess: (response) => {
+                    setTotal(response.total);
+                    const MostViewedData = response.data;
+                    setIsLoading(false);
+                    setMostViewed(MostViewedData);
+                },
+                onError: (error) => {
+                    setIsLoading(true);
+                    console.log(error);
+                }
             }
-        }
-        );
-    }, [offsetdata, isLoggedIn]);
+            );
+        }, [offsetdata, isLoggedIn]);
 
-    const handlePageChange = (selectedPage) => {
-        const newOffset = selectedPage.selected * limit;
-        setOffsetdata(newOffset);
-        window.scrollTo(0, 0);
-    };
+        const handlePageChange = (selectedPage) => {
+            const newOffset = selectedPage.selected * limit;
+            setOffsetdata(newOffset);
+            window.scrollTo(0, 0);
+        };
 
 
-    return (
-        <Layout>
-            <Breadcrumb title={translate("projects")} />
-            <section id="featured_prop_section">
-                {isLoading ? ( // Show Skeleton when isLoading is true
-                    <div className="container">
-                        <div id="feature_cards" className="row">
-                            {Array.from({ length: 8 }).map((_, index) => (
-                                <div className="col-sm-12 col-md-6 col-lg-3 loading_data" key={index}>
-                                    <VerticalCardSkeleton />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                ) : getMostViewed && getMostViewed.length > 0 ? (
-                    <>
+        return (
+            <Layout>
+                <Breadcrumb title={translate("projects")} />
+                <section id="featured_prop_section">
+                    {isLoading ? ( // Show Skeleton when isLoading is true
                         <div className="container">
                             <div id="feature_cards" className="row">
-                                {getMostViewed.map((ele, index) => (
-                                    <div className="col-sm-12 col-md-6 col-lg-3" key={index} onClick={(e) => handlecheckPremiumUser(e, ele.slug_id)}>
-                                        <ProjectCard ele={ele} />
+                                {Array.from({ length: 8 }).map((_, index) => (
+                                    <div className="col-sm-12 col-md-6 col-lg-3 loading_data" key={index}>
+                                        <VerticalCardSkeleton />
                                     </div>
                                 ))}
                             </div>
                         </div>
-                    </>
-                ) : (
-                    <div className="noDataFoundDiv">
-                        <NoData />
-                    </div>
-                )}
-                {getMostViewed && getMostViewed.length > 0 ? (
-                    <div id="feature_cards" className="row">
-                        <div className="col-12">
-                            <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                    ) : getMostViewed && getMostViewed.length > 0 ? (
+                        <>
+                            <div className="container">
+                                <div id="feature_cards" className="row">
+                                    {getMostViewed.map((ele, index) => (
+                                        <div className="col-sm-12 col-md-6 col-lg-3" key={index} onClick={(e) => handlecheckPremiumUser(e, ele.slug_id)}>
+                                            <ProjectCard ele={ele} />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="noDataFoundDiv">
+                            <NoData />
                         </div>
-                    </div>
-                ) : null}
-            </section>
-        </Layout>
-    )
-}
+                    )}
+                    {getMostViewed && getMostViewed.length > 0 ? (
+                        <div id="feature_cards" className="row">
+                            <div className="col-12">
+                                <Pagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                            </div>
+                        </div>
+                    ) : null}
+                </section>
+            </Layout>
+        )
+    }
 
-export default AllProjects
+    export default AllProjects

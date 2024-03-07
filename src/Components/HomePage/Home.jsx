@@ -13,7 +13,7 @@ import { FreeMode, Pagination } from "swiper/modules";
 import MobileHeadline from "../MobileHeadlines/MobileHeadline";
 import Link from "next/link";
 import Loader from "../Loader/Loader";
-import { GetAllArticlesApi, GetCountByCitysCategorisApi, GetFeturedListingsApi, GetSliderApi } from "@/store/actions/campaign";
+import { GetAllArticlesApi, GetCountByCitysCategorisApi, GetFeturedListingsApi, GetSliderApi, getAllprojectsApi } from "@/store/actions/campaign";
 import VerticalCardSkeleton from "../Skeleton/VerticalCardSkeleton";
 import VerticalCard from "../Cards/VerticleCard";
 import HorizontalCard from "../Cards/HorizontalCard";
@@ -65,6 +65,7 @@ const HomePage = () => {
     const [getFeaturedListing, setGetFeaturedListing] = useState();
     const [getMostViewedProp, setGetMostViewedProp] = useState();
     const [getMostFavProperties, setGetMostFavProperties] = useState();
+    const [getProjects, setGetProjects] = useState();
     const [getArticles, setGetArticles] = useState();
     const [getNearByCitysData, setGetNearByCitysData] = useState();
 
@@ -75,7 +76,7 @@ const HomePage = () => {
     const sliderdata = useSelector(silderCacheData);
     const Categorydata = useSelector(categoriesCacheData);
 
-   
+
     const handlecheckPremiumUser = (e, slug_id) => {
         e.preventDefault()
         if (userCurrentId) {
@@ -289,6 +290,27 @@ const HomePage = () => {
             }
         );
     }, []);
+    useEffect(() => {
+        setIsLoading(true);
+
+        getAllprojectsApi({
+            userid: isLoggedIn ? userCurrentId : "",
+            onSuccess: (response) => {
+                const ProjectData = response.data;
+                // console.log(ProjectData)
+                setIsLoading(false);
+                setGetProjects(ProjectData);
+            },
+            onError: (error) => {
+                console.log(error);
+                setIsLoading(true);
+
+            }
+        });
+    }, []);
+
+
+
     useEffect(() => {
 
     }, [nearbyCityData])
@@ -608,54 +630,54 @@ const HomePage = () => {
                             </div>
                         </div>
 
-                        {/* {getMostFavProperties && getMostFavProperties?.length > 0 ? ( */}
-                        <div id="projects_cards" dir={language.rtl === "1" ? "rtl" : "ltr"}>
-                            <Swiper
-                                slidesPerView={4}
-                                spaceBetween={30}
-                                freeMode={true}
-                                pagination={{
-                                    clickable: true,
-                                }}
-                                modules={[FreeMode, Pagination]}
-                                className="all_project_swiper"
-                                breakpoints={breakpointsProjects}
-                            >
-                                {isLoading ? (
-                                    // Show skeleton loading when data is being fetched
-                                    <Swiper
-                                        dir={language.rtl === "1" ? "rtl" : "ltr"}
-                                        slidesPerView={4}
-                                        spaceBetween={30}
-                                        freeMode={true}
-                                        pagination={{
-                                            clickable: true,
-                                        }}
-                                        modules={[FreeMode, Pagination]}
-                                        className="all_project_swiper"
-                                        breakpoints={breakpointsProjects}
-                                    >
-                                        {Array.from({ length: 6 }).map((_, index) => (
-                                            <SwiperSlide key={index}>
-                                                <div className="loading_data">
-                                                    <ProjectCardSkeleton />
-                                                </div>
+                        {getProjects && getProjects?.length > 0 ? (
+                            <div id="projects_cards" dir={language.rtl === "1" ? "rtl" : "ltr"}>
+                                <Swiper
+                                    slidesPerView={4}
+                                    spaceBetween={30}
+                                    freeMode={true}
+                                    pagination={{
+                                        clickable: true,
+                                    }}
+                                    modules={[FreeMode, Pagination]}
+                                    className="all_project_swiper"
+                                    breakpoints={breakpointsProjects}
+                                >
+                                    {isLoading ? (
+                                        // Show skeleton loading when data is being fetched
+                                        <Swiper
+                                            dir={language.rtl === "1" ? "rtl" : "ltr"}
+                                            slidesPerView={4}
+                                            spaceBetween={30}
+                                            freeMode={true}
+                                            pagination={{
+                                                clickable: true,
+                                            }}
+                                            modules={[FreeMode, Pagination]}
+                                            className="all_project_swiper"
+                                            breakpoints={breakpointsProjects}
+                                        >
+                                            {Array.from({ length: 6 }).map((_, index) => (
+                                                <SwiperSlide key={index}>
+                                                    <div className="loading_data">
+                                                        <ProjectCardSkeleton />
+                                                    </div>
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
+                                    ) : (
+                                        getProjects?.map((ele, index) => (
+                                            <SwiperSlide id="most-view-swiper-slider" key={index} onClick={(e) => handlecheckPremiumUser(e, ele.slug_id)}>
+                                                <ProjectCard ele={ele} />
                                             </SwiperSlide>
-                                        ))}
-                                    </Swiper>
-                                ) : (
-                                    getMostFavProperties?.map((ele, index) => (
-                                        <SwiperSlide id="most-view-swiper-slider" key={index} onClick={(e) => handlecheckPremiumUser(e, ele.slug_id)}>
-                                            <ProjectCard ele={ele} />
-                                        </SwiperSlide>
-                                    ))
-                                )}
-                            </Swiper>
-                        </div>
+                                        ))
+                                    )}
+                                </Swiper>
+                            </div>
 
-                        {/* ) : <div className="no-data-text">
+                        ) : <div className="no-data-text">
                             {translate("addDatafromAdmin")}
-                        </div>} */}
+                        </div>}
                     </div>
 
                     {!isPremiumUser &&

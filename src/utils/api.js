@@ -39,6 +39,8 @@ export const SET_PROPERTY_TOTAL_CLICKS = "set_property_total_click"
 export const UPDATE_PROPERTYY_STATUS = "update_property_status"
 export const GET_INTREESTED_USERS = "get_interested_users"
 export const POST_PROJECT = "post_project"
+export const GET_PROJECTS = "get_projects"
+
 
 // is login user check
 export const getUserID = () => {
@@ -724,7 +726,7 @@ export const getIntretsedUsers = (property_id, slug_id, limit, offset) => {
 
 
 // POST PROJECT
-export const postProject = (id, title, description, category_id, type, meta_title, meta_description, meta_keywords, meta_image, city, state, country, latitude, longitude, address, video_link, image, plans, documents, gallery_images, remove_documents, remove_gallery_images, remove_plans) => {
+export const postProject = (id, title, description, category_id, type, meta_title, meta_description, meta_keywords, meta_image, city, state, country, latitude, longitude, location, video_link, image, plans, documents, gallery_images, remove_documents, remove_gallery_images, remove_plans) => {
     let data = new FormData();
 
     // Append the property data to the FormData object
@@ -744,7 +746,7 @@ export const postProject = (id, title, description, category_id, type, meta_titl
     data.append('country', country);
     data.append('latitude', latitude);
     data.append('longitude', longitude);
-    data.append('address', address);
+    data.append('location', location);
 
     data.append('video_link', video_link);
     data.append('image', image);
@@ -781,3 +783,29 @@ export const postProject = (id, title, description, category_id, type, meta_titl
         authorizationHeader: true,
     };
 };
+
+// get Propertyes 
+export const getAllProjects = (userid, id, slug_id, search, get_sililar, category_id, city, state, country, posted_since, offset, limit) => {
+
+    return {
+        url: `${GET_PROJECTS}`,
+        method: "GET",
+        params: {
+            userid: userid,
+            id: id,
+            slug_id: slug_id,
+            search: search,
+            get_sililar: get_sililar,
+            category_id: category_id,
+            city: city,
+            state: state,
+            country: country,
+            posted_since: posted_since,
+            offset:offset,
+            limit:limit
+           
+        },
+        authorizationHeader: false,
+
+    }
+}

@@ -11,7 +11,7 @@ import { FreeMode, Pagination } from "swiper/modules";
 import VerticalCard from "../Cards/VerticleCard";
 import VerticalCardSkeleton from "../Skeleton/VerticalCardSkeleton";
 import Link from "next/link";
-import { GetFeturedListingsApi } from "@/store/actions/campaign";
+import { GetFeturedListingsApi, getAllprojectsApi } from "@/store/actions/campaign";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { store } from "@/store/store";
@@ -28,25 +28,29 @@ const SimilerProjectSlider = () => {
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const router = useRouter();
-    const propId = router.query;
+    const ProjectSlug = router.query;
 
     useEffect(() => {
         setIsLoading(true);
-        GetFeturedListingsApi({
-            get_simiilar: "1",
-            current_user: isLoggedIn ? userCurrentId : "",
-            slug_id: propId.slug,
+        getAllprojectsApi({
+            userid: isLoggedIn ? userCurrentId : "",
+            slug_id: ProjectSlug.slug,
+            get_sililar:"1",
             onSuccess: (response) => {
-                const propertyData = response.data;
-                setIsLoading(false);
-                setSimilerData(propertyData);
+                console.log(response)
+              const ProjectData = response && response?.data;
+              setIsLoading(false);
+              setSimilerData(ProjectData);
+              console.log(getSimilerData)
+    
             },
             onError: (error) => {
-                setIsLoading(false);
-                console.log(error);
+              setIsLoading(false);
+              console.log(error);
             }
-        });
-    }, [isLoggedIn, propId]);
+          }
+          );
+    }, [isLoggedIn, ProjectSlug]);
 
     const breakpoints = {
         320: {

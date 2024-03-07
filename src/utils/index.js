@@ -102,3 +102,7 @@ export const formatNumberWithCommas = (number) => {
 //     console.log(`[Custom Log]: ${message}`);
 //   }
 // };
+// placholder image
+export const placeholderImage = (e) => {
+  e.target.src = settingsData?.web_placeholder_logo;
+};

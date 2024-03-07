@@ -143,7 +143,7 @@ export default function AddProjectsTabs() {
         if (selectedValue === "0") {
             typeValue = "upcoming";
         } else if (selectedValue === "1") {
-            typeValue = "underprocess";
+            typeValue = "under_construction";
         }
 
         setTab1({ ...tab1, projectType: typeValue });
@@ -650,16 +650,15 @@ export default function AddProjectsTabs() {
                     country: selectedLocationAddress.country,
                     latitude: selectedLocationAddress.lat,
                     longitude: selectedLocationAddress.lng,
-                    address: selectedLocationAddress.formatted_address,
+                    location: selectedLocationAddress.formatted_address,
                     plans: plans,
                     image: tab5.titleImage[0],
                     documents: tab5.docs,
                     gallery_images: tab5.galleryImages,
                     video_link: tab5.videoLink,
                     onSuccess: async (response) => {
-                        console.log(response)
                         toast.success(response.message);
-                        // router.push("/user/dashboard");
+                        router.push("/user/projects");
                     },
                     onError: (error) => {
                         toast.error(error);
@@ -674,9 +673,6 @@ export default function AddProjectsTabs() {
     };
 
 
-    const handleFloorFieldsChange = (data) => {
-        setFloorFields(data);
-    };
 
     useEffect(() => {
         //   console.log(floorFields)
@@ -703,13 +699,13 @@ export default function AddProjectsTabs() {
                                     <span>{translate("projectTypes")}</span>
                                     <div className="add_prop_types">
                                         <div className="form-check">
-                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="0" onChange={handlePropertyTypes} checked={tab1.projectType === "upcoming"} />
+                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="0" onChange={handlePropertyTypes} checked={tab1.projectType === "upcomming"} />
                                             <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                                {translate("upcoming")}
+                                                {translate("upcomming")}
                                             </label>
                                         </div>
                                         <div className="form-check">
-                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1" onChange={handlePropertyTypes} checked={tab1.projectType === "underprocess"} />
+                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1" onChange={handlePropertyTypes} checked={tab1.projectType === "under_construction"} />
                                             <label className="form-check-label" htmlFor="flexRadioDefault2">
                                                 {translate("underconstruction")}
                                             </label>
@@ -863,7 +859,6 @@ export default function AddProjectsTabs() {
 
             <CustomTabPanel value={value} index={3}>
                 <div className="add_prop_form">
-                    {/* <Floors onFloorFieldsChange={handleFloorFieldsChange} /> */}
                     {floorsContent}
                     <button className="add_floor" onClick={handleAddFloor}>{translate("addFloor")}</button>
                 </div>

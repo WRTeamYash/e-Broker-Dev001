@@ -10,8 +10,8 @@ import { ImageToSvg } from "./ImageToSvg";
 import { isThemeEnabled } from "@/utils";
 
 const ProjectCard = ({ ele }) => {
-    const titleImage = ele.title_image;
-    const galleryImages = ele.gallery.filter(image => typeof image === 'object').map(image => image.image_url);
+    const titleImage = ele.image;
+    const galleryImages = ele?.gallary_images?.filter(image => typeof image === 'object' && image.hasOwnProperty('name')).map(image => image.name);
     const images = [titleImage, ...galleryImages]?.slice(0, 3);;
     const sliderRef = useRef(null);
 

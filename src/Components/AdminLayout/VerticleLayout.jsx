@@ -20,6 +20,7 @@ import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import BusinessIcon from '@mui/icons-material/Business';
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -594,6 +595,30 @@ export default function VerticleLayout(props) {
                                     <RiAdvertisementLine size={23} />
                                 </ListItemIcon>
                                 <ListItemText primary={translate("myAdvertisement")} sx={{ opacity: open ? 1 : 0 }} />
+                            </ListItemButton>
+                        </Link>
+                    </ListItem>
+                    
+                    <ListItem disablePadding sx={{ display: "block" }} className={isRouteActive('/user/projects') ? 'drawer_list_item_active' : 'drawer_list_item'}>
+                        <Link href="/user/projects">
+                            <ListItemButton
+                                sx={{
+                                    minHeight: 30,
+                                    justifyContent: open ? "initial" : "center",
+                                    px: 2.5,
+                                }}
+                            >
+                                <ListItemIcon
+                                    className={isRouteActive('/user/projects') ? 'drawer_list_icon_active' : 'drawer_list_icon'}
+                                    sx={{
+                                        minWidth: 0,
+                                        mr: open ? 3 : "auto",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <BusinessIcon size={23} />
+                                </ListItemIcon>
+                                <ListItemText primary={translate("myProjects")} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </Link>
                     </ListItem>

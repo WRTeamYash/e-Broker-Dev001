@@ -22,7 +22,6 @@ const OwnerDeatilsCard = (
         PlaceHolderImg
     }) => {
 
-
     return (
         <>
             <div className="card" id="owner-deatils-card">

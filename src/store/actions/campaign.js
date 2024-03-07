@@ -15,6 +15,7 @@ import {
     getFacilities,
     postProperty,
     postProject,
+    getAllProjects,
     getLimits,
     getPaymentDetials,
     updatePostProperty,
@@ -644,7 +645,7 @@ export const PostProjectApi = ({
     country = "",
     latitude = "",
     longitude = "",
-    address = "",
+    location = "",
     video_link = "",
     image = {},
     plans = [],
@@ -660,7 +661,41 @@ export const PostProjectApi = ({
 ) => {
     store.dispatch(
         apiCallBegan({
-            ...postProject(id, title, description, category_id, type, meta_title, meta_description, meta_keywords, meta_image, city, state, country, latitude, longitude, address,video_link, image, plans, documents, gallery_images, remove_documents, remove_gallery_images, remove_plans),
+            ...postProject(id, title, description, category_id, type, meta_title, meta_description, meta_keywords, meta_image, city, state, country, latitude, longitude, location, video_link, image, plans, documents, gallery_images, remove_documents, remove_gallery_images, remove_plans),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
+
+
+
+
+// GET PROJECTS 
+
+export const getAllprojectsApi = ({
+    userid = "",
+    id = "",
+    slug_id = "",
+    search = "",
+    get_sililar = "",
+    category_id = "",
+    city = "",
+    state = "",
+    country = "",
+    posted_since = "",
+    offset = "",
+    limit = "",
+    onSuccess = () => { },
+    onError = () => { },
+    onStart = () => { }
+}
+) => {
+    store.dispatch(
+        apiCallBegan({
+            ...getAllProjects(userid, id, slug_id, search, get_sililar, category_id, city, state, country, posted_since, offset, limit),
             displayToast: false,
             onStart,
             onSuccess,

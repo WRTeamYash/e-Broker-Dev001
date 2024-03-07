@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { GetFeturedListingsApi } from "@/store/actions/campaign";
+import { getAllprojectsApi } from "@/store/actions/campaign";
 import toast from "react-hot-toast";
 import Layout from "../Layout/Layout";
 import { CiLink, CiLocationOn } from "react-icons/ci";
@@ -17,11 +17,11 @@ import {
   XIcon,
 } from "react-share";
 import { Dropdown, Menu } from "antd";
-import { FiShare2 } from "react-icons/fi";
+import { FiPhoneCall, FiShare2 } from "react-icons/fi";
 import Loader from "../Loader/Loader";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import LightBox from "../LightBox/LightBox";
-import { translate } from "@/utils";
+import { placeholderImage, translate } from "@/utils";
 import Image from "next/image";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import Map from "../GoogleMap/GoogleMap";
@@ -35,6 +35,8 @@ import { BsFiletypeDoc, BsFiletypePdf } from "react-icons/bs";
 import OwnerDeatilsCard from "../OwnerDeatilsCard/OwnerDeatilsCard";
 import Swal from "sweetalert2";
 import SimilerProjectSlider from "../SimilerProjectSlider/SimilerProjectSlider";
+import ProjectLightBox from "../LightBox/ProjectLightBox";
+import { RiMailSendLine } from "react-icons/ri";
 const ProjectDetails = () => {
   const router = useRouter();
   const ProjectSlug = router.query;
@@ -57,9 +59,9 @@ const ProjectDetails = () => {
   const [seekPosition, setSeekPosition] = useState(0);
   const [showThumbnail, setShowThumbnail] = useState(true);
 
- 
+
   useEffect(() => {
-    if (!isSubscription && !isPremiumUser) {
+    if (isSubscription === false && isPremiumUser === false) {
       Swal.fire({
         title: "Opps!",
         text: "You are not premium user sorry!",
@@ -67,23 +69,23 @@ const ProjectDetails = () => {
         allowOutsideClick: false,
         showCancelButton: false,
         customClass: {
-            confirmButton: 'Swal-confirm-buttons',
-            cancelButton: "Swal-cancel-buttons"
+          confirmButton: 'Swal-confirm-buttons',
+          cancelButton: "Swal-cancel-buttons"
         },
         confirmButtonText: "Ok",
-    }).then((result) => {
+      }).then((result) => {
         if (result.isConfirmed) {
-           router.push("/")
+          router.push("/")
         }
-    });
+      });
     }
   }, [isSubscription, isPremiumUser])
 
   useEffect(() => {
     setIsLoading(true);
     if (ProjectSlug.slug && ProjectSlug.slug != "") {
-      GetFeturedListingsApi({
-        current_user: isLoggedIn ? userCurrentId : "",
+      getAllprojectsApi({
+        userid: isLoggedIn ? userCurrentId : "",
         slug_id: ProjectSlug.slug,
         onSuccess: (response) => {
           const ProjectData = response && response.data;
@@ -158,7 +160,7 @@ const ProjectDetails = () => {
 
 
 
-  const galleryPhotos = projectData && projectData.gallery;
+  const galleryPhotos = projectData && projectData.gallary_images;
 
   const openLightbox = (index) => {
     setCurrentImage(index);
@@ -199,6 +201,43 @@ const ProjectDetails = () => {
     setShowThumbnail(true); // Reset showThumbnail to true
   };
 
+  const handleDownload = async (fileName) => {
+    try {
+      // Construct the file URL based on your backend or API
+      const fileUrl = `${fileName}`;
+      // Fetch the file data
+      const response = await fetch(fileUrl);
+
+      // Get the file data as a Blob
+      const blob = await response.blob();
+
+      // Create a URL for the Blob object
+      const blobUrl = URL.createObjectURL(blob);
+
+      // Create an anchor element
+      const link = document.createElement('a');
+
+      // Set the anchor's href attribute to the Blob URL
+      link.href = blobUrl;
+
+      // Specify the file name for the download
+      link.setAttribute('download', fileName);
+
+      // Append the anchor element to the body
+      document.body.appendChild(link);
+
+      // Trigger the download
+      link.click();
+
+      // Remove the anchor element from the body
+      document.body.removeChild(link);
+
+      // Revoke the Blob URL to release memory
+      URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error('Error downloading file:', error);
+    }
+  };
 
   return (
     <>
@@ -214,8 +253,9 @@ const ProjectDetails = () => {
                   <div className="project_right_details">
                     <span className="prop_types">{projectData?.category?.category}</span>
                     <span className="prop_name">{projectData?.title}</span>
+                    <span className="project_type_tag">{projectData?.type}</span>
                     <span className="prop_Location">
-                      <CiLocationOn size={25} /> {projectData?.address}
+                      <CiLocationOn size={25} /> {projectData?.location}
                     </span>
                   </div>
                   <div className="project_left_details">
@@ -239,7 +279,7 @@ const ProjectDetails = () => {
                         <div className="col-sm-12 col-md-6" id="prop-main-image">
                           <Image
                             loading="lazy"
-                            src={projectData?.title_image || PlaceHolderImg}
+                            src={projectData?.image || PlaceHolderImg}
                             className="two-img01"
                             alt="Main Image" width={200}
                             height={200}
@@ -248,7 +288,7 @@ const ProjectDetails = () => {
                         <div className="col-sm-12 col-md-6" id="prop-main-image">
                           <Image
                             loading="lazy"
-                            src={galleryPhotos[0]?.image_url || PlaceHolderImg}
+                            src={galleryPhotos[0]?.name || PlaceHolderImg}
                             className="two-img02"
                             alt="Main Image"
                             width={200}
@@ -264,7 +304,7 @@ const ProjectDetails = () => {
                         <div className="col-lg-4 col-sm-12" id="prop-left-images">
                           <Image
                             loading="lazy"
-                            src={galleryPhotos[0]?.image_url || PlaceHolderImg}
+                            src={galleryPhotos[0]?.name || PlaceHolderImg}
                             className="left-imgs01"
                             alt="Image 1"
                             width={200}
@@ -273,7 +313,7 @@ const ProjectDetails = () => {
                           />
                           <Image
                             loading="lazy"
-                            src={galleryPhotos[1]?.image_url || PlaceHolderImg}
+                            src={galleryPhotos[1]?.name || PlaceHolderImg}
                             className="left-imgs02"
                             alt="Image 2"
                             width={200}
@@ -284,7 +324,7 @@ const ProjectDetails = () => {
                         <div className="col-lg-8 col-sm-12 text-center" id="prop-main-image">
                           <Image
                             loading="lazy"
-                            src={projectData?.title_image || PlaceHolderImg}
+                            src={projectData?.image || PlaceHolderImg}
                             className="middle-img"
                             alt="Main Image"
                             width={200}
@@ -304,7 +344,7 @@ const ProjectDetails = () => {
                     <div className="col-12" id="prop-main-image01">
                       <Image
                         loading="lazy"
-                        src={projectData?.title_image || PlaceHolderImg}
+                        src={projectData?.image || PlaceHolderImg}
                         className="one-img"
                         alt="Main Image"
                         width={200}
@@ -315,7 +355,7 @@ const ProjectDetails = () => {
                 }
 
 
-                <LightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={setViewerIsOpen} title_image={projectData?.title_image} setViewerIsOpen={setViewerIsOpen} setCurrentImage={setCurrentImage} />
+                <ProjectLightBox photos={galleryPhotos} viewerIsOpen={viewerIsOpen} currentImage={currentImage} onClose={setViewerIsOpen} title_image={projectData?.image} setViewerIsOpen={setViewerIsOpen} setCurrentImage={setCurrentImage} />
 
 
                 <div className="row" id="prop-all-deatils-cards">
@@ -361,7 +401,7 @@ const ProjectDetails = () => {
                               </div>
                               <div className="adrs02">
                                 <div className="adrs_value">
-                                  <span>{projectData && projectData.address}</span>
+                                  <span>{projectData && projectData.location}</span>
                                 </div>
                                 <div className="adrs_value">
                                   <span className="">{projectData && projectData.city}</span>
@@ -443,117 +483,52 @@ const ProjectDetails = () => {
                         </div>
                       </div>
                     ) : null}
-
-                    <div className="card" id="floor_plans">
-                      <div className="card-header">{translate("floorPlans")}</div>
-                      <div className="card-body">
-                        <FloorAccordion />
+                    {projectData?.plans.length > 0 &&
+                      <div className="card" id="floor_plans">
+                        <div className="card-header">{translate("floorPlans")}</div>
+                        <div className="card-body">
+                          <FloorAccordion plans={projectData?.plans} />
+                        </div>
                       </div>
-                    </div>
+                    }
 
 
                     <div className="card" id="download_docs">
                       <div className="card-header">{translate("docs")}</div>
                       <div className="card-body">
                         <div className="row doc_row">
-                          <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div className="docs_main_div">
-                              <div className="doc_icon">
-                                {/* <FaRegFilePdf size={30} /> */}
-                                <BsFiletypePdf size={30} />
+                          {projectData && projectData?.documents.map((ele, index) => {
+                            // Extracting file extension
+                            const fileExtension = ele.name.split('.').pop().toLowerCase();
 
+                            // Determining icon based on file extension
+                            let icon = null;
+                            if (fileExtension === 'pdf') {
+                              icon = <BsFiletypePdf size={30} />;
+                            } else if (fileExtension === 'doc') {
+                              icon = <BsFiletypeDoc size={30} />;
+                            }
 
+                            return (
+                              <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
+                                <div className="docs_main_div">
+                                  <div className="doc_icon">
+                                    {icon}
+                                  </div>
+                                  <div className="doc_title">
+                                    <span>{ele.name}</span>
+                                  </div>
+                                  <div className="doc_download_button">
+                                    <button onClick={() => handleDownload(ele.name)}>
+                                      <span><BiDownload size={20} /></span>
+                                      <span>{translate("download")}</span>
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
-                              <div className="doc_title">
-                                <span>
-                                  Villa-Document-1.pdf
-                                </span>
-                              </div>
-                              <div className="doc_download_button">
-                                <button>
-                                  <span>
-                                    <BiDownload size={20} />
-                                  </span>
-                                  <span>
-                                    {translate("download")}
-                                  </span>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div className="docs_main_div">
-                              <div className="doc_icon">
-                                <BsFiletypeDoc size={30} />
+                            );
+                          })}
 
-                              </div>
-                              <div className="doc_title">
-                                <span>
-                                  Villa-Document-1.pdf
-                                </span>
-                              </div>
-                              <div className="doc_download_button">
-                                <button>
-                                  <span>
-                                    <BiDownload size={20} />
-                                  </span>
-                                  <span>
-                                    Download
-                                  </span>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div className="docs_main_div">
-                              <div className="doc_icon">
-                                {/* <FaRegFilePdf size={30} /> */}
-                                <BsFiletypePdf size={30} />
-
-
-                              </div>
-                              <div className="doc_title">
-                                <span>
-                                  Villa-Document-1.pdf
-                                </span>
-                              </div>
-                              <div className="doc_download_button">
-                                <button>
-                                  <span>
-                                    <BiDownload size={20} />
-                                  </span>
-                                  <span>
-                                    Download
-                                  </span>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div className="docs_main_div">
-                              <div className="doc_icon">
-                                {/* <FaRegFilePdf size={30} /> */}
-                                <BsFiletypePdf size={30} />
-
-
-                              </div>
-                              <div className="doc_title">
-                                <span>
-                                  Villa-Document-1.pdf
-                                </span>
-                              </div>
-                              <div className="doc_download_button">
-                                <button>
-                                  <span>
-                                    <BiDownload size={20} />
-                                  </span>
-                                  <span>
-                                    Download
-                                  </span>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
 
 
                         </div>
@@ -562,11 +537,49 @@ const ProjectDetails = () => {
 
                   </div>
                   <div className="col-12 col-md-12 col-lg-3">
-                    <OwnerDeatilsCard
-                      getPropData={projectData}
-                      userCurrentId={userCurrentId}
-                      PlaceHolderImg={PlaceHolderImg}
-                    />
+                    <div className="card" id="owner-deatils-card">
+                      {console.log(projectData?.customer?.email)}
+                      <div className="card-header" id="card-owner-header" style={{ alignItems: "center" }}>
+                        <div>
+                          <Image loading="lazy" width={200} height={200} src={projectData?.customer?.profile} className="owner-img" alt="no_img" onError={placeholderImage} />
+                        </div>
+                        <div className="owner-deatils">
+
+                          <span className="owner-name"> {projectData?.customer?.name}</span>
+                          {projectData && projectData?.customer.email &&
+                            <span className="owner-add">
+                              {" "}
+                              <RiMailSendLine size={15} />
+                              {projectData?.customer?.email}
+                            </span>
+                          }
+                        </div>
+                      </div>
+                      <div className="card-body">
+                        <a href={`tel:${projectData && projectData?.customer?.mobile}`}>
+                          <div className="owner-contact">
+                            <div>
+                              <FiPhoneCall id="call-o" size={60} />
+                            </div>
+                            <div className="deatilss">
+                              <span className="o-d"> {translate("call")}</span>
+                              <span className="value">{projectData && projectData?.customer?.mobile}</span>
+                            </div>
+                          </div>
+                        </a>
+                        <a href={`mailto:${projectData && projectData?.customer?.email}`}>
+                          <div className="owner-contact">
+                            <div>
+                              <CiLocationOn id="mail-o" size={60} />
+                            </div>
+                            <div className="deatilss">
+                              <span className="o-d"> {translate("location")}</span>
+                              <span className="value">{projectData && projectData?.customer?.address}</span>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
 

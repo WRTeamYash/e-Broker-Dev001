@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useState } from 'react';
 import { Accordion } from 'react-bootstrap';
 import { FaPlus, FaMinus } from 'react-icons/fa';
@@ -20,8 +21,8 @@ const CustomToggle = ({ children, eventKey, isOpen, onToggle }) => {
     );
 };
 
-const FloorAccordion = () => {
-    const [activeKey, setActiveKey] = useState(null);
+const FloorAccordion = ({ plans }) => {
+    const [activeKey, setActiveKey] = useState("");
 
     const handleToggle = (eventKey) => {
         setActiveKey(activeKey === eventKey ? null : eventKey);
@@ -29,29 +30,22 @@ const FloorAccordion = () => {
 
     return (
         <>
+
+
             <Accordion activeKey={activeKey} onSelect={handleToggle}>
-                <Accordion.Item eventKey="0">
-                    <Accordion.Header>
-                        <span>
-                            floor 1
-                        </span>
-                        <CustomToggle eventKey="0" isOpen={activeKey === '0'} onToggle={handleToggle} />
-                    </Accordion.Header>
-                    <Accordion.Body>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="1">
-                <Accordion.Header>
-                        <span>
-                            floor 2
-                        </span>
-                        <CustomToggle eventKey="1" isOpen={activeKey === '1'} onToggle={handleToggle} />
-                    </Accordion.Header>
-                    <Accordion.Body>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </Accordion.Body>
-                </Accordion.Item>
+                {plans && plans.map((ele, index) => (
+                    <Accordion.Item eventKey={ele?.id} key={index}>
+                        <Accordion.Header>
+                            <span>{ele?.title}</span>
+                            <CustomToggle eventKey={ele?.id} isOpen={activeKey === ele?.id} onToggle={handleToggle} />
+                        </Accordion.Header>
+                        <Accordion.Body>
+                           <div className="floor_img">
+                            <Image src={ele.document} alt='floor' width={250} height={250}/>
+                           </div>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                ))}
             </Accordion>
         </>
     );

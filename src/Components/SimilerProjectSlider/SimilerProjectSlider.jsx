@@ -33,15 +33,12 @@ const SimilerProjectSlider = () => {
     useEffect(() => {
         setIsLoading(true);
         getAllprojectsApi({
-            userid: isLoggedIn ? userCurrentId : "",
             slug_id: ProjectSlug.slug,
             get_sililar:"1",
             onSuccess: (response) => {
-                console.log(response)
               const ProjectData = response && response?.data;
               setIsLoading(false);
               setSimilerData(ProjectData);
-              console.log(getSimilerData)
     
             },
             onError: (error) => {

@@ -294,7 +294,6 @@ const HomePage = () => {
         setIsLoading(true);
 
         getAllprojectsApi({
-            userid: isLoggedIn ? userCurrentId : "",
             onSuccess: (response) => {
                 const ProjectData = response.data;
                 // console.log(ProjectData)

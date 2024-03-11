@@ -2,7 +2,6 @@ import React from "react";
 import ReactPaginate from "react-paginate";
 
 const TablePagination = ({ pageCount, onPageChange, startIndex, endIndex, total }) => {
-    console.log(pageCount)
     return (
         <div className="tabel_pagination">
             <span>

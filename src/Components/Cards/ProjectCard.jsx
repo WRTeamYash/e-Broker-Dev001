@@ -7,7 +7,9 @@ import { FreeMode, Navigation, Autoplay } from 'swiper/modules';
 import { useCallback, useRef } from "react";
 import { FaArrowLeft, FaArrowRight, FaCrown } from "react-icons/fa";
 import { ImageToSvg } from "./ImageToSvg";
-import { isThemeEnabled } from "@/utils";
+import { isThemeEnabled, placeholderImage } from "@/utils";
+import { settingsData } from "@/store/reducer/settingsSlice";
+import { useSelector } from "react-redux";
 
 const ProjectCard = ({ ele }) => {
     const titleImage = ele.image;
@@ -28,6 +30,8 @@ const ProjectCard = ({ ele }) => {
         if (!sliderRef.current) return;
         sliderRef.current.swiper.slideNext();
     }, []);
+    const SettingsData = useSelector(settingsData);
+    const PlaceHolderImg = SettingsData?.web_placeholder_logo;
 
     const themeEnabled = isThemeEnabled();
 
@@ -64,7 +68,7 @@ const ProjectCard = ({ ele }) => {
                         {images.map((image, index) => (
                             <SwiperSlide key={index}>
                                 <div className="project_img">
-                                    <Image src={image} width={0} height={0} alt="images" />
+                                    <Image src={image} width={0} height={0} alt="images" onError={placeholderImage}/>
                                 </div>
                             </SwiperSlide>
                         ))}

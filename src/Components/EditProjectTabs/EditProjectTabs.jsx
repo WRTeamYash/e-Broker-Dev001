@@ -6,7 +6,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { translate } from "@/utils";
-import { GetFacilitiesApi, PostProjectApi, PostProperty } from "@/store/actions/campaign";
+import { GetFacilitiesApi, PostProjectApi, PostProperty, getAllprojectsApi } from "@/store/actions/campaign";
 import GoogleMapBox from "../Location/GoogleMapBox";
 import { useDropzone } from "react-dropzone";
 import CloseIcon from "@mui/icons-material/Close";
@@ -19,7 +19,6 @@ import Swal from "sweetalert2";
 import { categoriesCacheData } from "@/store/reducer/momentSlice";
 import { languageData } from "@/store/reducer/languageSlice";
 import { IoIosAddCircleOutline, IoMdRemoveCircleOutline } from "react-icons/io";
-import Floors from "./Floors";
 
 
 
@@ -52,14 +51,25 @@ function a11yProps(index) {
 
 export default function AddProjectsTabs() {
     const router = useRouter();
+    const ProjectSlug = router?.query?.slug
+
+    const [defaultProjectData, setDefaultProjectData] = useState([])
+
+
+    const isLoggedIn = useSelector((state) => state.User_signup);
+    const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
 
     const [value, setValue] = useState(0);
     const [uploadedImages, setUploadedImages] = useState([]);
     const [galleryImages, setGalleryImages] = useState([]); // State to store uploaded images
     const [uploadedOgImages, setUploadedOgImages] = useState([]); // State to store uploaded images
     const [selectedLocationAddress, setSelectedLocationAddress] = useState("");
-    const [floorFields, setFloorFields] = useState([{ floorTitle: "", floorImgs: [] }]);
+    const [floorFields, setFloorFields] = useState([{ id: "", floorTitle: "", floorImgs: [] }]);
     const [currentFloorIndex, setCurrentFloorIndex] = useState(0);
+    const [lat, setLat] = useState();
+    const [lng, setLng] = useState();
+    const [uploadedDocuments, setUploadedDocuments] = useState([]);
+
     const userData = useSelector(userSignUpData);
     const userId = userData?.data?.data?.id;
     const Categorydata = useSelector(categoriesCacheData);
@@ -78,8 +88,6 @@ export default function AddProjectsTabs() {
     });
 
 
-
-
     const [tab5, setTab5] = useState({
         titleImage: [],
         docs: [],
@@ -93,6 +101,145 @@ export default function AddProjectsTabs() {
         ogImages: []
 
     });
+
+
+    const [removeFloorsId, setRemoveFloorsId] = useState([])
+    const [removeGalleryImgsId, setRemoveGalleryImgsId] = useState([])
+    const [removeDocId, setRemoveDocId] = useState([])
+
+    useEffect(() => {
+        if (ProjectSlug) {
+            getAllprojectsApi({
+                slug_id: ProjectSlug,
+                userid: isLoggedIn ? userCurrentId : "",
+                onSuccess: (response) => {
+                    const ProjectData = response.data;
+                    setDefaultProjectData(ProjectData[0])
+                },
+                onError: (error) => {
+                    setIsLoading(false);
+                    console.log(error);
+                }
+            })
+        }
+    }, [ProjectSlug])
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Update tab1 when defaultProjectData changes
+                setTab1(prevTab1 => ({
+                    ...prevTab1,
+                    projectType: defaultProjectData ? defaultProjectData.type : "",
+                    category: defaultProjectData ? defaultProjectData.category_id : "",
+                    title: defaultProjectData ? defaultProjectData.title : "",
+                    projectDesc: defaultProjectData ? defaultProjectData.description : "",
+                }));
+                // Update tab6 when defaultProjectData changes
+                setTab6(prevTab6 => ({
+                    ...prevTab6,
+                    MetaTitle: defaultProjectData ? defaultProjectData.meta_title : "",
+                    MetaKeyword: defaultProjectData ? defaultProjectData.meta_description : "",
+                    MetaDesc: defaultProjectData ? defaultProjectData.meta_keywords : "",
+
+                }))
+
+                setLat(defaultProjectData?.latitude);
+                setLng(defaultProjectData?.longitude);
+                // Check if defaultProjectData.meta_image exists
+                if (defaultProjectData?.meta_image) {
+
+                    fetch(defaultProjectData.meta_image)
+                        .then((response) => response.blob())
+                        .then((blob) => {
+                            const file = new File([blob], "meta_image.jpg", { type: "image/jpeg" });
+                            setUploadedOgImages([file]);
+                            // Log uploadedOgImages inside a useEffect hook to ensure logging after state update
+                            // setTab6((prevState) => ({
+                            //     ...prevState,
+                            //     ogImages: [file],
+                            // }));
+                        })
+                        .catch((error) => {
+                            console.error("Error fetching image data:", error);
+                        });
+
+                }
+                if (defaultProjectData?.video_link) {
+                    setTab5((prevState) => ({
+                        ...prevState,
+                        videoLink: defaultProjectData?.video_link,
+                    }));
+                }
+                if (defaultProjectData?.plans && defaultProjectData.plans.length > 0) {
+                    // Map the plans to create floorFields data structure
+                    const newFloorFields = defaultProjectData.plans.map((plan) => ({
+                        id: plan.id,
+                        floorTitle: plan.title,
+                        floorImgs: [{ name: plan.document, url: plan.document }]
+                    }));
+                    // Set the floorFields state
+                    setFloorFields(newFloorFields);
+                }
+                if (defaultProjectData?.image) {
+                    // Assuming propertyData.title_image contains the image URL
+                    const titleImageURL = defaultProjectData.image;
+
+                    // Fetch the image data and convert it to a Blob
+                    fetch(titleImageURL)
+                        .then((response) => response.blob())
+                        .then((blob) => {
+                            // Check if the fetched blob is of image type (e.g., image/jpeg, image/png, etc.)
+                            if (blob.type.startsWith("image/")) {
+                                // Create a File object from the Blob
+                                const file = new File([blob], "title_image.jpg", { type: "image/jpeg" });
+
+                                // Set the default title image
+                                setUploadedImages([file]);
+                                setTab5((prevState) => ({
+                                    ...prevState,
+                                    titleImage: [file],
+                                }));
+                            } else {
+                                console.error("Fetched file is not an image.");
+                                // Handle the case where the fetched file is not an image
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error fetching image data:", error);
+                        });
+                }
+                // Check if propertyData.gallery exists and set it as the default gallery images
+                if (defaultProjectData?.gallary_images && defaultProjectData?.gallary_images.length > 0) {
+                    const defaultGalleryImages = defaultProjectData.gallary_images.map((galleryItem) => {
+                        // Assuming galleryItem.image_url contains the image URL
+                        const imageUrl = galleryItem.name;
+                        // Create an object with a URL property for each image
+                        return { id: galleryItem.id, imageUrl, name: galleryItem.name };
+                    });
+
+                    // Set the default gallery images
+                    setGalleryImages(defaultGalleryImages);
+
+                }
+                if (defaultProjectData?.documents && defaultProjectData.documents.length > 0) {
+
+                    // Set the converted files in tab5.docs
+                    setUploadedDocuments(defaultProjectData?.documents)
+
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, [defaultProjectData])
+
+    // Use useEffect to log uploadedOgImages after it has been updated
+    useEffect(() => {
+    }, [lat, lng]);
+
+
 
     const GoogleMapApi = process.env.NEXT_PUBLIC_GOOGLE_API;
     const handleChange = (e, newValue) => {
@@ -138,15 +285,9 @@ export default function AddProjectsTabs() {
     };
     const handlePropertyTypes = (event) => {
         const selectedValue = event.target.value;
-        let typeValue = "";
 
-        if (selectedValue === "0") {
-            typeValue = "upcoming";
-        } else if (selectedValue === "1") {
-            typeValue = "under_construction";
-        }
 
-        setTab1({ ...tab1, projectType: typeValue });
+        setTab1({ ...tab1, projectType: selectedValue });
 
     };
 
@@ -211,7 +352,7 @@ export default function AddProjectsTabs() {
             )),
         [uploadedImages]
     );
-    const [uploadedDocuments, setUploadedDocuments] = useState([]); // State to store uploaded documents
+    // State to store uploaded documents
 
     const onDropDocuments = useCallback((acceptedFiles) => {
         // Check if the dropped files are PDF or DOC files
@@ -234,7 +375,9 @@ export default function AddProjectsTabs() {
         }));
     }, []);
     // Function to remove a document by index
-    const removeDocument = (index) => {
+    const removeDocument = (index, docId) => {
+        setRemoveDocId(prevIds => new Set([...prevIds, docId]));
+
         setUploadedDocuments((prevDocuments) => prevDocuments.filter((_, i) => i !== index));
     };
 
@@ -247,14 +390,15 @@ export default function AddProjectsTabs() {
     // Render uploaded documents
     const documentFiles = useMemo(
         () =>
-            uploadedDocuments.map((file, index) => (
+            uploadedDocuments && uploadedDocuments.map((file, index) => (
                 <div key={index} className="dropbox_docs">
                     <div className="doc_title">
-
-                        <span>{file.name}</span>
-                        <span>{Math.round(file.size / 1024)} KB</span>
+                        <span>{file.name.substring(file.name.lastIndexOf('/') + 1)}</span>
+                        {file.size &&
+                            <span>{Math.round(file.size / 1024)} KB</span>
+                        }
                     </div>
-                    <button className="dropbox_remove_img" onClick={() => removeDocument(index)}>
+                    <button className="dropbox_remove_img" onClick={() => removeDocument(index, file.id)}>
                         <CloseIcon fontSize='25px' />
                     </button>
                 </div>
@@ -275,9 +419,14 @@ export default function AddProjectsTabs() {
         }));
     }, []);
 
-    const removeGalleryImage = (index) => {
+    const removeGalleryImage = (index, id) => {
+
+        setRemoveGalleryImgsId(prevIds => new Set([...prevIds, id]));
         // Remove a gallery image from the galleryImages state by index
         setGalleryImages((prevImages) => prevImages.filter((_, i) => i !== index));
+
+
+
     };
 
     const { getRootProps: getRootPropsGallery, getInputProps: getInputPropsGallery, isDragActive: isDragActiveGallery } = useDropzone({
@@ -289,10 +438,13 @@ export default function AddProjectsTabs() {
     const galleryFiles = useMemo(
         () =>
             galleryImages.map((file, index) => (
+
                 <div key={index} className="dropbox_gallary_img_div">
-                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                    <img className="dropbox_img"
+                        src={file instanceof File ? URL.createObjectURL(file) : file.imageUrl}
+                        alt={file.name} />
                     <div className="dropbox_d">
-                        <button className="dropbox_remove_img" onClick={() => removeGalleryImage(index)}>
+                        <button className="dropbox_remove_img" onClick={() => removeGalleryImage(index, file.id)}>
                             <CloseIcon fontSize='25px' />
                         </button>
                         <div className="dropbox_img_deatils">
@@ -304,6 +456,7 @@ export default function AddProjectsTabs() {
             )),
         [galleryImages]
     );
+
 
     // Seo OG img
     const onDropOgImage = useCallback((acceptedFiles) => {
@@ -412,7 +565,7 @@ export default function AddProjectsTabs() {
         if (!areFieldsFilled1(tab6)) {
             // Display a toast message to fill in all required fields
             toast.error("Please fill in all required fields");
-        } else if (tab6?.ogImages.length === 0) {
+        } else if (uploadedOgImages.length === 0) {
             // Display a toast message indicating that ogImage is empty
             toast.error("Please provide ogImage");
         } else {
@@ -459,7 +612,8 @@ export default function AddProjectsTabs() {
         }
     };
 
-    const handleRemoveFloor = (index) => {
+    const handleRemoveFloor = (index, floorId) => {
+        setRemoveFloorsId(prevIds => new Set([...prevIds, floorId]));
         const updatedFloorFields = [...floorFields];
         updatedFloorFields.splice(index, 1);
         setFloorFields(updatedFloorFields);
@@ -468,7 +622,11 @@ export default function AddProjectsTabs() {
             setCurrentFloorIndex(Math.max(0, index - 1));
         }
     };
+    useEffect(() => {
 
+
+
+    }, [removeFloorsId, removeGalleryImgsId, removeDocId])
     const handleFloorInputChange = (index, e) => {
         const { name, value } = e.target;
         const updatedFloorFields = [...floorFields];
@@ -486,11 +644,10 @@ export default function AddProjectsTabs() {
         });
     };
 
-    const removeFloorImgs = (floorIndex, imgIndex) => {
+    const removeFloorImgs = (floorIndex, imgIndex, imgId) => {
         setFloorFields(prevFloorFields => {
             const updatedFloorFields = [...prevFloorFields];
             updatedFloorFields[floorIndex].floorImgs.splice(imgIndex, 1);
-            console.log(floorIndex)
             // Update currentFloorIndex if it was removed from the current floor
             // if (floorIndex === currentFloorIndex) {
             setCurrentFloorIndex(Math.max(0, floorIndex)); // Set it to the current index or to 0 if it's the last floor
@@ -505,14 +662,9 @@ export default function AddProjectsTabs() {
     const { getRootProps: getRootPropsFloor, getInputProps: getInputPropsFloor, isDragActive: isDragActiveFloor } = useDropzone({
         onDrop: (acceptedFiles) => onDropFloorImgs(currentFloorIndex, acceptedFiles), // Pass the correct floor index directly
         accept: 'image/*',
-        multiple:false
+        multiple: false
     });
-    const handleUploadClick = (floorIndex, imgIndex) => {
-        const floorField = floorFields[floorIndex];
-        const floorImg = floorField.floorImgs[imgIndex];
-        // Do something with the floorField and floorImg, like passing them to another component or updating the state
-        // You can perform further actions with the floorField and floorImg as needed
-    };
+
 
     const floorsFiles = useMemo(
         () => floorFields.map((floor, index) => (
@@ -520,14 +672,18 @@ export default function AddProjectsTabs() {
                 <div key={index} className="dropbox_gallary_img_div">
                     {floor.floorImgs.map((file, imgIndex) => (
                         <div key={imgIndex}>
-                            <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                            <img className="dropbox_img"
+                                src={file instanceof File ? URL.createObjectURL(file) : file.url}
+                                alt={file.name} />
                             <div className="dropbox_d">
-                                <button className="dropbox_remove_img" onClick={() => removeFloorImgs(index, imgIndex)}>
+                                <button className="dropbox_remove_img" onClick={() => removeFloorImgs(index, imgIndex, file.id)}>
                                     <CloseIcon fontSize='25px' />
                                 </button>
                                 <div className="dropbox_img_deatils">
                                     <span>{file.name}</span>
-                                    <span>{Math.round(file.size / 1024)} KB</span>
+                                    {file instanceof File && (
+                                        <span>{Math.round(file.size / 1024)} KB</span>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -570,11 +726,10 @@ export default function AddProjectsTabs() {
                             </div>
                             <div>{floorsFiles[floorIndex]}</div>
                         </div>
-                   
                     </div>
                     {floorFields.length > 1 && (
                         <div className="removeFloor">
-                            <button onClick={() => handleRemoveFloor(floorIndex)}>
+                            <button onClick={() => handleRemoveFloor(floorIndex, floor.id)}>
                                 <IoMdRemoveCircleOutline />
                             </button>
                         </div>
@@ -617,28 +772,33 @@ export default function AddProjectsTabs() {
                 toast.error("Please select a Title Image");
 
             } else {
-
-                const plans = []; // Initialize an empty array for plans
-
-
+                // Initialize an empty array for plans
+                const plans = [];
                 // Loop through floorFields and push each entry into plans array
+                // Process floorImgs in floorFields
                 for (const field of floorFields) {
+                    const id = field.id;
                     const title = field.floorTitle;
                     const documents = field.floorImgs;
-
-                    // Loop through documents array to handle multiple images
                     for (const document of documents) {
+                       
+                        // if (typeof document === 'object') {
                         plans.push({
-                            id:"",
+                            id: id ? id : "",
                             title: title,
-                            document: document,
-                            // You may need to adjust these fields based on your data structure
+                            document: document instanceof File ? document : "",
                         });
+                        // }
                     }
                 }
+                const removeFloorsArray = Array.from(removeFloorsId);
+                const removeGalleryArray = Array.from(removeGalleryImgsId);
+                const removeDocArray = Array.from(removeDocId);
+
 
 
                 PostProjectApi({
+                    id: defaultProjectData?.id,
                     title: tab1?.title,
                     description: tab1?.projectDesc,
                     category_id: tab1?.category,
@@ -655,15 +815,19 @@ export default function AddProjectsTabs() {
                     location: selectedLocationAddress.formatted_address,
                     plans: plans,
                     image: tab5.titleImage[0],
-                    documents: tab5.docs,
+                    documents: tab5.docs && tab5.docs,
                     gallery_images: tab5.galleryImages,
                     video_link: tab5.videoLink,
+                    remove_plans: removeFloorsArray,
+                    remove_gallery_images: removeGalleryArray,
+                    remove_documents: removeDocArray,
                     onSuccess: async (response) => {
                         toast.success(response.message);
                         router.push("/user/projects");
                     },
                     onError: (error) => {
-                        toast.error(error);
+                        toast.error(error.message);
+                        console.log(error)
                     }
                 });
             }
@@ -677,14 +841,13 @@ export default function AddProjectsTabs() {
 
 
     useEffect(() => {
-        //   console.log(floorFields)
     }, [floorFields])
 
 
     return (
         <Box sx={{ width: "100%" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" id="addProp_tabs">
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" id="addProp_tabs" style={{ overflowY: "auto" }}>
                     <Tab label={translate("projectDeatils")} {...a11yProps(0)} />
                     <Tab label={translate("SEOS")} {...a11yProps(1)} />
                     <Tab label={translate("location")} {...a11yProps(2)} />
@@ -701,13 +864,13 @@ export default function AddProjectsTabs() {
                                     <span>{translate("projectTypes")}</span>
                                     <div className="add_prop_types">
                                         <div className="form-check">
-                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="0" onChange={handlePropertyTypes} checked={tab1.projectType === "upcoming"} />
+                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="upcomming" onChange={handlePropertyTypes} checked={tab1.projectType === "upcomming"} />
                                             <label className="form-check-label" htmlFor="flexRadioDefault1">
                                                 {translate("upcoming")}
                                             </label>
                                         </div>
                                         <div className="form-check">
-                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1" onChange={handlePropertyTypes} checked={tab1.projectType === "under_construction"} />
+                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="under_construction" onChange={handlePropertyTypes} checked={tab1.projectType === "under_construction"} />
                                             <label className="form-check-label" htmlFor="flexRadioDefault2">
                                                 {translate("underconstruction")}
                                             </label>
@@ -845,7 +1008,7 @@ export default function AddProjectsTabs() {
                         </div>
                         <div className="col-sm-12 col-md-6">
                             <div className="map">
-                                <GoogleMapBox apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} />
+                                <GoogleMapBox apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} latitude={lat} longitude={lng} />
                             </div>
                         </div>
                     </div>

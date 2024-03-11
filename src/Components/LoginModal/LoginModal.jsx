@@ -18,6 +18,7 @@ import { PhoneNumberUtil } from "google-libphonenumber";
 const LoginModal = ({ isOpen, onClose }) => {
     const SettingsData = useSelector(settingsData);
     const isDemo = SettingsData?.demo_mode;
+    // const isDemo = isDemoMode();
     const DemoNumber = "+919764318246"
     const [showOtpModal, setShowOtpModal] = useState(false);
     const [phonenum, setPhonenum] = useState();

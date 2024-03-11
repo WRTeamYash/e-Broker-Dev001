@@ -244,7 +244,6 @@ export default function EditPropertyTabs() {
                     });
 
                     // Set the default gallery images
-                    setDefaultGallryImages(defaultGalleryImages);
                     setGalleryImages(defaultGalleryImages);
                     setTab5((prevState) => ({
                         ...prevState,
@@ -404,7 +403,7 @@ export default function EditPropertyTabs() {
         }));
     };
 
-    useEffect(() => { console.log(tab6) }, [tab1, tab2, tab3, selectedLocationAddress, tab5, lat, lng, tab6]);
+    useEffect(() => {  }, [tab1, tab2, tab3, selectedLocationAddress, tab5, lat, lng, tab6]);
 
     const updateFileInput = (fieldId) => (e) => {
         const fileInput = e.target;

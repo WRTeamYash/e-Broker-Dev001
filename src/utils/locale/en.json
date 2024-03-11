@@ -103,6 +103,7 @@
   "dashboard": "Dashboard",
   "addProp": "Add Property",
   "addProject": "Add Project",
+  "editProject": "Edit Project",
   "verification": "Verification",
   "otpVerification": "OTP Verification Code",
   "enterOtp": "Enter OTP code sent to",

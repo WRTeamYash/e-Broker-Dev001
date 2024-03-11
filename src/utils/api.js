@@ -22,6 +22,7 @@ export const GET_LIMITS = "get_limits"
 export const GET_PAYMENT_DETAILS = "get_payment_details";
 export const UPDATE_POST_PROPERTY = "update_post_property";
 export const DELETE_PROPERTY = "delete_property"
+export const DELETE_PROJECT = "delete_project"
 export const INTEREST_PROPERTY = "interested_users"
 export const STORE_ADVERTISEMENT = "store_advertisement"
 export const GET_NOTIFICATION_LIST = "get_notification_list"
@@ -509,6 +510,19 @@ export const deleteProperty = (id) => {
         authorizationHeader: true,
     }
 }
+
+// DELETE_PROJECT
+export const deleteProject = (id) => {
+    let data = new FormData();
+    data.append("id", id);
+
+    return {
+        url: `${DELETE_PROJECT}`,
+        method: "POST",
+        data,
+        authorizationHeader: true,
+    }
+}
 // FEATURE PROPERTY
 export const featureProperty = (property_id, type, image) => {
     let data = new FormData();
@@ -754,6 +768,7 @@ export const postProject = (id, title, description, category_id, type, meta_titl
     // Append the parameters array if it is an array
     if (Array.isArray(plans)) {
         plans.forEach((plans, index) => {
+            data.append(`plans[${index}][id]`, plans.id);
             data.append(`plans[${index}][title]`, plans.title);
             data.append(`plans[${index}][document]`, plans.document);
         });
@@ -774,6 +789,7 @@ export const postProject = (id, title, description, category_id, type, meta_titl
     data.append('remove_documents', remove_documents);
     data.append('remove_gallery_images', remove_gallery_images);
     data.append('remove_plans', remove_plans);
+
 
 
     return {

@@ -1,9 +1,8 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import HomeIcon from "@mui/icons-material/Home";
-import StarIcon from "@mui/icons-material/Star";
+
 import { useSelector } from "react-redux";
-import { GetFeturedListingsApi, GetLimitsApi, getAllprojectsApi } from "@/store/actions/campaign";
+import { deleteProjectApi, getAllprojectsApi } from "@/store/actions/campaign";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -17,21 +16,15 @@ import { settingsData } from "@/store/reducer/settingsSlice";
 import { useRouter } from "next/router";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import ReactPagination from "../../../src/Components/Pagination/ReactPagination.jsx";
-import { deletePropertyApi } from "@/store/actions/campaign";
 import Loader from "../../../src/Components/Loader/Loader.jsx";
 import toast from "react-hot-toast";
-import { FaCrown } from "react-icons/fa";
-import { MdOutlineSell } from "react-icons/md";
-import FeatureModal from "@/Components/FeatureModal/FeatureModal.jsx";
-import ChangeStatusModal from "@/Components/ChangeStatusModal/ChangeStatusModal.jsx";
+
 import { placeholderImage, translate } from "@/utils/index.js";
 import { languageData } from "@/store/reducer/languageSlice.js";
 import Swal from "sweetalert2";
 import Image from "next/image";
 import dynamic from "next/dynamic.js";
-import { FaRegEye } from "react-icons/fa";
-import Link from "next/link.js";
-import TablePagination from "../Pagination/TablePagination.jsx";
+
 
 const VerticleLayout = dynamic(() => import('../AdminLayout/VerticleLayout.jsx'), { ssr: false })
 const UserProjects = () => {
@@ -40,7 +33,7 @@ const UserProjects = () => {
 
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    
+
     const [getProjects, setGetProjects] = useState([]);
     const [total, setTotal] = useState(0);
     const [view, setView] = useState(0);
@@ -48,9 +41,8 @@ const UserProjects = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [propertyIdToDelete, setPropertyIdToDelete] = useState(null);
     const [propertyId, setPropertyId] = useState(null);
-    const [propertyType, setPropertyType] = useState(null);
-    const [changeStatus, setChangeStatus] = useState(false);
-   
+
+
 
     const startIndex = total > 0 ? (offsetdata * limit) + 1 : 0;
     const endIndex = Math.min((offsetdata + 1) * limit, total);
@@ -61,10 +53,11 @@ const UserProjects = () => {
 
     useEffect(() => { }, [lang]);
 
-    const handleClickEdit = (propertyId) => {
-        router.push(`/user/edit-property/${propertyId}`);
+    const handleClickEdit = (projectId) => {
+        router.push(`/user/edit-project/${projectId}`);
     };
-    const handleClickDelete = (propertyId) => {
+    const handleClickDelete = (projectId) => {
+
         if (SettingsData.demo_mode === true) {
             Swal.fire({
                 title: "Opps!",
@@ -79,15 +72,15 @@ const UserProjects = () => {
             });
             return false;
         }
-        setPropertyIdToDelete(propertyId);
+        // setPropertyIdToDelete(projectId);
         setIsLoading(true);
-        deletePropertyApi(
-            propertyId,
+        deleteProjectApi(
+            projectId,
             (response) => {
                 setIsLoading(true);
                 toast.success(response.message);
 
-                GetFeturedListingsApi({
+                getAllprojectsApi({
                     offset: offsetdata.toString(),
                     limit: limit.toString(),
                     userid: isLoggedIn ? userCurrentId : "",
@@ -96,7 +89,7 @@ const UserProjects = () => {
                         setView(response.total_clicks);
                         const ProjectData = response.data;
                         setIsLoading(false);
-                        getProjects(ProjectData);
+                        setGetProjects(ProjectData);
                     },
                     onError: (error) => {
                         setIsLoading(false);
@@ -112,7 +105,7 @@ const UserProjects = () => {
         );
     };
 
-  
+
 
     const systemSetttings = useSelector(settingsData);
     const PlaceHolderImg = systemSetttings && systemSetttings?.web_placeholder_logo;
@@ -127,7 +120,6 @@ const UserProjects = () => {
             limit: limit.toString(),
             userid: isLoggedIn ? userCurrentId : "",
             onSuccess: (response) => {
-                console.log(response)
                 setTotal(response.total);
                 setView(response.total_clicks);
                 const ProjectData = response.data;
@@ -140,24 +132,24 @@ const UserProjects = () => {
             }
         }
         );
-    }, [offsetdata, isLoggedIn, propertyIdToDelete, changeStatus]);
+    }, [offsetdata, isLoggedIn, propertyIdToDelete]);
 
-    useEffect(() => { }, [propertyId, propertyIdToDelete, propertyType]);
-    
+    useEffect(() => { }, [propertyId, propertyIdToDelete]);
+
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
         window.scrollTo(0, 0);
     };
-    
+
     return (
         <VerticleLayout>
             <div className="container">
-            <div className="dashboard_titles">
+                <div className="dashboard_titles">
                     <h3>{translate("myProjects")}</h3>
                 </div>
                 <div className="row" id="dashboard_top_card">
-                    
+
                     <div className="col-12">
                         <div className="table_content card bg-white">
                             <TableContainer
@@ -204,9 +196,8 @@ const UserProjects = () => {
                                             </TableRow>
                                         ) : getProjects && getProjects.length > 0 ? (
                                             getProjects.map((elem, index) => (
-                                            
+
                                                 <TableRow key={index}>
-                                                    {console.log(elem?.post_created)}
                                                     <TableCell component="th" scope="row" sx={{ width: "40%" }}>
                                                         <div className="card" id="listing_card">
                                                             <div className="listing_card_img">
@@ -218,15 +209,18 @@ const UserProjects = () => {
                                                                 <span className="listing_prop_loc">
                                                                     {elem.city} {elem.state} {elem.country}
                                                                 </span>
-                                                               
+
                                                             </div>
                                                         </div>
                                                     </TableCell>
-                                                    <TableCell align="center">{elem.category.category}</TableCell>
+                                                    <TableCell align="center">{elem?.category?.category}</TableCell>
                                                     {/* <TableCell align="center">{elem.total_view}</TableCell> */}
-                                                  
+
                                                     <TableCell align="center">{elem.created_at}</TableCell>
-                                                    <TableCell align="center">{elem.status === 1 ? <span className="active_status">{translate("active")}</span> : <span className="inactive_status">{translate("inactive")}</span>}</TableCell>
+                                                    <TableCell align="center">
+                                                        {elem.status === 1 ?
+                                                            <span className="active_status">{translate("active")}</span> : <span className="inactive_status">{translate("inactive")}</span>
+                                                        }</TableCell>
                                                     <TableCell align="center">
                                                         <Dropdown
                                                             visible={anchorEl === index}
@@ -244,8 +238,8 @@ const UserProjects = () => {
                                                                             {translate("edit")}
                                                                         </Button>
                                                                     </Menu.Item>
-                                                                
-                                                                    <Menu.Item key="delete" onClick={() => handleClickDelete(elem.id)}>
+
+                                                                    <Menu.Item key="delete" onClick={() => handleClickDelete(elem?.id)}>
                                                                         <Button type="text" icon={<DeleteOutlined />} >
                                                                             {translate("delete")}
                                                                         </Button>
@@ -271,11 +265,11 @@ const UserProjects = () => {
                                 </Table>
                             </TableContainer>
 
-                           
+
                             {getProjects && getProjects.length > 0 ? (
                                 <div className="col-12">
 
-                                    <TablePagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} startIndex={startIndex} endIndex={endIndex} total={total} />
+                                    <ReactPagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} startIndex={startIndex} endIndex={endIndex} total={total} />
                                 </div>
                             ) : null}
                         </div>

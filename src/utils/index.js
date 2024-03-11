@@ -4,6 +4,7 @@ import { store } from '@/store/store';
 import localeTranslations from './locale/en.json';
 import { useJsApiLoader } from '@react-google-maps/api';
 import { settingsData } from '@/store/reducer/settingsSlice';
+import { useSelector } from 'react-redux';
 
 // transalte strings 
 
@@ -58,11 +59,10 @@ export const loadStripeApiKey = () => {
 }
 
 
-export const isDemoMode = (store) => {
-  const systemSettingsData = settingsData(store);
-  return systemSettingsData?.demo_mode || false;
-};
-
+// export const isDemoMode = (store) => {
+//   const systemSettingsData = store.getState()?.Settings?.data;
+//   return systemSettingsData?.data?.demo_mode;
+// };
 
 
 // Function to format large numbers as strings with K, M, and B abbreviations
@@ -93,16 +93,10 @@ export const formatNumberWithCommas = (number) => {
   return number.toLocaleString();
 };
 
-// # For console logs (Do not change)
-// NEXT_PUBLIC_SHOW_CONSOLE_LOG="true"
-
-// export const customLog = (message) => {
-//   const logEnabled = process.env.NEXT_PUBLIC_SHOW_CONSOLE_LOG === 'true';
-//   if (logEnabled) {
-//     console.log(`[Custom Log]: ${message}`);
-//   }
-// };
-// placholder image
 export const placeholderImage = (e) => {
-  e.target.src = settingsData?.web_placeholder_logo;
+  const systemSettingsData = store.getState()?.Settings?.data;
+  const placeholderLogo = systemSettingsData?.web_placeholder_logo;
+  if (placeholderLogo) {
+    e.target.src = placeholderLogo;
+  }
 };

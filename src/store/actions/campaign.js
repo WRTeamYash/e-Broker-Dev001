@@ -20,6 +20,7 @@ import {
     getPaymentDetials,
     updatePostProperty,
     deleteProperty,
+    deleteProject,
     featureProperty,
     intrestedProperty,
     getNotificationList,
@@ -408,6 +409,18 @@ export const deletePropertyApi = (id, onSuccess, onError, onStart) => {
         })
     );
 };
+// Delete Property
+export const deleteProjectApi = (id, onSuccess, onError, onStart) => {
+    store.dispatch(
+        apiCallBegan({
+            ...deleteProject(id),
+            displayToast: false,
+            onStart,
+            onSuccess,
+            onError,
+        })
+    );
+};
 
 // FETAURE PROPERY
 export const featurePropertyApi = (property_id, type, image, onSuccess, onError, onStart) => {
@@ -639,7 +652,7 @@ export const PostProjectApi = ({
     meta_title = "",
     meta_description = "",
     meta_keywords = "",
-    meta_image = {},
+    meta_image = "",
     city = "",
     state = "",
     country = "",
@@ -647,13 +660,13 @@ export const PostProjectApi = ({
     longitude = "",
     location = "",
     video_link = "",
-    image = {},
-    plans = [],
-    documents = [],
-    gallery_images = [],
-    remove_documents = [],
-    remove_gallery_images = [],
-    remove_plans = [],
+    image = "",
+    plans = "",
+    documents = "",
+    gallery_images = "",
+    remove_documents = "",
+    remove_gallery_images = "",
+    remove_plans = "",
     onSuccess = () => { },
     onError = () => { },
     onStart = () => { }

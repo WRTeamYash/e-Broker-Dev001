@@ -8049,31 +8049,6 @@ embed svg path {
   }
 }
 
-/* Custom Scrollbar */
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
-/* Track */
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
-  border-radius: 10px;
-}
-
-#addProp_tabs .MuiTabs-scroller::-webkit-scrollbar {
-  height: 2px !important;
-}
-#addProp_tabs .MuiTabs-scroller::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
-#addProp_tabs .MuiTabs-scroller::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
-  border-radius: 10px;
-}
 
 /* custome switch button */
 .switch {

@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 import { ImageToSvg } from "./ImageToSvg";
 
-function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
+function VerticalCard({ ele, removeCard, onImageLoad }) {
 
 
     const priceSymbol = useSelector(settingsData);
@@ -56,16 +56,21 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
             ele.id,
             "0",
             (response) => {
+                setIsLiked(false);
                 setIsDisliked(true);
                 toast.success(response.message);
-                onRemoveCard(ele.id);
+                if(removeCard){
+                    setIsLiked(true);
+
+                    removeCard(ele.id);
+                }
             },
             (error) => {
                 console.log(error);
             }
         );
     };
-   
+
     useEffect(() => {
         // Update the state based on ele.is_favourite when the component mounts
         setIsLiked(ele.is_favourite === 1);

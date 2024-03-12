@@ -3437,6 +3437,7 @@ option {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-height: 255px !important;
 }
 #prop-right-images {
   display: flex;
@@ -3446,7 +3447,6 @@ option {
 .left-imgs01 {
   width: 100%;
   height: 100%;
-  max-height: 255px;
   border-radius: 20px 0 0 0;
   cursor: pointer;
 }

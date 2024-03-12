@@ -37,6 +37,7 @@ import Swal from "sweetalert2";
 import SimilerProjectSlider from "../SimilerProjectSlider/SimilerProjectSlider";
 import ProjectLightBox from "../LightBox/ProjectLightBox";
 import { RiMailSendLine } from "react-icons/ri";
+import { IoDocumentAttachOutline } from "react-icons/io5";
 const ProjectDetails = () => {
   const router = useRouter();
   const ProjectSlug = router.query;
@@ -100,7 +101,7 @@ const ProjectDetails = () => {
       );
     }
   }, [isLoggedIn, ProjectSlug]);
-  const CompanyName = settingsData && settingsData?.company_name
+  const CompanyName = SettingsData && SettingsData?.company_name
   const currentUrl = `${process.env.NEXT_PUBLIC_WEB_URL}${router.asPath}`;
   const handleCopyUrl = async (e) => {
     e.preventDefault();
@@ -175,9 +176,9 @@ const ProjectDetails = () => {
     }
   };
   const videoLink = projectData && projectData.video_link;
-  const videoType = getVideoType(videoLink);
-  const videoId = videoLink ? videoLink.split("/").pop().split("?")[0] : null;
-  const backgroundImageUrl = videoId ? `url(https://img.youtube.com/vi/${videoId}/maxresdefault.jpg)` : PlaceHolderImg;
+
+  const videoId = videoLink ? videoLink.split("v=")[1] : null;
+  const backgroundImageUrl = videoId ? `https://img.youtube.com/vi/${videoId && videoId}/maxresdefault.jpg` : placeholderImage;
 
   const handleVideoReady = (state) => {
     setPlaying(state);
@@ -447,7 +448,7 @@ const ProjectDetails = () => {
                             <div
                               className="video-background container"
                               style={{
-                                backgroundImage: backgroundImageUrl,
+                                backgroundImage: `url(${backgroundImageUrl})`,
                                 backgroundSize: "cover",
                                 backgroundPosition: "center center",
                               }}
@@ -497,25 +498,16 @@ const ProjectDetails = () => {
                       <div className="card-body">
                         <div className="row doc_row">
                           {projectData && projectData?.documents.map((ele, index) => {
-                            // Extracting file extension
-                            const fileExtension = ele.name.split('.').pop().toLowerCase();
-
-                            // Determining icon based on file extension
-                            let icon = null;
-                            if (fileExtension === 'pdf') {
-                              icon = <BsFiletypePdf size={30} />;
-                            } else if (fileExtension === 'doc') {
-                              icon = <BsFiletypeDoc size={30} />;
-                            }
-
+                            const fileName = ele.name.split('/').pop();
                             return (
                               <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
                                 <div className="docs_main_div">
                                   <div className="doc_icon">
-                                    {icon}
+                                    <IoDocumentAttachOutline size={30} />
+
                                   </div>
                                   <div className="doc_title">
-                                    <span>{ele.name}</span>
+                                    <span>{fileName}</span>
                                   </div>
                                   <div className="doc_download_button">
                                     <button onClick={() => handleDownload(ele.name)}>
@@ -527,9 +519,6 @@ const ProjectDetails = () => {
                               </div>
                             );
                           })}
-
-
-
                         </div>
                       </div>
                     </div>

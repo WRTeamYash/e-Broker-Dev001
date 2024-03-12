@@ -214,18 +214,6 @@ export default function AddProjectsTabs() {
     const [uploadedDocuments, setUploadedDocuments] = useState([]); // State to store uploaded documents
 
     const onDropDocuments = useCallback((acceptedFiles) => {
-        // Check if the dropped files are PDF or DOC files
-        const invalidFiles = acceptedFiles.filter(file => {
-            const fileName = file.name.toLowerCase();
-            return !(fileName.endsWith('.pdf') || fileName.endsWith('.doc') || fileName.endsWith('.docx'));
-        });
-
-        if (invalidFiles.length > 0) {
-            // If any invalid files are found, display an error toast and return
-            toast.error("Only PDF and DOC files are allowed.");
-            return;
-        }
-
         // Append the uploaded documents to the uploadedDocuments state
         setUploadedDocuments(prevDocuments => [...prevDocuments, ...acceptedFiles]);
         setTab5((prevState) => ({
@@ -240,7 +228,6 @@ export default function AddProjectsTabs() {
 
     const { getRootProps: getRootPropsDocuments, getInputProps: getInputPropsDocuments, isDragActive: isDragActiveDocuments } = useDropzone({
         onDrop: onDropDocuments,
-        accept: 'application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         multiple: true // Ensure that the dropzone allows multiple files
     });
 

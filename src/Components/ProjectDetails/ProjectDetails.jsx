@@ -492,37 +492,37 @@ const ProjectDetails = () => {
                       </div>
                     }
 
+                    {projectData && projectData.documents.length > 0 &&
+                      <div className="card" id="download_docs">
+                        <div className="card-header">{translate("docs")}</div>
+                        <div className="card-body">
+                          <div className="row doc_row">
+                            {projectData && projectData?.documents.map((ele, index) => {
+                              const fileName = ele.name.split('/').pop();
+                              return (
+                                <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
+                                  <div className="docs_main_div">
+                                    <div className="doc_icon">
+                                      <IoDocumentAttachOutline size={30} />
 
-                    <div className="card" id="download_docs">
-                      <div className="card-header">{translate("docs")}</div>
-                      <div className="card-body">
-                        <div className="row doc_row">
-                          {projectData && projectData?.documents.map((ele, index) => {
-                            const fileName = ele.name.split('/').pop();
-                            return (
-                              <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
-                                <div className="docs_main_div">
-                                  <div className="doc_icon">
-                                    <IoDocumentAttachOutline size={30} />
-
-                                  </div>
-                                  <div className="doc_title">
-                                    <span>{fileName}</span>
-                                  </div>
-                                  <div className="doc_download_button">
-                                    <button onClick={() => handleDownload(ele.name)}>
-                                      <span><BiDownload size={20} /></span>
-                                      <span>{translate("download")}</span>
-                                    </button>
+                                    </div>
+                                    <div className="doc_title">
+                                      <span>{fileName}</span>
+                                    </div>
+                                    <div className="doc_download_button">
+                                      <button onClick={() => handleDownload(ele.name)}>
+                                        <span><BiDownload size={20} /></span>
+                                        <span>{translate("download")}</span>
+                                      </button>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            );
-                          })}
+                              );
+                            })}
+                          </div>
                         </div>
                       </div>
-                    </div>
-
+                    }
                   </div>
                   <div className="col-12 col-md-12 col-lg-3">
                     <div className="card" id="owner-deatils-card">

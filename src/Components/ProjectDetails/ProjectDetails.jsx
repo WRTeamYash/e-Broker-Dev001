@@ -526,7 +526,6 @@ const ProjectDetails = () => {
                   </div>
                   <div className="col-12 col-md-12 col-lg-3">
                     <div className="card" id="owner-deatils-card">
-                      {console.log(projectData?.customer?.email)}
                       <div className="card-header" id="card-owner-header" style={{ alignItems: "center" }}>
                         <div>
                           <Image loading="lazy" width={200} height={200} src={projectData?.customer?.profile} className="owner-img" alt="no_img" onError={placeholderImage} />

@@ -9,7 +9,7 @@ import appstore from "../../assets/appStore.png";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { settingsData } from "@/store/reducer/settingsSlice";
-import { translate } from "@/utils";
+import { placeholderImage, translate } from "@/utils";
 
 import Image from "next/image";
 
@@ -21,80 +21,92 @@ const Footer = () => {
         <section id="footer">
             <div className="container">
                 <div className="row py-5" id="footer_deatils">
-                    <div className="col-12 col-md-6 col-lg-3">
-                        <div id="footer_logo_section">
-                            <Link href="/">
-                                <Image
-                                    loading="lazy"
-                                    src={webdata?.web_footer_logo ? webdata.web_footer_logo : eBroker}
-                                    alt="eBroker_logo"
-                                    width={0}
-                                    height={0}
-                                    className="footer_logo"
-                                />
-                            </Link>
-                            <div className="footer_contact_us">
-                                <div>
-                                    <FiMail size={25} />
-                                </div>
-                                <div className="footer_contactus_deatils">
-                                    <span className="footer_span">{translate("email")}</span>
-                                    <a href={`mailto:${webdata && webdata.company_email}`}>
-                                        <span className="footer_span_value">{webdata && webdata.company_email}</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="footer_contact_us">
-                                <div>
-                                    <FiPhone size={25} />
-                                </div>
-                                <div className="footer_contactus_deatils">
-                                    <span className="footer_span">{translate("contactOne")}</span>
-                                    <a href={`tel:${webdata && webdata.company_tel1}`}>
-                                        <span className="footer_span_value">{webdata && webdata.company_tel1}</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="footer_contact_us">
-                                <div>
-                                    <FiPhone size={25} />
-                                </div>
-                                <div className="footer_contactus_deatils">
-                                    <span className="footer_span">{translate("contactTwo")}</span>
-                                    <a href={`tel:${webdata && webdata.company_tel2}`}>
-                                        <span className="footer_span_value">{webdata && webdata.company_tel2}</span>
-                                    </a>
-                                </div>
-                            </div>
-                            {webdata?.facebook_id || webdata?.instagram_id || webdata?.pintrest_id || webdata?.twitter_id ? (
-                                <div>
-                                    <h4> {translate("followUs")}</h4>
-                                    <div id="follow_us">
-                                        {webdata?.facebook_id ? (
-                                            <a href={webdata?.facebook_id} target="_blank">
-                                                <CiFacebook size={28} />
+                    {webdata?.web_footer_logo && webdata?.company_email && webdata?.company_tel1 && webdata.company_tel2 &&
+                        <div className="col-12 col-md-6 col-lg-3">
+                            <div id="footer_logo_section">
+                                {webdata?.web_footer_logo &&
+                                    <Link href="/">
+                                        <Image
+                                            loading="lazy"
+                                            src={webdata?.web_footer_logo}
+                                            alt="eBroker_logo"
+                                            width={0}
+                                            height={0}
+                                            className="footer_logo"
+                                            onError={placeholderImage}
+                                        />
+                                    </Link>
+                                }
+                                {webdata && webdata.company_email &&
+                                    <div className="footer_contact_us">
+                                        <div>
+                                            <FiMail size={25} />
+                                        </div>
+                                        <div className="footer_contactus_deatils">
+                                            <span className="footer_span">{translate("email")}</span>
+                                            <a href={`mailto:${webdata && webdata.company_email}`}>
+                                                <span className="footer_span_value">{webdata && webdata.company_email}</span>
                                             </a>
-                                        ) : null}
-                                        {webdata?.instagram_id ? (
-                                            <a href={webdata?.instagram_id} target="_blank">
-                                                <AiOutlineInstagram size={28} />
-                                            </a>
-                                        ) : null}
-                                        {webdata?.pintrest_id ? (
-                                            <a href={webdata?.pintrest_id}>
-                                                <ImPinterest2 size={25} />
-                                            </a>
-                                        ) : null}
-                                        {webdata?.twitter_id ? (
-                                            <a href={webdata?.twitter_id} target="_blank">
-                                                <AiFillTwitterCircle size={28} />
-                                            </a>
-                                        ) : null}
+                                        </div>
                                     </div>
-                                </div>
-                            ) : (null)}
+                                }
+                                {webdata && webdata.company_tel1 &&
+                                    <div className="footer_contact_us">
+                                        <div>
+                                            <FiPhone size={25} />
+                                        </div>
+                                        <div className="footer_contactus_deatils">
+                                            <span className="footer_span">{translate("contactOne")}</span>
+                                            <a href={`tel:${webdata && webdata.company_tel1}`}>
+                                                <span className="footer_span_value">{webdata && webdata.company_tel1}</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                                {webdata && webdata.company_tel2 &&
+                                    <div className="footer_contact_us">
+                                        <div>
+                                            <FiPhone size={25} />
+                                        </div>
+                                        <div className="footer_contactus_deatils">
+                                            <span className="footer_span">{translate("contactTwo")}</span>
+                                            <a href={`tel:${webdata && webdata.company_tel2}`}>
+                                                <span className="footer_span_value">{webdata && webdata.company_tel2}</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                                {webdata?.facebook_id || webdata?.instagram_id || webdata?.pintrest_id || webdata?.twitter_id ? (
+                                    <div>
+                                        <h4> {translate("followUs")}</h4>
+                                        <div id="follow_us">
+                                            {webdata?.facebook_id ? (
+                                                <a href={webdata?.facebook_id} target="_blank">
+                                                    <CiFacebook size={28} />
+                                                </a>
+                                            ) : null}
+                                            {webdata?.instagram_id ? (
+                                                <a href={webdata?.instagram_id} target="_blank">
+                                                    <AiOutlineInstagram size={28} />
+                                                </a>
+                                            ) : null}
+                                            {webdata?.pintrest_id ? (
+                                                <a href={webdata?.pintrest_id}>
+                                                    <ImPinterest2 size={25} />
+                                                </a>
+                                            ) : null}
+                                            {webdata?.twitter_id ? (
+                                                <a href={webdata?.twitter_id} target="_blank">
+                                                    <AiFillTwitterCircle size={28} />
+                                                </a>
+                                            ) : null}
+                                        </div>
+                                    </div>
+                                ) : (null)}
+                            </div>
                         </div>
-                    </div>
+                    }
+
                     <div className="col-12 col-md-6 col-lg-3">
                         <div id="footer_prop_section">
                             <div id="footer_headlines">

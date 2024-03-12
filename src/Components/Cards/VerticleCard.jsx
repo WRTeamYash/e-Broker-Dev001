@@ -56,7 +56,6 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
             ele.id,
             "0",
             (response) => {
-                setIsLiked(false);
                 setIsDisliked(true);
                 toast.success(response.message);
                 onRemoveCard(ele.id);
@@ -66,7 +65,7 @@ function VerticalCard({ ele, onRemoveCard, onImageLoad }) {
             }
         );
     };
-
+   
     useEffect(() => {
         // Update the state based on ele.is_favourite when the component mounts
         setIsLiked(ele.is_favourite === 1);

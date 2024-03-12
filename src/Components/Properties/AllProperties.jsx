@@ -42,7 +42,7 @@ const AllProperties = () => {
     const Categorydata = useSelector(categoriesCacheData);
 
     useEffect(() => { }, [lang]);
-    useEffect(() => { console.log(grid)}, [grid]);
+    useEffect(() => { }, [grid]);
 
 
     const handlePageChange = (selectedPage) => {
@@ -152,7 +152,7 @@ const AllProperties = () => {
             minPrice: "",
             maxPrice: "",
             postedSince: "",
-            selectedLocation: null,
+            selectedLocation: null, 
         });
         setIsLoading(true)
         GetFeturedListingsApi({
@@ -190,6 +190,7 @@ const AllProperties = () => {
                                 handleLocationSelected={handleLocationSelected}
                                 handleApplyfilter={handleApplyfilter}
                                 handleClearFilter={handleClearFilter}
+                                selectedLocation={filterData?.selectedLocation}
                             />
                         </div>
                         <div className="col-12 col-md-12 col-lg-9">

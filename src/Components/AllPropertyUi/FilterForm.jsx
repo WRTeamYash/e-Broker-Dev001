@@ -50,7 +50,7 @@ const FiletrForm = (props) => {
                 {!props.cityName && (
                     <div className="prop-location">
                         <span>{translate("selectYourLocation")}</span>
-                        <LocationSearchBox onLocationSelected={props.handleLocationSelected} />
+                        <LocationSearchBox onLocationSelected={props.handleLocationSelected} selectedLocation={props?.selectedLocation}/>
                     </div>
                 )}
                 <div className="budget-price">

@@ -409,7 +409,7 @@ const UserDashboard = () => {
                             {getFeaturedListing && getFeaturedListing.length > 0 ? (
                                 <div className="col-12">
 
-                                    <TablePagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} startIndex={startIndex} endIndex={endIndex} total={total} />
+                                   <ReactPagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
                                 </div>
                             ) : null}
                         </div>

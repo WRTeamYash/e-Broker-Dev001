@@ -199,6 +199,7 @@ const Categories = () => {
                                 handleLocationSelected={handleLocationSelected}
                                 handleApplyfilter={handleApplyfilter}
                                 handleClearFilter={handleClearFilter}
+                                selectedLocation={filterData?.selectedLocation}
                             />
                         </div>
                         <div className="col-12 col-md-12 col-lg-9">

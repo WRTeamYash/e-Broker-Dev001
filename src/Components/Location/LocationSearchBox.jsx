@@ -2,97 +2,18 @@ import React, { useRef, useState, useEffect } from "react";
 import { StandaloneSearchBox } from "@react-google-maps/api";
 import { loadGoogleMaps } from "@/utils";
 
-const LocationSearchBox = ({ onLocationSelected, initialLatitude, initialLongitude }) => {
+const LocationSearchBox = ({ onLocationSelected, initialLatitude, initialLongitude, selectedLocation }) => {
     const inputRef = useRef();
     const { isLoaded } = loadGoogleMaps();
     const [inputValue, setInputValue] = useState("");
 
-    const [latitude, setLatitude] = useState(initialLatitude || null);
-    const [longitude, setLongitude] = useState(initialLongitude || null);
-    const [locationData, setLocationData] = useState({
-        name: "",
-        formatted_address: "",
-        lat: null,
-        lng: null,
-        city: "",
-        district: "",
-        state: "",
-        country: "",
-    });
-    // When the component is mounted, set the initial input value
     useEffect(() => {
-        if (initialLatitude && initialLongitude) {
-            fetchLocationFromCoordinates(initialLatitude, initialLongitude);
+        if (selectedLocation) {
+            setInputValue(selectedLocation.formatted_address);
+        } else {
+            setInputValue("");
         }
-    }, [initialLatitude, initialLongitude]);
-
-    useEffect(() => {
-        if (latitude && longitude) {
-            fetchLocationFromCoordinates(latitude, longitude);
-        }
-    }, [latitude, longitude]);
-
-    useEffect(() => {
-        if (window.google && isLoaded) {
-            // Initialize any Google Maps API-dependent logic here
-        }
-    }, [isLoaded]);
-    
-    const fetchLocationFromCoordinates = async (lat, lng) => {
-        if (!lat || !lng) {
-            return;
-        }
-    
-        const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API; // Make sure the API key is correctly retrieved
-    
-        const requestUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
-    
-        try {
-            const response = await fetch(requestUrl);
-            if (!response.ok) {
-                throw new Error(`Geocoding API request failed with status: ${response.status}`);
-            }
-    
-            const data = await response.json();
-    
-            if (data.status === "OK" && data.results.length > 0) {
-                const place = data.results[0];
-                const locationData = {
-                    name: place.name,
-                    formatted_address: place.formatted_address,
-                    lat,
-                    lng,
-                    city: "",
-                    district: "",
-                    state: "",
-                    country: "",
-                };
-    
-                // Extracting additional details from address_components
-                place.address_components.forEach((component) => {
-                    if (component.types.includes("locality")) {
-                        locationData.city = component.long_name;
-                    } else if (component.types.includes("sublocality")) {
-                        locationData.district = component.long_name;
-                    } else if (component.types.includes("administrative_area_level_1")) {
-                        locationData.state = component.long_name;
-                    } else if (component.types.includes("country")) {
-                        locationData.country = component.long_name;
-                    }
-                });
-    
-                setLocationData(locationData);
-                onLocationSelected(locationData);
-                setInputValue(locationData.formatted_address);
-            } else {
-                console.error("No results found for the provided coordinates.");
-            }
-        } catch (error) {
-            console.error("Error fetching location data:", error);
-        }
-    };
-    
-
+    }, [selectedLocation]);
 
     const handlePlaceChanged = () => {
         const [place] = inputRef.current.getPlaces();
@@ -122,9 +43,7 @@ const LocationSearchBox = ({ onLocationSelected, initialLatitude, initialLongitu
                 }
             });
 
-            setLocationData(locationData);
             onLocationSelected(locationData);
-            setInputValue(locationData.formatted_address)
         }
     };
 
@@ -133,6 +52,7 @@ const LocationSearchBox = ({ onLocationSelected, initialLatitude, initialLongitu
             e.preventDefault();
         }
     };
+
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
     };
@@ -146,8 +66,8 @@ const LocationSearchBox = ({ onLocationSelected, initialLatitude, initialLongitu
                         className="searchLocationInput"
                         placeholder="Enter Location"
                         onKeyPress={handleKeyPress}
-                        onChange={handleInputChange}  // Use onChange event to update inputValue
-                        value={inputValue} // Set the input value
+                        onChange={handleInputChange}
+                        value={inputValue}
                     />
                 </StandaloneSearchBox>
             </div>

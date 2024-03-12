@@ -19,7 +19,7 @@ import { languageData } from "@/store/reducer/languageSlice";
 import { GetAllArticlesApi } from "@/store/actions/campaign";
 import { store } from "@/store/store";
 import ArticleCard from "@/Components/Cards/ArticleCard";
-import { categoriesCacheData } from "@/store/reducer/momentSlice";
+import { categoriesCacheData, getArticleId } from "@/store/reducer/momentSlice";
 import Layout from '../Layout/Layout';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import ReactShare from "@/Components/ShareUrl/ReactShare";
@@ -77,7 +77,8 @@ const ArticleDetails = () => {
         );
     }, [articleId]);
 
-    const getArticlesByCategory = () => {
+    const getArticlesByCategory = (cateId) => {
+        getArticleId(cateId)
         router.push("/articles");
     };
     const lang = useSelector(languageData);
@@ -162,23 +163,23 @@ const ArticleDetails = () => {
                                 <div className="all-articles-leftside">
                                     <div className="cate-card">
                                         <div className="card">
-                                            <div className="card-header">Categories</div>
+                                            <div className="card-header">{translate("categories")}</div>
                                             <div className="card-body">
                                                 {Categorydata &&
                                                     Categorydata.map((elem, index) => (
                                                         <div className="cate-list" key={index}>
                                                             <span>{elem.category}</span>
-                                                            <IoMdArrowDropright size={25} className="cate_list_arrow" onClick={getArticlesByCategory} />
+                                                            <IoMdArrowDropright size={25} className="cate_list_arrow" onClick={() => getArticlesByCategory(elem.id)} />
                                                         </div>
                                                     ))}
                                             </div>
                                         </div>
                                     </div>
                                     {process.env.NEXT_PUBLIC_SEO === "true" ? (
-                                         <div className="share-card">
-                                         <ReactShare CompanyName={CompanyName} data={articleData?.title} handleCopyUrl={handleCopyUrl} currentUrl={currentUrl} />
+                                        <div className="share-card">
+                                            <ReactShare CompanyName={CompanyName} data={articleData?.title} handleCopyUrl={handleCopyUrl} currentUrl={currentUrl} />
 
-                                     </div>
+                                        </div>
                                     ) : null}
                                 </div>
                             </div>

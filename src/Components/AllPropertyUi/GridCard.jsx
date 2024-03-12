@@ -13,6 +13,8 @@ const GridCard = (props) => {
         setIsGrid(!isGrid);
     };
 
+
+    
     return (
         <div className="card">
             <div className="card-body" id="all-prop-headline-card">

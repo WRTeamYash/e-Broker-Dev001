@@ -44,6 +44,7 @@ const City = () => {
     const Categorydata = useSelector(categoriesCacheData);
 
     useEffect(() => { }, [lang]);
+    useEffect(() => { }, [grid]);
 
     useEffect(() => {
         setIsLoading(true);

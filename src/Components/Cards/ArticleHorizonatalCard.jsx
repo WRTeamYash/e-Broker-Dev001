@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import { translate } from "@/utils";
+import { placeholderImage, translate } from "@/utils";
 
 import Image from "next/image";
 import { useSelector } from "react-redux";
@@ -42,12 +42,12 @@ const ArticleHorizonatalCard = ({ ele, expandedStates, index, PlaceHolderImg }) 
                 <div className="row">
                     <div className="col-sm-12 col-md-6 col-lg-3">
                         <div className="article_card_image">
-                            <Image loading="lazy" variant="top" alt="no_img" className="article_Img" src={ele.image ? ele.image : PlaceHolderImg} width={200} height={200} />
+                            <Image loading="lazy" variant="top" alt="no_img" className="article_Img" src={ele?.image} onError={placeholderImage} width={200} height={200} />
                         </div>
                     </div>
                     <div className="col-sm-12 col-md-6 col-lg-9">
                         <div className="article-card-content">
-                            {ele.category?.category && ele.category?.category ? <span className="article-apartment-tag">{ele.category?.category}</span> : <span className="article-apartment-tag">General</span>}
+                            {ele.category?.category && ele.category?.category ? <span className="article-apartment-tag">{ele.category?.category}</span> : <span className="article-apartment-tag">{translate("General")}</span>}
                             <div className="article-card-headline">
                                 <span> {stripHtmlTags(ele.title).substring(0, 30)}</span>
                                 {ele && ele.description && (

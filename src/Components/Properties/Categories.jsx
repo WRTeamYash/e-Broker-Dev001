@@ -42,6 +42,7 @@ const Categories = () => {
     const lang = useSelector(languageData);
 
     useEffect(() => { }, [lang]);
+    useEffect(() => { }, [grid]);
 
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;

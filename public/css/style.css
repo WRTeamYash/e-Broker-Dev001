@@ -8674,3 +8674,7 @@ button.learn-more-project .button-text {
   text-transform: capitalize;
   font-size: smaller;
 }
+
+.css-k008qs{
+  overflow: auto !important;
+}

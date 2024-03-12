@@ -10,18 +10,19 @@ import Skeleton from "react-loading-skeleton";
 import ArticleCardSkeleton from "@/Components/Skeleton/ArticleCardSkeleton";
 import ArticleHorizonatalCard from "@/Components/Cards/ArticleHorizonatalCard";
 import { translate } from "@/utils";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { languageData } from "@/store/reducer/languageSlice";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import NoData from "@/Components/NoDataFound/NoData";
-import { categoriesCacheData } from "@/store/reducer/momentSlice";
+import { articlecachedataCategoryId, categoriesCacheData, getArticleId } from "@/store/reducer/momentSlice";
 import Layout from '../Layout/Layout';
+import GridCard from '../AllPropertyUi/GridCard';
 
 
 
 const Articles = () => {
 
-
+    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const [expandedStates, setExpandedStates] = useState([]);
     const [grid, setGrid] = useState(false);
@@ -31,15 +32,22 @@ const Articles = () => {
 
     const lang = useSelector(languageData);
     const Categorydata = useSelector(categoriesCacheData);
+    const ArticleCateId = useSelector(articlecachedataCategoryId);
+
+    useEffect(() => {
+
+    }, [ArticleCateId])
+
 
     useEffect(() => { }, [lang]);
+    useEffect(() => { }, [grid]);
 
     // GET ARTICLES
     useEffect(() => {
         setIsLoading(true);
         GetAllArticlesApi(
             "",
-            "",
+            ArticleCateId ? ArticleCateId : "",
             "",
             "",
             (response) => {
@@ -47,6 +55,7 @@ const Articles = () => {
                 setTotal(response.total);
                 setIsLoading(false);
                 setGetArticles(Articles);
+                getArticleId("")
                 setExpandedStates(new Array(Articles.length).fill(false));
             },
             (error) => {
@@ -58,7 +67,6 @@ const Articles = () => {
     const SettingsData = useSelector(settingsData);
     const PlaceHolderImg = SettingsData?.web_placeholder_logo;
 
-    const adminProfile = SettingsData;
     const getArticleByCategory = (cateId) => {
         setIsLoading(true);
         GetAllArticlesApi(
@@ -115,23 +123,26 @@ const Articles = () => {
                             <div className="col-12 col-md-6 col-lg-9">
                                 <div className="all-article-rightside">
                                     {total ? (
-                                        <div className="card">
-                                            <div className="card-body" id="all-article-headline-card">
-                                                <div>
-                                                    <span>
-                                                        {total > 0 ? total : 0} {translate("articleFound")}
-                                                    </span>
-                                                </div>
-                                                <div className="grid-buttons">
-                                                    <button className="mx-3" id="layout-buttons" onClick={() => setGrid(true)}>
-                                                        <AiOutlineUnorderedList size={25} />
-                                                    </button>
-                                                    <button id="layout-buttons" onClick={() => setGrid(false)}>
-                                                        <RiGridFill size={25} />
-                                                    </button>
+                                        <>
+                                            <div className="card">
+                                                <div className="card-body" id="all-article-headline-card">
+                                                    <div>
+                                                        <span>
+                                                            {total > 0 ? total : 0} {translate("articleFound")}
+                                                        </span>
+                                                    </div>
+                                                    <div className="grid-buttons">
+                                                        <button className="mx-3" id="layout-buttons" onClick={() => setGrid(true)}>
+                                                            <AiOutlineUnorderedList size={25} />
+                                                        </button>
+                                                        <button id="layout-buttons" onClick={() => setGrid(false)}>
+                                                            <RiGridFill size={25} />
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </>
+
                                     ) : (
                                         <div className="col-12 loading_data">
                                             <Skeleton height={50} count={1} />
@@ -189,7 +200,7 @@ const Articles = () => {
                                             <div className="card-header">{translate("categories")}</div>
                                             <div className="card-body">
                                                 <div className="cate-list">
-                                                    <span>General</span>
+                                                    <span>{translate("General")}</span>
                                                     <IoMdArrowDropright size={25} className="cate_list_arrow" onClick={getGeneralArticles} />
                                                 </div>
                                                 {Categorydata &&

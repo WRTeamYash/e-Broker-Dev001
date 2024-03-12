@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import { translate } from "@/utils";
+import { placeholderImage, translate } from "@/utils";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { settingsData } from "@/store/reducer/settingsSlice";
@@ -39,8 +39,8 @@ const ArticleCard = ({ ele, expandedStates, index, PlaceHolderImg }) => {
     return (
         <div>
             <Card id="article_main_card">
-                <Image loading="lazy" height={0} width={0} variant="top" id="article_card_img" src={ele.image ? ele.image : PlaceHolderImg} alt="no_img"/>
-                {ele.category?.category && ele.category?.category ? <span id="apartment_tag">{ele.category?.category}</span> : <span id="apartment_tag">General</span>}
+                <Image loading="lazy" height={0} width={0} variant="top" id="article_card_img" src={ele?.image} alt="no_img" onError={placeholderImage}/>
+                {ele.category?.category && ele.category?.category ? <span id="apartment_tag">{ele.category?.category}</span> : <span id="apartment_tag">{translate("General")}</span>}
                 <Card.Body id="article_card_body">
                     <div id="article_card_headline">
                         <span>{stripHtmlTags(ele.title).substring(0, 30)}</span>

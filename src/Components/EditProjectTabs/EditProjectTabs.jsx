@@ -732,7 +732,7 @@ export default function AddProjectsTabs() {
                             <button onClick={() => handleRemoveFloor(floorIndex, floor.id)}>
                                 <IoMdRemoveCircleOutline />
                             </button>
-                        </div>
+                        </div>  
                     )}
                 </div>
             </div>

@@ -85,7 +85,6 @@ const ProjectDetails = () => {
     setIsLoading(true);
     if (ProjectSlug.slug && ProjectSlug.slug != "") {
       getAllprojectsApi({
-        userid: isLoggedIn ? userCurrentId : "",
         slug_id: ProjectSlug.slug,
         onSuccess: (response) => {
           const ProjectData = response && response.data;

@@ -42,7 +42,7 @@ const AllProperties = () => {
     const Categorydata = useSelector(categoriesCacheData);
 
     useEffect(() => { }, [lang]);
-    useEffect(() => { }, [grid]);
+    useEffect(() => { console.log(grid)}, [grid]);
 
 
     const handlePageChange = (selectedPage) => {

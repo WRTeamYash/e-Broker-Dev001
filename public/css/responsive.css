@@ -1040,22 +1040,15 @@
   }
 }
 
+@media only screen and (min-width: 1400px) {
+  #owner-deatils-card .card-body .owner-contact svg {}
+}
 @media only screen and (min-width: 1400px) and (max-width: 1650px) {
   .uper-specification,
   .down-specification {
     gap: 4%;
   }
 
-  #owner-deatils-card .card-body svg {
-    width: 3vw;
-    height: 8vh;
-  }
-
-  #owner-deatils-card #call-o,
-  #mail-o,
-  #chat-o {
-    padding: 8px;
-  }
 
   .enquiry {
     flex-direction: column;
@@ -1063,15 +1056,12 @@
   }
 
   .enquiry-buttons {
-    padding: 0px;
     justify-content: center;
     align-items: center;
     gap: 20px;
   }
 
-  .enquiry-buttons svg {
-    width: 30px !important;
-  }
+
 
   /* .properties details  ends */
 }
@@ -1090,16 +1080,11 @@
     gap: 20px;
   }
 
-  #owner-deatils-card .card-body svg {
+  /* #owner-deatils-card .card-body .owner-contact svg {
     width: 3vw;
     height: 8vh;
-  }
+  } */
 
-  #owner-deatils-card #call-o,
-  #mail-o,
-  #chat-o {
-    padding: 8px;
-  }
 
   .enquiry {
     flex-direction: column;
@@ -1107,15 +1092,12 @@
   }
 
   .enquiry-buttons {
-    padding: 0px;
     justify-content: center;
     align-items: center;
     gap: 20px;
   }
 
-  .enquiry-buttons svg {
-    width: 30px !important;
-  }
+
 
   #main-all-prop .all-prop-rightside .all-footer-body {
     gap: 16px;
@@ -1160,16 +1142,11 @@
     gap: 10px;
   }
 
-  #owner-deatils-card .card-body svg {
+  /* #owner-deatils-card .card-body .owner-contact svg {
     width: 4vw;
     height: 8vh;
-  }
+  } */
 
-  #owner-deatils-card #call-o,
-  #mail-o,
-  #chat-o {
-    padding: 8px;
-  }
 
   .enquiry {
     /* flex-direction: column; */
@@ -1177,14 +1154,9 @@
   }
 
   .enquiry-buttons {
-    padding: 0px;
     justify-content: center;
     align-items: center;
     gap: 20px;
-  }
-
-  .enquiry-buttons svg {
-    width: 30px !important;
   }
 
   #card-owner-header {

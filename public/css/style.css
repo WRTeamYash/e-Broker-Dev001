@@ -3460,11 +3460,15 @@ option {
   height: 100%;
   border-radius: 0 20px 20px 0;
   cursor: pointer;
+  max-height: 530px;
+  object-fit: cover;
 }
 .one-img {
   width: 100%;
   height: 100%;
   border-radius: 20px;
+  max-height: 530px;
+
   cursor: pointer;
 }
 .two-img01 {
@@ -3544,9 +3548,9 @@ option {
 }
 @media only screen and (max-width: 1199px) {
   .see_all button {
-    margin-left: 10%;
-    margin-top: -6%;
-  }
+    margin-left: 16%;
+    margin-top: -9%;
+}
   .see_all01 button {
     margin-left: 25%;
     margin-top: -4%;
@@ -3558,9 +3562,9 @@ option {
 }
 @media only screen and (max-width: 991px) {
   .see_all button {
-    margin-left: 15%;
-    margin-top: -6%;
-  }
+    margin-left: 22%;
+    margin-top: -8%;
+}
   .see_all01 button {
     margin-left: 50%;
     margin-top: -6%;
@@ -3706,6 +3710,20 @@ option {
 #spacs-count {
   color: #282f39c2;
   font-weight: 300;
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+@media only screen and (max-width:575px) {
+  #spacs-count {
+    max-width: 350px;
+  }
+}
+@media only screen and (max-width:375px) {
+  .enquiry {
+   flex-direction: column !important;
+  }
 }
 #propertie_address {
   overflow: hidden;
@@ -3933,6 +3951,7 @@ option {
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  text-align: center;
 }
 .is_premium_user button {
   display: flex;

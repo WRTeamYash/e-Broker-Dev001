@@ -12,6 +12,7 @@ import { settingsData } from "@/store/reducer/settingsSlice";
 import { placeholderImage, translate } from "@/utils";
 
 import Image from "next/image";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
     const systemData = useSelector(settingsData);
@@ -97,7 +98,7 @@ const Footer = () => {
                                             ) : null}
                                             {webdata?.twitter_id ? (
                                                 <a href={webdata?.twitter_id} target="_blank">
-                                                    <AiFillTwitterCircle size={28} />
+                                                    <FaXTwitter size={25} />
                                                 </a>
                                             ) : null}
                                         </div>

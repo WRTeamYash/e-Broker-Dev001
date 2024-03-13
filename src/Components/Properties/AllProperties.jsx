@@ -22,6 +22,7 @@ const AllProperties = () => {
     const [grid, setGrid] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [CategoryListByPropertyData, setCategoryListByPropertyData] = useState();
+    const [clearfilterLocation, setClearFilerLocation] = useState(false);
 
     const [filterData, setFilterData] = useState({
         propType: "",
@@ -146,6 +147,7 @@ const AllProperties = () => {
         });
     };
     const handleClearFilter = () => {
+        setClearFilerLocation(true)
         setFilterData({
             propType: "",
             category: "",
@@ -173,6 +175,10 @@ const AllProperties = () => {
         );
     };
 
+    useEffect(() => {
+     
+    }, [clearfilterLocation])
+    
     return (
         <Layout>
             <Breadcrumb title={translate("allProperties")} />
@@ -191,6 +197,7 @@ const AllProperties = () => {
                                 handleApplyfilter={handleApplyfilter}
                                 handleClearFilter={handleClearFilter}
                                 selectedLocation={filterData?.selectedLocation}
+                                clearfilterLocation={clearfilterLocation}
                             />
                         </div>
                         <div className="col-12 col-md-12 col-lg-9">

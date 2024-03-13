@@ -168,7 +168,10 @@ const SearchPage = () => {
         setShowFilterModal(false); // Close the modal
     };
 
+    const [clearfilterLocation, setClearFilerLocation] = useState(false);
+
     const handleClearFilter = () => {
+        setClearFilerLocation(true)
         setFormData({
             propType: "",
             minPrice: "",
@@ -177,7 +180,9 @@ const SearchPage = () => {
             selectedLocation: null,
         });
     };
+useEffect(()=>{
 
+}, [clearfilterLocation])
     const handlePageChange = (selectedPage) => {
         const newOffset = selectedPage.selected * limit;
         setOffsetdata(newOffset);
@@ -257,7 +262,7 @@ const SearchPage = () => {
 
                                 <div className="prop-location-modal">
                                     <span>{translate("selectYourLocation")}</span>
-                                    <LocationSearchBox onLocationSelected={handleLocationSelected} />
+                                    <LocationSearchBox onLocationSelected={handleLocationSelected} clearfilterLocation={clearfilterLocation}/>
                                 </div>
                             </div>
                             <div className="second-grup">

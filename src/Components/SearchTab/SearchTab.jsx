@@ -101,8 +101,10 @@ const SearchTab = ({ getCategories }) => {
         // Redirect to /search
         router.push(`/search`);
     };
+    const [clearfilterLocation, setClearFilerLocation] = useState(false);
 
     const handleClearFilter = () => {
+        setClearFilerLocation(true)
         setFormData({
             propType: "",
             minPrice: "",
@@ -111,6 +113,9 @@ const SearchTab = ({ getCategories }) => {
             selectedLocation: null, // Set to null to clear it
         });
     };
+    useEffect(() => {
+    }, [clearfilterLocation])
+
 
     return (
         <div>
@@ -175,7 +180,7 @@ const SearchTab = ({ getCategories }) => {
 
                             <div className="prop-location-modal">
                                 <span>{translate("selectYourLocation")}</span>
-                                <LocationSearchBox onLocationSelected={handleLocationSelected} />
+                                <LocationSearchBox onLocationSelected={handleLocationSelected} clearfilterLocation={clearfilterLocation}/>
                             </div>
                         </div>
                         <div className="second-grup">

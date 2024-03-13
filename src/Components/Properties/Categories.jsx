@@ -21,6 +21,7 @@ const Categories = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [CategoryListByPropertyData, setCategoryListByPropertyData] = useState();
     const [cateName, setCateName] = useState("");
+    const [clearfilterLocation, setClearFilerLocation] = useState(false);
     const [filterData, setFilterData] = useState({
         propType: "",
         category: "",
@@ -35,7 +36,6 @@ const Categories = () => {
 
     const router = useRouter();
     const cateId = router.query;
-    console.log("cateId", cateId)
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
 
@@ -154,6 +154,7 @@ const Categories = () => {
         });
     };
     const handleClearFilter = () => {
+        setClearFilerLocation(true)
         setFilterData({
             propType: "",
             category: "",
@@ -182,6 +183,8 @@ const Categories = () => {
         }
         )
     };
+    useEffect(() => {}, [clearfilterLocation])
+    
 
     return (
         <Layout>
@@ -200,6 +203,7 @@ const Categories = () => {
                                 handleApplyfilter={handleApplyfilter}
                                 handleClearFilter={handleClearFilter}
                                 selectedLocation={filterData?.selectedLocation}
+                                clearfilterLocation={clearfilterLocation}
                             />
                         </div>
                         <div className="col-12 col-md-12 col-lg-9">

@@ -51,7 +51,8 @@ const Layout = ({ children }) => {
          settingsData?.category_background,
          settingsData?.sell_background
         ],
-        queryFn: SetSystemSettingsApi
+        queryFn: SetSystemSettingsApi,
+        staleTime:0
     })
 
     const pathname = usePathname();

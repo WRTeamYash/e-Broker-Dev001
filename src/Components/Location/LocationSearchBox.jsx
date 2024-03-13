@@ -7,13 +7,11 @@ const LocationSearchBox = ({ onLocationSelected, initialLatitude, initialLongitu
     const { isLoaded } = loadGoogleMaps();
     const [inputValue, setInputValue] = useState("");
 
-    useEffect(() => {
-        if (selectedLocation) {
-            setInputValue(selectedLocation.formatted_address);
-        } else {
-            setInputValue("");
-        }
-    }, [selectedLocation]);
+    // useEffect(() => {
+    //     if (selectedLocation) {
+    //         setInputValue(selectedLocation.formatted_address);
+    //     }
+    // }, [selectedLocation]);
 
     const handlePlaceChanged = () => {
         const [place] = inputRef.current.getPlaces();

@@ -7838,7 +7838,7 @@ embed svg path {
 }
 .verticle_card_map .verticle_main_card_map #verticle_card_img_map {
   border-radius: 12px 12px 0 0;
-  height: 25vh;
+  height: 100%;
   object-fit: cover;
   position: relative;
   z-index: -1;

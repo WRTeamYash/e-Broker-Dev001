@@ -3482,12 +3482,14 @@ option {
   height: 100%;
   border-radius: 20px 0 0 20px;
   cursor: pointer;
+  max-height: 550px;
 }
 .two-img02 {
   width: 100%;
   height: 100%;
   border-radius: 0 20px 20px 0;
   cursor: pointer;
+  max-height: 550px;
 }
 #prop-main-image01 {
   height: 50vh;

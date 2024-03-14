@@ -350,7 +350,6 @@ const PropertyDetails = () => {
                 onSuccess: (res) => {
                 },
                 onError: (error) => {
-                    console.log(error)
                 }
             })
         }
@@ -475,13 +474,14 @@ const PropertyDetails = () => {
                                                     <div className="card-body">
                                                         {getPropData && getPropData.description && (
                                                             <>
-                                                                <p>{expanded ? getPropData.description : getPropData.description.substring(0, 100) + "..."}</p>
-                                                                {getPropData.description.length > 100 && (
-                                                                    <button onClick={() => setExpanded(!expanded)}>
-                                                                        {expanded ? "Show Less" : "Show More"}
-                                                                        <AiOutlineArrowRight className="mx-2" size={18} />
-                                                                    </button>
-                                                                )}
+                                                                <p style={{ overflow: 'hidden', textOverflow: 'ellipsis', maxHeight: expanded ? 'none' : '3em', marginBottom: '0', whiteSpace: 'pre-wrap' }}>
+                                                                    {getPropData.description}
+                                                                </p>
+                                                                
+                                                                <button onClick={() => setExpanded(!expanded)} style={{ display: getPropData.description.split('\n').length > 3 ? 'block' : 'none' }}>
+                                                                    {expanded ? "Show Less" : "Show More"}
+                                                                    <AiOutlineArrowRight className="mx-2" size={18} />
+                                                                </button>
                                                             </>
                                                         )}
                                                     </div>

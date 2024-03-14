@@ -366,8 +366,10 @@ const ProjectDetails = () => {
                         <div className="card-body">
                           {projectData && projectData.description && (
                             <>
-                              <p>{expanded ? projectData.description : projectData.description.substring(0, 100) + "..."}</p>
-                              {projectData.description.length > 100 && (
+                              <p style={{ overflow: 'hidden', textOverflow: 'ellipsis', maxHeight: expanded ? 'none' : '3em', marginBottom: '0' }}>
+                                {projectData.description}
+                              </p>
+                              {projectData.description.split('\n').length > 3 && (
                                 <button onClick={() => setExpanded(!expanded)}>
                                   {expanded ? "Show Less" : "Show More"}
                                   <AiOutlineArrowRight className="mx-2" size={18} />
@@ -375,6 +377,7 @@ const ProjectDetails = () => {
                               )}
                             </>
                           )}
+
                         </div>
                       </div>
                     ) : null}

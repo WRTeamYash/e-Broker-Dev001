@@ -27,6 +27,7 @@ import NoData from "@/Components/NoDataFound/NoData";
 import { useRouter } from "next/router";
 import Layout from '../Layout/Layout';
 import { userSignUpData } from '@/store/reducer/authSlice';
+import LoginModal from '../LoginModal/LoginModal';
 
 
 const stripeLoadKey = loadStripeApiKey()
@@ -71,6 +72,7 @@ const SubscriptionPlan = () => {
 
     const systemsettings = useSelector(settingsData);
 
+    const [showModal, setShowModal] = useState(false);
 
     const lang = useSelector(languageData);
     // useSelector(languageData)
@@ -78,6 +80,9 @@ const SubscriptionPlan = () => {
 
     }, [lang]);
 
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
     const handleCountryCodeChange = (value) => {
         setStripeForm({ ...stripeForm, country: value });
     };
@@ -164,7 +169,22 @@ const SubscriptionPlan = () => {
         }
 
         if (!isUserLogin) {
-            toast.error("Please Login first");
+            Swal.fire({
+                title: "Opps!",
+                text: "You need to login!",
+                icon: "warning",
+                allowOutsideClick: false,
+                showCancelButton: false,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setShowModal(true)
+                }
+            });
             return false;
         }
         setPriceData(data);
@@ -589,6 +609,10 @@ const SubscriptionPlan = () => {
                     </Form.Item>
                 </Form>
             </Modal>
+
+
+
+            <LoginModal isOpen={showModal} onClose={handleCloseModal} />
         </Layout >
     )
 }

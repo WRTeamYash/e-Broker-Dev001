@@ -38,20 +38,6 @@ const Nav = () => {
     const sliderdata = useSelector(silderCacheData);
     const settingData = useSelector(settingsData);
 
-    // useEffect(() => {
-    //     if (settingData?.system_color && settingData?.category_background && settingData?.sell_background) {
-    //         document.documentElement.style.setProperty('--primary-color', settingData?.system_color);
-    //         document.documentElement.style.setProperty('--primary-category-background', settingData?.category_background);
-    //         document.documentElement.style.setProperty('--primary-sell', settingData?.sell_background);
-    //     } else {
-    //         document.documentElement.style.setProperty('--primary-color', "#087c7c");
-    //         document.documentElement.style.setProperty('--primary-category-background', "#087c7c14");
-    //         document.documentElement.style.setProperty('--primary-sell', "#e8aa42");
-    //     }
-
-
-    // }, [settingData?.svg_clr])
-
     const isSubscription = settingData?.subscription;
     const LanguageList = settingData && settingData.languages;
     const systemDefaultLanguageCode = settingData?.default_language;

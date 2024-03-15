@@ -26,6 +26,7 @@ import { getChatData } from "@/store/reducer/momentSlice";
 import OwnerDeatilsCard from "../OwnerDeatilsCard/OwnerDeatilsCard";
 import PremiumOwnerDetailsCard from "../OwnerDeatilsCard/PremiumOwnerDetailsCard";
 import Layout from "../Layout/Layout";
+import { message } from "antd";
 
 
 const PropertyDetails = () => {
@@ -113,7 +114,7 @@ const PropertyDetails = () => {
                     }
                 },
                 onError: (error) => {
-                    setIsLoading(false);
+                    setIsLoading(true);
                     console.log(error);
                 }
             }

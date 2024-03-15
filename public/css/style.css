@@ -1704,7 +1704,7 @@ button.learn-more .button-text {
   gap: 20px;
   height: 100px;
 }
-@media only screen and (max-width:767px){
+@media only screen and (max-width: 767px) {
   .verticle_card .verticle_main_card div#feature_card_footer.card-footer {
     padding: 16px 16px;
     border-radius: 0 0 12px 12px;
@@ -1712,7 +1712,6 @@ button.learn-more .button-text {
     gap: 20px;
     height: 170px;
   }
-  
 }
 .verticle_card .verticle_main_card div#feature_card_footer .row {
   width: 100%;
@@ -1728,10 +1727,10 @@ button.learn-more .button-text {
 }
 .verticle_card .verticle_main_card .footer_content .text_footer {
   margin-bottom: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 100px; /* Adjust this value as needed */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100px; /* Adjust this value as needed */
 }
 
 /* ================================================================== */
@@ -3439,7 +3438,7 @@ option {
   gap: 20px;
   max-height: 255px !important;
 }
-@media only screen and (max-width:1420px) {
+@media only screen and (max-width: 1420px) {
   #prop-left-images {
     max-height: 100% !important;
   }
@@ -3558,7 +3557,7 @@ option {
   .see_all button {
     margin-left: 16%;
     margin-top: -9%;
-}
+  }
   .see_all01 button {
     margin-left: 25%;
     margin-top: -4%;
@@ -3572,7 +3571,7 @@ option {
   .see_all button {
     margin-left: 22%;
     margin-top: -8%;
-}
+  }
   .see_all01 button {
     margin-left: 50%;
     margin-top: -6%;
@@ -3723,14 +3722,14 @@ option {
   overflow: hidden !important;
   text-overflow: ellipsis;
 }
-@media only screen and (max-width:575px) {
+@media only screen and (max-width: 575px) {
   #spacs-count {
     max-width: 350px;
   }
 }
-@media only screen and (max-width:375px) {
+@media only screen and (max-width: 375px) {
   .enquiry {
-   flex-direction: column !important;
+    flex-direction: column !important;
   }
 }
 #propertie_address {
@@ -3820,7 +3819,10 @@ option {
 }
 #video-play-button {
   position: relative;
-  top: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   text-align: center;
   color: white;
 }
@@ -5393,7 +5395,6 @@ a {
   color: #c6c6c6;
 }
 
-
 .tabel_pagination {
   display: flex;
   align-items: center;
@@ -5436,7 +5437,7 @@ a {
 .pagination_table li a:hover {
   color: var(--primary-text-color02) !important;
 }
-.pagination_table .pagination__link_table--disabled{
+.pagination_table .pagination__link_table--disabled {
   overflow: hidden;
 }
 /* Disabled link styles */
@@ -8077,7 +8078,6 @@ embed svg path {
   }
 }
 
-
 /* custome switch button */
 .switch {
   display: inline-block;
@@ -8630,7 +8630,7 @@ button.learn-more-project .button-text {
 }
 
 /* download docs css */
-.doc_row{
+.doc_row {
   gap: 20px 0;
 }
 .docs_main_div {
@@ -8660,7 +8660,6 @@ button.learn-more-project .button-text {
 .docs_main_div .doc_download_button {
   width: 100%;
   transition: all 0.5s;
-
 }
 .docs_main_div .doc_download_button button {
   display: flex;
@@ -8673,7 +8672,7 @@ button.learn-more-project .button-text {
   padding: 10px 20px;
   width: max-content;
   border-radius: 8px;
-  margin: auto ;
+  margin: auto;
 }
 
 .docs_main_div .doc_download_button button:hover {
@@ -8683,7 +8682,7 @@ button.learn-more-project .button-text {
   transition: all 0.5s;
 }
 
-.floor_img{
+.floor_img {
   width: 100%;
   height: 600px;
 }
@@ -8693,7 +8692,7 @@ button.learn-more-project .button-text {
   border-radius: 12px;
 }
 
-.project_type_tag{
+.project_type_tag {
   padding: 10px 15px;
   color: var(--primary-text-color01);
   background-color: var(--primary-sell);
@@ -8703,6 +8702,23 @@ button.learn-more-project .button-text {
   font-size: smaller;
 }
 
-.css-k008qs{
+.css-k008qs {
   overflow: auto !important;
+}
+
+
+.prop_video_player {
+  width: 100% !important;
+  height: 500px !important;
+}
+
+@media only screen and (max-width:767px) {
+  .prop_video_player {
+    width: 100% !important;
+    height: 350px !important;
+  }
+  .video-background{
+    height: 350px !important;
+    width: 100%;
+  }
 }

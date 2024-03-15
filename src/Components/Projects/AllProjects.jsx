@@ -1,10 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import Breadcrumb from "@/Components/Breadcrumb/Breadcrumb";
-import { GetFeturedListingsApi, getAllprojectsApi } from "@/store/actions/campaign";
-import Link from "next/link";
-import VerticalCard from "@/Components/Cards/VerticleCard";
-import VerticalCardSkeleton from "@/Components/Skeleton/VerticalCardSkeleton";
+import {  getAllprojectsApi } from "@/store/actions/campaign";
 import Pagination from "@/Components/Pagination/ReactPagination";
 import { useSelector } from "react-redux";
 import { translate } from "@/utils";
@@ -15,8 +12,8 @@ import ProjectCard from '../Cards/ProjectCard';
 import { useRouter } from 'next/router';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import Swal from 'sweetalert2';
-import toast from 'react-hot-toast';
 import ProjectCardSkeleton from '../Skeleton/ProjectCardSkeleton';
+import LoginModal from '../LoginModal/LoginModal';
 
 
 const AllProjects = () => {
@@ -34,7 +31,10 @@ const AllProjects = () => {
 
     const lang = useSelector(languageData);
 
-
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
     const handlecheckPremiumUser = (e, slug_id) => {
         e.preventDefault()
         if (userCurrentId) {
@@ -59,7 +59,22 @@ const AllProjects = () => {
                 });
             }
         } else {
-            toast.error("Please login first")
+            Swal.fire({
+                title: translate("plzLogFirsttoAccess"),
+                icon: "warning",
+                allowOutsideClick: false,
+                showCancelButton: false,
+                allowOutsideClick: true,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setShowModal(true)
+                }
+            });
         }
     }
 
@@ -128,6 +143,10 @@ const AllProjects = () => {
                     </div>
                 ) : null}
             </section>
+
+            {showModal &&
+                <LoginModal isOpen={showModal} onClose={handleCloseModal} />
+            }
         </Layout>
     )
 }

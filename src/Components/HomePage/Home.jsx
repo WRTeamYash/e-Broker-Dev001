@@ -42,6 +42,7 @@ import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import ProjectCardSkeleton from "../Skeleton/ProjectCardSkeleton";
+import LoginModal from "../LoginModal/LoginModal";
 
 const HomePage = () => {
 
@@ -76,7 +77,10 @@ const HomePage = () => {
     const sliderdata = useSelector(silderCacheData);
     const Categorydata = useSelector(categoriesCacheData);
 
-
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
     const handlecheckPremiumUser = (e, slug_id) => {
         e.preventDefault()
         if (userCurrentId) {
@@ -101,7 +105,22 @@ const HomePage = () => {
                 });
             }
         } else {
-            toast.error("Please login first")
+            Swal.fire({
+                title: translate("plzLogFirsttoAccess"),
+                icon: "warning",
+                allowOutsideClick: false,
+                showCancelButton: false,
+                allowOutsideClick: true,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setShowModal(true)
+                }
+            });
         }
     }
 
@@ -1128,7 +1147,9 @@ const HomePage = () => {
                             {translate("noDataAvailabe")}
                         </div>
                     )}
-
+                {showModal &&
+                    <LoginModal isOpen={showModal} onClose={handleCloseModal} />
+                }
             </Layout>
 
         </>

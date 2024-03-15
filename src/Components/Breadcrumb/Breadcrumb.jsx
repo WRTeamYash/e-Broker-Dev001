@@ -24,6 +24,8 @@ import {
     XIcon,
 } from "react-share";
 import { formatNumberWithCommas, translate } from "@/utils";
+import Swal from "sweetalert2";
+import LoginModal from "../LoginModal/LoginModal";
 
 const Breadcrumb = (props) => {
 
@@ -39,10 +41,16 @@ const Breadcrumb = (props) => {
     // Initialize isDisliked as false
     const [isDisliked, setIsDisliked] = useState(false);
 
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+
     const handleLike = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (isLoggedIn && isLoggedIn.data && isLoggedIn.data.token) {
+        if (userCurrentId) {
             AddFavourite(
                 props.data.propId,
                 "1",
@@ -56,7 +64,22 @@ const Breadcrumb = (props) => {
                 }
             );
         } else {
-            toast.error("Please login first to add this property to favorites.");
+            Swal.fire({
+                title: translate("plzLogFirst"),
+                icon: "warning",
+                allowOutsideClick: false,
+                showCancelButton: false,
+                allowOutsideClick: true,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setShowModal(true)
+                }
+            });
         }
     };
 
@@ -78,7 +101,7 @@ const Breadcrumb = (props) => {
     };
     const currentUrl = `${process.env.NEXT_PUBLIC_WEB_URL}${router.asPath}`;
 
-    
+
     const handleCopyUrl = async (e) => {
         e.preventDefault();
 
@@ -202,6 +225,10 @@ const Breadcrumb = (props) => {
                     </div>
                 </>
             )}
+
+            {showModal &&
+                <LoginModal isOpen={showModal} onClose={handleCloseModal} />
+            }
         </div>
     );
 };

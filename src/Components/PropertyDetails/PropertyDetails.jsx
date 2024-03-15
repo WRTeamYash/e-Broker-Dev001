@@ -10,7 +10,7 @@ import { settingsData } from "@/store/reducer/settingsSlice";
 import { useSelector } from "react-redux";
 import Map from "@/Components/GoogleMap/GoogleMap";
 import { languageData } from "@/store/reducer/languageSlice";
-import { isThemeEnabled, translate } from "@/utils";
+import { isThemeEnabled, placeholderImage, translate } from "@/utils";
 import { useRouter } from "next/router";
 import { GetFeturedListingsApi, intrestedPropertyApi, setPropertyTotalClicksApi } from "@/store/actions/campaign";
 import Header from "@/Components/Header/Header";
@@ -72,6 +72,11 @@ const PropertyDetails = () => {
     const themeEnabled = isThemeEnabled();
     const isPremiumProperty = getPropData && getPropData.is_premium
 
+
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
     useEffect(() => { }, [lang]);
     useEffect(() => {
@@ -154,16 +159,16 @@ const PropertyDetails = () => {
             return "unknown";
         }
     };
-
     const videoLink = getPropData && getPropData.video_link;
-    const videoType = getVideoType(videoLink);
-    const videoId = videoLink ? videoLink.split("/").pop().split("?")[0] : null;
-    const backgroundImageUrl = videoId ? `url(https://img.youtube.com/vi/${videoId}/maxresdefault.jpg)` : PlaceHolderImg;
-
+  
+    const videoId = videoLink ? (videoLink.includes('youtu.be') ? videoLink.split('/').pop().split('?')[0] : videoLink.split('v=')[1].split('&')[0]) : null;
+    const backgroundImageUrl = videoId ? `https://img.youtube.com/vi/${videoId}/sddefault.jpg` : PlaceHolderImg;
+    
     const handleVideoReady = (state) => {
         setPlaying(state);
         setShowThumbnail(!state);
     };
+    
 
     const handleSeek = (e) => {
         if (e && typeof e.playedSeconds === "number") {
@@ -180,7 +185,6 @@ const PropertyDetails = () => {
         setPlaying(false);
         setShowThumbnail(true); // Reset showThumbnail to true
     };
-
 
 
     const galleryPhotos = getPropData && getPropData.gallery;
@@ -266,7 +270,22 @@ const PropertyDetails = () => {
                 }
             );
         } else {
-            toast.error("Please login first to show your interest.");
+            Swal.fire({
+                title: translate("plzLogFirstIntrest"),
+                icon: "warning",
+                allowOutsideClick: false,
+                showCancelButton: false,
+                allowOutsideClick: true,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setShowModal(true)
+                }
+            });
         }
     };
 
@@ -322,7 +341,22 @@ const PropertyDetails = () => {
 
                 router.push('/user/chat');
             } else {
-                toast.error("Please login first");
+                Swal.fire({
+                    title: translate("plzLogFirsttoAccess"),
+                    icon: "warning",
+                    allowOutsideClick: false,
+                    showCancelButton: false,
+                    allowOutsideClick: true,
+                    customClass: {
+                        confirmButton: 'Swal-confirm-buttons',
+                        cancelButton: "Swal-cancel-buttons"
+                    },
+                    confirmButtonText: "Ok",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        setShowModal(true)
+                    }
+                });
                 setShowChat(true);
             }
         }
@@ -332,7 +366,22 @@ const PropertyDetails = () => {
         if (userCurrentId) {
             setIsReporteModal(true)
         } else {
-            toast.error("Please login first to Report this property.");
+            Swal.fire({
+                title: translate("plzLogFirsttoAccess"),
+                icon: "warning",
+                allowOutsideClick: false,
+                showCancelButton: false,
+                allowOutsideClick: true,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setShowModal(true)
+                }
+            });
         }
     }
 
@@ -477,7 +526,7 @@ const PropertyDetails = () => {
                                                                 <p style={{ overflow: 'hidden', textOverflow: 'ellipsis', maxHeight: expanded ? 'none' : '3em', marginBottom: '0', whiteSpace: 'pre-wrap' }}>
                                                                     {getPropData.description}
                                                                 </p>
-                                                                
+
                                                                 <button onClick={() => setExpanded(!expanded)} style={{ display: getPropData.description.split('\n').length > 3 ? 'block' : 'none' }}>
                                                                     {expanded ? "Show Less" : "Show More"}
                                                                     <AiOutlineArrowRight className="mx-2" size={18} />
@@ -644,10 +693,11 @@ const PropertyDetails = () => {
                                                             <div
                                                                 className="video-background container"
                                                                 style={{
-                                                                    backgroundImage: backgroundImageUrl,
+                                                                    backgroundImage: `url(${backgroundImageUrl})`,
                                                                     backgroundSize: "cover",
                                                                     backgroundPosition: "center center",
                                                                 }}
+
                                                             >
                                                                 <div id="video-play-button">
                                                                     <button onClick={() => setPlaying(true)}>
@@ -658,8 +708,7 @@ const PropertyDetails = () => {
                                                         ) : (
                                                             <div>
                                                                 <ReactPlayer
-                                                                    width="100%"
-                                                                    height="500px"
+                                                                    className="prop_video_player"
                                                                     url={getPropData && getPropData.video_link}
                                                                     playing={playing}
                                                                     controls={true}

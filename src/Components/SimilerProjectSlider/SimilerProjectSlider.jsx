@@ -101,7 +101,22 @@ const SimilerProjectSlider = () => {
                 });
             }
         } else {
-            toast.error("Please login first")
+            Swal.fire({
+                title: translate("plzLogFirsttoAccess"),
+                icon: "warning",
+                allowOutsideClick: false,
+                showCancelButton: false,
+                allowOutsideClick: true,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setShowModal(true)
+                }
+            });
         }
     }
 

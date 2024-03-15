@@ -7,6 +7,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { ImageToSvg } from "./ImageToSvg";
+import Swal from "sweetalert2";
 
 function VerticalCard({ ele, removeCard, onImageLoad }) {
 
@@ -27,6 +28,11 @@ function VerticalCard({ ele, removeCard, onImageLoad }) {
     // Initialize isDisliked as false
     const [isDisliked, setIsDisliked] = useState(false);
 
+    const [showModal, setShowModal] = useState(false);
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
     const handleLike = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -45,7 +51,22 @@ function VerticalCard({ ele, removeCard, onImageLoad }) {
                 }
             );
         } else {
-            toast.error("Please login first to add this property to favorites.");
+            Swal.fire({
+                title: translate("plzLogFirst"),
+                icon: "warning",
+                allowOutsideClick: false,
+                showCancelButton: false,
+                allowOutsideClick: true,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setShowModal(true)
+                }
+            });
         }
     };
 
@@ -147,6 +168,9 @@ function VerticalCard({ ele, removeCard, onImageLoad }) {
                     </div>
                 </div>
             </div>
+            {showModal &&
+                <LoginModal isOpen={showModal} onClose={handleCloseModal} />
+            }
         </div>
     );
 }

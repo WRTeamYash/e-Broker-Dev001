@@ -177,8 +177,8 @@ const ProjectDetails = () => {
   };
   const videoLink = projectData && projectData.video_link;
 
-  const videoId = videoLink ? videoLink.split("v=")[1] : null;
-  const backgroundImageUrl = videoId ? `https://img.youtube.com/vi/${videoId && videoId}/maxresdefault.jpg` : placeholderImage;
+  const videoId = videoLink ? (videoLink.includes('youtu.be') ? videoLink.split('/').pop().split('?')[0] : videoLink.split('v=')[1].split('&')[0]) : null;
+  const backgroundImageUrl = videoId ? `https://img.youtube.com/vi/${videoId && videoId}/sddefault.jpg` : PlaceHolderImg;
 
   const handleVideoReady = (state) => {
     setPlaying(state);

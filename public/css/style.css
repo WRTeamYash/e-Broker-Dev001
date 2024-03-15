@@ -3436,9 +3436,11 @@ option {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-height: 255px !important;
 }
 @media only screen and (max-width: 1420px) {
+  #prop-images {
+    margin-bottom: 20px;
+  }
   #prop-left-images {
     max-height: 100% !important;
   }

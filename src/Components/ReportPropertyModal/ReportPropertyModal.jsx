@@ -41,38 +41,39 @@ const ReportPropertyModal = ({ show, onHide, propertyId, setIsReported }) => {
             setSelectedOption(0);
         } else {
             setSelectedOption(option);
-
         }
     };
 
-
     useEffect(() => {
-    }, [reportReason])
+    }, [reportReason, selectedOption])
 
 
 
     const handleReportProperty = (e) => {
-        e.preventDefault()
-        if (selectedOption || reportReason) {
-
-            addReportApi({
-                reason_id: selectedOption,
-                property_id: propertyId,
-                other_message: reportReason,
-                onSuccess: (res) => {
-                    toast.success(res.message)
-                    setIsReported(true)
-                    onHide()
-                },
-                onError: (err) => {
-                    console.log(err)
-                    toast.error(err.message)
-                }
-            })
+        e.preventDefault();
+        if (selectedOption !== undefined) {
+            if (selectedOption === 0 && reportReason.trim() === "") {
+                toast.error("Please write your reason");
+            } else {
+                addReportApi({
+                    reason_id: selectedOption === 0 ? null : selectedOption,
+                    property_id: propertyId,
+                    other_message: selectedOption === 0 ? reportReason : null,
+                    onSuccess: (res) => {
+                        toast.success(res.message);
+                        setIsReported(true);
+                        onHide();
+                    },
+                    onError: (err) => {
+                        console.log(err);
+                        toast.error(err.message);
+                    }
+                });
+            }
         } else {
-            toast.error("please select reason first.")
+            toast.error("Please select a reason first.");
         }
-    }
+    };
 
 
 

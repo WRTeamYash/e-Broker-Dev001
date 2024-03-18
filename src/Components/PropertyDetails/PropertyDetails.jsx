@@ -174,6 +174,10 @@ const PropertyDetails = () => {
     const handleSeek = (e) => {
         if (e && typeof e.playedSeconds === "number") {
             setSeekPosition(parseFloat(e.playedSeconds));
+            // Avoid pausing the video when seeking
+            if (!manualPause) {
+                setPlaying(true);
+            }
         }
     };
 
@@ -183,10 +187,9 @@ const PropertyDetails = () => {
 
     const handlePause = () => {
         setManualPause(true); // Manually pause the video
-        setPlaying(false);
         setShowThumbnail(true); // Reset showThumbnail to true
     };
-
+    
 
     const galleryPhotos = getPropData && getPropData.gallery;
 

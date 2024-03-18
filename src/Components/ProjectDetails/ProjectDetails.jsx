@@ -187,20 +187,22 @@ const ProjectDetails = () => {
 
   const handleSeek = (e) => {
     if (e && typeof e.playedSeconds === "number") {
-      setSeekPosition(parseFloat(e.playedSeconds));
+        setSeekPosition(parseFloat(e.playedSeconds));
+        // Avoid pausing the video when seeking
+        if (!manualPause) {
+            setPlaying(true);
+        }
     }
-  };
-
+};
   const handleSeekEnd = () => {
     setShowThumbnail(false);
   };
 
+
   const handlePause = () => {
     setManualPause(true); // Manually pause the video
-    setPlaying(false);
     setShowThumbnail(true); // Reset showThumbnail to true
-  };
-
+};
   const handleDownload = async (fileName) => {
     try {
       // Construct the file URL based on your backend or API

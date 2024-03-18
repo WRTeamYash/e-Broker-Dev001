@@ -14,6 +14,7 @@ import FirebaseData from "@/utils/Firebase";
 import { signupLoaded } from "@/store/reducer/authSlice";
 import { useRouter } from "next/router";
 import { PhoneNumberUtil } from "google-libphonenumber";
+import Swal from "sweetalert2";
 
 const LoginModal = ({ isOpen, onClose }) => {
     const SettingsData = useSelector(settingsData);

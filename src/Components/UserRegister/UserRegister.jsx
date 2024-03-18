@@ -177,7 +177,7 @@ const UserRegister = () => {
                                                 <div className="col-sm-12 col-md-12">
                                                     <div className="user_fields">
                                                         <span>{translate("address")}</span>
-                                                        <textarea rows={4} className="current_address" placeholder="Enetr address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                                                        <textarea rows={4} className="current_address" placeholder="Enter address" value={address} onChange={(e) => setAddress(e.target.value)} />
                                                     </div>
                                                 </div>
                                             </div>

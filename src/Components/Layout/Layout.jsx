@@ -49,10 +49,11 @@ const Layout = ({ children }) => {
          settingsData?.is_premium,
          settingsData?.system_color,
          settingsData?.category_background,
-         settingsData?.sell_background
+         settingsData?.sell_background,
+         settingData?.is_active
         ],
         queryFn: SetSystemSettingsApi,
-        staleTime:0
+        staleTime:0 
     })
 
     const pathname = usePathname();

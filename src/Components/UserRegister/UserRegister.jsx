@@ -159,18 +159,7 @@ const UserRegister = () => {
                                                 <div className="col-sm-12 col-md-12">
                                                     <div className="user_fields">
                                                         <span>{translate("location")}</span>
-                                                        {/* <div className='current_loc_div' onClick={handleOpenLocModal}>
-                                                            <BiCurrentLocation size={30} className='current_loc' />
-                                                            <span>{translate("selectYourCurrentLocation")}</span>
-                                                        </div>
-                                                        {selectedLocation && (
-                                                            <input
-                                                                type='text'
-                                                                value={selectedLocation.formatted_address}
-                                                                readOnly
-                                                            />
-                                                        )} */}
-
+                                     
                                                         <LocationSearchBox onLocationSelected={handleSelectLocation} />
                                                     </div>
                                                 </div>

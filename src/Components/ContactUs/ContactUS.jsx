@@ -34,18 +34,14 @@ const ContactUS = () => {
     const validateForm = () => {
         if (!formData.firstName || !formData.lastName || !formData.email || !formData.subject || !formData.message) {
             // If any field is empty, show "Please fill all fields" error
-            toast.error("Please fill all fields", {
-                position: "top-center",
-            });
+            toast.error(translate("allFields"));
             // alert("Please fill all fields")
             return false;
         }
 
         if (!isValidEmail(formData.email)) {
             // If email is invalid, show "Invalid email format" error
-            toast.error("Invalid email format", {
-                position: "top-center",
-            });
+            toast.error(translate("emailIsNotValid"));
 
             return false;
         }

@@ -92,7 +92,7 @@ const UserRegister = () => {
             state: selectedLocation && selectedLocation.state ? selectedLocation.state : "",
             country: selectedLocation && selectedLocation.country ? selectedLocation.country : "",
             onSuccess: (res) => {
-                toast.success("User Register Successfully.");
+                toast.success(translate("userRegister"));
                 loadUpdateUserData(res.data);
                 navigate.push("/");
             },

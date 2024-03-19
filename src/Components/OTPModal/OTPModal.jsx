@@ -107,7 +107,7 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         e.preventDefault();
 
         if (otp === "") {
-            toast.error("Please enter OTP first.");
+            toast.error(translate("pleaseEnterOtp"));
             return;
         }
 
@@ -251,7 +251,6 @@ const OTPModal = ({ isOpen, onClose, phonenum }) => {
         // Reset the resendTimer to 60 seconds
         setResendTimer(60);
         generateOTP(phonenum);
-        toast.success("OTP Resend Successfully");
     };
     useEffect(() => {
         if (!isOpen && otpInputRef.current) {

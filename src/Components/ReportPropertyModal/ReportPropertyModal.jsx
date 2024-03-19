@@ -53,7 +53,7 @@ const ReportPropertyModal = ({ show, onHide, propertyId, setIsReported }) => {
         e.preventDefault();
         if (selectedOption !== undefined) {
             if (selectedOption === 0 && reportReason.trim() === "") {
-                toast.error("Please write your reason");
+                toast.error(translate("writeyourReason"));
             } else {
                 addReportApi({
                     reason_id: selectedOption === 0 ? null : selectedOption,
@@ -71,7 +71,7 @@ const ReportPropertyModal = ({ show, onHide, propertyId, setIsReported }) => {
                 });
             }
         } else {
-            toast.error("Please select a reason first.");
+            toast.error(translate("enterReasonFirst"));
         }
     };
 

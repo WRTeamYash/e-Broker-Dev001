@@ -1,4 +1,5 @@
 "use client"
+import { translate } from "@/utils";
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { RiCloseCircleLine } from "react-icons/ri";
@@ -77,17 +78,17 @@ const AreaConverter = ({ isOpen, onClose }) => {
         <div>
             <Modal show={isOpen} onHide={onClose} size="md" centered className="areaConvert-modal">
                 <Modal.Header>
-                    <Modal.Title>Area Converter</Modal.Title>
+                    <Modal.Title>{translate("areaConverter")}</Modal.Title>
                     <RiCloseCircleLine className="close-icon" size={40} onClick={onClose} />
                 </Modal.Header>
                 <Modal.Body>
                     <div className="modal-body-heading">
-                        <h4>Convert Area</h4>
-                        <span>Enter the value and desired units:</span>
+                        <h4>{translate("convertArea")}</h4>
+                        <span>{translate("desiredUnits")}</span>
                     </div>
                     <div className="area-conrt-fields">
                         <div className="sq-ft">
-                            <label>From:</label>
+                            <label>{translate("form")}</label>
                             <div className="btn-group" role="group">
                                 <input
                                     type="number"
@@ -111,7 +112,7 @@ const AreaConverter = ({ isOpen, onClose }) => {
                             </div>
                         </div>
                         <div className="sq-ft">
-                            <label>To:</label>
+                            <label>{translate("to")}</label>
                             <div>
                                 <select onChange={handleToUnitChange} id="sq-m">
                                     {Object.keys(unitData).map((unitKey) => (
@@ -133,7 +134,7 @@ const AreaConverter = ({ isOpen, onClose }) => {
                 </Modal.Body>
                 <Modal.Footer className="area-footer">
                     <button className="convert-button" onClick={convertValue}>
-                        Convert
+                        {translate("convert")}
                     </button>
                 </Modal.Footer>
             </Modal>

@@ -7,6 +7,7 @@ import { userSignUpData } from "@/store/reducer/authSlice";
 import { useRouter } from "next/router";
 import { confirmPaymentApi } from "@/store/actions/campaign";
 import { settingsData } from "@/store/reducer/settingsSlice";
+import { translate } from "@/utils";
 
 const CARD_OPTIONS = {
     iconStyle: "solid",
@@ -87,7 +88,7 @@ const StripeModal = (props) => {
             );
         } else {
             setloadingPay(false);
-            toast.error("Payment failed");
+            toast.error(translate("paymentfailed"));
         }
     };
 

@@ -454,7 +454,7 @@ export default function AddProjectsTabs() {
 
         if (!isSizeValid) {
             // Display a toast error message
-            toast.error('Error: Selected image size should be 300KB or less.');
+            toast.error(translate("lessThen300Kb"))
             return;
         }
         // Append the uploaded ogImage files to the uploadedOgImages state
@@ -541,7 +541,7 @@ export default function AddProjectsTabs() {
     const handleNextTab = (e) => {
         if (!areFieldsFilled(tab1)) {
             // Display a toast message to fill in all required fields
-            toast.error("Please fill in all required fields ");
+            toast.error(translate("fillallfields"));
         } else {
             // Proceed to the next tab
             setValue(value + 1);
@@ -552,10 +552,10 @@ export default function AddProjectsTabs() {
 
         if (!areFieldsFilled1(tab6)) {
             // Display a toast message to fill in all required fields
-            toast.error("Please fill in all required fields");
+            toast.error(translate("fillallfields"));
         } else if (uploadedOgImages.length === 0) {
             // Display a toast message indicating that ogImage is empty
-            toast.error("Please provide ogImage");
+            toast.error(translate("provideOg"));
         } else {
             // Proceed to the next tab
             setValue(value + 1);
@@ -566,7 +566,7 @@ export default function AddProjectsTabs() {
 
         if (!areLocationFieldsFilled(selectedLocationAddress)) {
             // Display a toast message to fill in all property address details in tab 4
-            toast.error("Please fill in all property address details.");
+            toast.error(translate("fillAllAddress"));
         } else {
             // Proceed to the next tab
             setValue(value + 1);
@@ -592,7 +592,7 @@ export default function AddProjectsTabs() {
         const lastFloorIndex = floorFields.length - 1;
         const lastFloor = floorFields[lastFloorIndex];
         if (lastFloor.floorTitle.trim() === "" || lastFloor.floorImgs.length === 0) {
-            toast.error("Please fill the current floor details before adding a new one.");
+            toast.error(translate("firstAddOne"));
         } else {
             const newFloorIndex = floorFields.length;
             setFloorFields([...floorFields, { floorTitle: "", floorImgs: [] }]);
@@ -741,23 +741,23 @@ export default function AddProjectsTabs() {
         try {
             if (!areFieldsFilled(tab1)) {
                 // Display a toast message to fill in all required fields for Tab 1
-                toast.error("Please fill in all required fields in Project Details");
+                toast.error(translate("allfeildforProjects"));
 
                 // Switch to Tab 1
                 setValue(0);
             } else if (!areLocationFieldsFilled(selectedLocationAddress)) {
                 // Display a toast message to fill in all required location fields
-                toast.error("Please select a location with all required fields (city, state, country, and formatted_address)");
+                toast.error(translate("specsLoc"));
                 // Switch to Tab 4
                 setValue(4);
             } else if (!areFieldsFilled1(tab6)) {
                 // Display a toast message to fill in all required location fields
-                toast.error("Please fill in all required fields in Project Details");
+                toast.error(translate("allfeildforProjects"));
                 // Switch to Tab 4
                 setValue(1);
             } else if (uploadedImages.length === 0) {
                 // Display a toast message if Title Image is not selected
-                toast.error("Please select a Title Image");
+                toast.error(translate("pleaseSelectTitleImg"));
 
             } else {
                 // Initialize an empty array for plans

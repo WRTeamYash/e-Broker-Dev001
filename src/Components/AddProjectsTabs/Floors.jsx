@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { IoMdRemoveCircleOutline } from 'react-icons/io';
 import CloseIcon from "@mui/icons-material/Close";
 import toast from 'react-hot-toast';
+import { translate } from '@/utils';
 
 const Floors = ({onFloorFieldsChange}) => {
     const [floorFields, setFloorFields] = useState([{ floorTitle: "", floorImgs: [] }]);
@@ -23,7 +24,7 @@ const Floors = ({onFloorFieldsChange}) => {
         const lastFloorIndex = floorFields.length - 1;
         const lastFloor = floorFields[lastFloorIndex];
         if (lastFloor.floorTitle.trim() === "" || lastFloor.floorImgs.length === 0) {
-            toast.error("Please fill the current floor details before adding a new one.");
+            toast.error(translate("firstAddOne"));
         } else {
             const newFloorIndex = floorFields.length;
             setFloorFields([...floorFields, { floorTitle: "", floorImgs: [] }]);

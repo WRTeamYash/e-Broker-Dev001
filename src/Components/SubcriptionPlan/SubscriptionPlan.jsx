@@ -96,7 +96,7 @@ const SubscriptionPlan = () => {
 
         // Additional logic for handling payment cancellation
         // You can show a toast message or perform any other actions as needed
-        toast.error("Payment canceled. Please try again later.");
+        toast.error(translate("paymentCanceled"));
     };
 
 

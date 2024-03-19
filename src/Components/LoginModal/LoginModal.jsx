@@ -29,7 +29,7 @@ const LoginModal = ({ isOpen, onClose }) => {
     const onSignUp = (e) => {
         e.preventDefault();
         if (!value) {
-            toast.error("Please enter a phone number!");
+            toast.error(translate("enterPhoneNumber"));
         } else {
             try {
                 // Parse the phone number
@@ -47,7 +47,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                         setValue("");
                     }
                 } else {
-                    toast.error("Please enter a valid phone number");
+                    toast.error(translate("validPhonenum"));
                 }
             } catch (error) {
                 // Handle parsing errors
@@ -83,7 +83,6 @@ const LoginModal = ({ isOpen, onClose }) => {
                 (res) => {
                     let signupData = res.data;
 
-                    // Show a success toast notification
                     // Check if any of the required fields is empty
                     if (!res.error) {
                         if (signupData.mobile === "") {
@@ -119,7 +118,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             );
         } catch (error) {
             console.error(error);
-            toast.error("Popup request was cancelled by the user");
+            toast.error(translate("popupCancel"));
         }
     };
 

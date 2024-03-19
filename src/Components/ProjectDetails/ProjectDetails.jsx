@@ -111,7 +111,7 @@ const ProjectDetails = () => {
     try {
       // Use the Clipboard API to copy the URL to the clipboard
       await navigator.clipboard.writeText(currentUrl);
-      toast.success("URL copied to clipboard!");
+      toast.success(translate("copuyclipboard"));
     } catch (error) {
       console.error("Error copying to clipboard:", error);
       // toast.error("Failed to copy URL to clipboard.");

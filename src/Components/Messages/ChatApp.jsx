@@ -229,7 +229,7 @@ const ChatApp = ({ notificationData }) => {
                 setIsRecording(true);
             })
             .catch((error) => {
-                toast.error("Permission is not allow for Microphone")
+                toast.error(translate("permissionDenyForMic"))
             });
     };
 
@@ -270,7 +270,7 @@ const ChatApp = ({ notificationData }) => {
 
         // Check if the message input is empty for text messages
         if (messageType === 'text' && !tabState.messageInput?.trim()) {
-            toast.error("Please enter a message before sending.");
+            toast.error(translate("enterChatMessage"));
             return;
         }
 

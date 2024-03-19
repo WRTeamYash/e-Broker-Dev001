@@ -23,6 +23,7 @@ import { categoriesCacheData, getArticleId } from "@/store/reducer/momentSlice";
 import Layout from '../Layout/Layout';
 import { settingsData } from '@/store/reducer/settingsSlice';
 import ReactShare from "@/Components/ShareUrl/ReactShare";
+import toast from 'react-hot-toast';
 
 
 const ArticleDetails = () => {
@@ -118,7 +119,7 @@ const ArticleDetails = () => {
         try {
             // Use the Clipboard API to copy the URL to the clipboard
             await navigator.clipboard.writeText(currentUrl);
-            // toast.success("URL copied to clipboard!");
+            toast.success(translate("copuyclipboard"));
         } catch (error) {
             console.error("Error copying to clipboard:", error);
             // toast.error("Failed to copy URL to clipboard.");

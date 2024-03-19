@@ -110,7 +110,7 @@ const UserProfile = () => {
             state: formData.selectedLocation?.state,
             country: formData.selectedLocation?.country,
             onSuccess: (response) => {
-                toast.success("Profile Updated Successfully");
+                toast.success(translate("profileupdate"));
                 loadUpdateUserData(response.data);
                 navigate.push("/");
                 setFormData({

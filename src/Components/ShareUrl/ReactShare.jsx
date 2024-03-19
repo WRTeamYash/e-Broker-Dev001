@@ -2,11 +2,12 @@ import React from 'react'
 import { Menu, Tooltip } from 'antd';
 import { FacebookIcon, FacebookShareButton, TwitterShareButton, WhatsappIcon, WhatsappShareButton, XIcon } from 'react-share';
 import { CiLink } from "react-icons/ci";
+import { translate } from '@/utils';
 const ReactShare = ({ currentUrl, handleCopyUrl, data, CompanyName }) => {
     return (
         <>
             <div className="card">
-                <div className="card-header">Share</div>
+                <div className="card-header">{translate("share")}</div>
                 <div className="card-body">
                     <Menu>
                         <Menu.Item key="1">

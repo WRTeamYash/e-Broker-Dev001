@@ -16,7 +16,6 @@ import { settingsData } from "@/store/reducer/settingsSlice";
 import NoData from "@/Components/NoDataFound/NoData";
 import { articlecachedataCategoryId, categoriesCacheData, getArticleId } from "@/store/reducer/momentSlice";
 import Layout from '../Layout/Layout';
-import GridCard from '../AllPropertyUi/GridCard';
 
 
 

@@ -33,51 +33,9 @@ const FeatureModal = ({ show, onHide, propertyId }) => {
             selectedOption,
             uploadedImages[0] ? uploadedImages[0] : "",
             (response) => {
-                if (response.message === "Package not found") {
-                    toast.error(response.message);
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "You have not subscribed. Please subscribe first",
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            router.push("/subscription-plan"); // Redirect to the subscription page
-                        }
-                    });
-                } else if (response.message === "Package Limit is over") {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Your Package Limit is Over. Please Purchase Package.",
-                        customClass: {
-                            confirmButton: 'Swal-confirm-buttons',
-                            cancelButton: "Swal-cancel-buttons"
-                        },
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            router.push("/subscription-plan"); // Redirect to the subscription page
-                        }
-                    });
-                } else if (response.message === "Package not found for add property") {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Package not found for add property. Please Purchase Package.",
-                        customClass: {
-                            confirmButton: 'Swal-confirm-buttons',
-                            cancelButton: "Swal-cancel-buttons"
-                        },
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            router.push("/subscription-plan"); // Redirect to the subscription page
-                        }
-                    });
-                } else {
-                    toast.success(response.message);
-                    onHide();
-                    router.push("/user/advertisement");
-                }
-
+                toast.success(response.message);
+                onHide();
+                router.push("/user/advertisement");
             },
             (error) => {
                 console.log(error);

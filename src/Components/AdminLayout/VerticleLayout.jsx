@@ -312,7 +312,7 @@ export default function VerticleLayout(props) {
                             current_user,
                             (res) => {
                                 router.push("/");
-                                toast.success("User deleted successfully.")
+                                toast.success(translate("userDeleteSuccess"))
                                 logoutSuccess();
 
                             }, (err) => {

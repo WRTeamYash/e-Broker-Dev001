@@ -395,7 +395,7 @@ export default function AddPropertyTabs() {
 
         if (!isSizeValid) {
             // Display a toast error message
-            toast.error('Error: Selected image size should be 300KB or less.');
+            toast.error(translate("lessThen300Kb"));
             return;
         }
         // Append the uploaded ogImage files to the uploadedOgImages state
@@ -487,7 +487,7 @@ export default function AddPropertyTabs() {
     const handleNextTab = (e) => {
         if (!areFieldsFilled(tab1)) {
             // Display a toast message to fill in all required fields
-            toast.error("Please fill in all required fields ");
+            toast.error(translate("fillallfields"));
         } else {
             // Proceed to the next tab
             setValue(value + 1);
@@ -498,10 +498,10 @@ export default function AddPropertyTabs() {
 
         if (!areFieldsFilled1(tab6)) {
             // Display a toast message to fill in all required fields
-            toast.error("Please fill in all required fields");
+            toast.error(translate("fillallfields"));
         } else if (tab6?.ogImages.length === 0) {
             // Display a toast message indicating that ogImage is empty
-            toast.error("Please provide ogImage");
+            toast.error(translate("provideOg"));
         } else {
             // Proceed to the next tab
             setValue(value + 1);
@@ -512,7 +512,7 @@ export default function AddPropertyTabs() {
 
         if (!areLocationFieldsFilled(selectedLocationAddress)) {
             // Display a toast message to fill in all property address details in tab 4
-            toast.error("Please fill in all property address details.");
+            toast.error(translate("propAddDetials"));
         } else {
             // Proceed to the next tab
             setValue(value + 1);
@@ -526,23 +526,23 @@ export default function AddPropertyTabs() {
         try {
             if (!areFieldsFilled(tab1)) {
                 // Display a toast message to fill in all required fields for Tab 1
-                toast.error("Please fill in all required fields in Property Details");
+                toast.error(translate("propertyDetailsFeilds"));
 
                 // Switch to Tab 1
                 setValue(0);
             } else if (!areLocationFieldsFilled(selectedLocationAddress)) {
                 // Display a toast message to fill in all required location fields
-                toast.error("Please select a location with all required fields (city, state, country, and formatted_address)");
+                toast.error(translate("specsLoc"));
                 // Switch to Tab 4
                 setValue(4);
             } else if (!areFieldsFilled1(tab6)) {
                 // Display a toast message to fill in all required location fields
-                toast.error("Please fill in all required fields in Property Details");
+                toast.error(translate("propertyDetailsFeilds"));
                 // Switch to Tab 4
                 setValue(1);
             } else if (uploadedImages.length === 0) {
                 // Display a toast message if Title Image is not selected
-                toast.error("Please select a Title Image");
+                toast.error(translate("pleaseSelectTitleImg"));
 
             } else {
                 // Rest of your code remains the same

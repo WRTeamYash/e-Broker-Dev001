@@ -264,6 +264,7 @@ const UserDashboard = () => {
                             </div>
                         </div>
                     </div>
+
                     <div className="col-12">
                         <div className="table_content card bg-white">
                             <TableContainer
@@ -305,7 +306,6 @@ const UserDashboard = () => {
                                         {isLoading ? (
                                             <TableRow>
                                                 <TableCell colSpan={6} align="center">
-                                                    {/* Centered loader */}
                                                     <div>
                                                         <Loader />
                                                     </div>
@@ -367,7 +367,7 @@ const UserDashboard = () => {
                                                                         </Menu.Item>
                                                                     ) : null}
 
-                                                                    {elem.status === 1 ? (
+                                                                    {elem.status === 1 && elem.property_type !== 'sold' ? (
                                                                         <Menu.Item key="change_status" onClick={() => handleChangeStatusClick(elem.id, elem.property_type)}>
                                                                             <Button type="text" icon={<MdOutlineSell />}>
                                                                                 {translate("change status")}
@@ -409,7 +409,7 @@ const UserDashboard = () => {
                             {getFeaturedListing && getFeaturedListing.length > 0 ? (
                                 <div className="col-12">
 
-                                   <ReactPagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
+                                    <ReactPagination pageCount={Math.ceil(total / limit)} onPageChange={handlePageChange} />
                                 </div>
                             ) : null}
                         </div>

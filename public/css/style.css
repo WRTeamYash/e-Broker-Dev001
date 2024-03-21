@@ -177,6 +177,7 @@ body {
 .feature-modal .modal-header,
 .change-status-modal .modal-header {
   padding: 20px !important;
+  justify-content: space-between;
 }
 .login-modal .modal-title,
 .otp-modal .modal-title,

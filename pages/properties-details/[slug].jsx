@@ -42,11 +42,11 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         const { req } = context; // Extract query and request object from context
         console.log(req)
         
-        const { params } = req[Symbol.for('NextInternalRequestMeta')].__NEXT_INIT_URL;
+        const { params } = req[Symbol.for('NextInternalRequestMeta')]._nextMatch;
         // Accessing the slug property
-        //  const currentURL = req[Symbol.for('NextInternalRequestMeta')].__NEXT_INIT_URL;
+         const currentURL = req[Symbol.for('NextInternalRequestMeta')].__NEXT_INIT_URL;
 
-        const currentURL = `${req.headers.host}${req.url}`;
+        // const currentURL = `${req.headers.host}${req.url}`;
         console.log(currentURL)
         const slugValue = params.slug;
 

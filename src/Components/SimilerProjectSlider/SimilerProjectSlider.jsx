@@ -25,6 +25,7 @@ import LoginModal from "../LoginModal/LoginModal";
 const SimilerProjectSlider = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [getSimilerData, setSimilerData] = useState();
+    const [showModal, setShowModal] = useState(false);
 
     const isLoggedIn = useSelector((state) => state.User_signup);
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;

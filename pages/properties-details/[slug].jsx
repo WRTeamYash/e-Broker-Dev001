@@ -46,7 +46,7 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         // Accessing the slug property
         // const currentURL = req[Symbol.for('NextInternalRequestMeta')].__NEXT_INIT_URL;
         const slugValue = params.slug;
-        const currentURL = process.env.NEXT_PUBLIC_WEB_URL + '/' + slugValue + '/';
+        const currentURL = process.env.NEXT_PUBLIC_WEB_URL + '/properties-details/' + slugValue + '/';
        
 
         const seoData = await fetchDataFromSeo(slugValue);

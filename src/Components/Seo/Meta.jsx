@@ -3,6 +3,7 @@ import Head from 'next/head'
 
 const Meta = ({ title, description, keywords, ogImage, pathName }) => {
 
+  console.log("pathName",pathName )
   return (
     <Head>
       {/* title */}

@@ -148,14 +148,15 @@ export default function VerticleLayout(props) {
     // react query
     const { isLoading, data } = useQuery({
         queryKey: ['systemSettingsData',
-         isLoggedIn, 
+        isLoggedIn, 
          settingData?.svg_clr, 
          settingData?.subscription, 
          settingsData?.is_premium,
          settingsData?.system_color,
          settingsData?.category_background,
          settingsData?.sell_background,
-         settingData?.is_active
+         settingData?.is_active,
+         settingData?.seo_settings
         ],
         queryFn: SetSystemSettingsApi,
         staleTime:0 

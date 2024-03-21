@@ -8134,6 +8134,9 @@ embed svg path {
   justify-content: center;
   flex-direction: column;
 }
+#upcoming_projects .no-data-text{
+color: #fff !important;
+}
 .project_header {
   display: flex;
   flex-direction: row;

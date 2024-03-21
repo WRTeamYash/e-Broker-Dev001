@@ -69,6 +69,8 @@ export default function AddProjectsTabs() {
     const [lat, setLat] = useState();
     const [lng, setLng] = useState();
     const [uploadedDocuments, setUploadedDocuments] = useState([]);
+    const SettingsData = useSelector(settingsData);
+    const IsSEO = SettingsData?.seo_settings
 
     const userData = useSelector(userSignUpData);
     const userId = userData?.data?.data?.id;
@@ -836,11 +838,14 @@ export default function AddProjectsTabs() {
         <Box sx={{ width: "100%" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" id="addProp_tabs" style={{ overflowY: "auto" }}>
-                    <Tab label={translate("projectDeatils")} {...a11yProps(0)} />
-                    <Tab label={translate("SEOS")} {...a11yProps(1)} />
-                    <Tab label={translate("location")} {...a11yProps(2)} />
-                    <Tab label={translate("flor")} {...a11yProps(3)} />
-                    <Tab label={translate("I&V&D")} {...a11yProps(4)} />
+                <Tab label={translate("projectDeatils")} {...a11yProps(0)} />
+                    {IsSEO ? (
+                        <Tab label={translate("SEOS")} {...a11yProps(1)} />
+                    ) : null}
+                    <Tab label={translate("location")} {...a11yProps(IsSEO ? 2 : 1)} />
+                    <Tab label={translate("flor")} {...a11yProps(IsSEO ? 3 : 2)} />
+                    <Tab label={translate("I&V&D")} {...a11yProps(IsSEO ? 4 : 3)} />
+               
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -900,7 +905,7 @@ export default function AddProjectsTabs() {
                 </form>
             </CustomTabPanel>
 
-
+            {IsSEO ? (
             <CustomTabPanel value={value} index={1}>
                 <form>
                     <div className="row" id="add_prop_form_row">
@@ -962,8 +967,8 @@ export default function AddProjectsTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
-
-            <CustomTabPanel value={value} index={2}>
+            ):null}
+            <CustomTabPanel value={value} index={IsSEO ? 2 : 1}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
@@ -1010,7 +1015,7 @@ export default function AddProjectsTabs() {
             </CustomTabPanel>
 
 
-            <CustomTabPanel value={value} index={3}>
+            <CustomTabPanel value={value} index={IsSEO ? 3 : 2}>
                 <div className="add_prop_form">
                     {floorsContent}
                     <button className="add_floor" onClick={handleAddFloor}>{translate("addFloor")}</button>
@@ -1022,7 +1027,7 @@ export default function AddProjectsTabs() {
                 </div>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={4}>
+            <CustomTabPanel value={value} index={IsSEO ? 4 : 3}>
                 {/* <form> */}
                 <div className="row" id="add_prop_form_row">
                     <div className="col-sm-12 col-md-6 col-lg-3">

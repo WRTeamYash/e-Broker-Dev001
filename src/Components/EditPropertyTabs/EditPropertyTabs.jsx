@@ -61,6 +61,7 @@ export default function EditPropertyTabs() {
     const userData = useSelector(userSignUpData);
     const userId = userData?.data?.data?.id;
     const CurrencySymbol = SettingsData && SettingsData?.currency_symbol;
+    const IsSEO = SettingsData?.seo_settings
 
     const [value, setValue] = useState(0);
     const [getFacilities, setGetFacilities] = useState([]);
@@ -403,7 +404,7 @@ export default function EditPropertyTabs() {
         }));
     };
 
-    useEffect(() => {  }, [tab1, tab2, tab3, selectedLocationAddress, tab5, lat, lng, tab6]);
+    useEffect(() => { console.log(lat, lng)  }, [tab1, tab2, tab3, selectedLocationAddress, tab5, lat, lng, tab6]);
 
     const updateFileInput = (fieldId) => (e) => {
         const fileInput = e.target;
@@ -779,17 +780,18 @@ export default function EditPropertyTabs() {
             );
         }
     };
-
     return (
         <Box sx={{ width: "100%" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" id="addProp_tabs">
                     <Tab label={translate("propDeatils")} {...a11yProps(0)} />
-                    <Tab label={translate("SEOS")} {...a11yProps(1)} />
-                    <Tab label={translate("facilities")} {...a11yProps(2)} />
-                    <Tab label={translate("OTF")} {...a11yProps(3)} />
-                    <Tab label={translate("location")} {...a11yProps(4)} />
-                    <Tab label={translate("I&V")} {...a11yProps(5)} />
+                    {IsSEO ? (
+                        <Tab label={translate("SEOS")} {...a11yProps(1)} />
+                    ) : null}
+                    <Tab label={translate("facilities")} {...a11yProps(IsSEO ? 2 : 1)} />
+                    <Tab label={translate("OTF")} {...a11yProps(IsSEO ? 3 : 2)} />
+                    <Tab label={translate("location")} {...a11yProps(IsSEO ? 4 : 3)} />
+                    <Tab label={translate("I&V")} {...a11yProps(IsSEO ? 5 : 4)} />
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -816,13 +818,13 @@ export default function EditPropertyTabs() {
                                 </div>
                                 <div className="add_prop_fields">
                                     <span>{translate("category")}</span>
-                                    <select className="form-select" aria-label="Default select" name="category" value={tab1.category} onChange={handleCategoryChange}>
+                                    <select className="form-select categories" aria-label="Default select" name="category" value={tab1.category} onChange={handleCategoryChange}>
                                         <option value="">{translate("selectPropType")}</option>
                                         {/* Map over Categories and set the 'value' of each option to the 'id' */}
                                         {Categorydata &&
                                             Categorydata.map((ele, index) => (
-                                                <option key={index} value={ele.id}>
-                                                    {ele.category}
+                                                <option key={index} value={ele?.id}>
+                                                    {ele?.category}
                                                 </option>
                                             ))}
                                     </select>
@@ -918,6 +920,7 @@ export default function EditPropertyTabs() {
 
                                     </div>
                                 )}
+
                             </div>
                         </div>
                         <div className="col-sm-12 col-md-6">
@@ -935,6 +938,7 @@ export default function EditPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
+            {IsSEO ? (
 
             <CustomTabPanel value={value} index={1}>
                 <form>
@@ -953,7 +957,6 @@ export default function EditPropertyTabs() {
                                 <div className="add_prop_fields">
                                     <span>{translate("ogimage")}</span>
                                     <div className="dropbox">
-
                                         <div {...getRootPropsOgImage()} className={`dropzone ${isDragActiveOgImage ? "active" : ""}`}>
                                             <input {...getInputPropsOgImage()} />
                                             {uploadedOgImages.length === 0 ? (
@@ -978,7 +981,6 @@ export default function EditPropertyTabs() {
                                     <span>{translate("metakeyword")}</span>
                                     <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Keywords" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
                                 </div>
-
                                 <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Keywords")}</p>
                             </div>
                         </div>
@@ -986,6 +988,7 @@ export default function EditPropertyTabs() {
                             <div className="add_prop_fields">
                                 <span>{translate("metadescription")}</span>
                                 <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Description" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
+
                             </div>
                             <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Description")}</p>
                         </div>
@@ -998,26 +1001,24 @@ export default function EditPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
-
-
-
-            <CustomTabPanel value={value} index={2}>
+            ):null}
+            <CustomTabPanel value={value} index={IsSEO ? 2 : 1}>
                 <form>
                     <div className="row" id="add_prop_form_row">
-                        {categoryParameters.length > 0 ? (
+                        {categoryParameters && categoryParameters.length > 0 ? (
                             categoryParameters.map((ele, index) => (
                                 <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
                                     <div className="add_prop_fields">
-                                        <span>{ele.name}</span>
+                                        <span>{ele?.name}</span>
 
-                                        {ele.type_of_parameter === "number" ? (
+                                        {ele?.type_of_parameter === "number" ? (
                                             <>
                                                 <input
-                                                    value={tab2[ele.id] || ""}
+                                                    value={tab2[ele?.id] || ""}
                                                     type="number"
                                                     className="prop_number_input"
-                                                    id={`prop_title_input_${ele.id}`}
-                                                    onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}
+                                                    id={`prop_title_input_${ele?.id}`}
+                                                    onChange={(e) => handleTab2InputChange(ele?.id, e.target.value)}
                                                     onInput={(e) => {
                                                         if (e.target.value < 0) {
                                                             e.target.value = 0;
@@ -1025,20 +1026,20 @@ export default function EditPropertyTabs() {
                                                     }}
                                                 />
                                             </>
-                                        ) : ele.type_of_parameter === "checkbox" ? (
+                                        ) : ele?.type_of_parameter === "checkbox" ? (
                                             <>
                                                 <div className="row paramters_row">
-                                                    {ele.type_values.map((option, optionIndex) => (
+                                                    {ele?.type_values.map((option, optionIndex) => (
                                                         <div className="col-sm-12" key={optionIndex}>
                                                             <div className="custom-checkbox">
                                                                 <input
                                                                     type="checkbox"
-                                                                    id={`checkbox_${ele.id}_${optionIndex}`}
+                                                                    id={`checkbox_${ele?.id}_${optionIndex}`}
                                                                     className="custom-checkbox-input"
-                                                                    checked={tab2[`${ele.id}_${optionIndex}`] || false}
-                                                                    onChange={(e) => handleCheckboxChange(`${ele.id}_${optionIndex}`, e.target.checked)}
+                                                                    checked={tab2[`${ele?.id}_${optionIndex}`] || false}
+                                                                    onChange={(e) => handleCheckboxChange(`${ele?.id}_${optionIndex}`, e.target.checked)}
                                                                 />
-                                                                <label htmlFor={`checkbox_${ele.id}_${optionIndex}`} className="custom-checkbox-label">
+                                                                <label htmlFor={`checkbox_${ele?.id}_${optionIndex}`} className="custom-checkbox-label">
                                                                     {option}
                                                                 </label>
                                                             </div>
@@ -1046,25 +1047,25 @@ export default function EditPropertyTabs() {
                                                     ))}
                                                 </div>
                                             </>
-                                        ) : ele.type_of_parameter === "textbox" ? (
-                                            <input type="text" className="prop_textbox_input" id={`textbox_${ele.id}`} value={tab2[ele.id] || ""} onChange={(e) => handleTab2InputChange(ele.id, e.target.value)} />
-                                        ) : ele.type_of_parameter === "textarea" ? (
-                                            <textarea className="prop_textarea_input" rows={4} id={`textarea_${ele.id}`} value={tab2[ele.id] || ""} onChange={(e) => handleTab2InputChange(ele.id, e.target.value)} />
-                                        ) : ele.type_of_parameter === "radiobutton" ? (
+                                        ) : ele?.type_of_parameter === "textbox" ? (
+                                            <input type="text" className="prop_textbox_input" id={`textbox_${ele?.id}`} value={tab2[ele?.id] || ""} onChange={(e) => handleTab2InputChange(ele?.id, e.target.value)} />
+                                        ) : ele?.type_of_parameter === "textarea" ? (
+                                            <textarea className="prop_textarea_input" rows={4} id={`textarea_${ele?.id}`} value={tab2[ele?.id] || ""} onChange={(e) => handleTab2InputChange(ele?.id, e.target.value)} />
+                                        ) : ele?.type_of_parameter === "radiobutton" ? (
                                             <>
                                                 <div className="row paramters_row">
-                                                    {ele.type_values.map((option, optionIndex) => (
+                                                    {ele?.type_values.map((option, optionIndex) => (
                                                         <div className="col-sm-12" key={optionIndex}>
                                                             <div className="custom-radio">
                                                                 <input
                                                                     type="radio"
-                                                                    id={`radio_${ele.id}_${optionIndex}`}
-                                                                    name={`radio_${ele.id}`}
+                                                                    id={`radio_${ele?.id}_${optionIndex}`}
+                                                                    name={`radio_${ele?.id}`}
                                                                     className="custom-checkbox-input"
-                                                                    checked={tab2[ele.id] === option}
-                                                                    onChange={(e) => handleRadioChange(ele.id, option)}
+                                                                    checked={tab2[ele?.id] === option}
+                                                                    onChange={(e) => handleRadioChange(ele?.id, option)}
                                                                 />
-                                                                <label htmlFor={`radio_${ele.id}_${optionIndex}`} className="custom-checkbox-label">
+                                                                <label htmlFor={`radio_${ele?.id}_${optionIndex}`} className="custom-checkbox-label">
                                                                     {option}
                                                                 </label>
                                                             </div>
@@ -1072,27 +1073,26 @@ export default function EditPropertyTabs() {
                                                     ))}
                                                 </div>
                                             </>
-                                        ) : ele.type_of_parameter === "dropdown" ? (
+                                        ) : ele?.type_of_parameter === "dropdown" ? (
                                             <div className="custom-dropdown">
-                                                <select id={`dropdown_${ele.id}`} name={`dropdown_${ele.id}`} value={tab2[ele.id] || ""} onChange={(e) => handleTab2InputChange(ele.id, e.target.value)}>
-                                                    {ele.type_values.map((option, optionIndex) => (
+                                                <select id={`dropdown_${ele?.id}`} name={`dropdown_${ele?.id}`} value={tab2[ele?.id] || ""} onChange={(e) => handleTab2InputChange(ele?.id, e.target.value)}>
+                                                    {ele?.type_values.map((option, optionIndex) => (
                                                         <option key={optionIndex} value={option}>
                                                             {option}
                                                         </option>
                                                     ))}
                                                 </select>
                                             </div>
-                                        ) : ele.type_of_parameter === "file" ? (
+                                        ) : ele?.type_of_parameter === "file" ? (
                                             <>
-                                                <input type="file" id={`file-input_${ele.id}`} className="custom-file-input" onChange={updateFileInput(ele.id)} />
-                                                <label htmlFor={`file-input_${ele.id}`} className="custom-file01-label" id={`file-label_${ele.id}`}>
+                                                <input type="file" id={`file-input_${ele?.id}`} className="custom-file-input" onChange={updateFileInput(ele?.id)} />
+                                                <label htmlFor={`file-input_${ele?.id}`} className="custom-file01-label" id={`file-label_${ele?.id}`}>
                                                     Choose a file
                                                 </label>
+                                                {/* <p id={`selected-file-name_${ele?.id}`}></p> */}
                                             </>
-                                        ) : (
-                                            // Handle other input types or provide a default component here
-                                            <input type="text" id={`default_${ele.id}`} />
-                                        )}
+                                        ) : null
+                                        }
                                     </div>
                                 </div>
                             ))
@@ -1111,15 +1111,15 @@ export default function EditPropertyTabs() {
             </CustomTabPanel>
 
 
-            <CustomTabPanel value={value} index={3}>
+            <CustomTabPanel value={value} index={IsSEO ? 3 : 2}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         {getFacilities.length > 0
                             ? getFacilities.map((ele, index) => (
                                 <div className="col-sm-12 col-md-6 col-lg-3" key={index}>
                                     <div className="add_prop_fields">
-                                        <span>{ele.name}</span>
-                                        <input value={tab3[ele.id] || ""} type="number" placeholder="00 KM" className="prop_number_input" id={`prop_title_input_${ele.id}`} onChange={(e) => handleTab3InputChange(ele.id, e.target.value)} />
+                                        <span>{ele?.name}</span>
+                                        <input value={tab3[ele?.id] || ""} type="number" placeholder="00 KM" className="prop_number_input" id={`prop_title_input_${ele?.id}`} onChange={(e) => handleTab3InputChange(ele?.id, e.target.value)} />
                                     </div>
                                 </div>
                             ))
@@ -1134,7 +1134,7 @@ export default function EditPropertyTabs() {
             </CustomTabPanel>
 
 
-            <CustomTabPanel value={value} index={4}>
+            <CustomTabPanel value={value} index={IsSEO ? 4 : 3}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
@@ -1167,7 +1167,7 @@ export default function EditPropertyTabs() {
                         </div>
                         <div className="col-sm-12 col-md-6">
                             <div className="map">
-                                <GoogleMapBox apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} latitude={lat} longitude={lng} />
+                                <GoogleMapBox apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect}latitude={lat} longitude={lng} />
                             </div>
                         </div>
                     </div>
@@ -1181,7 +1181,7 @@ export default function EditPropertyTabs() {
             </CustomTabPanel>
 
 
-            <CustomTabPanel value={value} index={5}>
+            <CustomTabPanel value={value} index={IsSEO ? 5 : 4}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6 col-lg-3">
@@ -1246,7 +1246,7 @@ export default function EditPropertyTabs() {
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
                                 <span>{translate("videoLink")}</span>
-                                <input type="input" id="prop_title_input" name="videoLink" placeholder="Eneter Video" value={tab5.videoLink} onChange={handleVideoInputChange} />
+                                <input type="input" id="prop_title_input" name="videoLink" placeholder="Enter Video Link" value={tab5.videoLink} onChange={handleVideoInputChange} />
                             </div>
                         </div>
                     </div>
@@ -1258,6 +1258,7 @@ export default function EditPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
+
         </Box>
     );
 }

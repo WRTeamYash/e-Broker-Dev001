@@ -601,54 +601,55 @@ const HomePage = () => {
                 </section>
 
                 {/* ===== UPCOMING PROJECTS SECTION ====== */}
-                <section id="upcoming_projects" style={{ marginBottom: !isPremiumUser ? '100px' : '0' }}>
-                    <div className="container">
-                        <div className="project_header">
-                            <div>
-                                <h3>
-                                    {translate("upcoming")}{" "}
-                                    <span>
-                                        <span className="highlight"> {translate("projects")}</span>
-                                    </span>{" "}
-                                </h3>
-                            </div>
-                            <div className="rightside_project_header">
-                                <Link href="/all-projects">
-                                    <button className="learn-more-project" id="viewall_projects">
-                                        <span aria-hidden="true" className="circle">
-                                            <div className="icon_div">
-                                                <span className="icon arrow">
-                                                    <BsArrowRight />
-                                                </span>
-                                            </div>
-                                        </span>
-                                        <span className="button-text">{translate("seeAllProjects")}</span>
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="mobile-headline-view-project">
+                {getProjects && getProjects?.length > 0 ? (
 
-                            <div id="mobile_headline_projects">
-                                <div className="main_headline_projects">
-                                    <span className="headline">
+                    <section id="upcoming_projects" style={{ marginBottom: !isPremiumUser ? '100px' : '0' }}>
+                        <div className="container">
+                            <div className="project_header">
+                                <div>
+                                    <h3>
                                         {translate("upcoming")}{" "}
                                         <span>
                                             <span className="highlight"> {translate("projects")}</span>
                                         </span>{" "}
-                                    </span>
+                                    </h3>
                                 </div>
-                                <div>
+                                <div className="rightside_project_header">
                                     <Link href="/all-projects">
-                                        <button className="mobileViewArrowProject">
-                                            <IoIosArrowForward size={25} />
+                                        <button className="learn-more-project" id="viewall_projects">
+                                            <span aria-hidden="true" className="circle">
+                                                <div className="icon_div">
+                                                    <span className="icon arrow">
+                                                        <BsArrowRight />
+                                                    </span>
+                                                </div>
+                                            </span>
+                                            <span className="button-text">{translate("seeAllProjects")}</span>
                                         </button>
                                     </Link>
                                 </div>
                             </div>
-                        </div>
+                            <div className="mobile-headline-view-project">
 
-                        {getProjects && getProjects?.length > 0 ? (
+                                <div id="mobile_headline_projects">
+                                    <div className="main_headline_projects">
+                                        <span className="headline">
+                                            {translate("upcoming")}{" "}
+                                            <span>
+                                                <span className="highlight"> {translate("projects")}</span>
+                                            </span>{" "}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <Link href="/all-projects">
+                                            <button className="mobileViewArrowProject">
+                                                <IoIosArrowForward size={25} />
+                                            </button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div id="projects_cards" dir={language.rtl === "1" ? "rtl" : "ltr"}>
                                 <Swiper
                                     slidesPerView={4}
@@ -693,31 +694,32 @@ const HomePage = () => {
                                 </Swiper>
                             </div>
 
-                        ) : <div className="no-data-text">
-                            {translate("addDatafromAdmin")}
-                        </div>}
-                    </div>
 
-                    {!isPremiumUser &&
-                        <div className="subscribeForProject">
-                            <div className="container">
+                        </div>
 
-                                <div className="card subcribeCard">
-                                    <h3>
-                                        {translate("ourPremium")}
-                                    </h3>
-                                    <Link href="/subrciption-plan" className="subscribeNoButton">
-                                        {translate("subscribeNow")} {""}
-                                        <FaArrowRight size={20} />
-                                    </Link>
+                        {!isPremiumUser &&
+                            <div className="subscribeForProject">
+                                <div className="container">
+
+                                    <div className="card subcribeCard">
+                                        <h3>
+                                            {translate("ourPremium")}
+                                        </h3>
+                                        <Link href="/subrciption-plan" className="subscribeNoButton">
+                                            {translate("subscribeNow")} {""}
+                                            <FaArrowRight size={20} />
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    }
+                        }
 
-                </section>
+                    </section>
 
-
+                ) : null}
+                {/* ) : <div className="no-data-text">
+                            {translate("noData")}
+                        </div>} */}
 
                 {/* ===== PROPERTIES NEARBY CITY  SECTION ====== */}
                 <section id="main_citySection">

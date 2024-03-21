@@ -60,12 +60,13 @@ export default function AddPropertyTabs() {
     const [categoryParameters, setCategoryParameters] = useState([]);
     const [selectedLocationAddress, setSelectedLocationAddress] = useState("");
 
-    const PackageData = useSelector(settingsData);
+    const systemSettingsData = useSelector(settingsData);
     const userData = useSelector(userSignUpData);
     const userId = userData?.data?.data?.id;
-    const CurrencySymbol = PackageData && PackageData.currency_symbol;
+    const CurrencySymbol = systemSettingsData && systemSettingsData.currency_symbol;
     const Categorydata = useSelector(categoriesCacheData);
     const lang = useSelector(languageData);
+    const IsSEO = systemSettingsData?.seo_settings
 
     useEffect(() => { }, [lang]);
     const [tab1, setTab1] = useState({
@@ -535,11 +536,13 @@ export default function AddPropertyTabs() {
                 toast.error(translate("specsLoc"));
                 // Switch to Tab 4
                 setValue(4);
-            } else if (!areFieldsFilled1(tab6)) {
-                // Display a toast message to fill in all required location fields
-                toast.error(translate("propertyDetailsFeilds"));
-                // Switch to Tab 4
-                setValue(1);
+            } else if (IsSEO) {
+                if (!areFieldsFilled1(tab6)) {
+                    // Display a toast message to fill in all required location fields
+                    toast.error(translate("propertyDetailsFeilds"));
+                    // Switch to Tab 4
+                    setValue(1);
+                }
             } else if (uploadedImages.length === 0) {
                 // Display a toast message if Title Image is not selected
                 toast.error(translate("pleaseSelectTitleImg"));
@@ -604,7 +607,7 @@ export default function AddPropertyTabs() {
                 );
             }
         } catch (error) {
-            
+
             console.error("An error occurred:", error);
             toast.error("An error occurred. Please try again later.");
         }
@@ -615,11 +618,13 @@ export default function AddPropertyTabs() {
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" id="addProp_tabs">
                     <Tab label={translate("propDeatils")} {...a11yProps(0)} />
-                    <Tab label={translate("SEOS")} {...a11yProps(1)} />
-                    <Tab label={translate("facilities")} {...a11yProps(2)} />
-                    <Tab label={translate("OTF")} {...a11yProps(3)} />
-                    <Tab label={translate("location")} {...a11yProps(4)} />
-                    <Tab label={translate("I&V")} {...a11yProps(5)} />
+                    {IsSEO ? (
+                        <Tab label={translate("SEOS")} {...a11yProps(1)} />
+                    ) : null}
+                    <Tab label={translate("facilities")} {...a11yProps(IsSEO ? 2 : 1)} />
+                    <Tab label={translate("OTF")} {...a11yProps(IsSEO ? 3 : 2)} />
+                    <Tab label={translate("location")} {...a11yProps(IsSEO ? 4 : 3)} />
+                    <Tab label={translate("I&V")} {...a11yProps(IsSEO ? 5 : 4)} />
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -766,71 +771,71 @@ export default function AddPropertyTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
+            {IsSEO ? (
 
-
-            <CustomTabPanel value={value} index={1}>
-                <form>
-                    <div className="row" id="add_prop_form_row">
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div id="add_prop_form">
-                                <div className="add_prop_fields">
-                                    <span>{translate("metatitle")}</span>
-                                    <input type="text" id="prop_title_input" placeholder="Enter Property Meta Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
-                                </div>
-                                <p style={{ color: "#FF0000", fontSize: "smaller" }}> {translate("Warning: Meta Title")}</p>
-                            </div>
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div id="add_prop_form">
-                                <div className="add_prop_fields">
-                                    <span>{translate("ogimage")}</span>
-                                    <div className="dropbox">
-                                        <div {...getRootPropsOgImage()} className={`dropzone ${isDragActiveOgImage ? "active" : ""}`}>
-                                            <input {...getInputPropsOgImage()} />
-                                            {uploadedOgImages.length === 0 ? (
-                                                isDragActiveOgImage ? (
-                                                    <span>{translate("dropFiles")}</span>
-                                                ) : (
-                                                    <span>
-                                                        {translate("dragFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span>
-                                                    </span>
-                                                )
-                                            ) : null}
-                                        </div>
-                                        <div>{ogImageFiles}</div>
+                <CustomTabPanel value={value} index={1}>
+                    <form>
+                        <div className="row" id="add_prop_form_row">
+                            <div className="col-sm-12 col-md-6 col-lg-3">
+                                <div id="add_prop_form">
+                                    <div className="add_prop_fields">
+                                        <span>{translate("metatitle")}</span>
+                                        <input type="text" id="prop_title_input" placeholder="Enter Property Meta Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
                                     </div>
+                                    <p style={{ color: "#FF0000", fontSize: "smaller" }}> {translate("Warning: Meta Title")}</p>
                                 </div>
-
                             </div>
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div id="add_prop_form">
+                            <div className="col-sm-12 col-md-6 col-lg-3">
+                                <div id="add_prop_form">
+                                    <div className="add_prop_fields">
+                                        <span>{translate("ogimage")}</span>
+                                        <div className="dropbox">
+                                            <div {...getRootPropsOgImage()} className={`dropzone ${isDragActiveOgImage ? "active" : ""}`}>
+                                                <input {...getInputPropsOgImage()} />
+                                                {uploadedOgImages.length === 0 ? (
+                                                    isDragActiveOgImage ? (
+                                                        <span>{translate("dropFiles")}</span>
+                                                    ) : (
+                                                        <span>
+                                                            {translate("dragFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span>
+                                                        </span>
+                                                    )
+                                                ) : null}
+                                            </div>
+                                            <div>{ogImageFiles}</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div className="col-sm-12 col-md-6 col-lg-3">
+                                <div id="add_prop_form">
+                                    <div className="add_prop_fields">
+                                        <span>{translate("metakeyword")}</span>
+                                        <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Keywords" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
+                                    </div>
+                                    <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Keywords")}</p>
+                                </div>
+                            </div>
+                            <div className="col-sm-12 col-md-6 col-lg-3">
                                 <div className="add_prop_fields">
-                                    <span>{translate("metakeyword")}</span>
-                                    <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Keywords" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
+                                    <span>{translate("metadescription")}</span>
+                                    <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Description" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
+
                                 </div>
-                                <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Keywords")}</p>
+                                <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Description")}</p>
                             </div>
                         </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div className="add_prop_fields">
-                                <span>{translate("metadescription")}</span>
-                                <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Description" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
 
-                            </div>
-                            <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Description")}</p>
+                        <div className="nextButton">
+                            <button type="button" onClick={handleNextTab2}>
+                                {translate("next")}
+                            </button>
                         </div>
-                    </div>
-
-                    <div className="nextButton">
-                        <button type="button" onClick={handleNextTab2}>
-                            {translate("next")}
-                        </button>
-                    </div>
-                </form>
-            </CustomTabPanel>
-
-            <CustomTabPanel value={value} index={2}>
+                    </form>
+                </CustomTabPanel>
+            ) : null}
+            <CustomTabPanel value={value} index={IsSEO ? 2 : 1}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         {categoryParameters && categoryParameters.length > 0 ? (
@@ -939,7 +944,7 @@ export default function AddPropertyTabs() {
             </CustomTabPanel>
 
 
-            <CustomTabPanel value={value} index={3}>
+            <CustomTabPanel value={value} index={IsSEO ? 3 : 2}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         {getFacilities.length > 0
@@ -962,7 +967,7 @@ export default function AddPropertyTabs() {
             </CustomTabPanel>
 
 
-            <CustomTabPanel value={value} index={4}>
+            <CustomTabPanel value={value} index={IsSEO ? 4 : 3}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
@@ -1009,7 +1014,7 @@ export default function AddPropertyTabs() {
             </CustomTabPanel>
 
 
-            <CustomTabPanel value={value} index={5}>
+            <CustomTabPanel value={value} index={IsSEO ? 5 : 4}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6 col-lg-3">

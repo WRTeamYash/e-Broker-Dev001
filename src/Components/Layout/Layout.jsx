@@ -50,7 +50,8 @@ const Layout = ({ children }) => {
          settingsData?.system_color,
          settingsData?.category_background,
          settingsData?.sell_background,
-         settingData?.is_active
+         settingData?.is_active,
+         settingData?.seo_settings
         ],
         queryFn: SetSystemSettingsApi,
         staleTime:0 

@@ -21,7 +21,7 @@ const Meta = ({ title, description, keywords, ogImage, pathName }) => {
       <meta property='og:image:type' content='image/jpg' />
       <meta property='og:image:width' content='1080' />
       <meta property='og:image:height' content='608' />
-      <meta property='og:url' content={pathName ? pathName : process.env.NEXT_PUBLIC_PATHNAME} />
+      <meta property='og:url' content={process.env.NEXT_PUBLIC_WEB_URL} />
       <meta property='og:type' content='website' />
 
       {/*<!-- Twitter Meta Tags -->*/}

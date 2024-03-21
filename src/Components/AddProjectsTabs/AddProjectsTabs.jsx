@@ -63,8 +63,9 @@ export default function AddProjectsTabs() {
     const userData = useSelector(userSignUpData);
     const userId = userData?.data?.data?.id;
     const Categorydata = useSelector(categoriesCacheData);
-    const lang = useSelector(languageData);
-
+    const lang = useSelector(languageData)
+    const systemSettingsData = useSelector(settingsData);
+    const IsSEO = systemSettingsData?.seo_settings
     useEffect(() => { }, [lang]);
 
 
@@ -594,11 +595,13 @@ export default function AddProjectsTabs() {
                 toast.error(translate("specsLoc"));
                 // Switch to Tab 4
                 setValue(4);
-            } else if (!areFieldsFilled1(tab6)) {
-                // Display a toast message to fill in all required location fields
-                toast.error(translate("allfeildforProjects"));
-                // Switch to Tab 4
-                setValue(1);
+            } else if (IsSEO) {
+                if(!areFieldsFilled1(tab6)){
+                    // Display a toast message to fill in all required location fields
+                    toast.error(translate("allfeildforProjects"));
+                    // Switch to Tab 4
+                    setValue(1);
+                }
             } else if (uploadedImages.length === 0) {
                 // Display a toast message if Title Image is not selected
                 toast.error(translate("pleaseSelectTitleImg"));
@@ -673,10 +676,12 @@ export default function AddProjectsTabs() {
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" id="addProp_tabs">
                     <Tab label={translate("projectDeatils")} {...a11yProps(0)} />
-                    <Tab label={translate("SEOS")} {...a11yProps(1)} />
-                    <Tab label={translate("location")} {...a11yProps(2)} />
-                    <Tab label={translate("flor")} {...a11yProps(3)} />
-                    <Tab label={translate("I&V&D")} {...a11yProps(4)} />
+                    {IsSEO ? (
+                        <Tab label={translate("SEOS")} {...a11yProps(1)} />
+                    ) : null}
+                    <Tab label={translate("location")} {...a11yProps(IsSEO ? 2 : 1)} />
+                    <Tab label={translate("flor")} {...a11yProps(IsSEO ? 3 : 2)} />
+                    <Tab label={translate("I&V&D")} {...a11yProps(IsSEO ? 4 : 3)} />
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -736,7 +741,7 @@ export default function AddProjectsTabs() {
                 </form>
             </CustomTabPanel>
 
-
+            {IsSEO ? (
             <CustomTabPanel value={value} index={1}>
                 <form>
                     <div className="row" id="add_prop_form_row">
@@ -798,8 +803,8 @@ export default function AddProjectsTabs() {
                     </div>
                 </form>
             </CustomTabPanel>
-
-            <CustomTabPanel value={value} index={2}>
+            ):null}
+            <CustomTabPanel value={value} index={IsSEO ? 2 : 1}>
                 <form>
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
@@ -846,7 +851,7 @@ export default function AddProjectsTabs() {
             </CustomTabPanel>
 
 
-            <CustomTabPanel value={value} index={3}>
+            <CustomTabPanel value={value} index={IsSEO ? 3 : 2}>
                 <div className="add_prop_form">
                     {floorsContent}
                     <button className="add_floor" onClick={handleAddFloor}>{translate("addFloor")}</button>
@@ -858,7 +863,7 @@ export default function AddProjectsTabs() {
                 </div>
             </CustomTabPanel>
 
-            <CustomTabPanel value={value} index={4}>
+            <CustomTabPanel value={value} index={IsSEO ? 4 : 3}>
                 {/* <form> */}
                 <div className="row" id="add_prop_form_row">
                     <div className="col-sm-12 col-md-6 col-lg-3">

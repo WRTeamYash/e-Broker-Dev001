@@ -27,6 +27,7 @@ import OwnerDeatilsCard from "../OwnerDeatilsCard/OwnerDeatilsCard";
 import PremiumOwnerDetailsCard from "../OwnerDeatilsCard/PremiumOwnerDetailsCard";
 import Layout from "../Layout/Layout";
 import { message } from "antd";
+import LoginModal from "../LoginModal/LoginModal";
 
 
 const PropertyDetails = () => {
@@ -161,15 +162,15 @@ const PropertyDetails = () => {
         }
     };
     const videoLink = getPropData && getPropData.video_link;
-  
+
     const videoId = videoLink ? (videoLink.includes('youtu.be') ? videoLink.split('/').pop().split('?')[0] : videoLink.split('v=')[1].split('&')[0]) : null;
     const backgroundImageUrl = videoId ? `https://img.youtube.com/vi/${videoId}/sddefault.jpg` : PlaceHolderImg;
-    
+
     const handleVideoReady = (state) => {
         setPlaying(state);
         setShowThumbnail(!state);
     };
-    
+
 
     const handleSeek = (e) => {
         if (e && typeof e.playedSeconds === "number") {
@@ -189,7 +190,7 @@ const PropertyDetails = () => {
         setManualPause(true); // Manually pause the video
         setShowThumbnail(true); // Reset showThumbnail to true
     };
-    
+
 
     const galleryPhotos = getPropData && getPropData.gallery;
 
@@ -785,6 +786,10 @@ const PropertyDetails = () => {
                     </Layout >
                 </>
             )}
+
+            {showModal &&
+                <LoginModal isOpen={showModal} onClose={handleCloseModal} />
+            }
         </>
     );
 };

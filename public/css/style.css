@@ -164,19 +164,23 @@ body {
   color: var(--primary-text-color02);
   border-radius: 100%;
   padding: 0px;
-  /* width: 30px; */
-  /* height: 30px; */
+  
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
+.modal-header{
+  justify-content: space-between;
+}
 /*================= LOGIN MODAL CSS ============= */
 .otp-modal .modal-header,
 .login-modal .modal-header,
 .feature-modal .modal-header,
 .change-status-modal .modal-header {
   padding: 20px !important;
+  justify-content: space-between;
+}
+.offcanvas-header{
   justify-content: space-between;
 }
 .login-modal .modal-title,

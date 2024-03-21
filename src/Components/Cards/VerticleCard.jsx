@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 import { ImageToSvg } from "./ImageToSvg";
 import Swal from "sweetalert2";
+import LoginModal from "../LoginModal/LoginModal";
 
 function VerticalCard({ ele, removeCard, onImageLoad }) {
 

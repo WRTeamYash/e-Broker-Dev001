@@ -585,7 +585,7 @@ const SubscriptionPlan = () => {
                         {countryCodes.length > 0 ? (
                             <Select
                                 showSearch // Enable search functionality
-                                filterOption={(input, option) => option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0} // Define the filter logic
+                                filterOption={(input, option) => option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0} 
                                 onChange={handleCountryCodeChange}
                                 placeholder="Select a country code"
                                 value={stripeForm.country}
@@ -612,7 +612,9 @@ const SubscriptionPlan = () => {
 
 
 
-            <LoginModal isOpen={showModal} onClose={handleCloseModal} />
+            {showModal &&
+                <LoginModal isOpen={showModal} onClose={handleCloseModal} />
+            }
         </Layout >
     )
 }

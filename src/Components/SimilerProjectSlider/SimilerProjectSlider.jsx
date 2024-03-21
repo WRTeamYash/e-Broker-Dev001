@@ -20,6 +20,7 @@ import ProjectCard from "../Cards/ProjectCard";
 import Swal from "sweetalert2";
 import { settingsData } from "@/store/reducer/settingsSlice";
 import ProjectCardSkeleton from "../Skeleton/ProjectCardSkeleton";
+import LoginModal from "../LoginModal/LoginModal";
 
 const SimilerProjectSlider = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -178,6 +179,9 @@ const SimilerProjectSlider = () => {
                     </div>
                 </>
             ) : null}
+             {showModal &&
+                <LoginModal isOpen={showModal} onClose={handleCloseModal} />
+            }
         </div>
     );
 };

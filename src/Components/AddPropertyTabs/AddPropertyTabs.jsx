@@ -391,7 +391,7 @@ export default function AddPropertyTabs() {
     // Seo OG img
     const onDropOgImage = useCallback((acceptedFiles) => {
         // Log the acceptedFiles to check if they are being received correctly
-      
+
         // Append the uploaded ogImage files to the uploadedOgImages state
         setUploadedOgImages((prevImages) => [...prevImages, ...acceptedFiles]);
         setTab6((prevState) => ({
@@ -516,7 +516,6 @@ export default function AddPropertyTabs() {
 
     const handlePostproperty = async (e) => {
         e.preventDefault();
-
         try {
             if (!areFieldsFilled(tab1)) {
                 // Display a toast message to fill in all required fields for Tab 1
@@ -529,14 +528,7 @@ export default function AddPropertyTabs() {
                 toast.error(translate("specsLoc"));
                 // Switch to Tab 4
                 setValue(4);
-            } else if (IsSEO) {
-                if (!areFieldsFilled1(tab6)) {
-                    // Display a toast message to fill in all required location fields
-                    toast.error(translate("propertyDetailsFeilds"));
-                    // Switch to Tab 4
-                    setValue(1);
-                }
-            } else if (uploadedImages.length === 0) {
+            }  else if (uploadedImages.length === 0) {
                 // Display a toast message if Title Image is not selected
                 toast.error(translate("pleaseSelectTitleImg"));
 
@@ -1078,7 +1070,7 @@ export default function AddPropertyTabs() {
                     </div>
 
                     <div className="updateButton">
-                        <button type="submit" onClick={handlePostproperty}>
+                        <button type="submit" onClick={(e) => handlePostproperty(e)}>
                             {translate("submitProp")}
                         </button>
                     </div>

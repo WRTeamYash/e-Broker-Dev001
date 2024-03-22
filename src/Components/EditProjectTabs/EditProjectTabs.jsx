@@ -745,11 +745,6 @@ export default function AddProjectsTabs() {
                 toast.error(translate("specsLoc"));
                 // Switch to Tab 4
                 setValue(4);
-            } else if (!areFieldsFilled1(tab6)) {
-                // Display a toast message to fill in all required location fields
-                toast.error(translate("allfeildforProjects"));
-                // Switch to Tab 4
-                setValue(1);
             } else if (uploadedImages.length === 0) {
                 // Display a toast message if Title Image is not selected
                 toast.error(translate("pleaseSelectTitleImg"));

@@ -199,6 +199,7 @@ const Nav = () => {
             if (result.isConfirmed) {
                 // Clear the recaptchaVerifier by setting it to null
                 window.recaptchaVerifier = null;
+                
                 // Perform the logout action
                 logoutSuccess();
                 signOut()

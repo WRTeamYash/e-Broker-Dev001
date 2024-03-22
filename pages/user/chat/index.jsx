@@ -1,5 +1,4 @@
 
-
 import React from 'react'
 import Messages from '@/Components/Messages/Messages';
 import axios from "axios";
@@ -19,18 +18,18 @@ const fetchDataFromSeo = async (page) => {
     throw error; // Re-throw the error to be caught by getServerSideProps
   }
 };
-const index = ({ seoData, currentURL }) => {
+const Index = ({ seoData, currentURL }) => {
 
   return (
     <>
       <Meta
-        title={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_title}
-        description={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_description}
-        keywords={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_keywords}
-        ogImage={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_image}
+         title={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_title}
+         description={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_description}
+         keywords={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_keywords}
+         ogImage={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_image}
         pathName={currentURL}
       />
-      <Messages />
+        <Messages />
     </>
   )
 }
@@ -39,7 +38,9 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
   serverSidePropsFunction = async (context) => {
     const { req } = context; // Extract query and request object from context
 
-    const currentURL = `${req.headers.host}${req.url}`;
+    // const currentURL = `${req.headers.host}${req.url}`;
+    const currentURL = process.env.NEXT_PUBLIC_WEB_URL + '/chat/';
+
     const seoData = await fetchDataFromSeo(req.url);
     // Pass the fetched data as props to the page component
 
@@ -53,4 +54,4 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
 }
 
 export const getServerSideProps = serverSidePropsFunction;
-export default index
+export default Index

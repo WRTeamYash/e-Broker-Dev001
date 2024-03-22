@@ -40,7 +40,9 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
   serverSidePropsFunction = async (context) => {
     const { req } = context; // Extract query and request object from context
 
-    const currentURL = `${req.headers.host}${req.url}`;
+    // const currentURL = `${req.headers.host}${req.url}`;
+    const currentURL = process.env.NEXT_PUBLIC_WEB_URL + '/contact-us/';
+
     const seoData = await fetchDataFromSeo(req.url);
     // Pass the fetched data as props to the page component
 

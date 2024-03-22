@@ -41,7 +41,9 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
     serverSidePropsFunction = async (context) => {
         const { req } = context; // Extract query and request object from context
 
-        const currentURL = `${req.headers.host}${req.url}`;
+        // const currentURL = `${req.headers.host}${req.url}`;
+        const currentURL = process.env.NEXT_PUBLIC_WEB_URL + '/properties/all-properties/';
+
         const seoData = await fetchDataFromSeo(req.url);
 
         return {

@@ -45,7 +45,10 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         const slugValue = params.slug;
 
 
-        const currentURL = `${req.headers.host}${req.url}`;
+        const currentURL = process.env.NEXT_PUBLIC_WEB_URL + '/properties/categories/' + slugValue + '/';
+
+
+        // const currentURL = `${req.headers.host}${req.url}`;
 
         const seoData = await fetchDataFromSeo(slugValue);
 

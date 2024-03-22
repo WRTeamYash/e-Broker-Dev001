@@ -40,14 +40,12 @@ let serverSidePropsFunction = null;
 if (process.env.NEXT_PUBLIC_SEO === "true") {
     serverSidePropsFunction = async (context) => {
         const { req } = context; // Extract query and request object from context
-        console.log(req)
 
         const { params } = req[Symbol.for('NextInternalRequestMeta')]._nextMatch;
         // Accessing the slug property
         // const currentURL = req[Symbol.for('NextInternalRequestMeta')].__NEXT_INIT_URL;
         const slugValue = params.slug;
         const currentURL = process.env.NEXT_PUBLIC_WEB_URL + '/properties-details/' + slugValue + '/';
-       console.log(currentURL)
 
         const seoData = await fetchDataFromSeo(slugValue);
         return {

@@ -57,7 +57,9 @@ if (process.env.NEXT_PUBLIC_SEO === "true") {
         // Accessing the slug property
         const slugValue = params.slug;
 
-        const currentURL = `${req.headers.host}${req.url}`;
+        // const currentURL = `${req.headers.host}${req.url}`;
+        const currentURL = process.env.NEXT_PUBLIC_WEB_URL + '/properties/city/' + slugValue + '/';;
+
 
         const seoData = await fetchDataFromSeo(slugValue);
 

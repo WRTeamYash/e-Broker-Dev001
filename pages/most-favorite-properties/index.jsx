@@ -27,31 +27,33 @@ const Index = ({ seoData, currentURL }) => {
   return (
     <>
       <Meta
-         title={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_title}
-         description={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_description}
-         keywords={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_keywords}
-         ogImage={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_image}
+        title={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_title}
+        description={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_description}
+        keywords={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_keywords}
+        ogImage={seoData?.data && seoData.data.length > 0 && seoData.data[0].meta_image}
         pathName={currentURL}
       />
-        <MostFavPrioperties />
+      <MostFavPrioperties />
     </>
   );
 };
 let serverSidePropsFunction = null;
 if (process.env.NEXT_PUBLIC_SEO === "true") {
-    serverSidePropsFunction = async (context) => {
-        const { req } = context; // Extract query and request object from context
+  serverSidePropsFunction = async (context) => {
+    const { req } = context; // Extract query and request object from context
 
-        const currentURL = `${req.headers.host}${req.url}`;
-        const seoData = await fetchDataFromSeo(req.url);
-      
-        return {
-            props: {
-                seoData,
-                currentURL,
-            },
-        };
+    // const currentURL = `${req.headers.host}${req.url}`;
+    const currentURL = process.env.NEXT_PUBLIC_WEB_URL + '/most-favorite-properties/';
+
+    const seoData = await fetchDataFromSeo(req.url);
+
+    return {
+      props: {
+        seoData,
+        currentURL,
+      },
     };
+  };
 }
 
 export const getServerSideProps = serverSidePropsFunction;

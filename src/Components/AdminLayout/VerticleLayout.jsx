@@ -181,7 +181,7 @@ export default function VerticleLayout(props) {
 
         checkMessagingSupport();
     }, [notificationPermissionGranted, isMessagingSupported]);
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const lang = useSelector(languageData);
     const router = useRouter();
     const pathname = usePathname();

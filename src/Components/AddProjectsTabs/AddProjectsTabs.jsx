@@ -445,12 +445,21 @@ export default function AddProjectsTabs() {
         const updatedFloorFields = [...floorFields];
         updatedFloorFields.splice(index, 1);
         setFloorFields(updatedFloorFields);
+    
         // Update currentFloorIndex if it was removed
         if (index === currentFloorIndex) {
             setCurrentFloorIndex(Math.max(0, index - 1));
         }
+    
+        // Update indices of subsequent floors
+        for (let i = index; i < updatedFloorFields.length; i++) {
+            // Update floor title
+            updatedFloorFields[i].floorTitle = `${getOrdinal(i)} Floor`; // Update floor title with new index
+            // No need to update floor images index as images are stored separately in each floor
+        }
+    
+        setFloorFields(updatedFloorFields);
     };
-
     const handleFloorInputChange = (index, e) => {
         const { name, value } = e.target;
         const updatedFloorFields = [...floorFields];
@@ -459,15 +468,16 @@ export default function AddProjectsTabs() {
     };
 
     const onDropFloorImgs = (floorIndex, acceptedFiles) => {
-
         setFloorFields(prevFloorFields => {
             const updatedFloorFields = [...prevFloorFields];
-
-            updatedFloorFields[floorIndex].floorImgs = [...updatedFloorFields[floorIndex]?.floorImgs, ...acceptedFiles];
+            if (!updatedFloorFields[floorIndex]) {
+                updatedFloorFields[floorIndex] = { floorTitle: "", floorImgs: [] }; // Initialize with an empty object
+            }
+            const currentFloorImgs = updatedFloorFields[floorIndex].floorImgs || []; // Use a default value if floorImgs is undefined
+            updatedFloorFields[floorIndex].floorImgs = [...currentFloorImgs, ...acceptedFiles];
             return updatedFloorFields;
         });
     };
-
     const removeFloorImgs = (floorIndex, imgIndex) => {
         setFloorFields(prevFloorFields => {
             const updatedFloorFields = [...prevFloorFields];
@@ -538,7 +548,7 @@ export default function AddProjectsTabs() {
             <div className="col-sm-12 col-md-6">
                 <div className="florimgandremove">
                     <div className="add_prop_fields">
-                        <span>{getOrdinal(floorIndex)} Floor Images</span>
+                        <span>{getOrdinal(floorIndex)} Floor Image</span>
                         <div className="dropbox">
                             <div {...getRootPropsFloor(floorIndex)} className={`dropzone ${isDragActiveFloor ? "active" : ""}`}>
                                 <input {...getInputPropsFloor(floorIndex)} />

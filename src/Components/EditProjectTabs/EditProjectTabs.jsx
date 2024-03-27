@@ -63,11 +63,17 @@ export default function AddProjectsTabs() {
     const [uploadedImages, setUploadedImages] = useState([]);
     const [galleryImages, setGalleryImages] = useState([]); // State to store uploaded images
     const [uploadedOgImages, setUploadedOgImages] = useState([]); // State to store uploaded images
-    const [selectedLocationAddress, setSelectedLocationAddress] = useState("");
+    const [selectedLocationAddress, setSelectedLocationAddress] = useState({
+        lat: "",
+        lng: "",
+        city: "",
+        state: "",
+        country: "",
+        formatted_address: ""
+    });
     const [floorFields, setFloorFields] = useState([{ id: "", floorTitle: "", floorImgs: [] }]);
     const [currentFloorIndex, setCurrentFloorIndex] = useState(0);
-    const [lat, setLat] = useState();
-    const [lng, setLng] = useState();
+
     const [uploadedDocuments, setUploadedDocuments] = useState([]);
     const SettingsData = useSelector(settingsData);
     const IsSEO = SettingsData?.seo_settings
@@ -78,6 +84,7 @@ export default function AddProjectsTabs() {
     const lang = useSelector(languageData);
 
     useEffect(() => { }, [lang]);
+
 
 
 
@@ -104,6 +111,9 @@ export default function AddProjectsTabs() {
 
     });
 
+
+    useEffect(() => {
+    }, [selectedLocationAddress, defaultProjectData]);
 
     const [removeFloorsId, setRemoveFloorsId] = useState([])
     const [removeGalleryImgsId, setRemoveGalleryImgsId] = useState([])
@@ -144,26 +154,38 @@ export default function AddProjectsTabs() {
                     MetaDesc: defaultProjectData ? defaultProjectData.meta_keywords : "",
 
                 }))
+                if (defaultProjectData?.latitude || defaultProjectData?.longitude || defaultProjectData?.city || defaultProjectData?.state || defaultProjectData?.country || defaultProjectData?.location) {
+                    setSelectedLocationAddress(prevAddress => ({
+                        ...prevAddress,
+                        lat: defaultProjectData?.latitude,
+                        lng: defaultProjectData?.longitude,
+                        city: defaultProjectData?.city,
+                        state: defaultProjectData?.state,
+                        country: defaultProjectData?.country,
+                        formatted_address: defaultProjectData?.location
+                    }));
+                    console.log("default api calling ", selectedLocationAddress);
+                }
 
-                setLat(defaultProjectData?.latitude);
-                setLng(defaultProjectData?.longitude);
                 // Check if defaultProjectData.meta_image exists
                 if (defaultProjectData?.meta_image) {
-
-                    fetch(defaultProjectData.meta_image)
-                        .then((response) => response.blob())
-                        .then((blob) => {
-                            const file = new File([blob], "meta_image.jpg", { type: "image/jpeg" });
-                            setUploadedOgImages([file]);
-                            // Log uploadedOgImages inside a useEffect hook to ensure logging after state update
-                            // setTab6((prevState) => ({
-                            //     ...prevState,
-                            //     ogImages: [file],
-                            // }));
-                        })
-                        .catch((error) => {
-                            console.error("Error fetching image data:", error);
-                        });
+                    const imageUrl = defaultProjectData.meta_image;
+                    const file = { url: imageUrl, name: "meta_image.jpg", type: "image/jpeg" };
+                    setUploadedOgImages([file]);
+                    // fetch(defaultProjectData.meta_image)
+                    //     .then((response) => response.blob())
+                    //     .then((blob) => {
+                    //         const file = new File([blob], "meta_image.jpg", { type: "image/jpeg" });
+                    //         setUploadedOgImages([file]);
+                    //         // Log uploadedOgImages inside a useEffect hook to ensure logging after state update
+                    //         // setTab6((prevState) => ({
+                    //         //     ...prevState,
+                    //         //     ogImages: [file],
+                    //         // }));
+                    //     })
+                    //     .catch((error) => {
+                    //         console.error("Error fetching image data:", error);
+                    //     });
 
                 }
                 if (defaultProjectData?.video_link) {
@@ -185,30 +207,31 @@ export default function AddProjectsTabs() {
                 if (defaultProjectData?.image) {
                     // Assuming propertyData.title_image contains the image URL
                     const titleImageURL = defaultProjectData.image;
-
+                    const file = { url: titleImageURL, name: "meta_image.jpg", type: "image/jpeg" };
+                    setUploadedImages([file]);
                     // Fetch the image data and convert it to a Blob
-                    fetch(titleImageURL)
-                        .then((response) => response.blob())
-                        .then((blob) => {
-                            // Check if the fetched blob is of image type (e.g., image/jpeg, image/png, etc.)
-                            if (blob.type.startsWith("image/")) {
-                                // Create a File object from the Blob
-                                const file = new File([blob], "title_image.jpg", { type: "image/jpeg" });
+                    // fetch(titleImageURL)
+                    //     .then((response) => response.blob())
+                    //     .then((blob) => {
+                    //         // Check if the fetched blob is of image type (e.g., image/jpeg, image/png, etc.)
+                    //         if (blob.type.startsWith("image/")) {
+                    //             // Create a File object from the Blob
+                    //             const file = new File([blob], "title_image.jpg", { type: "image/jpeg" });
 
-                                // Set the default title image
-                                setUploadedImages([file]);
-                                setTab5((prevState) => ({
-                                    ...prevState,
-                                    titleImage: [file],
-                                }));
-                            } else {
-                                console.error("Fetched file is not an image.");
-                                // Handle the case where the fetched file is not an image
-                            }
-                        })
-                        .catch((error) => {
-                            console.error("Error fetching image data:", error);
-                        });
+                    //             // Set the default title image
+                    //             setUploadedImages([file]);
+                    //             setTab5((prevState) => ({
+                    //                 ...prevState,
+                    //                 titleImage: [file],
+                    //             }));
+                    //         } else {
+                    //             console.error("Fetched file is not an image.");
+                    //             // Handle the case where the fetched file is not an image
+                    //         }
+                    //     })
+                    //     .catch((error) => {
+                    //         console.error("Error fetching image data:", error);
+                    //     });
                 }
                 // Check if propertyData.gallery exists and set it as the default gallery images
                 if (defaultProjectData?.gallary_images && defaultProjectData?.gallary_images.length > 0) {
@@ -236,10 +259,6 @@ export default function AddProjectsTabs() {
 
         fetchData();
     }, [defaultProjectData])
-
-    // Use useEffect to log uploadedOgImages after it has been updated
-    useEffect(() => {
-    }, [lat, lng]);
 
 
 
@@ -340,14 +359,13 @@ export default function AddProjectsTabs() {
         () =>
             uploadedImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                    <img className="dropbox_img" src={file instanceof File ? URL.createObjectURL(file) : file.url} alt={file.name} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeImage(index)}>
                             <CloseIcon fontSize='25px' />
                         </button>
                         <div className="dropbox_img_deatils">
                             <span>{file.name}</span>
-                            <span>{Math.round(file.size / 1024)} KB</span>
                         </div>
                     </div>
                 </div>
@@ -371,7 +389,7 @@ export default function AddProjectsTabs() {
         setUploadedDocuments((prevDocuments) => prevDocuments.filter((_, i) => i !== index));
     };
 
-  
+
     const { getRootProps: getRootPropsDocuments, getInputProps: getInputPropsDocuments, isDragActive: isDragActiveDocuments } = useDropzone({
         onDrop: onDropDocuments,
         multiple: true // Ensure that the dropzone allows multiple files
@@ -439,7 +457,7 @@ export default function AddProjectsTabs() {
                         </button>
                         <div className="dropbox_img_deatils">
                             <span>{file.name}</span>
-                            <span>{Math.round(file.size / 1024)} KB</span>
+                            {/* <span>{Math.round(file.size / 1024)} KB</span> */}
                         </div>
                     </div>
                 </div>
@@ -451,7 +469,7 @@ export default function AddProjectsTabs() {
     // Seo OG img
     const onDropOgImage = useCallback((acceptedFiles) => {
         // Log the acceptedFiles to check if they are being received correctly
-       
+
         // Append the uploaded ogImage files to the uploadedOgImages state
         setUploadedOgImages((prevImages) => [...prevImages, ...acceptedFiles]);
         setTab6((prevState) => ({
@@ -474,14 +492,14 @@ export default function AddProjectsTabs() {
         () =>
             uploadedOgImages.map((file, index) => (
                 <div key={index} className="dropbox_img_div">
-                    <img className="dropbox_img" src={URL.createObjectURL(file)} alt={file.name} />
+                    <img className="dropbox_img" src={file instanceof File ? URL.createObjectURL(file) : file.url} alt={file.name} />
                     <div className="dropbox_d">
                         <button className="dropbox_remove_img" onClick={() => removeOgImage(index)}>
                             <CloseIcon fontSize='25px' />
                         </button>
                         <div className="dropbox_img_deatils">
                             <span>{file.name}</span>
-                            <span>{Math.round(file.size / 1024)} KB</span>
+                            {/* <span>{Math.round(file.size / 1024)} KB</span> */}
                         </div>
                     </div>
                 </div>
@@ -522,9 +540,8 @@ export default function AddProjectsTabs() {
     };
 
     const areLocationFieldsFilled = (location) => {
-
         // Check if any of the required fields are empty or undefined
-        if (!location.city || !location.state || !location.country || !location.formatted_address || !selectedLocationAddress) {
+        if (!location.city || !location.state || !location.country || !location.formatted_address) {
             // Some required fields are not filled
             return false;
         }
@@ -555,11 +572,22 @@ export default function AddProjectsTabs() {
             // Proceed to the next tab
             setValue(value + 1);
         }
+
     };
     const handleNextTab4 = () => {
-        // Check if the location fields in tab 4 are empty
 
-        if (!areLocationFieldsFilled(selectedLocationAddress)) {
+        // Check if the location fields in tab 4 are empty
+        setSelectedLocationAddress(prevAddress => ({
+            ...prevAddress,
+            lat: defaultProjectData?.latitude,
+            lng: defaultProjectData?.longitude,
+            city: defaultProjectData?.city,
+            state: defaultProjectData?.state,
+            country: defaultProjectData?.country,
+            formatted_address: defaultProjectData?.location
+        }));
+
+        if (!selectedLocationAddress) {
             // Display a toast message to fill in all property address details in tab 4
             toast.error(translate("fillAllAddress"));
         } else {
@@ -567,6 +595,12 @@ export default function AddProjectsTabs() {
             setValue(value + 1);
 
         }
+    };
+    const handleNextTabFloor = () => {
+
+        // Proceed to the next tab
+        setValue(value + 1);
+
     };
 
 
@@ -681,7 +715,7 @@ export default function AddProjectsTabs() {
         <div key={floorIndex} className="row floorfields">
             <div className="col-sm-12 col-md-6">
                 <div className="add_prop_fields">
-                    <span> {getOrdinal(floorIndex)}  Floor Title</span>
+                    <span> {getOrdinal(floorIndex)} {translate("floorTitle")}</span>
                     <input
                         type="text"
                         id="prop_title_input"
@@ -695,7 +729,7 @@ export default function AddProjectsTabs() {
             <div className="col-sm-12 col-md-6">
                 <div className="florimgandremove">
                     <div className="add_prop_fields">
-                        <span>{getOrdinal(floorIndex)} Floor Images</span>
+                        <span>{getOrdinal(floorIndex)} {translate("floorImg")}</span>
                         <div className="dropbox">
                             <div {...getRootPropsFloor(floorIndex)} className={`dropzone ${isDragActiveFloor ? "active" : ""}`}>
                                 <input {...getInputPropsFloor(floorIndex)} />
@@ -715,7 +749,7 @@ export default function AddProjectsTabs() {
                             <button onClick={() => handleRemoveFloor(floorIndex, floor.id)}>
                                 <IoMdRemoveCircleOutline />
                             </button>
-                        </div>  
+                        </div>
                     )}
                 </div>
             </div>
@@ -740,6 +774,7 @@ export default function AddProjectsTabs() {
 
                 // Switch to Tab 1
                 setValue(0);
+
             } else if (!areLocationFieldsFilled(selectedLocationAddress)) {
                 // Display a toast message to fill in all required location fields
                 toast.error(translate("specsLoc"));
@@ -759,7 +794,7 @@ export default function AddProjectsTabs() {
                     const title = field.floorTitle;
                     const documents = field.floorImgs;
                     for (const document of documents) {
-                       
+
                         // if (typeof document === 'object') {
                         plans.push({
                             id: id ? id : "",
@@ -826,14 +861,14 @@ export default function AddProjectsTabs() {
         <Box sx={{ width: "100%" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" id="addProp_tabs" style={{ overflowY: "auto" }}>
-                <Tab label={translate("projectDeatils")} {...a11yProps(0)} />
+                    <Tab label={translate("projectDeatils")} {...a11yProps(0)} />
                     {IsSEO ? (
                         <Tab label={translate("SEOS")} {...a11yProps(1)} />
                     ) : null}
                     <Tab label={translate("location")} {...a11yProps(IsSEO ? 2 : 1)} />
                     <Tab label={translate("flor")} {...a11yProps(IsSEO ? 3 : 2)} />
                     <Tab label={translate("I&V&D")} {...a11yProps(IsSEO ? 4 : 3)} />
-               
+
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -845,7 +880,7 @@ export default function AddProjectsTabs() {
                                     <span>{translate("projectTypes")}</span>
                                     <div className="add_prop_types">
                                         <div className="form-check">
-                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="upcomming" onChange={handlePropertyTypes} checked={tab1.projectType === "upcomming"} />
+                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="upcoming" onChange={handlePropertyTypes} checked={tab1.projectType === "upcoming"} />
                                             <label className="form-check-label" htmlFor="flexRadioDefault1">
                                                 {translate("upcoming")}
                                             </label>
@@ -894,68 +929,68 @@ export default function AddProjectsTabs() {
             </CustomTabPanel>
 
             {IsSEO ? (
-            <CustomTabPanel value={value} index={1}>
-                <form>
-                    <div className="row" id="add_prop_form_row">
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div id="add_prop_form">
-                                <div className="add_prop_fields">
-                                    <span>{translate("metatitle")}</span>
-                                    <input type="text" id="prop_title_input" placeholder="Enter Property Meta Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
-                                </div>
-                                <p style={{ color: "#FF0000", fontSize: "smaller" }}> {translate("Warning: Meta Title")}</p>
-                            </div>
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div id="add_prop_form">
-                                <div className="add_prop_fields">
-                                    <span>{translate("ogimage")}</span>
-                                    <div className="dropbox">
-                                        <div {...getRootPropsOgImage()} className={`dropzone ${isDragActiveOgImage ? "active" : ""}`}>
-                                            <input {...getInputPropsOgImage()} />
-                                            {uploadedOgImages.length === 0 ? (
-                                                isDragActiveOgImage ? (
-                                                    <span>{translate("dropFiles")}</span>
-                                                ) : (
-                                                    <span>
-                                                        {translate("dragFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span>
-                                                    </span>
-                                                )
-                                            ) : null}
-                                        </div>
-                                        <div>{ogImageFiles}</div>
+                <CustomTabPanel value={value} index={1}>
+                    <form>
+                        <div className="row" id="add_prop_form_row">
+                            <div className="col-sm-12 col-md-6 col-lg-3">
+                                <div id="add_prop_form">
+                                    <div className="add_prop_fields">
+                                        <span>{translate("metatitle")}</span>
+                                        <input type="text" id="prop_title_input" placeholder="Enter Property Meta Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
                                     </div>
+                                    <p style={{ color: "#FF0000", fontSize: "smaller" }}> {translate("Warning: Meta Title")}</p>
                                 </div>
-
                             </div>
-                        </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div id="add_prop_form">
+                            <div className="col-sm-12 col-md-6 col-lg-3">
+                                <div id="add_prop_form">
+                                    <div className="add_prop_fields">
+                                        <span>{translate("ogimage")}</span>
+                                        <div className="dropbox">
+                                            <div {...getRootPropsOgImage()} className={`dropzone ${isDragActiveOgImage ? "active" : ""}`}>
+                                                <input {...getInputPropsOgImage()} />
+                                                {uploadedOgImages.length === 0 ? (
+                                                    isDragActiveOgImage ? (
+                                                        <span>{translate("dropFiles")}</span>
+                                                    ) : (
+                                                        <span>
+                                                            {translate("dragFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span>
+                                                        </span>
+                                                    )
+                                                ) : null}
+                                            </div>
+                                            <div>{ogImageFiles}</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div className="col-sm-12 col-md-6 col-lg-3">
+                                <div id="add_prop_form">
+                                    <div className="add_prop_fields">
+                                        <span>{translate("metakeyword")}</span>
+                                        <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Keywords" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
+                                    </div>
+                                    <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Keywords")}</p>
+                                </div>
+                            </div>
+                            <div className="col-sm-12 col-md-6 col-lg-3">
                                 <div className="add_prop_fields">
-                                    <span>{translate("metakeyword")}</span>
-                                    <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Keywords" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
+                                    <span>{translate("metadescription")}</span>
+                                    <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Description" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
+
                                 </div>
-                                <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Keywords")}</p>
+                                <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Description")}</p>
                             </div>
                         </div>
-                        <div className="col-sm-12 col-md-6 col-lg-3">
-                            <div className="add_prop_fields">
-                                <span>{translate("metadescription")}</span>
-                                <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Description" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
 
-                            </div>
-                            <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Description")}</p>
+                        <div className="nextButton">
+                            <button type="button" onClick={handleNextTab2}>
+                                {translate("next")}
+                            </button>
                         </div>
-                    </div>
-
-                    <div className="nextButton">
-                        <button type="button" onClick={handleNextTab2}>
-                            {translate("next")}
-                        </button>
-                    </div>
-                </form>
-            </CustomTabPanel>
-            ):null}
+                    </form>
+                </CustomTabPanel>
+            ) : null}
             <CustomTabPanel value={value} index={IsSEO ? 2 : 1}>
                 <form>
                     <div className="row" id="add_prop_form_row">
@@ -989,7 +1024,7 @@ export default function AddProjectsTabs() {
                         </div>
                         <div className="col-sm-12 col-md-6">
                             <div className="map">
-                                <GoogleMapBox apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} latitude={lat} longitude={lng} />
+                                <GoogleMapBox apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} latitude={selectedLocationAddress?.lat} longitude={selectedLocationAddress?.lng} />
                             </div>
                         </div>
                     </div>
@@ -1009,7 +1044,7 @@ export default function AddProjectsTabs() {
                     <button className="add_floor" onClick={handleAddFloor}>{translate("addFloor")}</button>
                 </div>
                 <div className="nextButton">
-                    <button type="button" onClick={handleNextTab4}>
+                    <button type="button" onClick={handleNextTabFloor}>
                         {translate("next")}
                     </button>
                 </div>

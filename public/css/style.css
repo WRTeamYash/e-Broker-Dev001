@@ -6107,6 +6107,7 @@ a {
   font-weight: 100;
   font-size: medium;
   cursor: pointer;
+  word-break: break-all;
 }
 .dropbox_img_div {
   width: 100%;

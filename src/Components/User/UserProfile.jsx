@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { translate } from "@/utils";
 import { languageData } from "@/store/reducer/languageSlice";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 const VerticleLayout = dynamic(() => import('../../../src/Components/AdminLayout/VerticleLayout.jsx'), { ssr: false })
 
@@ -43,8 +44,8 @@ const UserProfile = () => {
     const lang = useSelector(languageData);
 
     useEffect(() => { }, [lang]);
-    const DummyImgData = useSelector(settingsData);
-    const PlaceHolderImg = DummyImgData?.web_placeholder_logo;
+    const SettingsData = useSelector(settingsData);
+    const PlaceHolderImg = SettingsData?.web_placeholder_logo;
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
 
@@ -88,7 +89,20 @@ const UserProfile = () => {
     const userCurrentId = isLoggedIn && isLoggedIn.data ? isLoggedIn.data.data.id : null;
     const handleUpdateProfile = (e) => {
         e.preventDefault();
-
+        if (SettingsData.demo_mode) {
+            Swal.fire({
+                title: "Opps !",
+                text: "This Action is Not Allowed in Demo Mode",
+                icon: "warning",
+                showCancelButton: false,
+                customClass: {
+                    confirmButton: 'Swal-confirm-buttons',
+                    cancelButton: "Swal-cancel-buttons"
+                },
+                confirmButtonText: "OK",
+            });
+            return false;
+        }
         UpdateProfileApi({
 
             userid: userCurrentId,

@@ -15,6 +15,7 @@ import { signupLoaded } from "@/store/reducer/authSlice";
 import { useRouter } from "next/router";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import Swal from "sweetalert2";
+import Link from "next/link";
 
 const LoginModal = ({ isOpen, onClose }) => {
     const SettingsData = useSelector(settingsData);
@@ -168,7 +169,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <span>
-                        {translate("byclick")} <a href="/terms-and-condition">{translate("terms&condition")}</a> <span className="mx-1"> {translate("and")} </span> <a href="/privacy-policy"> {translate("privacyPolicy")} </a>
+                        {translate("byclick")} <Link href="/terms-and-condition">{translate("terms&condition")}</Link> <span className="mx-1"> {translate("and")} </span> <Link href="/privacy-policy"> {translate("privacyPolicy")} </Link>
                     </span>
                 </Modal.Footer>
             </Modal>

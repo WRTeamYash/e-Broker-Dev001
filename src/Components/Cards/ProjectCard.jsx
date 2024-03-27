@@ -30,20 +30,17 @@ const ProjectCard = ({ ele }) => {
         if (!sliderRef.current) return;
         sliderRef.current.swiper.slideNext();
     }, []);
-    const SettingsData = useSelector(settingsData);
-    const PlaceHolderImg = SettingsData?.web_placeholder_logo;
 
     const themeEnabled = isThemeEnabled();
-
     return (
         <div className='project_card'>
             <div className="card project_main_card">
                 <div className="card-body">
                     <div className="cate_image">
                         {themeEnabled ? (
-                            <ImageToSvg imageUrl={ele.category && ele.category.image} className="custom-svg" />
+                            <ImageToSvg imageUrl={ele && ele.category && ele.category.image} className="custom-svg" />
                         ) : (
-                            <Image loading="lazy" src={ele.category && ele.category.image} alt="no_img" width={20} height={20} />
+                            <Image src={ele && ele.category && ele.category.image ? ele.category.image : placeholderImage} alt="no_img" width={20} height={20} onError={placeholderImage} />
                         )}
                         <span className="project_body_title">{ele.category && ele.category.category}</span>
                     </div>

@@ -3,7 +3,7 @@ import { GoogleMap, LoadScript, Marker, Autocomplete } from "@react-google-maps/
 import { useSelector } from "react-redux";
 import { settingsData } from "@/store/reducer/settingsSlice";
 
-const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
+const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude, defaultLocationAddress }) => {
 
     const systemsettings = useSelector(settingsData)
 
@@ -36,10 +36,10 @@ const GoogleMapBox = ({ onSelectLocation, apiKey, latitude, longitude }) => {
                     const updatedLocation = {
                         lat: latitude,
                         lng: longitude,
-                        formatted_address: formatted_address,
-                        city: city,
-                        country: country,
-                        state: state,
+                        // formatted_address: formatted_address,
+                        // city: city,
+                        // country: country,
+                        // state: state,
                     };
 
                     // Update the initialLocation state with the new location

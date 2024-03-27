@@ -68,10 +68,17 @@ export default function EditPropertyTabs() {
     const [uploadedImages, setUploadedImages] = useState([]);
     const [uploaded3DImages, setUploaded3DImages] = useState([]); // State to store uploaded images
     const [galleryImages, setGalleryImages] = useState([]); // State to store uploaded images
-    const [defaultGallryImages, setDefaultGallryImages] = useState([]);
     const [uploadedOgImages, setUploadedOgImages] = useState([]); // State to store uploaded images
     const [categoryParameters, setCategoryParameters] = useState([]);
-    const [selectedLocationAddress, setSelectedLocationAddress] = useState("");
+    
+    const [selectedLocationAddress, setSelectedLocationAddress] = useState({
+        lat: "",
+        lng: "",
+        city: "",
+        state: "",
+        country:"",
+        formatted_address: ""
+    });
     const [lat, setLat] = useState();
     const [lng, setLng] = useState();
 
@@ -101,6 +108,12 @@ export default function EditPropertyTabs() {
         MetaDesc: "",
         ogImages: []
     });
+
+
+
+    useEffect(() => {
+    }, [selectedLocationAddress])
+    
     useEffect(() => {
         GetFacilitiesApi(
             (response) => {
@@ -121,8 +134,15 @@ export default function EditPropertyTabs() {
             slug_id: propertyId,
             onSuccess: (response) => {
                 const propertyData = response?.data[0];
-                setLat(propertyData?.latitude);
-                setLng(propertyData?.longitude);
+                setSelectedLocationAddress(prevAddress => ({
+                    ...prevAddress,
+                    lat: propertyData?.latitude,
+                    lng: propertyData?.longitude,
+                    city: propertyData?.city,
+                    state: propertyData?.state,
+                    country: propertyData?.country,
+                    formatted_address: propertyData?.address
+                }));
                 setIsLoading(false);
                 if (propertyData) {
                     setTab1({
@@ -142,7 +162,6 @@ export default function EditPropertyTabs() {
                                         : "",
                         isPrivate: propertyData?.is_premium
                     });
-                    setSelectedLocationAddress({});
                 }
                 if (propertyData) {
                     setTab6({
@@ -404,7 +423,7 @@ export default function EditPropertyTabs() {
         }));
     };
 
-    useEffect(() => { console.log(lat, lng) }, [tab1, tab2, tab3, selectedLocationAddress, tab5, lat, lng, tab6]);
+    useEffect(() => {  }, [tab1, tab2, tab3, selectedLocationAddress, tab5, lat, lng, tab6]);
 
     const updateFileInput = (fieldId) => (e) => {
         const fileInput = e.target;
@@ -1155,7 +1174,7 @@ export default function EditPropertyTabs() {
                         </div>
                         <div className="col-sm-12 col-md-6">
                             <div className="map">
-                                <GoogleMapBox apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} latitude={lat} longitude={lng} />
+                                <GoogleMapBox apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} latitude={selectedLocationAddress?.lat} longitude={selectedLocationAddress?.lng}/>
                             </div>
                         </div>
                     </div>
@@ -1166,6 +1185,7 @@ export default function EditPropertyTabs() {
                         </button>
                     </div>
                 </form>
+                
             </CustomTabPanel>
 
 

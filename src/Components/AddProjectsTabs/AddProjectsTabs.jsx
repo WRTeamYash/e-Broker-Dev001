@@ -313,9 +313,8 @@ export default function AddProjectsTabs() {
 
     const { getRootProps: getRootPropsOgImage, getInputProps: getInputPropsOgImage, isDragActive: isDragActiveOgImage } = useDropzone({
         onDrop: onDropOgImage,
-        accept: 'image/*', // Accept only image files (update the accept type as needed)
+        accept: 'image/jpeg, image/png, image/jpg', // Accept only JPEG, PNG, and JPG files
     });
-
     const ogImageFiles = useMemo(
         () =>
             uploadedOgImages.map((file, index) => (

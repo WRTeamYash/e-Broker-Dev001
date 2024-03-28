@@ -613,7 +613,7 @@ export default function AddPropertyTabs() {
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-                <form>
+                {/* <form> */}
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
                             <div id="add_prop_form">
@@ -754,12 +754,12 @@ export default function AddPropertyTabs() {
                             {translate("next")}
                         </button>
                     </div>
-                </form>
+                {/* </form> */}
             </CustomTabPanel>
             {IsSEO ? (
 
                 <CustomTabPanel value={value} index={1}>
-                    <form>
+                    {/* <form> */}
                         <div className="row" id="add_prop_form_row">
                             <div className="col-sm-12 col-md-6 col-lg-3">
                                 <div id="add_prop_form">
@@ -817,11 +817,11 @@ export default function AddPropertyTabs() {
                                 {translate("next")}
                             </button>
                         </div>
-                    </form>
+                    {/* </form> */}
                 </CustomTabPanel>
             ) : null}
             <CustomTabPanel value={value} index={IsSEO ? 2 : 1}>
-                <form>
+                {/* <form> */}
                     <div className="row" id="add_prop_form_row">
                         {categoryParameters && categoryParameters.length > 0 ? (
                             categoryParameters.map((ele, index) => (
@@ -925,12 +925,12 @@ export default function AddPropertyTabs() {
                             {translate("next")}
                         </button>
                     </div>
-                </form>
+                {/* </form> */}
             </CustomTabPanel>
 
 
             <CustomTabPanel value={value} index={IsSEO ? 3 : 2}>
-                <form>
+                {/* <form> */}
                     <div className="row" id="add_prop_form_row">
                         {getFacilities.length > 0
                             ? getFacilities.map((ele, index) => (
@@ -948,12 +948,12 @@ export default function AddPropertyTabs() {
                             {translate("next")}
                         </button>
                     </div>
-                </form>
+                {/* </form> */}
             </CustomTabPanel>
 
 
             <CustomTabPanel value={value} index={IsSEO ? 4 : 3}>
-                <form>
+                {/* <form> */}
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
                             <div className="row" id="add_prop_form_row">
@@ -995,12 +995,12 @@ export default function AddPropertyTabs() {
                             {translate("next")}
                         </button>
                     </div>
-                </form>
+                {/* </form> */}
             </CustomTabPanel>
 
 
             <CustomTabPanel value={value} index={IsSEO ? 5 : 4}>
-                <form>
+                {/* <form> */}
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6 col-lg-3">
                             <div className="add_prop_fields">
@@ -1074,7 +1074,7 @@ export default function AddPropertyTabs() {
                             {translate("submitProp")}
                         </button>
                     </div>
-                </form>
+                {/* </form> */}
             </CustomTabPanel>
 
         </Box>

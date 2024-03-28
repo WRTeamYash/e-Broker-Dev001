@@ -604,14 +604,18 @@ export default function AddProjectsTabs() {
     };
 
     const handleRemoveFloor = (index, floorId) => {
-        setRemoveFloorsId(prevIds => new Set([...prevIds, floorId]));
         const updatedFloorFields = [...floorFields];
         updatedFloorFields.splice(index, 1);
         setFloorFields(updatedFloorFields);
-        // Update currentFloorIndex if it was removed
-        if (index === currentFloorIndex) {
-            setCurrentFloorIndex(Math.max(0, index - 1));
-        }
+
+        // Update currentFloorIndex
+        const newCurrentFloorIndex =
+            index < currentFloorIndex
+                ? currentFloorIndex - 1
+                : index === currentFloorIndex
+                    ? Math.max(0, index - 1)
+                    : currentFloorIndex;
+        setCurrentFloorIndex(newCurrentFloorIndex);
     };
     useEffect(() => {
 

@@ -194,7 +194,7 @@ export default function AddProjectsTabs() {
         accept: {
             'image/jpeg': ['.jpeg', '.jpg'],
             'image/png': ['.png'],
-          } // Accept only image files
+        } // Accept only image files
     });
 
     const files = useMemo(
@@ -232,8 +232,8 @@ export default function AddProjectsTabs() {
 
     const { getRootProps: getRootPropsDocuments, getInputProps: getInputPropsDocuments, isDragActive: isDragActiveDocuments } = useDropzone({
         onDrop: onDropDocuments,
-        multiple: true ,// Ensure that the dropzone allows multiple files
-        
+        multiple: true,// Ensure that the dropzone allows multiple files
+
     });
 
     // Render uploaded documents
@@ -277,7 +277,7 @@ export default function AddProjectsTabs() {
         accept: {
             'image/jpeg': ['.jpeg', '.jpg'],
             'image/png': ['.png'],
-          },
+        },
         multiple: true, // Allow multiple file selection
     });
 
@@ -323,7 +323,7 @@ export default function AddProjectsTabs() {
         accept: {
             'image/jpeg': ['.jpeg', '.jpg'],
             'image/png': ['.png'],
-          }
+        }
     });
     const ogImageFiles = useMemo(
         () =>
@@ -454,21 +454,24 @@ export default function AddProjectsTabs() {
         const updatedFloorFields = [...floorFields];
         updatedFloorFields.splice(index, 1);
         setFloorFields(updatedFloorFields);
-    
-        // Update currentFloorIndex if it was removed
-        if (index === currentFloorIndex) {
-            setCurrentFloorIndex(Math.max(0, index - 1));
-        }
-    
+
+        // Update currentFloorIndex
+        const newCurrentFloorIndex =
+            index < currentFloorIndex
+                ? currentFloorIndex - 1
+                : index === currentFloorIndex
+                    ? Math.max(0, index - 1)
+                    : currentFloorIndex;
+        setCurrentFloorIndex(newCurrentFloorIndex);
+
         // Update indices of subsequent floors
-        for (let i = index; i < updatedFloorFields.length; i++) {
-            // Update floor title
-            updatedFloorFields[i].floorTitle = `${getOrdinal(i)} Floor`; // Update floor title with new index
-            // No need to update floor images index as images are stored separately in each floor
-        }
-    
+        // for (let i = index; i < updatedFloorFields.length; i++) {
+        //     updatedFloorFields[i].floorTitle = `${getOrdinal(i)} Floor`;
+        // }
+
         setFloorFields(updatedFloorFields);
     };
+
     const handleFloorInputChange = (index, e) => {
         const { name, value } = e.target;
         const updatedFloorFields = [...floorFields];
@@ -505,7 +508,10 @@ export default function AddProjectsTabs() {
     // });
     const { getRootProps: getRootPropsFloor, getInputProps: getInputPropsFloor, isDragActive: isDragActiveFloor } = useDropzone({
         onDrop: (acceptedFiles) => onDropFloorImgs(currentFloorIndex, acceptedFiles), // Pass the correct floor index directly
-        accept: 'image/*',
+        accept: {
+            'image/jpeg': ['.jpeg', '.jpg'],
+            'image/png': ['.png'],
+        },// Accept only image files
         multiple: false
     });
     const handleUploadClick = (floorIndex, imgIndex) => {
@@ -611,7 +617,7 @@ export default function AddProjectsTabs() {
                 toast.error(translate("specsLoc"));
                 // Switch to Tab 4
                 setValue(4);
-            }  else if (uploadedImages.length === 0) {
+            } else if (uploadedImages.length === 0) {
                 // Display a toast message if Title Image is not selected
                 toast.error(translate("pleaseSelectTitleImg"));
 
@@ -695,167 +701,167 @@ export default function AddProjectsTabs() {
             </Box>
             <CustomTabPanel value={value} index={0}>
                 {/* <form> */}
-                    <div className="row" id="add_prop_form_row">
-                        <div className="col-sm-12 col-md-6">
-                            <div id="add_prop_form">
-                                <div className="add_prop_fields">
-                                    <span>{translate("projectTypes")}</span>
-                                    <div className="add_prop_types">
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="0" onChange={handlePropertyTypes} checked={tab1.projectType === "upcoming"} />
-                                            <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                                {translate("upcoming")}
-                                            </label>
-                                        </div>
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1" onChange={handlePropertyTypes} checked={tab1.projectType === "under_construction"} />
-                                            <label className="form-check-label" htmlFor="flexRadioDefault2">
-                                                {translate("underconstruction")}
-                                            </label>
-                                        </div>
+                <div className="row" id="add_prop_form_row">
+                    <div className="col-sm-12 col-md-6">
+                        <div id="add_prop_form">
+                            <div className="add_prop_fields">
+                                <span>{translate("projectTypes")}</span>
+                                <div className="add_prop_types">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="0" onChange={handlePropertyTypes} checked={tab1.projectType === "upcoming"} />
+                                        <label className="form-check-label" htmlFor="flexRadioDefault1">
+                                            {translate("upcoming")}
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1" onChange={handlePropertyTypes} checked={tab1.projectType === "under_construction"} />
+                                        <label className="form-check-label" htmlFor="flexRadioDefault2">
+                                            {translate("underconstruction")}
+                                        </label>
                                     </div>
                                 </div>
-                                <div className="add_prop_fields">
-                                    <span>{translate("category")}</span>
-                                    <select className="form-select categories" aria-label="Default select" name="category" value={tab1.category} onChange={handleCategoryChange}>
-                                        <option value="">{translate("selectProjectType")}</option>
-                                        {/* Map over Categories and set the 'value' of each option to the 'id' */}
-                                        {Categorydata &&
-                                            Categorydata.map((ele, index) => (
-                                                <option key={index} value={ele?.id}>
-                                                    {ele?.category}
-                                                </option>
-                                            ))}
-                                    </select>
-                                </div>
-                                <div className="add_prop_fields">
-                                    <span>{translate("title")}</span>
-                                    <input type="text" id="prop_title_input" placeholder="Enter Project Title" name="title" onChange={handleInputChange} value={tab1.title} />
-                                </div>
                             </div>
-                        </div>
-                        <div className="col-sm-12 col-md-6">
                             <div className="add_prop_fields">
-                                <span>{translate("projectDesc")}</span>
-                                <textarea rows={10} id="about_prop" placeholder="Enter About Project" name="projectDesc" onChange={handleInputChange} value={tab1.projectDesc} />
+                                <span>{translate("category")}</span>
+                                <select className="form-select categories" aria-label="Default select" name="category" value={tab1.category} onChange={handleCategoryChange}>
+                                    <option value="">{translate("selectProjectType")}</option>
+                                    {/* Map over Categories and set the 'value' of each option to the 'id' */}
+                                    {Categorydata &&
+                                        Categorydata.map((ele, index) => (
+                                            <option key={index} value={ele?.id}>
+                                                {ele?.category}
+                                            </option>
+                                        ))}
+                                </select>
+                            </div>
+                            <div className="add_prop_fields">
+                                <span>{translate("title")}</span>
+                                <input type="text" id="prop_title_input" placeholder="Enter Project Title" name="title" onChange={handleInputChange} value={tab1.title} />
                             </div>
                         </div>
                     </div>
-
-                    <div className="nextButton">
-                        <button type="button" onClick={handleNextTab}>
-                            {translate("next")}
-                        </button>
+                    <div className="col-sm-12 col-md-6">
+                        <div className="add_prop_fields">
+                            <span>{translate("projectDesc")}</span>
+                            <textarea rows={10} id="about_prop" placeholder="Enter About Project" name="projectDesc" onChange={handleInputChange} value={tab1.projectDesc} />
+                        </div>
                     </div>
+                </div>
+
+                <div className="nextButton">
+                    <button type="button" onClick={handleNextTab}>
+                        {translate("next")}
+                    </button>
+                </div>
                 {/* </form> */}
             </CustomTabPanel>
 
             {IsSEO ? (
                 <CustomTabPanel value={value} index={1}>
-                    
-                        <div className="row" id="add_prop_form_row">
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <div id="add_prop_form">
-                                    <div className="add_prop_fields">
-                                        <span>{translate("metatitle")}</span>
-                                        <input type="text" id="prop_title_input" placeholder="Enter Property Meta Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
-                                    </div>
-                                    <p style={{ color: "#FF0000", fontSize: "smaller" }}> {translate("Warning: Meta Title")}</p>
-                                </div>
-                            </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <div id="add_prop_form">
-                                    <div className="add_prop_fields">
-                                        <span>{translate("ogimage")}</span>
-                                        <div className="dropbox">
-                                            <div {...getRootPropsOgImage()} className={`dropzone ${isDragActiveOgImage ? "active" : ""}`}>
-                                                <input {...getInputPropsOgImage()} />
-                                                {uploadedOgImages.length === 0 ? (
-                                                    isDragActiveOgImage ? (
-                                                        <span>{translate("dropFiles")}</span>
-                                                    ) : (
-                                                        <span>
-                                                            {translate("dragFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span>
-                                                        </span>
-                                                    )
-                                                ) : null}
-                                            </div>
-                                            <div>{ogImageFiles}</div>
-                                        </div>
-                                    </div>
 
-                                </div>
-                            </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <div id="add_prop_form">
-                                    <div className="add_prop_fields">
-                                        <span>{translate("metakeyword")}</span>
-                                        <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Keywords" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
-                                    </div>
-                                    <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Keywords")}</p>
-                                </div>
-                            </div>
-                            <div className="col-sm-12 col-md-6 col-lg-3">
-                                <div className="add_prop_fields">
-                                    <span>{translate("metadescription")}</span>
-                                    <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Description" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
-
-                                </div>
-                                <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Description")}</p>
-                            </div>
-                        </div>
-
-                        <div className="nextButton">
-                            <button type="button" onClick={handleNextTab2}>
-                                {translate("next")}
-                            </button>
-                        </div>
-                    
-                </CustomTabPanel>
-            ) : null}
-            <CustomTabPanel value={value} index={IsSEO ? 2 : 1}>
-                {/* <form> */}
                     <div className="row" id="add_prop_form_row">
-                        <div className="col-sm-12 col-md-6">
-                            <div className="row" id="add_prop_form_row">
-                                <div className="col-sm-12 col-md-6">
-                                    <div className="add_prop_fields">
-                                        <span>{translate("city")}</span>
-                                        <input type="text" id="prop_title_input" placeholder="Enter City" name="city" value={selectedLocationAddress.city} onChange={handleTab4InputChange} />
-                                    </div>
+                        <div className="col-sm-12 col-md-6 col-lg-3">
+                            <div id="add_prop_form">
+                                <div className="add_prop_fields">
+                                    <span>{translate("metatitle")}</span>
+                                    <input type="text" id="prop_title_input" placeholder="Enter Property Meta Title" name="MetaTitle" onChange={handleInputChange} value={tab6.MetaTitle} />
                                 </div>
-                                <div className="col-sm-12 col-md-6">
-                                    <div className="add_prop_fields">
-                                        <span>{translate("state")}</span>
-                                        <input type="text" id="prop_title_input" placeholder="Enter State" name="state" value={selectedLocationAddress.state} onChange={handleTab4InputChange} />
-                                    </div>
-                                </div>
-                                <div className="col-sm-12">
-                                    <div className="add_prop_fields">
-                                        <span>{translate("country")}</span>
-                                        <input type="text" id="prop_title_input" placeholder="Enter Country" name="country" value={selectedLocationAddress.country} onChange={handleTab4InputChange} />
-                                    </div>
-                                </div>
-                                <div className="col-sm-12">
-                                    <div className="add_prop_fields">
-                                        <span>{translate("address")}</span>
-                                        <textarea rows={4} id="about_prop" placeholder="Enter Full Address" name="formatted_address" value={selectedLocationAddress.formatted_address} onChange={handleTab4InputChange} />
-                                    </div>
-                                </div>
+                                <p style={{ color: "#FF0000", fontSize: "smaller" }}> {translate("Warning: Meta Title")}</p>
                             </div>
                         </div>
-                        <div className="col-sm-12 col-md-6">
-                            <div className="map">
-                                <GoogleMapBox apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} />
+                        <div className="col-sm-12 col-md-6 col-lg-3">
+                            <div id="add_prop_form">
+                                <div className="add_prop_fields">
+                                    <span>{translate("ogimage")}</span>
+                                    <div className="dropbox">
+                                        <div {...getRootPropsOgImage()} className={`dropzone ${isDragActiveOgImage ? "active" : ""}`}>
+                                            <input {...getInputPropsOgImage()} />
+                                            {uploadedOgImages.length === 0 ? (
+                                                isDragActiveOgImage ? (
+                                                    <span>{translate("dropFiles")}</span>
+                                                ) : (
+                                                    <span>
+                                                        {translate("dragFiles")} <span style={{ textDecoration: "underline" }}> {translate("browse")}</span>
+                                                    </span>
+                                                )
+                                            ) : null}
+                                        </div>
+                                        <div>{ogImageFiles}</div>
+                                    </div>
+                                </div>
+
                             </div>
+                        </div>
+                        <div className="col-sm-12 col-md-6 col-lg-3">
+                            <div id="add_prop_form">
+                                <div className="add_prop_fields">
+                                    <span>{translate("metakeyword")}</span>
+                                    <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Keywords" name="MetaKeyword" onChange={handleInputChange} value={tab6.MetaKeyword} />
+                                </div>
+                                <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Keywords")}</p>
+                            </div>
+                        </div>
+                        <div className="col-sm-12 col-md-6 col-lg-3">
+                            <div className="add_prop_fields">
+                                <span>{translate("metadescription")}</span>
+                                <textarea rows={5} id="about_prop" placeholder="Enter Property Meta Description" name="MetaDesc" onChange={handleInputChange} value={tab6.MetaDesc} />
+
+                            </div>
+                            <p style={{ color: "#FF0000", fontSize: "smaller" }}>{translate("Warning: Meta Description")}</p>
                         </div>
                     </div>
 
                     <div className="nextButton">
-                        <button type="button" onClick={handleNextTab4}>
+                        <button type="button" onClick={handleNextTab2}>
                             {translate("next")}
                         </button>
                     </div>
+
+                </CustomTabPanel>
+            ) : null}
+            <CustomTabPanel value={value} index={IsSEO ? 2 : 1}>
+                {/* <form> */}
+                <div className="row" id="add_prop_form_row">
+                    <div className="col-sm-12 col-md-6">
+                        <div className="row" id="add_prop_form_row">
+                            <div className="col-sm-12 col-md-6">
+                                <div className="add_prop_fields">
+                                    <span>{translate("city")}</span>
+                                    <input type="text" id="prop_title_input" placeholder="Enter City" name="city" value={selectedLocationAddress.city} onChange={handleTab4InputChange} />
+                                </div>
+                            </div>
+                            <div className="col-sm-12 col-md-6">
+                                <div className="add_prop_fields">
+                                    <span>{translate("state")}</span>
+                                    <input type="text" id="prop_title_input" placeholder="Enter State" name="state" value={selectedLocationAddress.state} onChange={handleTab4InputChange} />
+                                </div>
+                            </div>
+                            <div className="col-sm-12">
+                                <div className="add_prop_fields">
+                                    <span>{translate("country")}</span>
+                                    <input type="text" id="prop_title_input" placeholder="Enter Country" name="country" value={selectedLocationAddress.country} onChange={handleTab4InputChange} />
+                                </div>
+                            </div>
+                            <div className="col-sm-12">
+                                <div className="add_prop_fields">
+                                    <span>{translate("address")}</span>
+                                    <textarea rows={4} id="about_prop" placeholder="Enter Full Address" name="formatted_address" value={selectedLocationAddress.formatted_address} onChange={handleTab4InputChange} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-sm-12 col-md-6">
+                        <div className="map">
+                            <GoogleMapBox apiKey={GoogleMapApi} onSelectLocation={handleLocationSelect} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="nextButton">
+                    <button type="button" onClick={handleNextTab4}>
+                        {translate("next")}
+                    </button>
+                </div>
                 {/* </form> */}
             </CustomTabPanel>
 

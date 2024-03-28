@@ -705,7 +705,7 @@ const HomePage = () => {
                                         <h3>
                                             {translate("ourPremium")}
                                         </h3>
-                                        <Link href="/subrciption-plan" className="subscribeNoButton">
+                                        <Link href="/subscription-plan" className="subscribeNoButton">
                                             {translate("subscribeNow")} {""}
                                             <FaArrowRight size={20} />
                                         </Link>

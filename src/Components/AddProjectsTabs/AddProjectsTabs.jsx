@@ -191,7 +191,10 @@ export default function AddProjectsTabs() {
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
-        accept: 'image/*', // Accept only image files
+        accept: {
+            'image/jpeg': ['.jpeg', '.jpg'],
+            'image/png': ['.png'],
+          } // Accept only image files
     });
 
     const files = useMemo(
@@ -229,7 +232,8 @@ export default function AddProjectsTabs() {
 
     const { getRootProps: getRootPropsDocuments, getInputProps: getInputPropsDocuments, isDragActive: isDragActiveDocuments } = useDropzone({
         onDrop: onDropDocuments,
-        multiple: true // Ensure that the dropzone allows multiple files
+        multiple: true ,// Ensure that the dropzone allows multiple files
+        
     });
 
     // Render uploaded documents
@@ -270,7 +274,10 @@ export default function AddProjectsTabs() {
 
     const { getRootProps: getRootPropsGallery, getInputProps: getInputPropsGallery, isDragActive: isDragActiveGallery } = useDropzone({
         onDrop: onDropGallery,
-        accept: 'image/*', // Accept only image files for the gallery
+        accept: {
+            'image/jpeg': ['.jpeg', '.jpg'],
+            'image/png': ['.png'],
+          },
         multiple: true, // Allow multiple file selection
     });
 
@@ -313,7 +320,10 @@ export default function AddProjectsTabs() {
 
     const { getRootProps: getRootPropsOgImage, getInputProps: getInputPropsOgImage, isDragActive: isDragActiveOgImage } = useDropzone({
         onDrop: onDropOgImage,
-        accept: ['image/jpeg', 'image/png', 'image/jpg'], // Accept only JPEG, PNG, and JPG files
+        accept: {
+            'image/jpeg': ['.jpeg', '.jpg'],
+            'image/png': ['.png'],
+          }
     });
     const ogImageFiles = useMemo(
         () =>

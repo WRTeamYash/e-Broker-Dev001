@@ -281,7 +281,10 @@ export default function AddPropertyTabs() {
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
-        accept: 'image/*', // Accept only image files
+        accept: {
+            'image/jpeg': ['.jpeg', '.jpg'],
+            'image/png': ['.png'],
+          } // Accept only image files
     });
 
     const files = useMemo(
@@ -365,7 +368,10 @@ export default function AddPropertyTabs() {
 
     const { getRootProps: getRootPropsGallery, getInputProps: getInputPropsGallery, isDragActive: isDragActiveGallery } = useDropzone({
         onDrop: onDropGallery,
-        accept: 'image/*', // Accept only image files for the gallery
+        accept: {
+            'image/jpeg': ['.jpeg', '.jpg'],
+            'image/png': ['.png'],
+          }, // Accept only image files for the gallery
         multiple: true, // Allow multiple file selection
     });
 
@@ -407,7 +413,10 @@ export default function AddPropertyTabs() {
 
     const { getRootProps: getRootPropsOgImage, getInputProps: getInputPropsOgImage, isDragActive: isDragActiveOgImage } = useDropzone({
         onDrop: onDropOgImage,
-        accept: 'image/*', // Accept only image files (update the accept type as needed)
+        accept: {
+            'image/jpeg': ['.jpeg', '.jpg'],
+            'image/png': ['.png'],
+          } // Accept only image files (update the accept type as needed)
     });
 
     const ogImageFiles = useMemo(

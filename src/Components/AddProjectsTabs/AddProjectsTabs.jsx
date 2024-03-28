@@ -685,7 +685,7 @@ export default function AddProjectsTabs() {
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-                <form>
+                {/* <form> */}
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
                             <div id="add_prop_form">
@@ -738,12 +738,12 @@ export default function AddProjectsTabs() {
                             {translate("next")}
                         </button>
                     </div>
-                </form>
+                {/* </form> */}
             </CustomTabPanel>
 
             {IsSEO ? (
                 <CustomTabPanel value={value} index={1}>
-                    <form>
+                    
                         <div className="row" id="add_prop_form_row">
                             <div className="col-sm-12 col-md-6 col-lg-3">
                                 <div id="add_prop_form">
@@ -801,11 +801,11 @@ export default function AddProjectsTabs() {
                                 {translate("next")}
                             </button>
                         </div>
-                    </form>
+                    
                 </CustomTabPanel>
             ) : null}
             <CustomTabPanel value={value} index={IsSEO ? 2 : 1}>
-                <form>
+                {/* <form> */}
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
                             <div className="row" id="add_prop_form_row">
@@ -847,7 +847,7 @@ export default function AddProjectsTabs() {
                             {translate("next")}
                         </button>
                     </div>
-                </form>
+                {/* </form> */}
             </CustomTabPanel>
 
 

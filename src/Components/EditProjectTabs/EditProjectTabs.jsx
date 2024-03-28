@@ -172,20 +172,7 @@ export default function AddProjectsTabs() {
                     const imageUrl = defaultProjectData.meta_image;
                     const file = { url: imageUrl, name: "meta_image.jpg", type: "image/jpeg" };
                     setUploadedOgImages([file]);
-                    // fetch(defaultProjectData.meta_image)
-                    //     .then((response) => response.blob())
-                    //     .then((blob) => {
-                    //         const file = new File([blob], "meta_image.jpg", { type: "image/jpeg" });
-                    //         setUploadedOgImages([file]);
-                    //         // Log uploadedOgImages inside a useEffect hook to ensure logging after state update
-                    //         // setTab6((prevState) => ({
-                    //         //     ...prevState,
-                    //         //     ogImages: [file],
-                    //         // }));
-                    //     })
-                    //     .catch((error) => {
-                    //         console.error("Error fetching image data:", error);
-                    //     });
+                    
 
                 }
                 if (defaultProjectData?.video_link) {
@@ -209,29 +196,7 @@ export default function AddProjectsTabs() {
                     const titleImageURL = defaultProjectData.image;
                     const file = { url: titleImageURL, name: "meta_image.jpg", type: "image/jpeg" };
                     setUploadedImages([file]);
-                    // Fetch the image data and convert it to a Blob
-                    // fetch(titleImageURL)
-                    //     .then((response) => response.blob())
-                    //     .then((blob) => {
-                    //         // Check if the fetched blob is of image type (e.g., image/jpeg, image/png, etc.)
-                    //         if (blob.type.startsWith("image/")) {
-                    //             // Create a File object from the Blob
-                    //             const file = new File([blob], "title_image.jpg", { type: "image/jpeg" });
-
-                    //             // Set the default title image
-                    //             setUploadedImages([file]);
-                    //             setTab5((prevState) => ({
-                    //                 ...prevState,
-                    //                 titleImage: [file],
-                    //             }));
-                    //         } else {
-                    //             console.error("Fetched file is not an image.");
-                    //             // Handle the case where the fetched file is not an image
-                    //         }
-                    //     })
-                    //     .catch((error) => {
-                    //         console.error("Error fetching image data:", error);
-                    //     });
+                 
                 }
                 // Check if propertyData.gallery exists and set it as the default gallery images
                 if (defaultProjectData?.gallary_images && defaultProjectData?.gallary_images.length > 0) {
@@ -485,7 +450,7 @@ export default function AddProjectsTabs() {
 
     const { getRootProps: getRootPropsOgImage, getInputProps: getInputPropsOgImage, isDragActive: isDragActiveOgImage } = useDropzone({
         onDrop: onDropOgImage,
-        accept: 'image/*', // Accept only image files (update the accept type as needed)
+        accept: 'image/jpeg, image/png, image/jpg', // Accept only JPEG, PNG, and JPG files
     });
 
     const ogImageFiles = useMemo(
@@ -872,7 +837,7 @@ export default function AddProjectsTabs() {
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-                <form>
+                {/* <form> */}
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
                             <div id="add_prop_form">
@@ -925,12 +890,12 @@ export default function AddProjectsTabs() {
                             {translate("next")}
                         </button>
                     </div>
-                </form>
+                {/* </form> */}
             </CustomTabPanel>
 
             {IsSEO ? (
                 <CustomTabPanel value={value} index={1}>
-                    <form>
+                  
                         <div className="row" id="add_prop_form_row">
                             <div className="col-sm-12 col-md-6 col-lg-3">
                                 <div id="add_prop_form">
@@ -988,11 +953,9 @@ export default function AddProjectsTabs() {
                                 {translate("next")}
                             </button>
                         </div>
-                    </form>
                 </CustomTabPanel>
             ) : null}
             <CustomTabPanel value={value} index={IsSEO ? 2 : 1}>
-                <form>
                     <div className="row" id="add_prop_form_row">
                         <div className="col-sm-12 col-md-6">
                             <div className="row" id="add_prop_form_row">
@@ -1034,7 +997,6 @@ export default function AddProjectsTabs() {
                             {translate("next")}
                         </button>
                     </div>
-                </form>
             </CustomTabPanel>
 
 
